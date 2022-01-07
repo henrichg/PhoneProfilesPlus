@@ -301,42 +301,42 @@ public class ActivateProfileListFragment extends Fragment {
 //            }
 
 //            if (!someErrorProfiles) {
-                if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
-                    if (Event.getGlobalEventsRunning()) {
-                        Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
-                        restartEvents._showInActivator = true;
-                        restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
-                        dataWrapper.profileList.add(0, restartEvents);
-                    }
+            if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
+                if (Event.getGlobalEventsRunning()) {
+                    Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+                    restartEvents._showInActivator = true;
+                    restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
+                    dataWrapper.profileList.add(0, restartEvents);
                 }
-
-                if (applicationActivatorGridLayout) {
-                    int count = 0;
-                    for (Profile profile : this.dataWrapper.profileList) {
-                        if (profile._showInActivator)
-                            ++count;
-                    }
-
-                    int numColumns = gridView.getNumColumns();
-
-                    int modulo = count % numColumns;
-                    if (modulo > 0) {
-                        for (int i = 0; i < numColumns - modulo; i++) {
-                            Profile profile = DataWrapper.getNonInitializedProfile(
-                                    dataWrapper.context.getString(R.string.profile_name_default),
-                                    Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
-                            profile._showInActivator = true;
-                            this.dataWrapper.profileList.add(profile);
-                        }
-                    }
-//                }
-
-                //noinspection Java8ListSort
-                Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
-
-                dataWrapper.getEventTimelineList(true);
             }
 
+            if (applicationActivatorGridLayout) {
+                int count = 0;
+                for (Profile profile : this.dataWrapper.profileList) {
+                    if (profile._showInActivator)
+                        ++count;
+                }
+
+                int numColumns = gridView.getNumColumns();
+
+                int modulo = count % numColumns;
+                if (modulo > 0) {
+                    for (int i = 0; i < numColumns - modulo; i++) {
+                        Profile profile = DataWrapper.getNonInitializedProfile(
+                                dataWrapper.context.getString(R.string.profile_name_default),
+                                Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
+                        profile._showInActivator = true;
+                        this.dataWrapper.profileList.add(profile);
+                    }
+                }
+            }
+
+            //noinspection Java8ListSort
+            Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
+
+            dataWrapper.getEventTimelineList(true);
+
+            //}
             return null;
         }
 
