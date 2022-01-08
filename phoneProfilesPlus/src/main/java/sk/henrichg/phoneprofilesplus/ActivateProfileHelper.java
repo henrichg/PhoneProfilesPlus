@@ -45,7 +45,6 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -499,23 +498,23 @@ class ActivateProfileHelper {
             }
         }
 
-        PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "canChangeWifi="+canChangeWifi);
-        PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "profile._deviceWiFi="+profile._deviceWiFi);
+//        PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "canChangeWifi="+canChangeWifi);
+//        PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "profile._deviceWiFi="+profile._deviceWiFi);
         if (canChangeWifi) {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi ALLOWED");
+//                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi ALLOWED");
                     boolean isWifiAPEnabled;
                     if (Build.VERSION.SDK_INT < 30)
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                     else
                         //isWifiAPEnabled = CmdWifiAP.isEnabled(context);
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabledA30(appContext);
-                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiAPEnabled="+isWifiAPEnabled);
+//                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiAPEnabled="+isWifiAPEnabled);
                     if ((!isWifiAPEnabled) || (profile._deviceWiFi >= 4)) { // only when wifi AP is not enabled, change wifi
                         WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                        PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "wifiManager="+wifiManager);
+//                        PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "wifiManager="+wifiManager);
                         if (wifiManager != null) {
                             int wifiState = wifiManager.getWifiState();
                             boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
@@ -523,14 +522,14 @@ class ActivateProfileHelper {
                             switch (profile._deviceWiFi) {
                                 case 1:
                                 case 4:
-                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 1,4");
+//                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 1,4");
                                     if (!isWifiEnabled) {
                                         isWifiEnabled = true;
                                         setWifiState = true;
                                     }
                                     break;
                                 case 2:
-                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 2");
+//                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 2");
                                     if (isWifiEnabled) {
                                         isWifiEnabled = false;
                                         setWifiState = true;
@@ -538,21 +537,21 @@ class ActivateProfileHelper {
                                     break;
                                 case 3:
                                 case 5:
-                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 3,5");
+//                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 3,5");
                                     isWifiEnabled = !isWifiEnabled;
                                     setWifiState = true;
                                     break;
                             }
-                            PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiEnabled="+isWifiEnabled);
-                            PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "setWifiState="+setWifiState);
+//                            PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiEnabled="+isWifiEnabled);
+//                            PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "setWifiState="+setWifiState);
                             if (isWifiEnabled) {
-                                PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabledForScan()");
+//                                PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabledForScan()");
                                 // when wifi is enabled from profile, no disable wifi after scan
                                 WifiScanWorker.setWifiEnabledForScan(appContext, false);
                             }
                             if (setWifiState) {
                                 try {
-                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabled()");
+//                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabled()");
                                     //PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.doExecuteForRadio");
                                     //if (Build.VERSION.SDK_INT >= 29)
                                     //    CmdWifi.setWifi(isWifiEnabled);
@@ -566,7 +565,7 @@ class ActivateProfileHelper {
                                     //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
                                     //PPApplication.recordException(e);;
                                     showError(context, profile._name, Profile.PARAMETER_TYPE_WIFI);
-                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
+//                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
                                 }
                                 PPApplication.sleep(200);
                             }

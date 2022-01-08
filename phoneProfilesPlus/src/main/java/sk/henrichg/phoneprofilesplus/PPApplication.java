@@ -152,7 +152,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -257,7 +257,7 @@ public class PPApplication extends Application
                                                 //+"|[BRSD]"
                                                 //+"|[ROOT]"
                                                 //+"|[DB_LOCK]"
-                                                +"|[WIFI]"
+                                                //+"|[WIFI]"
 
                                                 //+"|PApplication.getReleaseData"
                                                 //+"|CheckGitHubReleasesActivity"
