@@ -24,6 +24,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -5595,9 +5596,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not enabled accessibility service
                 int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext());
-                if ((accessibilityEnabled == 1) &&
-                        (PPApplication.accessibilityServiceForPPPExtenderConnected == 0))
-                    accessibilityEnabled = 0;
+                Log.e("ProfilePrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
+                /*if (accessibilityEnabled == 1) {
+                    int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                    if (extenderVersion != 0) {
+                        // PPPE is installed
+                        if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0)
+                            // connection of accessibility service is not determined
+                            accessibilityEnabled = 0;
+                    }
+                }*/
+                Log.e("ProfilePrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
                 Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                 if (accessibilityEnabled == 1) {
                     if (preference != null) {

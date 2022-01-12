@@ -420,6 +420,7 @@ public class PPApplication extends Application
     static final boolean deviceIsRealme = isRealme();
     static final boolean deviceIsLenovo = isLenovo();
     static final boolean deviceIsPixel = isPixel();
+    static final boolean deviceIsSony = isSony();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
 
@@ -1035,7 +1036,9 @@ public class PPApplication extends Application
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOnePlus=" + deviceIsOnePlus);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOppo=" + deviceIsOppo);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsRealme=" + deviceIsRealme);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsLenovo=" + deviceIsLenovo);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsPixel=" + deviceIsPixel);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsSony=" + deviceIsSony);
 
             PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
@@ -4082,6 +4085,12 @@ public class PPApplication extends Application
         return Build.BRAND.equalsIgnoreCase("google") ||
                 Build.MANUFACTURER.equalsIgnoreCase("google") ||
                 Build.FINGERPRINT.toLowerCase().contains("google");
+    }
+
+    private static boolean isSony() {
+        return Build.BRAND.equalsIgnoreCase("sony") ||
+                Build.MANUFACTURER.equalsIgnoreCase("sony") ||
+                Build.FINGERPRINT.toLowerCase().contains("sony");
     }
 
     private static String getReadableModVersion() {

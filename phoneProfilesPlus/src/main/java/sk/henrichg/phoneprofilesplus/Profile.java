@@ -4129,26 +4129,36 @@ public class Profile {
     public int isAccessibilityServiceEnabled(Context context) {
         int accessibilityEnabled = -99;
 
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-        if (extenderVersion == 0)
-            // not installed
-            accessibilityEnabled = -2;
-        else
         if ((this._deviceForceStopApplicationChange != 0) ||
             (this._lockDevice != 0)) {
+
+            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+
             if (this._deviceForceStopApplicationChange != 0) {
+                if (extenderVersion == 0)
+                    // not installed
+                    accessibilityEnabled = -2;
+                else
                 if ((extenderVersion > 0) &&
                         (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2))
                     // old version
                     accessibilityEnabled = -1;
+                else
+                    accessibilityEnabled = -98;
             }
             if (this._lockDevice == 3) {
+                if (extenderVersion == 0)
+                    // not installed
+                    accessibilityEnabled = -2;
+                else
                 if ((extenderVersion > 0) &&
                         (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2))
                     // old version
                     accessibilityEnabled = -1;
+                else
+                    accessibilityEnabled = -98;
             }
-            if (accessibilityEnabled == -99) {
+            if (accessibilityEnabled == -98) {
                 // Extender is in right version
                 if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true))
                     // accessibility enabled
@@ -4158,6 +4168,7 @@ public class Profile {
                     accessibilityEnabled = 0;
             }
         }
+
         if (accessibilityEnabled == -99)
             accessibilityEnabled = 1;
 
