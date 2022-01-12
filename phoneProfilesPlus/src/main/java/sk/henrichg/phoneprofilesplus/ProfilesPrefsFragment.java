@@ -5596,8 +5596,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not enabled accessibility service
                 int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext());
-                Log.e("ProfilePrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
-                /*if (accessibilityEnabled == 1) {
+//                Log.e("ProfilePrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
+                if (accessibilityEnabled == 1) {
                     int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                     if (extenderVersion != 0) {
                         // PPPE is installed
@@ -5605,8 +5605,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             // connection of accessibility service is not determined
                             accessibilityEnabled = 0;
                     }
-                }*/
-                Log.e("ProfilePrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
+                }
+//                Log.e("ProfilePrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
                 Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                 if (accessibilityEnabled == 1) {
                     if (preference != null) {
