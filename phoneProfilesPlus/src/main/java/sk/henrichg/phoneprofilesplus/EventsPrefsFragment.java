@@ -1533,9 +1533,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not enabled accessibility service
             int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false);
-            if ((accessibilityEnabled == 1) &&
-                    (PPApplication.accessibilityServiceForPPPExtenderConnected == 0))
-                accessibilityEnabled = 0;
+            if (accessibilityEnabled == 1) {
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                if (extenderVersion != 0) {
+                    // PPPE is installed
+                    if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0)
+                        // connection of accessibility service is not determined
+                        accessibilityEnabled = 0;
+                }
+            }
             Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
             if (accessibilityEnabled == 1) {
                 if (preference != null) {
