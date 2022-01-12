@@ -442,12 +442,17 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         if (manager != null) {
             // feedback type must be the same as in PPPE accessibilityservice.xml
             // android:accessibilityFeedbackType="feedbackGeneric"
+
+//            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "(1)");
+
             List<AccessibilityServiceInfo> runningServices =
                     manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
 
+//            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "runningServices=" + runningServices.size());
+
             for (AccessibilityServiceInfo service : runningServices) {
                 if (service != null) {
-                    //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId=" + service.getId());
+//                    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId=" + service.getId());
                     try {
                         if (service.getId().contains(PPApplication.EXTENDER_ACCESSIBILITY_PACKAGE_NAME)) {
 //                            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "true");

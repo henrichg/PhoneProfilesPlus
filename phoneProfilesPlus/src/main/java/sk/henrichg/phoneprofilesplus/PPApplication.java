@@ -228,6 +228,7 @@ public class PPApplication extends Application
 //                                                +"|WifiScanWorker.doWork"
 //                                                +"|LocationScanner.startLocationUpdates"
 //                                                +"|LocationSensorWorker.enqueueWork"
+//                                                +"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"

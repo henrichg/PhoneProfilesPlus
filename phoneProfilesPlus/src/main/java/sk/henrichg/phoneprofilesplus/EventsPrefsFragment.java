@@ -1537,8 +1537,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion != 0) {
                     // PPPE is installed
-                    if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0)
-                        // connection of accessibility service is not determined
+                    if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2)
+                        // Extender is not connected
                         accessibilityEnabled = 0;
                 }
             }
