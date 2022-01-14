@@ -828,7 +828,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             return;
         }
 
-        if (PPApplication.deviceIsSamsung) {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 

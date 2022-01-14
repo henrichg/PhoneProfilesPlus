@@ -386,7 +386,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 entries = ringerModePreference.getEntries();
                 entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
-                if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI)
+                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))
                     entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 else
                     entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
@@ -396,7 +397,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ringerModePreference.setEntryValues(R.array.soundModeNotVibratorValues);
                 entries = ringerModePreference.getEntries();
                 entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
-                if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI)
+                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))
                     entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 else
                     entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
@@ -798,7 +800,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
                     }
 
-                    if (PPApplication.deviceIsSamsung ||
+                    if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
                             (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
@@ -1737,7 +1739,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (zenModeOffValue)
                         value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                     else if (ringerMode.equals("4")) {
-                        if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI)
+                        if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                                (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                         else
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
@@ -2051,7 +2054,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean isDualSIM = (phoneCount > 1);
 
         if (isDualSIM &&
-                (PPApplication.deviceIsSamsung ||
+                ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                         (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
                         (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, context);
@@ -3222,7 +3225,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                                            Preference preferenceScreen,
                                                            CattegorySummaryData cattegorySummaryData,
                                                            TelephonyManager telephonyManager, int phoneCount) {
-        if (PPApplication.deviceIsSamsung ||
+        if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                 (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
                 (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
             boolean isDualSIM = true;
@@ -4352,7 +4355,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if ((Build.VERSION.SDK_INT >= 26) &&
-                (PPApplication.deviceIsSamsung ||
+                ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                         (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
                         (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
 
@@ -5236,7 +5239,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if ((Build.VERSION.SDK_INT >= 26) &&
-                (PPApplication.deviceIsSamsung ||
+                ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                         (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
                         (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
             if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1)) {
@@ -5874,7 +5877,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             return;
         }
 
-        if (PPApplication.deviceIsSamsung) {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 

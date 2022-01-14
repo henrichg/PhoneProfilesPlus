@@ -204,7 +204,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 // this is for
                 // - CheckPPPReleasesBroadcastReceiver
 
-                if (PPApplication.deviceIsSamsung && galaxyStoreInstalled)
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled)
                     checkInGalaxyStore(activity);
                 else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
                     checkInHuaweiAppGallery(activity);

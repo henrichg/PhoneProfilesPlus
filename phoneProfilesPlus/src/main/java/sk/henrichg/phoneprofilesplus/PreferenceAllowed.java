@@ -900,7 +900,7 @@ class PreferenceAllowed {
 
         if (Build.VERSION.SDK_INT >= 28) {
 
-            if (PPApplication.deviceIsSamsung ||
+            if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
@@ -1891,7 +1891,7 @@ class PreferenceAllowed {
         Context appContext = context.getApplicationContext();
 
         if (Build.VERSION.SDK_INT >= 26) {
-            if (PPApplication.deviceIsSamsung ||
+            if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -1953,7 +1953,7 @@ class PreferenceAllowed {
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
         if (Build.VERSION.SDK_INT >= 26) {
-            if ((PPApplication.deviceIsSamsung ||
+            if (((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {

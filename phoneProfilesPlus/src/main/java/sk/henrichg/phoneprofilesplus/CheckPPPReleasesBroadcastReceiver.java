@@ -188,7 +188,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
                         try {
                             boolean getVersion;
-                            if (PPApplication.deviceIsSamsung)
+                            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
                                 getVersion = false;
                             else
                             if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)

@@ -477,7 +477,7 @@ class ProfilePreferencesIndicator {
             }
 
             if ((Build.VERSION.SDK_INT >= 26) &&
-                    (PPApplication.deviceIsSamsung ||
+                    ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                             (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);

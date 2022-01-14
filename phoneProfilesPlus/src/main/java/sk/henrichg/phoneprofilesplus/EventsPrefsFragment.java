@@ -1779,7 +1779,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             return;
         }
 
-        if (PPApplication.deviceIsSamsung) {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 

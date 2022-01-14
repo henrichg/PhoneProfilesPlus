@@ -199,7 +199,7 @@ class EventsHandler {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        if (PPApplication.deviceIsSamsung) {
+                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
                             if (_uri != null)
                                 oldRingtoneSIM1 = _uri;

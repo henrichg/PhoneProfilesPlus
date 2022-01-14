@@ -5835,7 +5835,7 @@ public class PhoneProfilesService extends Service
                     //profileIconExists = false;
                 }
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "emui");
-            } else if (PPApplication.deviceIsSamsung) {
+            } else if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                 if (!useDecorator) {
                     if (notificationPrefIndicator)
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_samsung_no_decorator);

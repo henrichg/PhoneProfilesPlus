@@ -585,7 +585,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                             // for Samsung do not allow external tones
                             boolean add = true;
-                            if (PPApplication.deviceIsSamsung) {
+                            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                                 if (preference.ringtoneType.equals("ringtone") && (preference.simCard != 0) && (!_uri.contains("content://media/internal")))
                                     add = false;
                                 if (preference.ringtoneType.equals("notification") && (preference.simCard != 0) && (!_uri.contains("content://media/internal")))

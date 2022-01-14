@@ -2029,7 +2029,7 @@ class ActivateProfileHelper {
                                     //PPApplication.recordException(e);
                                 }
 
-                                if (PPApplication.deviceIsSamsung && (uri != null)) {
+                                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) && (uri != null)) {
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
@@ -2098,7 +2098,7 @@ class ActivateProfileHelper {
                     } else {
                         // selected is None tone
                         try {
-                            if (PPApplication.deviceIsSamsung) {
+                            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
 //                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=null");
 
                                 Settings.System.putString(context.getContentResolver(), "ringtone", null);
@@ -2148,7 +2148,7 @@ class ActivateProfileHelper {
                                     //PPApplication.recordException(e);
                                 }
 
-                                if (PPApplication.deviceIsSamsung && (uri != null)) {
+                                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) && (uri != null)) {
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
@@ -2216,7 +2216,7 @@ class ActivateProfileHelper {
                     } else {
                         // selected is None tone
                         try {
-                            if (PPApplication.deviceIsSamsung) {
+                            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
 //                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=null");
 
                                 Settings.System.putString(context.getContentResolver(), "ringtone_2", null);
@@ -2266,7 +2266,7 @@ class ActivateProfileHelper {
                                     //PPApplication.recordException(e);
                                 }
 
-                                if (PPApplication.deviceIsSamsung && (uri != null)) {
+                                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) && (uri != null)) {
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
@@ -2362,7 +2362,7 @@ class ActivateProfileHelper {
                     } else {
                         // selected is None tone
                         try {
-                            if (PPApplication.deviceIsSamsung) {
+                            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
@@ -2448,7 +2448,7 @@ class ActivateProfileHelper {
                                     //PPApplication.recordException(e);
                                 }
 
-                                if (PPApplication.deviceIsSamsung && (uri != null)) {
+                                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) && (uri != null)) {
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
@@ -2544,7 +2544,7 @@ class ActivateProfileHelper {
                     } else {
                         // selected is None tone
                         try {
-                            if (PPApplication.deviceIsSamsung) {
+                            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
@@ -3383,7 +3383,8 @@ class ActivateProfileHelper {
 
                     //setZenMode(appContext, ZENMODE_SILENT, audioManager, systemZenMode, AudioManager.RINGER_MODE_SILENT);
 
-                    if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI) {
+                    if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                            (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
                             RingerModeChangeReceiver.notUnlinkVolumes = false;
                         }

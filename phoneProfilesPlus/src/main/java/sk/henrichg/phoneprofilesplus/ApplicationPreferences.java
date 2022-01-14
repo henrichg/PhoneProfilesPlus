@@ -738,7 +738,7 @@ class ApplicationPreferences {
     */
 
     static void notificationPrefIndicator(Context context) {
-        if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 31)) {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_PREF_INDICATOR)) {
                 // not contains this preference set to false
@@ -1218,7 +1218,7 @@ class ApplicationPreferences {
     }
 
     static void notificationNotificationStyle(Context context) {
-        if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 31)) {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_NOTIFICATION_STYLE)) {
                 // not contains this preference set to 1
