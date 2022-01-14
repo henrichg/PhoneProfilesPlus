@@ -424,6 +424,7 @@ public class PPApplication extends Application
     static final boolean deviceIsSony = isSony();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
+    static final boolean romIsGalaxy = isGalaxyROM();
 
     static boolean HAS_FEATURE_BLUETOOTH_LE = false;
     static boolean HAS_FEATURE_WIFI = false;
@@ -1045,6 +1046,7 @@ public class PPApplication extends Application
             PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
             //PPApplication.logE("##### PPApplication.onCreate", "-- romIsEMUI=" + isEMUIROM());
             //PPApplication.logE("##### PPApplication.onCreate", "-- romIsMIUI=" + isMIUIROM());
+            PPApplication.logE("##### PPApplication.onCreate", "romIsGalaxy=" + romIsGalaxy);
 
             PPApplication.logE("##### PPApplication.onCreate", "manufacturer=" + Build.MANUFACTURER);
             PPApplication.logE("##### PPApplication.onCreate", "model=" + Build.MODEL);
@@ -4044,6 +4046,42 @@ public class PPApplication extends Application
         return Build.BRAND.equalsIgnoreCase("samsung") ||
                 Build.MANUFACTURER.equalsIgnoreCase("samsung") ||
                 Build.FINGERPRINT.toLowerCase().contains("samsung");
+    }
+
+    @SuppressWarnings("JavaReflectionMemberAccess")
+    private static String getOneUiVersion() throws Exception {
+        //if (!isSemAvailable(getApplicationContext())) {
+        //    return ""; // was "1.0" originally but probably just a dummy value for one UI devices
+        //}
+        Field semPlatformIntField = Build.VERSION.class.getDeclaredField("SEM_PLATFORM_INT");
+        int version = semPlatformIntField.getInt(null) - 90000;
+        if (version < 0) {
+            // not one ui (could be previous Samsung OS)
+            return "";
+        }
+        return (version / 10000) + "." + ((version % 10000) / 100);
+    }
+
+    /*
+    private static boolean isSemAvailable(Context context) {
+        return context != null &&
+                (context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile") ||
+                        context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile_lite"));
+    }
+    */
+
+    private static boolean isGalaxyROM() {
+        try {
+            //noinspection unused
+            String romName = getOneUiVersion();
+            /*if (romName.isEmpty())
+                return true; // old, non-OneUI ROM
+            else
+                return true; // OneUI ROM*/
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private static boolean isLG() {
