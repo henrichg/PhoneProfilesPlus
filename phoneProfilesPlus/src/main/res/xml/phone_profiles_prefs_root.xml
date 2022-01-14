@@ -138,11 +138,18 @@
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsWidgetOneRow" />
 
     <Preference
-        app:title="@string/phone_profiles_pref_category_widget_icon_shortcut"
+        app:title="@string/phone_profiles_pref_category_widget_icon"
         app:key="categoryWidgetIconRoot"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsWidgetIcon" />
+
+    <Preference
+        app:title="@string/phone_profiles_pref_category_shortcut"
+        app:key="categoryShortcutRoot"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsShortcut" />
 
     <Preference
         app:title="@string/phone_profiles_pref_category_samsung_edge_panel"

@@ -796,11 +796,11 @@ public class DataWrapper {
             }
         }
 
-        if (ApplicationPreferences.applicationWidgetIconColor.equals("1")) {
+        if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
             if (isIconResourceID || useCustomColor) {
                 // icon is from resource or colored by custom color
                 int monochromeValue = 0xFF;
-                String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
+                String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
                 if (applicationWidgetIconLightness.equals("12")) monochromeValue = 0x20;
                 if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
@@ -813,7 +813,7 @@ public class DataWrapper {
                 profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, getActivity().getBaseContext()*/);
             } else {
                 float monochromeValue = 255f;
-                String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
+                String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = -255f;
                 if (applicationWidgetIconLightness.equals("12")) monochromeValue = -192f;
                 if (applicationWidgetIconLightness.equals("25")) monochromeValue = -128f;

@@ -223,6 +223,10 @@ class ApplicationPreferences {
     static String notificationProfileIconLightness;
     static boolean notificationCustomProfileIconLightness;
 
+    static String applicationShortcutIconColor;
+    static String applicationShortcutIconLightness;
+    static boolean applicationShortcutCustomIconLightness;
+
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
     static int applicationEventPeriodicScanningScanInTimeMultiplyTo;
@@ -453,6 +457,10 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR = "notificationProfileIconColor";
     static final String PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS = "notificationProfileIconLightness";
     static final String PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS = "notificationCustomProfileIconLightness";
+
+    static final String PREF_APPLICATION_SHORTCUT_ICON_COLOR = "applicationShortcutIconColor";
+    static final String PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS = "applicationShortcutIconLightness";
+    static final String PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS = "applicationShortcutCustomIconLightness";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -1310,7 +1318,6 @@ class ApplicationPreferences {
         applicationForceSetBrightnessAtScreenOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, false);
     }
 
-    //---
     static void applicationEventPeriodicScanningScanInTimeMultiply(Context context) {
         applicationEventPeriodicScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, "0");
     }
@@ -1489,6 +1496,17 @@ class ApplicationPreferences {
         notificationCustomProfileIconLightness = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS, false);
     }
 
+    static void applicationShortcutIconColor(Context context) {
+        applicationShortcutIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_SHORTCUT_ICON_COLOR, "0");
+    }
+
+    static void applicationShortcutIconLightness(Context context) {
+        applicationShortcutIconLightness = getSharedPreferences(context).getString(PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, "100");
+    }
+
+    static void applicationShortcutCustomIconLightness(Context context) {
+        applicationShortcutCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, false);
+    }
 
     static void deleteBadPreferences(Context context) {
         SharedPreferences mySPrefs = getSharedPreferences(context);

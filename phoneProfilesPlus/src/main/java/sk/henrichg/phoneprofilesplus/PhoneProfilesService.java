@@ -4918,6 +4918,19 @@ public class PhoneProfilesService extends Service
                         }
                     }
                 }
+
+                if (actualVersionCode <= 6700) {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR,
+                            preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, "0"));
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS,
+                            preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, "100"));
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS,
+                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, false));
+                    editor.apply();
+                }
+
             }
         } catch (Exception ee) {
             PPApplication.recordException(ee);

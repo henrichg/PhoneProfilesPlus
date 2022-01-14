@@ -1807,7 +1807,7 @@
     <string name="end_of_activation_time_end_acronym">kč</string>
     <string name="end_of_activation_duration_acronym">t</string>
     <string name="end_of_activation_time_acronym">č</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Zobraziť koniec aktivácie profilu (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Zobraziť koniec aktivácie profilu (miniapl.)</string>
     <string name="event_delay_start_acronym">šp</string>
     <string name="event_delay_end_acronym">kp</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">po dosiahnutí presného času - vrátiť späť profil</string>

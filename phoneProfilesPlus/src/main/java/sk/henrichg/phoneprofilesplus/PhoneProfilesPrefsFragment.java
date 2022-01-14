@@ -320,6 +320,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference("categoryWidgetIconRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+            preferenceCategoryScreen = findPreference("categoryShortcutRoot");
+            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
                 preferenceCategoryScreen = findPreference("categorySamsungEdgePanelRoot");
                 if (preferenceCategoryScreen != null)
@@ -2174,6 +2176,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS);
 
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO);
@@ -2304,6 +2309,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, false);
         boolean monochromeIconSamsungEdge =
                 preferences.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, "0").equals("1");
+        boolean monochromeIconShortcut =
+                preferences.getString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, "0").equals("1");
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T) || keyIsWidgetListChangeColorByNightMode) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T);
@@ -2535,6 +2542,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null) {
                     _preference.setEnabled(preferenceIndicatorsListEnabled);
                 }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR)) {
+            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR);
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS);
+            if (_preference != null) {
+                _preference.setEnabled(monochromeIconShortcut);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS);
+            if (_preference != null) {
+                _preference.setEnabled(monochromeIconShortcut);
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS)) {
@@ -3660,6 +3678,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation);
             if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
+        }
+        if (key.equals("categoryShortcutRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);

@@ -4594,6 +4594,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             //ApplicationPreferences.notificationNightMode = true;
                                         }
                                         ApplicationPreferences.notificationShowRestartEventsAsButton = Build.VERSION.SDK_INT >= 31;
+                                        ApplicationPreferences.applicationShortcutIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconColor;
+                                        ApplicationPreferences.applicationShortcutIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightness;
+                                        ApplicationPreferences.applicationShortcutCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconCustomIconLightness;
 
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);
@@ -4665,6 +4668,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecoration);
                                         editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.notificationLayoutType);
                                         editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.notificationBackgroundColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, ApplicationPreferences.applicationShortcutIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, ApplicationPreferences.applicationShortcutIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationShortcutCustomIconLightness);
                                         editor.apply();
                                     }
                                     for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)

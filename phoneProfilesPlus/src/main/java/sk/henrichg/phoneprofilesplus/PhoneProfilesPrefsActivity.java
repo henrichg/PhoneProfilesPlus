@@ -187,6 +187,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 case "categoryWidgetIconRoot":
                     preferenceFragment = new PhoneProfilesPrefsWidgetIcon();
                     break;
+                case "categoryShortcutIconRoot":
+                    preferenceFragment = new PhoneProfilesPrefsShortcut();
+                    break;
                 case "categorySamsungEdgePanelRoot":
                     preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
                     break;
@@ -1279,12 +1282,37 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, "0"));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, "100"));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, false));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, true));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, true));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, "5"));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE,
                     PPApplication.isPixelLauncherDefault(getContext()) ||
                             PPApplication.isOneUILauncherDefault(getContext())));
+        }
+    }
+
+    static public class PhoneProfilesPrefsShortcut extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsShortcut");
+
+            PreferenceManager prefMng = getPreferenceManager();
+            SharedPreferences preferences = prefMng.getSharedPreferences();
+            if (getContext() != null) {
+                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+                loadSharedPreferences(preferences, applicationPreferences);
+            }
+
+            setPreferencesFromResource(R.xml.phone_profiles_prefs_shortcut, rootKey);
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsShortcut");
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, "0"));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, "100"));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, false));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, true));
         }
     }
 
