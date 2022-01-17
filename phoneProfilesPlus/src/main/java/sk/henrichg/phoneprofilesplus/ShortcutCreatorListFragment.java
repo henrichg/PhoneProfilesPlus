@@ -399,7 +399,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                             if (applicationWidgetIconLightness.equals("87")) monochromeValue = 192f;
                             //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 255f;
                             profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
-                            profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
+                            if (ApplicationPreferences.applicationShortcutCustomIconLightness)
+                                profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
                         }
                     }
 
