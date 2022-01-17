@@ -78,14 +78,14 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'
 
     // required for dev.doubledot.doki.views.DokiContentView
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
     implementation 'androidx.preference:preference:1.1.1'
 
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib" // must be minCompileSDK=31 for 1.4.0+
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib" // must be minCompileSDK=31 for 1.4.0+
 
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.5.0'
 
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
 
