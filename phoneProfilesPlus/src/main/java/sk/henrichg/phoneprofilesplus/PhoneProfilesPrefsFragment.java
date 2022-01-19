@@ -1527,6 +1527,73 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        if (Build.VERSION.SDK_INT >= 28) {
+            preference = findPreference("applicationWifiControlInfo");
+            if (preference != null) {
+                preference.setOnPreferenceClickListener(preference118 -> {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setTitle(preference118.getTitle());
+                    dialogBuilder.setMessage(R.string.phone_profiles_pref_applicationWifiControlInfo_message);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(R.string.phone_profiles_pref_applicationWifiControlInfo_showButton, (dialog, which) -> {
+                        boolean ok = false;
+                        final Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                            try {
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        }
+                        if (!ok) {
+                            AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(getActivity());
+                            dialogBuilder2.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder2.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog2 = dialogBuilder2.create();
+
+//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                            if (!getActivity().isFinishing())
+                                dialog2.show();
+                        }
+                    });
+                    dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                            @Override
+//                            public void onShow(DialogInterface dialog) {
+//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                if (positive != null) positive.setAllCaps(false);
+//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                if (negative != null) negative.setAllCaps(false);
+//                            }
+//                        });
+
+                    if ((getActivity() != null) && (!getActivity().isFinishing()))
+                        dialog.show();
+                    return false;
+                });
+            }
+        }
+        else {
+            preference = findPreference("applicationWifiControlInfo");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
 
         /////////////////
 
