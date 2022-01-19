@@ -1527,7 +1527,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (Build.VERSION.SDK_INT >= 28) {
+        if ((Build.VERSION.SDK_INT >= 28) &&
+                (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
             preference = findPreference("applicationWifiControlInfo");
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference118 -> {
