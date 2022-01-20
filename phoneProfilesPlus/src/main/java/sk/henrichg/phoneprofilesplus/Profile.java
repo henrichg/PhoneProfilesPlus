@@ -2314,11 +2314,11 @@ public class Profile {
         return getVolumeRingtoneValue(_volumeRingtone);
     }
 
-    static boolean getVolumeRingtoneChange(String volumeRingtone)
+    static boolean getVolumeChange(String volume)
     {
         int value;
         try {
-            String[] splits = volumeRingtone.split("\\|");
+            String[] splits = volume.split("\\|");
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2328,7 +2328,7 @@ public class Profile {
 
     boolean getVolumeRingtoneChange()
     {
-        return getVolumeRingtoneChange(_volumeRingtone);
+        return getVolumeChange(_volumeRingtone);
     }
 
     private boolean getVolumeRingtoneSharedProfile()

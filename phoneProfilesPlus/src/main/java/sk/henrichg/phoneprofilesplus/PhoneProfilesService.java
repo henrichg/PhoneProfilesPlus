@@ -7694,7 +7694,7 @@ public class PhoneProfilesService extends Service
                     int _ringingVolume;
                     String ringtoneVolumeFromProfile = intent.getStringExtra(EXTRA_NEW_RINGER_VOLUME);
 //                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneVolumeFromProfile=" + ringtoneVolumeFromProfile);
-                    if (Profile.getVolumeRingtoneChange(ringtoneVolumeFromProfile)) {
+                    if (Profile.getVolumeChange(ringtoneVolumeFromProfile)) {
 //                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing volume from profile");
                         _ringingVolume = Profile.getVolumeRingtoneValue(ringtoneVolumeFromProfile);
                     }
