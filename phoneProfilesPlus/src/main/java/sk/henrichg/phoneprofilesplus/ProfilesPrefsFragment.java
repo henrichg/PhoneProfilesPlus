@@ -24,6 +24,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1395,15 +1396,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
+            Log.e("ProfilesPrefsFragment._doOnActivityResult", "xxx");
+            setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
-            setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
         }
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
-            disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
-            disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
             setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
             setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
+            disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+            disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
             // show save menu
             ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
             if (activity != null) {
@@ -4842,25 +4844,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        // disable depended preferences
-        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
-        disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
-        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
-        disableDependedPref(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
-        disableDependedPref(Profile.PREF_PROFILE_AFTER_DURATION_DO);
-        disableDependedPref(Profile.PREF_PROFILE_ASK_FOR_DURATION);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
-
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
         setSummary(Profile.PREF_PROFILE_NAME);
@@ -4966,6 +4949,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS);
 
         setSummary(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE);
+
+        // disable depended preferences
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
+        Log.e("ProfilesPrefsFragment.updateAllSummary", "xxx");
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+        disableDependedPref(Profile.PREF_PROFILE_AFTER_DURATION_DO);
+        disableDependedPref(Profile.PREF_PROFILE_ASK_FOR_DURATION);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
@@ -5038,7 +5041,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
 
                 String notificationValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, "");
-                enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue/*, context*/);
+                enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue);
                 preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
                 if (preference != null)
                     preference.setEnabled(enabled);
@@ -5064,7 +5067,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
 
                 String notificationValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, "");
-                enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue/*, context*/);
+                enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue);
                 preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
                 if (preference != null)
                     preference.setEnabled(enabled);
