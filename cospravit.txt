@@ -364,4 +364,91 @@ activity.startActivity(new Intent("android.settings.VOICE_INPUT_SETTINGS"));
 - Settings.ACTION_VOICE_INPUT_SETTINGS
 Alebo Macrodroid class: permissions/PermissionRequestActivity.java
 
+--------------------------
+
+Zmena hlasitosti profilom:
+
+Toto su parametre:
+forRingerMode -> true, ak menim aj ringer mod?
+- ak profil meni ringer mod, ton zvonenia, notifikacie, systemu, DTMF, tak je true
+- inac je false
+forProfileActivation -> true ak volam pre aktivaciu profilu?
+- ak je volane z ActivateProfileHelper.execute(), je true, cize ano ide o aktivaciu profilu
+- ak je volane z PhoneCallListener.setLinkUnlinkNotificationVolume() je false, cize je to pocas hovoru
+  aby sa vykonal unlink.
+
+setRingerVolume(appContext, profile.getVolumeRingtoneValue()); -> pozri co za premennu to nastavuje
+- ApplicationPreferences.prefRingerVolume
+  meni sa pri starte PPP, pri aktivacii profilu, pri zmene hlasitosti zvonenia v systeme
+setNotificationVolume(appContext, profile.getVolumeNotificationValue()); -> pozri co za premennu to nastavuje
+- ApplicationPreferences.prefNotificationVolume
+  meni sa pri starte PPP, pri aktivacii profilu, pri zmene hlasitosti notifikacii v systeme
+  meni sa aj na hlaitost zvonenia pri unlinku, podla mna preto, lebo v podstate je len 1 volume
+  pri zmerovananych hlasitostiach, tak nech su rovnake.
+
+-> Len ak je system ringer mode audible, alebo ak ApplicationPreferences.prefRingerMode=0
+-> ringerMode == 0 znamena, ze je nenastaveny. Ide o ringer mod podla Profile.RINGERMODE_*
+if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (ringerMode == 0)) {
+
+...
+
+  -> tu zistujem ci ma zlinkovane (merged) ringing a notificartion
+     vrati to:
+       if (ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes > 0)
+         ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes == 1
+         - cize ak je natrdo v Settongs, ze ma zmergovane
+       else
+       	 ApplicationPreferences.prefMergedRingNotificationVolumes
+     cize v podstate bud ak uzivatel nastavil natvrdo, ze ma zmergovane alebo a detekcia vratila, ze ma zmergovane
+  if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
+      ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+    -> ma zmergovane a ma zapnuty unlink
+    ...
+  } else {
+
+    -> tu zistujem ci ma zlinkovane (merged) ringing a notificartion
+       vrati to:
+         if (ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes > 0)
+           ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes == 1
+           - cize ak je natrdo v Settongs, ze ma zmergovane
+         else
+         	 ApplicationPreferences.prefMergedRingNotificationVolumes
+       cize v podstate bud ak uzivatel nastavil natvrdo, ze ma zmergovane alebo a detekcia vratila, ze ma zmergovane
+    if (!ActivateProfileHelper.getMergedRingNotificationVolumes()) {
+     -> nie je zmergovane
+      ...
+      -> nastavuje hlasitost notifikacie, ale z ApplicationPreferences.prefNotificationVolume
+         nastavi sa hore na zaciatku
+      volume = ApplicationPreferences.prefNotificationVolume;
+    }
+
+    -> nastavuje hlasitost zvonenia, ale z ApplicationPreferences.prefRingerVolume
+       nastavi sa hore na zaciatku
+    volume = ApplicationPreferences.prefRingerVolume;
+    -> zapisuje sa aj do servisu, NACO?
+    PhoneProfilesService.getInstance().ringingVolume = volume;
+  ...
+
+  }
+...
+
+}
+
+    static void getMergedRingNotificationVolumes(Context context) {
+        synchronized (PPApplication.profileActivationMutex) {
+            ApplicationPreferences.prefMergedRingNotificationVolumes =
+                    ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true);
+        }
+    }
+    static boolean getMergedRingNotificationVolumes() {
+        //PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "force set="+ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context));
+        //PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "merged="+ApplicationPreferences.preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true));
+
+        if (ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes > 0)
+            return ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes == 1;
+        else
+            return ApplicationPreferences.prefMergedRingNotificationVolumes;
+    }
+
+
 

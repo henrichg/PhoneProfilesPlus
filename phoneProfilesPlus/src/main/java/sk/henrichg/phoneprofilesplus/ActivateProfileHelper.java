@@ -1052,14 +1052,6 @@ class ActivateProfileHelper {
             return ApplicationPreferences.prefMergedRingNotificationVolumes;
     }
     // test if ring and notification volumes are merged
-    static void setMergedRingNotificationVolumes(Context context/*, boolean force*/) {
-        synchronized (PPApplication.profileActivationMutex) {
-            //PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "xxx");
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            setMergedRingNotificationVolumes(context, /*force,*/ editor);
-            editor.apply();
-        }
-    }
     static void setMergedRingNotificationVolumes(Context context, /*boolean force,*/ SharedPreferences.Editor editor) {
         synchronized (PPApplication.profileActivationMutex) {
 
@@ -1100,6 +1092,14 @@ class ActivateProfileHelper {
                     //PPApplication.recordException(e);
                 }
             //}
+        }
+    }
+    static void setMergedRingNotificationVolumes(Context context/*, boolean force*/) {
+        synchronized (PPApplication.profileActivationMutex) {
+            //PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "xxx");
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+            setMergedRingNotificationVolumes(context, /*force,*/ editor);
+            editor.apply();
         }
     }
 
