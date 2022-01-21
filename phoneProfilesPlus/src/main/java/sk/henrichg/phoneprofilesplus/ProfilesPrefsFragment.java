@@ -4999,37 +4999,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         final String ON = "1";
 
         boolean enabledMuteSound = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, false);
-        Preference _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGTONE);
-        if (_preference != null)
-            _preference.setEnabled(!enabledMuteSound);
-        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
-        if (_preference != null)
-            _preference.setEnabled(!enabledMuteSound);
-        if (enabledMuteSound) {
-            _preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
-            if (_preference != null)
-                _preference.setEnabled(false);
-            _preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
-            if (_preference != null)
-                _preference.setEnabled(false);
-        }
-        _preference = prefMng.findPreference("prf_pref_volumeRingtone0Info");
-        if (_preference != null)
-            _preference.setEnabled(!enabledMuteSound);
-        _preference = prefMng.findPreference("prf_pref_volumeIgnoreSoundModeInfo2");
-        if (_preference != null)
-            _preference.setEnabled(!enabledMuteSound);
-        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_SYSTEM);
-        if (_preference != null)
-            _preference.setEnabled(!enabledMuteSound);
-        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_MEDIA);
-        if (_preference != null)
-            _preference.setEnabled(!enabledMuteSound);
-        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_DTMF);
-        if (_preference != null)
-            _preference.setEnabled(!enabledMuteSound);
-
         if (key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE)) {
             if (!enabledMuteSound) {
 
@@ -5054,33 +5025,40 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null)
                     preference.setEnabled(enabled);
             }
-        }
-        if (key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION)) {
-            if (!enabledMuteSound) {
-
-                String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-                boolean enabled = (!ActivateProfileHelper.getMergedRingNotificationVolumes() || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) &&
-                        getEnableVolumeNotificationByRingtone(ringtoneValue);
-                Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+            else {
+                Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGTONE);
                 if (preference != null)
-                    preference.setEnabled(enabled);
-
-                String notificationValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, "");
-                enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue);
-                preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
+                    preference.setEnabled(false);
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
                 if (preference != null)
-                    preference.setEnabled(enabled);
-
-                String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
-                enabled = (Profile.getVolumeChange(ringtoneValue) ||
-                        Profile.getVolumeChange(notificationValue)) &&
-                        ringerMode.equals("0");
-                preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
-                if (preference != null)
-                    preference.setEnabled(enabled);
+                    preference.setEnabled(false);
             }
         }
+        Preference _preference;
+        if (enabledMuteSound) {
+            _preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
+            if (_preference != null)
+                _preference.setEnabled(false);
+            _preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
+            if (_preference != null)
+                _preference.setEnabled(false);
+        }
+        _preference = prefMng.findPreference("prf_pref_volumeRingtone0Info");
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference("prf_pref_volumeIgnoreSoundModeInfo2");
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_SYSTEM);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_MEDIA);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_DTMF);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+
         if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE))
         {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
