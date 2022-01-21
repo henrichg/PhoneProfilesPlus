@@ -450,5 +450,9 @@ if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (r
             return ApplicationPreferences.prefMergedRingNotificationVolumes;
     }
 
+Ak v Settings menim ringtone na Pixeli, meni sa STREAM_RING aj STREAM_NOTIFICATION
+Ale ako pozeram, tak sa to ignoruje, tie zmeny v observeri, lebo prave aktivujem porfil.
+To je to, co to ma aj robit.
+Tak preco kua to na tej Xperii robi inac? Jedine mi zostava to testnut u Marta. Logovat si to.
 
 

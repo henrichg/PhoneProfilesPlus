@@ -77,7 +77,12 @@ class SettingsContentObserver  extends ContentObserver {
 
             int delta = previousVolume - currentVolume;
 
+            PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect", "volumeStream="+volumeStream);
+            PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect", "currentVolume="+currentVolume);
+            PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect", "delta="+delta);
+
             if (delta > 0) {
+                PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect (1)", "internaChange="+RingerModeChangeReceiver.internalChange);
                 if (!RingerModeChangeReceiver.internalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
@@ -96,6 +101,7 @@ class SettingsContentObserver  extends ContentObserver {
                     }
                 }
             } else if (delta < 0) {
+                PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect (2)", "internaChange="+RingerModeChangeReceiver.internalChange);
                 if (!RingerModeChangeReceiver.internalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {

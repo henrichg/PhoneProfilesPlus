@@ -4952,7 +4952,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         // disable depended preferences
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
-        Log.e("ProfilesPrefsFragment.updateAllSummary", "xxx");
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
         disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
         disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);

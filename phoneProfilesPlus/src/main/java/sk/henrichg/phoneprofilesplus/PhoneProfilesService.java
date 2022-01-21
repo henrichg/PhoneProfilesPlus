@@ -7751,6 +7751,7 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringtone="+ringtone);
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
+                PPApplication.logE("[VOLUMES] PhoneProfilesService.startSimulatingRingingCall", "internaChange=true");
                 RingerModeChangeReceiver.internalChange = true;
 
                 // play repeating: default ringtone with ringing volume level
@@ -8241,6 +8242,7 @@ public class PhoneProfilesService extends Service
                     Uri notificationUri = Uri.parse(notificationSound);
 
                     try {
+                        PPApplication.logE("[VOLUMES] PhoneProfilesService.playNotificationSound", "internaChange=true");
                         RingerModeChangeReceiver.internalChange = true;
 
                         notificationMediaPlayer = new MediaPlayer();

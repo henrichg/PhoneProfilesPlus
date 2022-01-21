@@ -2760,6 +2760,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
                                 changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
+                                PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
                                 RingerModeChangeReceiver.internalChange = true;
 
                                 //int systemZenMode = getSystemZenMode(appContext/*, -1*/);

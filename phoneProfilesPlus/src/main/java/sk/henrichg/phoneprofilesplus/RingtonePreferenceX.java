@@ -220,6 +220,7 @@ public class RingtonePreferenceX extends DialogPreference {
                             mediaPlayer.setDataSource(appContext, _ringtoneUri);
                         }
 
+                        PPApplication.logE("[VOLUMES] RingtonePreferenceX.playRingtone", "internaChange=true");
                         RingerModeChangeReceiver.internalChange = true;
 
                         AudioAttributes attrs = new AudioAttributes.Builder()
