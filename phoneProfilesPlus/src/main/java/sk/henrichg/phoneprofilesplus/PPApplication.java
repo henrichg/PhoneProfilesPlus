@@ -282,7 +282,7 @@ public class PPApplication extends Application
                                                 //+"|EditorProfilesActivity.bottomNavigationView.OnItemSelectedListener"
                                                 //+"|EditorProfilesActivity.selectViewItem"
                                                 //+"|EditorProfilesActivity.selectFilterItem"
-                                                +"|EditorProfilesActivity.onActivityResult"
+                                                //+"|EditorProfilesActivity.onActivityResult"
 
                                                 //+"|ActivateProfileHelper.setTones"
                                                 ;
