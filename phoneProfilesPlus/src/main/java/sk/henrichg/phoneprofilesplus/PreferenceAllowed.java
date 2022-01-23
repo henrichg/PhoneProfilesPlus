@@ -10,6 +10,7 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 class PreferenceAllowed {
     int allowed;
@@ -260,7 +261,11 @@ class PreferenceAllowed {
                     boolean sim0Exists;
                     synchronized (PPApplication.simCardsMutext) {
                         sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        //if (!sim0Exists)
+                        //    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA (1)", "sim0Exists="+sim0Exists);
                         sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                        //if (!sim0Exists)
+                        //    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA (2)", "sim0Exists="+sim0Exists);
                     }
                     if (!sim0Exists) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
