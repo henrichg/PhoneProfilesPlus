@@ -4175,6 +4175,13 @@ public class PhoneProfilesService extends Service
 
                 // is called from PPApplication
                 //PPApplication.initRoot();
+                if (PPApplication.isRooted(false)) {
+                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(appContext);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                    editor.apply();
+                    ApplicationPreferences.applicationNeverAskForGrantRoot(appContext.getApplicationContext());
+                }
                 if (!ApplicationPreferences.applicationNeverAskForGrantRoot) {
                     // grant root
                     PPApplication.isRootGranted();

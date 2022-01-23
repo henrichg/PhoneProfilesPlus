@@ -455,4 +455,24 @@ Ale ako pozeram, tak sa to ignoruje, tie zmeny v observeri, lebo prave aktivujem
 To je to, co to ma aj robit.
 Tak preco kua to na tej Xperii robi inac? Jedine mi zostava to testnut u Marta. Logovat si to.
 
+--------
+
+root:
+Moze sa stat, ze bootnem do nie-root particie (S10ka).
+No a vtedy pre kazdy parameter mi to pise, ze nie je grantnuty root.
+No nemoze byt, ked nie je rootnuty.
+Vsade testujem premennu ApplicationPreferences.applicationNeverAskForGrantRoot.
+A v red error text mam checkbox, ktory tu premenu anstavuje.
+
+No a teraz co spravit s tym? Ta premenna by mala mat funkcionalitu aku ma.
+Lebo iny uzivatel chcel, ze sice ma rottnuty mobil, ale nechce grantovat root.
+Nema pre PPP nastaveny permanentny grant. Nechce to.
+
+Podla mna by som asi mal spravit to, ze ak nie je mobil rootnuty, malo by to proste len zakazat
+premenne a nezobrazovat red text. Pozri to.
+
+Zatial tu premennu sprav tak, ze je to spriahnute s tym, ci je root. Nie ci je grantnuty.
+Cize v PPService.doForFirsStart() ju nastav na false, ak je mobil rootnuty.
+
+---------
 
