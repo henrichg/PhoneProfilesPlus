@@ -2674,6 +2674,7 @@ class Permissions {
         });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
+            grantRootChanged = true;
             if (profilesFragment == null) {
                 // always ask for grant root, when grant is invocked from PPP Settings
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
@@ -2682,7 +2683,7 @@ class Permissions {
                 editor.apply();
                 ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
             } else {
-                grantRootChanged = true;
+                //grantRootChanged = true;
                 profilesFragment.setRedTextToPreferences();
             }
 
