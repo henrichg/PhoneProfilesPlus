@@ -11815,8 +11815,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED)) {
-                                    Log.e("*********** DatabaseHandler.disableNotAllowedPreferences", "KEY_DEVICE_MOBILE_DATA");
-                                    Log.e("*********** DatabaseHandler.disableNotAllowedPreferences", "preferenceAllowed.notAllowedReason="+preferenceAllowed.notAllowedReason);
                                     values.clear();
                                     values.put(KEY_DEVICE_MOBILE_DATA, 0);
                                     db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
