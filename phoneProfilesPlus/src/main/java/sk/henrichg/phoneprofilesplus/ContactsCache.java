@@ -52,6 +52,8 @@ class ContactsCache {
                     while (rawCursor.moveToNext()) {
                         long _contactId = rawCursor.getLong(0);
                         String rawAccountType = rawCursor.getString(1);
+                        //rawAccountType = removeLeadingChar(rawAccountType, '\'');
+                        //rawAccountType = removeTrailingChar(rawAccountType, '\'');
 
 //                        PPApplication.logE("------- ContactsCache.getContactList", "_contactId=" + _contactId);
 //                        PPApplication.logE("------- ContactsCache.getContactList", "contactId=" + contactId);
@@ -94,12 +96,14 @@ class ContactsCache {
                                 };
                                 Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection,
                                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId + " AND " +
-                                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "='" + rawAccountType + "'",
+                                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "=\"" + rawAccountType + "\"",
                                         null, null);
                                 if (phones != null) {
                                     if (phones.getCount() > 0) {
                                         while (phones.moveToNext()) {
                                             String accountType = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
+                                            //accountType = removeLeadingChar(accountType, '\'');
+                                            //accountType = removeTrailingChar(accountType, '\'');
 
                                             //if (accountType.equals(rawAccountType)) {
                                             long phoneId = phones.getLong(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone._ID));
@@ -198,6 +202,31 @@ class ContactsCache {
 
         caching = false;
     }
+
+/*
+    @SuppressWarnings("SameParameterValue")
+    private String removeLeadingChar(String s, char ch) {
+        int index;
+        for (index = 0; index < s.length(); index++) {
+            if (s.charAt(index) != ch) {
+                break;
+            }
+        }
+        return s.substring(index);
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private String removeTrailingChar(String s, char ch) {
+        int index;
+        for (index = s.length() - 1; index >= 0; index--) {
+            if (s.charAt(index) != ch) {
+                break;
+            }
+        }
+        return s.substring(0, index + 1);
+    }
+*/
+
 /*
     void getContactList(Context context)
     {
