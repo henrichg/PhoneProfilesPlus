@@ -524,7 +524,7 @@ public final class RootToolsInternalMethods {
                             //noinspection UnusedAssignment
                             foundVersion = true;
                             version.append(temp[1]);
-                            RootTools.log("Found Version: " + version.toString());
+                            RootTools.log("Found Version: " + version/*.toString()*/);
                         }
                     }
 
@@ -557,7 +557,7 @@ public final class RootToolsInternalMethods {
                                 //noinspection UnusedAssignment
                                 foundVersion = true;
                                 version.append(temp[1]);
-                                RootTools.log("Found Version: " + version.toString());
+                                RootTools.log("Found Version: " + version/*.toString()*/);
                             }
                         }
 
@@ -577,7 +577,7 @@ public final class RootToolsInternalMethods {
             return "";
         }
 
-        RootTools.log("Returning found version: " + version.toString());
+        RootTools.log("Returning found version: " + version/*.toString()*/);
         return version.toString();
     }
 

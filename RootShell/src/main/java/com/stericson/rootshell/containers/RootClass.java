@@ -126,7 +126,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                             "cmd", "/C",
                             "jar cvf" +
                                     " anbuild.jar" +
-                                    sb.toString()
+                                    sb//.toString()
                     };
                 } else {
                     ArrayList<String> al = new ArrayList<>();

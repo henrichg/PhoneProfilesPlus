@@ -274,6 +274,7 @@ class RunApplicationEditorDialogX
         if (cachedApplicationList != null) {
             for (Application _application : cachedApplicationList) {
                 boolean add = false;
+                //noinspection RedundantIfStatement
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     add = true;
                 if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
@@ -326,6 +327,7 @@ class RunApplicationEditorDialogX
             int pos = 0;
             for (Application _application : cachedApplicationList) {
                 boolean search = false;
+                //noinspection RedundantIfStatement
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     search = true;
                 if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))

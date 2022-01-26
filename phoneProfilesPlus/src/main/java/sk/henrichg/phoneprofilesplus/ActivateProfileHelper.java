@@ -2760,7 +2760,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
                                 changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
-                                PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
+//                                PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
                                 RingerModeChangeReceiver.internalChange = true;
 
                                 //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
@@ -7012,7 +7012,7 @@ class ActivateProfileHelper {
                                                             }
 //                                                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command2=" + command2);
 
-                                                            if ((command1 != null) && (!command2.isEmpty())) {
+                                                            if ((command1 != null)/* && (!command2.isEmpty())*/) {
                                                                 Command command = new Command(0, false, command2, command1);
                                                                 try {
                                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);

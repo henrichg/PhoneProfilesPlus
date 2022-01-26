@@ -5290,6 +5290,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         //preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, false, true, true, context);
         boolean grantedG1Permission = true;
+        //noinspection RedundantIfStatement
         if (preferenceAllowed.notAllowedG1) {
             //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
                 grantedG1Permission = false;
@@ -5301,6 +5302,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
         boolean accessibilityNotRequired = true;
+        //noinspection RedundantIfStatement
         if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0)))
             accessibilityNotRequired = false;
         boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext()) == 1);

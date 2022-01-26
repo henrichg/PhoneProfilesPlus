@@ -3325,6 +3325,7 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("[RJS] PhoneProfilesService.schedulePeriodicScanningWorker", "SCHEDULE");
         if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
             boolean eventAllowed = false;
+            //noinspection RedundantIfStatement
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)) {
                 // start only for screen On
                 eventAllowed = true;
@@ -6745,6 +6746,7 @@ public class PhoneProfilesService extends Service
 
     static void clearOldProfileNotification() {
         boolean clear = false;
+        //noinspection RedundantIfStatement
         if (Build.MANUFACTURER.equals("HMD Global"))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
             clear = true;
@@ -7644,7 +7646,8 @@ public class PhoneProfilesService extends Service
                     //    }
                     //}
                     //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                       if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
+                    //noinspection RedundantIfStatement
+                    if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
                            simulateRinging = true;
                            //stream = AudioManager.STREAM_ALARM;
 //                           PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "old sound mode is not audible");
@@ -7758,7 +7761,7 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringtone="+ringtone);
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
-                PPApplication.logE("[VOLUMES] PhoneProfilesService.startSimulatingRingingCall", "internaChange=true");
+//                PPApplication.logE("[VOLUMES] PhoneProfilesService.startSimulatingRingingCall", "internaChange=true");
                 RingerModeChangeReceiver.internalChange = true;
 
                 // play repeating: default ringtone with ringing volume level
@@ -8249,7 +8252,7 @@ public class PhoneProfilesService extends Service
                     Uri notificationUri = Uri.parse(notificationSound);
 
                     try {
-                        PPApplication.logE("[VOLUMES] PhoneProfilesService.playNotificationSound", "internaChange=true");
+//                        PPApplication.logE("[VOLUMES] PhoneProfilesService.playNotificationSound", "internaChange=true");
                         RingerModeChangeReceiver.internalChange = true;
 
                         notificationMediaPlayer = new MediaPlayer();

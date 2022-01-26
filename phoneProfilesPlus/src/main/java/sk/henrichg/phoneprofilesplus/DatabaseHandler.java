@@ -3591,6 +3591,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_DO_NOT_DELETE, "1");
                 db.insert(TABLE_INTENTS, null, values);
             }
+            cursorUpdateDB.close();
 
             intentName = "[OpenVPN Connect - connect file profile]";
             cursorUpdateDB = db.rawQuery("SELECT " + KEY_IN_NAME + " FROM " + TABLE_INTENTS +
@@ -3624,6 +3625,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_DO_NOT_DELETE, "1");
                 db.insert(TABLE_INTENTS, null, values);
             }
+            cursorUpdateDB.close();
 
             intentName = "[OpenVPN Connect - disconnect]";
             cursorUpdateDB = db.rawQuery("SELECT " + KEY_IN_NAME + " FROM " + TABLE_INTENTS +
@@ -3653,6 +3655,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_DO_NOT_DELETE, "1");
                 db.insert(TABLE_INTENTS, null, values);
             }
+            cursorUpdateDB.close();
 
             intentName = "[OpenVPN for Android - connect]";
             cursorUpdateDB = db.rawQuery("SELECT " + KEY_IN_NAME + " FROM " + TABLE_INTENTS +
@@ -3681,6 +3684,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_DO_NOT_DELETE, "1");
                 db.insert(TABLE_INTENTS, null, values);
             }
+            cursorUpdateDB.close();
 
             intentName = "[OpenVPN for Android - disconnect]";
             cursorUpdateDB = db.rawQuery("SELECT " + KEY_IN_NAME + " FROM " + TABLE_INTENTS +
@@ -3709,7 +3713,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_DO_NOT_DELETE, "1");
                 db.insert(TABLE_INTENTS, null, values);
             }
-
             cursorUpdateDB.close();
         } finally {
             if ((cursorUpdateDB != null) && (!cursorUpdateDB.isClosed()))

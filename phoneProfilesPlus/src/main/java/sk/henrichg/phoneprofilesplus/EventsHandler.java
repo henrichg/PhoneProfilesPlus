@@ -1890,6 +1890,7 @@ class EventsHandler {
                     // do start of events, all sensors are passed
 
                     boolean continueHandle = true;
+                    //noinspection RedundantIfStatement
                     if (newEventStatus == Event.ESTATUS_PAUSE) {
                         // is paused, for this do not start it
                         continueHandle = false;

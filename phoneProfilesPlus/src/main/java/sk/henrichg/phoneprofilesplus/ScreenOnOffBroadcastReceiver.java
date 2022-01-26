@@ -240,6 +240,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                             // for screen off restart scanners only when it is required for any scanner
                             boolean restart = false;
+                            //noinspection RedundantIfStatement
                             if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning &&
                                     ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)
                                 restart = true;

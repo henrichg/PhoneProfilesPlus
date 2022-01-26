@@ -343,6 +343,7 @@ public class PhoneCallsListener extends PhoneStateListener {
 //                PPApplication.logE("PhoneCallsListener.callAnswered", "savedSpeakerphone="+savedSpeakerphone);
 //                PPApplication.logE("PhoneCallsListener.callAnswered", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
                 boolean changeSpeakerphone = false;
+                //noinspection RedundantIfStatement
                 if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
                     changeSpeakerphone = true;
                 if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on

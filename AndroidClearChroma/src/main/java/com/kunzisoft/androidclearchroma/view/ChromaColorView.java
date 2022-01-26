@@ -175,7 +175,7 @@ public class ChromaColorView extends RelativeLayout {
             public void afterTextChanged(Editable editable) {
                 //Log.e("ChromaColorView.afterTextChanged", "not initialize");
                 if (editable.length() == 6) {
-                    String color = "#FF" + editable.toString();
+                    String color = "#FF" + editable;//.toString();
                     //Log.e("ChromaColorView.afterTextChanged", "color="+color);
                     //Log.e("ChromaColorView.afterTextChanged", "currentColor="+currentColor);
                     int editedColor = Color.parseColor(color);

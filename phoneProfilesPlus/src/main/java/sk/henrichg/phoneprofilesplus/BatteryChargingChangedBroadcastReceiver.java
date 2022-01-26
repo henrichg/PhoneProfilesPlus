@@ -33,6 +33,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
         boolean _isCharging = false;
         //int _plugged = -1;
 
+        //noinspection RedundantIfStatement
         if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
             //_plugged = -BatteryManager.BATTERY_STATUS_CHARGING;
             _isCharging = true;

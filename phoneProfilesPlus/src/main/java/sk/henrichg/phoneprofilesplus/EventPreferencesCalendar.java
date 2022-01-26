@@ -741,6 +741,7 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     //private void searchEvent(Context context)
+    @SuppressLint("Recycle")
     void saveStartEndTime(DataWrapper dataWrapper)
     {
         if (!(/*isRunnable(context) && _enabled &&*/ Permissions.checkCalendar(dataWrapper.context)))
@@ -779,7 +780,7 @@ class EventPreferencesCalendar extends EventPreferences {
         //final int PROJECTION_EVENT_TIMEZONE_INDEX = 9;
         //final int PROJECTION_EVENT_ID = 8;
 
-        Cursor cur;
+        Cursor cur = null;
         ContentResolver cr = dataWrapper.context.getContentResolver();
 
         StringBuilder selection = new StringBuilder("(");
@@ -980,6 +981,7 @@ class EventPreferencesCalendar extends EventPreferences {
         String[] calendarsSplits = _calendars.split("\\|");
 
         // Submit the query
+        boolean ok = true;
         try {
             if (selectionArgs.size() == 0)
                 cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), null, Instances.BEGIN + " ASC");
@@ -994,14 +996,18 @@ class EventPreferencesCalendar extends EventPreferences {
         } catch (SecurityException e) {
             //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
-            cur = null;
+            //if ((cur != null) && (!cur.isClosed()))
+            //    cur.close();
+            ok  = false;
         } catch (Exception e) {
             //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            cur = null;
+            //if ((cur != null) && (!cur.isClosed()))
+            //    cur.close();
+            ok = false;
         }
 
-        if (cur != null) {
+        if (ok) {
             while (cur.moveToNext()) {
 
                 boolean calendarFound = false;
@@ -1067,9 +1073,11 @@ class EventPreferencesCalendar extends EventPreferences {
                     break;
                 }
             }
-
-            cur.close();
         }
+
+        if ((cur != null) && (!cur.isClosed()))
+            cur.close();
+
 
 //        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
 //        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "--- END");

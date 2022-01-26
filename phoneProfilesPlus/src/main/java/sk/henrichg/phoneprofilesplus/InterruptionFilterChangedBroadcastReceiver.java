@@ -27,7 +27,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             //if (/*no60 &&*/ GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-        PPApplication.logE("[VOLUMES] InterruptionFilterChangedBroadcastReceiver.onReceive", "internaChange="+RingerModeChangeReceiver.internalChange);
+//        PPApplication.logE("[VOLUMES] InterruptionFilterChangedBroadcastReceiver.onReceive", "internaChange="+RingerModeChangeReceiver.internalChange);
                 if (!RingerModeChangeReceiver.internalChange) {
 
                     NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);

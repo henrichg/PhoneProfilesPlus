@@ -390,11 +390,11 @@
         </activity>
         <activity
             android:name=".LockDeviceActivity"
-            android:label="@string/ppp_app_name"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.lockDevice"
             android:theme="@style/LockDeviceActivity">
         </activity>
+<!--        android:label="@string/ppp_app_name"-->
         <activity
             android:name=".ExitApplicationActivity"
             android:excludeFromRecents="true"
