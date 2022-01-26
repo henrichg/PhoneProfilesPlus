@@ -13,12 +13,8 @@ android {
         versionName ppVersions.publishVersion
         //multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+        resConfigs 'en', 'af', 'ar', 'bn-rIN', 'bg', 'ca', 'cs', 'da', 'de', 'el', 'es', 'et', 'fa', 'fi', 'fr', 'ga-rIN', 'hi', 'hr', 'hu', 'in', 'is', 'it', 'iw', 'ja', 'ko', 'ku', 'lb', 'lv', 'ms', 'nl', 'no', 'pl', 'pt-rBR', 'pt-rPT', 'ro', 'ru', 'sk', 'sl', 'sr', 'b+sr+Latn', 'sv', 'te', 'th', 'tr', 'uk', 'vi', 'zh-rCN', 'zh-rTW'
 
-        resConfigs "en", "af", "ar", "bn-rIN", "bg", "ca", "cs", "da", "de", "el",
-                "es", "et", "fa", "fi", "fr", "ga-rIN", "hi", "hr", "hu", "in",
-                "is", "it", "iw", "ja", "ko", "ku", "lb", "lv", "ms", "nl",
-                "no", "pl", "pt-rBR", "pt-rPT", "ro", "ru", "sk", "sl", "sr", "b+sr+Latn",
-                "sv", "te", "th", "tr", "uk", "vi", "zh-rCN", "zh-rTW"
     }
 
     compileOptions {
@@ -42,17 +38,11 @@ android {
             }*/
         }
     }
-
-    lintOptions {
-        //checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        //abortOnError false
-        //disable 'MissingTranslation'
-        //disable 'ManifestResource'
-        disable 'LongLogTag'
+    lint {
         abortOnError false
+        disable 'LongLogTag'
     }
+
 }
 
 dependencies {
