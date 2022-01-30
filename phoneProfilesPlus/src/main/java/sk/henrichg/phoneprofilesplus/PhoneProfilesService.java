@@ -5005,7 +5005,7 @@ public class PhoneProfilesService extends Service
 
         if (!serviceHasFirstStart) {
             if (intent != null) {
-                ApplicationPreferences.startStopTargetHelps(appContext, false);
+                //ApplicationPreferences.startStopTargetHelps(appContext, false);
 
                 String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
                 PPApplication.showToast(appContext, text, Toast.LENGTH_SHORT);
