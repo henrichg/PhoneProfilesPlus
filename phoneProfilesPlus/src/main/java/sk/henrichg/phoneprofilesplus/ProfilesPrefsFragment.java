@@ -24,7 +24,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,8 +117,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //initPreferenceFragment();
     }
 
+    @NonNull
     @Override
-    public RecyclerView onCreateRecyclerView (LayoutInflater inflater, ViewGroup parent, Bundle state) {
+    public RecyclerView onCreateRecyclerView (@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, Bundle state) {
         final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
@@ -127,7 +127,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onDisplayPreferenceDialog(Preference preference)
+    public void onDisplayPreferenceDialog(@NonNull Preference preference)
     {
         //PPApplication.logE("ProfilesPrefsFragment.onDisplayPreferenceDialog", "xxx");
 
@@ -1499,7 +1499,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         */
 
-        preferences.registerOnSharedPreferenceChangeListener(this);
+        if (preferences != null)
+            preferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     /*

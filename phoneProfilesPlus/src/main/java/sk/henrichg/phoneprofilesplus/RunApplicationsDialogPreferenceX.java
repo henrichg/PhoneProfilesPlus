@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
@@ -78,7 +79,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
 
@@ -861,7 +862,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(RunApplicationsDialogPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(RunApplicationsDialogPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             getValueAMSDP(/*false*/);

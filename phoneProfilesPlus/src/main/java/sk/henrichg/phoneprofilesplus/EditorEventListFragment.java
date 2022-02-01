@@ -1813,7 +1813,7 @@ public class EditorEventListFragment extends Fragment
         else
             itemView = listView.getChildAt(0);
         if ((eventListAdapter != null) && (itemView != null))
-            eventListAdapter.showTargetHelps(getActivity(), this, itemView);
+            eventListAdapter.showTargetHelps(getActivity(), /*this,*/ itemView);
         else {
             //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getActivity().getApplicationContext());

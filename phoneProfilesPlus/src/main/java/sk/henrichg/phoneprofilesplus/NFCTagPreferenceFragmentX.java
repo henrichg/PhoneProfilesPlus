@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
@@ -43,7 +44,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (NFCTagPreferenceX) getPreference();
@@ -54,7 +55,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         //progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);

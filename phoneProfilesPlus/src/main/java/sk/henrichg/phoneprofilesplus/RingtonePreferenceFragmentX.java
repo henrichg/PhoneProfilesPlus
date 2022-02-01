@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (RingtonePreferenceX) getPreference();
@@ -37,7 +38,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
     }
 
     @Override
-    protected void onBindDialogView(View view)
+    protected void onBindDialogView(@NonNull View view)
     {
         super.onBindDialogView(view);
 

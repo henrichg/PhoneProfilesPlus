@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +33,7 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (ContactsMultiSelectDialogPreferenceX) getPreference();
@@ -43,7 +44,7 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         linlaProgress = view.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);

@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1590,7 +1589,7 @@ public class EditorProfileListFragment extends Fragment
         //Log.d("EditorProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
         //Log.d("EditorProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
         if ((profileListAdapter != null) && (itemView != null))
-            profileListAdapter.showTargetHelps(getActivity(), this, itemView);
+            profileListAdapter.showTargetHelps(getActivity(), /*this,*/ itemView);
         else {
             //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);

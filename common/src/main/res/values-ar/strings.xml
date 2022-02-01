@@ -280,7 +280,7 @@
     <string name="profile_preferences_deviceMobileData_21">(R) بيانات الهاتف</string>
     <string name="preference_profile_adaptiveBrightness">تكيف</string>
     <string name="profile_preferences_deviceKeyguard">قفل الشاشة</string>
-    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">إخفاء اسم الوضع (القطعة)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">إخفاء اسم الوضع</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">[M] إعادة تشغيل الأحداث</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">تم إلغاء الإتصال</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">بعيد ( ليس في نطاق البحث)</string>
@@ -581,9 +581,9 @@
     <string name="info_notification_activate_profile_from_tasker">يمكنك تنشيط الوضع من خلال تطبيق تاسكر. تكوين المهمة \"النظام\" / \"إرسال هدف\" مع عوامل التشغيل:</string>
     <string name="phone_profiles_pref_notificationHideInLockscreen">إخفاء في قفل الشاشة</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">حذف سجلات النشاط القديمة بعد (أيام)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackground">عتامة الخلفية (القطعة)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">إضائة الخلفية (القطعة)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">إضائة النص (القطعة)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackground">عتامة الخلفية</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">إضائة الخلفية</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">إضائة النص</string>
     <string name="altype_eventStop">وقف الحدث</string>
     <string name="info_notification_manage_events_from_tasker">يمكنك إدارة الأحداث من خلال تطبيق تاسكر. تكوين المهمة \"النظام\" / \"إرسال هدف\" مع عوامل التشغيل:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">إعادة تشغيل الأحداث:</string>
@@ -845,7 +845,7 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">يرجى عدم تكوين المدة الزمنية بقيمة أقل من</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">دقيقة. هذا يزيد بشكل كبير من استهلاك البطارية.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">ثانية. هذا يزيد بشكل كبير من استهلاك البطارية.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">زوايا مدورة (القطعة)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">زوايا مدورة</string>
     <string name="phone_profiles_pref_applicationWidgetRoundedCorners">زوايا مدورة</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">not upgraded PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">الوضع النشط:</string>
@@ -857,8 +857,8 @@
     <string name="colorChooser_pref_dialog_defaultIconColor">لون الأيقونة الافتراضي</string>
     <string name="phone_profiles_pref_applicationWidgetBackgroundType">نمط لون الخلفية</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">لون الخلفية</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">نمط لون الخلفية (القطعة)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconColorB">لون الخلفية (القطعة)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">نمط لون الخلفية</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColorB">لون الخلفية</string>
     <string name="phone_profiles_pref_applicationEventWifiEnableScanning">تمكين البحث عن Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">البحث حتى إذا تم تعطيل Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">تمكين البحث عن البلوتوث</string>
@@ -1012,7 +1012,6 @@
     <string name="altype_applicationUpgrade">ترقية التطبيق</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">لا يحتوي جهازك على درجات صوت مرتبطة لنغمات الرنين والإشعارات.</string>
     <string name="phone_profiles_pref_category_widget_list">القطعة: قائمة</string>
-    <string name="phone_profiles_pref_category_widget_icon_shortcut">القطعة: أيقونة. إختصار</string>
     <string name="title_activity_shortcut_creator">Shortcut</string>
     <string name="widget_label_icon">أيقونة</string>
     <string name="widget_label_one_row">Single row</string>
@@ -1020,9 +1019,9 @@
     <string name="phone_profiles_pref_manualProfileActivation">تنشيط الوضع اليدوي</string>
     <string name="phone_profiles_pref_category_widget_one_row">القطعة: صف منفرد</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">إضائة الحدود</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">إضائة الحدود (القطعة)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">إضائة الحدود</string>
     <string name="phone_profiles_pref_applicationWidgetShowBorder">عرض الحدود</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">عرض الحدود (القطعة)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">عرض الحدود</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">اسمح لبرنامج PhoneProfilesPlusExtender بالوصول في \"إمكانية الوصول\" في إعدادات النظام. البرنامج غير مسموح له استخدام وظيفة الوصول ، وهناك حاجة إلى الوصول لتلك الخدمة لاستقبال الرسائل النصية القصيرة و رسائل الوسائط المتعددة.</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">انقر هنا لتثبيت تطبيق PhoneProfilesPlusExtender. هناك حاجة إلى تشغيل الخدمة لاستقبال الرسائل النصية القصيرة ورسائل الوسائط المتعددة.</string>
     <string name="permission_not_granted">غير مسموح</string>
@@ -1537,7 +1536,7 @@
     <string name="phone_profiles_pref_systemAutoStartManager_summary">If PhoneProfilesPlus not starts at phone boot, click here and search parameter for enabling automatic start of PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Setting screen not found, but this setting is not needed, if PhoneProfilesPlus starts at phone boot.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius</string>
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED accessories</string>
@@ -1807,7 +1806,7 @@
     <string name="end_of_activation_time_end_acronym">te</string>
     <string name="end_of_activation_duration_acronym">d</string>
     <string name="end_of_activation_time_acronym">t</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation</string>
     <string name="event_delay_start_acronym">ds</string>
     <string name="event_delay_end_acronym">de</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
@@ -1872,6 +1871,8 @@
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Please, click here to configure PhoneProfilesPlus as default Assistant. It is required for \"Airplane mode\" parameter, when device is not rooted.</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus is default Assistant</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus is not default Assistant</string>
+    <string name="phone_profiles_pref_category_widget_icon">Widget: Icon</string>
+    <string name="phone_profiles_pref_category_shortcut">Shortcut</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1943,7 +1944,7 @@
     <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
     <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
     <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
-    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Profiles</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Click this to display list of configured profiles.</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Events</string>-->

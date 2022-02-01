@@ -280,7 +280,7 @@
     <string name="profile_preferences_deviceMobileData_21">(R) Mobilní data</string>
     <string name="preference_profile_adaptiveBrightness">Adaptivní</string>
     <string name="profile_preferences_deviceKeyguard">Zámek obrazovky</string>
-    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skrýt název profilu (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skrýt název profilu</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Restartuj události</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Nepřipojeno</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Není v blízkosti (není v rozsahu skenování)</string>
@@ -581,9 +581,9 @@
     <string name="info_notification_activate_profile_from_tasker">Můžete aktivovat profil z Taskeru. Nakonfigurujte task \"System\"/\"Send Intent\" s parametry:</string>
     <string name="phone_profiles_pref_notificationHideInLockscreen">Skrýt na uzamykací obrazovce</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">Odstranit staré Záznamy aktivity (dny)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackground">Neprůhlednost pozadí (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Světlost pozadí (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Světlost textu (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackground">Neprůhlednost pozadí</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Světlost pozadí</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Světlost textu</string>
     <string name="altype_eventStop">stop události</string>
     <string name="info_notification_manage_events_from_tasker">Můžete ovládat události z Taskeru. Nakonfigurujte task \"System\"/\"Send Intent\" s parametry:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">restart událostí:</string>
@@ -845,7 +845,7 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Prosím nenastavujte interval na menší hodnotu než</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minut. Výrazně to zvyšuje spotřebu baterie.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">vteřin. Výrazně to zvyšuje spotřebu baterie.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Zaoblené rohy (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Zaoblené rohy</string>
     <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Zaoblené rohy</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">není aktualizován PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">Aktivovaný profil:</string>
@@ -857,8 +857,8 @@
     <string name="colorChooser_pref_dialog_defaultIconColor">Výchozí barva ikony</string>
     <string name="phone_profiles_pref_applicationWidgetBackgroundType">Barevný typ pozadí</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">Barva pozadí</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Barevný typ pozadí (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconColorB">Barva pozadí (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Barevný typ pozadí</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColorB">Barva pozadí</string>
     <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Povolit skenování Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Skenovat i když Wi-Fi je vypnuta</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Povolit skenování Bluetooth</string>
@@ -1012,7 +1012,6 @@
     <string name="altype_applicationUpgrade">aktualizace aplikace</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Zařízení nemá sloučenou hlasitost vyzvánění a notifikací.</string>
     <string name="phone_profiles_pref_category_widget_list">Widget: Seznam</string>
-    <string name="phone_profiles_pref_category_widget_icon_shortcut">Widget: Ikona; Odkaz</string>
     <string name="title_activity_shortcut_creator">Odkaz</string>
     <string name="widget_label_icon">Ikona</string>
     <string name="widget_label_one_row">Jednořádkový</string>
@@ -1020,9 +1019,9 @@
     <string name="phone_profiles_pref_manualProfileActivation">Manuální aktivace profilu</string>
     <string name="phone_profiles_pref_category_widget_one_row">Widget: Jednořádkový</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Světlost okraje</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Světlost okraje (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Světlost okraje</string>
     <string name="phone_profiles_pref_applicationWidgetShowBorder">Zobrazit okraj</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Zobrazit okraj (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Zobrazit okraj</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Povolte PhoneProfilesPlusExtender v systémovém nastavení \"Usnadnění\". Funkce dostupnosti není použita, běžící servis je potřebný pro příjem SMS a MMS.</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">Klikněte zde pro instalaci PhoneProfilesPlusExtender. běžící servis je potřebný pro příjem SMS a MMS.</string>
     <string name="permission_not_granted">Odepřeno</string>
@@ -1537,7 +1536,7 @@
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Pokud se PhoneProfilesPlus nespustí při startu telefonu, klikněte sem a vyhledejte parametr umožňující automatické spuštění PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Obrazovka nastavení se nenašla, ale toto nastavení není nutné, pokud se PhoneProfilesPlus spustí při startu telefonu.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Poloměr rohu</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Poloměr rohu (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Poloměr rohu</string>
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Typ mobilní sítě pro SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Typ mobilní sítě pro SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED příslušenství</string>
@@ -1807,7 +1806,7 @@
     <string name="end_of_activation_time_end_acronym">kč</string>
     <string name="end_of_activation_duration_acronym">t</string>
     <string name="end_of_activation_time_acronym">č</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Zobrazit konec aktivace profilu (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Zobrazit konec aktivace profilu</string>
     <string name="event_delay_start_acronym">šp</string>
     <string name="event_delay_end_acronym">kp</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">po dosažení přesného času - vrátit zpět profil</string>
@@ -1872,6 +1871,8 @@
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Prosím klikněte sem a nakonfigurujte PhoneProfilesPlus jako výchozího Asistenta. Je to vyžadováno pro parametr \"Mód letadlo\", když zařízení není rootnuté.</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus je výchozí Asistent</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus není výchozí Asistent</string>
+    <string name="phone_profiles_pref_category_widget_icon">Widget: Ikona</string>
+    <string name="phone_profiles_pref_category_shortcut">Odkaz</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1943,7 +1944,7 @@
     <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
     <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
     <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
-    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Profiles</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Click this to display list of configured profiles.</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Events</string>-->

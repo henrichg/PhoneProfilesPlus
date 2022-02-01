@@ -182,6 +182,8 @@ class EventPreferencesBattery extends EventPreferences {
     private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences == null)
+            return;
 
         if (key.equals(PREF_EVENT_BATTERY_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
@@ -326,7 +328,9 @@ class EventPreferencesBattery extends EventPreferences {
                 else
                     iNewValue = Integer.parseInt(sNewValue);
 
-                String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_HIGHT, "100");
+                String sHightLevelValue = "100";
+                if (_prefMng.getSharedPreferences() != null)
+                    sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_HIGHT, "100");
                 int iHightLevelValue;
                 if (sHightLevelValue.isEmpty())
                     iHightLevelValue = 100;
@@ -355,7 +359,9 @@ class EventPreferencesBattery extends EventPreferences {
                 else
                     iNewValue = Integer.parseInt(sNewValue);
 
-                String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_LOW, "0");
+                String sLowLevelValue = "0";
+                if (_prefMng.getSharedPreferences() != null)
+                    sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_LOW, "0");
                 int iLowLevelValue;
                 if (sLowLevelValue.isEmpty())
                     iLowLevelValue = 0;

@@ -17,6 +17,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
@@ -60,7 +61,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
 
@@ -137,7 +138,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray ta, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray ta, int index)
     {
         super.onGetDefaultValue(ta, index);
         return Color.parseColor(ta.getString(index));
@@ -208,7 +209,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             int value = this.value;

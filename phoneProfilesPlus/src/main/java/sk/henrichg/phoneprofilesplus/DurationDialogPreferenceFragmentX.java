@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -27,7 +28,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         this.context = context;
         preference = (DurationDialogPreferenceX) getPreference();
@@ -39,7 +40,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindDialogView(View view)
+    protected void onBindDialogView(@NonNull View view)
     {
         super.onBindDialogView(view);
 

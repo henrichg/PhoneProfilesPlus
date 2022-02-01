@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class WifiSSIDPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray ta, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray ta, int index)
     {
         super.onGetDefaultValue(ta, index);
         return ta.getString(index);
@@ -182,7 +183,7 @@ public class WifiSSIDPreferenceX extends DialogPreference {
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if (!state.getClass().equals(WifiSSIDPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(WifiSSIDPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;

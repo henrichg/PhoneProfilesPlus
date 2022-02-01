@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -47,7 +48,7 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (CalendarsMultiSelectDialogPreferenceX) getPreference();
@@ -58,7 +59,7 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         linlaProgress = view.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);

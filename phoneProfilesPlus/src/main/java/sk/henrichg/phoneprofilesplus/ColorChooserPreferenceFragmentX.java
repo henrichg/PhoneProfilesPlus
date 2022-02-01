@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.gridlayout.widget.GridLayout;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -27,7 +28,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         preference = (ColorChooserPreferenceX) getPreference();
         preference.fragment = this;
@@ -37,7 +38,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         int preselect = -1;

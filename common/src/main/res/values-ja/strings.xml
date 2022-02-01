@@ -280,7 +280,7 @@
     <string name="profile_preferences_deviceMobileData_21">(R) モバイルデータ通信</string>
     <string name="preference_profile_adaptiveBrightness">自動調節</string>
     <string name="profile_preferences_deviceKeyguard">ロックスクリーン</string>
-    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">プロファイル名を非表示します (ウィジェット)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">プロファイル名を非表示します</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">[M] イベントを再始動</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">接続されていません</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">付近ではない(スキャン範囲外)</string>
@@ -581,9 +581,9 @@
     <string name="info_notification_activate_profile_from_tasker">Tasker を通じてプロファイルを有効化することができます。次のパラメーターでタスク「システム」/「インテントの送信」を設定します。</string>
     <string name="phone_profiles_pref_notificationHideInLockscreen">ロック画面では表示しない</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">古いアクティビティログを削除(日数)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackground">背景の不透明度(ウィジェット)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">背景の明るさ(ウィジェット)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">テキストの明るさ(ウィジェット)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackground">背景の不透明度</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">背景の明るさ</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">テキストの明るさ</string>
     <string name="altype_eventStop">イベントを停止</string>
     <string name="info_notification_manage_events_from_tasker">Tasker を通じてイベントを管理することができます。次のパラメーターでタスク「システム」/「インテントの送信」を設定します。</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">イベントの再起動:</string>
@@ -845,7 +845,7 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">スキャン間隔を</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">分以下に設定しないでください。電池の消費量が大幅に増加します。</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">秒以下に設定しないでください。電池の消費量が大幅に増加します。</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">角を丸くする (ウィジェット)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">角を丸くする</string>
     <string name="phone_profiles_pref_applicationWidgetRoundedCorners">角を丸くする</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender がアップグレードされていません</string>
     <string name="profile_activation_interactive_preference_notification_title">有効なプロファイル:</string>
@@ -857,8 +857,8 @@
     <string name="colorChooser_pref_dialog_defaultIconColor">既定のアイコンの色</string>
     <string name="phone_profiles_pref_applicationWidgetBackgroundType">背景色の種類</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">背景色</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">背景色の種類 (ウィジェット)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconColorB">背景色 (ウィジェット)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">背景色の種類</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColorB">背景色</string>
     <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Wi-Fiスキャンを有効にする</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Wi-Fiが無効の場合でもスキャン</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Bluetooth スキャンを有効にする</string>
@@ -1012,7 +1012,6 @@
     <string name="altype_applicationUpgrade">application upgrade</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Your device does not have linked volumes for ringtone and notifications.</string>
     <string name="phone_profiles_pref_category_widget_list">ウィジェット: リスト</string>
-    <string name="phone_profiles_pref_category_widget_icon_shortcut">ウィジェット: アイコン・ショートカット</string>
     <string name="title_activity_shortcut_creator">ショートカット</string>
     <string name="widget_label_icon">アイコン</string>
     <string name="widget_label_one_row">一行</string>
@@ -1020,9 +1019,9 @@
     <string name="phone_profiles_pref_manualProfileActivation">Manual profile activation</string>
     <string name="phone_profiles_pref_category_widget_one_row">ウィジェット: 一行</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">外枠の明るさ</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">外枠の明るさ(ウィジェット)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">外枠の明るさ</string>
     <string name="phone_profiles_pref_applicationWidgetShowBorder">外枠を表示する</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">外枠を表示 (ウィジェット)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">外枠を表示</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving SMS and MMS.</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving SMS and MMS.</string>
     <string name="permission_not_granted">Not granted</string>
@@ -1537,7 +1536,7 @@
     <string name="phone_profiles_pref_systemAutoStartManager_summary">PhoneProfilesPlusが端末起動時に起動しない場合は、ここをクリックして、PhoneProfilesPlusの自動起動を有効にするためのパラメータを検索してください。</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">設定画面が見つかりませんが、PhoneProfilesPlusが端末起動時に起動する場合は、この設定は不要です。</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius</string>
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) SIM 1のモバイルネットワークタイプ</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) SIM 2のモバイルネットワークタイプ</string>
     <string name="profile_preferences_category_led_accessories">LED accessories</string>
@@ -1807,7 +1806,7 @@
     <string name="end_of_activation_time_end_acronym">te</string>
     <string name="end_of_activation_duration_acronym">d</string>
     <string name="end_of_activation_time_acronym">t</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation</string>
     <string name="event_delay_start_acronym">ds</string>
     <string name="event_delay_end_acronym">de</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
@@ -1872,6 +1871,8 @@
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Please, click here to configure PhoneProfilesPlus as default Assistant. It is required for \"Airplane mode\" parameter, when device is not rooted.</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus is default Assistant</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus is not default Assistant</string>
+    <string name="phone_profiles_pref_category_widget_icon">Widget: Icon</string>
+    <string name="phone_profiles_pref_category_shortcut">Shortcut</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1943,7 +1944,7 @@
     <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
     <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
     <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
-    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Profiles</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Click this to display list of configured profiles.</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Events</string>-->

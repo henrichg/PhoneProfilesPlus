@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -33,7 +34,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (ConnectToSSIDDialogPreferenceX) getPreference();
@@ -44,7 +45,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         listView = view.findViewById(R.id.connect_to_ssid_pref_dlg_listview);

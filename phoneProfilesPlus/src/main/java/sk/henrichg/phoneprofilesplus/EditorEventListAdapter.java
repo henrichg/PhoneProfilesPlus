@@ -355,7 +355,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         return true;
     }
 
-    void showTargetHelps(Activity activity, EditorEventListFragment fragment, View listItemView) {
+    void showTargetHelps(Activity activity, /*EditorEventListFragment fragment,*/ View listItemView) {
         /*if (Build.VERSION.SDK_INT <= 19)
             // TapTarget.forToolbarMenuItem FC :-(
             // Toolbar.findViewById() returns null

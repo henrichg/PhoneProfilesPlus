@@ -269,6 +269,8 @@ class EventPreferencesOrientation extends EventPreferences {
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences == null)
+            return;
 
         if (key.equals(PREF_EVENT_ORIENTATION_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
@@ -301,8 +303,11 @@ class EventPreferencesOrientation extends EventPreferences {
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
                 Spannable sbt = new SpannableString(sTitle);
-                Object[] spansToRemove = sbt.getSpans(0, sTitle.length(), Object.class);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
                 for(Object span: spansToRemove){
                     if(span instanceof CharacterStyle)
                         sbt.removeSpan(span);
@@ -688,7 +693,9 @@ class EventPreferencesOrientation extends EventPreferences {
                     else
                         iNewValue = Integer.parseInt(sNewValue);
 
-                    String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MAX, "2147483647");
+                    String sHightLevelValue = "2147483647";
+                    if (_prefMng.getSharedPreferences() != null)
+                        sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MAX, "2147483647");
                     int iHightLevelValue;
                     if (sHightLevelValue.isEmpty())
                         iHightLevelValue = 2147483647;
@@ -716,7 +723,9 @@ class EventPreferencesOrientation extends EventPreferences {
                     else
                         iNewValue = Integer.parseInt(sNewValue);
 
-                    String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MIN, "0");
+                    String sLowLevelValue = "0";
+                    if (_prefMng.getSharedPreferences() != null)
+                        sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MIN, "0");
                     int iLowLevelValue;
                     if (sLowLevelValue.isEmpty())
                         iLowLevelValue = 0;

@@ -280,7 +280,7 @@
     <string name="profile_preferences_deviceMobileData_21">(R) Şebeke internet bağlantısı</string>
     <string name="preference_profile_adaptiveBrightness">Ortama göre</string>
     <string name="profile_preferences_deviceKeyguard">Kilit ekranı</string>
-    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Tercih ismini gizle (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Tercih ismini gizle</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Durumları tekrar başlat</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Wi-Fi bağlanmadı</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Yakındaki değil (tarama aralığı içinde değil)</string>
@@ -581,9 +581,9 @@
     <string name="info_notification_activate_profile_from_tasker">Tercihi, Tasker uygulamasından faal edebilirsiniz. \"System\"/\"Send Intent\" vazifesini şu değerler ile ayarlayın:</string>
     <string name="phone_profiles_pref_notificationHideInLockscreen">Kilit ekranında gizle</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">Eski faaliyet kütüklerini (günler) sil</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackground">Arka plan șeffaflığı (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Arka plan şeffaflığı (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Metin rengi şeffaflığı (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackground">Arka plan șeffaflığı</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Arka plan şeffaflığı</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Metin rengi şeffaflığı</string>
     <string name="altype_eventStop">Durum durdurma</string>
     <string name="info_notification_manage_events_from_tasker">Durumları Tasker uygulamasından yönetebilirsiniz. \"System\"/\"Send Intent\" vazifesini şu değerler ile ayarlayın:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">Durumları tekrar başlatmak için:</string>
@@ -845,7 +845,7 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Lutfen aralık değerini şundan daha az olarak ayarlamayın</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">dakika. Bu pil tüketimini gayet artırır.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">saniye. Bu pil tüketimini gayet artırır.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Kavisli köşeler (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Kavisli köşeler</string>
     <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Kavisli köşeler</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender yükseltilmemiş</string>
     <string name="profile_activation_interactive_preference_notification_title">Faal Tercih:</string>
@@ -857,8 +857,8 @@
     <string name="colorChooser_pref_dialog_defaultIconColor">Varsayılan simge rengi</string>
     <string name="phone_profiles_pref_applicationWidgetBackgroundType">Renk arka plan türü</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">Arka plan rengi</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Renkli arka plan türü (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconColorB">Arka plan rengi (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Renkli arka plan türü</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColorB">Arka plan rengi</string>
     <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Wi-Fi taramasını aç</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Wi-Fi devre dışı olsa bile tara</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Bluetooth taramayı aç</string>
@@ -1012,7 +1012,6 @@
     <string name="altype_applicationUpgrade">uygulama yükseltme</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Cihazınızın zil ve bildirim ses seviyeleri birleştirilmiş değil.</string>
     <string name="phone_profiles_pref_category_widget_list">Widget: Liste</string>
-    <string name="phone_profiles_pref_category_widget_icon_shortcut">Widget: Simge; Kısayol</string>
     <string name="title_activity_shortcut_creator">Kısayol</string>
     <string name="widget_label_icon">Simge</string>
     <string name="widget_label_one_row">Tek satır</string>
@@ -1020,9 +1019,9 @@
     <string name="phone_profiles_pref_manualProfileActivation">El ile Tercihi faaliyete geçirmek</string>
     <string name="phone_profiles_pref_category_widget_one_row">Widget: Tek satır</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Kenar rengi açıklığı</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Kenar rengi açıklığı (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Kenar rengi açıklığı</string>
     <string name="phone_profiles_pref_applicationWidgetShowBorder">Kenarı göster</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Kenarı göster (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Kenarı göster</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">• \"Erişebilirlik\" için PhoneProfilesPlusExtender\'a sistem ayarlarında izin verin. Erişebilirlik özelliği kullanılmıyor. Bu hizmet, SMS ve MMS almak için lüzumlu.</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">PhoneProfilesPlusExtender\'ı kurmak için buraya dokunun. Çalışan hizmet, SMS ve MMS almak için lüzumlu.</string>
     <string name="permission_not_granted">İzin verilmedi</string>
@@ -1537,7 +1536,7 @@
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Eğer PhoneProfilesPlus, cihazınız açılırken başlamıyorsa, buraya dokunup PhoneProfilesPlus\'ın otomatik başlaması için gereken değerleri arayın.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Ayarlar ekranı bulunamadı, eğer PhoneProfilesPlus, cihaz başlatılırken başlıyorsa bu ayara lüzum yoktur.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Köşe yarıçapı</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Köşe yarıçapı (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Köşe yarıçapı</string>
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) SIM 1 için şebeke ağ türü</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) SIM 2 için şebeke ağ türü</string>
     <string name="profile_preferences_category_led_accessories">LED aksesuarları</string>
@@ -1807,7 +1806,7 @@
     <string name="end_of_activation_time_end_acronym">zb</string>
     <string name="end_of_activation_duration_acronym">s</string>
     <string name="end_of_activation_time_acronym">z</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Tercih faaliyete geçirme sonunu göster (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Tercih faaliyete geçirme sonunu göster</string>
     <string name="event_delay_start_acronym">bb</string>
     <string name="event_delay_end_acronym">bs</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">tam zamanına geldikten sonra - tercihi geri al</string>
@@ -1864,14 +1863,16 @@
     <string name="preference_widget_information_clickable_icon">Malumat, dokunulabilir</string>
     <string name="preference_widget_clickabe_prefernce_icon">Alt tercihlerle dokunulanabilir tercih</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">(G1), (R), (I) ayarlarının türleri hakkında malumatı görmek için buraya dokunun.</string>
-    <string name="required_extender_release">New PhoneProfilesPlusExtender version</string>
-    <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
+    <string name="required_extender_release">PhoneProfilesPlusExtender\' sürümü</string>
+    <string name="required_extender_release_notification">PhoneProfilesPlusExtender\'ın GitHub\'dan yeni sürümünü indirmek için bu bildirime dokunun.</string>
     <string name="profile_preferences_deviceAirplaneMode">Uçak modu</string>
-    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus is not configured as default Assistant</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings">Assistant settings</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Please, click here to configure PhoneProfilesPlus as default Assistant. It is required for \"Airplane mode\" parameter, when device is not rooted.</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus is default Assistant</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus is not default Assistant</string>
+    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus, varsayılan Yardımcı olarak ayarlanmamış</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings">Yardımcı ayarları</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">PhoneProfilesPlus\'ı varsayılan Yardımcı olarak ayarlamak için buraya dokunun. Cihaz rootlu değilse, \"Uçak modu\"değerleri için bu lüzumludur.</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus, varsayılan Yardımcı\'dır</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus, varsayılan Yardımcı değildir</string>
+    <string name="phone_profiles_pref_category_widget_icon">Widget: Simge</string>
+    <string name="phone_profiles_pref_category_shortcut">Kısayol</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1943,7 +1944,7 @@
     <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
     <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
     <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
-    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Profiles</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Click this to display list of configured profiles.</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Events</string>-->

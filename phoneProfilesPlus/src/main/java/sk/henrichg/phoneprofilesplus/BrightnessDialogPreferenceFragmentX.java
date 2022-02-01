@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import com.stericson.rootshell.execution.Command;
@@ -33,7 +34,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         this.context = context;
         preference = (BrightnessDialogPreferenceX) getPreference();
@@ -47,7 +48,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         seekBar = view.findViewById(R.id.brightnessPrefDialogSeekbar);

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragm
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         this.context = context;
         preference = (BetterNumberPickerPreferenceX) getPreference();
@@ -30,7 +31,7 @@ public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragm
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         mNumberPicker = view.findViewById(R.id.better_number_picker);

@@ -124,6 +124,8 @@ class EventPreferencesAccessories extends EventPreferences {
     private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences == null)
+            return;
 
         if (key.equals(PREF_EVENT_ACCESSORIES_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);

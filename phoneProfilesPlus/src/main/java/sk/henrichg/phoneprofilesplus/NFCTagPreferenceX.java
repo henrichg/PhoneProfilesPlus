@@ -11,6 +11,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
 
@@ -43,7 +44,7 @@ public class NFCTagPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray ta, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray ta, int index)
     {
         super.onGetDefaultValue(ta, index);
         return ta.getString(index);
@@ -221,7 +222,7 @@ public class NFCTagPreferenceX extends DialogPreference {
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if (!state.getClass().equals(NFCTagPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(NFCTagPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;

@@ -254,6 +254,7 @@ class ApplicationPreferences {
     static boolean prefActivatorFragmentStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelpsFinished;
     static boolean prefActivatorAdapterStartTargetHelps;
+    @SuppressWarnings("unused")
     static boolean prefActivatorAdapterStartTargetHelpsFinished;
 
     static boolean prefEditorActivityStartTargetHelps;
@@ -268,6 +269,7 @@ class ApplicationPreferences {
     static boolean prefEditorProfilesAdapterStartTargetHelps;
     static boolean prefEditorProfilesAdapterStartTargetHelpsOrder;
     static boolean prefEditorProfilesAdapterStartTargetHelpsShowInActivator;
+    @SuppressWarnings("unused")
     static boolean prefEditorProfilesAdapterStartTargetHelpsFinished;
 
     static boolean prefEditorEventsFragmentStartTargetHelps;
@@ -277,13 +279,16 @@ class ApplicationPreferences {
     static boolean prefEditorEventsAdapterStartTargetHelps;
     static boolean prefEditorEventsAdapterStartTargetHelpsOrder;
     static boolean prefEditorEventsAdapterStartTargetHelpsStatus;
+    @SuppressWarnings("unused")
     static boolean prefEditorEventsAdapterStartTargetHelpsFinished;
 
     static boolean prefProfilePrefsActivityStartTargetHelps;
     //static boolean prefProfilePrefsActivityStartTargetHelpsSave;
+    @SuppressWarnings("unused")
     static boolean prefProfilePrefsActivityStartTargetHelpsFinished;
 
     static boolean prefEventPrefsActivityStartTargetHelps;
+    @SuppressWarnings("unused")
     static boolean prefEventPrefsActivityStartTargetHelpsFinished;
 
     private static SharedPreferences preferences = null;

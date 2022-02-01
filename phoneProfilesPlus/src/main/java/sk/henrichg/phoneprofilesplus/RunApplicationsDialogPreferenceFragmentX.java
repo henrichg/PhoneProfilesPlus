@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -36,7 +37,7 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (RunApplicationsDialogPreferenceX) getPreference();
@@ -49,7 +50,7 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         AppCompatImageButton addButton = view.findViewById(R.id.run_applications_pref_dlg_add);

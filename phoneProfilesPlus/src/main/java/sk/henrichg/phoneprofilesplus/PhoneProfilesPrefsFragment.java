@@ -16,6 +16,7 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -112,8 +113,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //initPreferenceFragment();
     }
 
+    @NonNull
     @Override
-    public RecyclerView onCreateRecyclerView (LayoutInflater inflater, ViewGroup parent, Bundle state) {
+    public RecyclerView onCreateRecyclerView (@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, Bundle state) {
         final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
@@ -121,7 +123,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onDisplayPreferenceDialog(Preference preference)
+    public void onDisplayPreferenceDialog(@NonNull Preference preference)
     {
         //PPApplication.logE("PhoneProfilesPrefsFragment.onDisplayPreferenceDialog", "xxx");
 

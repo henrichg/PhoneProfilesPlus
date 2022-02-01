@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -41,7 +42,7 @@ public class WallpaperViewPreferenceX extends Preference {
     //@Override
     @SuppressLint("StaticFieldLeak")
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
 
@@ -58,7 +59,7 @@ public class WallpaperViewPreferenceX extends Preference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray a, int index)
     {
         super.onGetDefaultValue(a, index);
 
@@ -88,7 +89,7 @@ public class WallpaperViewPreferenceX extends Preference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;

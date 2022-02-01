@@ -647,7 +647,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -671,7 +671,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)){
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -703,7 +703,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -729,7 +729,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -756,7 +756,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -780,7 +780,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -827,7 +827,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -858,7 +858,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -882,7 +882,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -906,7 +906,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -935,7 +935,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -967,7 +967,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -999,7 +999,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1031,7 +1031,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1061,7 +1061,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1090,7 +1090,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1118,7 +1118,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1149,7 +1149,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1177,7 +1177,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1218,7 +1218,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1259,7 +1259,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1298,7 +1298,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }
@@ -1324,7 +1324,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (getContext() != null) {
+            if ((getContext() != null) && (preferences != null)) {
                 SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 loadSharedPreferences(preferences, applicationPreferences);
             }

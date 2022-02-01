@@ -21,6 +21,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
@@ -53,7 +54,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (WifiSSIDPreferenceX) getPreference();
@@ -64,7 +65,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         PPApplication.forceRegisterReceiversForWifiScanner(prefContext);

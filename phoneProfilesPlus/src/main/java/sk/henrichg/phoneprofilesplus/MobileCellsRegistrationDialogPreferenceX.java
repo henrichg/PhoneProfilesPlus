@@ -6,6 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 
 public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
@@ -41,7 +42,7 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray ta, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray ta, int index)
     {
         super.onGetDefaultValue(ta, index);
         return ta.getString(index);
@@ -127,7 +128,7 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if (!state.getClass().equals(MobileCellsRegistrationDialogPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(MobileCellsRegistrationDialogPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;

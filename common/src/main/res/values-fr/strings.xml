@@ -280,7 +280,7 @@
     <string name="profile_preferences_deviceMobileData_21">(R) Données mobiles</string>
     <string name="preference_profile_adaptiveBrightness">Adaptatif</string>
     <string name="profile_preferences_deviceKeyguard">Écran de verrouillage</string>
-    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Cacher le nom du profil (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Cacher le nom du profil</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Redémarrez les événements</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Non connecté</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Éloigné (hors de la zone de balayage)</string>
@@ -581,9 +581,9 @@
     <string name="info_notification_activate_profile_from_tasker">Vous pouvez activer le profil depuis le gestionnaire de tache. Configurer la tâche \"Système\"/\"Envoyer\" avec des paramètres :</string>
     <string name="phone_profiles_pref_notificationHideInLockscreen">Cacher dans l\'écran de verrouillage</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">Supprimer ancien journal d\'activité (jours)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackground">Opacité de l’arrière-plan (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Luminosité de l’arrière-plan (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Luminosité du texte (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackground">Opacité de l’arrière-plan</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Luminosité de l’arrière-plan</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Luminosité du texte</string>
     <string name="altype_eventStop">arrêt de l’événement</string>
     <string name="info_notification_manage_events_from_tasker">Vous pouvez activer le profil depuis le gestionnaire de tache. Configurer la tâche \"Système\"/\"Envoyer\" avec des paramètres :</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">redémarrez des événements :</string>
@@ -845,7 +845,7 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">S\'il vous plaît ne configurez pas l\'intervalle pour une valeur inférieure à cette valeur</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">à la minute. Cela augmente considérablement la consommation de la batterie.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">à la seconde. Ceci augmente considérablement la consommation de la batterie.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Coins arrondis (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Coins arrondis</string>
     <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Coins arrondis</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender non mise à niveau</string>
     <string name="profile_activation_interactive_preference_notification_title">Profil actif :</string>
@@ -857,8 +857,8 @@
     <string name="colorChooser_pref_dialog_defaultIconColor">Icônes colorées par défaut</string>
     <string name="phone_profiles_pref_applicationWidgetBackgroundType">Type de couleur de fond</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">Couleur d\'arrière-plan</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Type de couleur de fond (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconColorB">Couleur d’arrière-plan (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Type de couleur de fond</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColorB">Couleur d’arrière-plan</string>
     <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Activer le scan Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Scan, même si le WiFi est désactivé</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Activez le scan Bluetooth</string>
@@ -1012,7 +1012,6 @@
     <string name="altype_applicationUpgrade">mise à niveau des applications </string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Votre appareil n\’a pas fusionné les volumes de sonnerie et de notification. </string>
     <string name="phone_profiles_pref_category_widget_list">Widget : Liste </string>
-    <string name="phone_profiles_pref_category_widget_icon_shortcut">Widget : Icône ; Raccourci </string>
     <string name="title_activity_shortcut_creator">Raccourci </string>
     <string name="widget_label_icon">Icône </string>
     <string name="widget_label_one_row">Une seule ligne </string>
@@ -1020,9 +1019,9 @@
     <string name="phone_profiles_pref_manualProfileActivation">Activation manuelle du profil </string>
     <string name="phone_profiles_pref_category_widget_one_row">Widget : Une seule ligne </string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Finesse des bordures </string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">finesse des bordures (widget) </string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Finesse des bordures</string>
     <string name="phone_profiles_pref_applicationWidgetShowBorder">Afficher la bordure </string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Afficher la bordure (widget) </string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Afficher la bordure</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Autoriser PhoneProfilesPlusExtender dans les paramètres système. La fonction d\’accessibilité n\’est pas utilisée, ce service en cours d\’exécution est nécessaire pour recevoir des SMS et MMS. </string>
     <string name="event_preferences_sms_PPPExtender_install_summary">Cliquez ici pour installer PhoneProfilesPlusExtender. Ce service en cours d\’exécution est nécessaire pour recevoir des SMS et MMS. </string>
     <string name="permission_not_granted">Non accordée </string>
@@ -1537,7 +1536,7 @@
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Si PhoneProfilesPlus ne démarre pas au démarrage du téléphone, cliquez ici et cliquez sur le paramètre de recherche pour activer le démarrage automatique de PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Paramétrage de l\'écran non trouvé, mais ce paramètre n\'est pas nécessaire si PhoneProfilesPlus démarre au démarrage du téléphone.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Courbure des angles</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Courbure des angles (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Courbure des angles</string>
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Type de réseau mobile pour la carte SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Type de réseau mobile pour la carte SIM 2</string>
     <string name="profile_preferences_category_led_accessories">Accessoires LED</string>
@@ -1807,7 +1806,7 @@
     <string name="end_of_activation_time_end_acronym">te</string>
     <string name="end_of_activation_duration_acronym">d</string>
     <string name="end_of_activation_time_acronym">t</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Afficher la fin de l\'activation du profil (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Afficher la fin de l\'activation du profil</string>
     <string name="event_delay_start_acronym">ds</string>
     <string name="event_delay_end_acronym">de</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">après l\'heure exacte atteinte - annuler le profil</string>
@@ -1872,6 +1871,8 @@
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Veuillez cliquer ici pour configurer PhoneProfilesPlus comme assistant par défaut. C\'est requis pour le paramètre « Mode avion », lorsque l\'appareil n\'est pas rooté.</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus est l\'Assistant par défaut</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus n\'est pas l\'assistant par défaut</string>
+    <string name="phone_profiles_pref_category_widget_icon">Widget : Icône</string>
+    <string name="phone_profiles_pref_category_shortcut">Raccourci</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1943,7 +1944,7 @@
     <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
     <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
     <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
-    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Profiles</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Click this to display list of configured profiles.</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Events</string>-->

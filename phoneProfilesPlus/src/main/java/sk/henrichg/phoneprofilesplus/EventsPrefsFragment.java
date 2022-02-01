@@ -104,8 +104,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         //initPreferenceFragment();
     }
 
+    @NonNull
     @Override
-    public RecyclerView onCreateRecyclerView (LayoutInflater inflater, ViewGroup parent, Bundle state) {
+    public RecyclerView onCreateRecyclerView (@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, Bundle state) {
         final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
@@ -113,7 +114,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onDisplayPreferenceDialog(Preference preference) {
+    public void onDisplayPreferenceDialog(@NonNull Preference preference) {
         //PPApplication.logE("EventsPrefsFragment.onDisplayPreferenceDialog", "xxx");
 
         PreferenceDialogFragmentCompat dialogFragment = null;

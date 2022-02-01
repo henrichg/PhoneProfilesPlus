@@ -22,6 +22,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
@@ -54,7 +55,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (BluetoothNamePreferenceX) getPreference();
@@ -65,7 +66,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         PPApplication.forceRegisterReceiversForBluetoothScanner(prefContext);

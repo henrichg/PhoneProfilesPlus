@@ -11,6 +11,7 @@ import android.os.Parcelable;
 import android.service.wallpaper.WallpaperService;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class LiveWallpapersDialogPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray ta, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray ta, int index)
     {
         super.onGetDefaultValue(ta, index);
         return ta.getString(index);
@@ -120,7 +121,7 @@ public class LiveWallpapersDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(LiveWallpapersDialogPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(LiveWallpapersDialogPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             setSummaryLWDP();

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -68,7 +69,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
 
@@ -431,7 +432,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(ApplicationsMultiSelectDialogPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(ApplicationsMultiSelectDialogPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             getValueAMSDP();

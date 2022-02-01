@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -23,7 +24,7 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (ProfileIconPreferenceX) getPreference();
@@ -34,7 +35,7 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         GridView gridView = view.findViewById(R.id.profileicon_pref_dlg_gridview);

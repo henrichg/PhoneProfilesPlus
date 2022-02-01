@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -28,7 +29,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (ContactGroupsMultiSelectDialogPreferenceX) getPreference();
@@ -39,7 +40,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         linlaProgress = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);

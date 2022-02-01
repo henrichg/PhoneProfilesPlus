@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -368,7 +367,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         return true;
     }
 
-    void showTargetHelps(final Activity activity, final EditorProfileListFragment fragment, final View listItemView) {
+    void showTargetHelps(final Activity activity, /*final EditorProfileListFragment fragment,*/ final View listItemView) {
         /*if (Build.VERSION.SDK_INT <= 19)
             // TapTarget.forToolbarMenuItem FC :-(
             // Toolbar.findViewById() returns null

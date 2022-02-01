@@ -126,6 +126,8 @@ class EventPreferencesPeriodic extends EventPreferences {
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences == null)
+            return;
 
         if (key.equals(PREF_EVENT_PERIODIC_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
@@ -161,8 +163,11 @@ class EventPreferencesPeriodic extends EventPreferences {
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
                 Spannable sbt = new SpannableString(sTitle);
-                Object[] spansToRemove = sbt.getSpans(0, sTitle.length(), Object.class);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
                 for(Object span: spansToRemove){
                     if(span instanceof CharacterStyle)
                         sbt.removeSpan(span);

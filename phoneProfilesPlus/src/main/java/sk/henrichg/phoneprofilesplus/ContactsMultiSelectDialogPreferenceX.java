@@ -220,7 +220,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if (!state.getClass().equals(ContactsMultiSelectDialogPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(ContactsMultiSelectDialogPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             setSummaryCMSDP();

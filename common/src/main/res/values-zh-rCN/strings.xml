@@ -280,7 +280,7 @@
     <string name="profile_preferences_deviceMobileData_21">(R) 移动数据</string>
     <string name="preference_profile_adaptiveBrightness">自适应</string>
     <string name="profile_preferences_deviceKeyguard">锁定屏幕</string>
-    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">隐藏情景名称 (小部件)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">隐藏情景名称</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">[M] 重新启动事件</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">未连接</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">不在附近 (不在扫描范围之内)</string>
@@ -581,9 +581,9 @@
     <string name="info_notification_activate_profile_from_tasker">您可以从 Tasker 激活情景，以如下参数配置 Tasker 任务“系统”/“发送Intent”：</string>
     <string name="phone_profiles_pref_notificationHideInLockscreen">在锁屏界面上隐藏</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">删除旧的活动日志 (天)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackground">背景不透明 (小部件)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">背景亮度 (小部件)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">文本亮度 (小部件)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackground">背景不透明</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">背景亮度</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">文本亮度</string>
     <string name="altype_eventStop">事件停止</string>
     <string name="info_notification_manage_events_from_tasker">您可以从 Tasker 管理情景，以如下参数配置 Tasker 任务“系统”/“发送Intent”：</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">重新启动事件：</string>
@@ -845,7 +845,7 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">请不要将间隔配置为小于</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">分钟。这大大增加了电池消耗。</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">秒。这大大增加了电池消耗。</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">圆角(小部件)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">圆角</string>
     <string name="phone_profiles_pref_applicationWidgetRoundedCorners">圆角</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">未升级的PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">激活的情景：</string>
@@ -857,8 +857,8 @@
     <string name="colorChooser_pref_dialog_defaultIconColor">默认图标颜色</string>
     <string name="phone_profiles_pref_applicationWidgetBackgroundType">颜色背景类型</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">背景颜色</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">颜色背景类型(小部件)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconColorB">背景颜色(小部件)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">颜色背景类型</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColorB">背景颜色</string>
     <string name="phone_profiles_pref_applicationEventWifiEnableScanning">启用Wi-Fi扫描</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">即使禁用Wi-Fi也会扫描</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">启用蓝牙扫描</string>
@@ -1012,7 +1012,6 @@
     <string name="altype_applicationUpgrade">应用升级</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">您的设备没有关联铃声和通知音量。</string>
     <string name="phone_profiles_pref_category_widget_list">小部件：列表</string>
-    <string name="phone_profiles_pref_category_widget_icon_shortcut">小部件：图标; 快捷方式</string>
     <string name="title_activity_shortcut_creator">快捷方式</string>
     <string name="widget_label_icon">图标</string>
     <string name="widget_label_one_row">单排</string>
@@ -1020,9 +1019,9 @@
     <string name="phone_profiles_pref_manualProfileActivation">手动情景激活</string>
     <string name="phone_profiles_pref_category_widget_one_row">小部件：单行</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">边框明亮</string>
-    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">边框明亮(小部件)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">边框明亮</string>
     <string name="phone_profiles_pref_applicationWidgetShowBorder">显示边框</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">显示边框(小部件)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">显示边框</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">在系统设置中允许PhoneProfilesPlusExtender“辅助功能”。不使用辅助功能，接收短信和彩信需要运行服务。</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">单击此处安装PhoneProfilesPlusExtender。接收短信和彩信需要运行服务。</string>
     <string name="permission_not_granted">未授权</string>
@@ -1537,7 +1536,7 @@
     <string name="phone_profiles_pref_systemAutoStartManager_summary">如果 PhoneProfilesPlus 未开机启动，请点击这里并搜索参数启用 PhoneProfilesPlus 自动启动。</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">找不到设定画面，但如果 PhoneProfilesPlus 开机启动，则不需要此设置。</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">圆角半径</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">圆角半径 (小部件)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">圆角半径</string>
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) SIM 卡 1 移动网络类型</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) SIM 卡 2 移动网络类型</string>
     <string name="profile_preferences_category_led_accessories">LED 配件</string>
@@ -1807,7 +1806,7 @@
     <string name="end_of_activation_time_end_acronym">te</string>
     <string name="end_of_activation_duration_acronym">d</string>
     <string name="end_of_activation_time_acronym">t</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">显示情景激活结束(小部件)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">显示情景激活结束</string>
     <string name="event_delay_start_acronym">ds</string>
     <string name="event_delay_end_acronym">de</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">准确时间到达后-撤销情景</string>
@@ -1864,14 +1863,16 @@
     <string name="preference_widget_information_clickable_icon">信息，可点击</string>
     <string name="preference_widget_clickabe_prefernce_icon">子选项可点击的设置</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">点击这里显示有关设置类型的信息：(G1)、(R)、(I)。</string>
-    <string name="required_extender_release">New PhoneProfilesPlusExtender version</string>
-    <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
+    <string name="required_extender_release">新版本 PhoneProfilesPlusExture</string>
+    <string name="required_extender_release_notification">单击此通知以安装新版本 PhoneProfilesPlusExture 。</string>
     <string name="profile_preferences_deviceAirplaneMode">飞行模式</string>
-    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus is not configured as default Assistant</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings">Assistant settings</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Please, click here to configure PhoneProfilesPlus as default Assistant. It is required for \"Airplane mode\" parameter, when device is not rooted.</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus is default Assistant</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus is not default Assistant</string>
+    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus 未配置为默认助手</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings">助手设置</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">请单击此处配置 PhoneProfilesPlus 为默认助手。当设备未Root时，它是\"飞行模式\"参数所必需的。</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus 是默认助手</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus 不是默认助手</string>
+    <string name="phone_profiles_pref_category_widget_icon">小部件: 图标</string>
+    <string name="phone_profiles_pref_category_shortcut">快捷方式</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1943,7 +1944,7 @@
     <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
     <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
     <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
-    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Profiles</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Click this to display list of configured profiles.</string>-->
     <!--    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Events</string>-->

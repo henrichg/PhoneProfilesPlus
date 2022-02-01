@@ -25,6 +25,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
@@ -84,7 +85,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         //Log.e("MobileCellsPreferenceFragmentX.onBindDialogView", "xxx");
@@ -1086,7 +1087,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     if (!found) {
                         // cell name = event name
                         SharedPreferences sharedPreferences = preference.getSharedPreferences();
-                        fragment.cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
+                        if (sharedPreferences != null)
+                            fragment.cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
                     }
                 }
 
