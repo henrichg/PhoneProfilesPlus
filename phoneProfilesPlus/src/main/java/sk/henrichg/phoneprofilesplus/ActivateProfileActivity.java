@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +39,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
 
-    public boolean targetHelpsSequenceStarted;
+    //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profiles_activity_start_target_helps_finished";
 
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -447,12 +449,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
 
-        if (targetHelpsSequenceStarted) {
+        //if (targetHelpsSequenceStarted) {
             if (ActivatorTargetHelpsActivity.activity != null)
                 ActivatorTargetHelpsActivity.activity.finish();
             ActivatorTargetHelpsActivity.activity = null;
-            targetHelpsSequenceStarted = false;
-        }
+            //targetHelpsSequenceStarted = false;
+        //}
     }
 
     @Override
@@ -716,7 +718,13 @@ public class ActivateProfileActivity extends AppCompatActivity {
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
+
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                        editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.apply();
+                        ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
+
                         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null)
                         {
@@ -731,7 +739,27 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
+
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+
+                        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
+                        editor.apply();
+
+                        ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
+                        ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
+                        ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;
+
+                        ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
+                        ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
+                        ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+
                         final Handler handler = new Handler(getMainLooper());
                         handler.postDelayed(() -> {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (1)");
@@ -747,18 +775,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                 //ActivatorTargetHelpsActivity.activatorActivity = null;
                             }
                         }, 500);
-
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
-                        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
-                        editor.apply();
-                        ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
-                        ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;
                     }
                 });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                targetHelpsSequenceStarted = true;
+                //targetHelpsSequenceStarted = true;
                 sequence.start();
             }
             else {

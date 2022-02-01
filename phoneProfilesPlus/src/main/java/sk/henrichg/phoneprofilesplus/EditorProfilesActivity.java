@@ -132,12 +132,13 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final int REQUEST_CODE_BACKUP_SETTINGS_2 = 6231;
     private static final int REQUEST_CODE_RESTORE_SETTINGS = 6232;
 
-    public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
 
     public static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
     public static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
+
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profiles_activity_start_target_helps_finished";
 
     private static final String PREF_BACKUP_CREATE_PPP_SUBFOLDER = "backup_create_ppp_subfolder";
 
@@ -177,7 +178,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     private int filterProfilesSelectedItem = 0;
     private int filterEventsSelectedItem = 0;
 
-    private boolean startTargetHelps;
+    //private boolean startTargetHelps;
+    //public boolean targetHelpsSequenceStarted;
 
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
@@ -520,7 +522,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
 //                Log.e("EditorProfilesActivity.filterSpinner.onItemSelected", "position=" + position);
-                selectFilterItem(editorSelectedView, position, true, true);
+                selectFilterItem(editorSelectedView, position, true/*, true*/);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -582,7 +584,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 //            Log.e("EditorProfilesActivity.onCreate", "filterEventsSelectedItem="+filterEventsSelectedItem);
         //}
 
-        startTargetHelps = false;
+        //startTargetHelps = false;
         /*if (editorSelectedView == 0)
             bottomNavigationView.setSelectedItemId(R.id.menu_profiles_view);
         else
@@ -1394,7 +1396,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                 filterSpinner.setAdapter(filterSpinnerAdapter);
 //                Log.e("EditorProfilesActivity.selectViewItem (0)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
-                EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
+                EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
                 Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment instanceof EditorProfileListFragment)
                     ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
@@ -1422,7 +1424,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                 filterSpinner.setAdapter(filterSpinnerAdapter);
 //                Log.e("EditorProfilesActivity.selectViewItem (1)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
-                EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
+                EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
                 Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment instanceof EditorEventListFragment) {
                     ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
@@ -1433,7 +1435,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             return false;
     }
 
-    private void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
+    private void selectFilterItem(int selectedView, int position, boolean fromClickListener/*, boolean startTargetHelps*/) {
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
 //            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
@@ -1516,7 +1518,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
-                                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
@@ -1525,7 +1527,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(profilesFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_PROFILES_SHOW_IN_ACTIVATOR:
@@ -1535,7 +1537,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
-                                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
@@ -1544,7 +1546,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(profilesFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
@@ -1554,7 +1556,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
-                                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
@@ -1563,7 +1565,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(profilesFilterType/*, startTargetHelps*/);
                             }
                             break;
                     }
@@ -1577,7 +1579,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1586,7 +1588,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_ALL:
@@ -1596,7 +1598,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1605,7 +1607,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_NOT_STOPPED:
@@ -1615,7 +1617,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1624,7 +1626,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_RUNNING:
@@ -1634,7 +1636,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1643,7 +1645,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_PAUSED:
@@ -1653,7 +1655,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1662,7 +1664,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_STOPPED:
@@ -1672,7 +1674,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1681,7 +1683,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                     }
@@ -2800,7 +2802,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment.scrollToProfile = profile;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
 //                                Log.e("EditorProfilesActivity.redrawProfileListFragment", "position=0");
-                                editorActivity.selectFilterItem(0, 0, false, true);
+                                editorActivity.selectFilterItem(0, 0, false/*, true*/);
                             }
                             else
                                 fragment.scrollToProfile = null;
@@ -2984,7 +2986,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment.scrollToEvent = event;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
 //                                Log.e("EditorProfilesActivity.redrawEventListFragment", "position=0");
-                                editorActivity.selectFilterItem(1, 0, false, true);
+                                editorActivity.selectFilterItem(1, 0, false/*, true*/);
                             }
                             else
                                 fragment.scrollToEvent = null;
@@ -3105,7 +3107,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // Toolbar.findViewById() returns null
             return;*/
 
-        startTargetHelps = true;
+        //startTargetHelps = true;
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorActivityStartTargetHelps;
         //boolean startTargetHelpsProfilesFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsProfilesFilterSpinner;
@@ -3115,7 +3117,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         if (startTargetHelps || //startTargetHelpsProfilesFilterSpinner || startTargetHelpsEventsFilterSpinner ||
                 startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation ||
-                ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile ||
+                ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile ||
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder ||
@@ -3552,7 +3554,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
+
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                        editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.apply();
+                        ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = true;
+
                         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                         if (fragment != null) {
                             if (fragment instanceof EditorProfileListFragment)
@@ -3569,7 +3577,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
                         Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
                         if (editorSelectedView == 0) {
                             editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
@@ -3578,12 +3586,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                             if (filterProfilesSelectedItem == DSI_PROFILES_ALL)
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+
+                            editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
                             ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
                             if (filterProfilesSelectedItem == DSI_PROFILES_SHOW_IN_ACTIVATOR)
                                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
                             if (filterProfilesSelectedItem == DSI_PROFILES_ALL)
                                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
+
+                            ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
+                            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+
                         }
                         else {
                             editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
@@ -3591,18 +3607,25 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (filterEventsSelectedItem == DSI_EVENTS_START_ORDER)
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
+
+                            editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
                             ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
                             if (filterEventsSelectedItem == DSI_EVENTS_START_ORDER)
                                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
+
+                            ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
+                            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
                         }
                         editor.apply();
                     }
                 });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                targetHelpsSequenceStarted = true;
+                //targetHelpsSequenceStarted = true;
                 sequence.start();
             }
             else {

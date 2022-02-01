@@ -250,26 +250,41 @@ class ApplicationPreferences {
     static int applicationEventWifiScanInTimeMultiplyTo;
 
     static boolean prefActivatorActivityStartTargetHelps;
+    static boolean prefActivatorActivityStartTargetHelpsFinished;
     static boolean prefActivatorFragmentStartTargetHelps;
+    static boolean prefActivatorFragmentStartTargetHelpsFinished;
     static boolean prefActivatorAdapterStartTargetHelps;
+    static boolean prefActivatorAdapterStartTargetHelpsFinished;
+
     static boolean prefEditorActivityStartTargetHelps;
-    static boolean prefEditorActivityStartTargetHelpsDefaultProfile;
     static boolean prefEditorActivityStartTargetHelpsRunStopIndicator;
     static boolean prefEditorActivityStartTargetHelpsBottomNavigation;
+    static boolean prefEditorActivityStartTargetHelpsFinished;
+
+    static boolean prefEditorFragmentStartTargetHelpsDefaultProfile;
     static boolean prefEditorProfilesFragmentStartTargetHelps;
     static boolean prefEditorProfilesFragmentStartTargetHelpsFilterSpinner;
+    static boolean prefEditorProfilesFragmentStartTargetHelpsFinished;
     static boolean prefEditorProfilesAdapterStartTargetHelps;
     static boolean prefEditorProfilesAdapterStartTargetHelpsOrder;
     static boolean prefEditorProfilesAdapterStartTargetHelpsShowInActivator;
+    static boolean prefEditorProfilesAdapterStartTargetHelpsFinished;
+
     static boolean prefEditorEventsFragmentStartTargetHelps;
     static boolean prefEditorEventsFragmentStartTargetHelpsFilterSpinner;
     static boolean prefEditorEventsFragmentStartTargetHelpsOrderSpinner;
+    static boolean prefEditorEventsFragmentStartTargetHelpsFinished;
     static boolean prefEditorEventsAdapterStartTargetHelps;
     static boolean prefEditorEventsAdapterStartTargetHelpsOrder;
     static boolean prefEditorEventsAdapterStartTargetHelpsStatus;
+    static boolean prefEditorEventsAdapterStartTargetHelpsFinished;
+
     static boolean prefProfilePrefsActivityStartTargetHelps;
-    static boolean prefProfilePrefsActivityStartTargetHelpsSave;
+    //static boolean prefProfilePrefsActivityStartTargetHelpsSave;
+    static boolean prefProfilePrefsActivityStartTargetHelpsFinished;
+
     static boolean prefEventPrefsActivityStartTargetHelps;
+    static boolean prefEventPrefsActivityStartTargetHelpsFinished;
 
     private static SharedPreferences preferences = null;
 
@@ -1518,26 +1533,41 @@ class ApplicationPreferences {
     static void loadStartTargetHelps(Context context) {
         SharedPreferences _preferences = getSharedPreferences(context);
         prefActivatorActivityStartTargetHelps = _preferences.getBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
+        prefActivatorActivityStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, false);
         prefActivatorFragmentStartTargetHelps = _preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
+        prefActivatorFragmentStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
         prefActivatorAdapterStartTargetHelps = _preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+        prefActivatorAdapterStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefEditorActivityStartTargetHelps = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, false);
-        prefEditorActivityStartTargetHelpsDefaultProfile = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
         prefEditorActivityStartTargetHelpsRunStopIndicator = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
         prefEditorActivityStartTargetHelpsBottomNavigation = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
+        prefEditorActivityStartTargetHelpsFinished = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefEditorProfilesFragmentStartTargetHelps = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
         prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
+        prefEditorFragmentStartTargetHelpsDefaultProfile = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
+        prefEditorProfilesFragmentStartTargetHelpsFinished = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
         prefEditorProfilesAdapterStartTargetHelps = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
         prefEditorProfilesAdapterStartTargetHelpsOrder = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
         prefEditorProfilesAdapterStartTargetHelpsShowInActivator = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+        prefEditorProfilesAdapterStartTargetHelpsFinished = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefEditorEventsFragmentStartTargetHelps = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
         prefEditorEventsFragmentStartTargetHelpsFilterSpinner = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
         prefEditorEventsFragmentStartTargetHelpsOrderSpinner = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, false);
+        prefEditorEventsFragmentStartTargetHelpsFinished = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
         prefEditorEventsAdapterStartTargetHelps = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
         prefEditorEventsAdapterStartTargetHelpsOrder = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
         prefEditorEventsAdapterStartTargetHelpsStatus = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
+        prefEditorEventsAdapterStartTargetHelpsFinished = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefProfilePrefsActivityStartTargetHelps = _preferences.getBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, false);
-        prefProfilePrefsActivityStartTargetHelpsSave = _preferences.getBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
+        //prefProfilePrefsActivityStartTargetHelpsSave = _preferences.getBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
+        prefProfilePrefsActivityStartTargetHelpsFinished = _preferences.getBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefEventPrefsActivityStartTargetHelps = _preferences.getBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, false);
+        prefEventPrefsActivityStartTargetHelpsFinished = _preferences.getBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS_FINISHED, false);
     }
 
     static void startStopTargetHelps(Context context, boolean start) {
@@ -1545,31 +1575,42 @@ class ApplicationPreferences {
 
         editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorActivityStartTargetHelps = start;
+        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = !start;
         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorFragmentStartTargetHelps = start;
+        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = !start;
         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorAdapterStartTargetHelps = start;
+        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = !start;
 
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelps = start;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, start);
-        ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = start;
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator = start;
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation = start;
+        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = !start;
 
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = start;
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, start);
         ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = start;
-
+        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, start);
+        ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile = start;
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, start);
+        editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = !start;
         ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = start;
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, start);
         ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = start;
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, start);
         ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = start;
+        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = !start;
 
         editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = start;
@@ -1577,21 +1618,29 @@ class ApplicationPreferences {
         ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFilterSpinner = start;
         editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, start);
         ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsOrderSpinner = start;
-
+        editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = !start;
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = start;
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, start);
         ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = start;
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, start);
         ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = start;
+        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = !start;
 
         editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = start;
-        editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, start);
-        ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = start;
+        //editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, start);
+        //ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = start;
+        editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = !start;
 
         editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEventPrefsActivityStartTargetHelps = start;
+        editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = !start;
+
         editor.apply();
     }
 

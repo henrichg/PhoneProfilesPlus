@@ -4680,7 +4680,7 @@ public class PhoneProfilesService extends Service
                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                     editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
+                    //editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
                     editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, false);
                     editor.apply();
                 }

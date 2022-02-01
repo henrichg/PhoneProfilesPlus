@@ -3574,7 +3574,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 } while (cursorUpdateDB.moveToNext());
             }
-            Log.e("DatabaseHandler.afterUpdateDb", "(1) found="+found);
+            //Log.e("DatabaseHandler.afterUpdateDb", "(1) found="+found);
             if (!found) {
                 values.put(KEY_IN_NAME, intentName);
                 values.put(KEY_IN_ACTION, "net.openvpn.openvpn.CONNECT");
@@ -3607,7 +3607,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 } while (cursorUpdateDB.moveToNext());
             }
-            Log.e("DatabaseHandler.afterUpdateDb", "(2) found="+found);
+            //Log.e("DatabaseHandler.afterUpdateDb", "(2) found="+found);
             if (!found) {
                 values.clear();
                 values.put(KEY_IN_NAME, intentName);
@@ -3641,7 +3641,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 } while (cursorUpdateDB.moveToNext());
             }
-            Log.e("DatabaseHandler.afterUpdateDb", "(3) found="+found);
+            //Log.e("DatabaseHandler.afterUpdateDb", "(3) found="+found);
             if (!found) {
                 values.clear();
                 values.put(KEY_IN_NAME, intentName);
@@ -3671,7 +3671,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 } while (cursorUpdateDB.moveToNext());
             }
-            Log.e("DatabaseHandler.afterUpdateDb", "(4) found="+found);
+            //Log.e("DatabaseHandler.afterUpdateDb", "(4) found="+found);
             if (!found) {
                 values.put(KEY_IN_NAME, intentName);
                 values.put(KEY_IN_ACTION, "android.intent.action.MAIN");
@@ -3700,7 +3700,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 } while (cursorUpdateDB.moveToNext());
             }
-            Log.e("DatabaseHandler.afterUpdateDb", "(5) found="+found);
+            //Log.e("DatabaseHandler.afterUpdateDb", "(5) found="+found);
             if (!found) {
                 values.put(KEY_IN_NAME, intentName);
                 values.put(KEY_IN_ACTION, "android.intent.action.MAIN");

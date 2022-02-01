@@ -45,10 +45,11 @@ public class ActivateProfileListFragment extends Fragment {
     //private ValueAnimator showAnimator;
     //private int headerHeight;
 
-    private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    //private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
     //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_fragment_start_target_helps_finished";
 
     static final int PORDER_FOR_EMPTY_SPACE = 1000000;
 
@@ -107,8 +108,8 @@ public class ActivateProfileListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         doOnViewCreated(view/*, savedInstanceState*/);
 
-        boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-        if (startTargetHelps)
+        //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+        //if (startTargetHelps)
             showTargetHelps();
     }
 
@@ -656,8 +657,13 @@ public class ActivateProfileListFragment extends Fragment {
         if (getActivity() == null)
             return;
 
-        if (((ActivateProfileActivity)getActivity()).targetHelpsSequenceStarted)
+        //if (((ActivateProfileActivity)getActivity()).targetHelpsSequenceStarted)
+        //    return;
+
+        boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished;
+        if (!startTargetHelpsFinished)
             return;
+
 
         boolean showTargetHelps = ApplicationPreferences.prefActivatorFragmentStartTargetHelps;
 
@@ -672,8 +678,10 @@ public class ActivateProfileListFragment extends Fragment {
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
                 editor.apply();
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
+                ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
 
                 showAdapterTargetHelps();
             }

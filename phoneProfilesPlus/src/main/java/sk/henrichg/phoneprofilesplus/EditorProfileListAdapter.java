@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +33,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
     static final String PREF_START_TARGET_HELPS = "editor_profile_list_adapter_start_target_helps";
     static final String PREF_START_TARGET_HELPS_ORDER = "editor_profile_list_adapter_start_target_helps_order";
     static final String PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR = "editor_profile_list_adapter_start_target_helps_show_in_activator";
+    static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profile_list_adapter_start_target_helps_finished";
 
     EditorProfileListAdapter(EditorProfileListFragment f, DataWrapper pdw, int filterType,
                               OnStartDragItemListener dragStartListener)
@@ -372,8 +374,14 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             // Toolbar.findViewById() returns null
             return;*/
 
-        if (fragment.targetHelpsSequenceStarted)
+        //if (fragment.targetHelpsSequenceStarted)
+        //    return;
+
+        boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished &&
+                ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished;
+        if (!startTargetHelpsFinished)
             return;
+
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps;
         boolean startTargetHelpsOrder = ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder;
@@ -553,6 +561,14 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 @Override
                 public void onSequenceFinish() {
                     //targetHelpsSequenceStarted = false;
+
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.apply();
+                    ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
+                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+
                 }
 
                 @Override
@@ -563,6 +579,22 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
                     //targetHelpsSequenceStarted = false;
+
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+
+                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
+                    editor.apply();
+
+                    ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
+                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
+
+                    ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
+                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+
                 }
             });
             sequence.continueOnCancel(true)

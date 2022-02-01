@@ -1396,7 +1396,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
-            Log.e("ProfilesPrefsFragment._doOnActivityResult", "xxx");
+            //Log.e("ProfilesPrefsFragment._doOnActivityResult", "xxx");
             setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);

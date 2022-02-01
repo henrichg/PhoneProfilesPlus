@@ -97,7 +97,7 @@ public class EditorEventListFragment extends Fragment
 
     static final String FILTER_TYPE_ARGUMENT = "filter_type";
     //static final String ORDER_TYPE_ARGUMENT = "order_type";
-    static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    //static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
     static final int FILTER_TYPE_ALL = 0;
     static final int FILTER_TYPE_RUNNING = 1;
@@ -112,10 +112,11 @@ public class EditorEventListFragment extends Fragment
     private static final int ORDER_TYPE_PRIORITY = 3;
     private static final int ORDER_TYPE_END_PROFILE_NAME = 4;
 
-    public boolean targetHelpsSequenceStarted;
+    //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
     public static final String PREF_START_TARGET_HELPS_ORDER_SPINNER = "editor_profile_activity_start_target_helps_order_spinner";
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "editor_event_list_fragment_start_target_helps_finished";
 
     private int filterType = FILTER_TYPE_ALL;
     private int orderType = ORDER_TYPE_EVENT_NAME;
@@ -203,8 +204,8 @@ public class EditorEventListFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         doOnViewCreated(view, true);
 
-        boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-        if (startTargetHelps)
+        //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+        //if (startTargetHelps)
             showTargetHelps();
     }
 
@@ -459,12 +460,12 @@ public class EditorEventListFragment extends Fragment
         changeEventOrder(orderSelectedItem, fromOnViewCreated);
     }
 
-    void changeFragmentFilter(int eventsFilterType, boolean startTargetHelps) {
+    void changeFragmentFilter(int eventsFilterType/*, boolean startTargetHelps*/) {
         filterType = eventsFilterType;
 
         doOnViewCreated(rootView, false);
 
-        if (startTargetHelps)
+        //if (startTargetHelps)
             showTargetHelps();
     }
 
@@ -662,8 +663,8 @@ public class EditorEventListFragment extends Fragment
             if (lm != null)
                 lm.scrollToPosition(eventPos);
 
-            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-            if (startTargetHelps)
+            //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            //if (startTargetHelps)
                 showAdapterTargetHelps();
 
             editMode = EDIT_MODE_EDIT;
@@ -1185,8 +1186,8 @@ public class EditorEventListFragment extends Fragment
                 }
             }
 
-            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-            if (startTargetHelps)
+            //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            //if (startTargetHelps)
                 showAdapterTargetHelps();
         }
     }
@@ -1580,12 +1581,17 @@ public class EditorEventListFragment extends Fragment
         if (getActivity() == null)
             return;
 
-        if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
+        //if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
+        //    return;
+
+        boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished;
+        if (!startTargetHelpsFinished)
             return;
+
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps;
         boolean startTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFilterSpinner;
-        boolean startTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile;
+        boolean startTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile;
         boolean startTargetHelpsOrderSpinner = ApplicationPreferences. prefEditorEventsFragmentStartTargetHelpsOrderSpinner;
 
         if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsDefaultProfile || startTargetHelpsOrderSpinner ||
@@ -1606,7 +1612,7 @@ public class EditorEventListFragment extends Fragment
                 editor.apply();
                 ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
                 ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFilterSpinner = false;
-                ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = false;
+                ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile = false;
                 if (filterType != FILTER_TYPE_START_ORDER)
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsOrderSpinner = false;
 
@@ -1737,7 +1743,13 @@ public class EditorEventListFragment extends Fragment
                             // to the sequence
                             @Override
                             public void onSequenceFinish() {
-                                targetHelpsSequenceStarted = false;
+                                //targetHelpsSequenceStarted = false;
+
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
+                                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                                editor.apply();
+                                ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
+
                                 showAdapterTargetHelps();
                             }
 
@@ -1748,22 +1760,30 @@ public class EditorEventListFragment extends Fragment
 
                             @Override
                             public void onSequenceCanceled(TapTarget lastTarget) {
-                                targetHelpsSequenceStarted = false;
+                                //targetHelpsSequenceStarted = false;
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_START_ORDER)
                                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
+
+                                editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                                editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
                                 editor.apply();
+
                                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
                                 if (filterType != FILTER_TYPE_START_ORDER)
                                     ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
                                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
+
+                                ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
+                                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
                             }
                         });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                targetHelpsSequenceStarted = true;
+                //targetHelpsSequenceStarted = true;
                 sequence.start();
             }
             else {
@@ -1795,15 +1815,17 @@ public class EditorEventListFragment extends Fragment
         if ((eventListAdapter != null) && (itemView != null))
             eventListAdapter.showTargetHelps(getActivity(), this, itemView);
         else {
-            targetHelpsSequenceStarted = false;
+            //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getActivity().getApplicationContext());
             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
             if (filterType == FILTER_TYPE_START_ORDER)
                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
             editor.apply();
             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
             if (filterType == FILTER_TYPE_START_ORDER)
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
+            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
         }
     }
 
