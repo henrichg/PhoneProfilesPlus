@@ -67,7 +67,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - dashclock - https://github.com/romannurik/dashclock
 - DexMaker - https://github.com/linkedin/dexmaker
 - volley - https://github.com/google/volley
-- ExpandableLayout - https://github.com/skydoves/ExpandableLayout  
+- ExpandableLayout - https://github.com/skydoves/ExpandableLayout
+- SmoothBottomBar - https://github.com/ibrahimsn98/SmoothBottomBar
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
