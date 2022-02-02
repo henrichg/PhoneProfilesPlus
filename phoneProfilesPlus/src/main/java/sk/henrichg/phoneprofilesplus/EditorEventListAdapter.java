@@ -369,7 +369,6 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         if (!startTargetHelpsFinished)
             return;
 
-
         boolean startTargetHelps = ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps;
         boolean startTargetHelpsOrder = ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder;
         boolean startTargetHelpsStatus = ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus;
@@ -576,6 +575,12 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
+
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+            editor.apply();
+            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = false;
+
             sequence.start();
         }
     }

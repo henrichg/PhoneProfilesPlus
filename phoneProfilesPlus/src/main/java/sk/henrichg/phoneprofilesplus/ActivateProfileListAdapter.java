@@ -420,6 +420,12 @@ class ActivateProfileListAdapter extends BaseAdapter
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
+
+            editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+            editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+            editor.apply();
+            ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = false;
+
             sequence.start();
         }
         else {

@@ -1588,7 +1588,6 @@ public class EditorEventListFragment extends Fragment
         if (!startTargetHelpsFinished)
             return;
 
-
         boolean startTargetHelps = ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps;
         boolean startTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFilterSpinner;
         boolean startTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile;
@@ -1784,6 +1783,12 @@ public class EditorEventListFragment extends Fragment
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
                 //targetHelpsSequenceStarted = true;
+
+                editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
+                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.apply();
+                ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = false;
+
                 sequence.start();
             }
             else {

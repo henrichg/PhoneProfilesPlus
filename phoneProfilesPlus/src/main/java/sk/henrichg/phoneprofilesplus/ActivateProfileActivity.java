@@ -779,6 +779,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
                 //targetHelpsSequenceStarted = true;
+
+                editor = ApplicationPreferences.getEditor(getApplicationContext());
+                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.apply();
+                ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = false;
+
                 sequence.start();
             }
             else {

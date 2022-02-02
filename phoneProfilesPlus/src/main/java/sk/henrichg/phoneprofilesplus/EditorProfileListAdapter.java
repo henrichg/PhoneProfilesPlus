@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.os.TelephonyServiceManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -599,6 +600,12 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
+
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+            editor.apply();
+            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = false;
+
             sequence.start();
 
         }
