@@ -1873,6 +1873,10 @@
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus nie je predvolený Asistent</string>
     <string name="phone_profiles_pref_category_widget_icon">Miniaplikácia: Ikona</string>
     <string name="phone_profiles_pref_category_shortcut">Odkaz</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo">Špeciálny prístup \"Ovládanie Wi-Fi\"</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_summary">Špeciálny prístup \"Ovládanie Wi-Fi\" musí byť povolený. Vyžaduje sa na zapnutie a vypnutie Wi-Fi. Kliknite sem, pre zobrazenie ako.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">Špeciálny prístup \"Ovládanie Wi-Fi\" musí byť povolený. Vyžaduje sa na zapnutie a vypnutie Wi-Fi.\n\nV Nastavenia zariadenia povoľte \"Aplikácie\"\/\"Špeciálny prístup aplikácií\"\/\"Ovládanie Wi-Fi\" pre PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Zobraz Nastavenia zariadenia</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

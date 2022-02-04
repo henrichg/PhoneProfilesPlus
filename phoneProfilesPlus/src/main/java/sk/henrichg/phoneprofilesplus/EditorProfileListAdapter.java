@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-import android.os.TelephonyServiceManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;

@@ -1873,6 +1873,10 @@
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus n\'est pas l\'assistant par défaut</string>
     <string name="phone_profiles_pref_category_widget_icon">Widget : Icône</string>
     <string name="phone_profiles_pref_category_shortcut">Raccourci</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo">Accès spécial \"Contrôle Wi-Fi\"</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_summary">L\'accès spécial \"Contrôle Wi-Fi\" doit être autorisé. Il est nécessaire pour activer et désactiver le Wi-Fi. Cliquez sur ceci pour voir comment faire.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">L\'accès spécial \"Contrôle Wi-Fi\" doit être autorisé. Il est nécessaire pour activer et désactiver le Wi-Fi.\n\nDans les paramètres de l\'appareil, autorisez \"Application\" \/\"Accès spécial à l\'application\"\/\"Contrôle Wi-Fi\" pour PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Afficher les paramètres de l\'appareil</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
