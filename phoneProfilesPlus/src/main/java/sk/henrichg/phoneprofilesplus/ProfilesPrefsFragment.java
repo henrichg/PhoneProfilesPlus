@@ -5981,8 +5981,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
                 dialog.show();
-        }
-        else*/
+        }*/
+        else
             installExtenderFromGitHub();
     }
 
