@@ -1902,8 +1902,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_category_shortcut">Shortcut</string>
 
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Wi-Fi control\" special access</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi, Wi-Fi event sensor. Click this to show how.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi, Wi-Fi event sensor.\n\nIn device Settings allow \"Apps\"\/\"Special app access\"\/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi. Click this to show how.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"\/\"Special app access\"\/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Show device Settings</string>
 
     <!-- **************************************************************************************** -->
