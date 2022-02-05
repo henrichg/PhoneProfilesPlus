@@ -119,25 +119,23 @@ public class PPApplication extends Application
 
     static final String GITHUB_PPP_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlus/releases";
     static final String GITHUB_PPP_DOWNLOAD_URL = "https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk";
-    //static final String GITHUB_PPP_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlus/releases/download/";
-    //static final String GITHUB_PPP_DOWNLOAD_URL_2 = "/PhoneProfilesPlus.apk";
 
     static final String GITHUB_PPPE_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
     static final String GITHUB_PPPE_DOWNLOAD_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases/latest/download/PhoneProfilesPlusExtender.apk";
-    //static final String GITHUB_PPPE_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases/download/";
-    //static final String GITHUB_PPPE_DOWNLOAD_URL_2 = "/PhoneProfilesPlusExtender.apk";
 
     static final String GITHUB_PPP_URL = "https://github.com/henrichg/PhoneProfilesPlus";
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/t/phoneprofilesplus.3799429/";
-            //"https://forum.xda-developers.com/android/apps-games/phone-profile-plus-t3799429";
+
     static final String PAYPAL_DONATION_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U";
 
     // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases_debug.md
-    // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases.md
     // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
     static final String PPP_RELEASES_DEBUG_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases-debug.md";
+    // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases.md
+    // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
     static final String PPP_RELEASES_URL = "https://https://henrichg.github.io/PhoneProfilesPlus/releases.md";
+
     static final String FDROID_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
     static final String FDROID_APPLICATION_URL = "https://www.f-droid.org/";
     static final String FDROID_REPOSITORY_URL = "https://apt.izzysoft.de/fdroid/index/info";
