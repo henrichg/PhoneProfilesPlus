@@ -28,8 +28,8 @@
 // 6700 = separated shortcut parameters from widhet icon parameters
 
 ext.ppVersions = [
-    publishVersion: '5.2b',
-    publishVersionCode: 6709,
+    publishVersion: '5.2',
+    publishVersionCode: 6710,
 
     minSdk: 24,
     targetSdk: 28,
