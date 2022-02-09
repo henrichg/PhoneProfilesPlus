@@ -202,7 +202,7 @@ public class MainWorker extends Worker {
                         if (oldAccessibilityServiceForPPPExtenderConnected == 0) {
                             // answer from Extender not returned
                             PPApplication.restartAllScanners(appContext, false);
-                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                             dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
                         }
                         break;
@@ -299,7 +299,7 @@ public class MainWorker extends Worker {
 
         //}
 
-        final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+        final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
         if (Event.getGlobalEventsRunning()) {
             PPApplication.logE("MainWorker.doAfterFirstStart", "global event run is enabled, first start events");

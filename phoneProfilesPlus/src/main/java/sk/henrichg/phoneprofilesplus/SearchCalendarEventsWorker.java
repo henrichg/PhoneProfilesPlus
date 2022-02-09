@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("WeakerAccess")
 public class SearchCalendarEventsWorker extends Worker {
 
     private final Context context;

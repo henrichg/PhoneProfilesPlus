@@ -168,6 +168,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_my_location"
+                android:contentDescription="@string/location_editor_change_location_dialog_title"
                 android:background="?attr/selectableItemBackgroundBorderless" />
 
             <androidx.appcompat.widget.AppCompatImageButton
@@ -179,6 +180,7 @@
                 android:layout_toStartOf = "@id/location_editor_my_location"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_address"
+                android:contentDescription="@string/location_editor_rename_with_address_button_tooltip"
                 android:background="?attr/selectableItemBackgroundBorderless" />
 
             <EditText

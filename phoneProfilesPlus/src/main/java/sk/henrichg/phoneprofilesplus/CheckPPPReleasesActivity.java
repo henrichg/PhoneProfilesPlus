@@ -121,6 +121,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                             try {
                                 if (updateReleasedVersion && (alertDialog != null)) {
+                                    // Dialog is opened by showDialog() called before this download
+                                    // of PPP_RELEASES_URL. Refresh views in it only.
                                     checkInGitHub(activity, true);
                                 }
                             } catch (Exception e) {
@@ -149,59 +151,80 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    private void showDialog(final Activity activity, final int store) {
+    private void showDialog(final Activity activity, int store) {
 
-        if (store == R.id.menu_check_in_fdroid)
+        PackageManager packageManager = activity.getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
+        boolean amazonAppStoreInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+        boolean fdroidInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        boolean galaxyStoreInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+        boolean appGalleryInstalled = (intent != null);
+
+        boolean displayed = false;
+
+        if (store == R.id.menu_check_in_fdroid) {
             checkInFDroid(activity);
+            displayed = true;
+        }
         else
-        if (store == R.id.menu_check_in_galaxy_store)
-            checkInGalaxyStore(activity);
-        else
-        if (store == R.id.menu_check_in_amazon_appstore)
-            checkInAmazonAppstore(activity);
-        else
-        if (store == R.id.menu_check_in_appgallery)
-            checkInHuaweiAppGallery(activity);
-        else
-        if (store == R.id.menu_check_in_github)
-            checkInGitHub(activity, false);
-        else
-        if (store == R.id.menu_check_in_apkpure)
-            checkInAPKPure(activity);
-        else
-        if (store == -1) {
-            // this is for
-            // - CheckPPPReleasesBroadcastReceiver
-
-            if (PPApplication.deviceIsSamsung)
+        if (store == R.id.menu_check_in_galaxy_store) {
+            if (galaxyStoreInstalled) {
                 checkInGalaxyStore(activity);
-            else
-            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
-                checkInHuaweiAppGallery(activity);
-            else {
-                PackageManager packageManager = activity.getPackageManager();
-                Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
-                boolean amazonAppStoreInstalled = (intent != null);
-                intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
-                boolean fdroidInstalled = (intent != null);
-
-                if (amazonAppStoreInstalled)
-                    checkInAmazonAppstore(activity);
-                else
-                if (fdroidInstalled)
-                    checkInFDroid(activity);
-                else
-                    checkInGitHub(activity, false);
+                displayed = true;
             }
         }
         else
-            // this is for
-            // - CheckCriticalPPPReleasesBroadcastReceiver
+        if (store == R.id.menu_check_in_amazon_appstore) {
+            checkInAmazonAppstore(activity);
+            displayed = true;
+        }
+        else
+        if (store == R.id.menu_check_in_appgallery) {
+            if (appGalleryInstalled) {
+                checkInHuaweiAppGallery(activity);
+                displayed = true;
+            }
+        }
+        else
+        if (store == R.id.menu_check_in_github) {
             checkInGitHub(activity, false);
+            displayed = true;
+        }
+        else
+        if (store == R.id.menu_check_in_apkpure) {
+            checkInAPKPure(activity);
+            displayed = true;
+        }
+
+        if (!displayed) {
+            if (store == -1) {
+                // this is for
+                // - CheckPPPReleasesBroadcastReceiver
+
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled)
+                    checkInGalaxyStore(activity);
+                else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
+                    checkInHuaweiAppGallery(activity);
+                else {
+                    if (amazonAppStoreInstalled)
+                        checkInAmazonAppstore(activity);
+                    else if (fdroidInstalled)
+                        checkInFDroid(activity);
+                    else
+                        checkInGitHub(activity, false);
+                }
+            } else
+                // this is for
+                // - CheckCriticalPPPReleasesBroadcastReceiver
+                checkInGitHub(activity, false);
+        }
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    private void checkInGitHub(final Activity activity, final boolean refresh) {
+    private void checkInGitHub(final Activity activity, final boolean refreshOpenedDialog) {
         int pppVersionCode = 0;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
@@ -211,7 +234,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         newVersionDataExists = (!newVersionName.isEmpty()) && (newVersionCode > 0);
 
         AlertDialog.Builder dialogBuilder = null;
-        if (!refresh) {
+        if (!refreshOpenedDialog) {
             dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.menu_check_github_releases);
         }
@@ -248,19 +271,19 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             message = message + activity.getString(R.string.check_github_releases_install_info_app_stores_release);
         }
 
-        if (!refresh) {
+        if (!refreshOpenedDialog) {
             LayoutInflater inflater = activity.getLayoutInflater();
-            alertDialogLayout = inflater.inflate(R.layout.dialog_install_extender, null);
+            alertDialogLayout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
             dialogBuilder.setView(alertDialogLayout);
         }
 
         TextView text;
-        text = alertDialogLayout.findViewById(R.id.install_extender_dialog_info_text);
+        text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
         text.setText(message);
 
-        text = alertDialogLayout.findViewById(R.id.install_extender_dialog_github_releases);
+        text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         if (newVersionDataExists) {
-            Button button = alertDialogLayout.findViewById(R.id.install_extender_dialog_showAssets);
+            Button button = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_showAssets);
             button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
             button.setVisibility(View.GONE);
 
@@ -297,7 +320,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         else {
             text.setVisibility(View.GONE);
 
-            Button button = alertDialogLayout.findViewById(R.id.install_extender_dialog_showAssets);
+            Button button = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_showAssets);
             button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(v -> {
@@ -307,7 +330,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             });
         }
 
-        if (!refresh) {
+        if (!refreshOpenedDialog) {
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setCancelable(true);
         }
@@ -316,11 +339,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         if (newVersionDataExists)
             buttonText = R.string.alert_button_install;
 
-        if (!refresh) {
+        if (!refreshOpenedDialog) {
             dialogBuilder.setPositiveButton(buttonText, (dialog, which) -> {
                 String url;
                 if (newVersionDataExists)
-                    url = PPApplication.GITHUB_PPP_DOWNLOAD_URL_1 + newVersionName + PPApplication.GITHUB_PPP_DOWNLOAD_URL_2;
+                    url = PPApplication.GITHUB_PPP_DOWNLOAD_URL;
+                    //url = PPApplication.GITHUB_PPP_DOWNLOAD_URL_1 + newVersionName + PPApplication.GITHUB_PPP_DOWNLOAD_URL_2;
                 else
                     url = PPApplication.GITHUB_PPP_RELEASES_URL;
 
@@ -360,7 +384,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //            }
 //        });
 
-        if ((!activity.isFinishing()) && (!refresh))
+        if ((!activity.isFinishing()) && (!refreshOpenedDialog))
             alertDialog.show();
 
     }

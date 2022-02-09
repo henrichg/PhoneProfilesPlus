@@ -5,13 +5,10 @@ package mobi.upod.timedurationpicker;
  */
 class TimeDurationUtil {
     /** The number of milliseconds within a second. */
-    @SuppressWarnings("WeakerAccess")
     public static final int MILLIS_PER_SECOND = 1000;
     /** The number of milliseconds within a minute. */
-    @SuppressWarnings("WeakerAccess")
     public static final int MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
     /** The number of milliseconds within an hour. */
-    @SuppressWarnings("WeakerAccess")
     public static final int MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
 
     /**

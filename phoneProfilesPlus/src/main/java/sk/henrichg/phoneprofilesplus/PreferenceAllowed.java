@@ -33,6 +33,7 @@ class PreferenceAllowed {
     static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION = 11;
     static final int PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED = 12;
     static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION = 13;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT = 14;
 
     String getNotAllowedPreferenceReasonString(Context context) {
         switch (notAllowedReason) {
@@ -52,12 +53,13 @@ class PreferenceAllowed {
             case PREFERENCE_NOT_ALLOWED_NO_SIM_CARD: return context.getString(R.string.preference_not_allowed_reason_no_sim_card);
             case PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION: return context.getString(R.string.preference_not_allowed_reason_not_granted_g1_permission);
             case PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION: return context.getString(R.string.preference_not_allowed_reason_not_granted_phone_permission);
+            case PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT: return context.getString(R.string.preference_not_allowed_reason_not_set_as_assistant);
             default: return context.getString(R.string.empty_string);
         }
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(PreferenceAllowed preferenceAllowed,
-            Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread) {
+            Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
@@ -98,11 +100,16 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
             }
         } else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-            if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
-                preferenceAllowed.notAllowedRoot = true;
-                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
+            // check if defailt Assistent is set to PPP
+            if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT;
+                //if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
+                //    preferenceAllowed.notAllowedRoot = true;
+                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
+                //}
             }
         }
     }
@@ -253,7 +260,11 @@ class PreferenceAllowed {
                     boolean sim0Exists;
                     synchronized (PPApplication.simCardsMutext) {
                         sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        //if (!sim0Exists)
+                        //    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA (1)", "sim0Exists="+sim0Exists);
                         sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                        //if (!sim0Exists)
+                        //    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA (2)", "sim0Exists="+sim0Exists);
                     }
                     if (!sim0Exists) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -778,10 +789,10 @@ class PreferenceAllowed {
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     }
                     else {
-                        if ((profile != null) && (profile._deviceWiFiAP != 0)) {
-                            preferenceAllowed.notAllowedRoot = true;
+                        //if ((profile != null) && (profile._deviceWiFiAP != 0)) {
+                        //    preferenceAllowed.notAllowedRoot = true;
                             //Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFiAP");
-                        }
+                        //}
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
@@ -795,10 +806,10 @@ class PreferenceAllowed {
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     }
                     else {
-                        if ((profile != null) && (profile._deviceWiFiAP != 0)) {
-                            preferenceAllowed.notAllowedRoot = true;
+                        //if ((profile != null) && (profile._deviceWiFiAP != 0)) {
+                        //    preferenceAllowed.notAllowedRoot = true;
                             //Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFiAP");
-                        }
+                        //}
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
@@ -893,7 +904,7 @@ class PreferenceAllowed {
 
         if (Build.VERSION.SDK_INT >= 28) {
 
-            if (PPApplication.deviceIsSamsung ||
+            if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
@@ -1884,7 +1895,7 @@ class PreferenceAllowed {
         Context appContext = context.getApplicationContext();
 
         if (Build.VERSION.SDK_INT >= 26) {
-            if (PPApplication.deviceIsSamsung ||
+            if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -1946,7 +1957,7 @@ class PreferenceAllowed {
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
         if (Build.VERSION.SDK_INT >= 26) {
-            if ((PPApplication.deviceIsSamsung ||
+            if (((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {

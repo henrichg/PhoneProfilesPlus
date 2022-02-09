@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -21,7 +21,7 @@ public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (SearchStringPreferenceX) getPreference();
@@ -32,7 +32,7 @@ public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCom
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         editText = view.findViewById(R.id.search_string_pref_dlg_editText);
@@ -50,7 +50,7 @@ public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCom
                             getString(R.string.pref_dlg_info_about_wildcards_3) + "\n" +
                             "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_4)
                     ;
-            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ helpString);
+            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ helpString, false);
         });
 
     }

@@ -16,9 +16,9 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
 
@@ -31,7 +31,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         this.context = context;
         preference = (VolumeDialogPreferenceX) getPreference();
@@ -94,7 +94,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         /*if (PPApplication.logEnabled()) {

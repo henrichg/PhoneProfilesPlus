@@ -44,7 +44,7 @@ import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING;
  *
  * @hide
  */
-@SuppressWarnings({"JavaDoc", "WeakerAccess"})
+@SuppressWarnings("JavaDoc")
 @RestrictTo(LIBRARY_GROUP)
 public final class TabLayoutMediator {
     private final @NonNull TabLayout mTabLayout;
@@ -158,7 +158,6 @@ public final class TabLayoutMediator {
         mAttached = false;
     }
 
-    @SuppressWarnings("WeakerAccess")
     void populateTabsFromPagerAdapter() {
         mTabLayout.removeAllTabs();
 
@@ -269,7 +268,6 @@ public final class TabLayoutMediator {
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     static void setScrollPosition(TabLayout tabLayout, int position, float positionOffset,
             boolean updateSelectedText, boolean updateIndicatorPosition) {
         try {
@@ -284,7 +282,6 @@ public final class TabLayoutMediator {
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     static void selectTab(TabLayout tabLayout, TabLayout.Tab tab, boolean updateIndicator) {
         try {
             if (sSelectTab != null) {

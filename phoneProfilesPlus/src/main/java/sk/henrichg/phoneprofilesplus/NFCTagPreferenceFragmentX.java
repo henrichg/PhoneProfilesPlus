@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
@@ -26,7 +27,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -44,7 +44,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (NFCTagPreferenceX) getPreference();
@@ -55,7 +55,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         //progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
@@ -144,7 +144,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         */
         final ImageView helpIcon = view.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
-        helpIcon.setOnClickListener(v -> DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ R.string.nfc_tag_pref_dlg_help));
+        helpIcon.setOnClickListener(v -> DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ R.string.nfc_tag_pref_dlg_help, false));
 
 
         ImageView changeSelectionIcon = view.findViewById(R.id.nfc_tag_pref_dlg_changeSelection);

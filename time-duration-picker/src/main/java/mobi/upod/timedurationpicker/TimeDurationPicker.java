@@ -28,9 +28,7 @@ import java.util.Locale;
 public class TimeDurationPicker extends FrameLayout {
 
     public static final int HH_MM_SS = 0;
-    @SuppressWarnings("WeakerAccess")
     public static final int HH_MM = 1;
-    @SuppressWarnings("WeakerAccess")
     public static final int MM_SS = 2;
 
     private int timeUnits = HH_MM_SS;

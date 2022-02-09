@@ -37,7 +37,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     public static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
+    //public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
             if (dataWrapper.getProfileById(profile_id, false, false, false) == null) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.profile_preferences_profile_not_found),
@@ -94,7 +95,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
 
         if (showSaveMenu) {
@@ -253,7 +254,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private Profile createProfile(long profile_id, int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         // no change this in shared profile
         if (!leaveSaveMenu)
@@ -601,7 +602,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     {
         Profile profile = getProfileFromPreferences(profile_id, new_profile_mode, predefinedProfileIndex);
         if (profile != null) {
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
             Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
             if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
@@ -658,113 +659,126 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         //String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
-        if (showSaveMenu) {
-            if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave) {
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                editor.putBoolean(PREF_START_TARGET_HELPS_SAVE, false);
-                editor.apply();
-                ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = false;
+        if (!showSaveMenu)
+            return;
 
-                Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
+        if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.apply();
+            ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = false;
 
-                //TypedValue tv = new TypedValue();
-                //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+            Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
 
-                //final Display display = getWindowManager().getDefaultDisplay();
+            //TypedValue tv = new TypedValue();
+            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-                int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
+            //final Display display = getWindowManager().getDefaultDisplay();
+
+            int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
 //                if (appTheme.equals("dark"))
 //                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
-                int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
+            int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor;
+            int textColor = R.color.tabTargetHelpTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
-                //boolean tintTarget = !applicationTheme.equals("white");
+            //boolean tintTarget = !applicationTheme.equals("white");
 
-                final TapTargetSequence sequence = new TapTargetSequence(this);
-                if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps) {
+            final TapTargetSequence sequence = new TapTargetSequence(this);
+            /*if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps) {
 
-                    editor = ApplicationPreferences.getEditor(getApplicationContext());
-                    editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                    editor.apply();
-                    ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = false;
+                editor = ApplicationPreferences.getEditor(getApplicationContext());
+                editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.apply();
+                ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = false;
 
-                    List<TapTarget> targets = new ArrayList<>();
-                    int id = 1;
-                    /*try {
-                        targets.add(
-                                TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_shared_profile, getString(R.string.title_activity_default_profile_preferences), getString(R.string.profile_preferences_sourceProfileInfo_summary))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(id)
-                        );
-                        ++id;
-                    } catch (Exception ignored) {} // not in action bar?*/
-                    try {
-                        targets.add(
-                                TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(id)
-                        );
-                        ++id;
-                    } catch (Exception e) {
-                        //PPApplication.recordException(e);
-                    }
-
-                    sequence.targets(targets);
+                List<TapTarget> targets = new ArrayList<>();
+                int id = 1;
+                //try {
+                //    targets.add(
+                //            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_shared_profile, getString(R.string.title_activity_default_profile_preferences), getString(R.string.profile_preferences_sourceProfileInfo_summary))
+                //                    .outerCircleColor(outerCircleColor)
+                //                    .targetCircleColor(targetCircleColor)
+                //                    .textColor(textColor)
+                //                    .tintTarget(true)
+                //                    .drawShadow(true)
+                //                    .id(id)
+                //    );
+                //    ++id;
+                //} catch (Exception ignored) {} // not in action bar?
+                try {
+                    targets.add(
+                            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(true)
+                                    .drawShadow(true)
+                                    .id(id)
+                    );
+                    ++id;
+                } catch (Exception e) {
+                    //PPApplication.recordException(e);
                 }
-                else {
-                    List<TapTarget> targets = new ArrayList<>();
-                    int id = 1;
-                    try {
-                        targets.add(
-                                TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(id)
-                        );
-                        ++id;
-                    } catch (Exception e) {
-                        //PPApplication.recordException(e);
-                    }
 
-                    sequence.targets(targets);
-                }
-                sequence.listener(new TapTargetSequence.Listener() {
-                    // This listener will tell us when interesting(tm) events happen in regards
-                    // to the sequence
-                    @Override
-                    public void onSequenceFinish() {
-                        //targetHelpsSequenceStarted = false;
-                    }
-
-                    @Override
-                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                        //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                    }
-
-                    @Override
-                    public void onSequenceCanceled(TapTarget lastTarget) {
-                        //targetHelpsSequenceStarted = false;
-                    }
-                });
-                sequence.continueOnCancel(true)
-                        .considerOuterCircleCanceled(true);
-                //targetHelpsSequenceStarted = true;
-                sequence.start();
+                sequence.targets(targets);
             }
+            else {*/
+                List<TapTarget> targets = new ArrayList<>();
+                int id = 1;
+                try {
+                    targets.add(
+                            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(true)
+                                    .drawShadow(true)
+                                    .id(id)
+                    );
+                    ++id;
+                } catch (Exception e) {
+                    //PPApplication.recordException(e);
+                }
+
+                sequence.targets(targets);
+            //}
+            sequence.listener(new TapTargetSequence.Listener() {
+                // This listener will tell us when interesting(tm) events happen in regards
+                // to the sequence
+                @Override
+                public void onSequenceFinish() {
+                    //targetHelpsSequenceStarted = false;
+
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                    editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.apply();
+                    ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = true;
+
+                }
+
+                @Override
+                public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                    //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                }
+
+                @Override
+                public void onSequenceCanceled(TapTarget lastTarget) {
+                    //targetHelpsSequenceStarted = false;
+                }
+            });
+            sequence.continueOnCancel(true)
+                    .considerOuterCircleCanceled(true);
+            //targetHelpsSequenceStarted = true;
+
+            editor = ApplicationPreferences.getEditor(getApplicationContext());
+            editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+            editor.apply();
+            ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = false;
+
+            sequence.start();
         }
     }
 

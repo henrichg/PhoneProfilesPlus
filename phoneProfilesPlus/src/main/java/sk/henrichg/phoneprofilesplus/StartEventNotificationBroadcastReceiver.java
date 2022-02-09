@@ -195,8 +195,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
+        final Context appContext = context.getApplicationContext();
         if (useHandler) {
-            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationBroadcastReceiver.doWork"*/);
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
@@ -237,7 +237,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             });
         }
         else {
-            final Context appContext = context.getApplicationContext();
             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
             Event event = databaseHandler.getEvent(event_id);
             if (event != null)

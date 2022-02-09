@@ -85,15 +85,16 @@ public class EditorProfileListFragment extends Fragment
     static final int EDIT_MODE_DELETE = 4;
 
     static final String FILTER_TYPE_ARGUMENT = "filter_type";
-    static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    //static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
     static final int FILTER_TYPE_ALL = 0;
     static final int FILTER_TYPE_SHOW_IN_ACTIVATOR = 1;
     static final int FILTER_TYPE_NO_SHOW_IN_ACTIVATOR = 2;
 
-    public boolean targetHelpsSequenceStarted;
+    //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profile_list_fragment_start_target_helps_finished";
 
     private int filterType = FILTER_TYPE_ALL;
 
@@ -152,7 +153,7 @@ public class EditorProfileListFragment extends Fragment
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         setHasOptionsMenu(true);
 
@@ -171,8 +172,8 @@ public class EditorProfileListFragment extends Fragment
 
         doOnViewCreated(view, true);
 
-        boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-        if (startTargetHelps)
+        //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+        //if (startTargetHelps)
             showTargetHelps();
     }
 
@@ -401,12 +402,12 @@ public class EditorProfileListFragment extends Fragment
 
     }
 
-    void changeFragmentFilter(int profilesFilterType, boolean startTargetHelps) {
+    void changeFragmentFilter(int profilesFilterType/*, boolean startTargetHelps*/) {
         filterType = profilesFilterType;
 
         doOnViewCreated(rootView, false);
 
-        if (startTargetHelps)
+        //if (startTargetHelps)
             showTargetHelps();
     }
 
@@ -428,7 +429,7 @@ public class EditorProfileListFragment extends Fragment
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             //noinspection ConstantConditions
-            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
             //_baseContext = fragment.getActivity();
 
             applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
@@ -606,8 +607,8 @@ public class EditorProfileListFragment extends Fragment
             if (lm != null)
                 lm.scrollToPosition(profilePos);
 
-            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-            if (startTargetHelps)
+            //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            //if (startTargetHelps)
                 showAdapterTargetHelps();
 
             editMode = EDIT_MODE_EDIT;
@@ -951,7 +952,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         }
         else
-            EditorProfilesActivity.showDialogAboutRedText(profile, null, false, false, false, getActivity());
+            EditorProfilesActivity.showDialogAboutRedText(profile, null, true, false, false, false, getActivity());
     }
 
     /*private void setProfileSelection(Profile profile) {
@@ -1048,8 +1049,8 @@ public class EditorProfileListFragment extends Fragment
                 }
             }
 
-            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-            if (startTargetHelps)
+            //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            //if (startTargetHelps)
                 showAdapterTargetHelps();
 
         }
@@ -1337,7 +1338,7 @@ public class EditorProfileListFragment extends Fragment
                 popup.show();
         }
         else
-            EditorProfilesActivity.showDialogAboutRedText(profile, null, false, true, false, getActivity());
+            EditorProfilesActivity.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
     }
 
     /*
@@ -1380,12 +1381,16 @@ public class EditorProfileListFragment extends Fragment
         if (getActivity() == null)
             return;
 
-        if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
+        //if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
+        //    return;
+
+        boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished;
+        if (!startTargetHelpsFinished)
             return;
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps;
         boolean startTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner;
-        boolean startTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile;
+        boolean startTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile;
 
         if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsDefaultProfile ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps ||
@@ -1405,7 +1410,7 @@ public class EditorProfileListFragment extends Fragment
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = false;
-                ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = false;
+                ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile = false;
 
                 //String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
@@ -1506,7 +1511,13 @@ public class EditorProfileListFragment extends Fragment
                             // to the sequence
                             @Override
                             public void onSequenceFinish() {
-                                targetHelpsSequenceStarted = false;
+                                //targetHelpsSequenceStarted = false;
+
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
+                                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                                editor.apply();
+                                ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
+
                                 showAdapterTargetHelps();
                             }
 
@@ -1517,24 +1528,41 @@ public class EditorProfileListFragment extends Fragment
 
                             @Override
                             public void onSequenceCanceled(TapTarget lastTarget) {
-                                targetHelpsSequenceStarted = false;
+                                //targetHelpsSequenceStarted = false;
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
+
+                                editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_SHOW_IN_ACTIVATOR)
                                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                                 if (filterType == FILTER_TYPE_ALL)
                                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+
+                                editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
                                 editor.apply();
+
+                                ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
                                 if (filterType == FILTER_TYPE_SHOW_IN_ACTIVATOR)
                                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
                                 if (filterType == FILTER_TYPE_ALL)
                                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
+
+                                ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
+                                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
                             }
                         });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                targetHelpsSequenceStarted = true;
+                //targetHelpsSequenceStarted = true;
+
+                editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
+                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.apply();
+                ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = false;
+
                 sequence.start();
             }
             else {
@@ -1566,15 +1594,15 @@ public class EditorProfileListFragment extends Fragment
         //Log.d("EditorProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
         //Log.d("EditorProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
         if ((profileListAdapter != null) && (itemView != null))
-            profileListAdapter.showTargetHelps(getActivity(), this, itemView);
+            profileListAdapter.showTargetHelps(getActivity(), /*this,*/ itemView);
         else {
-            targetHelpsSequenceStarted = false;
+            //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
             editor.apply();
-            ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
+            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
         }
     }
 
@@ -1715,7 +1743,7 @@ public class EditorProfileListFragment extends Fragment
             EditorProfileListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if (fragment.getActivity() != null) {
-                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                     _dataWrapper.copyProfileList(fragment.activityDataWrapper);
 
                     for (Profile profile : _dataWrapper.profileList) {

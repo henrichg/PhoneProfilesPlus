@@ -22,6 +22,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
@@ -33,7 +34,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -55,7 +55,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (BluetoothNamePreferenceX) getPreference();
@@ -66,7 +66,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         PPApplication.forceRegisterReceiversForBluetoothScanner(prefContext);
@@ -138,7 +138,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     getString(R.string.bluetooth_name_pref_dlg_info_about_wildcards) + " " +
                     getString(R.string.pref_dlg_info_about_wildcards_3);
 
-            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ helpString);
+            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ helpString, false);
         });
 
 

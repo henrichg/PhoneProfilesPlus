@@ -59,6 +59,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_add"
+                    android:contentDescription="@string/applications_pref_dlg_add_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
             </RelativeLayout>

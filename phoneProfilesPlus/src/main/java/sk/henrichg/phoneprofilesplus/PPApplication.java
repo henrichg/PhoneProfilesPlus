@@ -43,7 +43,6 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.noob.noobcameraflash.managers.NoobCameraManager;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.rootshell.RootShell;
@@ -81,7 +80,6 @@ import me.drakeet.support.toast.ToastCompat;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
-@SuppressWarnings("WeakerAccess")
 public class PPApplication extends Application
                                         //implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks
@@ -120,23 +118,24 @@ public class PPApplication extends Application
     static final String PRIVACY_POLICY_URL = "https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html";
 
     static final String GITHUB_PPP_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlus/releases";
-    static final String GITHUB_PPP_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlus/releases/download/";
-    static final String GITHUB_PPP_DOWNLOAD_URL_2 = "/PhoneProfilesPlus.apk";
+    static final String GITHUB_PPP_DOWNLOAD_URL = "https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk";
 
     static final String GITHUB_PPPE_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-    static final String GITHUB_PPPE_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases/download/";
-    static final String GITHUB_PPPE_DOWNLOAD_URL_2 = "/PhoneProfilesPlusExtender.apk";
+    static final String GITHUB_PPPE_DOWNLOAD_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases/latest/download/PhoneProfilesPlusExtender.apk";
 
     static final String GITHUB_PPP_URL = "https://github.com/henrichg/PhoneProfilesPlus";
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
-    static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/android/apps-games/phone-profile-plus-t3799429";
+    static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/t/phoneprofilesplus.3799429/";
+
     static final String PAYPAL_DONATION_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U";
 
     // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases_debug.md
-    // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases.md
     // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
     static final String PPP_RELEASES_DEBUG_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases-debug.md";
+    // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases.md
+    // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
     static final String PPP_RELEASES_URL = "https://https://henrichg.github.io/PhoneProfilesPlus/releases.md";
+
     static final String FDROID_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
     static final String FDROID_APPLICATION_URL = "https://www.f-droid.org/";
     static final String FDROID_REPOSITORY_URL = "https://apt.izzysoft.de/fdroid/index/info";
@@ -151,7 +150,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -227,6 +226,7 @@ public class PPApplication extends Application
 //                                                +"|WifiScanWorker.doWork"
 //                                                +"|LocationScanner.startLocationUpdates"
 //                                                +"|LocationSensorWorker.enqueueWork"
+//                                                +"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
@@ -256,6 +256,8 @@ public class PPApplication extends Application
                                                 //+"|[BRSD]"
                                                 //+"|[ROOT]"
                                                 //+"|[DB_LOCK]"
+                                                //+"|[WIFI]"
+                                                //+"|[VOLUMES]"
 
                                                 //+"|PApplication.getReleaseData"
                                                 //+"|CheckGitHubReleasesActivity"
@@ -270,6 +272,17 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.execute"
                                                 //+"|ActivateProfileHelper.createBrightnessView"
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
+                                                //+"|$$$B BluetoothScanner"
+                                                //+"|$$$B PhoneProfilesService"
+                                                //+"|BluetoothScanWorker.startCLScan"
+                                                //+"|BluetoothScanWorker.fillBoundedDevicesList"
+
+                                                //+"|EditorProfilesActivity.bottomNavigationView.OnItemSelectedListener"
+                                                //+"|EditorProfilesActivity.selectViewItem"
+                                                //+"|EditorProfilesActivity.selectFilterItem"
+                                                //+"|EditorProfilesActivity.onActivityResult"
+
+                                                //+"|ActivateProfileHelper.setTones"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -408,8 +421,10 @@ public class PPApplication extends Application
     static final boolean deviceIsRealme = isRealme();
     static final boolean deviceIsLenovo = isLenovo();
     static final boolean deviceIsPixel = isPixel();
+    static final boolean deviceIsSony = isSony();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
+    static final boolean romIsGalaxy = isGalaxyROM();
 
     static boolean HAS_FEATURE_BLUETOOTH_LE = false;
     static boolean HAS_FEATURE_WIFI = false;
@@ -448,6 +463,7 @@ public class PPApplication extends Application
     static final int STARTUP_SOURCE_EXTERNAL_APP = 13;
     static final int STARTUP_SOURCE_QUICK_TILE = 14;
     static final int STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER = 15;
+    static final int STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER = 16;
 
     //static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
     //static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;
@@ -514,6 +530,8 @@ public class PPApplication extends Application
     static final String CHECK_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_GITHUB_RELEASES_NOTIFICATION_TAG";
     static final int CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID = 124;
     static final String CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG";
+    static final int CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID = 125;
+    static final String CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_TAG";
 
     static final int PROFILE_ACTIVATION_ERROR_NOTIFICATION_ID = 130;
     static final String PROFILE_ACTIVATION_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_ERROR_NOTIFICATION";
@@ -532,6 +550,8 @@ public class PPApplication extends Application
     static final String PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION";
     static final int KEEP_SCREEN_ON_NOTIFICATION_ID = 142;
     static final String KEEP_SCREEN_ON_NOTIFICATION_TAG = PACKAGE_NAME+"_KEEP_SCREEN_ON_NOTIFICATION";
+    static final int PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_ID = 143;
+    static final String PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION";
 
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;
@@ -636,6 +656,8 @@ public class PPApplication extends Application
     static final String ACTION_CHECK_GITHUB_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_GITHUB_RELEASES";
     static final String ACTION_CHECK_CRITICAL_GITHUB_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES";
     static final String ACTION_FINISH_ACTIVITY = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_FINISH_ACTIVITY";
+    static final String ACTION_CHECK_REQUIRED_EXTENDER_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES";
+
     static final String EXTRA_WHAT_FINISH = "what_finish";
 
     static final String ACTION_EXPORT_PP_DATA_START_FROM_PPP = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_START_FROM_PPP";
@@ -742,6 +764,7 @@ public class PPApplication extends Application
     static CheckCriticalPPPReleasesBroadcastReceiver checkCriticalPPPReleasesBroadcastReceiver = null;
     static CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
     static SimStateChangedBroadcastReceiver simStateChangedBroadcastReceiver = null;
+    static CheckRequiredExtenderReleasesBroadcastReceiver checkRequiredExtenderReleasesBroadcastReceiver = null;
 
     static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
     static BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;
@@ -989,11 +1012,12 @@ public class PPApplication extends Application
         AvoidRescheduleReceiverWorker.enqueueWork();
         PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker END of enqueue");
 
-        try {
-            NoobCameraManager.getInstance().init(this);
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
+//        init() moved to ActivateProfileHelpser.execute();
+//        try {
+//            NoobCameraManager.getInstance().init(this);
+//        } catch (Exception e) {
+//            PPApplication.recordException(e);
+//        }
 
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());
@@ -1014,12 +1038,15 @@ public class PPApplication extends Application
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOnePlus=" + deviceIsOnePlus);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOppo=" + deviceIsOppo);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsRealme=" + deviceIsRealme);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsLenovo=" + deviceIsLenovo);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsPixel=" + deviceIsPixel);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsSony=" + deviceIsSony);
 
             PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
             //PPApplication.logE("##### PPApplication.onCreate", "-- romIsEMUI=" + isEMUIROM());
             //PPApplication.logE("##### PPApplication.onCreate", "-- romIsMIUI=" + isMIUIROM());
+            PPApplication.logE("##### PPApplication.onCreate", "romIsGalaxy=" + romIsGalaxy);
 
             PPApplication.logE("##### PPApplication.onCreate", "manufacturer=" + Build.MANUFACTURER);
             PPApplication.logE("##### PPApplication.onCreate", "model=" + Build.MODEL);
@@ -2111,8 +2138,17 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
             ApplicationPreferences.applicationActivatorIncreaseBrightness(context);
             ApplicationPreferences.applicationWidgetOneRowHigherLayout(context);
-            ApplicationPreferences.applicationWidgetChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationWidgetListChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode(context);
             ApplicationPreferences.applicationForceSetBrightnessAtScreenOn(context);
+            ApplicationPreferences.notificationProfileIconColor(context);
+            ApplicationPreferences.notificationProfileIconLightness(context);
+            ApplicationPreferences.notificationCustomProfileIconLightness(context);
+            ApplicationPreferences.applicationShortcutIconColor(context);
+            ApplicationPreferences.applicationShortcutIconLightness(context);
+            ApplicationPreferences.applicationShortcutCustomIconLightness(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);
@@ -2136,6 +2172,8 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiply(context);
             ApplicationPreferences.notificationShowRestartEventsAsButton(context);
+
+            ApplicationPreferences.deleteBadPreferences(context);
         }
     }
 
@@ -2734,7 +2772,6 @@ public class PPApplication extends Application
             }
         }
     }
-
 
     /*
     static void createCrashReportNotificationChannel(Context context) {
@@ -4014,6 +4051,42 @@ public class PPApplication extends Application
                 Build.FINGERPRINT.toLowerCase().contains("samsung");
     }
 
+    @SuppressWarnings("JavaReflectionMemberAccess")
+    private static String getOneUiVersion() throws Exception {
+        //if (!isSemAvailable(getApplicationContext())) {
+        //    return ""; // was "1.0" originally but probably just a dummy value for one UI devices
+        //}
+        Field semPlatformIntField = Build.VERSION.class.getDeclaredField("SEM_PLATFORM_INT");
+        int version = semPlatformIntField.getInt(null) - 90000;
+        if (version < 0) {
+            // not one ui (could be previous Samsung OS)
+            return "";
+        }
+        return (version / 10000) + "." + ((version % 10000) / 100);
+    }
+
+    /*
+    private static boolean isSemAvailable(Context context) {
+        return context != null &&
+                (context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile") ||
+                        context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile_lite"));
+    }
+    */
+
+    private static boolean isGalaxyROM() {
+        try {
+            //noinspection unused
+            String romName = getOneUiVersion();
+            /*if (romName.isEmpty())
+                return true; // old, non-OneUI ROM
+            else
+                return true; // OneUI ROM*/
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private static boolean isLG() {
         //PPApplication.logE("PPApplication.isLG", "brand="+Build.BRAND);
         //PPApplication.logE("PPApplication.isLG", "manufacturer="+Build.MANUFACTURER);
@@ -4054,6 +4127,12 @@ public class PPApplication extends Application
         return Build.BRAND.equalsIgnoreCase("google") ||
                 Build.MANUFACTURER.equalsIgnoreCase("google") ||
                 Build.FINGERPRINT.toLowerCase().contains("google");
+    }
+
+    private static boolean isSony() {
+        return Build.BRAND.equalsIgnoreCase("sony") ||
+                Build.MANUFACTURER.equalsIgnoreCase("sony") ||
+                Build.FINGERPRINT.toLowerCase().contains("sony");
     }
 
     private static String getReadableModVersion() {

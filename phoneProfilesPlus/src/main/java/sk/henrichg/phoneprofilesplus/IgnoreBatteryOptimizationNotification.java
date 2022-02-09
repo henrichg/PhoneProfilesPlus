@@ -21,8 +21,8 @@ class IgnoreBatteryOptimizationNotification {
         //if (Build.VERSION.SDK_INT >= 23) {
             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "xxx");
 
+            final Context appContext = context.getApplicationContext();
             if (useHandler) {
-                final Context appContext = context.getApplicationContext();
                 PPApplication.startHandlerThread(/*"IgnoreBatteryOptimizationNotification.showNotification"*/);
                 final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
@@ -106,9 +106,8 @@ class IgnoreBatteryOptimizationNotification {
                 show = false;*/
 
                 //if (show) {
-                    final Context appContext = context.getApplicationContext();
 
-                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     try {
                         if (pm != null) {
                             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "pm="+pm);

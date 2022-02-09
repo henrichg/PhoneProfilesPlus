@@ -25,17 +25,18 @@
 // 5700 = removed usage of screen timeout 24 hours and permanent on
 // 5900 = remove tap target helps, user can it start from Editor
 // 6200 = enable notification scanning when any non-stopped event has Notification sensor
+// 6700 = separated shortcut parameters from widhet icon parameters
 
 ext.ppVersions = [
-    publishVersion: '5.1.3',
-    publishVersionCode: 6690,
+    publishVersion: '5.2',
+    publishVersionCode: 6710,
 
     minSdk: 24,
     targetSdk: 28,
-    compileSdk: 30,
-    buildTools: '31.0.0',
+    compileSdk: 31,
+    buildTools: '32.0.0',
 
-    appcompatXLib: '1.3.1', // must be minCompileSDK=31 for 1.4.0+
+    appcompatXLib: '1.4.1', // 1.3.1 - must be minCompileSDK=31 for 1.4.0+
     recyclerView: '1.2.1',
 
     acra: '5.8.4'

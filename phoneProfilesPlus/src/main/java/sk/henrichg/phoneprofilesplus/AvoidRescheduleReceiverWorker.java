@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 
 // https://issuetracker.google.com/issues/115575872#comment16
 
-@SuppressWarnings("WeakerAccess")
 public class AvoidRescheduleReceiverWorker extends Worker {
 
     public AvoidRescheduleReceiverWorker(

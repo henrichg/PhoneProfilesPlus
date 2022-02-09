@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/imageview_pref_root"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:id="@+id/profile_pref_root"
+    android:layout_width="45dp"
+    android:layout_height="45dp"
+    android:padding="6dp">
 
     <ImageView
-        android:id="@+id/imageview_pref_imageview"
+        android:id="@+id/opaqueness_lighting_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_empty"
-        android:contentDescription="@string/empty_string"/>
+        android:contentDescription="@string/preference_widget_opaqueness_lightnig_icon" />
     
 </RelativeLayout>

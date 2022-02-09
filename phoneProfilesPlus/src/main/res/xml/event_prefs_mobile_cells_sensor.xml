@@ -14,13 +14,13 @@
         app:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
         app:summary="@string/phone_profiles_pref_eventMobileCellsAppSettings_summary"
         app:dependency="eventMobileCellsEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventMobileCellsLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="eventMobileCellsEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
@@ -28,7 +28,7 @@
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
         app:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary"
         app:dependency="eventMobileCellsEnabled"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreferenceX
         app:key="eventMobileCellsRegistration"

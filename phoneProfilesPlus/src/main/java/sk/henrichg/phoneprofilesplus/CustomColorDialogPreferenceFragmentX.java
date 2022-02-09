@@ -5,13 +5,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.colormode.ColorMode;
 import com.kunzisoft.androidclearchroma.view.ChromaColorView;
 
-@SuppressWarnings("WeakerAccess")
 public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private CustomColorDialogPreferenceX preference;
@@ -20,7 +20,7 @@ public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragme
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         preference = (CustomColorDialogPreferenceX) getPreference();
         preference.fragment = this;
@@ -31,7 +31,7 @@ public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragme
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         chromaColorView = view.findViewById(R.id.custom_color_chroma_color_view);

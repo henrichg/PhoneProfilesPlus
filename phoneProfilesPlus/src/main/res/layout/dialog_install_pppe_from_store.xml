@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/install_pppe_from_store_dialog_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/install_pppe_from_store_dialog_info_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:text="@string/empty_string"
+        android:textSize="16sp"
+        android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/install_pppe_from_store_dialog_installFromGitHub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/alert_button_install_extender_from_github"
+        android:minHeight="40dp"
+        android:textColor="@color/action_button_text_color"
+        android:textStyle="bold"
+        android:background="?attr/buttonBackground"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</LinearLayout>

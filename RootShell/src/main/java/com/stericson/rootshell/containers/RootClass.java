@@ -32,7 +32,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
         STARTING, FOUND_ANNOTATION
     }
 
-    @SuppressWarnings("WeakerAccess")
     public RootClass(String[] args) throws ClassNotFoundException, NoSuchMethodException,
             IllegalAccessException, InvocationTargetException, InstantiationException {
 
@@ -55,13 +54,12 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
     }
 
-    @SuppressWarnings({"WeakerAccess", "InnerClassMayBeStatic"})
+    @SuppressWarnings("InnerClassMayBeStatic")
     public class RootArgs {
 
         String[] args;
     }
 
-    @SuppressWarnings("WeakerAccess")
     static void displayError(Exception e) {
         // Not using system.err to make it easier to capture from
         // calling library.
@@ -72,7 +70,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     // I reckon it would be better to investigate classes using getAttribute()
     // however this method allows the developer to simply select "Run" on RootClass
     // and immediately re-generate the necessary jar file.
-    @SuppressWarnings("WeakerAccess")
     static public class AnnotationsFinder {
 
         private final String AVOIDDIRPATH = "stericson" + File.separator + "rootshell" + File.separator;
@@ -129,7 +126,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                             "cmd", "/C",
                             "jar cvf" +
                                     " anbuild.jar" +
-                                    sb.toString()
+                                    sb//.toString()
                     };
                 } else {
                     ArrayList<String> al = new ArrayList<>();

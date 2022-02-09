@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+@SuppressLint("MissingPermission")
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     private static List<BluetoothDeviceData> connectedDevices = null;

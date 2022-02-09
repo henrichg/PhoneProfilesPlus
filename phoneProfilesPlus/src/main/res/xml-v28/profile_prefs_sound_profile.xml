@@ -8,13 +8,13 @@
         app:key="prf_pref_volumeIgnoreSoundModeInfo1"
         app:title="@string/profile_preferences_volumeIgnoreSoundModeInfo_title"
         app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_volumeSoundModeVibrationInfo"
         app:title="@string/profile_preferences_vvolumeSoundModeVibrationInfo_title"
         app:summary="@string/profile_preferences_volumeSoundModeVibrationInfo_summary"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_volumeSoundMode"
@@ -34,7 +34,7 @@
         app:key="prf_pref_volumeZenModeInfo"
         app:title="@string/profile_preferences_volumeZenModeM"
         app:summary="@string/profile_preferences_volumeZenModeMInfo_summary"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_volumeZenModeM"

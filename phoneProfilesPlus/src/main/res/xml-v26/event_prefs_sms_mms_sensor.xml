@@ -61,7 +61,7 @@
         app:title="@string/event_preferences_sms_forSimCard"
         app:summary="@string/event_preferences_sms_dualSIM_summary"
         app:dependency="eventSMSEnabled"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/event_preferences_sms_forSimCard"
@@ -78,21 +78,21 @@
         app:title="@string/install_extender_dialog_title"
         app:summary="@string/event_preferences_sms_PPPExtender_install_summary"
         app:dependency="eventSMSEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventSMSAccessibilitySettings"
         app:title="@string/event_preferences_applications_AccessibilitySettings_title"
         app:summary="@string/event_preferences_sms_AccessibilitySettingsForExtender_summary"
         app:dependency="eventSMSEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventSMSLaunchExtender"
         app:title="@string/event_preferences_applications_LaunchExtender_title"
         app:summary="@string/event_preferences_sms_LaunchExtender_summary"
         app:dependency="eventSMSEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

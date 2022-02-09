@@ -24,17 +24,11 @@ package com.stericson.roottools.containers;
 
 public class Permissions
 {
-    @SuppressWarnings("WeakerAccess")
     String type;
-    @SuppressWarnings("WeakerAccess")
     String user;
-    @SuppressWarnings("WeakerAccess")
     String group;
-    @SuppressWarnings("WeakerAccess")
     String other;
-    @SuppressWarnings("WeakerAccess")
     String symlink;
-    @SuppressWarnings("WeakerAccess")
     int permissions;
 
     @SuppressWarnings("unused")

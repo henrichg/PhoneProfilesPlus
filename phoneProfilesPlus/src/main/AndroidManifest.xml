@@ -49,6 +49,9 @@
 <!--    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />-->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.TETHER_PRIVILEGED" tools:ignore="ProtectedPermissions" />
+<!--    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />-->
+<!--    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />-->
+<!--    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />-->
 
     <uses-permission android:name="sk.henrichg.phoneprofiles.EXPORT_PP_DATA_PERMISSION" />
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
@@ -151,6 +154,11 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4"/>
+
+        <!-- for Galaxy Store - added Edge specials -->
+        <meta-data
+            android:name="com.samsung.android.cocktail.mode"
+            android:value="edge_single_plus" />
 
 <!--        <provider-->
 <!--            android:name="androidx.work.impl.WorkManagerInitializer"-->
@@ -382,11 +390,11 @@
         </activity>
         <activity
             android:name=".LockDeviceActivity"
-            android:label="@string/ppp_app_name"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.lockDevice"
             android:theme="@style/LockDeviceActivity">
         </activity>
+<!--        android:label="@string/ppp_app_name"-->
         <activity
             android:name=".ExitApplicationActivity"
             android:excludeFromRecents="true"
@@ -469,6 +477,13 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CheckRequiredExtenderReleasesActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
         </activity>
 
 
@@ -739,6 +754,19 @@
             <meta-data android:name="android.service.quicksettings.ACTIVE_TILE"
                 android:value="true" />
         </service>
+
+        <service android:name="sk.henrichg.phoneprofilesplus.PPPVoiceService"
+            android:permission="android.permission.BIND_VOICE_INTERACTION"
+            tools:ignore="IntentFilterExportedReceiver">
+            <meta-data android:name="android.voice_interaction"
+                android:resource="@xml/assist_metadata"/>
+            <intent-filter>
+                <action android:name="android.service.voice.VoiceInteractionService"/>
+            </intent-filter>
+        </service>
+
+        <service android:name="sk.henrichg.phoneprofilesplus.PPPVoiceSessionService"
+            android:permission="android.permission.BIND_VOICE_INTERACTION"/>
 
     </application>
 

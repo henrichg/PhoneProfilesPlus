@@ -9,6 +9,8 @@
         android:id="@+id/donation_paypal_fragment_liLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:orientation="vertical">
 
         <!--
@@ -87,13 +89,13 @@
             android:id="@+id/donation_paypal_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="15dp"
             android:columnWidth="100dp"
             android:gravity="center"
             android:horizontalSpacing="10dp"
             android:verticalSpacing="20dp"
             android:numColumns="1"
             android:stretchMode="columnWidth"
-            android:padding="15dip"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:drawSelectorOnTop="true"

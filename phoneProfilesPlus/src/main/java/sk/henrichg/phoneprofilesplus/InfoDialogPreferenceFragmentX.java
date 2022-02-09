@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private InfoDialogPreferenceX preference;
@@ -23,7 +22,7 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         preference = (InfoDialogPreferenceX) getPreference();
         preference.fragment = this;
@@ -34,7 +33,7 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         final TextView infoTextView = view.findViewById(R.id.info_pref_dialog_info_text);

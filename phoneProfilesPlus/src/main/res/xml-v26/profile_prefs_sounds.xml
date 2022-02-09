@@ -50,7 +50,7 @@
     <Preference
         app:title="@string/profile_preferences_deviceDualSIMSupport"
         app:key="prf_pref_soundsDualSIMSupportCategoryRoot"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsSoundsDualSIMSupport" />
 

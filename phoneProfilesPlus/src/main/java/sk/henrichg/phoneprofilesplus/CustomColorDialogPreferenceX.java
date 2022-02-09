@@ -17,6 +17,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
@@ -54,13 +55,13 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         chromaIndicatorMode = typedArray.getInteger(
                 R.styleable.ChromaPreference_chromaIndicatorMode, 1);
 
-        setWidgetLayoutResource(R.layout.widget_custom_color_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_custom_color_preference); // resource na layout custom preference - TextView-ImageView
 
         typedArray.recycle();
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
 
@@ -101,8 +102,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             if (colorPreview != null) {
                 int shapeWidth = getContext().getResources()
                         .getDimensionPixelSize(R.dimen.acch_shape_preference_width);
-                @SuppressWarnings("IntegerDivisionInFloatingPointContext")
-                float radius = shapeWidth / 2;
+                float radius = shapeWidth / 2.0f;
 
                 colorPreview.setImageResource(R.drawable.acch_circle);
 
@@ -138,7 +138,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray ta, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray ta, int index)
     {
         super.onGetDefaultValue(ta, index);
         return Color.parseColor(ta.getString(index));
@@ -209,7 +209,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             int value = this.value;
@@ -236,6 +236,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         int value;
         int defaultValue;
 
+        @SuppressWarnings("unused")
         SavedState(Parcel source)
         {
             super(source);

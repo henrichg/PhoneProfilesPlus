@@ -25,6 +25,7 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,6 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.RecyclerView;
 
-@SuppressWarnings("WeakerAccess")
 public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -104,8 +104,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         //initPreferenceFragment();
     }
 
+    @NonNull
     @Override
-    public RecyclerView onCreateRecyclerView (LayoutInflater inflater, ViewGroup parent, Bundle state) {
+    public RecyclerView onCreateRecyclerView (@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, Bundle state) {
         final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
@@ -113,7 +114,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onDisplayPreferenceDialog(Preference preference) {
+    public void onDisplayPreferenceDialog(@NonNull Preference preference) {
         //PPApplication.logE("EventsPrefsFragment.onDisplayPreferenceDialog", "xxx");
 
         PreferenceDialogFragmentCompat dialogFragment = null;
@@ -1463,7 +1464,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         preference = new Preference(context);
                         preference.setKey(PRF_NOT_ENABLED_SOME_SENSOR);
                         preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.widget_exclamation_preference);
+                        preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-99);
                         preferenceCategory.addPreference(preference);
@@ -1501,9 +1502,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         preference.setKey(PRF_GRANT_PERMISSIONS);
                         preference.setIconSpaceReserved(false);
                         if (event._id > 0)
-                            preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                            preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                         else
-                            preference.setWidgetLayoutResource(R.layout.widget_exclamation_preference);
+                            preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-98);
                         preferenceCategory.addPreference(preference);
@@ -1533,9 +1534,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not enabled accessibility service
             int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false);
-            if ((accessibilityEnabled == 1) &&
-                    (PPApplication.accessibilityServiceForPPPExtenderConnected == 0))
-                accessibilityEnabled = 0;
+            if (accessibilityEnabled == 1) {
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                if (extenderVersion != 0) {
+                    // PPPE is installed
+                    if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2)
+                        // Extender is not connected
+                        accessibilityEnabled = 0;
+                }
+            }
             Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
             if (accessibilityEnabled == 1) {
                 if (preference != null) {
@@ -1551,7 +1558,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         preference = new Preference(context);
                         preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                         preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                        preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-97);
                         preferenceCategory.addPreference(preference);
@@ -1614,7 +1621,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         preference = new Preference(context);
                         preference.setKey(PRF_NOT_IS_RUNNABLE);
                         preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.widget_exclamation_preference);
+                        preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-100);
                         preferenceCategory.addPreference(preference);
@@ -1679,7 +1686,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     @SuppressLint("SetTextI18n")
-    private void installExtender() {
+    private void installExtenderFromGitHub() {
         if (getActivity() == null)
             return;
 
@@ -1688,10 +1695,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.dialog_install_extender, null);
+        View layout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
         dialogBuilder.setView(layout);
 
-        TextView text = layout.findViewById(R.id.install_extender_dialog_info_text);
+        TextView text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
 
         String dialogText = "";
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
@@ -1707,7 +1714,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         text.setText(dialogText);
 
-        text = layout.findViewById(R.id.install_extender_dialog_github_releases);
+        text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         CharSequence str1 = getString(R.string.install_extender_github_releases);
         CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + " \u21D2";
         Spannable sbt = new SpannableString(str2);
@@ -1737,18 +1744,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
-
-//        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
-//        button.setText(getActivity().getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
-//        button.setOnClickListener(v -> {
-//            Intent intent = new Intent(getActivity(), GitHubAssetsScreenshotActivity.class);
-//            intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplusextender_assets_screenshot);
-//            startActivity(intent);
-//        });
-
         dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
             //String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
-            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
+            //String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
+            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL;
 
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
@@ -1773,6 +1772,132 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             dialog.show();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void installExtender() {
+        if (getActivity() == null) {
+            return;
+        }
+
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+            dialogBuilder.setTitle(R.string.install_extender_dialog_title);
+
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
+            dialogBuilder.setView(layout);
+
+            TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
+
+            String dialogText = "";
+
+            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
+            if (extenderVersion != 0) {
+                String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
+                dialogText = dialogText + getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
+            }
+            dialogText = dialogText + getString(R.string.install_extender_required_version) +
+                    " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
+            dialogText = dialogText + getString(R.string.install_extender_text1) + " \"" + getString(R.string.alert_button_install) + "\".\n\n";
+
+            text.setText(dialogText);
+
+            dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            });
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+            Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
+
+            final AlertDialog dialog = dialogBuilder.create();
+
+            //button.setText(getActivity().getString(R.string.alert_button_install_extender_from_github));
+            button.setOnClickListener(v -> {
+                dialog.cancel();
+                installExtenderFromGitHub();
+            });
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+            if ((getActivity() != null) && (!getActivity().isFinishing()))
+                dialog.show();
+        }
+/*        else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+            dialogBuilder.setTitle(R.string.install_extender_dialog_title);
+
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
+            dialogBuilder.setView(layout);
+
+            TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
+
+            String dialogText = "";
+
+            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
+            if (extenderVersion != 0) {
+                String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
+                dialogText = dialogText + getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
+            }
+            dialogText = dialogText + getString(R.string.install_extender_required_version) +
+                    " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
+            dialogText = dialogText + getString(R.string.install_extender_text1) + " \"" + getString(R.string.alert_button_install) + "\".\n\n";
+
+            text.setText(dialogText);
+
+            dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplusextender"));
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            });
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+            Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
+
+            final AlertDialog dialog = dialogBuilder.create();
+
+            //button.setText(getActivity().getString(R.string.alert_button_install_extender_from_github));
+            button.setOnClickListener(v -> {
+                dialog.cancel();
+                installExtenderFromGitHub();
+            });
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+            if ((getActivity() != null) && (!getActivity().isFinishing()))
+                dialog.show();
+        }*/
+        else
+            installExtenderFromGitHub();
     }
 
     private void enableExtender() {

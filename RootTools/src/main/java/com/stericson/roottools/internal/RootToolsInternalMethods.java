@@ -54,7 +54,6 @@ public final class RootToolsInternalMethods {
     // # Internal methods #
     // --------------------
 
-    @SuppressWarnings("WeakerAccess")
     protected RootToolsInternalMethods() {
     }
 
@@ -63,7 +62,6 @@ public final class RootToolsInternalMethods {
         RootTools.setRim(new RootToolsInternalMethods());
     }
 
-    @SuppressWarnings("WeakerAccess")
     public Permissions getPermissions(String line) {
 
         String[] lineArray = line.split(" ");
@@ -110,7 +108,7 @@ public final class RootToolsInternalMethods {
         return null;
     }
 
-    @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
+    @SuppressWarnings("ConstantConditions")
     public int parsePermissions(String permission) {
         permission = permission.toLowerCase(Locale.US);
         int tmp;
@@ -145,7 +143,6 @@ public final class RootToolsInternalMethods {
         return tmp;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public int parseSpecialPermissions(String permission) {
         int tmp = 0;
         if (permission.charAt(2) == 's') {
@@ -527,7 +524,7 @@ public final class RootToolsInternalMethods {
                             //noinspection UnusedAssignment
                             foundVersion = true;
                             version.append(temp[1]);
-                            RootTools.log("Found Version: " + version.toString());
+                            RootTools.log("Found Version: " + version/*.toString()*/);
                         }
                     }
 
@@ -560,7 +557,7 @@ public final class RootToolsInternalMethods {
                                 //noinspection UnusedAssignment
                                 foundVersion = true;
                                 version.append(temp[1]);
-                                RootTools.log("Found Version: " + version.toString());
+                                RootTools.log("Found Version: " + version/*.toString()*/);
                             }
                         }
 
@@ -580,14 +577,13 @@ public final class RootToolsInternalMethods {
             return "";
         }
 
-        RootTools.log("Returning found version: " + version.toString());
+        RootTools.log("Returning found version: " + version/*.toString()*/);
         return version.toString();
     }
 
     /**
      * @return long Size, converted to kilobytes (from xxx or xxxm or xxxk etc.)
      */
-    @SuppressWarnings("WeakerAccess")
     public long getConvertedSpace(String spaceStr) {
         try {
             double multiplier = 1.0;

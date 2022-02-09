@@ -18,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
@@ -37,8 +38,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
 
-    public boolean targetHelpsSequenceStarted;
+    //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profiles_activity_start_target_helps_finished";
 
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -120,100 +122,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true, false);
         //GlobalGUIRoutines.setLanguage(this);
-
-    // set window dimensions - not needed, Activator uses Dialog theme ------------------------------
-
-    /*
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND, WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        LayoutParams params = getWindow().getAttributes();
-        params.alpha = 1.0f;
-        params.dimAmount = 0.5f;
-        getWindow().setAttributes(params);
-
-        int actionBarHeight;
-
-        // display dimensions
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        float popupWidth = displayMetrics.widthPixels;
-        float popupMaxHeight = displayMetrics.heightPixels;
-        //Display display = getWindowManager().getDefaultDisplay();
-        //float popupWidth = display.getWidth();
-        //popupMaxHeight = display.getHeight();
-        float popupHeight = 0;
-        actionBarHeight = 0;
-
-        // action bar height
-        TypedValue tv = new TypedValue();
-        if (getTheme().resolveAttribute(androidx.appcompat.R.attr.actionBarSize, tv, true))
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
-
-        // set max. dimensions for display orientation
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
-            //popupWidth = Math.round(popupWidth / 100f * 50f);
-            //popupMaxHeight = Math.round(popupMaxHeight / 100f * 90f);
-            popupWidth = popupWidth / 100f * 50f;
-            popupMaxHeight = popupMaxHeight / 100f * 90f;
-        }
-        else
-        {
-            //popupWidth = Math.round(popupWidth / 100f * 70f);
-            //popupMaxHeight = Math.round(popupMaxHeight / 100f * 90f);
-            popupWidth = popupWidth / 100f * 80f;
-            popupMaxHeight = popupMaxHeight / 100f * 90f;
-        }
-
-        // add action bar height
-        popupHeight = popupHeight + actionBarHeight;
-
-        final float scale = getResources().getDisplayMetrics().density;
-
-        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(getApplicationContext());
-
-        // add header height
-        //if (ApplicationPreferences.applicationActivatorHeader(getApplicationContext())) {
-            if (!applicationActivatorGridLayout)
-                popupHeight = popupHeight + 50f * scale;
-            else
-                popupHeight = popupHeight + 59f * scale;
-        //}
-
-        // add toolbar height
-        popupHeight = popupHeight + (25f + 1f + 3f) * scale;
-
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-        int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(true);
-        dataWrapper.invalidateDataWrapper();
-
-        if (profileCount > 0) {
-            if (!applicationActivatorGridLayout) {
-                // add list items height
-                popupHeight = popupHeight + (60f * scale * profileCount); // item
-                popupHeight = popupHeight + (1f * scale * (profileCount)); // divider
-
-                popupHeight = popupHeight + (20f * scale); // listView padding
-            } else {
-                // add grid items height
-                int modulo = profileCount % 3;
-                profileCount = profileCount / 3;
-                if (modulo > 0)
-                    ++profileCount;
-                popupHeight = popupHeight + (85f * scale * profileCount); // item
-                popupHeight = popupHeight + (1f * scale * (profileCount - 1)); // divider
-
-                popupHeight = popupHeight + (24f * scale); // gridView margin
-            }
-        }
-        else
-            popupHeight = popupHeight + 60f * scale; // for empty TextView
-
-        if (popupHeight > popupMaxHeight)
-            popupHeight = popupMaxHeight;
-
-        // set popup window dimensions
-        getWindow().setLayout((int) (popupWidth + 0.5f), (int) (popupHeight + 0.5f));
-    */
 
     //-----------------------------------------------------------------------------------
 
@@ -446,12 +354,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
 
-        if (targetHelpsSequenceStarted) {
+        //if (targetHelpsSequenceStarted) {
             if (ActivatorTargetHelpsActivity.activity != null)
                 ActivatorTargetHelpsActivity.activity.finish();
             ActivatorTargetHelpsActivity.activity = null;
-            targetHelpsSequenceStarted = false;
-        }
+            //targetHelpsSequenceStarted = false;
+        //}
     }
 
     @Override
@@ -464,7 +372,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         }
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         toolbar.inflateMenu(R.menu.activator_top_bar);
         return true;
@@ -490,12 +398,15 @@ public class ActivateProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.menu_edit_profiles) {
+
+            finish();
+
             Intent intent = new Intent(getApplicationContext(), EditorProfilesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
             getApplicationContext().startActivity(intent);
 
-            finish();
+            //finish();
 
             return true;
         }
@@ -712,7 +623,13 @@ public class ActivateProfileActivity extends AppCompatActivity {
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
+
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                        editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.apply();
+                        ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
+
                         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null)
                         {
@@ -727,7 +644,27 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
+
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+
+                        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
+                        editor.apply();
+
+                        ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
+                        ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
+                        ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;
+
+                        ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
+                        ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
+                        ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+
                         final Handler handler = new Handler(getMainLooper());
                         handler.postDelayed(() -> {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (1)");
@@ -743,18 +680,17 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                 //ActivatorTargetHelpsActivity.activatorActivity = null;
                             }
                         }, 500);
-
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
-                        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
-                        editor.apply();
-                        ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
-                        ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;
                     }
                 });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                targetHelpsSequenceStarted = true;
+                //targetHelpsSequenceStarted = true;
+
+                editor = ApplicationPreferences.getEditor(getApplicationContext());
+                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.apply();
+                ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = false;
+
                 sequence.start();
             }
             else {

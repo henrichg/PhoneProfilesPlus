@@ -11,6 +11,7 @@ import android.os.Parcelable;
 import android.os.storage.StorageManager;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
 public class WallpaperFolderPreferenceX extends Preference {
@@ -39,7 +40,7 @@ public class WallpaperFolderPreferenceX extends Preference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray a, int index)
     {
         super.onGetDefaultValue(a, index);
 
@@ -85,7 +86,7 @@ public class WallpaperFolderPreferenceX extends Preference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;

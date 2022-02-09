@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -38,13 +39,13 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
         value = "";
         prefContext = context;
 
-        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-        setWidgetLayoutResource(R.layout.widget_profile_multiselect_preference);
+        setWidgetLayoutResource(R.layout.preference_widget_profile_multiselect_preference);
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
 
@@ -59,7 +60,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray a, int index)
     {
         super.onGetDefaultValue(a, index);
 
@@ -233,7 +234,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if (!state.getClass().equals(ProfileMultiSelectPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(ProfileMultiSelectPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             setSummaryPMSDP();

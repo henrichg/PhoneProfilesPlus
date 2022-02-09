@@ -56,6 +56,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     };
 
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
             if (dataWrapper.getEventById(event_id) == null) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
@@ -166,7 +167,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
 
         if (showSaveMenu) {
@@ -329,7 +330,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     private Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
                               boolean leaveSaveMenu) {
         Event event;
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         if (!leaveSaveMenu)
             showSaveMenu = false;
@@ -513,7 +514,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         event.setSensorsWaiting();
 
-        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
@@ -717,6 +718,12 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 @Override
                 public void onSequenceFinish() {
                     //targetHelpsSequenceStarted = false;
+
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                    editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.apply();
+                    ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = true;
+
                 }
 
                 @Override
@@ -732,6 +739,12 @@ public class EventsPrefsActivity extends AppCompatActivity {
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
+
+            editor = ApplicationPreferences.getEditor(getApplicationContext());
+            editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+            editor.apply();
+            ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = false;
+
             sequence.start();
         }
     }

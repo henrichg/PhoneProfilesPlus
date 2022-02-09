@@ -65,7 +65,6 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
         LocalBroadcastManager.getInstance(context.getApplicationContext()).sendBroadcast(_intent);
     }
 
-    @SuppressWarnings("deprecation")
     static boolean isOnline(Context context) {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connMgr != null) {

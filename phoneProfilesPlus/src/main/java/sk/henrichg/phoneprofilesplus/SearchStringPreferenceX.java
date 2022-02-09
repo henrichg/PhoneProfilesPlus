@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
 
-@SuppressWarnings("WeakerAccess")
 public class SearchStringPreferenceX extends DialogPreference {
 
     SearchStringPreferenceFragmentX fragment;

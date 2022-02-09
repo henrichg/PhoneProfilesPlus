@@ -61,7 +61,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         String applicationWidgetIconLightnessT;
         boolean applicationWidgetIconShowProfileDuration;
         int applicationWidgetIconRoundedCornersRadius;
-        boolean applicationWidgetChangeColorsByNightMode;
+        boolean applicationWidgetIconChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
@@ -78,7 +78,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconShowProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
             applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
-            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+            applicationWidgetIconChangeColorsByNightMode = ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
@@ -99,7 +99,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
                 if (/*PPApplication.isPixelLauncherDefault(context) ||*/
-                        applicationWidgetChangeColorsByNightMode) {
+                        applicationWidgetIconChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
@@ -110,7 +110,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "100";
                             applicationWidgetIconLightnessT = "100"; // lightness of text = white
-                            applicationWidgetIconColor = "0"; // icon type = colorful
+                            //applicationWidgetIconColor = "0"; // icon type = colorful
+                            applicationWidgetIconLightness = "75";
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -120,7 +121,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "0";
                             applicationWidgetIconLightnessT = "0"; // lightness of text = black
-                            applicationWidgetIconColor = "0"; // icon type = colorful
+                            //applicationWidgetIconColor = "0"; // icon type = colorful
+                            applicationWidgetIconLightness = "62";
                             break;
                     }
                 }
@@ -168,7 +170,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     applicationWidgetIconColor.equals("1"),
                     monochromeValue,
                     applicationWidgetIconCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, 0f);
+                    DataWrapper.IT_FOR_WIDGET, 0, 0f);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;

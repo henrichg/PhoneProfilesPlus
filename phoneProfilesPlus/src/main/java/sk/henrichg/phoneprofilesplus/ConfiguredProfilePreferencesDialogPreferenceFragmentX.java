@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -25,12 +25,11 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
 
     private ConfiguredProfilePreferencesAdapterX listAdapter;
 
-    @SuppressWarnings("rawtypes")
     private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (ConfiguredProfilePreferencesDialogPreferenceX) getPreference();
@@ -41,7 +40,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         listView = view.findViewById(R.id.configured_profile_preferences_pref_dlg_listview);
@@ -103,7 +102,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 try {
 
-                    DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                    DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                     Profile profile = dataWrapper.getProfileById(preference.profile_id, false, false, false);
                     if (profile != null) {
                         //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "profile._name="+profile._name);

@@ -15,12 +15,12 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     LocationGeofencePreferenceX preference;
@@ -35,7 +35,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (LocationGeofencePreferenceX) getPreference();
@@ -46,7 +46,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
     }
 
     @Override
-    protected void onBindDialogView(View view)
+    protected void onBindDialogView(@NonNull View view)
     {
         super.onBindDialogView(view);
 

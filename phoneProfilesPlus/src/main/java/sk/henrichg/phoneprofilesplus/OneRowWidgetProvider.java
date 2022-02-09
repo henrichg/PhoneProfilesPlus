@@ -70,7 +70,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowLightnessT;
         int applicationWidgetOneRowRoundedCornersRadius;
         boolean applicationWidgetOneRowHigherLayout;
-        boolean applicationWidgetChangeColorsByNightMode;
+        boolean applicationWidgetOneRowChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
@@ -88,7 +88,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
             applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
-            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+            applicationWidgetOneRowChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
@@ -109,7 +109,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetChangeColorsByNightMode) {
+                        applicationWidgetOneRowChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
@@ -120,7 +120,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "100";
                             applicationWidgetOneRowLightnessT = "100"; // lightness of text = white
-                            applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            applicationWidgetOneRowIconLightness = "75";
                             applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
@@ -131,7 +132,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "0";
                             applicationWidgetOneRowLightnessT = "0"; // lightness of text = black
-                            applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            applicationWidgetOneRowIconLightness = "62";
                             applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }
@@ -173,33 +175,43 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         }
 
         float prefIndicatorLightnessValue = 0f;
+        int prefIndicatorMonochromeValue = 0x00;
         switch (applicationWidgetOneRowPrefIndicatorLightness) {
             case "0":
                 prefIndicatorLightnessValue = -128f;
+                prefIndicatorMonochromeValue = 0x00;
                 break;
             case "12":
                 prefIndicatorLightnessValue = -96f;
+                prefIndicatorMonochromeValue = 0x20;
                 break;
             case "25":
                 prefIndicatorLightnessValue = -64f;
+                prefIndicatorMonochromeValue = 0x40;
                 break;
             case "37":
                 prefIndicatorLightnessValue = -32f;
+                prefIndicatorMonochromeValue = 0x60;
                 break;
             case "50":
                 prefIndicatorLightnessValue = 0f;
+                prefIndicatorMonochromeValue = 0x80;
                 break;
             case "62":
                 prefIndicatorLightnessValue = 32f;
+                prefIndicatorMonochromeValue = 0xA0;
                 break;
             case "75":
                 prefIndicatorLightnessValue = 64f;
+                prefIndicatorMonochromeValue = 0xC0;
                 break;
             case "87":
                 prefIndicatorLightnessValue = 96f;
+                prefIndicatorMonochromeValue = 0xE0;
                 break;
             case "100":
                 prefIndicatorLightnessValue = 128f;
+                prefIndicatorMonochromeValue = 0xFF;
                 break;
         }
 //        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
@@ -210,7 +222,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                     applicationWidgetOneRowCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
+                    DataWrapper.IT_FOR_WIDGET, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;

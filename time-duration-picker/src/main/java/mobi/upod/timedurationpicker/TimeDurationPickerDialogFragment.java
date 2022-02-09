@@ -30,12 +30,12 @@ public abstract class TimeDurationPickerDialogFragment
      * The duration to be shown as default value when the dialog appears.
      * @return the default duration in milliseconds.
      */
-    @SuppressWarnings({"WeakerAccess", "SameReturnValue"})
+    @SuppressWarnings("SameReturnValue")
     protected long getInitialDuration() {
         return 0;
     }
 
-    @SuppressWarnings({"WeakerAccess", "SameReturnValue"})
+    @SuppressWarnings("SameReturnValue")
     protected int setTimeUnits(){
         return TimeDurationPicker.HH_MM_SS;
     }

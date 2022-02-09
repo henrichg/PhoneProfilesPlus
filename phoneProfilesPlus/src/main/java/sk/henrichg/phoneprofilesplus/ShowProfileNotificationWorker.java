@@ -41,7 +41,7 @@ public class ShowProfileNotificationWorker extends Worker {
 
                     if (PhoneProfilesService.getInstance() != null) {
                         synchronized (PPApplication.showPPPNotificationMutex) {
-                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0f);
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
                             PhoneProfilesService.getInstance()._showProfileNotification(/*profile,*/ dataWrapper, false/*, clear*/);
                         }
                     }

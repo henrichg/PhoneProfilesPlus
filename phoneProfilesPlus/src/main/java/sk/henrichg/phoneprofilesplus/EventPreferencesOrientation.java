@@ -269,11 +269,13 @@ class EventPreferencesOrientation extends EventPreferences {
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences == null)
+            return;
 
         if (key.equals(PREF_EVENT_ORIENTATION_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
             }
         }
 
@@ -301,8 +303,11 @@ class EventPreferencesOrientation extends EventPreferences {
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
                 Spannable sbt = new SpannableString(sTitle);
-                Object[] spansToRemove = sbt.getSpans(0, sTitle.length(), Object.class);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
                 for(Object span: spansToRemove){
                     if(span instanceof CharacterStyle)
                         sbt.removeSpan(span);
@@ -360,13 +365,13 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(hasLight);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false);
                 }
                 minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(hasLight);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false);
                 }
             }
             else {
@@ -380,13 +385,13 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(false);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false);
                 }
                 minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(false);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false);
                 }
             }
         }
@@ -414,7 +419,7 @@ class EventPreferencesOrientation extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false);
         }
 
         Event event = new Event();
@@ -434,7 +439,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
@@ -448,18 +453,18 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
         }
         ListPreference distancePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (distancePreference != null) {
             int index = distancePreference.findIndexOfValue(distancePreference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(distancePreference, enabled, index > 0, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(distancePreference, enabled, index > 0, true, !isRunnable);
         }
 
         SwitchPreferenceCompat checkLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CHECK_LIGHT);
         if (checkLightPreference != null) {
             boolean bold = checkLightPreference.isChecked();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, true, !isRunnable);
         }
 
         boolean isAccessibilityEnabled = event._eventPreferencesOrientation.isAccessibilityServiceEnabled(context) == 1;
@@ -579,7 +584,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }
@@ -688,7 +693,9 @@ class EventPreferencesOrientation extends EventPreferences {
                     else
                         iNewValue = Integer.parseInt(sNewValue);
 
-                    String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MAX, "2147483647");
+                    String sHightLevelValue = "2147483647";
+                    if (_prefMng.getSharedPreferences() != null)
+                        sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MAX, "2147483647");
                     int iHightLevelValue;
                     if (sHightLevelValue.isEmpty())
                         iHightLevelValue = 2147483647;
@@ -716,7 +723,9 @@ class EventPreferencesOrientation extends EventPreferences {
                     else
                         iNewValue = Integer.parseInt(sNewValue);
 
-                    String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MIN, "0");
+                    String sLowLevelValue = "0";
+                    if (_prefMng.getSharedPreferences() != null)
+                        sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MIN, "0");
                     int iLowLevelValue;
                     if (sLowLevelValue.isEmpty())
                         iLowLevelValue = 0;

@@ -6,6 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 
 public class DurationDialogPreferenceX extends DialogPreference {
@@ -34,7 +35,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray ta, int index) {
+    protected Object onGetDefaultValue(@NonNull TypedArray ta, int index) {
         super.onGetDefaultValue(ta, index);
         return ta.getString(index);
     }
@@ -85,7 +86,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(DurationDialogPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(DurationDialogPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             setSummaryDDP();

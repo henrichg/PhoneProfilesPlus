@@ -14,20 +14,20 @@
         app:title="@string/phone_profiles_pref_category_wifi_scanning"
         app:summary="@string/phone_profiles_pref_eventWifiAppSettings_summary"
         app:dependency="eventWiFiEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventWiFiLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="eventWiFiEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventWiFiKeepOnSystemSettings"
         app:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="eventWiFiEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

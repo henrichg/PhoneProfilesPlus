@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
-@SuppressWarnings("WeakerAccess")
 public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     private final Context context;

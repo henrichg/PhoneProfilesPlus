@@ -42,7 +42,6 @@ public class TimeDurationPickerDialog extends AlertDialog implements DialogInter
      * @param listener the listener to be informed about entered duration
      * @param duration the initial duration to be shown in the dialog
      */
-    @SuppressWarnings("WeakerAccess")
     public TimeDurationPickerDialog(Context context, OnDurationSetListener listener, long duration) {
         super(context);
         durationSetListener = listener;

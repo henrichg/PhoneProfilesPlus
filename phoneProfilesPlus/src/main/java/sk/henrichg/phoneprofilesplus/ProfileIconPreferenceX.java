@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -59,14 +60,14 @@ public class ProfileIconPreferenceX extends DialogPreference {
 
         prefContext = context;
 
-        setWidgetLayoutResource(R.layout.widget_profileicon_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_profileicon_preference); // resource na layout custom preference - TextView-ImageView
 
         //typedArray.recycle();
 
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
 
@@ -75,7 +76,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray a, int index)
     {
         super.onGetDefaultValue(a, index);
         return a.getString(index);  // icon is returned as string
@@ -279,7 +280,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if (!state.getClass().equals(ProfileIconPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(ProfileIconPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;

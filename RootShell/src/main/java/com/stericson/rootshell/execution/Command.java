@@ -36,46 +36,34 @@ import java.io.IOException;
 public class Command {
 
     //directly modified by JavaCommand
-    @SuppressWarnings("WeakerAccess")
     protected boolean javaCommand = false;
-    @SuppressWarnings("WeakerAccess")
     protected Context context = null;
 
     public int totalOutput = 0;
 
     public int totalOutputProcessed = 0;
 
-    @SuppressWarnings("WeakerAccess")
     ExecutionMonitor executionMonitor = null;
 
-    @SuppressWarnings("WeakerAccess")
     Handler mHandler = null;
 
     //Has this command already been used?
-    @SuppressWarnings("WeakerAccess")
     protected boolean used = false;
 
-    @SuppressWarnings("WeakerAccess")
     boolean executing = false;
 
-    @SuppressWarnings({"WeakerAccess"})
     final String[] command;
 
-    @SuppressWarnings("WeakerAccess")
     boolean finished = false;
 
-    @SuppressWarnings("WeakerAccess")
     boolean terminated = false;
 
-    @SuppressWarnings("WeakerAccess")
     boolean handlerEnabled = true;
 
-    @SuppressWarnings("WeakerAccess")
     int exitCode = -1;
 
     final int id;
 
-    @SuppressWarnings("WeakerAccess")
     int timeout = RootShell.defaultCommandTimeout;
 
     /**
@@ -139,7 +127,6 @@ public class Command {
         //pass
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected final void commandFinished() {
         if (!terminated) {
             synchronized (this) {
@@ -178,7 +165,6 @@ public class Command {
         commandFinished();
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected final void finishCommand() {
         this.executing = false;
         this.finished = true;
@@ -246,14 +232,12 @@ public class Command {
         return this.exitCode;
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected final void setExitCode(int code) {
         synchronized (this) {
             exitCode = code;
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected final void startExecution() {
         this.used = true;
         executionMonitor = new ExecutionMonitor(this);
@@ -269,7 +253,6 @@ public class Command {
         terminated("Terminated at users request!");
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected final void terminate(@SuppressWarnings("SameParameterValue") String reason) {
         try {
             Shell.closeAll();
@@ -278,7 +261,6 @@ public class Command {
         } catch (IOException ignored) {}
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected final void terminated(String reason) {
         synchronized (Command.this) {
 
@@ -300,7 +282,6 @@ public class Command {
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected final void output(int id, String line) {
         totalOutput++;
 

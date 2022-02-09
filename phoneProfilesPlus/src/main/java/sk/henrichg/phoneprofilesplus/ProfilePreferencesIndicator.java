@@ -149,6 +149,7 @@ class ProfilePreferencesIndicator {
                     if (Build.VERSION.SDK_INT >= 28)
                         vibrateNotificationsAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                     boolean addVibrateIndicator = false;
+                    //noinspection RedundantIfStatement
                     if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
                         addVibrateIndicator = true;
                     if (Build.VERSION.SDK_INT >= 28) {
@@ -477,7 +478,7 @@ class ProfilePreferencesIndicator {
             }
 
             if ((Build.VERSION.SDK_INT >= 26) &&
-                    (PPApplication.deviceIsSamsung ||
+                    ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                             (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);

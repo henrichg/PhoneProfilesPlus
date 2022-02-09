@@ -15,7 +15,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
         android:visibility="invisible"
-        android:contentDescription="@string/empty_string" />
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/widget_profile_list_linLa1"
@@ -67,7 +67,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
         android:visibility="invisible"
-        android:contentDescription="@string/empty_string" />
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/widget_profile_list_rounded_border"
@@ -76,6 +76,6 @@
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
         android:visibility="invisible"
-        android:contentDescription="@string/empty_string" />
+        tools:ignore="ContentDescription" />
 
 </FrameLayout>

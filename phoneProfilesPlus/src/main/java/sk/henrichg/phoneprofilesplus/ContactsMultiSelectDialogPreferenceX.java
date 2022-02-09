@@ -134,9 +134,9 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
                                 //while (phones.moveToNext()) {
                                 if (phones.moveToFirst()) {
                                     found = true;
-                                    summary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                                    summary = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
                                     if (!withoutNumbers)
-                                        summary = summary + "\n" + phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                        summary = summary + "\n" + phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                     //break;
                                 }
                                 phones.close();
@@ -220,7 +220,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if (!state.getClass().equals(ContactsMultiSelectDialogPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(ContactsMultiSelectDialogPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             setSummaryCMSDP();

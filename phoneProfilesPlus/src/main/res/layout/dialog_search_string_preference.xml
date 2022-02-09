@@ -16,7 +16,7 @@
         android:layout_centerVertical="true"
         android:src="@drawable/ic_button_help"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/menu_help"/>
+        android:contentDescription="@string/help_button_tooltip"/>
 
     <EditText
         android:id="@+id/search_string_pref_dlg_editText"

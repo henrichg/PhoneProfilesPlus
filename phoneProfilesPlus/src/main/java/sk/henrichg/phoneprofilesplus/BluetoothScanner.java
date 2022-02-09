@@ -14,6 +14,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.List;
 
+@SuppressLint("MissingPermission")
 class BluetoothScanner {
 
     private final Context context;
@@ -70,8 +71,8 @@ class BluetoothScanner {
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
             if (isPowerSaveMode) {
-                int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("2")) {
                         // not scan bluetooth in power save mode
@@ -81,7 +82,6 @@ class BluetoothScanner {
                 }
             }
             else {
-                int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2")) {
                         if (PhoneProfilesService.isNowTimeBetweenTimes(
@@ -143,8 +143,9 @@ class BluetoothScanner {
 
                         if (BluetoothScanWorker.bluetooth != null) {
                             if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
-                                // service restarted during scanning, disable Bluetooth
-                                //PPApplication.logE("$$$B BluetoothScanner.doScan", "disable BT - service restarted");
+                                // service restarted during scanning (prefEventBluetoothEnabledForScan is set to false at end of scan),
+                                // dislabe Bluetooth
+//                                PPApplication.logE("$$$B BluetoothScanner.doScan", "disable BT - service restarted");
                                 bluetoothChangeHandler.post(() -> {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
                                     if (Permissions.checkBluetoothForEMUI(context)) {
@@ -155,6 +156,7 @@ class BluetoothScanner {
                                             //if (Build.VERSION.SDK_INT >= 26)
                                             //    CmdBluetooth.setBluetooth(false);
                                             //else
+//                                            PPApplication.logE("$$$B BluetoothScanner.doScan", "disable BT - service restarted (2)");
                                             BluetoothScanWorker.bluetooth.disable();
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);
@@ -174,6 +176,7 @@ class BluetoothScanner {
                                 BluetoothScanWorker.setWaitForLEResults(context, false);
                                 BluetoothScanWorker.setBluetoothEnabledForScan(context, false);
                                 BluetoothScanWorker.setScanKilled(context, false);
+//                                PPApplication.logE("$$$B BluetoothScanner.doScan", "(1) prefEventBluetoothEnabledForScan="+ApplicationPreferences.prefEventBluetoothEnabledForScan);
 
                                 int bluetoothState;
 
@@ -273,7 +276,7 @@ class BluetoothScanner {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
 
                                 if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
-                                    //PPApplication.logE("$$$B BluetoothScanner.doScan", "disable bluetooth");
+//                                    PPApplication.logE("$$$B BluetoothScanner.doScan", "disable bluetooth");
                                     if (Permissions.checkBluetoothForEMUI(context)) {
                                         try {
                                             if (BluetoothScanWorker.bluetooth == null)
@@ -282,6 +285,7 @@ class BluetoothScanner {
                                             //if (Build.VERSION.SDK_INT >= 26)
                                             //    CmdBluetooth.setBluetooth(false);
                                             //else
+//                                            PPApplication.logE("$$$B BluetoothScanner.doScan", "disable bluetooth (2)");
                                             BluetoothScanWorker.bluetooth.disable();
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);
@@ -299,11 +303,13 @@ class BluetoothScanner {
 
                     setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
                     setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                    BluetoothScanWorker.setBluetoothEnabledForScan(context, false);
                     BluetoothScanWorker.setWaitForResults(context, false);
                     BluetoothScanWorker.setWaitForLEResults(context, false);
                     BluetoothScanWorker.setScanRequest(context, false);
                     BluetoothScanWorker.setLEScanRequest(context, false);
                     BluetoothScanWorker.setScanKilled(context, false);
+//                    PPApplication.logE("$$$B BluetoothScanner.doScan", "(2) prefEventBluetoothEnabledForScan="+ApplicationPreferences.prefEventBluetoothEnabledForScan);
 
                     //unlock();
                 }
@@ -383,6 +389,7 @@ class BluetoothScanner {
                 {
                     //PPApplication.logE("$$$B BluetoothScanner.enableBluetooth","set enabled");
                     BluetoothScanWorker.setBluetoothEnabledForScan(context, true);
+//                    PPApplication.logE("$$$B BluetoothScanner.enableBluetooth", "(1) prefEventBluetoothEnabledForScan="+ApplicationPreferences.prefEventBluetoothEnabledForScan);
                     if (!forLE)
                         BluetoothScanWorker.setScanRequest(context, true);
                     else

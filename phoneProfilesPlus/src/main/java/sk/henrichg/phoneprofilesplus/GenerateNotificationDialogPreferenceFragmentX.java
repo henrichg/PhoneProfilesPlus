@@ -8,9 +8,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private GenerateNotificationDialogPreferenceX preference;
@@ -25,7 +25,7 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         preference = (GenerateNotificationDialogPreferenceX) getPreference();
         preference.fragment = this;
@@ -36,7 +36,7 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         generateChBtn = view.findViewById(R.id.generateNotificationPrefDialogGenerate);

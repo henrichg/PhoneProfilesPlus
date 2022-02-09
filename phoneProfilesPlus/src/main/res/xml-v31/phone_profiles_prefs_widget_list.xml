@@ -8,7 +8,7 @@
         app:key="applicationWidgetListNotWorkingMIUIInfo"
         app:title="@string/phone_profiles_pref_widget_not_working_miui_info"
         app:summary="@string/phone_profiles_pref_widget_not_working_miui_info_summary"
-        app:widgetLayout="@layout/widget_exclamation_preference"
+        app:widgetLayout="@layout/preference_widget_exclamation_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetListHeader"
@@ -22,7 +22,7 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat
-        app:key="applicationWidgetChangeColorsByNightMode"
+        app:key="applicationWidgetListChangeColorsByNightMode"
         app:title="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode"
         app:summary="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary"
         app:defaultValue="false"

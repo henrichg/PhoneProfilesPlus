@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 /**
  * Created by Abhishek on 28-11-2015.
  */
-@SuppressWarnings("ConstantConditions")
 public class CameraUtilMarshMallow extends BaseCameraUtil {
     private CameraManager mCameraManager;
     private CameraManager.TorchCallback mTorchCallback;

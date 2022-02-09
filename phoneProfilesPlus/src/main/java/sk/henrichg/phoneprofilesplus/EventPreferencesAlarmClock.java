@@ -128,7 +128,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 }
 
                 descr = descr + " • ";
-                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_alarm_clock_applications) + ": <b>" + selectedApplications + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_alarm_clock_applications) + ": <b>" + selectedApplications + "</b>";
             }
         }
 
@@ -138,18 +138,20 @@ class EventPreferencesAlarmClock extends EventPreferences {
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences == null)
+            return;
 
         if (key.equals(PREF_EVENT_ALARM_CLOCK_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
             }
         }
 
         if (key.equals(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_DURATION);
             if (preference != null) {
@@ -164,7 +166,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             } catch (Exception e) {
                 delay = 5;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false);
         }
 
         Event event = new Event();
@@ -175,7 +177,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_APPLICATIONS);
         if (applicationsPreference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_ALARM_CLOCK_APPLICATIONS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, true, !isRunnable);
         }
     }
 
@@ -236,7 +238,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ALARM_CLOCK).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }

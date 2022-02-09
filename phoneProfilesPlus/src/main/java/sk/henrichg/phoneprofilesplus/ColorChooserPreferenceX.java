@@ -15,6 +15,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -44,13 +45,13 @@ public class ColorChooserPreferenceX extends DialogPreference {
         }
         ta.recycle();
 
-        setWidgetLayoutResource(R.layout.widget_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
 
         setPositiveButtonText(null);
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
 
@@ -93,7 +94,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray ta, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray ta, int index)
     {
         super.onGetDefaultValue(ta, index);
         return ta.getString(index);
@@ -205,7 +206,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(ColorChooserPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(ColorChooserPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;

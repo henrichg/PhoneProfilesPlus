@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -10,6 +11,7 @@ import android.os.PowerManager;
 
 import java.util.ArrayList;
 
+@SuppressLint("MissingPermission")
 public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override

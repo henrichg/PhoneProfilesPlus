@@ -213,8 +213,19 @@ class ApplicationPreferences {
     static boolean applicationActivatorAddRestartEventsIntoProfileList;
     static boolean applicationActivatorIncreaseBrightness;
     static boolean applicationWidgetOneRowHigherLayout;
-    static boolean applicationWidgetChangeColorsByNightMode;
+    static boolean applicationWidgetIconChangeColorsByNightMode;
+    static boolean applicationWidgetOneRowChangeColorsByNightMode;
+    static boolean applicationWidgetListChangeColorsByNightMode;
+    static boolean applicationSamsungEdgeChangeColorsByNightMode;
     static boolean applicationForceSetBrightnessAtScreenOn;
+    static boolean notificationShowRestartEventsAsButton;
+    static String notificationProfileIconColor;
+    static String notificationProfileIconLightness;
+    static boolean notificationCustomProfileIconLightness;
+
+    static String applicationShortcutIconColor;
+    static String applicationShortcutIconLightness;
+    static boolean applicationShortcutCustomIconLightness;
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -237,29 +248,48 @@ class ApplicationPreferences {
     static String applicationEventWifiScanInTimeMultiply;
     static int applicationEventWifiScanInTimeMultiplyFrom;
     static int applicationEventWifiScanInTimeMultiplyTo;
-    static boolean notificationShowRestartEventsAsButton;
 
     static boolean prefActivatorActivityStartTargetHelps;
+    static boolean prefActivatorActivityStartTargetHelpsFinished;
     static boolean prefActivatorFragmentStartTargetHelps;
+    static boolean prefActivatorFragmentStartTargetHelpsFinished;
     static boolean prefActivatorAdapterStartTargetHelps;
+    @SuppressWarnings("unused")
+    static boolean prefActivatorAdapterStartTargetHelpsFinished;
+
     static boolean prefEditorActivityStartTargetHelps;
-    static boolean prefEditorActivityStartTargetHelpsDefaultProfile;
     static boolean prefEditorActivityStartTargetHelpsRunStopIndicator;
     static boolean prefEditorActivityStartTargetHelpsBottomNavigation;
+    static boolean prefEditorActivityStartTargetHelpsFinished;
+
+    static boolean prefEditorFragmentStartTargetHelpsDefaultProfile;
     static boolean prefEditorProfilesFragmentStartTargetHelps;
     static boolean prefEditorProfilesFragmentStartTargetHelpsFilterSpinner;
+    static boolean prefEditorProfilesFragmentStartTargetHelpsFinished;
     static boolean prefEditorProfilesAdapterStartTargetHelps;
     static boolean prefEditorProfilesAdapterStartTargetHelpsOrder;
     static boolean prefEditorProfilesAdapterStartTargetHelpsShowInActivator;
+    @SuppressWarnings("unused")
+    static boolean prefEditorProfilesAdapterStartTargetHelpsFinished;
+
     static boolean prefEditorEventsFragmentStartTargetHelps;
     static boolean prefEditorEventsFragmentStartTargetHelpsFilterSpinner;
     static boolean prefEditorEventsFragmentStartTargetHelpsOrderSpinner;
+    static boolean prefEditorEventsFragmentStartTargetHelpsFinished;
     static boolean prefEditorEventsAdapterStartTargetHelps;
     static boolean prefEditorEventsAdapterStartTargetHelpsOrder;
     static boolean prefEditorEventsAdapterStartTargetHelpsStatus;
+    @SuppressWarnings("unused")
+    static boolean prefEditorEventsAdapterStartTargetHelpsFinished;
+
     static boolean prefProfilePrefsActivityStartTargetHelps;
-    static boolean prefProfilePrefsActivityStartTargetHelpsSave;
+    //static boolean prefProfilePrefsActivityStartTargetHelpsSave;
+    @SuppressWarnings("unused")
+    static boolean prefProfilePrefsActivityStartTargetHelpsFinished;
+
     static boolean prefEventPrefsActivityStartTargetHelps;
+    @SuppressWarnings("unused")
+    static boolean prefEventPrefsActivityStartTargetHelpsFinished;
 
     private static SharedPreferences preferences = null;
 
@@ -438,6 +468,19 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST = "applicationActivatorAddRestartEventsIntoProfileList";
     static final String PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS = "applicationActivatorIncreaseBrightness";
     static final String PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "applicationForceSetBrightnessAtScreenOn";
+    static final String PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON = "notificationShowRestartEventsAsButton";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT = "applicationWidgetOneRowHigherLayout";
+    static final String PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetIconChangeColorsByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetOneRowChangeColorsByNightMode";
+    static final String PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetListChangeColorsByNightMode";
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE = "applicationSamsungEdgeChangeColorsByNightMode";
+    static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR = "notificationProfileIconColor";
+    static final String PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS = "notificationProfileIconLightness";
+    static final String PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS = "notificationCustomProfileIconLightness";
+
+    static final String PREF_APPLICATION_SHORTCUT_ICON_COLOR = "applicationShortcutIconColor";
+    static final String PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS = "applicationShortcutIconLightness";
+    static final String PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS = "applicationShortcutCustomIconLightness";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -460,10 +503,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY = "applicationEventWifiScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventWifiScanInTimeMultiplyFrom";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventWifiScanInTimeMultiplyTo";
-
-    static final String PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON = "notificationShowRestartEventsAsButton";
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT = "applicationWidgetOneRowHigherLayout";
-    static final String PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetChangeColorsByNightMode";
 
     static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
@@ -727,7 +766,7 @@ class ApplicationPreferences {
     */
 
     static void notificationPrefIndicator(Context context) {
-        if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 31)) {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_PREF_INDICATOR)) {
                 // not contains this preference set to false
@@ -910,7 +949,11 @@ class ApplicationPreferences {
     }
 
     static void applicationSamsungEdgeBackground(Context context) {
-        applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, "25");
+        if (Build.VERSION.SDK_INT >= 30)
+            // change by night mode is by default enabled, and for this reason set also opaqueness of background to 100
+            applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, "100");
+        else
+            applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, "50");
     }
 
     static void applicationSamsungEdgeLightnessB(Context context) {
@@ -1203,7 +1246,7 @@ class ApplicationPreferences {
     }
 
     static void notificationNotificationStyle(Context context) {
-        if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 31)) {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_NOTIFICATION_STYLE)) {
                 // not contains this preference set to 1
@@ -1295,7 +1338,6 @@ class ApplicationPreferences {
         applicationForceSetBrightnessAtScreenOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, false);
     }
 
-    //---
     static void applicationEventPeriodicScanningScanInTimeMultiply(Context context) {
         applicationEventPeriodicScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, "0");
     }
@@ -1389,72 +1431,191 @@ class ApplicationPreferences {
         applicationWidgetOneRowHigherLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, false);
     }
 
-    static void applicationWidgetChangeColorsByNightMode(Context context) {
+    static void applicationWidgetIconChangeColorsByNightMode(Context context) {
+        // copy bad preference into ok preference
+        SharedPreferences mySPrefs = getSharedPreferences(context);
+        if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.putBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE,
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
+            editor.apply();
+        }
+
         /*if (DebugVersion.enabled) {
             SharedPreferences mySPrefs = getSharedPreferences(context);
             SharedPreferences.Editor editor = mySPrefs.edit();
-            editor.remove(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.remove(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE);
             editor.apply();
         }*/
 
-        applicationWidgetChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE,
                 PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context));
+    }
+    static void applicationWidgetOneRowChangeColorsByNightMode(Context context) {
+        // copy bad preference into ok preference
+        SharedPreferences mySPrefs = getSharedPreferences(context);
+        if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.putBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
+            editor.apply();
+        }
+
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
+        applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,
+                PPApplication.isPixelLauncherDefault(context) ||
+                        PPApplication.isOneUILauncherDefault(context));
+    }
+    static void applicationWidgetListChangeColorsByNightMode(Context context) {
+        // copy bad preference into ok preference
+        SharedPreferences mySPrefs = getSharedPreferences(context);
+        if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.putBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE,
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
+            editor.apply();
+        }
+
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
+        applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE,
+                PPApplication.isPixelLauncherDefault(context) ||
+                        PPApplication.isOneUILauncherDefault(context));
+    }
+    static void applicationSamsungEdgeChangeColorsByNightMode(Context context) {
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
+        applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE,
+                Build.VERSION.SDK_INT >= 30);
+    }
+
+    static void notificationProfileIconColor(Context context) {
+        notificationProfileIconColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_ICON_COLOR, "0");
+    }
+    static void notificationProfileIconLightness(Context context) {
+        notificationProfileIconLightness = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS, "100");
+    }
+    static void notificationCustomProfileIconLightness(Context context) {
+        notificationCustomProfileIconLightness = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS, false);
+    }
+
+    static void applicationShortcutIconColor(Context context) {
+        applicationShortcutIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_SHORTCUT_ICON_COLOR, "0");
+    }
+
+    static void applicationShortcutIconLightness(Context context) {
+        applicationShortcutIconLightness = getSharedPreferences(context).getString(PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, "100");
+    }
+
+    static void applicationShortcutCustomIconLightness(Context context) {
+        applicationShortcutCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, false);
+    }
+
+    static void deleteBadPreferences(Context context) {
+        SharedPreferences mySPrefs = getSharedPreferences(context);
+        SharedPreferences.Editor editor = mySPrefs.edit();
+        editor.remove("applicationWidgetChangeColorsByNightMode");
+        editor.apply();
     }
 
     static void loadStartTargetHelps(Context context) {
         SharedPreferences _preferences = getSharedPreferences(context);
         prefActivatorActivityStartTargetHelps = _preferences.getBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
+        prefActivatorActivityStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, false);
         prefActivatorFragmentStartTargetHelps = _preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
+        prefActivatorFragmentStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
         prefActivatorAdapterStartTargetHelps = _preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+        prefActivatorAdapterStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefEditorActivityStartTargetHelps = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, false);
-        prefEditorActivityStartTargetHelpsDefaultProfile = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
         prefEditorActivityStartTargetHelpsRunStopIndicator = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
         prefEditorActivityStartTargetHelpsBottomNavigation = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
+        prefEditorActivityStartTargetHelpsFinished = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefEditorProfilesFragmentStartTargetHelps = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
         prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
+        prefEditorFragmentStartTargetHelpsDefaultProfile = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
+        prefEditorProfilesFragmentStartTargetHelpsFinished = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
         prefEditorProfilesAdapterStartTargetHelps = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
         prefEditorProfilesAdapterStartTargetHelpsOrder = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
         prefEditorProfilesAdapterStartTargetHelpsShowInActivator = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+        prefEditorProfilesAdapterStartTargetHelpsFinished = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefEditorEventsFragmentStartTargetHelps = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
         prefEditorEventsFragmentStartTargetHelpsFilterSpinner = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
         prefEditorEventsFragmentStartTargetHelpsOrderSpinner = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, false);
+        prefEditorEventsFragmentStartTargetHelpsFinished = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
         prefEditorEventsAdapterStartTargetHelps = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
         prefEditorEventsAdapterStartTargetHelpsOrder = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
         prefEditorEventsAdapterStartTargetHelpsStatus = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
+        prefEditorEventsAdapterStartTargetHelpsFinished = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefProfilePrefsActivityStartTargetHelps = _preferences.getBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, false);
-        prefProfilePrefsActivityStartTargetHelpsSave = _preferences.getBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
+        //prefProfilePrefsActivityStartTargetHelpsSave = _preferences.getBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
+        prefProfilePrefsActivityStartTargetHelpsFinished = _preferences.getBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_FINISHED, false);
+
         prefEventPrefsActivityStartTargetHelps = _preferences.getBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, false);
+        prefEventPrefsActivityStartTargetHelpsFinished = _preferences.getBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS_FINISHED, false);
     }
 
     static void startStopTargetHelps(Context context, boolean start) {
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+
         editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorActivityStartTargetHelps = start;
+        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = !start;
         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorFragmentStartTargetHelps = start;
+        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = !start;
         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorAdapterStartTargetHelps = start;
+        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = !start;
+
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelps = start;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, start);
-        ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = start;
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator = start;
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation = start;
+        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = !start;
 
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = start;
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, start);
         ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = start;
-
+        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, start);
+        ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile = start;
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, start);
+        editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = !start;
         ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = start;
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, start);
         ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = start;
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, start);
         ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = start;
+        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = !start;
 
         editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = start;
@@ -1462,19 +1623,29 @@ class ApplicationPreferences {
         ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFilterSpinner = start;
         editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, start);
         ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsOrderSpinner = start;
-
+        editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = !start;
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = start;
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, start);
         ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = start;
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, start);
         ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = start;
+        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = !start;
+
         editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = start;
-        editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, start);
-        ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = start;
+        //editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, start);
+        //ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = start;
+        editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = !start;
+
         editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEventPrefsActivityStartTargetHelps = start;
+        editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = !start;
+
         editor.apply();
     }
 

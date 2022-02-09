@@ -15,7 +15,7 @@
         app:title="@string/event_preferences_battery_level_info"
         app:summary="@string/event_preferences_battery_level_info_summary"
         app:dependency="eventBatteryEnabled"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
@@ -64,7 +64,7 @@
         app:title="@string/phone_profiles_pref_applicationBatterySaver"
         app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
         app:dependency="eventBatteryEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"/>
 
 </androidx.preference.PreferenceScreen>

@@ -3,14 +3,14 @@
 PhoneProfilesPlus
 =================
 
-[![version](https://img.shields.io/badge/version-5.1.3-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1.3)
+[![version](https://img.shields.io/badge/version-5.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.2)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
 __[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__
-&nbsp;&nbsp;&nbsp;Latest version is 4.2.0.3 and will never by upgraded.
+&nbsp;&nbsp;&nbsp;Latest version is 4.2.0.3 and will never by upgraded. 
 
 __[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
@@ -19,8 +19,10 @@ __Another sources of PhoneProfilesPlus:__
 __[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
 
-__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore, APKPure:__
-&nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores.
+__[F-Droid application](https://www.f-droid.org/)__
+
+__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore__ 
+&nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores. 
 
 __[Amazon AppStore application](https://www.amazon.com/gp/mas/get/amazonapp)__
 
@@ -51,6 +53,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - From Android 7.0
 - minSdkVersion = 24
 - targetSdkVersion = 28
+- compiledSdkVersion = 31
 
 ##### Required external libs - open-source
 
@@ -64,7 +67,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - dashclock - https://github.com/romannurik/dashclock
 - DexMaker - https://github.com/linkedin/dexmaker
 - volley - https://github.com/google/volley
-- ExpandableLayout - https://github.com/skydoves/ExpandableLayout  
+- ExpandableLayout - https://github.com/skydoves/ExpandableLayout
+- SmoothBottomBar - https://github.com/ibrahimsn98/SmoothBottomBar
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
@@ -73,7 +77,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - RecyclerView-FastScroll (as module, code modified) - https://github.com/jahirfiquitiva/RecyclerView-FastScroll (original repository: https://github.com/timusus/RecyclerView-FastScroll)
 - RelativePopupWindow (only modified class RelativePopupWindow) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset) - https://github.com/caarmen/SunriseSunset
-- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api
+- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar (original repository: https://github.com/anggrayudi/android-hidden-api)
 - FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/BootstrapClass.java) - https://github.com/tiann/FreeReflection
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter

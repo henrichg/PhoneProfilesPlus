@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressLint("MissingPermission")
 public class BluetoothScanWorker extends Worker {
 
     private final Context context;
@@ -630,16 +630,18 @@ public class BluetoothScanWorker extends Worker {
 
             if (Permissions.checkLocation(context)) {
                 boolean startScan = bluetooth.startDiscovery();
-                //PPApplication.logE("BluetoothScanWorker.startCLScan", "scanStarted=" + startScan);
+//                PPApplication.logE("BluetoothScanWorker.startCLScan", "scanStarted=" + startScan);
 
                 if (!startScan) {
                     if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
-                        //PPApplication.logE("BluetoothScanWorker.startCLScan", "disable bluetooth");
-                        if (Permissions.checkBluetoothForEMUI(context))
+//                        PPApplication.logE("BluetoothScanWorker.startCLScan", "disable bluetooth");
+                        if (Permissions.checkBluetoothForEMUI(context)) {
+//                            PPApplication.logE("BluetoothScanWorker.startCLScan", "disable bluetooth (2)");
                             //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(false);
                             //else
-                                bluetooth.disable();
+                            bluetooth.disable();
+                        }
                     }
                 }
                 setWaitForResults(context, startScan);
@@ -841,9 +843,11 @@ public class BluetoothScanWorker extends Worker {
             if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {
                 if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
                     Set<BluetoothDevice> boundedDevices = bluetooth.getBondedDevices();
+//                    PPApplication.logE("BluetoothScanWorker.fillBoundedDevicesList", "boundedDevices=" + boundedDevices);
                     //boundedDevicesList.clear();
                     if (boundedDevices != null) {
                         for (BluetoothDevice device : boundedDevices) {
+//                            PPApplication.logE("BluetoothScanWorker.fillBoundedDevicesList", "device.getName()=" + device.getName());
                             boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
                                     getBluetoothType(device), false, 0, true, false));
                         }

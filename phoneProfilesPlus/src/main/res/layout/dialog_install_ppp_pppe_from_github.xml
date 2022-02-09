@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/install_extender_dialog_root"
+    android:id="@+id/install_ppp_pppe_from_github_dialog_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,7 +8,7 @@
     android:paddingBottom="10dp">
 
     <TextView
-        android:id="@+id/install_extender_dialog_info_text"
+        android:id="@+id/install_ppp_pppe_from_github_dialog_info_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
@@ -18,7 +18,7 @@
         android:scrollbars="vertical" />
 
     <TextView
-        android:id="@+id/install_extender_dialog_github_releases"
+        android:id="@+id/install_ppp_pppe_from_github_dialog_github_releases"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -28,7 +28,7 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/install_extender_dialog_showAssets"
+        android:id="@+id/install_ppp_pppe_from_github_dialog_showAssets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"

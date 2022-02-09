@@ -23,6 +23,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
     //public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
+    static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_adapter_start_target_helps_finished";
 
     ActivateProfileListAdapter(ActivateProfileListFragment f, /*List<Profile> pl, */DataWrapper dataWrapper)
     {
@@ -270,15 +271,37 @@ class ActivateProfileListAdapter extends BaseAdapter
             // Toolbar.findViewById() returns null
             return;*/
 
-        //if (fragment.targetHelpsSequenceStarted)
-        //    return;
-
         if (ActivatorTargetHelpsActivity.activity == null)
             return;
 
+        //if (fragment.targetHelpsSequenceStarted)
+        //    return;
+
+        boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished &&
+                                            ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished;
+        if (!startTargetHelpsFinished) {
+            final Handler handler = new Handler(activity.getMainLooper());
+            handler.postDelayed(() -> {
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (3)");
+
+                if (ActivatorTargetHelpsActivity.activity != null) {
+                    //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                    try {
+                        ActivatorTargetHelpsActivity.activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                    ActivatorTargetHelpsActivity.activity = null;
+                    //ActivatorTargetHelpsActivity.activatorActivity = null;
+                }
+            }, 500);
+
+            return;
+        }
+
         if (ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
-            //Log.d("ActivateProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+            //Log.e("ActivateProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -324,6 +347,14 @@ class ActivateProfileListAdapter extends BaseAdapter
                 @Override
                 public void onSequenceFinish() {
                     //targetHelpsSequenceStarted = false;
+
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+                    editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.apply();
+                    ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
+                    ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (1)");
@@ -349,6 +380,26 @@ class ActivateProfileListAdapter extends BaseAdapter
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
                     //targetHelpsSequenceStarted = false;
+
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+                    editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+
+                    editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
+                    editor.apply();
+
+                    ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
+                    ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
+                    ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;
+
+                    ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
+                    ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
+                    ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (2)");
@@ -369,6 +420,12 @@ class ActivateProfileListAdapter extends BaseAdapter
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
+
+            editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+            editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+            editor.apply();
+            ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = false;
+
             sequence.start();
         }
         else {

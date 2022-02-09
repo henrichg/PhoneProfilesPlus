@@ -52,7 +52,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetListCustomIconLightness;
         String applicationWidgetListLightnessT;
         int applicationWidgetListRoundedCornersRadius;
-        boolean applicationWidgetChangeColorsByNightMode;
+        boolean applicationWidgetListChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
@@ -71,7 +71,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
             applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
             applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
-            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+            applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
@@ -92,7 +92,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetChangeColorsByNightMode) {
+                        applicationWidgetListChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
@@ -103,7 +103,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = "100";
                             applicationWidgetListLightnessT = "100"; // lightness of text = white
-                            applicationWidgetListIconColor = "0"; // icon type = colorful
+                            //applicationWidgetListIconColor = "0"; // icon type = colorful
+                            applicationWidgetListIconLightness = "75";
                             applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
@@ -114,7 +115,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = "0";
                             applicationWidgetListLightnessT = "0"; // lightness of text = black
-                            applicationWidgetListIconColor = "0"; // icon type = colorful
+                            //applicationWidgetListIconColor = "0"; // icon type = colorful
+                            applicationWidgetListIconLightness = "62";
                             applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }
@@ -154,33 +156,43 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         float prefIndicatorLightnessValue = 0f;
+        int prefIndicatorMonochromeValue = 0x00;
         switch (applicationWidgetListPrefIndicatorLightness) {
             case "0":
                 prefIndicatorLightnessValue = -128f;
+                prefIndicatorMonochromeValue = 0x00;
                 break;
             case "12":
                 prefIndicatorLightnessValue = -96f;
+                prefIndicatorMonochromeValue = 0x20;
                 break;
             case "25":
                 prefIndicatorLightnessValue = -64f;
+                prefIndicatorMonochromeValue = 0x40;
                 break;
             case "37":
                 prefIndicatorLightnessValue = -32f;
+                prefIndicatorMonochromeValue = 0x60;
                 break;
             case "50":
                 prefIndicatorLightnessValue = 0f;
+                prefIndicatorMonochromeValue = 0x80;
                 break;
             case "62":
                 prefIndicatorLightnessValue = 32f;
+                prefIndicatorMonochromeValue = 0xA0;
                 break;
             case "75":
                 prefIndicatorLightnessValue = 64f;
+                prefIndicatorMonochromeValue = 0xC0;
                 break;
             case "87":
                 prefIndicatorLightnessValue = 96f;
+                prefIndicatorMonochromeValue = 0xE0;
                 break;
             case "100":
                 prefIndicatorLightnessValue = 128f;
+                prefIndicatorMonochromeValue = 0xFF;
                 break;
         }
 
@@ -517,7 +529,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (applicationWidgetListPrefIndicator)
                     profile.generatePreferencesIndicator(context.getApplicationContext(),
                             applicationWidgetListIconColor.equals("1"),
-                            monochromeValue, DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
+                            prefIndicatorMonochromeValue,
+                            DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
@@ -666,7 +679,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //Bundle widgetIdOptions;
         //widgetIdOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
         //boolean isLargeLayout = setLayoutParams(context, appWidgetManager, appWidgetId, widgetIdOptions);
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0f);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
         RemoteViews widget = buildLayout(context, appWidgetId, /*isLargeLayout,*/ dataWrapper);
         try {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
@@ -744,7 +757,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             for (int appWidgetId : appWidgetIds) {
                                 //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
                                 RemoteViews layout;
-                                DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0f);
+                                DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
                                 layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
                                 try {
                                     appWidgetManager.updateAppWidget(appWidgetId, layout);

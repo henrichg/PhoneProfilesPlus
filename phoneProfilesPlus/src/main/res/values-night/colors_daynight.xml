@@ -12,6 +12,7 @@
     <color name="activityWhiteTextColor">#FFFFFFFF</color>
     <color name="activityNormalTextColor">#FFd5d5d5</color>
     <color name="activitySecondaryTextColor">#CFFFFFFF</color>
+    <color name="bootomNavigationTextColor">#FFE0E0E0</color>
     <color name="activityDisabledTextColor">#4DFFFFFF</color>
     <color name="activityCommandBackgroundColor">#1FFFFFFF</color>
     <color name="activityPopupMenuBackgroundColor">#FF1C1C1C</color>
@@ -32,7 +33,7 @@
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
     <color name="editorFilterBackgroundColor">#FF272727</color>
 
-    <color name="tabTargetHelpOuterCircleColor">#FFE99B7F</color>
+    <color name="tabTargetHelpOuterCircleColor">#FFb37761</color>
     <color name="tabTargetHelpTargetCircleColor">#FF202020</color>
     <color name="tabTargetHelpTextColor">#FF000000</color>
 
@@ -57,8 +58,8 @@
 
     <color name="toastBackgroundColor">#FF707070</color>
     <color name="toastTextColor">#FFFFFFFF</color>
+    <color name="toastBorderColor">#FF454545</color>
 
-    <color name="toastBorderColor">#FF707070</color>
     <color name="dialogBorderColor">#FF454545</color>
     <color name="buttonBorderColor">#FF707070</color>
 <!--    <color name="alertButtonBorderColor">#FF707070</color>-->
@@ -75,5 +76,7 @@
     <color name="altype_restartEvents">#0e9bda</color>
     <color name="altype_error">#FFFF0000</color>
     <color name="altype_other">#FF7F7F7F</color>
+
+<!--    <color name="bottom_navigation_indicator">#80E99B7F</color>-->
 
 </resources>

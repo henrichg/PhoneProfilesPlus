@@ -61,6 +61,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_settings"
+                    android:contentDescription="@string/location_settings_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
@@ -103,7 +104,7 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_help"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/menu_help"/>
+                    android:contentDescription="@string/help_button_tooltip"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/wifi_ssid_pref_dlg_changeSelection"
@@ -115,7 +116,7 @@
                     android:layout_toStartOf = "@id/wifi_ssid_pref_dlg_helpIcon"
                     android:src="@drawable/ic_button_select"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/pref_dlg_change_selection_title"/>
+                    android:contentDescription="@string/wifi_ssid_pref_dlg_select_button_tooltip"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/wifi_ssid_pref_dlg_addIcon"
@@ -127,7 +128,7 @@
                     android:layout_toStartOf = "@id/wifi_ssid_pref_dlg_changeSelection"
                     android:src="@drawable/ic_button_add"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/wifi_ssid_pref_dlg_add_wifi_ssid_icon"/>
+                    android:contentDescription="@string/wifi_ssid_pref_dlg_add_button_tooltip"/>
 
                 <EditText
                     android:id="@+id/wifi_ssid_pref_dlg_bt_name"

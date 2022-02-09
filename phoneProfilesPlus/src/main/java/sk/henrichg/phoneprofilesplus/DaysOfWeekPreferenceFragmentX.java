@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class DaysOfWeekPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -18,7 +18,7 @@ public class DaysOfWeekPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (DaysOfWeekPreferenceX) getPreference();
@@ -29,7 +29,7 @@ public class DaysOfWeekPreferenceFragmentX extends PreferenceDialogFragmentCompa
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         ListView listView = view.findViewById(R.id.days_of_week_pref_dlg_listview);

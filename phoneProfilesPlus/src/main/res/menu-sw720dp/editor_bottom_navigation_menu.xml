@@ -13,11 +13,11 @@
         android:title="@string/editor_drawer_title_profiles"
         android:orderInCategory="100"
         android:icon="@drawable/ic_action_profiles_view"/>
-    <item android:id="@+id/menu_separator"
-        android:title="@string/empty_string"
-        android:orderInCategory="105"
-        android:icon="@drawable/ic_empty"
-        android:enabled="false"/>
+<!--    <item android:id="@+id/menu_separator"-->
+<!--        android:title="@string/empty_string"-->
+<!--        android:orderInCategory="105"-->
+<!--        android:icon="@drawable/ic_empty"-->
+<!--        android:enabled="false"/>-->
     <item android:id="@+id/menu_events_view"
         android:title="@string/editor_drawer_title_events"
         android:orderInCategory="110"

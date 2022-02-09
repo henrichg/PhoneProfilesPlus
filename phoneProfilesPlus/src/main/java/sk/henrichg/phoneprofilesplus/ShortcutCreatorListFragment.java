@@ -28,7 +28,6 @@ import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
-@SuppressWarnings("WeakerAccess")
 public class ShortcutCreatorListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
@@ -53,7 +52,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         setRetainInstance(true);
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
     }
 
@@ -129,7 +128,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         public LoadProfileListAsyncTask (ShortcutCreatorListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             //noinspection ConstantConditions
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
             //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context);
             applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
@@ -368,7 +367,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                     if (Build.VERSION.SDK_INT < 26)
                         shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
 
-                    if (ApplicationPreferences.applicationWidgetIconColor.equals("1")) {
+                    if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "applicationWidgetIconColor=1");
                             PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "useCustomColor=" + useCustomColor);
@@ -376,7 +375,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                         if (isIconResourceID || useCustomColor) {
                             // icon is from resource or colored by custom color
                             int monochromeValue = 0xFF;
-                            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
+                            String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
                             if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
                             if (applicationWidgetIconLightness.equals("12")) monochromeValue = 0x20;
                             if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
@@ -389,7 +388,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                             profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, context*/);
                         } else {
                             float monochromeValue = 255f;
-                            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
+                            String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
                             if (applicationWidgetIconLightness.equals("0")) monochromeValue = -255f;
                             if (applicationWidgetIconLightness.equals("12")) monochromeValue = -192f;
                             if (applicationWidgetIconLightness.equals("25")) monochromeValue = -128f;
@@ -400,7 +399,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                             if (applicationWidgetIconLightness.equals("87")) monochromeValue = 192f;
                             //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 255f;
                             profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
-                            profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
+                            if (ApplicationPreferences.applicationShortcutCustomIconLightness)
+                                profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
                         }
                     }
 

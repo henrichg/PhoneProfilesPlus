@@ -132,7 +132,7 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             getValueDSDP();

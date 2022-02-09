@@ -50,7 +50,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+//import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,6 +67,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import me.ibrahimsn.lib.SmoothBottomBar;
 import sk.henrichg.phoneprofiles.PPIntentForExport;
 import sk.henrichg.phoneprofiles.PPProfileForExport;
 import sk.henrichg.phoneprofiles.PPShortcutForExport;
@@ -131,12 +132,13 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final int REQUEST_CODE_BACKUP_SETTINGS_2 = 6231;
     private static final int REQUEST_CODE_RESTORE_SETTINGS = 6232;
 
-    public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
 
     public static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
     public static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
+
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profiles_activity_start_target_helps_finished";
 
     private static final String PREF_BACKUP_CREATE_PPP_SUBFOLDER = "backup_create_ppp_subfolder";
 
@@ -163,17 +165,21 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private ImageView drawerHeaderFilterImage;
     //private TextView drawerHeaderFilterTitle;
     //private TextView drawerHeaderFilterSubtitle;
-    private BottomNavigationView bottomNavigationView;
+    //private BottomNavigationView bottomNavigationView;
+    private SmoothBottomBar bottomNavigationView;
 
     //private String[] drawerItemsTitle;
     //private String[] drawerItemsSubtitle;
     //private Integer[] drawerItemsIcon;
 
+    boolean filterInitialized;
+
     int editorSelectedView = 0;
     private int filterProfilesSelectedItem = 0;
     private int filterEventsSelectedItem = 0;
 
-    private boolean startTargetHelps;
+    //private boolean startTargetHelps;
+    //public boolean targetHelpsSequenceStarted;
 
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
@@ -457,51 +463,12 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(
-                item -> {
-                    int itemId = item.getItemId();
-                    if (itemId == R.id.menu_profiles_view) {
-                        //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
-                        String[] filterItems = new String[]{
-                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
-                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-                        };
-                        GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                                EditorProfilesActivity.this,
-                                R.layout.highlighted_filter_spinner,
-                                filterItems);
-                        filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                        filterSpinner.setAdapter(filterSpinnerAdapter);
-                        EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
-                        Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                        if (fragment instanceof EditorProfileListFragment)
-                            ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
-                        return true;
-                    } else if (itemId == R.id.menu_events_view) {
-                        //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
-                        String[] filterItems = new String[]{
-                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
-                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_all),
-                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
-                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_running),
-                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
-                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
-                        };
-                        GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                                EditorProfilesActivity.this,
-                                R.layout.highlighted_filter_spinner,
-                                filterItems);
-                        filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                        filterSpinner.setAdapter(filterSpinnerAdapter);
-                        EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
-                        Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                        if (fragment instanceof EditorEventListFragment) {
-                            ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
-                        }
-                        return true;
-                    } else
-                        return false;
-                });
+                (me.ibrahimsn.lib.OnItemSelectedListener) item -> {
+                    //PPApplication.logE("EditorProfilesActivity.bottomNavigationView.OnItemSelectedListener", "xxx");
+                    //noinspection Convert2MethodRef
+                    return EditorProfilesActivity.this.selectViewItem(item);
+                }
+        );
         // set size of icons of BottomNavigationView
         /*BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
@@ -544,12 +511,18 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }*/
+        filterInitialized = false;
         filterSpinner.setAdapter(filterSpinnerAdapter);
         filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
-                selectFilterItem(editorSelectedView, position, true, true);
+                if (!filterInitialized) {
+                    filterInitialized = true;
+                    return;
+                }
+                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
+//                Log.e("EditorProfilesActivity.filterSpinner.onItemSelected", "position=" + position);
+                selectFilterItem(editorSelectedView, position, true/*, true*/);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -589,22 +562,36 @@ public class EditorProfilesActivity extends AppCompatActivity
         //if ((savedInstanceState != null) || (ApplicationPreferences.applicationEditorSaveEditorState(getApplicationContext())))
         //{
             //filterSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
+
             if (startupSource == PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER) {
                 editorSelectedView = 0;
                 filterProfilesSelectedItem = DSI_PROFILES_ALL;
             }
+            else if (startupSource == PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER) {
+                editorSelectedView = 0;
+                filterProfilesSelectedItem = DSI_EVENTS_ALL;
+            }
             else {
+//                ApplicationPreferences.editorSelectedView(getApplicationContext());
+//                ApplicationPreferences.editorProfilesViewSelectedItem(getApplicationContext());
                 editorSelectedView = ApplicationPreferences.editorSelectedView;
                 filterProfilesSelectedItem = ApplicationPreferences.editorProfilesViewSelectedItem;
             }
+//            ApplicationPreferences.editorEventsViewSelectedItem(getApplicationContext());
             filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
+//            Log.e("EditorProfilesActivity.onCreate", "editorSelectedView="+editorSelectedView);
+//            Log.e("EditorProfilesActivity.onCreate", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
+//            Log.e("EditorProfilesActivity.onCreate", "filterEventsSelectedItem="+filterEventsSelectedItem);
         //}
 
-        startTargetHelps = false;
-        if (editorSelectedView == 0)
+        //startTargetHelps = false;
+        /*if (editorSelectedView == 0)
             bottomNavigationView.setSelectedItemId(R.id.menu_profiles_view);
         else
-            bottomNavigationView.setSelectedItemId(R.id.menu_events_view);
+            bottomNavigationView.setSelectedItemId(R.id.menu_events_view);*/
+        bottomNavigationView.setItemActiveIndex(editorSelectedView);
+        selectViewItem(editorSelectedView);
+
         /*
         if (editorSelectedView == 0)
             selectFilterItem(filterProfilesSelectedItem, false, false, false);
@@ -822,7 +809,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         editorToolbar.inflateMenu(R.menu.editor_top_bar);
         return true;
@@ -951,13 +938,18 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
 
+        PackageManager packageManager = getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        boolean galaxyStoreInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+        boolean appGalleryInstalled = (intent != null);
         menuItem = menu.findItem(R.id.menu_check_in_galaxy_store);
         if (menuItem != null) {
-            menuItem.setVisible(PPApplication.deviceIsSamsung);
+            menuItem.setVisible(PPApplication.deviceIsSamsung && galaxyStoreInstalled);
         }
         menuItem = menu.findItem(R.id.menu_check_in_appgallery);
         if (menuItem != null) {
-            menuItem.setVisible(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI);
+            menuItem.setVisible(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled);
         }
 
         //noinspection Convert2MethodRef
@@ -1200,7 +1192,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                 //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
                 ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
-                showTargetHelps();
+                GlobalGUIRoutines.reloadActivity(this, true);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
@@ -1382,12 +1374,73 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
     */
 
-    private void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
-            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
-            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position=" + position);
-        }*/
+    private boolean selectViewItem(int item) {
+//        PPApplication.logE("EditorProfilesActivity.selectViewItem", "xxx");
+
+        //int itemId = item.getItemId();
+        //if (itemId == R.id.menu_profiles_view) {
+        if (item == 0) {
+//            PPApplication.logE("EditorProfilesActivity.selectViewItem", "menu_profiles_view");
+            final Handler handler = new Handler(getMainLooper());
+            handler.postDelayed(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.selectViewItem (0)");
+                String[] filterItems = new String[]{
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                };
+                GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                        EditorProfilesActivity.this,
+                        R.layout.highlighted_filter_spinner,
+                        filterItems);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                filterSpinner.setAdapter(filterSpinnerAdapter);
+//                Log.e("EditorProfilesActivity.selectViewItem (0)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
+                EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
+                Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment instanceof EditorProfileListFragment)
+                    ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
+            }, 200);
+            return true;
+            //} else if (itemId == R.id.menu_events_view) {
+        } else if (item == 1) {
+//            PPApplication.logE("EditorProfilesActivity.selectViewItem", "menu_events_view");
+
+            final Handler handler = new Handler(getMainLooper());
+            handler.postDelayed(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.selectViewItem (1)");
+                String[] filterItems = new String[]{
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_all),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_running),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
+                };
+                GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                        EditorProfilesActivity.this,
+                        R.layout.highlighted_filter_spinner,
+                        filterItems);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                filterSpinner.setAdapter(filterSpinnerAdapter);
+//                Log.e("EditorProfilesActivity.selectViewItem (1)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
+                EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
+                Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment instanceof EditorEventListFragment) {
+                    ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
+                }
+            }, 200);
+            return true;
+        } else
+            return false;
+    }
+
+    private void selectFilterItem(int selectedView, int position, boolean fromClickListener/*, boolean startTargetHelps*/) {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position=" + position);
+//        }
 
         boolean viewChanged = false;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1404,16 +1457,18 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         int filterSelectedItem;
         if (selectedView == 0) {
-            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
             filterSelectedItem = filterProfilesSelectedItem;
         }
         else {
-            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
             filterSelectedItem = filterEventsSelectedItem;
         }
 
         if (viewChanged || (position != filterSelectedItem))
         {
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "items changed");
+
             if (viewChanged) {
                 // stop running AsyncTask
                 if (fragment instanceof EditorProfileListFragment) {
@@ -1463,7 +1518,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
-                                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
@@ -1472,7 +1527,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(profilesFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_PROFILES_SHOW_IN_ACTIVATOR:
@@ -1482,7 +1537,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
-                                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
@@ -1491,7 +1546,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(profilesFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
@@ -1501,7 +1556,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
-                                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
@@ -1510,7 +1565,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(profilesFilterType/*, startTargetHelps*/);
                             }
                             break;
                     }
@@ -1524,7 +1579,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1533,7 +1588,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_ALL:
@@ -1543,7 +1598,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1552,7 +1607,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_NOT_STOPPED:
@@ -1562,7 +1617,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1571,7 +1626,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_RUNNING:
@@ -1581,7 +1636,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1590,7 +1645,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_PAUSED:
@@ -1600,7 +1655,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1609,7 +1664,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                         case DSI_EVENTS_STOPPED:
@@ -1619,7 +1674,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
                                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
@@ -1628,7 +1683,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             else {
                                 //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
-                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                                displayedFragment.changeFragmentFilter(eventsFilterType/*, startTargetHelps*/);
                             }
                             break;
                     }
@@ -1791,7 +1846,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                }
 
                 boolean restart = data.getBooleanExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, false);
-//                PPApplication.logE("EditorProfilesActivity.onActivityResult", "restart="+restart);
+                //PPApplication.logE("EditorProfilesActivity.onActivityResult", "restart="+restart);
 
                 if (restart)
                 {
@@ -2746,7 +2801,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (changeFilter) {
                                 fragment.scrollToProfile = profile;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
-                                editorActivity.selectFilterItem(0, 0, false, true);
+//                                Log.e("EditorProfilesActivity.redrawProfileListFragment", "position=0");
+                                editorActivity.selectFilterItem(0, 0, false/*, true*/);
                             }
                             else
                                 fragment.scrollToProfile = null;
@@ -2929,7 +2985,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (changeFilter) {
                                 fragment.scrollToEvent = event;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
-                                editorActivity.selectFilterItem(1, 0, false, true);
+//                                Log.e("EditorProfilesActivity.redrawEventListFragment", "position=0");
+                                editorActivity.selectFilterItem(1, 0, false/*, true*/);
                             }
                             else
                                 fragment.scrollToEvent = null;
@@ -3050,7 +3107,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // Toolbar.findViewById() returns null
             return;*/
 
-        startTargetHelps = true;
+        //startTargetHelps = true;
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorActivityStartTargetHelps;
         //boolean startTargetHelpsProfilesFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsProfilesFilterSpinner;
@@ -3060,7 +3117,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         if (startTargetHelps || //startTargetHelpsProfilesFilterSpinner || startTargetHelpsEventsFilterSpinner ||
                 startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation ||
-                ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile ||
+                ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile ||
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder ||
@@ -3237,7 +3294,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .id(id)
                         );
                         ++id;
-
+/*
                         targets.add(
                                 TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
                                         getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
@@ -3262,6 +3319,21 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .id(id)
                         );
                         ++id;
+ */
+                        targets.add(
+                                TapTarget.forView(bottomNavigationView, getString(R.string.editor_activity_targetHelps_bottomNavigation_title),
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(false)
+                                        .drawShadow(true)
+                                        .transparentTarget(true)
+                                        .id(id)
+                        );
+                        ++id;
+
+
                     } else {
                         /*targets.add(
                                 TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
@@ -3360,7 +3432,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .id(id)
                         );
                         ++id;
-
+/*
                         targets.add(
                                 TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
                                         getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
@@ -3382,6 +3454,19 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .textColor(textColor)
                                         .tintTarget(true)
                                         .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+*/
+                        targets.add(
+                                TapTarget.forView(bottomNavigationView, getString(R.string.editor_activity_targetHelps_bottomNavigation_title),
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(false)
+                                        .drawShadow(true)
+                                        .transparentTarget(true)
                                         .id(id)
                         );
                         ++id;
@@ -3426,7 +3511,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     );
                 }
                 if (startTargetHelpsBottomNavigation) {
-                    targets.add(
+                    /*targets.add(
                             TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
                                     getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
                                     getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
@@ -3448,6 +3533,18 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .drawShadow(true)
                                     .id(2)
                     );
+                    */
+                    targets.add(
+                            TapTarget.forView(bottomNavigationView, getString(R.string.editor_activity_targetHelps_bottomNavigation_title),
+                                    getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(false)
+                                    .drawShadow(true)
+                                    .transparentTarget(true)
+                                    .id(1)
+                    );
                 }
 
                 sequence.targets(targets);
@@ -3457,7 +3554,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
+
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                        editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.apply();
+                        ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = true;
+
                         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                         if (fragment != null) {
                             if (fragment instanceof EditorProfileListFragment)
@@ -3474,7 +3577,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
                         Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
                         if (editorSelectedView == 0) {
                             editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
@@ -3483,12 +3586,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                             if (filterProfilesSelectedItem == DSI_PROFILES_ALL)
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+
+                            editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
                             ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
                             if (filterProfilesSelectedItem == DSI_PROFILES_SHOW_IN_ACTIVATOR)
                                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
                             if (filterProfilesSelectedItem == DSI_PROFILES_ALL)
                                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
+
+                            ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
+                            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+
                         }
                         else {
                             editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
@@ -3496,18 +3607,31 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (filterEventsSelectedItem == DSI_EVENTS_START_ORDER)
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
+
+                            editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+
                             ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
                             if (filterEventsSelectedItem == DSI_EVENTS_START_ORDER)
                                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
+
+                            ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
+                            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
                         }
                         editor.apply();
                     }
                 });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                targetHelpsSequenceStarted = true;
+                //targetHelpsSequenceStarted = true;
+
+                editor = ApplicationPreferences.getEditor(getApplicationContext());
+                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.apply();
+                ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = false;
+
                 sequence.start();
             }
             else {
@@ -3535,6 +3659,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     static void showDialogAboutRedText(final Profile profile, final Event event,
+                                       final boolean forProfile,
                                        final boolean forActivator,
                                        final boolean forShowInActivator,
                                        final boolean forRunStopEvent,
@@ -3558,9 +3683,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                        activity.getString(R.string.preferences_red_texts_text_2);
 //            }
             if (forShowInActivator)
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3);
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3_new);
             else
                 nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+
+            nText = nText + "\n\n" + activity.getString(R.string.profile_preferences_red_texts_text_4);
         }
 
         if (event != null) {
@@ -3579,54 +3706,108 @@ public class EditorProfilesActivity extends AppCompatActivity
                 nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
             else
                 nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+
+            nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
         }
 
         if ((profile != null) || (event != null)) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(nTitle);
             dialogBuilder.setMessage(nText);
-            if (forActivator) {
+            if (forProfile) {
                 dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_profile_preferences,
                         (dialog, which) -> {
                             Intent intent;
                             if (profile != null) {
                                 intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                                 intent.putExtra(EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
                                 intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, 0);
                             }
                             else {
                                 intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
                             }
                             activity.startActivity(intent);
 
                             try {
                                 // close Activator
-                                activity.finish();
+                                if (forActivator)
+                                    activity.finish();
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
                         });
-                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                if (forActivator) {
+                    dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                            (dialog, which) -> {
+                                Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                                activity.startActivity(intent);
+
+                                try {
+                                    // close Activator
+                                    activity.finish();
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+                            });
+                }
+            }
+            else {
+                //    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_event_preferences,
                         (dialog, which) -> {
-                            Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                            Intent intent;
+                            if (event != null) {
+                                intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                                intent.putExtra(EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                                intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                            }
+                            else {
+                                intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
+                            }
                             activity.startActivity(intent);
 
                             try {
                                 // close Activator
-                                activity.finish();
+                                if (forActivator)
+                                    activity.finish();
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
                         });
+                /*
+                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                        (dialog, which) -> {
+                            Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                            if (forActivator)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                if (forActivator)
+                                    activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        });
+                 */
             }
-            else
-                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+            dialogBuilder.setCancelable(!forActivator);
             AlertDialog dialog = dialogBuilder.create();
 
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -4442,6 +4623,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             //ApplicationPreferences.notificationNightMode = true;
                                         }
                                         ApplicationPreferences.notificationShowRestartEventsAsButton = Build.VERSION.SDK_INT >= 31;
+                                        ApplicationPreferences.applicationShortcutIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconColor;
+                                        ApplicationPreferences.applicationShortcutIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightness;
+                                        ApplicationPreferences.applicationShortcutCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconCustomIconLightness;
 
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);
@@ -4513,6 +4697,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecoration);
                                         editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.notificationLayoutType);
                                         editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.notificationBackgroundColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, ApplicationPreferences.applicationShortcutIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, ApplicationPreferences.applicationShortcutIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationShortcutCustomIconLightness);
                                         editor.apply();
                                     }
                                     for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)

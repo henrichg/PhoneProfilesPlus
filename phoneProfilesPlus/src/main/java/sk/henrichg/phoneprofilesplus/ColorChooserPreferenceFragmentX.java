@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.gridlayout.widget.GridLayout;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -20,7 +21,6 @@ import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.colormode.ColorMode;
 import com.kunzisoft.androidclearchroma.view.ChromaColorView;
 
-@SuppressWarnings("WeakerAccess")
 public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCompat
                                                 implements View.OnClickListener {
 
@@ -28,7 +28,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         preference = (ColorChooserPreferenceX) getPreference();
         preference.fragment = this;
@@ -38,7 +38,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         int preselect = -1;

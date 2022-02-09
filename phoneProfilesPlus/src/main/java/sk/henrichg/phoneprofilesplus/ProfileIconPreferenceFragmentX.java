@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -22,7 +24,7 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (ProfileIconPreferenceX) getPreference();
@@ -33,7 +35,7 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         GridView gridView = view.findViewById(R.id.profileicon_pref_dlg_gridview);
@@ -72,6 +74,22 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
                 preference.startGallery();
                 //mDialog.dismiss();
             }
+        });
+
+        final AppCompatImageButton helpButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon_helpIcon);
+        TooltipCompat.setTooltipText(helpButton, getString(R.string.profile_icon_preference_custumIconFromIconPack_help));
+        helpButton.setOnClickListener(v -> {
+            String helpString = getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_1) + "<br><br>" +
+                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_2) +
+                    " \"ThemeX: Extract Launcher Theme\". " +
+                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + "<br><br>" +
+                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4);
+                    //"<a href=https://play.google.com/store/apps/details?id=com.redphx.themex>" +
+                    //getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4) + " &#8658;</a>";
+            //iconPacksIfo.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT));
+            //iconPacksIfo.setClickable(true);
+            //iconPacksIfo.setMovementMethod(LinkMovementMethod.getInstance());
+            DialogHelpPopupWindowX.showPopup(helpButton, R.string.profile_icon_preference_custumIconFromIconPack_help, (Activity)prefContext, /*getDialog(),*/ helpString, true);
         });
 
         preference.getValuePIDP();

@@ -56,7 +56,6 @@ class Installer
     private final Context context;
     private final String filesPath;
 
-    @SuppressWarnings("WeakerAccess")
     public Installer(Context context)
             throws IOException
     {
@@ -77,7 +76,6 @@ class Installer
      * @return a <code>boolean</code> which indicates whether or not we were
      * able to create the new file.
      */
-    @SuppressWarnings("WeakerAccess")
     protected boolean installBinary(int sourceId, String destName, String mode)
     {
         File mf = new File(filesPath + File.separator + destName);
@@ -213,7 +211,6 @@ class Installer
         return true;
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected boolean isBinaryInstalled(String destName)
     {
         boolean installed = false;
@@ -225,7 +222,6 @@ class Installer
         return installed;
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected String getFileSignature(File f)
     {
         String signature = "";
@@ -243,7 +239,7 @@ class Installer
     /*
      * Note: this method will close any string passed to it
      */
-    @SuppressWarnings({"WeakerAccess", "TryWithIdenticalCatches"})
+    @SuppressWarnings("TryWithIdenticalCatches")
     protected String getStreamSignature(InputStream is)
     {
         String signature = "";

@@ -139,6 +139,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignBottom="@id/run_applications_editor_dialog_startApplicationDelay_root"
                 android:src="@drawable/ic_button_add"
+                android:contentDescription="@string/applications_editor_dialog_add_button_tooltip"
                 android:background="?attr/selectableItemBackgroundBorderless" />
 
             <LinearLayout

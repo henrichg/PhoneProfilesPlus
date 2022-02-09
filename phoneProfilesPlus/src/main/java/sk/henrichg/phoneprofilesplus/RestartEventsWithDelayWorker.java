@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-@SuppressWarnings("WeakerAccess")
 public class RestartEventsWithDelayWorker extends Worker {
 
     private final Context context;
@@ -46,7 +45,7 @@ public class RestartEventsWithDelayWorker extends Worker {
             //return Result.success(outputData);
 
 
-            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0f);
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
             if (logType != PPApplication.ALTYPE_UNDEFINED)
                 PPApplication.addActivityLog(context, logType, null, null, "");
             //dataWrapper.restartEvents(unblockEventsRun, true, true, false);

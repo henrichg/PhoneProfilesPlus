@@ -16,7 +16,7 @@
         app:summary="@string/info_preference_click_here"
         app:infoText="@string/event_preferences_alarm_clock_info"
         app:dependency="eventAlarmClockEnabled"
-        app:widgetLayout="@layout/widget_info_preference_clickable"
+        app:widgetLayout="@layout/preference_widget_info_preference_clickable"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX

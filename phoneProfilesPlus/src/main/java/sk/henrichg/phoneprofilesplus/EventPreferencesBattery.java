@@ -182,11 +182,13 @@ class EventPreferencesBattery extends EventPreferences {
     private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences == null)
+            return;
 
         if (key.equals(PREF_EVENT_BATTERY_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
             }
         }
 
@@ -202,7 +204,7 @@ class EventPreferencesBattery extends EventPreferences {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false);
             }
         }
         if (key.equals(PREF_EVENT_BATTERY_PLUGGED)) {
@@ -220,13 +222,13 @@ class EventPreferencesBattery extends EventPreferences {
                     }
                 }
                 boolean bold = plugged.length() > 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false);
             }
         }
         if (key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
             }
         }
     }
@@ -292,7 +294,7 @@ class EventPreferencesBattery extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BATTERY).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }
@@ -326,7 +328,9 @@ class EventPreferencesBattery extends EventPreferences {
                 else
                     iNewValue = Integer.parseInt(sNewValue);
 
-                String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_HIGHT, "100");
+                String sHightLevelValue = "100";
+                if (_prefMng.getSharedPreferences() != null)
+                    sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_HIGHT, "100");
                 int iHightLevelValue;
                 if (sHightLevelValue.isEmpty())
                     iHightLevelValue = 100;
@@ -355,7 +359,9 @@ class EventPreferencesBattery extends EventPreferences {
                 else
                     iNewValue = Integer.parseInt(sNewValue);
 
-                String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_LOW, "0");
+                String sLowLevelValue = "0";
+                if (_prefMng.getSharedPreferences() != null)
+                    sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_LOW, "0");
                 int iLowLevelValue;
                 if (sLowLevelValue.isEmpty())
                     iLowLevelValue = 0;

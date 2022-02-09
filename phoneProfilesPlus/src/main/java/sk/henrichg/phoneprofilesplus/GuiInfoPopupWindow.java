@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 
 class GuiInfoPopupWindow extends RelativePopupWindow {
 
@@ -46,6 +47,7 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
 
         AppCompatImageButton closeButton = popupView.findViewById(R.id.popup_window_close);
         if (closeButton != null) {
+            TooltipCompat.setTooltipText(closeButton, closeButton.getContentDescription());
             closeButton.setOnClickListener(v -> dismiss());
         }
 

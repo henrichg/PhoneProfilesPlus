@@ -195,7 +195,6 @@ public final class RootTools {
      * @param isDir boolean that represent whether or not we are looking for a directory
      * @return a boolean that will indicate whether or not the file exists.
      */
-    @SuppressWarnings("WeakerAccess")
     public static boolean exists(final String file, boolean isDir) {
         return RootShell.exists(file, isDir);
     }
@@ -285,7 +284,6 @@ public final class RootTools {
      * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
-    @SuppressWarnings("WeakerAccess")
     public static Shell getCustomShell(String shellPath, int timeout) throws IOException, TimeoutException, RootDeniedException {
         return RootShell.getCustomShell(shellPath, timeout);
     }
@@ -371,7 +369,6 @@ public final class RootTools {
      * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
-    @SuppressWarnings("WeakerAccess")
     public static Shell getShell(boolean root, int timeout, Shell.ShellContext shellContext, int retry) throws IOException, TimeoutException, RootDeniedException {
         return RootShell.getShell(root, timeout, shellContext, retry);
     }
@@ -415,7 +412,6 @@ public final class RootTools {
      * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
-    @SuppressWarnings("WeakerAccess")
     public static Shell getShell(boolean root, int timeout) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, timeout, Shell.defaultContext, 3);
     }
@@ -517,7 +513,6 @@ public final class RootTools {
      * @return a <code>boolean</code> which indicates whether or not we were able to create the new
      * file.
      */
-    @SuppressWarnings("WeakerAccess")
     public static boolean installBinary(Context context, int sourceId, String destName, String mode) {
         return getInternals().installBinary(context, sourceId, destName, mode);
     }
@@ -557,7 +552,6 @@ public final class RootTools {
      * @param path   Path to the busybox binary that you want to check. (do not include binary name)
      * @return <code>true</code> if applet is available, false otherwise.
      */
-    @SuppressWarnings("WeakerAccess")
     public static boolean isAppletAvailable(String applet, String path) {
         return getInternals().isAppletAvailable(applet, path);
     }
@@ -628,7 +622,7 @@ public final class RootTools {
      * @param processName name of process to kill
      * @return <code>true</code> if process was found and killed successfully
      */
-    @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
+    @SuppressWarnings("UnusedReturnValue")
     public static boolean killProcess(final String processName) {
         return getInternals().killProcess(processName);
     }
@@ -689,6 +683,7 @@ public final class RootTools {
      * @return a <code>boolean</code> which indicates whether or not the partition has been
      * remounted as specified.
      */
+    @SuppressWarnings("UnusedReturnValue")
     public static boolean remount(String file, String mountType) {
         // Received a request, get an instance of Remounter
         Remounter remounter = new Remounter();
@@ -825,7 +820,6 @@ public final class RootTools {
      * @param type The type of log, 1 for verbose, 2 for error, 3 for debug
      * @param e    The exception that was thrown (Needed for errors)
      */
-    @SuppressWarnings("WeakerAccess")
     public static void log(@SuppressWarnings("ParameterCanBeLocal") String TAG, String msg, int type, Exception e) {
         if (msg != null && !msg.equals("")) {
             if (debugMode) {

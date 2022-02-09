@@ -46,7 +46,6 @@ public class RootShell {
 
     public static boolean debugMode = false;
 
-    @SuppressWarnings("WeakerAccess")
     public static final String version = "rootshell v1.6";
 
     /**
@@ -110,7 +109,6 @@ public class RootShell {
      *             file and its name.
      * @return a boolean that will indicate whether or not the file exists.
      */
-    @SuppressWarnings("WeakerAccess")
     public static boolean exists(final String file) {
         return exists(file, false);
     }
@@ -207,7 +205,6 @@ public class RootShell {
      *
      * @return <code>List<String></code> containing the locations the binary was found at.
      */
-    @SuppressWarnings("WeakerAccess")
     public static List<String> findBinary(final String binaryName, List<String> searchPaths, boolean singlePath) {
 
         final List<String> foundPaths = new ArrayList<>();
@@ -311,7 +308,7 @@ public class RootShell {
      *
      * @return <code>List<String></code> A List of Strings representing the environment variable $PATH
      */
-    @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
+    @SuppressWarnings("ConstantConditions")
     public static List<String> getPath() {
         return Arrays.asList(System.getenv("PATH").split(":"));
     }
@@ -365,7 +362,6 @@ public class RootShell {
      * @param root    a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @param timeout an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
      */
-    @SuppressWarnings("WeakerAccess")
     public static Shell getShell(boolean root, int timeout) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, timeout, Shell.defaultContext, 3);
     }
@@ -448,7 +444,6 @@ public class RootShell {
     /**
      * @return <code>true</code> if BusyBox or Toybox was found.
      */
-    @SuppressWarnings("WeakerAccess")
     public static boolean isBusyboxAvailable(boolean includeToybox)
     {
         if(includeToybox) {
@@ -554,7 +549,6 @@ public class RootShell {
      * @param type The type of log, 1 for verbose, 2 for error, 3 for debug
      * @param e    The exception that was thrown (Needed for errors)
      */
-    @SuppressWarnings("WeakerAccess")
     public static void log(String TAG, String msg, LogLevel type, Exception e) {
         if (msg != null && !msg.equals("")) {
             if (debugMode) {

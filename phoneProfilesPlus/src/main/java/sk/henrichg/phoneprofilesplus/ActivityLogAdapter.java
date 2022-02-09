@@ -34,13 +34,13 @@ class ActivityLogAdapter extends CursorAdapter {
     ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
 
-        KEY_AL_LOG_DATE_TIME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_LOG_DATE_TIME);
-        KEY_AL_LOG_TYPE = cursor.getColumnIndex(DatabaseHandler.KEY_AL_LOG_TYPE);
-        KEY_AL_EVENT_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_EVENT_NAME);
-        KEY_AL_PROFILE_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_NAME);
-        //KEY_AL_PROFILE_ICON = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_ICON);
-        //KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
-        KEY_AL_PROFILE_EVENT_COUNT = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
+        KEY_AL_LOG_DATE_TIME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_DATE_TIME);
+        KEY_AL_LOG_TYPE = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
+        KEY_AL_EVENT_NAME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_EVENT_NAME);
+        KEY_AL_PROFILE_NAME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
+        //KEY_AL_PROFILE_ICON = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_ICON);
+        //KEY_AL_DURATION_DELAY = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_DURATION_DELAY);
+        KEY_AL_PROFILE_EVENT_COUNT = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
 
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, R.string.altype_mergedProfileActivation);

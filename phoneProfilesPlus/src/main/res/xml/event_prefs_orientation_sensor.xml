@@ -14,7 +14,7 @@
         app:title="@string/phone_profiles_pref_category_orientation_scanning"
         app:summary="@string/phone_profiles_pref_eventOrientationAppSettings_summary"
         app:dependency="eventOrientationEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <MultiSelectListPreference
         app:key="eventOrientationDisplay"
@@ -53,7 +53,7 @@
         app:title="@string/event_preferences_orientation_light_currentValue_title"
         app:summary="@string/empty_string"
         app:dependency="eventOrientationEnabled"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="eventOrientationLightMin"
@@ -87,20 +87,20 @@
         app:title="@string/install_extender_dialog_title"
         app:summary="@string/event_preferences_orientation_PPPExtender_install_summary"
         app:dependency="eventOrientationEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventOrientationAccessibilitySettings"
         app:title="@string/event_preferences_applications_AccessibilitySettings_title"
         app:summary="@string/event_preferences_orientation_AccessibilitySettingsForExtender_summary"
         app:dependency="eventOrientationEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventOrientationLaunchExtender"
         app:title="@string/event_preferences_applications_LaunchExtender_title"
         app:dependency="eventOrientationEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

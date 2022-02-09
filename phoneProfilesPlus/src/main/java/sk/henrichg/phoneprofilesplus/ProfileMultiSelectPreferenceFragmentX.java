@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
-@SuppressWarnings("WeakerAccess")
 public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private LinearLayout linlaProgress;
@@ -27,7 +27,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (ProfileMultiSelectPreferenceX) getPreference();
@@ -38,7 +38,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         linlaProgress = view.findViewById(R.id.profile_multiselect_pref_dlg_linla_progress);

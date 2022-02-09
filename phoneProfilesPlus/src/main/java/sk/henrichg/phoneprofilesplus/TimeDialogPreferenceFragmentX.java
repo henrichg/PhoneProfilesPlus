@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
-@SuppressWarnings("WeakerAccess")
 public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
                                 implements SeekBar.OnSeekBarChangeListener {
 
@@ -27,7 +27,7 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         this.context = context;
         preference = (TimeDialogPreferenceX) getPreference();
@@ -39,7 +39,7 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindDialogView(View view)
+    protected void onBindDialogView(@NonNull View view)
     {
         super.onBindDialogView(view);
 

@@ -554,7 +554,8 @@ class Permissions {
         if (profile == null) return true;
 
         try {
-            if (profile._deviceWallpaperChange == 1) {
+            if ((profile._deviceWallpaperChange == 1) ||
+                (profile._deviceWallpaperChange == 4)) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
                     permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
@@ -587,7 +588,7 @@ class Permissions {
 
         if (fromProfile) {
             try {
-                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                 Profile _profile = DatabaseHandler.getInstance(dataWrapper.context).getProfile(profile._id, false);
                 if (_profile == null) return;// true;
                 if (!_profile.getIsIconResourceID()) {
@@ -2673,6 +2674,7 @@ class Permissions {
         });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
+            grantRootChanged = true;
             if (profilesFragment == null) {
                 // always ask for grant root, when grant is invocked from PPP Settings
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
@@ -2681,7 +2683,7 @@ class Permissions {
                 editor.apply();
                 ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
             } else {
-                grantRootChanged = true;
+                //grantRootChanged = true;
                 profilesFragment.setRedTextToPreferences();
             }
 

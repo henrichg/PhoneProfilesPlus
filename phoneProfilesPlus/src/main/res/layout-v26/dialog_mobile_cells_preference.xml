@@ -61,6 +61,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
+                    android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
@@ -90,6 +91,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
+                    android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
@@ -120,6 +122,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
+                    android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
@@ -151,6 +154,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_settings"
+                    android:contentDescription="@string/location_settings_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
@@ -193,7 +197,7 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_help"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/menu_help"/>
+                    android:contentDescription="@string/help_button_tooltip"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/mobile_cells_pref_dlg_changeSelection"
@@ -205,7 +209,7 @@
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_helpIcon"
                     android:src="@drawable/ic_button_select"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/pref_dlg_change_selection_title"/>
+                    android:contentDescription="@string/mobile_cells_pref_dlg_select_button_tooltip"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/mobile_cells_pref_dlg_rename"
@@ -218,7 +222,7 @@
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_changeSelection"
                     android:src="@drawable/ic_button_edit"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"/>
+                    android:contentDescription="@string/mobile_cells_pref_dlg_rename_cell_button_tooltip"/>
 
                 <TextView
                     android:id="@+id/mobile_cells_pref_dlg_cells_name"
@@ -277,7 +281,7 @@
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_sort"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/mobile_cells_pref_dlg_sort_icon"/>
+                    android:contentDescription="@string/mobile_cells_pref_dlg_button_tooltip"/>
 
                 <TextView
                     android:id="@+id/mobile_cells_pref_dlg_cells_filter_name"

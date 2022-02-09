@@ -262,7 +262,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(VolumeDialogPreferenceX.SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(VolumeDialogPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onRestoreInstanceState");

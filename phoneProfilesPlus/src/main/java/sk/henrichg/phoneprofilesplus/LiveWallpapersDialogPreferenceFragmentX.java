@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -21,7 +22,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -32,12 +32,11 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
 
     private LiveWallpapersDialogPreferenceAdapterX listAdapter;
 
-    @SuppressWarnings("rawtypes")
     private RefreshListView1AsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (LiveWallpapersDialogPreferenceX) getPreference();
@@ -48,7 +47,7 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         listView = view.findViewById(R.id.live_wallpapers_pref_dlg_listview);

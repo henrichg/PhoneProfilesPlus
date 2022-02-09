@@ -220,6 +220,7 @@ public class RingtonePreferenceX extends DialogPreference {
                             mediaPlayer.setDataSource(appContext, _ringtoneUri);
                         }
 
+//                        PPApplication.logE("[VOLUMES] RingtonePreferenceX.playRingtone", "internaChange=true");
                         RingerModeChangeReceiver.internalChange = true;
 
                         AudioAttributes attrs = new AudioAttributes.Builder()
@@ -473,6 +474,18 @@ public class RingtonePreferenceX extends DialogPreference {
             this.prefContextWeakRef = new WeakReference<>(prefContext);
         }
 
+        /*
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            RingtonePreferenceX preference = preferenceWeakRef.get();
+            if ((preference != null) && (preference.fragment != null))
+                preference.fragment.showProgress();
+        }
+        */
+
         @Override
         protected Void doInBackground(Void... params) {
             RingtonePreferenceX preference = preferenceWeakRef.get();
@@ -573,7 +586,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                             // for Samsung do not allow external tones
                             boolean add = true;
-                            if (PPApplication.deviceIsSamsung) {
+                            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                                 if (preference.ringtoneType.equals("ringtone") && (preference.simCard != 0) && (!_uri.contains("content://media/internal")))
                                     add = false;
                                 if (preference.ringtoneType.equals("notification") && (preference.simCard != 0) && (!_uri.contains("content://media/internal")))

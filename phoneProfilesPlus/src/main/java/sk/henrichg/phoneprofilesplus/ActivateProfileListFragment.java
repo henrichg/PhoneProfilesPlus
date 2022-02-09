@@ -26,7 +26,6 @@ import java.util.Comparator;
 
 import static android.view.View.GONE;
 
-@SuppressWarnings("WeakerAccess")
 public class ActivateProfileListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
@@ -46,10 +45,11 @@ public class ActivateProfileListFragment extends Fragment {
     //private ValueAnimator showAnimator;
     //private int headerHeight;
 
-    private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    //private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
     //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_fragment_start_target_helps_finished";
 
     static final int PORDER_FOR_EMPTY_SPACE = 1000000;
 
@@ -67,7 +67,7 @@ public class ActivateProfileListFragment extends Fragment {
         setRetainInstance(true);
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
     }
 
     @Override
@@ -108,8 +108,8 @@ public class ActivateProfileListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         doOnViewCreated(view/*, savedInstanceState*/);
 
-        boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-        if (startTargetHelps)
+        //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+        //if (startTargetHelps)
             showTargetHelps();
     }
 
@@ -261,7 +261,7 @@ public class ActivateProfileListFragment extends Fragment {
         private LoadProfileListAsyncTask (ActivateProfileListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             //noinspection ConstantConditions
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
             //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator;
             applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
@@ -302,42 +302,42 @@ public class ActivateProfileListFragment extends Fragment {
 //            }
 
 //            if (!someErrorProfiles) {
-                if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
-                    if (Event.getGlobalEventsRunning()) {
-                        Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
-                        restartEvents._showInActivator = true;
-                        restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
-                        dataWrapper.profileList.add(0, restartEvents);
-                    }
+            if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
+                if (Event.getGlobalEventsRunning()) {
+                    Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+                    restartEvents._showInActivator = true;
+                    restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
+                    dataWrapper.profileList.add(0, restartEvents);
                 }
-
-                if (applicationActivatorGridLayout) {
-                    int count = 0;
-                    for (Profile profile : this.dataWrapper.profileList) {
-                        if (profile._showInActivator)
-                            ++count;
-                    }
-
-                    int numColumns = gridView.getNumColumns();
-
-                    int modulo = count % numColumns;
-                    if (modulo > 0) {
-                        for (int i = 0; i < numColumns - modulo; i++) {
-                            Profile profile = DataWrapper.getNonInitializedProfile(
-                                    dataWrapper.context.getString(R.string.profile_name_default),
-                                    Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
-                            profile._showInActivator = true;
-                            this.dataWrapper.profileList.add(profile);
-                        }
-                    }
-//                }
-
-                //noinspection Java8ListSort
-                Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
-
-                dataWrapper.getEventTimelineList(true);
             }
 
+            if (applicationActivatorGridLayout) {
+                int count = 0;
+                for (Profile profile : this.dataWrapper.profileList) {
+                    if (profile._showInActivator)
+                        ++count;
+                }
+
+                int numColumns = gridView.getNumColumns();
+
+                int modulo = count % numColumns;
+                if (modulo > 0) {
+                    for (int i = 0; i < numColumns - modulo; i++) {
+                        Profile profile = DataWrapper.getNonInitializedProfile(
+                                dataWrapper.context.getString(R.string.profile_name_default),
+                                Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
+                        profile._showInActivator = true;
+                        this.dataWrapper.profileList.add(profile);
+                    }
+                }
+            }
+
+            //noinspection Java8ListSort
+            Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
+
+            dataWrapper.getEventTimelineList(true);
+
+            //}
             return null;
         }
 
@@ -556,7 +556,7 @@ public class ActivateProfileListFragment extends Fragment {
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
             }
             else
-                EditorProfilesActivity.showDialogAboutRedText(profile, null, true, false, false, getActivity());
+                EditorProfilesActivity.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
         }
     }
 
@@ -657,8 +657,13 @@ public class ActivateProfileListFragment extends Fragment {
         if (getActivity() == null)
             return;
 
-        if (((ActivateProfileActivity)getActivity()).targetHelpsSequenceStarted)
+        //if (((ActivateProfileActivity)getActivity()).targetHelpsSequenceStarted)
+        //    return;
+
+        boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished;
+        if (!startTargetHelpsFinished)
             return;
+
 
         boolean showTargetHelps = ApplicationPreferences.prefActivatorFragmentStartTargetHelps;
 
@@ -673,8 +678,10 @@ public class ActivateProfileListFragment extends Fragment {
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
                 editor.apply();
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
+                ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
 
                 showAdapterTargetHelps();
             }

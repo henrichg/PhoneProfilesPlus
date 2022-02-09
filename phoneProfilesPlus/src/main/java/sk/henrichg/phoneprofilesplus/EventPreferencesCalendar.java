@@ -270,11 +270,13 @@ class EventPreferencesCalendar extends EventPreferences {
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences == null)
+            return;
 
         if (key.equals(PREF_EVENT_CALENDAR_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
             }
         }
 
@@ -302,8 +304,11 @@ class EventPreferencesCalendar extends EventPreferences {
                     //titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
                 Spannable sbt = new SpannableString(sTitle);
-                Object[] spansToRemove = sbt.getSpans(0, sTitle.length(), Object.class);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
                 for(Object span: spansToRemove){
                     if(span instanceof CharacterStyle)
                         sbt.removeSpan(span);
@@ -342,7 +347,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false);
             }
         }
         if (key.equals(PREF_EVENT_CALENDAR_STATUS)) {
@@ -351,7 +356,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false);
             }
         }
         if (key.equals(PREF_EVENT_CALENDAR_START_BEFORE_EVENT)) {
@@ -362,7 +367,7 @@ class EventPreferencesCalendar extends EventPreferences {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false);
         }
 
         Event event = new Event();
@@ -373,25 +378,25 @@ class EventPreferencesCalendar extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CALENDARS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_CALENDARS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !bold, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !bold);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_ALL_EVENTS);
         if (preference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALENDAR_ALL_EVENTS, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
         }
         boolean allEventsNotChecked = !preferences.getBoolean(PREF_EVENT_CALENDAR_ALL_EVENTS, false);
         enabled = enabled && allEventsNotChecked;
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_FIELD);
         if (preference != null) {
             preference.setEnabled(allEventsNotChecked);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, true, false, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_STRING);
         if (preference != null) {
             preference.setEnabled(allEventsNotChecked);
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_SEARCH_STRING, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
         }
         //preference = prefMng.findPreference(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT);
         //if (preference != null) {
@@ -455,7 +460,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_CALENDAR).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }
@@ -741,6 +746,7 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     //private void searchEvent(Context context)
+    @SuppressLint("Recycle")
     void saveStartEndTime(DataWrapper dataWrapper)
     {
         if (!(/*isRunnable(context) && _enabled &&*/ Permissions.checkCalendar(dataWrapper.context)))
@@ -779,7 +785,7 @@ class EventPreferencesCalendar extends EventPreferences {
         //final int PROJECTION_EVENT_TIMEZONE_INDEX = 9;
         //final int PROJECTION_EVENT_ID = 8;
 
-        Cursor cur;
+        Cursor cur = null;
         ContentResolver cr = dataWrapper.context.getContentResolver();
 
         StringBuilder selection = new StringBuilder("(");
@@ -980,6 +986,7 @@ class EventPreferencesCalendar extends EventPreferences {
         String[] calendarsSplits = _calendars.split("\\|");
 
         // Submit the query
+        boolean ok = true;
         try {
             if (selectionArgs.size() == 0)
                 cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), null, Instances.BEGIN + " ASC");
@@ -994,14 +1001,18 @@ class EventPreferencesCalendar extends EventPreferences {
         } catch (SecurityException e) {
             //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
-            cur = null;
+            //if ((cur != null) && (!cur.isClosed()))
+            //    cur.close();
+            ok  = false;
         } catch (Exception e) {
             //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            cur = null;
+            //if ((cur != null) && (!cur.isClosed()))
+            //    cur.close();
+            ok = false;
         }
 
-        if (cur != null) {
+        if (ok) {
             while (cur.moveToNext()) {
 
                 boolean calendarFound = false;
@@ -1067,9 +1078,11 @@ class EventPreferencesCalendar extends EventPreferences {
                     break;
                 }
             }
-
-            cur.close();
         }
+
+        if ((cur != null) && (!cur.isClosed()))
+            cur.close();
+
 
 //        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
 //        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "--- END");

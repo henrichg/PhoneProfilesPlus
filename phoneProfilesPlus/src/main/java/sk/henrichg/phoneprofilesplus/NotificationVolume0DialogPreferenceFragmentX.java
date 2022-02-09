@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDialogFragmentCompat {
 
     private NotificationVolume0DialogPreferenceX preference;
@@ -55,8 +54,12 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
         //if (uriId.isEmpty())
         //    message = getString(R.string.profile_preferences_volumeNotificationVolume0_toneNotInstalled) + "\n\n";
 
-        String notificationToneChange = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
-        String notificationTone = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
+        String notificationToneChange = "0";
+        if (preferences != null)
+            notificationToneChange = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
+        String notificationTone = "";
+        if (preferences != null)
+            notificationTone = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
 
         if (!notificationToneChange.equals("0")) {
             message = message + getString(R.string.profile_preferences_volumeNotificationVolume0_NowConfigured);
@@ -71,13 +74,15 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
         message = message + getString(R.string.profile_preferences_volumeNotificationVolume0_radioButtonsLabel);
 
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "1");
-            //if ((!uriId.isEmpty()) && (phoneProfilesSilentRB.isChecked()))
-            //    editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, uriId);
-            //else
+            if (preferences != null) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "1");
+                //if ((!uriId.isEmpty()) && (phoneProfilesSilentRB.isChecked()))
+                //    editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, uriId);
+                //else
                 editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
-            editor.apply();
+                editor.apply();
+            }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

@@ -199,7 +199,7 @@ class EventsHandler {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        if (PPApplication.deviceIsSamsung) {
+                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
                             if (_uri != null)
                                 oldRingtoneSIM1 = _uri;
@@ -353,7 +353,7 @@ class EventsHandler {
 
             //restartAtEndOfEvent = false;
 
-            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0f);
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
             dataWrapper.fillEventList();
             dataWrapper.fillEventTimelineList();
             dataWrapper.fillProfileList(false, false);
@@ -1890,6 +1890,7 @@ class EventsHandler {
                     // do start of events, all sensors are passed
 
                     boolean continueHandle = true;
+                    //noinspection RedundantIfStatement
                     if (newEventStatus == Event.ESTATUS_PAUSE) {
                         // is paused, for this do not start it
                         continueHandle = false;

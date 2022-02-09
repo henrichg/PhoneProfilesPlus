@@ -30,14 +30,14 @@
         app:key="prf_pref_deviceRunApplicationMIUIPermissions"
         app:title="@string/profile_preferences_deviceRunApplicationsShortcutsForMIUI"
         app:summary="@string/profile_preferences_deviceRunApplicationsShortcutsForMIUI_info"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
         app:key="prf_pref_deviceCloseAllApplicationsInfo"
         app:title="@string/profile_preferences_deviceCloseAllApplications"
         app:summary="@string/profile_preferences_deviceCloseAllApplicationsInfo_summary"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceCloseAllApplications"
@@ -51,7 +51,7 @@
     <Preference
         app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
         app:key="prf_pref_forceStopApplicationsCategoryRoot"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsForceStopApplications" />
 

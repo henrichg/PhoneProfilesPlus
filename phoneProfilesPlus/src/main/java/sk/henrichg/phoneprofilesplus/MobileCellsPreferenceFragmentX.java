@@ -25,6 +25,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
@@ -37,7 +38,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -85,7 +85,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         //Log.e("MobileCellsPreferenceFragmentX.onBindDialogView", "xxx");
@@ -275,7 +275,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
         final AppCompatImageButton helpIcon = view.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
-        helpIcon.setOnClickListener(v -> DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ R.string.mobile_cells_pref_dlg_help));
+        helpIcon.setOnClickListener(v -> DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ R.string.mobile_cells_pref_dlg_help, false));
 
         rescanButton = view.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
         if (PPApplication.HAS_FEATURE_TELEPHONY) {
@@ -1087,7 +1087,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     if (!found) {
                         // cell name = event name
                         SharedPreferences sharedPreferences = preference.getSharedPreferences();
-                        fragment.cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
+                        if (sharedPreferences != null)
+                            fragment.cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
                     }
                 }
 

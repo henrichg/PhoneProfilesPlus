@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
-@SuppressWarnings("WeakerAccess")
 public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private LinearLayout linlaProgress;
@@ -26,7 +26,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (ProfilePreferenceX) getPreference();
@@ -37,7 +37,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
     }
 
     @Override
-    protected void onBindDialogView(View view)
+    protected void onBindDialogView(@NonNull View view)
     {
         super.onBindDialogView(view);
 

@@ -18,14 +18,14 @@
         app:key="applicationEventWiFiLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventWiFiKeepOnSystemSettings"
         app:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
@@ -78,7 +78,7 @@
             app:title="@string/phone_profiles_pref_applicationBatterySaver"
             app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
             app:dependency="applicationEventWifiEnableScannig"
-            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
     <PreferenceCategory

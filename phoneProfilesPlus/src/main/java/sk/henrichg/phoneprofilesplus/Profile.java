@@ -2314,11 +2314,11 @@ public class Profile {
         return getVolumeRingtoneValue(_volumeRingtone);
     }
 
-    static boolean getVolumeRingtoneChange(String volumeRingtone)
+    static boolean getVolumeChange(String volume)
     {
         int value;
         try {
-            String[] splits = volumeRingtone.split("\\|");
+            String[] splits = volume.split("\\|");
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2328,7 +2328,7 @@ public class Profile {
 
     boolean getVolumeRingtoneChange()
     {
-        return getVolumeRingtoneChange(_volumeRingtone);
+        return getVolumeChange(_volumeRingtone);
     }
 
     private boolean getVolumeRingtoneSharedProfile()
@@ -2971,7 +2971,7 @@ public class Profile {
                 defaultValue = 2048;
 
             if ((Build.VERSION.SDK_INT > 28) &&
-                    (!PPApplication.deviceIsSamsung) &&
+                    (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
                 //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
@@ -2983,7 +2983,9 @@ public class Profile {
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
+            if ((Build.VERSION.SDK_INT == 28) &&
+                    (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
+                    (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
@@ -3003,7 +3005,7 @@ public class Profile {
                 }
             }*/
             if ((Build.VERSION.SDK_INT > 28) &&
-                    (!PPApplication.deviceIsSamsung) &&
+                    (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
                 //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
@@ -3015,7 +3017,9 @@ public class Profile {
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
+            if ((Build.VERSION.SDK_INT == 28) &&
+                    (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
+                    (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
@@ -3046,7 +3050,7 @@ public class Profile {
         else {
             boolean exponentialLevel = false;
             if ((Build.VERSION.SDK_INT > 28) &&
-                    (!PPApplication.deviceIsSamsung) &&
+                    (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
                 //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT > 28");
@@ -3058,7 +3062,9 @@ public class Profile {
                 exponentialLevel = true;
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
+            if ((Build.VERSION.SDK_INT == 28) &&
+                    (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
+                    (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsung and !LG");
                 exponentialLevel = true;
             }
@@ -3109,7 +3115,7 @@ public class Profile {
             percentage = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else {
             if ((Build.VERSION.SDK_INT > 28) &&
-                    (!PPApplication.deviceIsSamsung) &&
+                    (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
                 //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT > 28");
@@ -3121,7 +3127,9 @@ public class Profile {
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)) {
+            if ((Build.VERSION.SDK_INT == 28) &&
+                    (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
+                    (!PPApplication.deviceIsLG)) {
                 //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
@@ -3382,7 +3390,7 @@ public class Profile {
             _iconBitmap = null;
     }
 
-    void generatePreferencesIndicator(Context context, boolean monochrome, int monochromeValue,
+    void generatePreferencesIndicator(Context context, boolean monochrome, int indicatorMonochromeValue,
                                       int indicatorsType, float indicatorsLightnessValue)
     {
         releasePreferencesIndicator();
@@ -3391,7 +3399,7 @@ public class Profile {
         _preferencesIndicator = indicators.paint(this, monochrome, indicatorsType,indicatorsLightnessValue, context);
         if (_preferencesIndicator != null) {
             if (monochrome)
-                _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, monochromeValue/*, context*/);
+                _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, indicatorMonochromeValue/*, context*/);
         }
     }
 
@@ -3920,7 +3928,7 @@ public class Profile {
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
             switch (preferenceKey) {
                 case PREF_PROFILE_DEVICE_AIRPLANE_MODE:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
                 case PREF_PROFILE_DEVICE_WIFI:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed);
@@ -4043,7 +4051,7 @@ public class Profile {
 
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
 //                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed);
@@ -4129,26 +4137,36 @@ public class Profile {
     public int isAccessibilityServiceEnabled(Context context) {
         int accessibilityEnabled = -99;
 
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-        if (extenderVersion == 0)
-            // not installed
-            accessibilityEnabled = -2;
-        else
         if ((this._deviceForceStopApplicationChange != 0) ||
             (this._lockDevice != 0)) {
+
+            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+
             if (this._deviceForceStopApplicationChange != 0) {
+                if (extenderVersion == 0)
+                    // not installed
+                    accessibilityEnabled = -2;
+                else
                 if ((extenderVersion > 0) &&
                         (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2))
                     // old version
                     accessibilityEnabled = -1;
+                else
+                    accessibilityEnabled = -98;
             }
             if (this._lockDevice == 3) {
+                if (extenderVersion == 0)
+                    // not installed
+                    accessibilityEnabled = -2;
+                else
                 if ((extenderVersion > 0) &&
                         (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2))
                     // old version
                     accessibilityEnabled = -1;
+                else
+                    accessibilityEnabled = -98;
             }
-            if (accessibilityEnabled == -99) {
+            if (accessibilityEnabled == -98) {
                 // Extender is in right version
                 if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true))
                     // accessibility enabled
@@ -4158,6 +4176,7 @@ public class Profile {
                     accessibilityEnabled = 0;
             }
         }
+
         if (accessibilityEnabled == -99)
             accessibilityEnabled = 1;
 

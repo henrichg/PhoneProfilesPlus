@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/info_preference_root"
+    android:id="@+id/exclamation_preference_root"
     android:layout_width="40dp"
     android:layout_height="40dp" >
 
     <ImageView
-        android:id="@+id/info_preference_imageView1"
+        android:id="@+id/exclamation_preference_imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="?attr/infoPreferenceIcon"
-        android:contentDescription="@string/empty_string" />
+        android:src="?attr/exclamationPreferenceIcon"
+        android:contentDescription="@string/preference_widget_exclamation_icon" />
 
 </RelativeLayout>

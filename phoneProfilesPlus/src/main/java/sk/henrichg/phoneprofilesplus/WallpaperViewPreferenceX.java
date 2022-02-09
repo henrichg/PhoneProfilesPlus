@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -35,13 +36,13 @@ public class WallpaperViewPreferenceX extends Preference {
 
         prefContext = context;
 
-        setWidgetLayoutResource(R.layout.widget_imageview_preference);
+        setWidgetLayoutResource(R.layout.preference_widget_imageview_preference);
     }
 
     //@Override
     @SuppressLint("StaticFieldLeak")
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
 
@@ -58,7 +59,7 @@ public class WallpaperViewPreferenceX extends Preference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index)
+    protected Object onGetDefaultValue(@NonNull TypedArray a, int index)
     {
         super.onGetDefaultValue(a, index);
 
@@ -88,7 +89,7 @@ public class WallpaperViewPreferenceX extends Preference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(SavedState.class)) {
+        if ((state == null) || (!state.getClass().equals(SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;
@@ -240,7 +241,7 @@ public class WallpaperViewPreferenceX extends Preference {
                 new String[] { imageFile }, null);
         //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","cursor="+cursor);
         if (cursor != null && cursor.moveToFirst()) {
-            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns._ID));
             cursor.close();
             //noinspection UnnecessaryLocalVariable
             Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);

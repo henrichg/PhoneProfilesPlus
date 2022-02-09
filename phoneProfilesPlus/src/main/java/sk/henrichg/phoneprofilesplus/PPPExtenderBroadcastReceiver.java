@@ -81,7 +81,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             if (PhoneProfilesService.getInstance() != null) {
-                                DataWrapper dataWrapper2 = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                DataWrapper dataWrapper2 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 dataWrapper2.fillEventList();
                                 //dataWrapper2.fillProfileList(false, false);
                                 PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper2);
@@ -141,7 +141,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
-                                        DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                        DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                         dataWrapper3.fillEventList();
                                         //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
 
@@ -197,7 +197,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                        DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                         dataWrapper4.fillEventList();
 
                         boolean applicationsAllowed = false;
@@ -442,12 +442,17 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         if (manager != null) {
             // feedback type must be the same as in PPPE accessibilityservice.xml
             // android:accessibilityFeedbackType="feedbackGeneric"
+
+//            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "(1)");
+
             List<AccessibilityServiceInfo> runningServices =
                     manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
 
+//            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "runningServices=" + runningServices.size());
+
             for (AccessibilityServiceInfo service : runningServices) {
                 if (service != null) {
-                    //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId=" + service.getId());
+//                    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId=" + service.getId());
                     try {
                         if (service.getId().contains(PPApplication.EXTENDER_ACCESSIBILITY_PACKAGE_NAME)) {
 //                            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "true");

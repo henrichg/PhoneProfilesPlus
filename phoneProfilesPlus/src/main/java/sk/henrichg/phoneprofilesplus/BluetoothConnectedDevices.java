@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -14,10 +15,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+@SuppressLint("MissingPermission")
 class BluetoothConnectedDevices {
 
     private static BluetoothHeadset bluetoothHeadset = null;
-    @SuppressWarnings("deprecation")
     private static BluetoothHealth bluetoothHealth = null;
     private static BluetoothA2dp bluetoothA2dp = null;
 

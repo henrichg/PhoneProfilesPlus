@@ -72,6 +72,7 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
         }
         textViewAppName.setText(text);
         boolean errorColor = false;
+        //noinspection RedundantIfStatement
         if ((application.type == Application.TYPE_SHORTCUT) && (application.shortcutId == 0))
             errorColor = true;
         if ((application.type == Application.TYPE_INTENT) && (application.intentId == 0))

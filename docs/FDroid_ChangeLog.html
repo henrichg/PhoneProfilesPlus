@@ -7,46 +7,33 @@
 
 <h1 id="changelog">PhoneProfilesPlus Changelog</h1>
 
-<h2 id="version2">Version: 5.1.3</h2>
+<h2 id="version2">Version: 5.2</h2>
 
 <ul>
-    <li>Added expandable layout into "Important informations". System, Profiles, Events sections are expandable.</li>
-    <li>Added help texts about event sensors into "Important information".</li>
-    <li>Added WiFi Hotspot for Android 11+.</li>
-    <li>Added icons representing values for opaqueness and lighting preferences.</li>
-    <li>Added One row widget higher version.</li>
-    <li>Added ability to hide profile icon in PPP notification when style is "Custom" and enabled is decoration.</li>
-    <li>Added "(I) VPN" profile preference.</li>
-    <li>Added predefined Intents for connect/disconnect OpenVPN profile into "Run applications, shortcuts, intents".</li>
-    <li>Added help about grant (G1) permission into README.md.</li>
-    <li>Added change colors of widgets by night mode for Android 12.</li>
-    <li>Added event sensor for check of default sim change, sim on/off.</li>
-    <li>Added exact time to configure profile activation end (addition to profile duration).</li>
-    <li>Added forced rounded corners in widgets for Samsung Une UI 4 launcher.</li>
+    <li>Added installation of Extender from Galaxy Store.</li>
+    <li>Added support of night mode for Samsung Edge panel.</li>
     <li>Added double arrow into clickable texts.</li>
-    <li>Added workaround for Huawei devices and screen brightness reset after screen on by system.</li>
-    <li>Change: Opaque=100 for all widgets for devices with Android 12 and Pixel Launcher as default home launcher.</li>
-    <li>Change: Display error notification for set WiFI hotspot. This is error about not granted android.permission.TETHER_PRIVILEGED.</li>
-    <li>Change: selectable background changed to rounded for all image buttons.</li>
-    <li>Change: Displayed profile icon also for collapsed notification.</li>
-    <li>Change: Color of decoration set back to accent color, because it is not true icon color, is changed by system.</li>
-    <li>Change: Displayed is custom icon to monochrome when is set status bar icon to "Force native".</li>
-    <li>Change: Better configuration of Intents for application stores. This opens app store application directly.</li>
-    <li>Fixed WiFi Hotspot for Android 9, 10.</li>
-    <li>Fixed height of some AlertDialogs.</li>
-    <li>Fixed translation of system contact group names.</li>
-    <li>Fixed not displayed correct event in Editor header after Restart events.</li>
-    <li>Fixed Alarm clock sensor for situation, when PPP is restarted by system.</li>
-    <li>Fixed set screen timeout when is used profile parameter "Screen"/"Lock device"/"Lock device"="Use quick screen off".</li>
-    <li>Fixed profile parameter "Keep screen on".</li>
-    <li>Fixed not displayed notification icon (bug in Pixel 5?) for Pixel devices with Android 12.</li>
-    <li>Fixed change of brightness values when screen gets on.</li>
-    <li>Fixed Permission.grantRootX() when grant root was revoked.</li>
-    <li>Fixed bad dark rectangle outside border, when is displayed popup window.</li>
-    <li>Fixed accessibility service not enabled" notification after restart of PPService.</li>
-    <li>Fixed mobile data enable/disable for Android 12+.</li>
-    <li>Fix: Clear all dual sim parameters when data import is performed in non-dual sim device.</li>
-    <li>Fix: Do not show notification about not enabled accessibility service, when Extender is not installed.</li>
+    <li>Added info about device root status for Settings/Permissions/Grant root.</li>
+    <li>Added "(I) Change to image with" for change wallpaper. Useful for Android 12 color palette support.</li>
+    <li>Added buttons to open profile/event preferences from dialog for red preferences.</li>
+    <li>Added info about "Wi-Fi control" special app access into Permissions settings.</li>
+    <li>Added support for monochrome profile icon in app notification.</li>
+    <li>Added tap target help for bottom navigation view in Editor.</li>
+    <li>Added Airplane mode on/off without root.</li>
+    <li>Added help info about custom profile icons and icon pack applications.</li>
+    <li>Added each day check for new required PPPExtender version.</li>
+    <li>Changed native bottom navigation view in Editor with better, Used is SmoothBottomBar library.</li>
+    <li>Changed PPP and PPPE installation form GitHub. Used is 'releases/latest/download' tag in GitHub for download.</li>
+    <li>Change: Separated shortcut parameters from widget icon parameters.</li>
+    <li>Change: Rewrite of tap target help.</li>
+    <li>Change: Updated README.md. Added links to download apk.</li>
+    <li>Enabled set of profile icon color type for widgets, when is used color change by night mode.</li>
+    <li>Fixed disabling Bluetooth and Wi-Fi by scanners after end of scan even when is manually enabled by user, for example from Quick panel.</li>
+    <li>Fixed not allowed change of indicators lightning when icon is set to monochrome in widgets preferences.</li>
+    <li>Fixed bad profile order in Activator in list view.</li>
+    <li>Fixed displaying of red error for PPPExtender, when is not needed for profile.</li>
+    <li>Fixed ringtone volume change, when device has merged ringing and notifications volume.</li>
+    <li>Fixed check root for devices which are rooted, but started is non-rooted system.</li>
 </ul>
 
 <ul>
@@ -58,7 +45,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1.3">Full change log is in GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.2">Full change log is in GitHub.</a>
 </p>
 
 </body>

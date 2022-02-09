@@ -44,7 +44,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                     //PPApplication.logE("StartLauncherFromNotificationReceiver.onReceive", "PPApplication.deviceIsSamsung="+PPApplication.deviceIsSamsung);
                     if ((Build.VERSION.SDK_INT >= 29) &&
                             ApplicationPreferences.applicationNotificationLauncher.equals("activator")) {
-                        if (PPApplication.deviceIsSamsung) {
+                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                             if (Build.VERSION.SDK_INT >= 30)
                                 __handler.postDelayed(r, 500);
                             else

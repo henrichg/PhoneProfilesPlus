@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context context;
@@ -24,7 +24,7 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         this.context = context;
         preference = (DefaultSIMDialogPreferenceX) getPreference();
@@ -36,7 +36,7 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         voiceSpinner = view.findViewById(R.id.default_sim_voice_spinner);

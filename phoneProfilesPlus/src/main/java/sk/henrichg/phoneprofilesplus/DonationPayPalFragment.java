@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 
 //import me.drakeet.support.toast.ToastCompat;
 
-@SuppressWarnings("DanglingJavadoc")
 public class DonationPayPalFragment extends Fragment {
 
     //private ProgressBar mLoadingView;
@@ -126,9 +125,9 @@ public class DonationPayPalFragment extends Fragment {
         });
     }
 
-    /**
-     * Enables or disables "please wait" screen.
-     */
+//    /**
+//     * Enables or disables "please wait" screen.
+//     */
 //    public void setWaitScreen(boolean set) {
 //        if (mLoadingView != null)
 //            mLoadingView.setVisibility(set ? View.VISIBLE : View.GONE);

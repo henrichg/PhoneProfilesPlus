@@ -28,7 +28,7 @@ public class PPTileService extends TileService {
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
             Profile profile = null;
             if (PPApplication.quickTileProfileId[tileId] != Profile.RESTART_EVENTS_PROFILE_ID) {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
                 profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], false, false, false);
 //                PPApplication.logE("PPTileService.onClick", "profile="+profile);
 //                if (profile != null)
@@ -175,7 +175,7 @@ public class PPTileService extends TileService {
                         tile.setState(Tile.STATE_INACTIVE);
                     }
                     else {
-                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
+                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
                         Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], true, false, false);
                         if (profile != null) {
                             tile.setLabel(profile._name);

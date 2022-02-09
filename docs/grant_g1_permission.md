@@ -6,7 +6,7 @@ How to grant (G1) permission
 If you do not have adb installed on your PC:
 1. Download SDK Platform Tools from:
 
-`https://developer.android.com/studio/releases/platform-tools.html`
+<https://developer.android.com/studio/releases/platform-tools.html>
 
 2. Extract zip contents.
 

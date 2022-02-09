@@ -6,26 +6,28 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     RingtonePreferenceX preference;
 
     private RingtonePreferenceAdapterX listAdapter;
+    private LinearLayout linlaProgress;
     private ListView listView;
 
     private Context prefContext;
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(Context context)
+    protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
         preference = (RingtonePreferenceX) getPreference();
@@ -36,9 +38,11 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
     }
 
     @Override
-    protected void onBindDialogView(View view)
+    protected void onBindDialogView(@NonNull View view)
     {
         super.onBindDialogView(view);
+
+        linlaProgress = view.findViewById(R.id.ringtone_pref_dlg_linla_progress);
 
         listView = view.findViewById(R.id.ringtone_pref_dlg_listview);
 
@@ -81,7 +85,15 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         preference.fragment = null;
     }
 
+//    void showProgress() {
+//        listView.setVisibility(View.GONE);
+//        linlaProgress.setVisibility(View.VISIBLE);
+//    }
+
     void updateListView(boolean alsoSelection) {
+        linlaProgress.setVisibility(View.GONE);
+        listView.setVisibility(View.VISIBLE);
+
         if (listAdapter != null) {
             listAdapter.notifyDataSetChanged();
 
