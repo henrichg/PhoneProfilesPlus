@@ -5040,8 +5040,8 @@ class ActivateProfileHelper {
                         case 1:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
                             try {
-                                PPApplication.startHandlerThreadBroadcast(/*"EventTimeBroadcastReceiver.doWork"*/);
-                                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                                PPApplication.startHandlerThreadProfileActivation();
+                                final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
                                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                                 //        context.getApplicationContext()) {
                                 __handler.post(() -> {
@@ -5051,7 +5051,7 @@ class ActivateProfileHelper {
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CalendarEventExistsCheckBroadcastReceiver_doWork");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -5082,8 +5082,8 @@ class ActivateProfileHelper {
                         case 2:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
                             try {
-                                PPApplication.startHandlerThreadBroadcast(/*"EventTimeBroadcastReceiver.doWork"*/);
-                                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                                PPApplication.startHandlerThreadProfileActivation();
+                                final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
                                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                                 //        context.getApplicationContext()) {
                                 __handler.post(() -> {
@@ -5093,7 +5093,7 @@ class ActivateProfileHelper {
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CalendarEventExistsCheckBroadcastReceiver_doWork");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
