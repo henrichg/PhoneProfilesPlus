@@ -36,7 +36,7 @@ __This application is for configuration of device for life situations (at home, 
 
 __In it is also possibility to automatically activate Profiles by Events.__
 
-[Privacy Policy](https://sites.google.com/site/phoneprofilesplus/home/privacy-policy)
+[Privacy Policy](https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html)
 
 _**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gron@gmail.com>. Speed up the especially bug fixes. Thank you very much. ****_
 

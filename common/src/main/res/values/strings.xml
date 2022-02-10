@@ -1267,7 +1267,7 @@
     <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">Enable run events</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Click this to enable run of events. Without this, configured events will not be running.</string>
-    <string name="samsung_edge_panel_name" translatable="false">PhoneProfiles Plus</string>
+    <string name="samsung_edge_panel_name" translatable="false">PhoneProfilesPlus</string>
     <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
