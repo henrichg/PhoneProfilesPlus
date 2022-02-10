@@ -5040,12 +5040,41 @@ class ActivateProfileHelper {
                         case 1:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
                             try {
-                                NoobCameraManager.getInstance().init(context);
-                                NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
-                                if (noobCameraManager != null) {
-                                    noobCameraManager.turnOnFlash();
-                                    NoobCameraManager.getInstance().release();
-                                }
+                                PPApplication.startHandlerThreadBroadcast(/*"EventTimeBroadcastReceiver.doWork"*/);
+                                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                                //        context.getApplicationContext()) {
+                                __handler.post(() -> {
+//                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
+
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CalendarEventExistsCheckBroadcastReceiver_doWork");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
+
+                                        NoobCameraManager.getInstance().init(context);
+                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
+                                        if (noobCameraManager != null) {
+                                            noobCameraManager.turnOnFlash();
+                                            NoobCameraManager.getInstance().release();
+                                        }
+
+//                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
+                                    } catch (Exception e) {
+//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                        PPApplication.recordException(e);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
+                                        }
+                                    }
+                                });
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
@@ -5053,12 +5082,42 @@ class ActivateProfileHelper {
                         case 2:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
                             try {
-                                NoobCameraManager.getInstance().init(context);
-                                NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
-                                if (noobCameraManager != null) {
-                                    noobCameraManager.turnOffFlash();
-                                    NoobCameraManager.getInstance().release();
-                                }
+                                PPApplication.startHandlerThreadBroadcast(/*"EventTimeBroadcastReceiver.doWork"*/);
+                                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                                //        context.getApplicationContext()) {
+                                __handler.post(() -> {
+//                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
+
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CalendarEventExistsCheckBroadcastReceiver_doWork");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
+
+                                        NoobCameraManager.getInstance().init(context);
+                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
+                                        if (noobCameraManager != null) {
+                                            noobCameraManager.turnOffFlash();
+                                            NoobCameraManager.getInstance().release();
+                                        }
+
+//                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
+                                    } catch (Exception e) {
+//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                        PPApplication.recordException(e);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
+                                        }
+                                    }
+                                });
+
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
