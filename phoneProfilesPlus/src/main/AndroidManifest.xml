@@ -156,6 +156,7 @@
             android:value="2.4"/>
 
         <!-- for Galaxy Store - added Edge specials -->
+        <!-- Removed!!! Becaouse is not possible to upgrade apk with this  -->
 <!--        <meta-data-->
 <!--            android:name="com.samsung.android.cocktail.mode"-->
 <!--            android:value="edge_single_plus" />-->

@@ -21,7 +21,7 @@ __[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phonepr
 
 __[F-Droid application](https://www.f-droid.org/)__
 
-__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore__ 
+__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore, APKPure__ 
 &nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores. 
 
 __[Amazon AppStore application](https://www.amazon.com/gp/mas/get/amazonapp)__
@@ -36,7 +36,7 @@ __This application is for configuration of device for life situations (at home, 
 
 __In it is also possibility to automatically activate Profiles by Events.__
 
-[Privacy Policy](https://sites.google.com/site/phoneprofilesplus/home/privacy-policy)
+[Privacy Policy](https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html)
 
 _**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gron@gmail.com>. Speed up the especially bug fixes. Thank you very much. ****_
 
