@@ -35,7 +35,7 @@
     <SwitchPreferenceCompat
         app:key="applicationSamsungEdgeChangeColorsByNightMode"
         app:title="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode"
-        app:summary="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary"
+        app:summary="@string/phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
 
