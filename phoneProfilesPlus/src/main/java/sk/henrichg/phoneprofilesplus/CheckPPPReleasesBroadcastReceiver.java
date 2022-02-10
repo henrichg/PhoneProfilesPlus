@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.service.notification.StatusBarNotification;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -239,6 +241,21 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                                          String versionNameInReleases,
                                          int versionCodeInReleases,
                                          boolean critical) {
+
+        NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+            for (StatusBarNotification notification : notifications) {
+                String tag = notification.getTag();
+                if ((tag != null) && tag.contains(PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG)) {
+                    if (notification.getId() == PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID) {
+                        // do not show notification when is displayed critical notification
+                        return;
+                    }
+                }
+            }
+        }
+
         // show notification for check new release
         PPApplication.createNewReleaseNotificationChannel(appContext);
 
