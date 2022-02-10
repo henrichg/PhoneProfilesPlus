@@ -21,7 +21,7 @@ __[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phonepr
 
 __[F-Droid application](https://www.f-droid.org/)__
 
-__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore__ 
+__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore, APKPure__ 
 &nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores. 
 
 __[Amazon AppStore application](https://www.amazon.com/gp/mas/get/amazonapp)__
