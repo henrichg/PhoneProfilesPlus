@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -572,6 +573,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
+                                        .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
@@ -587,6 +589,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
+                                        .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
@@ -607,6 +610,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
+                                        .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)

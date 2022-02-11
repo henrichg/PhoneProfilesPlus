@@ -337,6 +337,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                             .outerCircleColor(outerCircleColor)
                             .targetCircleColor(targetCircleColor)
                             .textColor(textColor)
+                            .textTypeface(Typeface.DEFAULT_BOLD)
                             .tintTarget(true)
                             .drawShadow(true)
                             .id(1)

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -734,6 +735,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(id)

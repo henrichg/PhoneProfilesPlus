@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -425,6 +426,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
@@ -432,6 +434,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
@@ -439,6 +442,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(3),
@@ -446,6 +450,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(4),
@@ -453,6 +458,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
                                     .id(5)
@@ -466,6 +472,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
@@ -473,6 +480,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
@@ -480,6 +488,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(3),
@@ -487,6 +496,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
                                     .id(4)
@@ -506,6 +516,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1)
@@ -524,6 +535,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                 .outerCircleColor(outerCircleColor)
                                 .targetCircleColor(targetCircleColor)
                                 .textColor(textColor)
+                                .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(false)
                                 .drawShadow(true)
                                 .id(1)
