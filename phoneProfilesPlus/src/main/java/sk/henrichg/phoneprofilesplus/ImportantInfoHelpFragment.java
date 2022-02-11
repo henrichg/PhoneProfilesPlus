@@ -495,6 +495,19 @@ public class ImportantInfoHelpFragment extends Fragment {
             ;
             infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 4, 17));
         }
+        infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_20);
+        if (infoText100 != null) {
+            String text = fragment.getString(R.string.important_info_profile_grant_1_howTo_20_1) + "<br>" +
+                    fragment.getString(R.string.important_info_profile_grant_1_howTo_20_2) +
+                    "<ul>" +
+                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_3) + "</li>" +
+                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_4) + "</li>" +
+                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_5) +
+                    "</ul>" +
+                    fragment.getString(R.string.important_info_profile_grant_1_howTo_20_6);
+                    ;
+            infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
+        }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started_1);
         if (infoText100 != null) {

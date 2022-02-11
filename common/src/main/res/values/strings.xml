@@ -1893,6 +1893,12 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Show device Settings</string>
 
     <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Night mode</string>
+    <string name="important_info_profile_grant_1_howTo_20_1">NOTE:</string>
+    <string name="important_info_profile_grant_1_howTo_20_2">For some devices must be in Developer options enabled:</string>
+    <string name="important_info_profile_grant_1_howTo_20_3">Xiaomi: \"USB debuging (Security settings)\".</string>
+    <string name="important_info_profile_grant_1_howTo_20_4">Oppo, OnePlus: \"Disable permission monitoring\".</string>
+    <string name="important_info_profile_grant_1_howTo_20_5">Maybe similar option exists in another devices.</string>
+    <string name="important_info_profile_grant_1_howTo_20_6">Without this, grant not working.</string>
 
     <!-- **************************************************************************************** -->
 
