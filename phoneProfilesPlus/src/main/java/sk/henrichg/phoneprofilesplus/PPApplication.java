@@ -150,7 +150,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -230,13 +230,13 @@ public class PPApplication extends Application
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-//                                                +"|[IN_THREAD_HANDLER]"
+                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
 //                                                +"|[IN_LISTENER]"
 //                                                +"|[IN_EVENTS_HANDLER]"
-//                                                +"|[EVENTS_HANDLER_CALL]"
+                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
 //                                                +"|[APP_START]"
 //                                                +"|[HANDLER]"
@@ -246,7 +246,7 @@ public class PPApplication extends Application
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
                                                 //+"|[FIFO_TEST]"
                                                 //+"|[BLOCK_ACTIONS]"
-                                                //+"|[ACTIVATOR]"
+                                                +"|[ACTIVATOR]"
                                                 //+"|[G1_TEST]"
                                                 //+"|[BACKGROUND_ACTIVITY]"
                                                 //+"|[START_PP_SERVICE]"

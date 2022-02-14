@@ -45,6 +45,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -5038,14 +5039,14 @@ class ActivateProfileHelper {
                 if (Permissions.checkProfileCameraFlash(context, profile, null)) {
                     switch (profile._cameraFlash) {
                         case 1:
-//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
                             try {
                                 PPApplication.startHandlerThreadProfileActivation();
                                 final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
                                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                                 //        context.getApplicationContext()) {
                                 __handler.post(() -> {
-//                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
+                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
@@ -5062,9 +5063,9 @@ class ActivateProfileHelper {
                                             NoobCameraManager.getInstance().release();
                                         }
 
-//                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
+                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
                                     } catch (Exception e) {
-//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -5080,14 +5081,14 @@ class ActivateProfileHelper {
                             }
                             break;
                         case 2:
-//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
                             try {
                                 PPApplication.startHandlerThreadProfileActivation();
                                 final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
                                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                                 //        context.getApplicationContext()) {
                                 __handler.post(() -> {
-//                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
+                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
@@ -5104,9 +5105,9 @@ class ActivateProfileHelper {
                                             NoobCameraManager.getInstance().release();
                                         }
 
-//                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
+                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
                                     } catch (Exception e) {
-//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
