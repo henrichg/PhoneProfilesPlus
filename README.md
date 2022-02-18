@@ -42,10 +42,10 @@ _**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gro
 
 _*** Please help me with translation, thank you: <https://crowdin.com/project/phoneprofilesplus> ***_
 
-##### (HELP) How to grant (G1) permission
+##### (HELP) How to grant (G1) permission - for profile parameters that require this permission
 - [Show it](docs/grant_g1_permission.md)
 
-##### (HELP) How to disable Wi-Fo scan throttling
+##### (HELP) How to disable Wi-Fi scan throttling - useful for Wi-Fi scanning
 - [Show it](docs/wifi_scan_throttling.md)
 
 ##### Features
