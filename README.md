@@ -45,6 +45,9 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ##### (HELP) How to grant (G1) permission
 - [Show it](docs/grant_g1_permission.md)
 
+##### (HELP) How to disable Wi-Fo scan throttling
+- [Show it](docs/wifi_scan_throttling.md)
+
 ##### Features
 - [Show it](docs/ppp_features.md)
 

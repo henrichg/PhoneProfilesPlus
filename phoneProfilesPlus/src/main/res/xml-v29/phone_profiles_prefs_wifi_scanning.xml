@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="wifiScanningCategory"
+    app:title="@string/phone_profiles_pref_category_wifi_scanning">
+
+    <Preference
+        app:key="applicationEventWifiInfo"
+        app:title="@string/phone_profiles_pref_applicationEventWifi_info"
+        app:summary="@string/empty_string"
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationEventWifiEnableScannig"
+        app:title="@string/phone_profiles_pref_applicationEventWifiEnableScanning"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventWiFiLocationSystemSettings"
+        app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+        app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventWiFiKeepOnSystemSettings"
+        app:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
+        app:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationEventWifiScanIfWifiOff"
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanIfWifiOff"
+        app:defaultValue="true"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationEventWifiScanIgnoreHotspot"
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanIgnoreHotspot"
+        app:defaultValue="false"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanIntervalCategory"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <Preference
+            app:key="applicationEventWifiScanIntervalInfo"
+            app:title="@string/empty_string"
+            app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            app:dependency="applicationEventWifiEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+
+<!--        <Preference-->
+<!--            app:key="applicationEventWifiScanIntervalThrottlingInfo"-->
+<!--            app:title="@string/empty_string"-->
+<!--            app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"-->
+<!--            app:dependency="applicationEventWifiEnableScannig"-->
+<!--            app:layout="@layout/mp_preference_material_widget" />-->
+
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+            app:key="applicationEventWifiScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+            app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+            app:defaultValue="15"
+            app:min="1"
+            app:max="300"
+            app:dependency="applicationEventWifiEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <ListPreference
+            app:key="applicationEventWifiScanInPowerSaveMode"
+            app:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
+            app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+            app:defaultValue="1"
+            app:entries="@array/scanInPowerSaveModeArray"
+            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:dependency="applicationEventWifiEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="applicationWifiPowerSaveMode"
+            app:title="@string/phone_profiles_pref_applicationBatterySaver"
+            app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+            app:dependency="applicationEventWifiEnableScannig"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+            app:layout="@layout/mp_preference_material_widget"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanTimeMultiply"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <ListPreference
+            app:key="applicationEventWifiScanInTimeMultiply"
+            app:title="@string/phone_profiles_pref_applicationEventWifiScanTimeMultiply"
+            app:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
+            app:defaultValue="0"
+            app:entries="@array/scanInPowerSaveModeArray"
+            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:dependency="applicationEventWifiEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventWifiScanInTimeMultiplyFrom"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom"
+            app:dependency="applicationEventWifiEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventWifiScanInTimeMultiplyTo"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo"
+            app:dependency="applicationEventWifiEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <SwitchPreferenceCompat
+            app:key="applicationEventWifiScanOnlyWhenScreenIsOn"
+            app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+            app:defaultValue="false"
+            app:dependency="applicationEventWifiEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <!--<ListPreference
+            app:title="@string/phone_profiles_pref_applicationEventWifiRescan"
+            app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
+            app:key="applicationEventWifiRescan"
+            app:defaultValue="1"
+            app:entries="@array/applicationEventRescanArray"
+            app:entryValues="@array/applicationEventRescanValues"
+            app:dependency="applicationEventWifiEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />-->
+    </PreferenceCategory>
+    
+</androidx.preference.PreferenceScreen>
