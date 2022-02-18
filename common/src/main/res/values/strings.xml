@@ -1900,6 +1900,19 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="important_info_profile_grant_1_howTo_20_5">Maybe similar option exists in another devices.</string>
     <string name="important_info_profile_grant_1_howTo_20_6">Without this, grant not working.</string>
 
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling">Wi-Fi scan throttling</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_summary">Click here to display how to disable Wi-Fi scan throttling, for allowing scanning with interval less then 30 minutes.</string>
+
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info1">How Wi-Fi scan throttling works:</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info2">Each foreground app can scan four times in a 2-minute period. This allows for a burst of scans in a short time.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info3">All background apps combined can scan one time in a 30-minute period (PhoneProfilesPlus is running in background).</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info4">Note: Disabled Wi-Fi scan throttling consume more battery.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info5">How to disable Wi-Fi scan throttling:</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info6">Go to Settings > Developer options > find “Wi-Fi scan throttling” > disable it (or Settings > System > Advanced > Developer options).</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info7">In some devices not exists in Developer options parameter \"Wi-Fi scan throttling\". But is possible to disable it through your PC with installed adb.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info8">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info9" translatable="false">\"(HELP) How to disable Wi-Fi scan throttling\"</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

@@ -10,7 +10,7 @@ If you do not have adb installed on your PC:
 
 2. Extract zip contents.
 
-##### dislable Wi-Fi scan throttling:
+##### Disable Wi-Fi scan throttling:
 
 1. On your device, go into Settings > About > Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.</string>
 2. Go into Settings > Developer Options and enable USB Debugging.

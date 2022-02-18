@@ -51,12 +51,13 @@
             app:dependency="applicationEventWifiEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
 
-<!--        <Preference-->
-<!--            app:key="applicationEventWifiScanIntervalThrottlingInfo"-->
-<!--            app:title="@string/empty_string"-->
-<!--            app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"-->
-<!--            app:dependency="applicationEventWifiEnableScannig"-->
-<!--            app:layout="@layout/mp_preference_material_widget" />-->
+        <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
+            app:key="applicationEventWifiScanThrottlingInfo"
+            app:title="@string/phone_profiles_pref_applicationEventWifiScanThrottling"
+            app:summary="@string/phone_profiles_pref_applicationEventWifiScanThrottling_summary"
+            app:infoText="@string/empty_string"
+            app:widgetLayout="@layout/preference_widget_info_preference_clickable"
+            app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
             app:key="applicationEventWifiScanInterval"

@@ -142,7 +142,13 @@ public class PPApplication extends Application
     static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
     static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
 
-    static final String HELP_HOW_TO_GRANT_G1_URL = "https://github.com/henrichg/PhoneProfilesPlus#help-how-to-grant-g1-permission";
+    //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/grant_g1_permission.md
+    static final String HELP_HOW_TO_GRANT_G1_URL = "https://henrichg.github.io/PhoneProfilesPlus/grant_g1_permission.html";
+    static final String HELP_HOW_TO_GRANT_G1_URL_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/grant_g1_permission.md";
+
+    //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/wifi_scan_throttling.md
+    static final String HELP_WIFI_SCAN_THROTTLING = "https://henrichg.github.io/PhoneProfilesPlus/wifi_scan_throttling.html";
+    static final String HELP_WIFI_SCAN_THROTTLING_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/wifi_scan_throttling.md";
 
     //static final boolean gitHubRelease = true;
     //static boolean googlePlayInstaller = false;

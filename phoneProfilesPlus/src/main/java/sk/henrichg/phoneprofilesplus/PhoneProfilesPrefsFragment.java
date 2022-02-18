@@ -199,6 +199,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof InfoDialogPreferenceX)
+        {
+            ((InfoDialogPreferenceX)preference).fragment = new InfoDialogPreferenceFragmentX();
+            dialogFragment = ((InfoDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -1659,6 +1667,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                 }
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("applicationEventWifiScanThrottlingInfo");
+            if (infoDialogPreference != null) {
+
+                String url;
+                if (DebugVersion.enabled)
+                    url = PPApplication.HELP_WIFI_SCAN_THROTTLING_DEVEL;
+                else
+                    url = PPApplication.HELP_WIFI_SCAN_THROTTLING;
+
+                String infoText =
+                        "<b>"+getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info1) + "</b><br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info2) + "<br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info3) + "<br><br>" +
+                        "<b>"+getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info4) + "</b><br><br>" +
+                        "<b>"+getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info5) + "</b><br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info6) + "<br><br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info7) + "<br><br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info8) + " " +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info9) + ":<br>" +
+                        "<a href=" + url + ">" + url+ " &#8658;</a>";
+
+                infoDialogPreference.setInfoText(infoText);
+                infoDialogPreference.setIsHtml(true);
             }
         }
     }

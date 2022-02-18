@@ -695,7 +695,11 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (helpForG1TextView != null) {
             String str1 = fragment.getString(R.string.important_info_profile_grant_1_howTo_0) + " " +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_0_1) + ":";
-            String str2 = str1 + " " + PPApplication.HELP_HOW_TO_GRANT_G1_URL + " \u21D2";
+            String str2;
+            if (DebugVersion.enabled)
+                str2 = str1 + " " + PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL + " \u21D2";
+            else
+                str2 = str1 + " " + PPApplication.HELP_HOW_TO_GRANT_G1_URL + " \u21D2";
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -707,7 +711,11 @@ public class ImportantInfoHelpFragment extends Fragment {
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    String url = PPApplication.HELP_HOW_TO_GRANT_G1_URL;
+                    String url;
+                    if (DebugVersion.enabled)
+                        url = PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL;
+                    else
+                        url = PPApplication.HELP_HOW_TO_GRANT_G1_URL;
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     try {
