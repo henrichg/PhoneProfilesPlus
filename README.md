@@ -44,7 +44,6 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### (HELP) How to grant (G1) permission - for profile parameters that require this permission
 - [Show it](docs/grant_g1_permission.md)
-
 ##### (HELP) How to disable Wi-Fi scan throttling - useful for Wi-Fi scanning
 - [Show it](docs/wifi_scan_throttling.md)
 
