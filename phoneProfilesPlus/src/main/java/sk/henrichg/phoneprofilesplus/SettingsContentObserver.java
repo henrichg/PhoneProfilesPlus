@@ -18,6 +18,10 @@ class SettingsContentObserver  extends ContentObserver {
     //private static int previousVolumeAlarm = 0;
     //private static int previousVolumeSystem = 0;
     //private static int previousVolumeVoice = 0;
+    //private static int previousVolumeBluetoothCall = 0;
+    //private static int previousVolumeDTMFTones = 0;
+    //private static int previousVolumeAccessibilityPrompt = 0;
+
     //private int defaultRingerMode = 0;
     private static int previousScreenTimeout = 0;
 
@@ -40,6 +44,9 @@ class SettingsContentObserver  extends ContentObserver {
             //previousVolumeAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
             //previousVolumeSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
             //previousVolumeVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            //previousVolumeBluetoothCall = audioManager.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
+            //previousVolumeDTMFTones = audioManager.getStreamVolume(AudioManager.STREAM_DTMF);
+            //previousVolumeAccessibilityPrompt = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
         }
 
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
@@ -152,16 +159,22 @@ class SettingsContentObserver  extends ContentObserver {
         }*/
 
         boolean okSetting = false;
+        boolean volumeChange = false;
+
         if (uri != null) {
             String sUri = uri.toString();
-            if (sUri.contains(Settings.System.VOLUME_RING))
+            if ((sUri.contains(Settings.System.VOLUME_RING)) ||
+                (sUri.contains(Settings.System.VOLUME_NOTIFICATION)) ||
+                (sUri.contains(Settings.System.VOLUME_MUSIC)) ||
+                (sUri.contains(Settings.System.VOLUME_ALARM)) ||
+                (sUri.contains(Settings.System.VOLUME_SYSTEM)) ||
+                (sUri.contains(Settings.System.VOLUME_VOICE)) ||
+                (sUri.contains(Settings.System.VOLUME_BLUETOOTH_SCO)) ||
+                //(sUri.contains(Settings.System.VOLUME_DTMF)) ||
+                (sUri.contains(Settings.System.VOLUME_ACCESSIBILITY))) {
                 okSetting = true;
-            else
-            if (sUri.contains(Settings.System.VOLUME_NOTIFICATION))
-                okSetting = true;
-            //else
-            //if (sUri.contains(Settings.System.VOLUME_MUSIC))
-            //    okSetting = true;
+                volumeChange = true;
+            }
             else
             if (sUri.contains(Settings.System.SCREEN_BRIGHTNESS_MODE))
                 okSetting = true;
@@ -230,6 +243,10 @@ class SettingsContentObserver  extends ContentObserver {
             //int value = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
             //PPApplication.logE("[VOL] SettingsContentObserver.onChange", "STREAM_MUSIC="+value);
             //////////////
+        }
+        if (volumeChange) {
+            // TODO volume change event sensor
+
         }
 
         ////// screen timeout change
