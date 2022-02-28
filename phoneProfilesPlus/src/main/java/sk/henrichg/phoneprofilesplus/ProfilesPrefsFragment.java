@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -6079,8 +6080,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (mSubscriptionManager != null) {
                     List<SubscriptionInfo> subscriptionList = null;
                     try {
-                        // Loop through the subscription list i.e. SIM list.
-                        subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        if (Permissions.hasPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                            // Loop through the subscription list i.e. SIM list.
+                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        }
                     } catch (SecurityException e) {
                         PPApplication.recordException(e);
                     }
