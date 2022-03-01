@@ -113,6 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = 38;
     static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = 39;
     static final int ETYPE_RADIO_SWITCH_SIM_ON_OFF = 40;
+    static final int ETYPE_VOLUMES = 41;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -7701,6 +7702,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         case ETYPE_PERIODIC:
                             sensorPassedField = KEY_E_PERIODIC_SENSOR_PASSED;
                             break;
+                        case ETYPE_VOLUMES:
+                            sensorPassedField = KEY_E_VOLUMES_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(TABLE_EVENTS,
@@ -7826,6 +7830,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     case ETYPE_PERIODIC:
                         sensorPassed = event._eventPreferencesPeriodic.getSensorPassed();
                         sensorPassedField = KEY_E_PERIODIC_SENSOR_PASSED;
+                        break;
+                    case ETYPE_VOLUMES:
+                        sensorPassed = event._eventPreferencesVolumes.getSensorPassed();
+                        sensorPassedField = KEY_E_VOLUMES_SENSOR_PASSED;
                         break;
                 }
                 ContentValues values = new ContentValues();
@@ -8069,6 +8077,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         eventTypeChecked = eventTypeChecked + KEY_E_SOUND_PROFILE_ENABLED + "=1";
                     else if (eventType == ETYPE_PERIODIC)
                         eventTypeChecked = eventTypeChecked + KEY_E_PERIODIC_ENABLED + "=1";
+                    else if (eventType == ETYPE_VOLUMES)
+                        eventTypeChecked = eventTypeChecked + KEY_E_VOLUMES_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +

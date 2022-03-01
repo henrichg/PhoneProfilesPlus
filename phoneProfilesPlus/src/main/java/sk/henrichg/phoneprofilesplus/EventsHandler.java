@@ -65,6 +65,7 @@ class EventsHandler {
     boolean notAllowedDeviceBoot;
     boolean notAllowedSoundProfile;
     boolean notAllowedPeriodic;
+    boolean notAllowedVolumes;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -86,6 +87,7 @@ class EventsHandler {
     boolean deviceBootPassed;
     boolean soundProfilePassed;
     boolean periodicPassed;
+    boolean volumesPassed;
 
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
@@ -135,6 +137,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_SOUND_PROFILE = "soundProfile";
     static final String SENSOR_TYPE_PERIODIC = "periodic";
     static final String SENSOR_TYPE_PERIODIC_EVENT_END = "periodicEventEnd";
+    static final String SENSOR_TYPE_VOLUMES = "volumes";
     static final String SENSOR_TYPE_ALL = "ALL";
 
     public EventsHandler(Context context) {
@@ -1589,6 +1592,7 @@ class EventsHandler {
         notAllowedDeviceBoot = false;
         notAllowedSoundProfile = false;
         notAllowedPeriodic = false;
+        notAllowedVolumes = false;
 
         timePassed = true;
         batteryPassed = true;
@@ -1609,6 +1613,8 @@ class EventsHandler {
         alarmClockPassed = true;
         deviceBootPassed = true;
         soundProfilePassed = true;
+        periodicPassed = true;
+        volumesPassed = true;
 
 //        if (PPApplication.logEnabled()) {
 //            if (forRestartEvents) {
@@ -1639,6 +1645,7 @@ class EventsHandler {
         event._eventPreferencesDeviceBoot.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesSoundProfile.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesPeriodic.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesVolumes.doHandleEvent(this/*, forRestartEvents*/);
 
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
@@ -1787,6 +1794,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedPeriodic)
                 allPassed &= periodicPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesVolumes._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedVolumes)
+                allPassed &= volumesPassed;
             else
                 someNotAllowed = true;
         }

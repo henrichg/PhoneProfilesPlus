@@ -1913,6 +1913,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info8">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info9" translatable="false">\"(HELP) How to disable Wi-Fi scan throttling\"</string>
 
+    <string name="event_preference_sensor_volumes_summary">This sensor is for change of volumes. Parameters: .</string>
+    <string name="event_type_volumes">Volumes</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

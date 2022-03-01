@@ -3505,6 +3505,9 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_PERIODIC:
                             sensorEnabled = _event._eventPreferencesPeriodic._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_VOLUMES:
+                            sensorEnabled = _event._eventPreferencesVolumes._enabled;
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;
