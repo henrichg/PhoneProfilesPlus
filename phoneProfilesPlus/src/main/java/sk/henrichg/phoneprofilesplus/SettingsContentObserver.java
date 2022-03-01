@@ -246,7 +246,9 @@ class SettingsContentObserver  extends ContentObserver {
         }
         if (volumeChange) {
             // TODO volume change event sensor
+            if (!EventPreferencesVolumes.internalChange) {
 
+            }
         }
 
         ////// screen timeout change

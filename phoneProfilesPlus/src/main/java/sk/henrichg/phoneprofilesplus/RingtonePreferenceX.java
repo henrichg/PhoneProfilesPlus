@@ -169,8 +169,10 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         if (oldMediaVolume > -1)
                             ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume);
-                        if (oldMediaMuted)
+                        if (oldMediaMuted) {
+                            EventPreferencesVolumes.internalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        }
                     }
                 }
             });
@@ -221,6 +223,7 @@ public class RingtonePreferenceX extends DialogPreference {
                         }
 
 //                        PPApplication.logE("[VOLUMES] RingtonePreferenceX.playRingtone", "internaChange=true");
+                        EventPreferencesVolumes.internalChange = true;
                         RingerModeChangeReceiver.internalChange = true;
 
                         AudioAttributes attrs = new AudioAttributes.Builder()
@@ -275,8 +278,10 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         //PPApplication.logE("RingtonePreferenceX.playRingtone", "mediaVolume=" + mediaVolume);
 
-                        if (oldMediaMuted)
+                        if (oldMediaMuted) {
+                            EventPreferencesVolumes.internalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        }
                         ActivateProfileHelper.setMediaVolume(appContext, audioManager, mediaVolume);
 
                         mediaPlayer.start();
@@ -305,8 +310,10 @@ public class RingtonePreferenceX extends DialogPreference {
 
                                         if (oldMediaVolume > -1)
                                             ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume);
-                                        if (oldMediaMuted)
+                                        if (oldMediaMuted) {
+                                            EventPreferencesVolumes.internalChange = true;
                                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        }
                                         //PPApplication.logE("RingtonePreferenceX.playRingtone", "play stopped");
                                     }
 
@@ -314,6 +321,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                     mediaPlayer = null;
 
                                     DisableInternalChangeWorker.enqueueWork();
+                                    DisableVolumesInternalChangeWorker.enqueueWork();
 
                                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                     final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -337,6 +345,7 @@ public class RingtonePreferenceX extends DialogPreference {
                         RingtonePreferenceX.this.stopPlayRingtone();
 
                         DisableInternalChangeWorker.enqueueWork();
+                        DisableVolumesInternalChangeWorker.enqueueWork();
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

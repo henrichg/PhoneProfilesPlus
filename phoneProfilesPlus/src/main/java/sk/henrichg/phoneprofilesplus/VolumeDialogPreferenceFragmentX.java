@@ -156,8 +156,10 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             //if ((appContext != null) && (audioManager != null)) {
                 if (preference.defaultValueMusic != -1)
                     ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.defaultValueMusic);
-                if (preference.oldMediaMuted)
+                if (preference.oldMediaMuted) {
+                    EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                }
                 if (VolumeDialogPreferenceX.mediaPlayer != null) {
                     try {
                         if (VolumeDialogPreferenceX.mediaPlayer.isPlaying())
@@ -243,8 +245,10 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                 volume = Math.round(preference.maximumMediaValue / 100.0f * percentage);
             }
 
-            if (preference.oldMediaMuted && (preference.audioManager != null))
+            if (preference.oldMediaMuted && (preference.audioManager != null)) {
+                EventPreferencesVolumes.internalChange = true;
                 preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            }
             ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume);
 
             final Context appContext = context.getApplicationContext();
