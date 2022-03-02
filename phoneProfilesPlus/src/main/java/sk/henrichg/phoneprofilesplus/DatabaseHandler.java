@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2486;
+    private static final int DATABASE_VERSION = 2487;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -397,6 +397,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = "radioSwitchDefaultSIMForCalls";
     private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = "radioSwitchDefaultSIMForSMS";
     private static final String KEY_E_RADIO_SWITCH_SIM_ON_OFF = "radioSwitchSIMOnOff";
+    private static final String KEY_E_VOLUMES_ENABLED = "volumesEnabled";
+    private static final String KEY_E_VOLUMES_SENSOR_PASSED = "volumesSensorPassed";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -831,7 +833,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_PERIODIC_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + " " + INTEGER_TYPE + ","
                 + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + " " + INTEGER_TYPE + ","
-                + KEY_E_RADIO_SWITCH_SIM_ON_OFF + " " + INTEGER_TYPE
+                + KEY_E_RADIO_SWITCH_SIM_ON_OFF + " " + INTEGER_TYPE + ","
+                + KEY_E_VOLUMES_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_VOLUMES_SENSOR_PASSED + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -979,6 +983,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__DEVICE_BOOT_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_DEVICE_BOOT_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SOUND_PROFILE_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SOUND_PROFILE_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIODIC_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_PERIODIC_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__VOLUMES_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_VOLUMES_ENABLED + ")");
 
         //db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
 
@@ -1290,6 +1295,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_SIM_ON_OFF, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_SENSOR_PASSED, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3550,6 +3557,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_END_OF_ACTIVATION_TIME + "=0");
         }
 
+        if (oldVersion < 2487)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_SENSOR_PASSED + "=0");
+        }
+
     }
 
     private void afterUpdateDb(SQLiteDatabase db) {
@@ -5704,7 +5717,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updatePeriodicStartTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateChangeWallpaperTime", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -6304,6 +6317,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesDeviceBoot(event, db);
         getEventPreferencesSoundProfile(event, db);
         getEventPreferencesPeriodic(event, db);
+        getEventPreferencesVolumes(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -6993,6 +7007,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesVolumes(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_VOLUMES_ENABLED,
+                        KEY_E_VOLUMES_SENSOR_PASSED
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesVolumes eventPreferences = event._eventPreferencesVolumes;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ENABLED)) == 1);
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
 
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
@@ -7017,6 +7052,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         updateEventPreferencesDeviceBoot(event, db);
         updateEventPreferencesSoundProfile(event, db);
         updateEventPreferencesPeriodic(event, db);
+        updateEventPreferencesVolumes(event, db);
     }
 
     private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -7388,6 +7424,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_PERIODIC_DURATION, eventPreferences._duration);
         values.put(KEY_E_PERIODIC_MULTIPLY_INTERVAL, eventPreferences._multipleInterval);
         values.put(KEY_E_PERIODIC_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
+    private void updateEventPreferencesVolumes(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesVolumes eventPreferences = event._eventPreferencesVolumes;
+
+        values.put(KEY_E_VOLUMES_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_VOLUMES_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -7896,6 +7945,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, event._eventPreferencesDeviceBoot.getSensorPassed());
                 values.put(KEY_E_SOUND_PROFILE_SENSOR_PASSED, event._eventPreferencesSoundProfile.getSensorPassed());
                 values.put(KEY_E_PERIODIC_SENSOR_PASSED, event._eventPreferencesPeriodic.getSensorPassed());
+                values.put(KEY_E_VOLUMES_SENSOR_PASSED, event._eventPreferencesVolumes.getSensorPassed());
 
                 db.beginTransaction();
 
@@ -7954,6 +8004,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_SOUND_PROFILE_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_PERIODIC_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_VOLUMES_SENSOR_PASSED, sensorPassed);
 
                 db.beginTransaction();
 
