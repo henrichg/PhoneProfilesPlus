@@ -9,20 +9,36 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
-    <CheckBox
-        android:id="@+id/volumePrefDialogNoChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/volume_pref_dialog_no_change_chb" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-    <!--
-    <CheckBox
-        android:id="@+id/volumePrefDialogSharedProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/volume_pref_dialog_default_profile_chb" />
-    -->
-    
+        <CheckBox
+            android:id="@+id/volumePrefDialogNoChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/volume_pref_dialog_no_change_chb" />
+
+        <!--
+        <CheckBox
+            android:id="@+id/volumePrefDialogSharedProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/volume_pref_dialog_default_profile_chb" />
+        -->
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/volumePrefDialogVolumesSensorOperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="-3dp"
+            android:popupElevation="0dp"
+            android:entries="@array/volumesSensorOperatorArray"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/volumePrefDialogValueText"
         android:layout_width="match_parent"

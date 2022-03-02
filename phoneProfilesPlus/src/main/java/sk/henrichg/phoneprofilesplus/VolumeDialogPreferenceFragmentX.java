@@ -11,20 +11,26 @@ import android.os.Build;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
-        implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
+        implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener,
+                   AdapterView.OnItemSelectedListener
+{
 
     private Context context;
     private VolumeDialogPreferenceX preference;
 
+    private AppCompatSpinner operatorSpinner = null;
     private SeekBar seekBar = null;
     private TextView valueText = null;
     //private CheckBox sharedProfileChBox = null;
@@ -103,9 +109,24 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             //PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "sharedProfile="+preference.sharedProfile);
         }*/
 
+        CheckBox noChangeChBox = null;
+
+        if (preference.forVolumesSensor == 1) {
+            operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
+            GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                    (ProfilesPrefsActivity) context,
+                    R.layout.highlighted_spinner,
+                    getResources().getStringArray(R.array.volumesSensorOperatorArray));
+            voiceSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+            operatorSpinner.setAdapter(voiceSpinnerAdapter);
+            operatorSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+            operatorSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner));
+        } else {
+            noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
+        }
+
         seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
         valueText = view.findViewById(R.id.volumePrefDialogValueText);
-        CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
         //sharedProfileChBox = view.findViewById(R.id.volumePrefDialogSharedProfile);
 
         seekBar.setKeyProgressIncrement(preference.stepSize);
@@ -114,7 +135,21 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         valueText.setText(String.valueOf(preference.value/* + preference.minimumValue*/));
 
-        noChangeChBox.setChecked((preference.noChange == 1));
+        if (preference.forVolumesSensor == 0) {
+            operatorSpinner.setVisibility(View.GONE);
+            if (noChangeChBox != null) {
+                noChangeChBox.setVisibility(View.VISIBLE);
+                noChangeChBox.setChecked((preference.noChange == 1));
+            }
+        }
+        else {
+            if (noChangeChBox != null) {
+                noChangeChBox.setVisibility(View.GONE);
+            }
+            operatorSpinner.setVisibility(View.VISIBLE);
+            //TODO nastav vybrany item v spinneri
+            operatorSpinner.setSelection(0);
+        }
 
         //sharedProfileChBox.setChecked((preference.sharedProfile == 1));
         //sharedProfileChBox.setEnabled(preference.disableSharedProfile == 0);
@@ -124,11 +159,23 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         //if (preference.sharedProfile == 1)
         //    noChangeChBox.setChecked(false);
 
-        valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
-        seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+        if (preference.forVolumesSensor == 0) {
+            valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+            seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+        }
+        else {
+            // TODO nastav enabled/disabled podla toho, ci je operator == 0
+            valueText.setEnabled(true);
+            seekBar.setEnabled(true);
+        }
 
         seekBar.setOnSeekBarChangeListener(this);
-        noChangeChBox.setOnCheckedChangeListener(this);
+        if (preference.forVolumesSensor == 0) {
+            if (noChangeChBox != null)
+                noChangeChBox.setOnCheckedChangeListener(this);
+        }
+        else
+            operatorSpinner.setOnItemSelectedListener(this);
         //sharedProfileChBox.setOnCheckedChangeListener(this);
     }
 
@@ -181,29 +228,32 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView.getId() == R.id.volumePrefDialogNoChange)
-        {
-            preference.noChange = (isChecked)? 1 : 0;
+        if (preference.forVolumesSensor == 0) {
 
-            valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
-            seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
-            //if (isChecked)
-            //    sharedProfileChBox.setChecked(false);
+            if (buttonView.getId() == R.id.volumePrefDialogNoChange) {
+                preference.noChange = (isChecked) ? 1 : 0;
+
+                valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+                seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+
+                //if (isChecked)
+                //    sharedProfileChBox.setChecked(false);
+            }
+
+            /*
+            if (buttonView.getId() == R.id.volumePrefDialogSharedProfile)
+            {
+                preference.sharedProfile = (isChecked)? 1 : 0;
+
+                valueText.setEnabled((preference.noChange == 0) && (preference.sharedProfile == 0));
+                seekBar.setEnabled((preference.noChange == 0) && (preference.sharedProfile == 0));
+                if (isChecked)
+                    noChangeChBox.setChecked(false);
+            }
+            */
+
+            preference.callChangeListener(preference.getSValue());
         }
-
-        /*
-        if (buttonView.getId() == R.id.volumePrefDialogSharedProfile)
-        {
-            preference.sharedProfile = (isChecked)? 1 : 0;
-
-            valueText.setEnabled((preference.noChange == 0) && (preference.sharedProfile == 0));
-            seekBar.setEnabled((preference.noChange == 0) && (preference.sharedProfile == 0));
-            if (isChecked)
-                noChangeChBox.setChecked(false);
-        }
-        */
-
-        preference.callChangeListener(preference.getSValue());
     }
 
     @Override
@@ -349,6 +399,26 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             }
             */
         //}
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (preference.forVolumesSensor == 1) {
+            ((GlobalGUIRoutines.HighlightedSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
+
+            preference.sensorOperator = Integer.parseInt(preference.operatorValues[position]);
+
+            // TODO nastav enabled/disabled podla toho, ci je operator == 0
+            valueText.setEnabled(true);
+            seekBar.setEnabled(true);
+
+            preference.callChangeListener(preference.getSValue());
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
 /*    private static abstract class PlayRingtoneRunnable implements Runnable {

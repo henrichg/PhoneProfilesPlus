@@ -132,7 +132,7 @@ class EventPreferencesVolumes extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setCategorySummary(prefMng, preferences, context);
     }
-
+/*
     @Override
     void setSystemEventForStart(Context context)
     {
@@ -160,7 +160,7 @@ class EventPreferencesVolumes extends EventPreferences {
     {
         //PPApplication.logE("EventPreferencesVolumes.removeSystemEvent", "xxx");
     }
-
+*/
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
 //            PPApplication.logE("######### EventPreferencesVolumes.doHandleEvent", "xxx");

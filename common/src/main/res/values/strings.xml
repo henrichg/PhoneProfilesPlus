@@ -1915,6 +1915,14 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="event_preference_sensor_volumes_summary">This sensor is for change of volumes. Parameters: .</string>
     <string name="event_type_volumes">Volumes</string>
+    <string name="array_pref_volumesSensorOperator_doNotTestIt">Do not test it</string>
+    <string name="array_pref_volumesSensorOperator_equalsTo">Equals to</string>
+    <string name="array_pref_volumesSensorOperator_doNotEqualsTo">Do not equals to</string>
+    <string name="array_pref_volumesSensorOperator_islessThen">Is less than</string>
+    <string name="array_pref_volumesSensorOperator_isGreaterThen">Is greater than</string>
+    <string name="array_pref_volumesSensorOperator_isLessOrEqualTo">Is less or equal to</string>
+    <string name="array_pref_volumesSensorOperator_isGreaterOrEqualTo">Is greater or equal to</string>
+
 
     <!-- **************************************************************************************** -->
 

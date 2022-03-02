@@ -505,7 +505,6 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_5) +
                     "</ul>" +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_20_6);
-                    ;
             infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
         }
 

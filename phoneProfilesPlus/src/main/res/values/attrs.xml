@@ -9,8 +9,10 @@
     </declare-styleable>
     -->
     <declare-styleable name="PPVolumeDialogPreference">
+        <attr name="forVolumesSensor" format="integer" />
         <attr name="volumeType" format="string" />
         <attr name="vNoChange" format="integer" />
+        <attr name="sensorOperator" format="integer" />
     </declare-styleable>
     <declare-styleable name="PPBrightnessDialogPreference">
         <attr name="bNoChange" format="integer" />

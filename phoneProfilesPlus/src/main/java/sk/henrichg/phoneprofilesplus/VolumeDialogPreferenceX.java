@@ -21,10 +21,12 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     static MediaPlayer mediaPlayer = null;
 
     // Custom xml attributes.
+    int forVolumesSensor;
     final String volumeType;
     int noChange;
     //int sharedProfile;
     //final int disableSharedProfile;
+    int sensorOperator;
 
     int maximumValue = 7;
     //final int minimumValue = 0;
@@ -45,6 +47,8 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     private String defaultValue;
     private boolean savedInstanceState;
 
+    String[] operatorValues;
+
     int value = 0;
 
     public VolumeDialogPreferenceX(Context context, AttributeSet attrs) {
@@ -55,14 +59,24 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
             R.styleable.PPVolumeDialogPreference);
 
+        forVolumesSensor = typedArray.getInteger(
+                R.styleable.PPVolumeDialogPreference_forVolumesSensor, 0);
+
         volumeType = typedArray.getString(
             R.styleable.PPVolumeDialogPreference_volumeType);
-        noChange = typedArray.getInteger(
-            R.styleable.PPVolumeDialogPreference_vNoChange, 1);
-        /*sharedProfile = typedArray.getInteger(
-                R.styleable.VolumeDialogPreference_vSharedProfile, 0);
-        disableSharedProfile = typedArray.getInteger(
-                R.styleable.VolumeDialogPreference_vDisableSharedProfile, 0);*/
+        if (forVolumesSensor == 0) {
+            noChange = typedArray.getInteger(
+                    R.styleable.PPVolumeDialogPreference_vNoChange, 1);
+            /*sharedProfile = typedArray.getInteger(
+                    R.styleable.VolumeDialogPreference_vSharedProfile, 0);
+            disableSharedProfile = typedArray.getInteger(
+                    R.styleable.VolumeDialogPreference_vDisableSharedProfile, 0);*/
+        }
+        else {
+            sensorOperator = typedArray.getInteger(
+                    R.styleable.PPVolumeDialogPreference_sensorOperator, 0);
+            operatorValues = context.getResources().getStringArray(R.array.volumesSensorOperatorValues);
+        }
 
         audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
@@ -171,16 +185,22 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         }
         //value = value - minimumValue;
 
-        try {
-            noChange = Integer.parseInt(splits[1]);
-        } catch (Exception e) {
-            noChange = 1;
+        if (forVolumesSensor == 0) {
+            try {
+                noChange = Integer.parseInt(splits[1]);
+            } catch (Exception e) {
+                noChange = 1;
+            }
+            /*try {
+                sharedProfile = Integer.parseInt(splits[2]);
+            } catch (Exception e) {
+                sharedProfile = 0;
+            }*/
+        } else {
+            // TODO set this from sValue
+            sensorOperator = 0;
         }
-        /*try {
-            sharedProfile = Integer.parseInt(splits[2]);
-        } catch (Exception e) {
-            sharedProfile = 0;
-        }*/
+
 
         // You're never know...
         if (value < 0) {
