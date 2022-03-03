@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -2249,6 +2250,7 @@ public class Profile {
     // getting icon identifier
     public String getIconIdentifier()
     {
+        //Log.e("Profile.getIconIdentifier", "_icon="+_icon);
         String value;
         try {
             String[] splits = _icon.split("\\|");

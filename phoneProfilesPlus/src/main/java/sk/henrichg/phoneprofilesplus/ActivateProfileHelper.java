@@ -45,6 +45,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -1901,6 +1902,7 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundNotificationChange == 1) {
+                //Log.e("ActivateProfileHelper.setTones", "_soundNotification="+profile._soundNotification);
                 if (!profile._soundNotification.isEmpty()) {
                     try {
                         String[] splits = profile._soundNotification.split("\\|");
