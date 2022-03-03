@@ -110,9 +110,9 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         }*/
 
         CheckBox noChangeChBox = null;
+        operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
 
         if (preference.forVolumesSensor == 1) {
-            operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
             GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
                     R.layout.highlighted_spinner,

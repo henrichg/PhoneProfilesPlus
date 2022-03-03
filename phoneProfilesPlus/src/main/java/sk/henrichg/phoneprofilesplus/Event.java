@@ -437,6 +437,7 @@ class Event {
         createEventPreferencesDeviceBoot();
         createEventPreferencesSoundProfile();
         createEventPreferencesPeriodic();
+        createEventPreferencesVolumes();
     }
 
     void copyEventPreferences(Event fromEvent)
