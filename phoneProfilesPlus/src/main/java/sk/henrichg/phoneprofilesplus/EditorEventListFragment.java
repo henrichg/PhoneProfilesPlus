@@ -588,6 +588,8 @@ public class EditorEventListFragment extends Fragment
 
                 Profile profile = _dataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
+
+                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 fragment.eventListAdapter.notifyDataSetChanged(false);
 
                 if (defaultEventsGenerated)
@@ -875,7 +877,7 @@ public class EditorEventListFragment extends Fragment
 
         PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, "");
 
-        listView.getRecycledViewPool().clear();
+        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
         synchronized (activityDataWrapper.eventList) {
             // remove notifications about event parameters errors
@@ -1006,7 +1008,7 @@ public class EditorEventListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                 PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
 
-                listView.getRecycledViewPool().clear();
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
                 activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
@@ -1139,7 +1141,7 @@ public class EditorEventListFragment extends Fragment
 
         //if (eventListAdapter != null)
         if (listView != null)
-            listView.getRecycledViewPool().clear();
+            listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
         if (eventListAdapter != null) {
             if ((newEvent) && (event != null))
@@ -1224,7 +1226,6 @@ public class EditorEventListFragment extends Fragment
                                     ApplicationPreferences.applicationEditorPrefIndicator);
                             updateHeader(profile);
                         }
-                        listView.getRecycledViewPool().clear();
                     }
                     else {
                         if (filterType == FILTER_TYPE_START_ORDER)
@@ -1237,8 +1238,6 @@ public class EditorEventListFragment extends Fragment
                             updateHeader(profile);
                         }
 
-                        listView.getRecycledViewPool().clear();
-
                         eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 
                         // added touch helper for drag and drop items
@@ -1248,6 +1247,7 @@ public class EditorEventListFragment extends Fragment
 
                         listView.setAdapter(eventListAdapter);
                     }
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     eventListAdapter.notifyDataSetChanged();
                 }
             }
@@ -1279,6 +1279,7 @@ public class EditorEventListFragment extends Fragment
                     scrollToEvent = null;
                 }
 
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 eventListAdapter.notifyDataSetChanged();
 
                 if (eventPos != ListView.INVALID_POSITION) {

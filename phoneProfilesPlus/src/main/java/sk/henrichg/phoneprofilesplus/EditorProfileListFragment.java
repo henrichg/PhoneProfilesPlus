@@ -676,7 +676,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.fifoSaveProfiles(newActivateProfilesFIFO);
         }
 
-        listView.getRecycledViewPool().clear();
+        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
         activityDataWrapper.stopEventsForProfileFromMainThread(profile, true);
         profileListAdapter.deleteItemNoNotify(profile);
@@ -815,7 +815,7 @@ public class EditorProfileListFragment extends Fragment
                     activityDataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                 }
 
-                listView.getRecycledViewPool().clear();
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
                 activityDataWrapper.stopAllEventsFromMainThread(true, false);
                 profileListAdapter.clearNoNotify();
@@ -995,7 +995,7 @@ public class EditorProfileListFragment extends Fragment
 
         //if (profileListAdapter != null)
         if (listView != null)
-            listView.getRecycledViewPool().clear();
+            listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
         if (profileListAdapter != null) {
             if ((newProfile) && (profile != null))

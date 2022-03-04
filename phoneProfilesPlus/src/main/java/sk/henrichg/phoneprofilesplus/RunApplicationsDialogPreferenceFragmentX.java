@@ -112,7 +112,7 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
 
     @SuppressLint("NotifyDataSetChanged")
     void updateGUI() {
-        applicationsListView.getRecycledViewPool().clear();
+        applicationsListView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         listAdapter.notifyDataSetChanged();
     }
 
