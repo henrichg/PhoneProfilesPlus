@@ -621,7 +621,7 @@ class EventsHandler {
 
                             //anyEventPaused = true;
                             //notifyEventEnd = _event;
-                            _event.notifyEventEnd(false);
+                            _event.notifyEventEnd(false, false);
                         }
 
 //                        if (PPApplication.logEnabled()) {
@@ -675,7 +675,7 @@ class EventsHandler {
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
 
-                            _event.notifyEventStart(context, false);
+                            _event.notifyEventStart(context, false, false);
                         }
 
 //                        if (PPApplication.logEnabled()) {
@@ -734,7 +734,7 @@ class EventsHandler {
 
                             //anyEventPaused = true;
                             //notifyEventEnd = _event;
-                            if (_event.notifyEventEnd(!notified))
+                            if (_event.notifyEventEnd(!notified, false))
                                 notified = true;
 
                             /*
@@ -795,7 +795,7 @@ class EventsHandler {
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
 
-                            if (_event.notifyEventStart(context, !notified))
+                            if (_event.notifyEventStart(context, !notified, false))
                                 notified = true;
                         }
 
@@ -1133,7 +1133,10 @@ class EventsHandler {
                 // notify default profile
                 if (!defaultProfileNotificationSound.isEmpty() || defaultProfileNotificationVibrate) {
                     if (ppService != null) {
-                        ppService.playNotificationSound(defaultProfileNotificationSound, defaultProfileNotificationVibrate);
+                        ppService.playNotificationSound(
+                                defaultProfileNotificationSound,
+                                defaultProfileNotificationVibrate,
+                                false);
 //                        if (isRestart)
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "default profile notified");
                         notified = true;

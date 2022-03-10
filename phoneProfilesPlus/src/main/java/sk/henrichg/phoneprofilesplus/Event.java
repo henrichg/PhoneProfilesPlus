@@ -3276,7 +3276,8 @@ class Event {
 
     //----------------------------------
 
-    boolean notifyEventStart(Context context, boolean playSound) {
+    boolean notifyEventStart(Context context, boolean playSound,
+                             boolean playAlsoInSilentMode) {
         String notificationSoundStart = _notificationSoundStart;
         boolean notificationVibrateStart = _notificationVibrateStart;
 
@@ -3344,14 +3345,18 @@ class Event {
 
             if (playSound)
                 if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().playNotificationSound(notificationSoundStart, notificationVibrateStart);
+                    PhoneProfilesService.getInstance().playNotificationSound(
+                            notificationSoundStart,
+                            notificationVibrateStart,
+                            playAlsoInSilentMode);
 
             return true;
         }
         return false;
     }
 
-    boolean notifyEventEnd(/*Context context*/ boolean playSound) {
+    boolean notifyEventEnd(/*Context context*/ boolean playSound,
+                           final boolean playAlsoInSilentMode) {
         String notificationSoundEnd = _notificationSoundEnd;
         boolean notificationVibrateEnd = _notificationVibrateEnd;
 
@@ -3359,7 +3364,10 @@ class Event {
 
             if (playSound)
                 if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().playNotificationSound(notificationSoundEnd, notificationVibrateEnd);
+                    PhoneProfilesService.getInstance().playNotificationSound(
+                            notificationSoundEnd,
+                            notificationVibrateEnd,
+                            playAlsoInSilentMode);
 
             return true;
         }

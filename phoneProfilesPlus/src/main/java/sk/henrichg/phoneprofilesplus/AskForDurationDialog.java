@@ -124,7 +124,10 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
                             if (PhoneProfilesService.getInstance() != null) {
                                 //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
-                                PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                                PhoneProfilesService.getInstance().playNotificationSound(
+                                        ApplicationPreferences.applicationApplicationInterfaceNotificationSound,
+                                        ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate,
+                                        false);
                                 //PPApplication.sleep(500);
                             }
                         }
@@ -161,7 +164,10 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                     if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
                         if (PhoneProfilesService.getInstance() != null) {
                             //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
-                            PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                            PhoneProfilesService.getInstance().playNotificationSound(
+                                    ApplicationPreferences.applicationApplicationInterfaceNotificationSound,
+                                    ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate,
+                                    false);
                             //PPApplication.sleep(500);
                         }
                     }

@@ -8223,7 +8223,9 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void playNotificationSound (final String notificationSound, final boolean notificationVibrate) {
+    public void playNotificationSound (final String notificationSound,
+                                       final boolean notificationVibrate,
+                                       final boolean playAlsoInSilentMode) {
         if (audioManager == null )
             audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
@@ -8265,9 +8267,12 @@ public class PhoneProfilesService extends Service
                     try {
                         notificationMediaPlayer = new MediaPlayer();
 
+                        int usage = AudioAttributes.USAGE_NOTIFICATION;
+                        if (playAlsoInSilentMode)
+                            usage = AudioAttributes.USAGE_ALARM;
+
                         AudioAttributes attrs = new AudioAttributes.Builder()
-                                //.setUsage(AudioAttributes.USAGE_MEDIA)
-                                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                                .setUsage(usage)
                                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                                 .build();
                         notificationMediaPlayer.setAudioAttributes(attrs);
