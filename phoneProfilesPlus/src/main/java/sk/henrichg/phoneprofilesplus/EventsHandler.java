@@ -734,7 +734,7 @@ class EventsHandler {
 
                             //anyEventPaused = true;
                             //notifyEventEnd = _event;
-                            if (_event.notifyEventEnd(!notified, false))
+                            if (_event.notifyEventEnd(!notified, true))
                                 notified = true;
 
                             /*
@@ -795,7 +795,7 @@ class EventsHandler {
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
 
-                            if (_event.notifyEventStart(context, !notified, false))
+                            if (_event.notifyEventStart(context, !notified, true))
                                 notified = true;
                         }
 

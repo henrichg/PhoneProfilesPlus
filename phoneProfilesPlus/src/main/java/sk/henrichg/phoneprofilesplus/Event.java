@@ -62,6 +62,8 @@ class Event {
     boolean _notificationVibrateEnd;
     //int _atEndHowUndo;
     boolean _manualProfileActivationAtEnd;
+    boolean _notificationSoundStartPlayAlsoInSilentMode;
+    boolean _notificationSoundEndPlayAlsoInSilentMode;
 
     //boolean _undoCalled;
 
@@ -132,6 +134,8 @@ class Event {
     private static final String PREF_EVENT_END_OTHERS = "eventEndOthersCategoryRoot";
     //private static final String PREF_EVENT_AT_END_HOW_UNDO = "eventAtEndHowUndo";
     private static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
+    private  static final String PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "eventStartNotificationSoundPlayAlsoInSilentMode";
+    private  static final String PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "eventEndNotificationSoundPlayAlsoInSilentMode";
 
     static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
@@ -174,7 +178,9 @@ class Event {
                  String notificationSoundEnd,
                  boolean notificationVibrateEnd,
                  //int atEndHowUndo,
-                 boolean manualProfileActivationAtEnd
+                 boolean manualProfileActivationAtEnd,
+                 boolean notificationSoundStartPlayAlsoInSilentMode,
+                 boolean notificationSoundEndPlayAlsoInSilentMode
           )
     {
         this._id = id;
@@ -205,6 +211,8 @@ class Event {
         this._noPauseByManualActivation = noPauseByManualActivation;
         //this._atEndHowUndo = atEndHowUndo;
         this._manualProfileActivationAtEnd = manualProfileActivationAtEnd;
+        this._notificationSoundStartPlayAlsoInSilentMode = notificationSoundStartPlayAlsoInSilentMode;
+        this._notificationSoundEndPlayAlsoInSilentMode = notificationSoundEndPlayAlsoInSilentMode;
 
         //this._undoCalled = false;
 
@@ -238,7 +246,9 @@ class Event {
                  String notificationSoundEnd,
                  boolean notificationVibrateEnd,
                  //int atEndHowUndo
-                 boolean manualProfileActivationAtEnd
+                 boolean manualProfileActivationAtEnd,
+                 boolean notificationSoundStartPlayAlsoInSilentMode,
+                 boolean notificationSoundEndPlayAlsoInSilentMode
         )
     {
         this._name = name;
@@ -268,6 +278,8 @@ class Event {
         this._noPauseByManualActivation = noPauseByManualActivation;
         //this._atEndHowUndo = atEndHowUndo;
         this._manualProfileActivationAtEnd = manualProfileActivationAtEnd;
+        this._notificationSoundStartPlayAlsoInSilentMode = notificationSoundStartPlayAlsoInSilentMode;
+        this._notificationSoundEndPlayAlsoInSilentMode = notificationSoundEndPlayAlsoInSilentMode;
 
         //this._undoCalled = false;
 
@@ -304,6 +316,8 @@ class Event {
         this._noPauseByManualActivation = event._noPauseByManualActivation;
         //this._atEndHowUndo = event._atEndHowUndo;
         this._manualProfileActivationAtEnd = event._manualProfileActivationAtEnd;
+        this._notificationSoundStartPlayAlsoInSilentMode = event._notificationSoundStartPlayAlsoInSilentMode;
+        this._notificationSoundEndPlayAlsoInSilentMode = event._notificationSoundEndPlayAlsoInSilentMode;
 
         //this._undoCalled = event._undoCalled;
 
@@ -713,6 +727,9 @@ class Event {
         editor.putBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, this._noPauseByManualActivation);
         //editor.putString(PREF_EVENT_AT_END_HOW_UNDO, Integer.toString(this._atEndHowUndo));
         editor.putBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, this._manualProfileActivationAtEnd);
+        editor.putBoolean(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, this._notificationSoundStartPlayAlsoInSilentMode);
+        editor.putBoolean(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, this._notificationSoundEndPlayAlsoInSilentMode);
+
         this._eventPreferencesTime.loadSharedPreferences(preferences);
         this._eventPreferencesBattery.loadSharedPreferences(preferences);
         this._eventPreferencesCall.loadSharedPreferences(preferences);
@@ -758,6 +775,8 @@ class Event {
         this._noPauseByManualActivation = preferences.getBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, false);
         //this._atEndHowUndo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0"));
         this._manualProfileActivationAtEnd = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
+        this._notificationSoundStartPlayAlsoInSilentMode = preferences.getBoolean(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, false);
+        this._notificationSoundEndPlayAlsoInSilentMode = preferences.getBoolean(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, false);
 
         String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
         if (sDelayStart.isEmpty()) sDelayStart = "0";
@@ -974,7 +993,9 @@ class Event {
                 key.equals(PREF_EVENT_DELAY_START) ||
                 key.equals(PREF_EVENT_DELAY_END) ||
                 key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE) ||
-                key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END)) {
+                key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END) ||
+                key.equals(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE) ||
+                key.equals(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE)) {
             //boolean forceRunChanged = false;
             boolean manualProfileActivationChanged;
             boolean profileStartWhenActivatedChanged;
@@ -986,6 +1007,8 @@ class Event {
             boolean notificationSoundEndChanged;
             boolean notificationVibrateEndChanged;
             boolean manualProfileActivationAtEndChanged;
+            boolean notificationSoundStartPlayAlsoInSilentMode;
+            boolean notificationSoundEndPlayAlsoInSilentMode;
 
             String startWhenActivatedProfile;
             int delayStart;
@@ -1006,6 +1029,8 @@ class Event {
                 notificationSoundEndChanged = !this._notificationSoundEnd.isEmpty();
                 notificationVibrateEndChanged = this._notificationVibrateEnd;
                 manualProfileActivationAtEndChanged = this._manualProfileActivationAtEnd;
+                notificationSoundStartPlayAlsoInSilentMode = this._notificationSoundStartPlayAlsoInSilentMode;
+                notificationSoundEndPlayAlsoInSilentMode = this._notificationSoundEndPlayAlsoInSilentMode;
             }
             else {
                 //forceRunChanged = preferences.getBoolean(PREF_EVENT_IGNORE_MANUAL_ACTIVATION, false);
@@ -1017,9 +1042,10 @@ class Event {
                 delayStart = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_START, "0"));
                 delayEnd = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_END, "0"));
                 notificationSoundStartChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND_START, "").isEmpty();
-
                 notificationVibrateStartChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE_START, false);
                 notificationVibrateEndChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE_END, false);
+                notificationSoundStartPlayAlsoInSilentMode = preferences.getBoolean(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, false);
+                notificationSoundEndPlayAlsoInSilentMode = preferences.getBoolean(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, false);
                 if (key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_START) ||
                         key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END)) {
                     Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -1042,7 +1068,8 @@ class Event {
                                 delayStartChanged ||
                                 notificationSoundStartChanged ||
                                 notificationVibrateStartChanged ||
-                                notificationRepeatStartChanged);
+                                notificationRepeatStartChanged ||
+                                notificationSoundStartPlayAlsoInSilentMode);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false);
                 if (bold) {
                     String summary = "";
@@ -1094,7 +1121,8 @@ class Event {
                 boolean bold = (delayEndChanged ||
                                 notificationSoundEndChanged ||
                                 notificationVibrateEndChanged ||
-                                manualProfileActivationAtEndChanged);
+                                manualProfileActivationAtEndChanged ||
+                                notificationSoundEndPlayAlsoInSilentMode);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false);
                 if (bold) {
                     String summary = "";
@@ -1145,7 +1173,9 @@ class Event {
             key.equals(PREF_EVENT_NOTIFICATION_REPEAT_START) ||
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END) ||
             key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION) ||
-            key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END)) {
+            key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END) ||
+            key.equals(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE) ||
+            key.equals(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, Boolean.toString(value), context);
         }
@@ -1268,6 +1298,8 @@ class Event {
         setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context);
         //setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context);
         setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, preferences, context);
         setCategorySummary(prefMng, "", preferences, context);
         _eventPreferencesTime.setAllSummary(prefMng, preferences, context);
         _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
@@ -3276,10 +3308,12 @@ class Event {
 
     //----------------------------------
 
-    boolean notifyEventStart(Context context, boolean playSound,
-                             boolean playAlsoInSilentMode) {
+    boolean notifyEventStart(Context context, boolean playSound, boolean canPlayAlsoInSilentMode) {
         String notificationSoundStart = _notificationSoundStart;
         boolean notificationVibrateStart = _notificationVibrateStart;
+        boolean playAlsoInSilentMode = false;
+        if (canPlayAlsoInSilentMode)
+            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundStart.isEmpty() || notificationVibrateStart) {
 
@@ -3356,9 +3390,12 @@ class Event {
     }
 
     boolean notifyEventEnd(/*Context context*/ boolean playSound,
-                           final boolean playAlsoInSilentMode) {
+                           boolean canPlayAlsoInSilentMode) {
         String notificationSoundEnd = _notificationSoundEnd;
         boolean notificationVibrateEnd = _notificationVibrateEnd;
+        boolean playAlsoInSilentMode = false;
+        if (canPlayAlsoInSilentMode)
+            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 

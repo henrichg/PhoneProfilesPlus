@@ -38,6 +38,11 @@
         app:showDefault="true"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
+        app:key="eventStartNotificationSoundPlayAlsoInSilentMode"
+        app:title="@string/event_preferences_notificationSoundPlayAlsoInSilentMode"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <SwitchPreferenceCompat
         app:key="eventStartNotificationVibrate"
         app:title="@string/event_preferences_notificationVibrate"
         app:defaultValue="false"

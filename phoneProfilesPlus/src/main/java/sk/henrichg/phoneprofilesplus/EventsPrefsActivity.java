@@ -378,7 +378,9 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         origEvent._notificationSoundEnd,
                         origEvent._notificationVibrateEnd,
                         //origEvent._atEndHowUndo
-                        origEvent._manualProfileActivationAtEnd
+                        origEvent._manualProfileActivationAtEnd,
+                        origEvent._notificationSoundStartPlayAlsoInSilentMode,
+                        origEvent._notificationSoundEndPlayAlsoInSilentMode
                 );
                 event.copyEventPreferences(origEvent);
                 showSaveMenu = true;

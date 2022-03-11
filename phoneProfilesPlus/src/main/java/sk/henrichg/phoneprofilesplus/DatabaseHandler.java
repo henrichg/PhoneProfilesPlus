@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.media.AudioManager;
-import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
@@ -38,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2487;
+    private static final int DATABASE_VERSION = 2488;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -399,6 +398,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_SIM_ON_OFF = "radioSwitchSIMOnOff";
     private static final String KEY_E_VOLUMES_ENABLED = "volumesEnabled";
     private static final String KEY_E_VOLUMES_SENSOR_PASSED = "volumesSensorPassed";
+    private static final String KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundStartPlayAlsoInSilentMode";
+    private static final String KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundEndPlayAlsoInSilentMode";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -835,7 +836,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + " " + INTEGER_TYPE + ","
                 + KEY_E_RADIO_SWITCH_SIM_ON_OFF + " " + INTEGER_TYPE + ","
                 + KEY_E_VOLUMES_ENABLED + " " + INTEGER_TYPE + ","
-                + KEY_E_VOLUMES_SENSOR_PASSED + " " + INTEGER_TYPE
+                + KEY_E_VOLUMES_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1297,6 +1300,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_SIM_ON_OFF, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_VOLUMES_ENABLED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_VOLUMES_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3563,6 +3568,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_SENSOR_PASSED + "=0");
         }
 
+        if (oldVersion < 2488)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE + "=0");
+        }
+
     }
 
     private void afterUpdateDb(SQLiteDatabase db) {
@@ -5561,6 +5572,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+/*
     void fixPhoneProfilesSilentInProfiles() {
         importExportLock.lock();
         try {
@@ -5658,6 +5670,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+*/
 
     void updateProfileShowInActivator(Profile profile) {
         importExportLock.lock();
@@ -5775,6 +5788,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile); // start when profile is activated
                 //values.put(KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
                 values.put(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0); // manual profile activation at end
+                values.put(KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundStartPlayAlsoInSilentMode ? 1 : 0);
+                values.put(KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundEndPlayAlsoInSilentMode ? 1 : 0);
 
                 db.beginTransaction();
 
@@ -5838,7 +5853,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_E_PAUSE_STATUS_TIME,
                                 KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION,
                                 KEY_E_AT_END_HOW_UNDO,
-                                KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END
+                                KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END,
+                                KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE,
+                                KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE
                         },
                         KEY_E_ID + "=?",
                         new String[]{String.valueOf(event_id)}, null, null, null, null);
@@ -5874,7 +5891,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_END)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_VIBRATE_END)) == 1,
                                 //cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_AT_END_HOW_UNDO))
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END)) == 1
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END)) == 1,
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE)) == 1,
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE)) == 1
                         );
                     }
 
@@ -5930,7 +5949,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_START_ORDER + "," +
                         KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + "," +
                         KEY_E_AT_END_HOW_UNDO + "," +
-                        KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END +
+                        KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END + "," +
+                        KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE + "," +
+                        KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE +
                         " FROM " + TABLE_EVENTS +
                         " ORDER BY " + KEY_E_ID;
 
@@ -5970,6 +5991,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         event._noPauseByManualActivation = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION)) == 1;
                         //event._atEndHowUndo = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_AT_END_HOW_UNDO));
                         event._manualProfileActivationAtEnd = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END)) == 1;
+                        event._notificationSoundStartPlayAlsoInSilentMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE)) == 1;
+                        event._notificationSoundEndPlayAlsoInSilentMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE)) == 1;
                         event.createEventPreferences();
                         getEventPreferences(event, db);
                         // Adding contact to list
@@ -6027,6 +6050,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0);
                 //values.put(KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
                 values.put(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0);
+                values.put(KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundStartPlayAlsoInSilentMode ? 1 : 0);
+                values.put(KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundEndPlayAlsoInSilentMode ? 1 : 0);
 
                 db.beginTransaction();
 
