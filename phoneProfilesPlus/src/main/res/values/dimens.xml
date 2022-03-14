@@ -42,6 +42,11 @@
     <dimen name="important_info_text_size">16sp</dimen>
     <dimen name="important_info_text_size_monospace">15sp</dimen>
 
+    <dimen name="gui_info_popup_title_size">16sp</dimen>
+    <dimen name="gui_info_popup_text_size">15sp</dimen>
+
+    <dimen name="popup_window_drawable_padding">8dp</dimen>
+
 <!--    <dimen name="editor_bottom_bar_height">67dp</dimen>-->
 
     <!-- this is height of BottomNavigationView -->

@@ -38,66 +38,66 @@
                     android:paddingBottom="10dp"
                     android:text="@string/event_string_0"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text0" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/info_notification_event_states"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text1" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/info_notification_event_states_manual_profile_activation"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text8"
                     app:drawableStartCompat="@drawable/ic_event_status_pause_manual_activation"
-                    android:drawablePadding="6dp" />
+                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/info_notification_event_states_running"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text2"
                     app:drawableStartCompat="@drawable/ic_event_status_running"
-                    android:drawablePadding="6dp" />
+                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/info_notification_event_states_paused"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text3"
                     app:drawableStartCompat="@drawable/ic_event_status_pause"
-                    android:drawablePadding="6dp" />
+                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/info_notification_event_states_paused_delay"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text4"
                     app:drawableStartCompat="@drawable/ic_event_status_pause_delay"
-                    android:drawablePadding="6dp" />
+                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/info_notification_event_states_running_delay"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text5"
                     app:drawableStartCompat="@drawable/ic_event_status_running_delay"
-                    android:drawablePadding="6dp" />
+                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:text="@string/info_notification_event_states_stopped"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text6"
                     app:drawableStartCompat="?attr/eventStopStatusIndicator"
                     android:drawablePadding="6dp" />
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="@string/popup_window_events_status_show_info"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text7"
                     android:textColor="?attr/colorAccent"
                     android:background="?attr/selectableItemBackground"/>
@@ -119,7 +119,7 @@
                     android:checked="false"
                     android:focusable="false"
                     android:text="@string/event_list_item_menu_run"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/gui_info_popup_text_size" />
 
             </LinearLayout>
 
