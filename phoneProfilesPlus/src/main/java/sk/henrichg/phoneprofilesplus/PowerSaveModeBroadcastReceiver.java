@@ -11,7 +11,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
     //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] PowerSaveModeBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "PowerSaveModeBroadcastReceiver.onReceive", "PowerSaveModeBroadcastReceiver_onReceive");
 

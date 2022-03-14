@@ -55,7 +55,7 @@
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text8"
                     app:drawableStartCompat="@drawable/ic_event_status_pause_manual_activation"
-                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
+                    android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text2"
                     app:drawableStartCompat="@drawable/ic_event_status_running"
-                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
+                    android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text3"
                     app:drawableStartCompat="@drawable/ic_event_status_pause"
-                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
+                    android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text4"
                     app:drawableStartCompat="@drawable/ic_event_status_pause_delay"
-                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
+                    android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text5"
                     app:drawableStartCompat="@drawable/ic_event_status_running_delay"
-                    android:drawablePadding="@dimen/popup_window_drawable_padding" />
+                    android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
