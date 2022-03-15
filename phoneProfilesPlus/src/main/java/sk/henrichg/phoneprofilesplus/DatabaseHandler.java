@@ -12458,6 +12458,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
                             }
 
+                            if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ENABLED)) != 0) &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_E_VOLUMES_ENABLED, 0);
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                            }
+
                         } while (eventsCursor.moveToNext());
                     }
 
