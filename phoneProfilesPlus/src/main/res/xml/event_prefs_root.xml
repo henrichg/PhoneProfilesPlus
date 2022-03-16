@@ -238,6 +238,14 @@
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsSoundProfileParameters" />
 
         <Preference
+            app:key="eventVolumesCategoryRoot"
+            app:title="@string/event_preferences_category_eventVolumesParameters"
+            app:summary="@string/event_preference_sensor_volumes_summary"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsVolumesParameters" />
+
+        <Preference
             app:key="eventApplicationCategoryRoot"
             app:title="@string/event_preferences_category_eventApplicationsParameters"
             app:summary="@string/event_preference_sensor_application_summary"

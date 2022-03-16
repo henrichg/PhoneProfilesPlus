@@ -147,8 +147,15 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                 noChangeChBox.setVisibility(View.GONE);
             }
             operatorSpinner.setVisibility(View.VISIBLE);
-            //TODO nastav vybrany item v spinneri
-            operatorSpinner.setSelection(0);
+            String[] entryValues = getResources().getStringArray(R.array.volumesSensorOperatorValues);
+            int operatorIdx = 0;
+            for (String entryValue : entryValues) {
+                if (entryValue.equals(String.valueOf(preference.sensorOperator))) {
+                    ++operatorIdx;
+                    break;
+                }
+            }
+            operatorSpinner.setSelection(operatorIdx);
         }
 
         //sharedProfileChBox.setChecked((preference.sharedProfile == 1));
@@ -164,9 +171,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
         }
         else {
-            // TODO nastav enabled/disabled podla toho, ci je operator == 0
-            valueText.setEnabled(true);
-            seekBar.setEnabled(true);
+            valueText.setEnabled(preference.sensorOperator != 0);
+            seekBar.setEnabled(preference.sensorOperator != 0);
         }
 
         seekBar.setOnSeekBarChangeListener(this);
@@ -408,9 +414,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
             preference.sensorOperator = Integer.parseInt(preference.operatorValues[position]);
 
-            // TODO nastav enabled/disabled podla toho, ci je operator == 0
-            valueText.setEnabled(true);
-            seekBar.setEnabled(true);
+            valueText.setEnabled(preference.sensorOperator != 0);
+            seekBar.setEnabled(preference.sensorOperator != 0);
 
             preference.callChangeListener(preference.getSValue());
         }

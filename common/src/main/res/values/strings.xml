@@ -1913,7 +1913,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info8">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info9" translatable="false">\"(HELP) How to disable Wi-Fi scan throttling\"</string>
 
-    <string name="event_preference_sensor_volumes_summary">This sensor is for change of volumes. Parameters: .</string>
+    <string name="event_preference_sensor_volumes_summary">This sensor is for change of volumes. Parameters: Ringtone volume, Notification volume, Media volume, Alarm volume, System volume, Voice call volume, Bluetooth call volume, Accessibility prompts volume.</string>
     <string name="event_type_volumes">Volumes</string>
     <string name="array_pref_volumesSensorOperator_doNotTestIt">Do not test it</string>
     <string name="array_pref_volumesSensorOperator_equalsTo">Equals to</string>
@@ -1922,6 +1922,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="array_pref_volumesSensorOperator_isGreaterThen">Is greater than</string>
     <string name="array_pref_volumesSensorOperator_isLessOrEqualTo">Is less or equal to</string>
     <string name="array_pref_volumesSensorOperator_isGreaterOrEqualTo">Is greater or equal to</string>
+    <string name="event_preferences_category_eventVolumesParameters">Volumes sensor</string>
+    <string name="event_preferences_volumes_info_title">Sensor configuration</string>
+    <string name="event_preferences_volumes_info_summary">Level of all volumes must be fulfilled to start event. Configure only those volumes that you need.</string>
 
     <string name="event_preferences_notificationSoundPlayAlsoInSilentMode">Play notification also in silent mode</string>
 

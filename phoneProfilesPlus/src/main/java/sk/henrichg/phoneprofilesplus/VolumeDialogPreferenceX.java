@@ -197,8 +197,11 @@ public class VolumeDialogPreferenceX extends DialogPreference {
                 sharedProfile = 0;
             }*/
         } else {
-            // TODO set this from sValue
-            sensorOperator = 0;
+            try {
+                sensorOperator = Integer.parseInt(splits[1]);
+            } catch (Exception e) {
+                sensorOperator = 0;
+            }
         }
 
 
@@ -217,21 +220,42 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     private void setSummaryVDP()
     {
         String prefVolumeDataSummary;
-        if (noChange == 1)
-            prefVolumeDataSummary = _context.getString(R.string.preference_profile_no_change);
-        /*else
-        if (sharedProfile == 1)
-            prefVolumeDataSummary = _context.getString(R.string.preference_profile_default_profile);*/
-        else
-            prefVolumeDataSummary = value + " / " + maximumValue;
+        if (forVolumesSensor == 0) {
+            if (noChange == 1)
+                prefVolumeDataSummary = _context.getString(R.string.preference_profile_no_change);
+            /*else
+            if (sharedProfile == 1)
+                prefVolumeDataSummary = _context.getString(R.string.preference_profile_default_profile);*/
+            else
+                prefVolumeDataSummary = value + " / " + maximumValue;
+        } else {
+            String[] entries = _context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
+            String[] entryValues = _context.getResources().getStringArray(R.array.volumesSensorOperatorValues);
+
+            int operatorIdx = 0;
+            for (String entryValue : entryValues) {
+                if (entryValue.equals(String.valueOf(sensorOperator))) {
+                    ++operatorIdx;
+                    break;
+                }
+            }
+
+            prefVolumeDataSummary = entries[operatorIdx];
+        }
         setSummary(prefVolumeDataSummary);
     }
 
     String getSValue() {
-        //int _value = value + minimumValue;
-        return value
-                + "|" + noChange
-                + "|" + "0";
+        if (forVolumesSensor == 0) {
+            //int _value = value + minimumValue;
+            return value
+                    + "|" + noChange
+                    + "|" + "0";
+        } else {
+            return value
+                    + "|" + sensorOperator
+                    + "|" + "0";
+        }
     }
 
     void persistValue() {

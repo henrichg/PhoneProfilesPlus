@@ -260,6 +260,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof VolumeDialogPreferenceX)
+        {
+            ((VolumeDialogPreferenceX)preference).fragment = new VolumeDialogPreferenceFragmentX();
+            dialogFragment = ((VolumeDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null) {
             if ((getActivity() != null) && (!getActivity().isFinishing())) {
