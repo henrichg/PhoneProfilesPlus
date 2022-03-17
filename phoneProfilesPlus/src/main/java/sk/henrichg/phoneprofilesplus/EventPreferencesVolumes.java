@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -20,7 +19,6 @@ class EventPreferencesVolumes extends EventPreferences {
     String _volumeSystem;
     String _volumeVoice;
     String _volumeBluetoothSCO;
-    String _volumeAccessibility;
 
     static final String PREF_EVENT_VOLUMES_ENABLED = "eventVolumesEnabled";
     static final String PREF_EVENT_VOLUMES_RINGTONE = "eventVolumesRingtone";
@@ -30,7 +28,6 @@ class EventPreferencesVolumes extends EventPreferences {
     static final String PREF_EVENT_VOLUMES_SYSTEM = "eventVolumesSystem";
     static final String PREF_EVENT_VOLUMES_VOICE = "eventVolumesVoice";
     static final String PREF_EVENT_VOLUMES_BLUETOOTHSCO = "eventVolumesBluetoothSCO";
-    static final String PREF_EVENT_VOLUMES_ACCESSIBILITY = "eventVolumesAccessibility";
 
     private static final String PREF_EVENT_VOLUMES_CATEGORY = "eventVolumesCategoryRoot";
 
@@ -42,8 +39,7 @@ class EventPreferencesVolumes extends EventPreferences {
                             String volumeAlarm,
                             String volumeSystem,
                             String volumeVoice,
-                            String volumeBluetoothSCO,
-                            String volumeAccessibility
+                            String volumeBluetoothSCO
                             )
     {
         super(event, enabled);
@@ -55,7 +51,6 @@ class EventPreferencesVolumes extends EventPreferences {
         this._volumeSystem = volumeSystem;
         this._volumeVoice = volumeVoice;
         this._volumeBluetoothSCO = volumeBluetoothSCO;
-        this._volumeAccessibility = volumeAccessibility;
     }
 
     void copyPreferences(Event fromEvent)
@@ -68,7 +63,6 @@ class EventPreferencesVolumes extends EventPreferences {
         this._volumeSystem = fromEvent._eventPreferencesVolumes._volumeSystem;
         this._volumeVoice = fromEvent._eventPreferencesVolumes._volumeVoice;
         this._volumeBluetoothSCO = fromEvent._eventPreferencesVolumes._volumeBluetoothSCO;
-        this._volumeAccessibility = fromEvent._eventPreferencesVolumes._volumeAccessibility;
         this.setSensorPassed(fromEvent._eventPreferencesVolumes.getSensorPassed());
     }
 
@@ -83,7 +77,6 @@ class EventPreferencesVolumes extends EventPreferences {
         editor.putString(PREF_EVENT_VOLUMES_SYSTEM, this._volumeSystem);
         editor.putString(PREF_EVENT_VOLUMES_VOICE, this._volumeVoice);
         editor.putString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, this._volumeBluetoothSCO);
-        editor.putString(PREF_EVENT_VOLUMES_ACCESSIBILITY, this._volumeAccessibility);
         editor.apply();
     }
 
@@ -97,7 +90,6 @@ class EventPreferencesVolumes extends EventPreferences {
         this._volumeSystem = preferences.getString(PREF_EVENT_VOLUMES_SYSTEM, "-1|0|0");
         this._volumeVoice = preferences.getString(PREF_EVENT_VOLUMES_VOICE, "-1|0|0");
         this._volumeBluetoothSCO = preferences.getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "-1|0|0");
-        this._volumeAccessibility = preferences.getString(PREF_EVENT_VOLUMES_ACCESSIBILITY, "-1|0|0");
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
@@ -224,9 +216,10 @@ class EventPreferencesVolumes extends EventPreferences {
                     descr = descr + context.getString(R.string.profile_preferences_volumeBluetoothSCO) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + "<b>" + fields[operator] + "</b>";
-                    _addBullet = true;
+                    //_addBullet = true;
                 }
 
+                /*
                 if (Build.VERSION.SDK_INT >= 26) {
                     operator = 0;
                     splits = this._volumeAccessibility.split("\\|");
@@ -244,6 +237,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr + "<b>" + fields[operator] + "</b>";
                     }
                 }
+                */
 
             }
         }
@@ -294,8 +288,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 key.equals(PREF_EVENT_VOLUMES_ALARM) ||
                 key.equals(PREF_EVENT_VOLUMES_SYSTEM) ||
                 key.equals(PREF_EVENT_VOLUMES_VOICE) ||
-                key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO) ||
-                key.equals(PREF_EVENT_VOLUMES_ACCESSIBILITY)) {
+                key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO)) {
             setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
         }
     }
@@ -310,7 +303,6 @@ class EventPreferencesVolumes extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_VOLUMES_SYSTEM, preferences, context);
         setSummary(prefMng, PREF_EVENT_VOLUMES_VOICE, preferences, context);
         setSummary(prefMng, PREF_EVENT_VOLUMES_BLUETOOTHSCO, preferences, context);
-        setSummary(prefMng, PREF_EVENT_VOLUMES_ACCESSIBILITY, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -319,7 +311,7 @@ class EventPreferencesVolumes extends EventPreferences {
             EventPreferencesVolumes tmp = new EventPreferencesVolumes(this._event, this._enabled,
                     this._volumeRingtone, this._volumeNotification, this._volumeMedia,
                     this._volumeAlarm, this._volumeSystem, this._volumeVoice,
-                    this._volumeBluetoothSCO, this._volumeAccessibility);
+                    this._volumeBluetoothSCO);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -404,12 +396,12 @@ class EventPreferencesVolumes extends EventPreferences {
             } catch (Exception ignored) {}
         }
 
-        if (Build.VERSION.SDK_INT < 26) {
+        //if (Build.VERSION.SDK_INT < 26) {
             runnable = runnable &&
                     ((ringtoneOperator != 0) || (notificationOperator != 0) || (mediaOoperator != 0) ||
                      (alarmOperator != 0) || (systemOperator != 0) || (voiceOperator != 0) ||
                      (bluetoothSCOOperator != 0));
-        } else  {
+        /*} else  {
             int accessibilityOperator = 0;
             splits = this._volumeAccessibility.split("\\|");
             if (splits.length > 1) {
@@ -423,7 +415,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     ((ringtoneOperator != 0) || (notificationOperator != 0) || (mediaOoperator != 0) ||
                      (alarmOperator != 0) || (systemOperator != 0) || (voiceOperator != 0) ||
                      (bluetoothSCOOperator != 0) || (accessibilityOperator != 0));
-        }
+        }*/
 
         return runnable;
     }

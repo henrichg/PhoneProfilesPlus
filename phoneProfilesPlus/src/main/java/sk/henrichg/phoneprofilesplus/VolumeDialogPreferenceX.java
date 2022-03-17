@@ -21,7 +21,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     static MediaPlayer mediaPlayer = null;
 
     // Custom xml attributes.
-    int forVolumesSensor;
+    final int forVolumesSensor;
     final String volumeType;
     int noChange;
     //int sharedProfile;

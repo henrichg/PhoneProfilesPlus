@@ -49,6 +49,7 @@ class TonesHandler {
     }
     */
 
+    /*
     static String searchUri(Context context, int type, String searchUri) {
         try {
             if ((type == RingtoneManager.TYPE_RINGTONE) &&
@@ -81,6 +82,7 @@ class TonesHandler {
         }
         return "";
     }
+    */
 
 
     static String getToneName(Context context,

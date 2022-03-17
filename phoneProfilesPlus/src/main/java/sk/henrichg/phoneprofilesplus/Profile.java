@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

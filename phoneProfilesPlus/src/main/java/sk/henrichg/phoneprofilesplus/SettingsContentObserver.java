@@ -138,7 +138,7 @@ class SettingsContentObserver  extends ContentObserver {
     public void onChange(boolean selfChange, Uri uri) {
         //super.onChange(selfChange);
 
-//        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
+        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "current thread="+Thread.currentThread());
 
 //        if (uri != null)
@@ -169,9 +169,10 @@ class SettingsContentObserver  extends ContentObserver {
                 (sUri.contains(Settings.System.VOLUME_ALARM)) ||
                 (sUri.contains(Settings.System.VOLUME_SYSTEM)) ||
                 (sUri.contains(Settings.System.VOLUME_VOICE)) ||
-                (sUri.contains(Settings.System.VOLUME_BLUETOOTH_SCO)) ||
-                //(sUri.contains(Settings.System.VOLUME_DTMF)) ||
-                (sUri.contains(Settings.System.VOLUME_ACCESSIBILITY))) {
+                (sUri.contains(Settings.System.VOLUME_BLUETOOTH_SCO)) //||
+                //(sUri.contains(Settings.System.VOLUME_DTMF)) || -- not received
+                //(sUri.contains(Settings.System.VOLUME_ACCESSIBILITY))) -- not received
+            ) {
                 okSetting = true;
                 volumeChange = true;
             }

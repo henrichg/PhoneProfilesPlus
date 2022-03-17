@@ -7078,7 +7078,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_VOLUMES_SYSTEM,
                         KEY_E_VOLUMES_VOICE,
                         KEY_E_VOLUMES_BLUETOOTHSCO,
-                        KEY_E_VOLUMES_ACCESSIBILITY,
                         KEY_E_VOLUMES_SENSOR_PASSED
                 },
                 KEY_E_ID + "=?",
@@ -7099,7 +7098,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._volumeSystem = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_SYSTEM));
                 eventPreferences._volumeVoice = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_VOICE));
                 eventPreferences._volumeBluetoothSCO = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_BLUETOOTHSCO));
-                eventPreferences._volumeAccessibility = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ACCESSIBILITY));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_SENSOR_PASSED)));
             }
             cursor.close();
@@ -7520,7 +7518,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_VOLUMES_SYSTEM, eventPreferences._volumeSystem);
         values.put(KEY_E_VOLUMES_VOICE, eventPreferences._volumeVoice);
         values.put(KEY_E_VOLUMES_BLUETOOTHSCO, eventPreferences._volumeBluetoothSCO);
-        values.put(KEY_E_VOLUMES_ACCESSIBILITY, eventPreferences._volumeAccessibility);
         values.put(KEY_E_VOLUMES_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -11900,8 +11897,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_ORIENTATION_ENABLED + "," +
                         KEY_E_MOBILE_CELLS_ENABLED + "," +
                         KEY_E_NFC_ENABLED + "," +
-                        KEY_E_RADIO_SWITCH_ENABLED +"," +
-                        KEY_E_SOUND_PROFILE_ENABLED +
+                        KEY_E_RADIO_SWITCH_ENABLED + "," +
+                        KEY_E_SOUND_PROFILE_ENABLED + "," +
+                        KEY_E_VOLUMES_ENABLED +
                         " FROM " + TABLE_EVENTS;
 
                 //SQLiteDatabase db = this.getWritableDatabase();
