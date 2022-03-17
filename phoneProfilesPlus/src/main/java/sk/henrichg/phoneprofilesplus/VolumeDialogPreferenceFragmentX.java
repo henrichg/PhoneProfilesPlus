@@ -114,7 +114,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         if (preference.forVolumesSensor == 1) {
             GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                    (ProfilesPrefsActivity) context,
+                    (EventsPrefsActivity) context,
                     R.layout.highlighted_spinner,
                     getResources().getStringArray(R.array.volumesSensorOperatorArray));
             voiceSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
