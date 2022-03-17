@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2488;
+    private static final int DATABASE_VERSION = 2489;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -400,6 +400,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_VOLUMES_SENSOR_PASSED = "volumesSensorPassed";
     private static final String KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundStartPlayAlsoInSilentMode";
     private static final String KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundEndPlayAlsoInSilentMode";
+    private static final String KEY_E_VOLUMES_RINGTONE = "volumesRingtone";
+    private static final String KEY_E_VOLUMES_NOTIFICATION = "volumesNotification";
+    private static final String KEY_E_VOLUMES_MEDIA = "volumesMedia";
+    private static final String KEY_E_VOLUMES_ALARM = "volumesAlarm";
+    private static final String KEY_E_VOLUMES_SYSTEM = "volumesSystem";
+    private static final String KEY_E_VOLUMES_VOICE = "volumesVoice";
+    private static final String KEY_E_VOLUMES_BLUETOOTHSCO = "volumesBluetoothSCO";
+    private static final String KEY_E_VOLUMES_ACCESSIBILITY = "volumesAccessibility";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -838,7 +846,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_VOLUMES_ENABLED + " " + INTEGER_TYPE + ","
                 + KEY_E_VOLUMES_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE + " " + INTEGER_TYPE + ","
-                + KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE + " " + INTEGER_TYPE
+                + KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE + " " + INTEGER_TYPE + ","
+                + KEY_E_VOLUMES_RINGTONE + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_NOTIFICATION + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_MEDIA + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_ALARM + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_SYSTEM + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_VOICE + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_BLUETOOTHSCO + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_ACCESSIBILITY + " " + TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1302,6 +1318,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_VOLUMES_SENSOR_PASSED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_RINGTONE, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_NOTIFICATION, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_MEDIA, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_ALARM, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_SYSTEM, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_VOICE, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_BLUETOOTHSCO, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_ACCESSIBILITY, TEXT_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3572,6 +3596,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE + "=0");
+        }
+
+        if (oldVersion < 2489)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_RINGTONE + "='-1|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_NOTIFICATION + "='-1|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_MEDIA + "='-1|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ALARM + "='-1|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_SYSTEM + "='-1|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_VOICE  + "='-1|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_BLUETOOTHSCO + "='-1|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ACCESSIBILITY + "='-1|0|0'");
         }
 
     }
@@ -7035,6 +7071,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private void getEventPreferencesVolumes(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_VOLUMES_ENABLED,
+                        KEY_E_VOLUMES_RINGTONE,
+                        KEY_E_VOLUMES_NOTIFICATION,
+                        KEY_E_VOLUMES_MEDIA,
+                        KEY_E_VOLUMES_ALARM,
+                        KEY_E_VOLUMES_SYSTEM,
+                        KEY_E_VOLUMES_VOICE,
+                        KEY_E_VOLUMES_BLUETOOTHSCO,
+                        KEY_E_VOLUMES_ACCESSIBILITY,
                         KEY_E_VOLUMES_SENSOR_PASSED
                 },
                 KEY_E_ID + "=?",
@@ -7048,6 +7092,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 EventPreferencesVolumes eventPreferences = event._eventPreferencesVolumes;
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ENABLED)) == 1);
+                eventPreferences._volumeRingtone = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_RINGTONE));
+                eventPreferences._volumeNotification = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_NOTIFICATION));
+                eventPreferences._volumeMedia = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_MEDIA));
+                eventPreferences._volumeAlarm = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ALARM));
+                eventPreferences._volumeSystem = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_SYSTEM));
+                eventPreferences._volumeVoice = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_VOICE));
+                eventPreferences._volumeBluetoothSCO = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_BLUETOOTHSCO));
+                eventPreferences._volumeAccessibility = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ACCESSIBILITY));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_SENSOR_PASSED)));
             }
             cursor.close();
@@ -7461,6 +7513,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         EventPreferencesVolumes eventPreferences = event._eventPreferencesVolumes;
 
         values.put(KEY_E_VOLUMES_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_VOLUMES_RINGTONE, eventPreferences._volumeRingtone);
+        values.put(KEY_E_VOLUMES_NOTIFICATION, eventPreferences._volumeNotification);
+        values.put(KEY_E_VOLUMES_MEDIA, eventPreferences._volumeMedia);
+        values.put(KEY_E_VOLUMES_ALARM, eventPreferences._volumeAlarm);
+        values.put(KEY_E_VOLUMES_SYSTEM, eventPreferences._volumeSystem);
+        values.put(KEY_E_VOLUMES_VOICE, eventPreferences._volumeVoice);
+        values.put(KEY_E_VOLUMES_BLUETOOTHSCO, eventPreferences._volumeBluetoothSCO);
+        values.put(KEY_E_VOLUMES_ACCESSIBILITY, eventPreferences._volumeAccessibility);
         values.put(KEY_E_VOLUMES_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
