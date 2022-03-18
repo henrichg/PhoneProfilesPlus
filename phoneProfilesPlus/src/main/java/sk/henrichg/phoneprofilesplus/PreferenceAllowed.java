@@ -282,7 +282,7 @@ class PreferenceAllowed {
                 if ((profile != null) &&
                         (profile._deviceMobileData != 0)) {
                     preferenceAllowed.notAllowedRoot = true;
-                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
+//                    Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
                 }
             }
         }
@@ -438,7 +438,7 @@ class PreferenceAllowed {
                             ((profile._deviceMobileDataSIM1 != 0) ||
                                     (profile._deviceMobileDataSIM2 != 0))) {
                         preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
+//                        Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
                     }
                 }
             } else {
@@ -774,7 +774,7 @@ class PreferenceAllowed {
                     } else {
                         if ((profile != null) && (profile._deviceWiFiAP != 0)) {
                             preferenceAllowed.notAllowedRoot = true;
-                            //Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFiAP");
+//                            Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFiAP");
                         }
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -879,8 +879,18 @@ class PreferenceAllowed {
             }
             else {
                 if ((profile != null) && (profile._vibrateWhenRinging != 0)) {
-                    preferenceAllowed.notAllowedRoot = true;
-                    //Log.e("Profile.isProfilePreferenceAllowed", "_vibrateWhenRinging");
+                    boolean enabled = false;
+                    //noinspection RedundantIfStatement
+                    if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 4))
+                        enabled = true;
+                    if (profile._volumeRingerMode == 5) {
+                        if ((profile._volumeZenMode == 1) || (profile._volumeZenMode == 2))
+                            enabled = true;
+                    }
+                    if (enabled) {
+                        preferenceAllowed.notAllowedRoot = true;
+//                        Log.e("Profile.isProfilePreferenceAllowed", "_vibrateWhenRinging");
+                    }
                 }
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -951,7 +961,7 @@ class PreferenceAllowed {
                 } else {
                     if ((profile != null) && (profile._vibrateNotifications != 0)) {
                         preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("Profile.isProfilePreferenceAllowed", "_vibrateNotifications");
+//                        Log.e("Profile.isProfilePreferenceAllowed", "_vibrateNotifications");
                     }
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -1138,7 +1148,7 @@ class PreferenceAllowed {
                                 (profile._deviceNetworkType != 0)
                         ) {
                             preferenceAllowed.notAllowedRoot = true;
-                            //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+//                            Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                         }
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -1244,7 +1254,7 @@ class PreferenceAllowed {
                                             (profile._deviceNetworkTypeSIM2 != 0))
                             ) {
                                 preferenceAllowed.notAllowedRoot = true;
-                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+//                                Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                             }
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -1326,7 +1336,7 @@ class PreferenceAllowed {
             else {
                 if ((profile != null) && (profile._notificationLed != 0)) {
                     preferenceAllowed.notAllowedRoot = true;
-                    //Log.e("Profile.isProfilePreferenceAllowed", "_notificationLed");
+//                    Log.e("Profile.isProfilePreferenceAllowed", "_notificationLed");
                 }
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -1581,7 +1591,7 @@ class PreferenceAllowed {
             else {
                 if ((profile != null) && (profile._alwaysOnDisplay != 0)) {
                     preferenceAllowed.notAllowedRoot = true;
-                    //Log.e("Profile.isProfilePreferenceAllowed", "_alwaysOnDisplay");
+//                    Log.e("Profile.isProfilePreferenceAllowed", "_alwaysOnDisplay");
                 }
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -1775,7 +1785,7 @@ class PreferenceAllowed {
                             (!profile._deviceDefaultSIMCards.equals("0|0|0"))
                     ) {
                         preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+//                        Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                     }
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -1879,7 +1889,7 @@ class PreferenceAllowed {
                         ((profile._deviceOnOffSIM1 != 0) ||
                                 (profile._deviceOnOffSIM2 != 0))) {
                     preferenceAllowed.notAllowedRoot = true;
-                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceOnOffSIM");
+//                    Log.e("Profile.isProfilePreferenceAllowed", "_deviceOnOffSIM");
                 }
             }
         } else {
@@ -2027,7 +2037,7 @@ class PreferenceAllowed {
                                             (profile._soundNotificationChangeSIM2 != 0))
                             ) {
                                 preferenceAllowed.notAllowedRoot = true;
-                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+//                                Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                             }
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -2133,7 +2143,7 @@ class PreferenceAllowed {
                                     (profile._soundSameRingtoneForBothSIMCards != 0)
                             ) {
                                 preferenceAllowed.notAllowedRoot = true;
-                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+//                                Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                             }
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;

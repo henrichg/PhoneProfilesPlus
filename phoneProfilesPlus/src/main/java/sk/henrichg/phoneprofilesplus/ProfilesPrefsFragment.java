@@ -5441,7 +5441,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     // not enabled grant root
                     //if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!preferenceAllowed.notAllowedRoot) {
-//                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "root granted");
+//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "root granted");
                         Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
                         if (preference != null) {
                             PreferenceScreen preferenceCategory = findPreference(rootScreen);
@@ -5449,10 +5449,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preferenceCategory.removePreference(preference);
                         }
                     } else {
-//                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "root not granted");
+//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "root not granted");
                         //if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)) {
                         if (!ApplicationPreferences.applicationNeverAskForGrantRoot) {
-//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "grant root enabled");
+//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "grant root enabled");
                             Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
                             if (preference == null) {
                                 PreferenceScreen preferenceCategory = findPreference(rootScreen);

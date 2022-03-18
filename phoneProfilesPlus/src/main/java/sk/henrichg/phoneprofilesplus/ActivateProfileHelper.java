@@ -1125,49 +1125,59 @@ class ActivateProfileHelper {
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile._volumeMuteSound=" + profile._volumeMuteSound);
 
         if (profile._volumeMuteSound) {
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+            //if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
                 if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+//                    Log.e("ActivateProfileHelper.setVolumes", "mute - ring");
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
                 if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
+//                    Log.e("ActivateProfileHelper.setVolumes", "mute - notification");
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
                 if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
+//                    Log.e("ActivateProfileHelper.setVolumes", "mute - system");
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
                 if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
+//                    Log.e("ActivateProfileHelper.setVolumes", "mute - dtmf");
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
-            }
+            //}
             if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
+//                Log.e("ActivateProfileHelper.setVolumes", "mute - music");
                 EventPreferencesVolumes.internalChange = true;
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
         }
         else {
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+            //if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
                 if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - ring");
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
                 if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
+//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - notification");
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
                 if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
+//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - system");
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
                 if (audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
+//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - dtmf");
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
-            }
+            //}
             if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
+//                Log.e("ActivateProfileHelper.setVolumes", "unmute - music");
                 EventPreferencesVolumes.internalChange = true;
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }

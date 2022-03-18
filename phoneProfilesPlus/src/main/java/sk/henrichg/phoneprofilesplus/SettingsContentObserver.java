@@ -138,7 +138,7 @@ class SettingsContentObserver  extends ContentObserver {
     public void onChange(boolean selfChange, Uri uri) {
         //super.onChange(selfChange);
 
-        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
+//        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "current thread="+Thread.currentThread());
 
 //        if (uri != null)
@@ -197,6 +197,7 @@ class SettingsContentObserver  extends ContentObserver {
         if (!okSetting)
             return;
 
+//        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "------ do onChange ------");
 
         ////// volume change
