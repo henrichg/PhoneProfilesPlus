@@ -279,8 +279,7 @@ class PreferenceAllowed {
             else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                if ((profile != null) &&
-                        (profile._deviceMobileData != 0)) {
+                if ((profile != null) && (profile._deviceMobileData != 0)) {
                     preferenceAllowed.notAllowedRoot = true;
 //                    Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
                 }
@@ -436,7 +435,7 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                     if ((profile != null) &&
                             ((profile._deviceMobileDataSIM1 != 0) ||
-                                    (profile._deviceMobileDataSIM2 != 0))) {
+                             (profile._deviceMobileDataSIM2 != 0))) {
                         preferenceAllowed.notAllowedRoot = true;
 //                        Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
                     }
@@ -1144,9 +1143,7 @@ class PreferenceAllowed {
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
                     } else {
-                        if ((profile != null) &&
-                                (profile._deviceNetworkType != 0)
-                        ) {
+                        if ((profile != null) && (profile._deviceNetworkType != 0)) {
                             preferenceAllowed.notAllowedRoot = true;
 //                            Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                         }
@@ -1251,8 +1248,7 @@ class PreferenceAllowed {
                         } else {
                             if ((profile != null) &&
                                     ((profile._deviceNetworkTypeSIM1 != 0) ||
-                                            (profile._deviceNetworkTypeSIM2 != 0))
-                            ) {
+                                     (profile._deviceNetworkTypeSIM2 != 0))) {
                                 preferenceAllowed.notAllowedRoot = true;
 //                                Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                             }
@@ -1781,9 +1777,7 @@ class PreferenceAllowed {
                     }
 
                 } else {
-                    if ((profile != null) &&
-                            (!profile._deviceDefaultSIMCards.equals("0|0|0"))
-                    ) {
+                    if ((profile != null) && (!profile._deviceDefaultSIMCards.equals("0|0|0"))) {
                         preferenceAllowed.notAllowedRoot = true;
 //                        Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                     }
@@ -1887,7 +1881,7 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 if ((profile != null) &&
                         ((profile._deviceOnOffSIM1 != 0) ||
-                                (profile._deviceOnOffSIM2 != 0))) {
+                         (profile._deviceOnOffSIM2 != 0))) {
                     preferenceAllowed.notAllowedRoot = true;
 //                    Log.e("Profile.isProfilePreferenceAllowed", "_deviceOnOffSIM");
                 }
@@ -2034,8 +2028,7 @@ class PreferenceAllowed {
                         } else {
                             if ((profile != null) &&
                                     ((profile._soundNotificationChangeSIM1 != 0) ||
-                                            (profile._soundNotificationChangeSIM2 != 0))
-                            ) {
+                                     (profile._soundNotificationChangeSIM2 != 0))) {
                                 preferenceAllowed.notAllowedRoot = true;
 //                                Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                             }
@@ -2139,9 +2132,7 @@ class PreferenceAllowed {
                             }
 
                         } else {
-                            if ((profile != null) &&
-                                    (profile._soundSameRingtoneForBothSIMCards != 0)
-                            ) {
+                            if ((profile != null) && (profile._soundSameRingtoneForBothSIMCards != 0)) {
                                 preferenceAllowed.notAllowedRoot = true;
 //                                Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                             }
