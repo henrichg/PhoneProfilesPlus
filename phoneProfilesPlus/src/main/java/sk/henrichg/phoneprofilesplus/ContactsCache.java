@@ -87,7 +87,7 @@ class ContactsCache {
                                 name = null;
                         }
 
-                        if (name != null) {
+                        if ((name != null) && (rawAccountType != null)) {
                             //if (hasPhone > 0) {
                                 projection = new String[]{
                                         ContactsContract.CommonDataKinds.Phone._ID,
