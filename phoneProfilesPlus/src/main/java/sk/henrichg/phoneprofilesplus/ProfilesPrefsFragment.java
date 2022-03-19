@@ -807,20 +807,30 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                  (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
                     }
 
-                    preference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1);
-                    if (preference != null) {
+                    ListPreference listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1);
+                    if (listPreference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, preferences, true, context);
-                        preference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
-                        preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+
+                        listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
+                        listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_deviceOnOff_SIM1));
+                        String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "");
+                        setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, value);
+
+                        listPreference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
                     }
-                    preference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2);
-                    if (preference != null) {
+                    listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2);
+                    if (listPreference != null) {
                         PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, preferences, true, context);
-                        preference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
-                        preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+
+                        listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
+                        listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_deviceOnOff_SIM2));
+                        String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "");
+                        setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, value);
+
+                        listPreference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
@@ -867,42 +877,62 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
                         }
 
-                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
-                        if (preference != null) {
+                        listPreference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
+                        if (listPreference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, preferences, true, context);
-                            preference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
-                            preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+
+                            listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
+                            listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
+                            String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "");
+                            setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, value);
+
+                            listPreference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                     ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
                         }
 
-                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1);
-                        if (preference != null) {
+                        RingtonePreferenceX ringtonePreference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1);
+                        if (ringtonePreference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, null, preferences, true, context);
-                            preference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
-                            preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+
+                            ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
+                            ringtonePreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
+                            String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
+                            setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, value);
+
+                            ringtonePreference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                     ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
                             disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
                         }
 
-                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
-                        if (preference != null) {
+                        listPreference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
+                        if (listPreference != null) {
                             PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
-                            preference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
-                            preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+
+                            listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                            listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                            String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "");
+                            setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, value);
+
+                            listPreference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                     ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
                         }
 
-                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
-                        if (preference != null) {
+                        ringtonePreference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
+                        if (ringtonePreference != null) {
                             PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
-                            preference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
-                            preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+
+                            ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
+                            ringtonePreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
+                            String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
+                            setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, value);
+
+                            ringtonePreference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                     ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
@@ -1050,9 +1080,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else {
-            preference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
-            if (preference != null) {
-                preference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+            ListPreference listPreference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
+            if (listPreference != null) {
+                listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+                listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+                String value = preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, "");
+                setSummary(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, value);
             }
         }
 
@@ -2168,7 +2201,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             if (cattegorySummaryData.bold) {
                 //noinspection ConstantConditions
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, !cattegorySummaryData.permissionGranted);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false,
+                        (!cattegorySummaryData.permissionGranted) ||
+                        notGrantedG1Permission ||
+                        notRootedOrGrantetRoot);
             }
         }
 
@@ -3362,7 +3398,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
                             //noinspection ConstantConditions
-                            GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, !cattegorySummaryData.permissionGranted);
+                            GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false,
+                                    (!cattegorySummaryData.permissionGranted) ||
+                                    notGrantedG1Permission ||
+                                    notRootedOrGrantetRoot);
                             return true;
                         }
 
@@ -3374,6 +3413,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                         Permissions.checkProfileRingtones(context, profile, permissions);
                         cattegorySummaryData.permissionGranted = permissions.size() == 0;
+
+                        //noinspection ConstantConditions
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false,
+                                (!cattegorySummaryData.permissionGranted) ||
+                                        notGrantedG1Permission ||
+                                        notRootedOrGrantetRoot);
                     }
                 }
             } else
