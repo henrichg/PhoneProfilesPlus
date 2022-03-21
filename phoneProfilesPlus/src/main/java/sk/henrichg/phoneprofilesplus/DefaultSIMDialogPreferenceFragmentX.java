@@ -43,7 +43,7 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
         smsSpinner = view.findViewById(R.id.default_sim_sms_spinner);
         dataSpinner = view.findViewById(R.id.default_sim_data_spinner);
 
-        int transactionCodeVoice = -1;
+        /*int transactionCodeVoice = -1;
         int transactionCodeSMS = -1;
         int transactionCodeData = -1;
         Object serviceManager;
@@ -60,11 +60,11 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
 //            PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragmentX.onBindDialogView", "transactionCodeSMS="+transactionCodeSMS);
 //            PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragmentX.onBindDialogView", "transactionCodeData="+transactionCodeData);
             }
-        }
+        }*/
 
         preference.dualSIMSupported = false;
 
-        if (transactionCodeVoice != -1) {
+        //if (transactionCodeVoice != -1) {
             preference.dualSIMSupported = true;
 
             GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
@@ -87,14 +87,14 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 }
             });
             voiceSpinner.setSelection(preference.voiceValue);
-        }
+        /*}
         else {
             TextView textView = view.findViewById(R.id.default_sim_voice_textView);
             textView.setVisibility(View.GONE);
             voiceSpinner.setVisibility(View.GONE);
-        }
+        }*/
 
-        if (transactionCodeSMS != -1) {
+        //if (transactionCodeSMS != -1) {
             preference.dualSIMSupported = true;
 
             GlobalGUIRoutines.HighlightedSpinnerAdapter smsSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
@@ -117,14 +117,14 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 }
             });
             smsSpinner.setSelection(preference.smsValue);
-        }
+        /*}
         else {
             TextView textView = view.findViewById(R.id.default_sim_sms_textView);
             textView.setVisibility(View.GONE);
             smsSpinner.setVisibility(View.GONE);
-        }
+        }*/
 
-        if (transactionCodeData != -1) {
+        //if (transactionCodeData != -1) {
             preference.dualSIMSupported = true;
 
             GlobalGUIRoutines.HighlightedSpinnerAdapter dataSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
@@ -147,12 +147,12 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 }
             });
             dataSpinner.setSelection(preference.dataValue);
-        }
+        /*}
         else {
             TextView textView = view.findViewById(R.id.default_sim_data_textView);
             textView.setVisibility(View.GONE);
             dataSpinner.setVisibility(View.GONE);
-        }
+        }*/
 
     }
 
