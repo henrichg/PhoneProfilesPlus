@@ -157,7 +157,7 @@ class ActivateProfileHelper {
                                     _setOn = false;
                                     break;
                             }
-                            if ( _setSIM1OnOff) {
+                            if (_setSIM1OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
                                 //noinspection ConstantConditions
                                 setSIMOnOff(appContext, _setOn, 1);
@@ -187,7 +187,7 @@ class ActivateProfileHelper {
                                     _setOn = false;
                                     break;
                             }
-                            if ( _setSIM2OnOff) {
+                            if (_setSIM2OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
                                 //noinspection ConstantConditions
                                 setSIMOnOff(appContext, _setOn, 2);
@@ -6220,7 +6220,7 @@ class ActivateProfileHelper {
 //                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "transactionCode == -1");
                 }*/
             }
-         }
+        }
     }
 
     /*
