@@ -56,7 +56,7 @@
         app:disableDependentsState="true"/>
     <PreferenceCategory
         app:key="prf_pref_durationEndCategory"
-        app:title="@string/profile_preferences_endOfActivationCategory"
+        app:title="@string/profile_preferences_endOfActivationNotificationCategory"
         app:layout="@layout/mp_preference_category" >
 <!--        <Preference-->
 <!--            app:key="prf_pref_durationNotificationSoundInfo"-->

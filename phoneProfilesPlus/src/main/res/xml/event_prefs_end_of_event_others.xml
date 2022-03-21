@@ -18,29 +18,35 @@
         app:dMin="0"
         app:dMax="86400"
         app:layout="@layout/mp_preference_material_widget" />
-<!--    <Preference-->
-<!--        app:key="eventEndNotificationSoundInfo"-->
-<!--        app:title="@string/event_preferences_notificationSound"-->
-<!--        app:summary="@string/preferences_durationNotificationSoundInfo_summary"-->
-<!--        app:widgetLayout="@layout/widget_info_preference"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
-        app:key="eventEndNotificationSound"
-        app:summary="@string/ringtone_preference_not_set"
-        app:title="@string/event_preferences_notificationSound"
-        app:ringtoneType="notification"
-        app:showSilent="true"
-        app:showDefault="true"
-        app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
-        app:key="eventEndNotificationSoundPlayAlsoInSilentMode"
-        app:title="@string/event_preferences_notificationSoundPlayAlsoInSilentMode"
-        app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget"/>
-    <SwitchPreferenceCompat
-        app:key="eventEndNotificationVibrate"
-        app:title="@string/event_preferences_notificationVibrate"
-        app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget"/>
+
+    <PreferenceCategory
+        app:key="prf_pref_durationEndCategory"
+        app:title="@string/profile_preferences_endOfEventNotificationCategory"
+        app:layout="@layout/mp_preference_category" >
+    <!--    <Preference-->
+    <!--        app:key="eventEndNotificationSoundInfo"-->
+    <!--        app:title="@string/event_preferences_notificationSound"-->
+    <!--        app:summary="@string/preferences_durationNotificationSoundInfo_summary"-->
+    <!--        app:widgetLayout="@layout/widget_info_preference"-->
+    <!--        app:layout="@layout/mp_preference_material_widget" />-->
+        <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+            app:key="eventEndNotificationSound"
+            app:summary="@string/ringtone_preference_not_set"
+            app:title="@string/event_preferences_notificationSound"
+            app:ringtoneType="notification"
+            app:showSilent="true"
+            app:showDefault="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="eventEndNotificationSoundPlayAlsoInSilentMode"
+            app:title="@string/event_preferences_notificationSoundPlayAlsoInSilentMode"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"/>
+        <SwitchPreferenceCompat
+            app:key="eventEndNotificationVibrate"
+            app:title="@string/event_preferences_notificationVibrate"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"/>
+    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

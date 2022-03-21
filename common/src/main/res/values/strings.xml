@@ -1652,7 +1652,7 @@ x    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</s
     <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notification of profile activation</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Add \"Restart events\" into profile list</string>
-x    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan in time</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan in time</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">From</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">To</string>
     <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Location scan in time</string>
@@ -1812,7 +1812,6 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_preferences_endOfActivationType">Type of activation end</string>
     <string name="array_pref_aendOfActivationType_duration">Duration</string>
     <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
-    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
     <string name="profile_preferences_afterDurationDo">When duration expires</string>
     <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
     <string name="profile_preferences_exactTime">Exact time</string>
@@ -1927,6 +1926,10 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="event_preferences_volumes_info_summary">Level of all volumes must be fulfilled to start event. Configure only those volumes that you need.</string>
 
     <string name="event_preferences_notificationSoundPlayAlsoInSilentMode">Play notification also in silent mode</string>
+
+    <string name="profile_preferences_endOfActivationNotificationCategory">Notification of end of activation</string>
+    <string name="profile_preferences_startOfEventNotificationCategory">Notification of start of event</string>
+    <string name="profile_preferences_endOfEventNotificationCategory">Notification of end of event</string>
 
     <!-- **************************************************************************************** -->
 
