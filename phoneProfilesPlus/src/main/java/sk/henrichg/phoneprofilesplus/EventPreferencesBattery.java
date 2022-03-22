@@ -222,7 +222,7 @@ class EventPreferencesBattery extends EventPreferences {
                     }
                 }
                 boolean bold = plugged.length() > 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false);
             }
         }
         if (key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {

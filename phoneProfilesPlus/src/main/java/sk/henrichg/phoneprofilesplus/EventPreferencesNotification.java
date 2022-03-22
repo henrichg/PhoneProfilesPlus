@@ -359,12 +359,12 @@ class EventPreferencesNotification extends EventPreferences {
             Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
             if (_preference != null) {
                 boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, true, !isRunnable);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (_preference != null) {
                 boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACTS, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, true, !isRunnable);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (_preference != null) {
@@ -458,7 +458,21 @@ class EventPreferencesNotification extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        runnable = runnable && (_inCall || _missedCall || (!_applications.isEmpty()));
+        boolean okCheck = false;
+
+        if (_checkContacts) {
+            runnable = runnable && ((_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                    (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
+            okCheck = true;
+        }
+
+        if (_checkText) {
+            runnable = runnable && (!_text.isEmpty());
+            okCheck = true;
+        }
+
+        if (!okCheck)
+            runnable = runnable && (_inCall || _missedCall || (!_applications.isEmpty()));
 
         return runnable;
     }

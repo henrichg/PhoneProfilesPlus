@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -27,12 +28,10 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.BulletSpan;
-import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
-import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -332,32 +331,48 @@ class GlobalGUIRoutines {
             CharSequence title = preference.getTitle();
             if (title != null) {
                 //if (addBullet) {
+
+                // remove bullet
                 String s = title.toString();
-                if (bold) {
-                    if (!s.startsWith("• "))
-                        title = TextUtils.concat("• ", title);
-                } else {
-                    if (s.startsWith("• "))
-                        title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
-                }
+                title = s;
+                if (s.startsWith("• "))
+                    title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
+
+                // remove underline
+                s = title.toString();
+                title = s;
+                if (s.startsWith("[!] "))
+                    title = TextUtils.replace(title, new String[]{"[!] "}, new CharSequence[]{""});
+
+
+                if (underline)
+                    title = TextUtils.concat("[!] ", title);
+                if (bold)
+                    title = TextUtils.concat("• ", title);
+
                 //}
                 Spannable sbt = new SpannableString(title);
-                Object[] spansToRemove = sbt.getSpans(0, title.length(), Object.class);
+                /*Object[] spansToRemove = sbt.getSpans(0, title.length(), Object.class);
                 for (Object span : spansToRemove) {
                     if (span instanceof CharacterStyle)
                         sbt.removeSpan(span);
-                }
+                }*/
                 if (bold || underline) {
                     if (bold) {
-                        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        sbt.setSpan(new StyleSpan(Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         //sbt.setSpan(new RelativeSizeSpan(1.05f), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
-                    if (underline) {
-                        if (bold/* && addBullet*/)
+                    else {
+                        sbt.setSpan(new StyleSpan(Typeface.NORMAL), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                    /*if (underline) {
+                        if (preference.getKey().equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_APPLICATIONS))
+                            Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "(3)");
+                        if (bold) // && addBullet)
                             sbt.setSpan(new UnderlineSpan(), 2, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         else
                             sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }
+                    }*/
                     if (errorColor && enabled)
                         sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }

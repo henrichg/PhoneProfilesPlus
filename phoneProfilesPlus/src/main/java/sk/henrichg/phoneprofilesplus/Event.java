@@ -578,7 +578,7 @@ class Event {
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
         Context appContext = context.getApplicationContext();
 
-        boolean runnable = (this._fkProfileStart != 0) && (this._fkProfileEnd != 0);
+        boolean runnable = true; //(this._fkProfileStart != 0) && (this._fkProfileEnd != 0);
         if (checkSomeSensorEnabled) {
             boolean someEnabled = isEnabledSomeSensor(appContext);
             if (!someEnabled)

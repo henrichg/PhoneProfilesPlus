@@ -639,7 +639,6 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">unsupported secure lock</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">can\'t be changed</string>
     <string name="event_preferences_sensorsInfo_title">Sensor functionality</string>
-    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not support colorful icons in the status bar.</string>
     <string name="pref_dlg_change_selection_title">Change selection</string>
@@ -966,7 +965,6 @@
     <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable this parameter, to set it exact. Alarm clock icon will be displayed in status bar.</string>
     <string name="important_info_useAlarmClock">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable in Settings parameter \"System\"→\"Use alarm clock\", to set it exact. Alarm clock icon will be displayed in status bar.</string>
     <string name="nfc_tag_pref_dlg_change_tag_name">Change name</string>
-    <string name="event_preferences_not_set_underlined_parameters">Some underlined parameters are not configured!</string>
     <string name="permission_group_name_draw_overlays_miui">Display pop-up window</string>
     <string name="permissions_draw_overlays_not_allowed_confirm_miui">You have not enabled \"Display pop-up window\". Never ask again?</string>
     <string name="stop_events_alert_title">Stop events</string>
@@ -1283,7 +1281,6 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
-    <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
     <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
     <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>;
@@ -1935,6 +1932,10 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="check_releases_appgallery_application">Huawei AppGallery App installation site:</string>
     <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>
+
+    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with [!]. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
+    <string name="event_preferences_not_set_underlined_parameters">Some parameters marked with [!] are not configured!</string>
+    <string name="event_preferences_not_set_underlined_parameters_summary">Parameters marked with [!] are required.</string>
 
     <!-- **************************************************************************************** -->
 
