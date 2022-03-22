@@ -948,10 +948,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (menuItem != null) {
             menuItem.setVisible(PPApplication.deviceIsSamsung && galaxyStoreInstalled);
         }
-        menuItem = menu.findItem(R.id.menu_check_in_appgallery);
-        if (menuItem != null) {
-            menuItem.setVisible(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled);
-        }
+        //menuItem = menu.findItem(R.id.menu_check_in_appgallery);
+        //if (menuItem != null) {
+        //    menuItem.setVisible(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled);
+        //}
 
         //noinspection Convert2MethodRef
         onNextLayout(editorToolbar, () -> showTargetHelps());

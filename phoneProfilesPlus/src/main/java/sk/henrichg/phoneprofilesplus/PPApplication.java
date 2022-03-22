@@ -141,6 +141,7 @@ public class PPApplication extends Application
     static final String FDROID_REPOSITORY_URL = "https://apt.izzysoft.de/fdroid/index/info";
     static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
     static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
+    static final String HUAWEI_APPGALLERY_APPLICATION_URL = "https://consumer.huawei.com/en/mobileservices/appgallery/";
 
     //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/grant_g1_permission.md
     static final String HELP_HOW_TO_GRANT_G1_URL = "https://henrichg.github.io/PhoneProfilesPlus/grant_g1_permission.html";

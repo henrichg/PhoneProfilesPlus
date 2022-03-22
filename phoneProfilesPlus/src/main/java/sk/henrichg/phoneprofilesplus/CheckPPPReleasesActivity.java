@@ -183,10 +183,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
         else
         if (store == R.id.menu_check_in_appgallery) {
-            if (appGalleryInstalled) {
+            //if (appGalleryInstalled) {
                 checkInHuaweiAppGallery(activity);
                 displayed = true;
-            }
+            //}
         }
         else
         if (store == R.id.menu_check_in_github) {
@@ -206,10 +206,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled)
                     checkInGalaxyStore(activity);
-                else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
-                    checkInHuaweiAppGallery(activity);
+                //else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
+                //    checkInHuaweiAppGallery(activity);
                 else {
-                    if (amazonAppStoreInstalled)
+                    if (appGalleryInstalled)
+                        checkInHuaweiAppGallery(activity);
+                    else if (amazonAppStoreInstalled)
                         checkInAmazonAppstore(activity);
                     else if (fdroidInstalled)
                         checkInFDroid(activity);
@@ -773,19 +775,58 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_appgallery_info_text);
         text.setText(message);
 
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            text = layout.findViewById(R.id.dialog_for_appgallery_application);
+            text.setVisibility(View.GONE);
+        } else {
+            text = layout.findViewById(R.id.dialog_for_appgallery_application);
+            text.setVisibility(View.VISIBLE);
+            CharSequence str1 = activity.getString(R.string.check_releases_appgallery_application);
+            CharSequence str2 = str1 + " " + PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL + " \u21D2";
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
 
-        dialogBuilder.setPositiveButton(R.string.check_releases_open_appgallery, (dialog, which) -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplus"));
-            try {
-                activity.startActivity(intent);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            activity.finish();
-        });
+        PackageManager packageManager = activity.getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+        if (_intent != null) {
+            dialogBuilder.setPositiveButton(R.string.check_releases_open_appgallery, (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplus"));
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+                activity.finish();
+            });
+        }
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         dialogBuilder.setOnCancelListener(dialog -> activity.finish());
         dialogBuilder.setOnDismissListener(dialog -> activity.finish());

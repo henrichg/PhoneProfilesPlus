@@ -1933,6 +1933,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="profile_preferences_darkModeInfo_summary">Note: This parameter closes all running applications.</string>
 
+    <string name="check_releases_appgallery_application">Huawei AppGallery App installation site:</string>
+    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
