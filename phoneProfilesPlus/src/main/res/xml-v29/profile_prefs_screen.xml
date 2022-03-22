@@ -98,6 +98,12 @@
         app:entryValues="@array/alwaysOnDisplayValues"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <Preference
+        app:key="prf_pref_screenDarkModeInfo"
+        app:title="@string/profile_preferences_screenDarkMode"
+        app:summary="@string/profile_preferences_darkModeInfo_summary"
+        app:widgetLayout="@layout/preference_widget_info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_screenDarkMode"
         app:summary="@string/array_pref_no_change"

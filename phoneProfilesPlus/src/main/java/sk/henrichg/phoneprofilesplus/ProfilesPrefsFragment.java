@@ -90,7 +90,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS = "prf_pref_deviceRunApplicationMIUIPermissions";
     private static final String PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "prf_pref_deviceBrightness_forceSetBrightnessAtScreenOn";
     private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS = "prf_pref_deviceAirplaneMode_assistantSettings";
-
+    private static final String PREF_SCREEN_DARK_MODE_INFO = "prf_pref_screenDarkModeInfo";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -757,6 +757,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
+        }
+        preference = findPreference(PREF_SCREEN_DARK_MODE_INFO);
+        if (preference != null) {
+            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, preferences, true, context);
+            preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
         }
 
         if (Build.VERSION.SDK_INT >= 26) {

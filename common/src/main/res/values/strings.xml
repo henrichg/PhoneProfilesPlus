@@ -1931,6 +1931,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_preferences_startOfEventNotificationCategory">Notification of start of event</string>
     <string name="profile_preferences_endOfEventNotificationCategory">Notification of end of event</string>
 
+    <string name="profile_preferences_darkModeInfo_summary">Note: This parameter closes all running applications.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
