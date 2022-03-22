@@ -354,29 +354,37 @@ class EventPreferencesNotification extends EventPreferences {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "").isEmpty();
             GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, true, !isRunnable);
         }
+
         Preference checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
-        if ((checkContactsPreference != null) && prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, false)) {
+        if (checkContactsPreference != null) {
+            boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkContactsPreference, enabled, bold, true, !isRunnable);
+
             Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
             if (_preference != null) {
-                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "").isEmpty();
+                bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "").isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, true, !isRunnable);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (_preference != null) {
-                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACTS, "").isEmpty();
+                bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACTS, "").isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, true, !isRunnable);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (_preference != null) {
-                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, "").isEmpty();
+                bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, "").isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable);
             }
         }
+
         Preference checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
-        if ((checkTextPreference != null) && prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false)) {
+        if (checkTextPreference != null) {
+            boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkTextPreference, enabled, bold, true, !isRunnable);
+
             Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
             if (_preference != null) {
-                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_TEXT, "").isEmpty();
+                bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_TEXT, "").isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable);
             }
         }
