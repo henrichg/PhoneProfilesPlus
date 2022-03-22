@@ -210,7 +210,8 @@ class EventPreferencesPeriodic extends EventPreferences {
         event._eventPreferencesPeriodic.saveSharedPreferences(prefMng.getSharedPreferences());
         Preference preference = prefMng.findPreference(PREF_EVENT_PERIODIC_RESULTING_INTERVAL);
         if (preference != null) {
-            int resultingInterval = event._eventPreferencesPeriodic._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
+            int resultingInterval = prefMng.getSharedPreferences().getInt(PREF_EVENT_PERIODIC_RESULTING_INTERVAL, 1)
+                                                    * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
             preference.setSummary(String.valueOf(resultingInterval));
         }
 

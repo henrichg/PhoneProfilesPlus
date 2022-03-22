@@ -248,6 +248,9 @@ class EventPreferencesNFC extends EventPreferences {
             if (durationPreference != null)
                 durationPreference.setEnabled(enabled);
         }
+
+        setSummary(prefMng, PREF_EVENT_NFC_ENABLED, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
     }
 
     private long computeAlarm()

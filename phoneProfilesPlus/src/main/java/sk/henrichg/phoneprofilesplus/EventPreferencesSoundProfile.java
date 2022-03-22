@@ -338,6 +338,9 @@ class EventPreferencesSoundProfile extends EventPreferences {
             }
         }
 
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_SOUND_PROFILE_ENABLED, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
     }
 
     /*

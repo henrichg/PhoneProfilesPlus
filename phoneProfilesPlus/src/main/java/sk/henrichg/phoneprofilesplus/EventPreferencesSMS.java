@@ -502,6 +502,7 @@ class EventPreferencesSMS extends EventPreferences {
             }
         }
 
+        setSummary(prefMng, PREF_EVENT_SMS_ENABLED, preferences, context);
     }
 
     private long computeAlarm()

@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2489;
+    private static final int DATABASE_VERSION = 2490;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -3598,16 +3598,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE + "=0");
         }
 
-        if (oldVersion < 2489)
+        if (oldVersion < 2490)
         {
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_RINGTONE + "='-1|0|0'");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_NOTIFICATION + "='-1|0|0'");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_MEDIA + "='-1|0|0'");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ALARM + "='-1|0|0'");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_SYSTEM + "='-1|0|0'");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_VOICE  + "='-1|0|0'");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_BLUETOOTHSCO + "='-1|0|0'");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ACCESSIBILITY + "='-1|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_RINGTONE + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_NOTIFICATION + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_MEDIA + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ALARM + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_SYSTEM + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_VOICE  + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_BLUETOOTHSCO + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ACCESSIBILITY + "='0|0|0'");
         }
 
     }

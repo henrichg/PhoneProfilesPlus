@@ -260,6 +260,13 @@ class EventPreferencesAlarmClock extends EventPreferences {
         //    return false;
     }
 
+    @Override
+    void checkPreferences(PreferenceManager prefMng, Context context) {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_ENABLED, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
+    }
+
     private long computeAlarm()
     {
         //PPApplication.logE("EventPreferencesAlarmClock.computeAlarm","xxx");

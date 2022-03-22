@@ -942,8 +942,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         PackageManager packageManager = getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
         boolean galaxyStoreInstalled = (intent != null);
-        intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
-        boolean appGalleryInstalled = (intent != null);
+        //intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+        //boolean appGalleryInstalled = (intent != null);
         menuItem = menu.findItem(R.id.menu_check_in_galaxy_store);
         if (menuItem != null) {
             menuItem.setVisible(PPApplication.deviceIsSamsung && galaxyStoreInstalled);

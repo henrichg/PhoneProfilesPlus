@@ -109,7 +109,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             //PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "sharedProfile="+preference.sharedProfile);
         }*/
 
-        CheckBox noChangeChBox = null;
+        CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
         operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
 
         if (preference.forVolumesSensor == 1) {
@@ -121,8 +121,6 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             operatorSpinner.setAdapter(voiceSpinnerAdapter);
             operatorSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
             operatorSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner));
-        } else {
-            noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
         }
 
         seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
@@ -151,9 +149,9 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             int operatorIdx = 0;
             for (String entryValue : entryValues) {
                 if (entryValue.equals(String.valueOf(preference.sensorOperator))) {
-                    ++operatorIdx;
                     break;
                 }
+                ++operatorIdx;
             }
             operatorSpinner.setSelection(operatorIdx);
         }

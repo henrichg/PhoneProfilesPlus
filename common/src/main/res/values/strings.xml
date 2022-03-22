@@ -639,6 +639,7 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">unsupported secure lock</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">can\'t be changed</string>
     <string name="event_preferences_sensorsInfo_title">Sensor functionality</string>
+    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not support colorful icons in the status bar.</string>
     <string name="pref_dlg_change_selection_title">Change selection</string>
@@ -965,6 +966,7 @@
     <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable this parameter, to set it exact. Alarm clock icon will be displayed in status bar.</string>
     <string name="important_info_useAlarmClock">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable in Settings parameter \"System\"→\"Use alarm clock\", to set it exact. Alarm clock icon will be displayed in status bar.</string>
     <string name="nfc_tag_pref_dlg_change_tag_name">Change name</string>
+    <string name="event_preferences_not_set_underlined_parameters">Some underlined parameters are not configured!</string>
     <string name="permission_group_name_draw_overlays_miui">Display pop-up window</string>
     <string name="permissions_draw_overlays_not_allowed_confirm_miui">You have not enabled \"Display pop-up window\". Never ask again?</string>
     <string name="stop_events_alert_title">Stop events</string>
@@ -1281,6 +1283,7 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
+    <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
     <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
     <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>;
@@ -1377,7 +1380,7 @@
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
     <string name="profile_preferences_volumeMuteSound">Mute sound</string>
     <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
-x    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
+    x    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
     <string name="array_pref_locationModeArray_off">Location Off</string>
     <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
     <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
@@ -1649,7 +1652,7 @@ x    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</s
     <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notification of profile activation</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Add \"Restart events\" into profile list</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan in time</string>
+    x    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan in time</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">From</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">To</string>
     <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Location scan in time</string>
@@ -1669,7 +1672,7 @@ x    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</s
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">To</string>
     <string name="menu_check_releases_appgallery">Check in AppGallery</string>
     <string name="check_releases_open_appgallery">Open AppGallery</string>
-x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
+    x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi scan interval</string>
@@ -1809,6 +1812,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_preferences_endOfActivationType">Type of activation end</string>
     <string name="array_pref_aendOfActivationType_duration">Duration</string>
     <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
+    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
     <string name="profile_preferences_afterDurationDo">When duration expires</string>
     <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
     <string name="profile_preferences_exactTime">Exact time</string>
@@ -1832,16 +1836,22 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_preferences_disabled">Disabled</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Never ask again\" for grant root is turned on</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Never ask again\" for grant root is not turned on</string>
+
     <string name="alert_button_install_extender_from_github">Install from GitHub</string>
+
     <string name="phone_profiles_pref_device_is_rooted">Device is rooted</string>
     <string name="phone_profiles_pref_device_is_not_rooted">Device is not rooted</string>
+
     <string name="array_pref_change_image_wallpaper_with">(I) Change to image with</string>
+
     <string name="show_dialog_about_red_text_show_event_preferences">Show event preferences</string>
     <string name="profile_preferences_red_texts_text_3_new">For this, is not possible to change \"Show in Activator\".</string>
     <string name="profile_preferences_red_texts_text_4">Errors are displayed in profile preferences as red texts at top of preference screen. Please fix it.</string>
     <string name="event_preferences_red_texts_text_4">Errors are displayed in event preferences as red texts at top of preference screen. Please fix it.</string>
+
     <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile preferences</string>
     <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile preferences.</string>
+
     <string name="phone_profiles_pref_notificationProfileIconColor">Profile icon and preferences indicator color type</string>
     <string name="phone_profiles_pref_notificationProfileIconLightness">Profile icon lightness</string>
     <string name="phone_profiles_pref_notificationProfileCustomIconLightness">Use profile icon lightness for custom profile icons</string>
@@ -1850,13 +1860,16 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_notificationProfileIconCategory">Notification panel - profile icon</string>
     <string name="phone_profiles_pref_notificationPreferencesIndicatorCategory">Notification panel - preferences indicator</string>
     <string name="phone_profiles_pref_notificationButtonsCategory">Notification panel - buttons</string>
+
     <string name="editor_activity_targetHelps_bottomNavigation_title">Display changer</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description">Click this to change display between profiles list and events list.</string>
+
     <string name="profile_icon_preference_custumIconFromIconPack_help">Custom icon from icon pack</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">If you want to use icons from icon pack, install application, which has capability to extract icons from installed icon pack as png files.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">For example application</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">It is old, but functional application also in newest Android version.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Search it in Google Play.</string>
+
     <string name="popup_window_close_button_name">Close</string>
     <string name="profile_preferences_indicator_image">Profile preferences indicator</string>
     <string name="profile_preferences_indicator_event_start_image">Start of event profile preferences indicator</string>
@@ -1872,17 +1885,22 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="preference_widget_information_icon">Information</string>
     <string name="preference_widget_information_clickable_icon">Information, clickable</string>
     <string name="preference_widget_clickabe_prefernce_icon">Clickable preference with sub preferences</string>
+
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (I).</string>
+
     <string name="required_extender_release">New PhoneProfilesPlusExtender version</string>
     <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
+
     <string name="profile_preferences_deviceAirplaneMode">Airplane mode</string>
     <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus is not configured as default Assistant</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings">Assistant settings</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Please, click here to configure PhoneProfilesPlus as default Assistant. It is required for \"Airplane mode\" parameter, when device is not rooted.</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus is default Assistant</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus is not default Assistant</string>
+
     <string name="phone_profiles_pref_category_widget_icon">Widget: Icon</string>
     <string name="phone_profiles_pref_category_shortcut">Shortcut</string>
+
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Wi-Fi control\" special access</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi. Click this to show how.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"\/\"Special app access\"\/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
@@ -1932,10 +1950,6 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="check_releases_appgallery_application">Huawei AppGallery App installation site:</string>
     <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>
-
-    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with [!]. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
-    <string name="event_preferences_not_set_underlined_parameters">Some parameters marked with [!] are not configured!</string>
-    <string name="event_preferences_not_set_underlined_parameters_summary">Parameters marked with [!] are required.</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2038,6 +2052,11 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
 <!--    <string name="important_info_profile_settings">Some profile preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
 <!--    <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
+
+<!--    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with [!]. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>-->
+<!--    <string name="event_preferences_not_set_underlined_parameters">Some parameters marked with [!] are not configured!</string>-->
+<!--    <string name="event_preferences_not_set_underlined_parameters_summary">Parameters marked with [!] are required.</string>-->
+
 
 </resources>
 

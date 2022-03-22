@@ -8230,8 +8230,6 @@ public class PhoneProfilesService extends Service
     public void playNotificationSound (final String notificationSound,
                                        final boolean notificationVibrate,
                                        final boolean playAlsoInSilentMode) {
-        Log.e("PhoneProfilesService.playNotificationSound", "playAlsoInSilentMode="+playAlsoInSilentMode);
-
         if (audioManager == null )
             audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 

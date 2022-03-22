@@ -235,9 +235,9 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             int operatorIdx = 0;
             for (String entryValue : entryValues) {
                 if (entryValue.equals(String.valueOf(sensorOperator))) {
-                    ++operatorIdx;
                     break;
                 }
+                ++operatorIdx;
             }
 
             prefVolumeDataSummary = entries[operatorIdx];

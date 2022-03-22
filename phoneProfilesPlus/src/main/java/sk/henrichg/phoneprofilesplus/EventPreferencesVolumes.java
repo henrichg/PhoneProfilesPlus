@@ -83,13 +83,13 @@ class EventPreferencesVolumes extends EventPreferences {
     void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_VOLUMES_ENABLED, false);
-        this._volumeRingtone = preferences.getString(PREF_EVENT_VOLUMES_RINGTONE, "-1|0|0");
-        this._volumeNotification = preferences.getString(PREF_EVENT_VOLUMES_NOTIFICATION, "-1|0|0");
-        this._volumeMedia = preferences.getString(PREF_EVENT_VOLUMES_MEDIA, "-1|0|0");
-        this._volumeAlarm = preferences.getString(PREF_EVENT_VOLUMES_ALARM, "-1|0|0");
-        this._volumeSystem = preferences.getString(PREF_EVENT_VOLUMES_SYSTEM, "-1|0|0");
-        this._volumeVoice = preferences.getString(PREF_EVENT_VOLUMES_VOICE, "-1|0|0");
-        this._volumeBluetoothSCO = preferences.getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "-1|0|0");
+        this._volumeRingtone = preferences.getString(PREF_EVENT_VOLUMES_RINGTONE, "0|0|0");
+        this._volumeNotification = preferences.getString(PREF_EVENT_VOLUMES_NOTIFICATION, "0|0|0");
+        this._volumeMedia = preferences.getString(PREF_EVENT_VOLUMES_MEDIA, "0|0|0");
+        this._volumeAlarm = preferences.getString(PREF_EVENT_VOLUMES_ALARM, "0|0|0");
+        this._volumeSystem = preferences.getString(PREF_EVENT_VOLUMES_SYSTEM, "0|0|0");
+        this._volumeVoice = preferences.getString(PREF_EVENT_VOLUMES_VOICE, "0|0|0");
+        this._volumeBluetoothSCO = preferences.getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "0|0|0");
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
@@ -246,7 +246,7 @@ class EventPreferencesVolumes extends EventPreferences {
     }
 
     private void setSummary(PreferenceManager prefMng, String key,
-                            @SuppressWarnings("unused") String value/*, Context context*/)
+                            @SuppressWarnings("unused") String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (preferences == null)
@@ -265,22 +265,66 @@ class EventPreferencesVolumes extends EventPreferences {
                 key.equals(PREF_EVENT_VOLUMES_ALARM) ||
                 key.equals(PREF_EVENT_VOLUMES_SYSTEM) ||
                 key.equals(PREF_EVENT_VOLUMES_VOICE) ||
-                key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO) ||
-                key.equals(PREF_EVENT_VOLUMES_ACCESSIBILITY)) {
+                key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO)) {
+
         }*/
 
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesVolumes.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesVolumes.isRunnable(context);
+        boolean enabled = preferences.getBoolean(PREF_EVENT_VOLUMES_ENABLED, false);
+        VolumeDialogPreferenceX preference = prefMng.findPreference(PREF_EVENT_VOLUMES_RINGTONE);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE, "0|0|0").split("\\|");
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_NOTIFICATION);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION, "0|0|0").split("\\|");
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_MEDIA);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA, "0|0|0").split("\\|");
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_ALARM);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM, "0|0|0").split("\\|");
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_SYSTEM);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM, "0|0|0").split("\\|");
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_VOICE);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE, "0|0|0").split("\\|");
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_BLUETOOTHSCO);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "0|0|0").split("\\|");
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+        }
 
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
-                    @SuppressWarnings("unused") Context context)
+                    Context context)
     {
         if (key.equals(PREF_EVENT_VOLUMES_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false"/*, context*/);
+            setSummary(prefMng, key, value ? "true": "false", context);
         }
         if (key.equals(PREF_EVENT_VOLUMES_RINGTONE) ||
                 key.equals(PREF_EVENT_VOLUMES_NOTIFICATION) ||
@@ -289,7 +333,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 key.equals(PREF_EVENT_VOLUMES_SYSTEM) ||
                 key.equals(PREF_EVENT_VOLUMES_VOICE) ||
                 key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO)) {
-            setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
 
@@ -423,6 +467,7 @@ class EventPreferencesVolumes extends EventPreferences {
     @Override
     void checkPreferences(PreferenceManager prefMng, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_VOLUMES_ENABLED, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 /*

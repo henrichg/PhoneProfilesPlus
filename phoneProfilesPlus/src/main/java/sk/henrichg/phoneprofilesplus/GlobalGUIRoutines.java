@@ -32,6 +32,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
+import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -339,14 +340,13 @@ class GlobalGUIRoutines {
                     title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
 
                 // remove underline
-                s = title.toString();
-                title = s;
-                if (s.startsWith("[!] "))
-                    title = TextUtils.replace(title, new String[]{"[!] "}, new CharSequence[]{""});
+                //s = title.toString();
+                //title = s;
+                //if (s.startsWith("[!] "))
+                //    title = TextUtils.replace(title, new String[]{"[!] "}, new CharSequence[]{""});
 
-
-                if (underline)
-                    title = TextUtils.concat("[!] ", title);
+                //if (underline)
+                //    title = TextUtils.concat("[!] ", title);
                 if (bold)
                     title = TextUtils.concat("• ", title);
 
@@ -365,14 +365,14 @@ class GlobalGUIRoutines {
                     else {
                         sbt.setSpan(new StyleSpan(Typeface.NORMAL), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
-                    /*if (underline) {
-                        if (preference.getKey().equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_APPLICATIONS))
-                            Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "(3)");
+                    if (underline) {
+                        //if (preference.getKey().equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_APPLICATIONS))
+                        //    Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "(3)");
                         if (bold) // && addBullet)
                             sbt.setSpan(new UnderlineSpan(), 2, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         else
                             sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }*/
+                    }
                     if (errorColor && enabled)
                         sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }

@@ -197,6 +197,10 @@ class EventPreferencesScreen extends EventPreferences {
                 return true;
             });
         }
+
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
     }
 
     private void setWhenUnlockedTitle(PreferenceManager prefMng, int eventTypeValue)

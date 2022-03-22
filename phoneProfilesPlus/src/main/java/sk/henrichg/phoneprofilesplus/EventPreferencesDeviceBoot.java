@@ -182,6 +182,13 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         //    return false;
     }
 
+    @Override
+    void checkPreferences(PreferenceManager prefMng, Context context) {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
+    }
+
     private long computeAlarm()
     {
         //PPApplication.logE("EventPreferencesDeviceBoot.computeAlarm","xxx");

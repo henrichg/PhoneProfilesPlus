@@ -533,6 +533,8 @@ class EventPreferencesCall extends EventPreferences {
                     preference.setVisible(false);
             }
         }
+
+        setSummary(prefMng, PREF_EVENT_CALL_ENABLED, preferences, context);
     }
 
     private long computeAlarm() {

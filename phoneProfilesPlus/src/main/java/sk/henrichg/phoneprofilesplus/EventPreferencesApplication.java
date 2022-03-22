@@ -288,6 +288,7 @@ class EventPreferencesApplication extends EventPreferences {
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !accessibilityEnabled);
 
+        setSummary(prefMng, PREF_EVENT_APPLICATION_ENABLED, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 

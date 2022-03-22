@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.preference.PreferenceManager;
 
+//import androidx.preference.PreferenceManager;
+
 abstract class EventPreferences {
 
     final Event _event;
@@ -104,6 +106,7 @@ abstract class EventPreferences {
 
     //abstract void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context);
 
+    @SuppressWarnings("unused")
     void checkPreferences(PreferenceManager prefMng, Context context)
     {
     }

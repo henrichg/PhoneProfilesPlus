@@ -667,6 +667,11 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
         if (preference != null)
             preference.setEnabled(enabled);
+
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_ENABLED, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
+
     }
 
     /*

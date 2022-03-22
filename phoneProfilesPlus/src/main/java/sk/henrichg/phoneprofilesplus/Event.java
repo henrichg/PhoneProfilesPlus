@@ -427,13 +427,13 @@ class Event {
     private void createEventPreferencesVolumes()
     {
         this._eventPreferencesVolumes = new EventPreferencesVolumes(this, false,
-                "-1|0|0",
-                "-1|0|0",
-                "-1|0|0",
-                "-1|0|0",
-                "-1|0|0",
-                "-1|0|0",
-                "-1|0|0"
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0"
         );
     }
 
