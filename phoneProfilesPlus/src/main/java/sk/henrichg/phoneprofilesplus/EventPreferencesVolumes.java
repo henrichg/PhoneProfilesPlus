@@ -507,65 +507,102 @@ class EventPreferencesVolumes extends EventPreferences {
             if (Event.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[BOOT] EventPreferencesVolumes.doHandleEvent", "allowed");
 
-                eventsHandler.volumesPassed = true;
-                boolean tested = false;
-
                 AudioManager audioManager = (AudioManager)eventsHandler.context.getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
 
                     // ringtone
                     int actualValue = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                     int configuredValue = -1;
-                    int ringtoneOperator = 0;
+                    int configuredOperator = 0;
                     String[] splits = this._volumeRingtone.split("\\|");
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
-                            ringtoneOperator = Integer.parseInt(splits[1]);
+                            configuredOperator = Integer.parseInt(splits[1]);
                         } catch (Exception ignored) {
                         }
                     }
-                    boolean passed = false;
-                    switch (ringtoneOperator) {
+                    boolean ringtoneTested = configuredOperator > 0;
+                    boolean ringtonePassed = false;
+                    switch (configuredOperator) {
                         case 1: // equal to
-                            tested = true;
                             if (actualValue == configuredValue)
-                                passed = true;
+                                ringtonePassed = true;
                             break;
                         case 2: // do not equal to
-                            tested = true;
                             if (actualValue != configuredValue)
-                                passed = true;
+                                ringtonePassed = true;
                             break;
                         case 3: // is less then
-                            tested = true;
                             if (actualValue < configuredValue)
-                                passed = true;
+                                ringtonePassed = true;
                             break;
                         case 4: // is greather then
-                            tested = true;
                             if (actualValue > configuredValue)
-                                passed = true;
+                                ringtonePassed = true;
                             break;
                         case 5: // is less or equal to
-                            tested = true;
                             if (actualValue <= configuredValue)
-                                passed = true;
+                                ringtonePassed = true;
                             break;
                         case 6: // is greather or equal to
-                            tested = true;
                             if (actualValue >= configuredValue)
-                                passed = true;
+                                ringtonePassed = true;
                             break;
                     }
-                    if (tested)
-                        eventsHandler.volumesPassed = eventsHandler.volumesPassed && passed;
 
+                    // notification
+                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeNotification.split("\\|");
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean notificationTested = configuredOperator > 0;
+                    boolean notificationPssed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualValue == configuredValue)
+                                notificationPssed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualValue != configuredValue)
+                                notificationPssed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualValue < configuredValue)
+                                notificationPssed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualValue > configuredValue)
+                                notificationPssed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualValue <= configuredValue)
+                                notificationPssed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualValue >= configuredValue)
+                                notificationPssed = true;
+                            break;
+                    }
 
+                    boolean passed = true;
+                    if (ringtoneTested)
+                        //noinspection ConstantConditions
+                        passed = passed && ringtonePassed;
+                    if (notificationTested)
+                        passed =  passed && notificationPssed;
+
+                    eventsHandler.volumesPassed = passed;
                 }
-
-                if (!tested)
-                    eventsHandler.volumesPassed = false;
+                else
+                    eventsHandler.notAllowedVolumes = true;
             } else
                 eventsHandler.notAllowedVolumes = true;
 
