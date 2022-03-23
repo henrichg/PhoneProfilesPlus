@@ -1017,7 +1017,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.simStateChangedBroadcastReceiver = null;
                 }
             }
-
         }
         if (register) {
             if (PPApplication.timeChangedReceiver == null) {
@@ -1129,7 +1128,6 @@ public class PhoneProfilesService extends Service
                 IntentFilter intentFilter10 = new IntentFilter();
                 intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
                 appContext.registerReceiver(PPApplication.powerSaveModeReceiver, intentFilter10);
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER powerSaveModeReceiver");
             }
 
             if (PPApplication.checkOnlineStatusBroadcastReceiver == null) {
@@ -1140,7 +1138,6 @@ public class PhoneProfilesService extends Service
                 //noinspection deprecation
                 intentFilter10.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
                 appContext.registerReceiver(PPApplication.checkOnlineStatusBroadcastReceiver, intentFilter10);
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER checkOnlineStatusBroadcastReceiver");
             }
 
             if (PPApplication.simStateChangedBroadcastReceiver == null) {
@@ -1152,7 +1149,6 @@ public class PhoneProfilesService extends Service
                 // this requires READ_PHONE_STATE
                 intentFilter10.addAction(TelephonyIntents.ACTION_SIM_STATE_CHANGED); //"android.intent.action.SIM_STATE_CHANGED");
                 appContext.registerReceiver(PPApplication.simStateChangedBroadcastReceiver, intentFilter10);
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER simStateChangedBroadcastReceiver");
             }
         }
     }
@@ -2166,6 +2162,7 @@ public class PhoneProfilesService extends Service
     }
     */
 
+    //TODO
     private void registerReceiverForDeviceBootSensor(boolean register, DataWrapper dataWrapper) {
         //if (android.os.Build.VERSION.SDK_INT < 21)
         //    return;
@@ -3311,6 +3308,48 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    //TODO
+    private void registerReceiverFoVolumesSensor(boolean register, DataWrapper dataWrapper) {
+        //if (android.os.Build.VERSION.SDK_INT < 21)
+        //    return;
+
+        Context appContext = getApplicationContext();
+        if (!register) {
+            if (PPApplication.volumeChangedReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.volumeChangedReceiver);
+                    PPApplication.volumeChangedReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.volumeChangedReceiver = null;
+                }
+            }
+        }
+        if (register) {
+            dataWrapper.fillEventList();
+            boolean allowed = false;
+            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_VOLUMES/*, false*/);
+            if (eventsExists)
+                allowed = Event.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            Log.e("PhoneProfilesService.registerReceiverFoVolumesSensor", "eventsExists="+eventsExists);
+            Log.e("PhoneProfilesService.registerReceiverFoVolumesSensor", "allowed="+allowed);
+            if (allowed) {
+                if (PPApplication.volumeChangedReceiver == null) {
+                    try {
+                        PPApplication.volumeChangedReceiver = new VolumeChangedBroadcastReceiver();
+                        IntentFilter intentFilter10 = new IntentFilter();
+                        intentFilter10.addAction("android.media.VOLUME_CHANGED_ACTION");
+                        appContext.registerReceiver(PPApplication.volumeChangedReceiver, intentFilter10);
+                    } catch (Exception e) {
+                        PPApplication.volumeChangedReceiver = null;
+                    }
+                }
+            }
+            else
+                registerReceiverFoVolumesSensor(false, dataWrapper);
+        }
+    }
+
     private void cancelPeriodicScanningWorker() {
         //PPApplication.logE("[RJS] PhoneProfilesService.cancelPeriodicScanningWorker", "xxx");
         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
@@ -3921,6 +3960,9 @@ public class PhoneProfilesService extends Service
         // register receiver for Location scanner
         registerLocationScannerReceiver(true, dataWrapper);
 
+        // required for volumes event
+        registerReceiverFoVolumesSensor(true, dataWrapper);
+
         // required for orientation event
         //registerReceiverForOrientationSensor(true, dataWrapper);
 
@@ -3977,6 +4019,7 @@ public class PhoneProfilesService extends Service
         registerLocationScannerReceiver(false, null);
         registerReceiverForNotificationSensor(false, null);
         //registerReceiverForOrientationSensor(false, null);
+        registerReceiverFoVolumesSensor(false, null);
 
         //if (alarmClockBroadcastReceiver != null)
         //    appContext.unregisterReceiver(alarmClockBroadcastReceiver);
@@ -4036,6 +4079,7 @@ public class PhoneProfilesService extends Service
         registerLocationScannerReceiver(true, dataWrapper);
         //registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper);
+        registerReceiverFoVolumesSensor(true, dataWrapper);
 
         schedulePeriodicScanningWorker(/*dataWrapper, true*/);
         scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);
@@ -4247,6 +4291,8 @@ public class PhoneProfilesService extends Service
                         PPApplication.getTransactionCode(String.valueOf(serviceManager), "");
                     }
                 }*/
+
+                VolumeChangedBroadcastReceiver.init(appContext);
 
                 PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true);
 

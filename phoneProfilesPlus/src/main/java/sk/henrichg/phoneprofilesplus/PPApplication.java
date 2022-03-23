@@ -764,6 +764,7 @@ public class PPApplication extends Application
 
 
     static RingerModeChangeReceiver ringerModeChangeReceiver = null;
+    static VolumeChangedBroadcastReceiver volumeChangedReceiver = null;
     static WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
     static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
     static DonationBroadcastReceiver donationBroadcastReceiver = null;
