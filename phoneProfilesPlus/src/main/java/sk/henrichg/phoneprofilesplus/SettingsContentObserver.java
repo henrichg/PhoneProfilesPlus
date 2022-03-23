@@ -248,7 +248,6 @@ class SettingsContentObserver  extends ContentObserver {
             //////////////
         }
         if (volumeChange) {
-            // TODO volume change event sensor
             if (!EventPreferencesVolumes.internalChange) {
 
                 if (PPApplication.getApplicationStarted(true)) {

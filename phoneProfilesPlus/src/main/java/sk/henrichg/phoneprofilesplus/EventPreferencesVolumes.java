@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.media.AudioManager;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -506,6 +507,65 @@ class EventPreferencesVolumes extends EventPreferences {
             if (Event.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[BOOT] EventPreferencesVolumes.doHandleEvent", "allowed");
 
+                eventsHandler.volumesPassed = true;
+                boolean tested = false;
+
+                AudioManager audioManager = (AudioManager)eventsHandler.context.getSystemService(Context.AUDIO_SERVICE);
+                if (audioManager != null) {
+
+                    // ringtone
+                    int actualValue = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                    int configuredValue = -1;
+                    int ringtoneOperator = 0;
+                    String[] splits = this._volumeRingtone.split("\\|");
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            ringtoneOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean passed = false;
+                    switch (ringtoneOperator) {
+                        case 1: // equal to
+                            tested = true;
+                            if (actualValue == configuredValue)
+                                passed = true;
+                            break;
+                        case 2: // do not equal to
+                            tested = true;
+                            if (actualValue != configuredValue)
+                                passed = true;
+                            break;
+                        case 3: // is less then
+                            tested = true;
+                            if (actualValue < configuredValue)
+                                passed = true;
+                            break;
+                        case 4: // is greather then
+                            tested = true;
+                            if (actualValue > configuredValue)
+                                passed = true;
+                            break;
+                        case 5: // is less or equal to
+                            tested = true;
+                            if (actualValue <= configuredValue)
+                                passed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            tested = true;
+                            if (actualValue >= configuredValue)
+                                passed = true;
+                            break;
+                    }
+                    if (tested)
+                        eventsHandler.volumesPassed = eventsHandler.volumesPassed && passed;
+
+
+                }
+
+                if (!tested)
+                    eventsHandler.volumesPassed = false;
             } else
                 eventsHandler.notAllowedVolumes = true;
 
