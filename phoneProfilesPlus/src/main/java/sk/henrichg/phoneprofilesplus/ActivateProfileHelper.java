@@ -45,6 +45,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -1504,6 +1505,8 @@ class ActivateProfileHelper {
         } catch (SecurityException e) {
             //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (1) - SecurityException");
             //PPApplication.recordException(e);
+
+            boolean G1OK = false;
             Context appContext = context.getApplicationContext();
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -1514,13 +1517,14 @@ class ActivateProfileHelper {
                     Settings.Global.putInt(appContext.getContentResolver(), "audio_safe_volume_state", 2);
                     //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (2)");
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    G1OK = true;
                 }
                 catch (Exception e2) {
-                    //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (2) - Exception");
-                    PPApplication.recordException(e2);
+                    PPApplication.logE("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e2));
+                    //PPApplication.recordException(e2);
                 }
             }
-            else {
+            if (!G1OK) {
                 //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "WRITE_SECURE_SETTINGS NOT granted");
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                         (PPApplication.isRooted(false))) {
@@ -3012,10 +3016,16 @@ class ActivateProfileHelper {
                         //    Settings.System.putInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, value);
                         //else {
                         /* not working (private secure settings) :-/
+                        boolean G1OK = false;
                         if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                            Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
+                            try {
+                                Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
+                                G1OK = true;
+                            } catch (Exception ee) {
+                                Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(ee));
+                            }
                         }
-                        else*/
+                        if (!G1OK) {*/
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                 (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                             synchronized (PPApplication.rootMutex) {
@@ -3074,10 +3084,17 @@ class ActivateProfileHelper {
 
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        boolean G1OK = false;
                         //if (android.os.Build.VERSION.SDK_INT >= 21) {
                         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                            Global.putInt(appContext.getContentResolver(), "heads_up_notifications_enabled", value);
-                        } else {
+                            try {
+                                Global.putInt(appContext.getContentResolver(), "heads_up_notifications_enabled", value);
+                                G1OK = true;
+                            } catch (Exception ee) {
+                                Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(ee));
+                            }
+                        }
+                        if (!G1OK) {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
@@ -3137,11 +3154,17 @@ class ActivateProfileHelper {
 
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                /* not working (private secure settings) :-/
-                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    Settings.System.putInt(context.getContentResolver(), "aod_mode", value);
-                }
-                else*/
+                        /* not working (private secure settings) :-/
+                        boolean G1OK = false;
+                        if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                            try {
+                                Settings.System.putInt(context.getContentResolver(), "aod_mode", value);
+                                G1OK = true;
+                            } catch (Exception ee) {
+                                Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(ee));
+                            }
+                        }
+                        if (!G1OK) {*/
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                 (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                             synchronized (PPApplication.rootMutex) {
@@ -3159,6 +3182,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
+                        //}
                     }
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -4139,11 +4163,17 @@ class ActivateProfileHelper {
 
     static void executeRootForAdaptiveBrightness(float adaptiveValue, Context context) {
         /* not working (private secure settings) :-/
+        boolean G1OK = false;
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-            Settings.System.putFloat(appContext.getContentResolver(), ADAPTIVE_BRIGHTNESS_SETTING_NAME,
-                    profile.getDeviceBrightnessAdaptiveValue(appContext));
+            try {
+                Settings.System.putFloat(appContext.getContentResolver(), ADAPTIVE_BRIGHTNESS_SETTING_NAME,
+                        profile.getDeviceBrightnessAdaptiveValue(appContext));
+                G1OK = true;
+            } catch (Exception ee) {
+                Log.e("ActivateProfileHelper.executeRootForAdaptiveBrightness", Log.getStackTraceString(ee));
+            }
         }
-        else {*/
+        if (!G1OK) {*/
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadProfileActivation();
         final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
@@ -6527,28 +6557,31 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
+        boolean G1OK = false;
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
             CmdNfc.setNFC(enable);
+            G1OK = true;
         }
-        else
-        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                (PPApplication.isRooted(false))) {
-            synchronized (PPApplication.rootMutex) {
-                String command1 = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", appContext, enable);
-                if (command1 != null) {
-                    Command command = new Command(0, false, command1);
-                    try {
-                        RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
-                        PPApplication.commandWait(command, "ActivateProfileHelper.setNFC");
-                    } catch (Exception e) {
-                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                        //Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
-                        //PPApplication.recordException(e);
+        if (!G1OK) {
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                    (PPApplication.isRooted(false))) {
+                synchronized (PPApplication.rootMutex) {
+                    String command1 = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", appContext, enable);
+                    if (command1 != null) {
+                        Command command = new Command(0, false, command1);
+                        try {
+                            RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
+                            PPApplication.commandWait(command, "ActivateProfileHelper.setNFC");
+                        } catch (Exception e) {
+                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                            //Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
+                            //PPApplication.recordException(e);
+                        }
                     }
+                    //String command = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
+                    //if (command != null)
+                    //  RootToolsSmall.runSuCommand(command);
                 }
-                //String command = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
-                //if (command != null)
-                //  RootToolsSmall.runSuCommand(command);
             }
         }
     }
@@ -6606,99 +6639,111 @@ class ActivateProfileHelper {
         //if(!provider.contains(LocationManager.GPS_PROVIDER) && enable)
         if ((!isEnabled) && enable)
         {
+            boolean G1OK = false;
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                String newSet;
-                newSet = "+gps";
-                //noinspection deprecation
-                Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
-            }
-            else
-            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false)))
-            {
-                // device is rooted
-                //PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
-
-                String command1;
-
-                /*
-                String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
-                */
-                synchronized (PPApplication.rootMutex) {
-                    command1 = "settings put secure location_providers_allowed +gps";
-                    Command command = new Command(0, false, command1);
-                    try {
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (1)");
-                    } catch (Exception e) {
-                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                        //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                        //PPApplication.recordException(e);
-                    }
+                try {
+                    String newSet;
+                    newSet = "+gps";
+                    //noinspection deprecation
+                    Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                    G1OK = true;
+                } catch (Exception ee) {
+                    Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(ee));
                 }
             }
-            /*else
-            if (canExploitGPS(appContext))
-            {
-                //PPApplication.logE("ActivateProfileHelper.setGPS", "exploit");
+            if (!G1OK) {
+                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                    // device is rooted
+                    //PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
 
-                final Intent poke = new Intent();
-                poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
-                poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
-                poke.setData(Uri.parse("3"));
-                appContext.sendBroadcast(poke);
-            }*/
+                    String command1;
+
+                    /*
+                    String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                    PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
+                    */
+                    synchronized (PPApplication.rootMutex) {
+                        command1 = "settings put secure location_providers_allowed +gps";
+                        Command command = new Command(0, false, command1);
+                        try {
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (1)");
+                        } catch (Exception e) {
+                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                            //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
+                            //PPApplication.recordException(e);
+                        }
+                    }
+                }
+                /*else
+                if (canExploitGPS(appContext))
+                {
+                    //PPApplication.logE("ActivateProfileHelper.setGPS", "exploit");
+
+                    final Intent poke = new Intent();
+                    poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+                    poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+                    poke.setData(Uri.parse("3"));
+                    appContext.sendBroadcast(poke);
+                }*/
+            }
         }
         else
         //if(provider.contains(LocationManager.GPS_PROVIDER) && (!enable))
         if (isEnabled && (!enable))
         {
+            boolean G1OK = false;
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                String newSet;// = "";
-                newSet = "-gps";
-                //noinspection deprecation
-                Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
-            }
-            else
-            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false)))
-            {
-                // device is rooted
-                //PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
-
-                String command1;
-
-                /*
-                String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
-                */
-                synchronized (PPApplication.rootMutex) {
-                    command1 = "settings put secure location_providers_allowed -gps";
-                    Command command = new Command(0, false, command1);
-                    try {
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (2)");
-                    } catch (Exception e) {
-                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                        //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                        //PPApplication.recordException(e);
-                    }
+                try {
+                    String newSet;// = "";
+                    newSet = "-gps";
+                    //noinspection deprecation
+                    Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                    G1OK = true;
+                } catch (Exception ee) {
+                    Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(ee));
                 }
             }
-            /*else
-            if (canExploitGPS(appContext))
-            {
-                //PPApplication.logE("ActivateProfileHelper.setGPS", "exploit");
+            if (!G1OK) {
+                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                    // device is rooted
+                    //PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
 
-                final Intent poke = new Intent();
-                poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
-                poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
-                poke.setData(Uri.parse("3"));
-                appContext.sendBroadcast(poke);
-            }*/
+                    String command1;
+
+                    /*
+                    String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                    PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
+                    */
+                    synchronized (PPApplication.rootMutex) {
+                        command1 = "settings put secure location_providers_allowed -gps";
+                        Command command = new Command(0, false, command1);
+                        try {
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (2)");
+                        } catch (Exception e) {
+                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                            //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
+                            //PPApplication.recordException(e);
+                        }
+                    }
+                }
+                /*else
+                if (canExploitGPS(appContext))
+                {
+                    //PPApplication.logE("ActivateProfileHelper.setGPS", "exploit");
+
+                    final Intent poke = new Intent();
+                    poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+                    poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+                    poke.setData(Uri.parse("3"));
+                    appContext.sendBroadcast(poke);
+                }*/
+            }
         }
     }
 
@@ -6708,30 +6753,37 @@ class ActivateProfileHelper {
 
         //PPApplication.logE("ActivateProfileHelper.setLocationMode", "mode="+mode);
 
+        //boolean G1OK = false;
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-            //noinspection deprecation
-            Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
+            try {
+                //noinspection deprecation
+                Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
+                //G1OK = true;
+            } catch (Exception ee) {
+                Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(ee));
+            }
         }
-        /*else
-        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false)))
-        {
-            // device is rooted - NOT WORKING
-            PPApplication.logE("ActivateProfileHelper.setLocationMode", "rooted");
+        /*if (!G1OK) {
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false)))
+            {
+                // device is rooted - NOT WORKING
+                PPApplication.logE("ActivateProfileHelper.setLocationMode", "rooted");
 
-            String command1;
+                String command1;
 
-            synchronized (PPApplication.rootMutex) {
-                command1 = "settings put secure location_mode " + mode;
-                Command command = new Command(0, false, command1);
-                try {
-                    roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    PPApplication.commandWait(command, "ActivateProfileHelper.setLocationMode");
-                } catch (Exception e) {
-                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                    //Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                synchronized (PPApplication.rootMutex) {
+                    command1 = "settings put secure location_mode " + mode;
+                    Command command = new Command(0, false, command1);
+                    try {
+                        roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        PPApplication.commandWait(command, "ActivateProfileHelper.setLocationMode");
+                    } catch (Exception e) {
+                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                        //Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    }
                 }
             }
         }*/
@@ -6788,21 +6840,30 @@ class ActivateProfileHelper {
                                         break;
                                 }
                                 if (_setPowerSaveMode) {
+                                    boolean G1OK = false;
                                     if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                                        //if (android.os.Build.VERSION.SDK_INT >= 21)
-                                        Global.putInt(appContext.getContentResolver(), "low_power", ((_isPowerSaveMode) ? 1 : 0));
-                                    } else if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
-                                        synchronized (PPApplication.rootMutex) {
-                                            String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);
-                                            Command command = new Command(0, false, command1);
-                                            try {
-                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setPowerSaveMode");
-                                            } catch (Exception e) {
-                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                //Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));
-                                                //PPApplication.recordException(e);
+                                        try {
+                                            //if (android.os.Build.VERSION.SDK_INT >= 21)
+                                            Global.putInt(appContext.getContentResolver(), "low_power", ((_isPowerSaveMode) ? 1 : 0));
+                                            G1OK = true;
+                                        } catch (Exception ee) {
+                                            Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(ee));
+                                        }
+                                    }
+                                    if (!G1OK) {
+                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                            synchronized (PPApplication.rootMutex) {
+                                                String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);
+                                                Command command = new Command(0, false, command1);
+                                                try {
+                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setPowerSaveMode");
+                                                } catch (Exception e) {
+                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                    //Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));
+                                                    //PPApplication.recordException(e);
+                                                }
                                             }
                                         }
                                     }
@@ -6952,6 +7013,7 @@ class ActivateProfileHelper {
             if (Build.VERSION.SDK_INT >= 29) {
                 //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "allowed");
 
+                boolean G1OK = false;
                 if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "G1 granted");
 
@@ -6962,13 +7024,14 @@ class ActivateProfileHelper {
                             Settings.Secure.putInt(appContext.getContentResolver(), "ui_night_mode", 2);
                         else
                             Settings.Secure.putInt(appContext.getContentResolver(), "ui_night_mode", 1);
+                        G1OK = true;
                     }
                     catch (Exception e2) {
-                        //Log.e("ActivateProfileHelper.setScreenDarkMode", Log.getStackTraceString(e2));
-                        PPApplication.recordException(e2);
+                        Log.e("ActivateProfileHelper.setScreenDarkMode", Log.getStackTraceString(e2));
+                        //PPApplication.recordException(e2);
                     }
                 }
-                else {
+                if (!G1OK) {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                             (PPApplication.isRooted(false))) {
                         //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "root granted");
