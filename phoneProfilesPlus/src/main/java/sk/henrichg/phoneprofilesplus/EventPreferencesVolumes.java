@@ -564,31 +564,236 @@ class EventPreferencesVolumes extends EventPreferences {
                         }
                     }
                     boolean notificationTested = configuredOperator > 0;
-                    boolean notificationPssed = false;
+                    boolean notificationPassed = false;
                     switch (configuredOperator) {
                         case 1: // equal to
                             if (actualValue == configuredValue)
-                                notificationPssed = true;
+                                notificationPassed = true;
                             break;
                         case 2: // do not equal to
                             if (actualValue != configuredValue)
-                                notificationPssed = true;
+                                notificationPassed = true;
                             break;
                         case 3: // is less then
                             if (actualValue < configuredValue)
-                                notificationPssed = true;
+                                notificationPassed = true;
                             break;
                         case 4: // is greather then
                             if (actualValue > configuredValue)
-                                notificationPssed = true;
+                                notificationPassed = true;
                             break;
                         case 5: // is less or equal to
                             if (actualValue <= configuredValue)
-                                notificationPssed = true;
+                                notificationPassed = true;
                             break;
                         case 6: // is greather or equal to
                             if (actualValue >= configuredValue)
-                                notificationPssed = true;
+                                notificationPassed = true;
+                            break;
+                    }
+
+                    // media
+                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeMedia.split("\\|");
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean mediaTested = configuredOperator > 0;
+                    boolean mediaPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualValue == configuredValue)
+                                mediaPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualValue != configuredValue)
+                                mediaPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualValue < configuredValue)
+                                mediaPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualValue > configuredValue)
+                                mediaPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualValue <= configuredValue)
+                                mediaPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualValue >= configuredValue)
+                                mediaPassed = true;
+                            break;
+                    }
+
+                    // alarm
+                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeAlarm.split("\\|");
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean alarmTested = configuredOperator > 0;
+                    boolean alarmPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualValue == configuredValue)
+                                alarmPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualValue != configuredValue)
+                                alarmPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualValue < configuredValue)
+                                alarmPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualValue > configuredValue)
+                                alarmPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualValue <= configuredValue)
+                                alarmPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualValue >= configuredValue)
+                                alarmPassed = true;
+                            break;
+                    }
+
+                    // system
+                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeSystem.split("\\|");
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean systemTested = configuredOperator > 0;
+                    boolean systemPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualValue == configuredValue)
+                                systemPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualValue != configuredValue)
+                                systemPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualValue < configuredValue)
+                                systemPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualValue > configuredValue)
+                                systemPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualValue <= configuredValue)
+                                systemPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualValue >= configuredValue)
+                                systemPassed = true;
+                            break;
+                    }
+
+                    // voice
+                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeVoice.split("\\|");
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean voiceTested = configuredOperator > 0;
+                    boolean voicePassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualValue == configuredValue)
+                                voicePassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualValue != configuredValue)
+                                voicePassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualValue < configuredValue)
+                                voicePassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualValue > configuredValue)
+                                voicePassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualValue <= configuredValue)
+                                voicePassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualValue >= configuredValue)
+                                voicePassed = true;
+                            break;
+                    }
+
+                    // bluetooth sco
+                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeBluetoothSCO.split("\\|");
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean bluetoothSCOTested = configuredOperator > 0;
+                    boolean bluetoothSCOPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualValue == configuredValue)
+                                bluetoothSCOPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualValue != configuredValue)
+                                bluetoothSCOPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualValue < configuredValue)
+                                bluetoothSCOPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualValue > configuredValue)
+                                bluetoothSCOPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualValue <= configuredValue)
+                                bluetoothSCOPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualValue >= configuredValue)
+                                bluetoothSCOPassed = true;
                             break;
                     }
 
@@ -597,7 +802,17 @@ class EventPreferencesVolumes extends EventPreferences {
                         //noinspection ConstantConditions
                         passed = passed && ringtonePassed;
                     if (notificationTested)
-                        passed =  passed && notificationPssed;
+                        passed =  passed && notificationPassed;
+                    if (mediaTested)
+                        passed =  passed && mediaPassed;
+                    if (alarmTested)
+                        passed =  passed && alarmPassed;
+                    if (systemTested)
+                        passed =  passed && systemPassed;
+                    if (voiceTested)
+                        passed =  passed && voicePassed;
+                    if (bluetoothSCOTested)
+                        passed =  passed && bluetoothSCOPassed;
 
                     eventsHandler.volumesPassed = passed;
                 }
