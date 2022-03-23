@@ -1812,7 +1812,6 @@
     <string name="profile_preferences_endOfActivationType">Type of activation end</string>
     <string name="array_pref_aendOfActivationType_duration">Duration</string>
     <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
-    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
     <string name="profile_preferences_afterDurationDo">When duration expires</string>
     <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
     <string name="profile_preferences_exactTime">Exact time</string>
@@ -2058,6 +2057,7 @@
 <!--    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with [!]. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>-->
 <!--    <string name="event_preferences_not_set_underlined_parameters">Some parameters marked with [!] are not configured!</string>-->
 <!--    <string name="event_preferences_not_set_underlined_parameters_summary">Parameters marked with [!] are required.</string>-->
+<!--    <string name="profile_preferences_endOfActivationCategory">End of activation</string>-->
 
 
 </resources>

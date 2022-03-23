@@ -822,7 +822,24 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(activity);
+                    dialogBuilder2.setMessage(R.string.check_releases_install_appgallery);
+                    //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder2.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog2 = dialogBuilder2.create();
+
+//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                    if (!activity.isFinishing())
+                        dialog2.show();
                 }
                 activity.finish();
             });
