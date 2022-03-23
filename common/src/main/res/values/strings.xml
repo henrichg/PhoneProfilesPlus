@@ -1936,6 +1936,8 @@
     <string name="array_pref_volumesSensorOperator_isGreaterThen">Is greater than</string>
     <string name="array_pref_volumesSensorOperator_isLessOrEqualTo">Is less or equal to</string>
     <string name="array_pref_volumesSensorOperator_isGreaterOrEqualTo">Is greater or equal to</string>
+    <string name="array_pref_volumesSensorOperator_isMuted">Is muted</string>
+    <string name="array_pref_volumesSensorOperator_isUnnuted">Is unmuted</string>
     <string name="event_preferences_category_eventVolumesParameters">Volumes sensor</string>
     <string name="event_preferences_volumes_info_title">Sensor configuration</string>
     <string name="event_preferences_volumes_info_summary">Level of all volumes must be fulfilled to start event. Configure only those volumes that you need.</string>

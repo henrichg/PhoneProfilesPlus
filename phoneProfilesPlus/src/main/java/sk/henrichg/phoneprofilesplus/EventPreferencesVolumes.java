@@ -549,6 +549,14 @@ class EventPreferencesVolumes extends EventPreferences {
                             if (actualValue >= configuredValue)
                                 ringtonePassed = true;
                             break;
+                        case 7: // is muted
+                            if (audioManager.isStreamMute(AudioManager.STREAM_RING))
+                                ringtonePassed = true;
+                            break;
+                        case 8: // is unmuted
+                            if (!audioManager.isStreamMute(AudioManager.STREAM_RING))
+                                ringtonePassed = true;
+                            break;
                     }
 
                     // notification
@@ -588,6 +596,14 @@ class EventPreferencesVolumes extends EventPreferences {
                             break;
                         case 6: // is greather or equal to
                             if (actualValue >= configuredValue)
+                                notificationPassed = true;
+                            break;
+                        case 7: // is muted
+                            if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
+                                notificationPassed = true;
+                            break;
+                        case 8: // is unmuted
+                            if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
                                 notificationPassed = true;
                             break;
                     }
@@ -631,6 +647,14 @@ class EventPreferencesVolumes extends EventPreferences {
                             if (actualValue >= configuredValue)
                                 mediaPassed = true;
                             break;
+                        case 7: // is muted
+                            if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC))
+                                mediaPassed = true;
+                            break;
+                        case 8: // is unmuted
+                            if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC))
+                                mediaPassed = true;
+                            break;
                     }
 
                     // alarm
@@ -670,6 +694,14 @@ class EventPreferencesVolumes extends EventPreferences {
                             break;
                         case 6: // is greather or equal to
                             if (actualValue >= configuredValue)
+                                alarmPassed = true;
+                            break;
+                        case 7: // is muted
+                            if (audioManager.isStreamMute(AudioManager.STREAM_ALARM))
+                                alarmPassed = true;
+                            break;
+                        case 8: // is unmuted
+                            if (!audioManager.isStreamMute(AudioManager.STREAM_ALARM))
                                 alarmPassed = true;
                             break;
                     }
@@ -713,6 +745,14 @@ class EventPreferencesVolumes extends EventPreferences {
                             if (actualValue >= configuredValue)
                                 systemPassed = true;
                             break;
+                        case 7: // is muted
+                            if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM))
+                                systemPassed = true;
+                            break;
+                        case 8: // is unmuted
+                            if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM))
+                                systemPassed = true;
+                            break;
                     }
 
                     // voice
@@ -754,6 +794,14 @@ class EventPreferencesVolumes extends EventPreferences {
                             if (actualValue >= configuredValue)
                                 voicePassed = true;
                             break;
+                        case 7: // is muted
+                            if (audioManager.isStreamMute(AudioManager.STREAM_VOICE_CALL))
+                                voicePassed = true;
+                            break;
+                        case 8: // is unmuted
+                            if (!audioManager.isStreamMute(AudioManager.STREAM_VOICE_CALL))
+                                voicePassed = true;
+                            break;
                     }
 
                     // bluetooth sco
@@ -793,6 +841,14 @@ class EventPreferencesVolumes extends EventPreferences {
                             break;
                         case 6: // is greather or equal to
                             if (actualValue >= configuredValue)
+                                bluetoothSCOPassed = true;
+                            break;
+                        case 7: // is muted
+                            if (audioManager.isStreamMute(AudioManager.STREAM_BLUETOOTH_SCO))
+                                bluetoothSCOPassed = true;
+                            break;
+                        case 8: // is unmuted
+                            if (!audioManager.isStreamMute(AudioManager.STREAM_BLUETOOTH_SCO))
                                 bluetoothSCOPassed = true;
                             break;
                     }
