@@ -1414,7 +1414,7 @@
         <item>@string/array_pref_volumesSensorOperator_isLessOrEqualTo</item>
         <item>@string/array_pref_volumesSensorOperator_isGreaterOrEqualTo</item>
         <item>@string/array_pref_volumesSensorOperator_isMuted</item>
-        <item>@string/array_pref_volumesSensorOperator_isUnnuted</item>
+        <item>@string/array_pref_volumesSensorOperator_isUnmuted</item>
     </string-array>
     <string-array name="volumesSensorOperatorValues">
         <item>0</item>
