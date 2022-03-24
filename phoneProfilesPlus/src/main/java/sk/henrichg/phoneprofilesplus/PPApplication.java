@@ -290,6 +290,8 @@ public class PPApplication extends Application
                                                 //+"|EditorProfilesActivity.onActivityResult"
 
                                                 //+"|ActivateProfileHelper.setTones"
+
+                                                +"|EventPreferencesVolumes"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
