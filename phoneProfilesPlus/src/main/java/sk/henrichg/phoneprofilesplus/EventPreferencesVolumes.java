@@ -885,14 +885,7 @@ class EventPreferencesVolumes extends EventPreferences {
             } else
                 eventsHandler.notAllowedVolumes = true;
 
-            PPApplication.logE("######### EventPreferencesVolumes.doHandleEvent", "volumesPassed=" + eventsHandler.volumesPassed);
-            PPApplication.logE("######### EventPreferencesVolumes.doHandleEvent", "notAllowedVolumes=" + eventsHandler.notAllowedVolumes);
-
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
-
-            PPApplication.logE("######### EventPreferencesVolumes.doHandleEvent", "oldSensorPassed=" + oldSensorPassed);
-            PPApplication.logE("######### EventPreferencesVolumes.doHandleEvent", "newSensorPassed=" + newSensorPassed);
-
             if (oldSensorPassed != newSensorPassed) {
 //                PPApplication.logE("######### EventPreferencesVolumes.doHandleEvent", "volumes - sensor pass changed");
                 setSensorPassed(newSensorPassed);

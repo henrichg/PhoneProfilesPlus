@@ -23,7 +23,8 @@
         <ScrollView
             android:id="@+id/event_status_popup_window_scroll_view"
             android:layout_width="350dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false" >
 
             <LinearLayout
                 android:id="@+id/event_status_popup_window_liLa1"
