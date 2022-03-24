@@ -3,6 +3,7 @@
     android:id="@+id/info_pref_dialog_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fadeScrollbars="false"
     android:padding="@dimen/alert_dialog_top_padding">
 
     <LinearLayout

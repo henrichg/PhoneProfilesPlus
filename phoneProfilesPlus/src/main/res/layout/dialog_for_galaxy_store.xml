@@ -3,6 +3,7 @@
     android:id="@+id/dialog_for_galaxy_store_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fadeScrollbars="false"
     android:paddingTop="@dimen/alert_dialog_top_padding" >
 
     <LinearLayout

@@ -4,7 +4,8 @@
     android:id="@+id/ask_for_duration_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/alert_dialog_top_padding" >
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:fadeScrollbars="false" >
 
     <LinearLayout
         android:id="@+id/ask_for_duration_dlg_linla0"

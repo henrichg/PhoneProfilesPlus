@@ -88,7 +88,8 @@
         android:id="@+id/application_editor_intent_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/application_editor_intent_buttons">
+        android:layout_above="@id/application_editor_intent_buttons"
+        android:fadeScrollbars="false">
 
         <LinearLayout
             android:id="@+id/application_editor_intent_liLa1"
