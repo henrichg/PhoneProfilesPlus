@@ -19,7 +19,7 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] VolumeChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] VolumeChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "VolumeChangedBroadcastReceiver.onReceive", "VolumeChangedBroadcastReceiver_onReceive");
 
@@ -40,6 +40,8 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
         //int prevStreamValue = intent.getIntExtra("android.media.EXTRA_PREV_VOLUME_STREAM_VALUE", -1);
 
         final Context appContext = context.getApplicationContext();
+
+        PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "EventPreferencesVolumes.internalChange="+EventPreferencesVolumes.internalChange);
 
         if (!EventPreferencesVolumes.internalChange) {
 
@@ -66,12 +68,15 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "streamType="+streamType);
+
                             final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
 
                             boolean callEventHandler = false;
                             if (streamType == AudioManager.STREAM_RING) {
                                 boolean actualMute = audioManager.isStreamMute(streamType);
                                 if (actualMute != previousRingtoneMuted) {
+                                    PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "STREAM_RING");
                                     previousRingtoneMuted = actualMute;
                                     callEventHandler = true;
                                 }
@@ -79,13 +84,17 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
                             if (streamType == AudioManager.STREAM_NOTIFICATION) {
                                 boolean actualMute = audioManager.isStreamMute(streamType);
                                 if (actualMute != previousNotificationMuted) {
+                                    PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "STREAM_NOTIFICATION");
                                     previousNotificationMuted = actualMute;
                                     callEventHandler = true;
                                 }
                             }
                             if (streamType == AudioManager.STREAM_MUSIC) {
                                 boolean actualMute = audioManager.isStreamMute(streamType);
+                                PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "actualMute="+actualMute);
+                                PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "previousMediaMuted="+previousMediaMuted);
                                 if (actualMute != previousMediaMuted) {
+                                    PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "STREAM_MUSIC");
                                     previousMediaMuted = actualMute;
                                     callEventHandler = true;
                                 }
@@ -93,6 +102,7 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
                             if (streamType == AudioManager.STREAM_ALARM) {
                                 boolean actualMute = audioManager.isStreamMute(streamType);
                                 if (actualMute != previousAlarmMuted) {
+                                    PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "STREAM_ALARM");
                                     previousAlarmMuted = actualMute;
                                     callEventHandler = true;
                                 }
@@ -100,6 +110,7 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
                             if (streamType == AudioManager.STREAM_SYSTEM) {
                                 boolean actualMute = audioManager.isStreamMute(streamType);
                                 if (actualMute != previousSystemMuted) {
+                                    PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "STREAM_SYSTEM");
                                     previousSystemMuted = actualMute;
                                     callEventHandler = true;
                                 }
@@ -107,6 +118,7 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
                             if (streamType == AudioManager.STREAM_VOICE_CALL) {
                                 boolean actualMute = audioManager.isStreamMute(streamType);
                                 if (actualMute != previousVoiceMuted) {
+                                    PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "STREAM_VOICE_CALL");
                                     previousVoiceMuted = actualMute;
                                     callEventHandler = true;
                                 }
@@ -114,12 +126,13 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
                             if (streamType == AudioManager.STREAM_BLUETOOTH_SCO) {
                                 boolean actualMute = audioManager.isStreamMute(streamType);
                                 if (actualMute != previousBluetoothSCOMuted) {
+                                    PPApplication.logE("VolumeChangedBroadcastReceiver.onReceive", "STREAM_BLUETOOTH_SCO");
                                     previousBluetoothSCOMuted = actualMute;
                                     callEventHandler = true;
                                 }
                             }
                             if (callEventHandler) {
-//                                PPApplication.logE("[EVENTS_HANDLER_CALL] SettingsContentObserver.onChange", "sensorType=SENSOR_TYPE_VOLUMES");
+                                PPApplication.logE("[EVENTS_HANDLER_CALL] VolumeChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_VOLUMES");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_VOLUMES);
                             }

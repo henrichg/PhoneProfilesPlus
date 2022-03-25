@@ -501,7 +501,7 @@ class EventPreferencesVolumes extends EventPreferences {
     }
 */
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
-        if (_enabled) {
+        if (_enabled && (!internalChange)) {
 //            PPApplication.logE("######### EventPreferencesVolumes.doHandleEvent", "xxx");
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {

@@ -172,6 +172,8 @@ public class RingtonePreferenceX extends DialogPreference {
                         if (oldMediaMuted) {
                             EventPreferencesVolumes.internalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+                            DisableVolumesInternalChangeWorker.enqueueWork();
                         }
                     }
                 }

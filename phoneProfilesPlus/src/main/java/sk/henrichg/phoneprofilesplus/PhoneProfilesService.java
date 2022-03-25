@@ -8263,6 +8263,8 @@ public class PhoneProfilesService extends Service
                 try {
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+                    DisableVolumesInternalChangeWorker.enqueueWork();
                 } catch (Exception e) {
                     //PPApplication.recordException(e);
                 }

@@ -1084,6 +1084,9 @@ class ActivateProfileHelper {
                             merged = false;
                         EventPreferencesVolumes.internalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+                        DisableVolumesInternalChangeWorker.enqueueWork();
+
                         audioManager.setRingerMode(ringerMode);
 
                         //PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "merged=" + merged);

@@ -293,6 +293,7 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setTones"
 
                                                 +"|EventPreferencesVolumes"
+                                                +"|VolumeChangedBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1399,6 +1400,7 @@ public class PPApplication extends Application
         PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
         if (atStart) {
             cancelWork(DisableInternalChangeWorker.WORK_TAG, false);
+            cancelWork(DisableVolumesInternalChangeWorker.WORK_TAG, false);
             cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, false);
         }
         cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
