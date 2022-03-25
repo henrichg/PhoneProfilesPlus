@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="medium_font_padding">24dp</dimen>
-    <dimen name="medium_font_size">75dp</dimen>
-    <dimen name="label_font_size">18sp</dimen>
+    <dimen name="medium_font_padding">12dp</dimen>
+    <dimen name="medium_font_size">34sp</dimen>
+    <dimen name="label_font_size">14sp</dimen>
 </resources>
