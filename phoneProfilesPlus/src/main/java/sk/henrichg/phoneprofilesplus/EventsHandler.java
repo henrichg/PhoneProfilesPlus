@@ -286,7 +286,8 @@ class EventsHandler {
             //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
-            if (DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) {
+            if ((DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) &&
+                    (!manualRestart)){
                 // not any event is paused or running
 //                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (01)");
                 PPApplication.setApplicationFullyStarted(context);
@@ -1159,7 +1160,7 @@ class EventsHandler {
             // refresh all GUI - must be for restart scanners
             //if (PPApplication.isScreenOn) {
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
-//                PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents");
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents - all");
                 PPApplication.updateGUI(false, false, context);
 
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### in fifo is:");
@@ -1169,6 +1170,7 @@ class EventsHandler {
             }
             else {
                 // refresh only Editor
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents - only Editor");
                 Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver");
                 refreshIntent.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
                 //refreshIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
