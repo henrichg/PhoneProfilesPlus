@@ -1126,7 +1126,10 @@ class ActivateProfileHelper {
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile._volumeMuteSound=" + profile._volumeMuteSound);
 
         if (profile._volumeMuteSound) {
-            //if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+                // WARNING mute.unmute must be called only for audible ringer mode
+                //         change of mute state bad affects silent mode (is not working)
+
                 if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "mute - ring");
                     EventPreferencesVolumes.internalChange = true;
@@ -1147,7 +1150,7 @@ class ActivateProfileHelper {
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
-            //}
+            }
             if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
 //                Log.e("ActivateProfileHelper.setVolumes", "mute - music");
                 EventPreferencesVolumes.internalChange = true;
@@ -1155,7 +1158,10 @@ class ActivateProfileHelper {
             }
         }
         else {
-            //if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+                // WARNING mute.unmute must be called only for audible ringer mode
+                //         change of mute state bad affects silent mode (is not working)
+
                 if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "unmute - ring");
                     EventPreferencesVolumes.internalChange = true;
@@ -1176,7 +1182,7 @@ class ActivateProfileHelper {
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
-            //}
+            }
             if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
 //                Log.e("ActivateProfileHelper.setVolumes", "unmute - music");
                 EventPreferencesVolumes.internalChange = true;
