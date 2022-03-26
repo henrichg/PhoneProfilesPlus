@@ -16,7 +16,7 @@ __[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPl
 
 __Another sources of PhoneProfilesPlus:__
 
-Use keyword "PhoneProfilesPlus" for search this application in this stores.
+Use keyword "PhoneProfilesPlus" for search this application in these stores.
 
 __Galaxy Store (for Samsung devices)__
 
