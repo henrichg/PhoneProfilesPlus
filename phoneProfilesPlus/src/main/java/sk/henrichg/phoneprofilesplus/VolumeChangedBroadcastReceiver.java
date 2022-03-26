@@ -55,7 +55,7 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
                     final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                     //        context.getApplicationContext()) {
-                    __handler.post(() -> {
+                    __handler.postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=VolumeChangedBroadcastReceiver.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
@@ -149,10 +149,7 @@ public class VolumeChangedBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                        //}
-                    });
-                    //}
-
+                    }, 5000);
                 }
             }
         }
