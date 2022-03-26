@@ -120,7 +120,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (operator != 0) {
                     descr = descr + context.getString(R.string.profile_preferences_volumeRingtone) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + "</b>";
+                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
                     _addBullet = true;
                 }
 
@@ -136,7 +136,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeNotification) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + "</b>";
+                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
                     _addBullet = true;
                 }
 
@@ -152,7 +152,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeMedia) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + "</b>";
+                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
                     _addBullet = true;
                 }
 
@@ -168,7 +168,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeAlarm) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + "</b>";
+                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
                     _addBullet = true;
                 }
 
@@ -184,7 +184,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeSystem) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + "</b>";
+                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
                     _addBullet = true;
                 }
 
@@ -200,7 +200,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeVoiceCall) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + "</b>";
+                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
                     _addBullet = true;
                 }
 
@@ -216,7 +216,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeBluetoothSCO) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + "</b>";
+                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
                     //_addBullet = true;
                 }
 

@@ -241,6 +241,10 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             }
 
             prefVolumeDataSummary = entries[operatorIdx];
+
+            if (sensorOperator != 0) {
+                prefVolumeDataSummary = prefVolumeDataSummary + " " + value;
+            }
         }
         setSummary(prefVolumeDataSummary);
     }
