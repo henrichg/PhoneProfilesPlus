@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11899,7 +11900,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_NFC_ENABLED + "," +
                         KEY_E_RADIO_SWITCH_ENABLED + "," +
                         KEY_E_SOUND_PROFILE_ENABLED + "," +
-                        KEY_E_VOLUMES_ENABLED +
+                        KEY_E_VOLUMES_ENABLED + "," +
+                        KEY_E_VOLUMES_RINGTONE + "," +
+                        KEY_E_VOLUMES_NOTIFICATION + "," +
+                        KEY_E_VOLUMES_MEDIA + "," +
+                        KEY_E_VOLUMES_ALARM + "," +
+                        KEY_E_VOLUMES_SYSTEM + "," +
+                        KEY_E_VOLUMES_VOICE + "," +
+                        KEY_E_VOLUMES_BLUETOOTHSCO + "," +
+                        KEY_E_VOLUMES_ACCESSIBILITY +
                         " FROM " + TABLE_EVENTS;
 
                 //SQLiteDatabase db = this.getWritableDatabase();
@@ -12524,13 +12533,157 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
                             }
 
+                            String value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_RINGTONE));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_RINGTONE, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_NOTIFICATION));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_NOTIFICATION, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_MEDIA));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_MEDIA, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ALARM));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_ALARM, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_SYSTEM));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_SYSTEM, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_VOICE));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_VOICE, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_BLUETOOTHSCO));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_BLUETOOTHSCO, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ACCESSIBILITY));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_ACCESSIBILITY, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
                         } while (eventsCursor.moveToNext());
                     }
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
+                    Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -12540,6 +12693,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
+                Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         } finally {

@@ -293,7 +293,6 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setTones"
 
                                                 +"|EventPreferencesVolumes"
-                                                +"|VolumeChangedBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -768,7 +767,6 @@ public class PPApplication extends Application
 
 
     static RingerModeChangeReceiver ringerModeChangeReceiver = null;
-    static VolumeChangedBroadcastReceiver volumeChangedReceiver = null;
     static WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
     static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
     static DonationBroadcastReceiver donationBroadcastReceiver = null;

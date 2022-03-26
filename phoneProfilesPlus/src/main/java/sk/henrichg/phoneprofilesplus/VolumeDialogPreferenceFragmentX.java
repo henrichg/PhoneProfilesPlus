@@ -169,8 +169,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
         }
         else {
-            valueText.setEnabled((preference.sensorOperator != 0) && (preference.sensorOperator < 7));
-            seekBar.setEnabled((preference.sensorOperator != 0) && (preference.sensorOperator < 7));
+            valueText.setEnabled(preference.sensorOperator != 0);
+            seekBar.setEnabled(preference.sensorOperator != 0);
         }
 
         seekBar.setOnSeekBarChangeListener(this);
@@ -416,8 +416,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
             preference.sensorOperator = Integer.parseInt(preference.operatorValues[position]);
 
-            valueText.setEnabled((preference.sensorOperator != 0) && (preference.sensorOperator < 7));
-            seekBar.setEnabled((preference.sensorOperator != 0) && (preference.sensorOperator < 7));
+            valueText.setEnabled(preference.sensorOperator != 0);
+            seekBar.setEnabled(preference.sensorOperator != 0);
 
             preference.callChangeListener(preference.getSValue());
         }
