@@ -1163,7 +1163,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         final Context context = getActivity().getBaseContext();
 
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EVENT) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EVENT)) {
             setRedTextToPreferences();
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
@@ -1293,7 +1293,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context);
             event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context);
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE)) {
             RingtonePreferenceX preference = prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND_START);
             if (preference != null)
                 preference.refreshListView();
@@ -1301,7 +1301,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (preference != null)
                 preference.refreshListView();
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)) {
             WifiSSIDPreferenceX wifiPreference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);
             if (wifiPreference != null)
                 wifiPreference.refreshListView(true, "");
@@ -1309,22 +1309,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (bluetoothPreference != null)
                 bluetoothPreference.refreshListView(true, "");
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)) {
             MobileCellsPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
             if (preference != null)
                 preference.refreshListView(true, Integer.MAX_VALUE);
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)) {
             MobileCellsRegistrationDialogPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
             if (preference != null)
                 preference.startRegistration();
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CALENDAR_DIALOG)) {
             CalendarsMultiSelectDialogPreferenceX preference = prefMng.findPreference(EventPreferencesCalendar.PREF_EVENT_CALENDAR_CALENDARS);
             if (preference != null)
                 preference.refreshListView(true);
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONTACT_DIALOG) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONTACT_DIALOG)) {
             ContactsMultiSelectDialogPreferenceX preference1 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACTS);
             if (preference1 != null)
                 preference1.refreshListView(true);

@@ -6,16 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.DocumentsContract;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 public class WallpaperViewPreferenceX extends Preference {
@@ -141,6 +146,15 @@ public class WallpaperViewPreferenceX extends Preference {
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setType("image/*");
+
+            if (!(imageIdentifier.isEmpty() || imageIdentifier.equals("-"))) {
+                try {
+                    Uri picturesUri = Uri.parse(imageIdentifier);
+                    if (picturesUri != null)
+                        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
+                } catch (Exception ignored) {
+                }
+            }
 
             // is not possible to get activity from preference, used is static method
             //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);

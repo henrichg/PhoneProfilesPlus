@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.storage.StorageManager;
+import android.provider.DocumentsContract;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -155,8 +156,14 @@ public class WallpaperFolderPreferenceX extends Preference {
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-            //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);*/
+            if (!(wallpaperFolder.isEmpty() || wallpaperFolder.equals("-"))) {
+                try {
+                    Uri picturesUri = Uri.parse(wallpaperFolder);
+                    if (picturesUri != null)
+                        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
+                } catch (Exception ignored) {
+                }
+            }
 
             //noinspection deprecation
             ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);

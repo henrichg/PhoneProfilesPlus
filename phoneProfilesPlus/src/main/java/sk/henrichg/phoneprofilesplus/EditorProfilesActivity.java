@@ -1865,7 +1865,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }*/
         /*else
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE)) {
             if (data != null) {
                 long profileId = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
                 int startupSource = data.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
@@ -1879,19 +1879,19 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }*/
         else
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT)) {
             if (resultCode == RESULT_OK) {
                 doExportData(false, false);
             }
         }
         else
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT_AND_EMAIL) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)) {
             if (resultCode == RESULT_OK) {
                 doExportData(true, false);
             }
         }
         else
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMPORT) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMPORT)) {
             if ((resultCode == RESULT_OK) && (data != null)) {
                 boolean ok = false;
                 try {
@@ -1936,7 +1936,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
         else
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR)) {
             if (resultCode == RESULT_OK) {
                 doExportData(true, true);
             }

@@ -499,7 +499,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY)) {
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "xxx");
             startLocationUpdates();
             refreshActivity(false, false);

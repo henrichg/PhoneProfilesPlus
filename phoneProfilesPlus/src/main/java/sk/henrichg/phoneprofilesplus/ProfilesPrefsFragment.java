@@ -1355,7 +1355,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
         }*/
 
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE)) {
             setRedTextToPreferences();
         }
         /*if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT) {
@@ -1364,7 +1364,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
         }*/
 
-        if (requestCode == WallpaperViewPreferenceX.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
+        if ((requestCode == WallpaperViewPreferenceX.RESULT_LOAD_IMAGE) && (resultCode == Activity.RESULT_OK) && (data != null))
         {
             //Uri selectedImage = data.getData();
             String  d = data.getDataString();
@@ -1391,7 +1391,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 */
             }
         }
-        if (requestCode == WallpaperFolderPreferenceX.RESULT_GET_FOLDER && resultCode == Activity.RESULT_OK && data != null)
+        if ((requestCode == WallpaperFolderPreferenceX.RESULT_GET_FOLDER) && (resultCode == Activity.RESULT_OK) && (data != null))
         {
             //Uri selectedImage = data.getData();
             String  d = data.getDataString();
@@ -1403,7 +1403,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (requestCode == ProfileIconPreferenceX.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
+        if ((requestCode == ProfileIconPreferenceX.RESULT_LOAD_IMAGE) && (resultCode == Activity.RESULT_OK) && (data != null))
         {
             //Uri selectedImage = data.getData();
             String  d = data.getDataString();
@@ -1454,7 +1454,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             final String sZenModeType = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
             setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, sZenModeType);
         }
-        if (requestCode == RunApplicationsDialogPreferenceX.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
+        if ((requestCode == RunApplicationsDialogPreferenceX.RESULT_APPLICATIONS_EDITOR) && (resultCode == Activity.RESULT_OK) && (data != null))
         {
             RunApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
             if (preference != null) {
@@ -1504,27 +1504,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 activity.invalidateOptionsMenu();
             }
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMAGE_WALLPAPER) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMAGE_WALLPAPER)) {
             WallpaperViewPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
                 preference.startGallery(); // image file
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WALLPAPER_FOLDER) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WALLPAPER_FOLDER)) {
             WallpaperFolderPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
             if (preference != null)
                 preference.startGallery(); // folder of images
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)) {
             ProfileIconPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_ICON);
             if (preference != null)
                 preference.startGallery();
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG)) {
             BrightnessDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS);
             if (preference != null)
                 preference.enableViews();
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE)) {
             RingtonePreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE);
             if (preference != null)
                 preference.refreshListView();
@@ -1535,7 +1535,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null)
                 preference.refreshListView();
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG)) {
             ConnectToSSIDDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
             if (preference != null)
                 preference.refreshListView();
