@@ -6,9 +6,13 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -166,6 +170,15 @@ public class ActivityLogActivity extends AppCompatActivity {
         if (itemId == R.id.menu_activity_log_help) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.activity_log_help_title);
+            dialogBuilder.setCancelable(true);
+            //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+            LayoutInflater inflater = getLayoutInflater();
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_info_preference, null);
+            dialogBuilder.setView(layout);
+
+            TextView infoTextView = layout.findViewById(R.id.info_pref_dialog_info_text);
 
             String message = "<br><b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
 
@@ -203,7 +216,9 @@ public class ActivityLogActivity extends AppCompatActivity {
             message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b><br>";
             message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes);
 
-            dialogBuilder.setMessage(Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT));
+            infoTextView.setText(GlobalGUIRoutines.fromHtml(message, true, false, 0, 0));
+            infoTextView.setClickable(true);
+            infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
             dialogBuilder.setPositiveButton(R.string.activity_log_help_close, null);
             AlertDialog dialog = dialogBuilder.create();

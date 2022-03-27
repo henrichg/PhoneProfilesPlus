@@ -11,6 +11,7 @@
         android:id="@+id/github_assets_screenshot_activity_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbarStyle="outsideOverlay"
         android:fadeScrollbars="false">
 
         <LinearLayout
