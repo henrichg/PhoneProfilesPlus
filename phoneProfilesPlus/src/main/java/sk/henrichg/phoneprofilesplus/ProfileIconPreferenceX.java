@@ -24,6 +24,8 @@ import androidx.preference.PreferenceViewHolder;
 import java.io.File;
 import java.lang.ref.WeakReference;
 
+import javax.sql.DataSource;
+
 public class ProfileIconPreferenceX extends DialogPreference {
 
     ProfileIconPreferenceFragmentX fragment;
@@ -228,9 +230,23 @@ public class ProfileIconPreferenceX extends DialogPreference {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setType("image/*");
 
+            boolean ok = false;
             if (!isImageResourceID) {
                 try {
                     Uri picturesUri = Uri.parse(imageIdentifier);
+                    Log.e("ProfileIconPreferenceX.startGallery", "picturesUri="+picturesUri);
+                    if (picturesUri != null)
+                        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
+                    ok = true;
+                } catch (Exception ignored) {}
+            }
+            if (!ok) {
+                try {
+                    File pictures = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                    String fileName = pictures.getName();
+                    //Log.e("ProfileIconPreferenceX.startGallery", "fileName=" + fileName);
+                    Uri picturesUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:" + fileName);
+                    //Log.e("ProfileIconPreferenceX.startGallery", "picturesUri=" + picturesUri);
                     if (picturesUri != null)
                         intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
                 } catch (Exception ignored) {}
