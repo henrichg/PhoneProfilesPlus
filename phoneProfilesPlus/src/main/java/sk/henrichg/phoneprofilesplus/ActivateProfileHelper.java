@@ -2893,7 +2893,7 @@ class ActivateProfileHelper {
 
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
                                 DisableInternalChangeWorker.enqueueWork();
-                                DisableVolumesInternalChangeWorker.enqueueWork();
+                                //DisableVolumesInternalChangeWorker.enqueueWork();
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
