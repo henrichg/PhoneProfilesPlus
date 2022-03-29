@@ -869,7 +869,7 @@
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Povoliť skenovanie orientácie</string>
     <string name="profile_preferences_applicationDisableMobileCellScanning">Zakázať skenovanie mobilných buniek</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Zakázať skenovanie orientácie</string>
-    <string name="profile_preferences_headsUpNotifications">(G1) (R) Vyskakovacie notifikácie</string>
+    <string name="profile_preferences_headsUpNotifications">(G1)(R) Vyskakovacie notifikácie</string>
     <string name="profileicon_pref_dlg_customIconButton">Vlastná ikona</string>
     <string name="mobile_cells_registration_cell_name_hint">Kliknite pre nastavenie názvu bunky</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Nemusí fungovať pripojenie do prístupového bodu z iných zariadení.</string>
@@ -1798,7 +1798,6 @@
     <string name="profile_preferences_endOfActivationType">Typ konca aktivácie</string>
     <string name="array_pref_aendOfActivationType_duration">Trvanie</string>
     <string name="array_pref_aendOfActivationType_exactTime">Presný čas</string>
-    <string name="profile_preferences_endOfActivationCategory">Koniec aktivácie</string>
     <string name="profile_preferences_afterDurationDo">Po uplynutí trvania urob</string>
     <string name="profile_preferences_afterExactTimeDo">Keď bude dosiahnutý presný čas</string>
     <string name="profile_preferences_exactTime">Presný čas</string>
@@ -1877,6 +1876,42 @@
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">Špeciálny prístup \"Ovládanie Wi-Fi\" musí byť povolený. Vyžaduje sa na zapnutie a vypnutie Wi-Fi. Kliknite sem, pre zobrazenie ako.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_message">Špeciálny prístup \"Ovládanie Wi-Fi\" musí byť povolený. Vyžaduje sa na zapnutie a vypnutie Wi-Fi.\n\nV Nastavenia zariadenia povoľte \"Aplikácie\"\/\"Špeciálny prístup aplikácií\"\/\"Ovládanie Wi-Fi\" pre PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Zobraz Nastavenia zariadenia</string>
+    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">Ak je zapnuté, farby miniaplikácií sa nastavia podľa systémového nočného režimu.</string>
+    <string name="important_info_profile_grant_1_howTo_20_1">POZNÁMKA:</string>
+    <string name="important_info_profile_grant_1_howTo_20_2">Pre niektoré zariadenia musia byť v Možnosti pre vývojárov povolené:</string>
+    <string name="important_info_profile_grant_1_howTo_20_3">Xiaomi: \"Ladenie USB (nastavenia Zabezpečenia)\".</string>
+    <string name="important_info_profile_grant_1_howTo_20_4">Oppo, OnePlus: \"Zakázať monitorovanie povolení\".</string>
+    <string name="important_info_profile_grant_1_howTo_20_5">Možno existuje podobná možnosť v iných zariadeniach.</string>
+    <string name="important_info_profile_grant_1_howTo_20_6">Bez toho povolenie nefunguje.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling">Obmedzenie skenovania Wi-Fi</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_summary">Kliknutím sem zobrazíte, ako vypnúť obmedzovanie skenovania Wi-Fi, aby ste umožnili skenovanie s intervalom kratším ako 30 minút.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info1">Ako funguje obmedzenie skenovania Wi-Fi:</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info2">Každá aplikácia v popredí môže skenovať štyrikrát za 2 minúty. To umožňuje vacsie množstvo skenovaní v krátkom čase.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info3">Všetky aplikácie na pozadí môžu skenovať raz za 30 minút (PhoneProfilesPlus beží na pozadí).</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info4">Poznámka: Vypnuté obmedzovanie skenovania Wi-Fi spotrebúva viac batérie.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info5">Ako vypnúť obmedzovanie skenovania Wi-Fi:</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info6">Prejdite do časti Nastavenia &gt; Možnosti pre vývojárov &gt; nájdite \"Obmedzenie skenovania siete Wi-Fi\" &gt; zakázať (alebo Nastavenia &gt; Systém &gt; Rozšírené &gt; Možnosti pre vývojárov).</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info7">V niektorých zariadeniach v Možnostiach vývojára neexistuje parameter \"Obmedzenie skenovania Wi-Fi\". Ale je možné ho zakázať prostredníctvom počítača s nainštalovaným adb.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info8">Túto nápovedu je lepšie otvoriť v počítači vo svojom internetovom prehliadači. Pomoc je v PhoneProfilesPlus GitHub README.md, označená ako</string>
+    <string name="event_preference_sensor_volumes_summary">Tento senzor slúži na zmenu hlasitosti. Parametre: Hlasitosť vyzváňacieho tónu, Hlasitosť upozornení, Hlasitosť médií, Hlasitosť budíka, Hlasitosť systému, Hlasitosť hlasového hovoru, Hlasitosť hovoru Bluetooth.</string>
+    <string name="event_type_volumes">Hlasitosti</string>
+    <string name="array_pref_volumesSensorOperator_doNotTestIt">Netestovať</string>
+    <string name="array_pref_volumesSensorOperator_equalsTo">Rovná</string>
+    <string name="array_pref_volumesSensorOperator_doNotEqualsTo">Nerovná sa</string>
+    <string name="array_pref_volumesSensorOperator_islessThen">Je menšia ako</string>
+    <string name="array_pref_volumesSensorOperator_isGreaterThen">Je väčšia ako</string>
+    <string name="array_pref_volumesSensorOperator_isLessOrEqualTo">Je menšia alebo rovná</string>
+    <string name="array_pref_volumesSensorOperator_isGreaterOrEqualTo">Je väčšie alebo rovná</string>
+    <string name="event_preferences_category_eventVolumesParameters">Senzor hlasitostí</string>
+    <string name="event_preferences_volumes_info_title">Konfigurácia senzora</string>
+    <string name="event_preferences_volumes_info_summary">Úroveň všetkých hlasitostí musí byť splnená, aby sa spustila udalosť. Nakonfigurujte iba hlasitosti, ktoré potrebujete.</string>
+    <string name="event_preferences_notificationSoundPlayAlsoInSilentMode">Prehrať notifikáciu aj v tichom režime</string>
+    <string name="profile_preferences_endOfActivationNotificationCategory">Notifikácia pre koniec aktivácie profilu</string>
+    <string name="profile_preferences_startOfEventNotificationCategory">Notifikácia pre štart udalosti</string>
+    <string name="profile_preferences_endOfEventNotificationCategory">Notifikácia pre koniec udalosti</string>
+    <string name="profile_preferences_darkModeInfo_summary">Poznámka: Tento parameter zatvorí všetky spustené aplikácie.</string>
+    <string name="check_releases_appgallery_application">Web pre inštaláciu aplikácie Huawei AppGallery:</string>
+    <string name="check_releases_install_appgallery">Prosím nainštalujte si aplikáciu Huawei AppGallery.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1964,4 +1999,10 @@
     <!--    <string name="mobile_cells_pref_dlg_sort_icon">Sort cell list</string>-->
     <!--    <string name="important_info_profile_settings">Some profile preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
     <!--    <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
+    <!--    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with [!]. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>-->
+    <!--    <string name="event_preferences_not_set_underlined_parameters">Some parameters marked with [!] are not configured!</string>-->
+    <!--    <string name="event_preferences_not_set_underlined_parameters_summary">Parameters marked with [!] are required.</string>-->
+    <!--    <string name="profile_preferences_endOfActivationCategory">End of activation</string>-->
+    <!--    <string name="array_pref_volumesSensorOperator_isMuted">Is muted</string>-->
+    <!--    <string name="array_pref_volumesSensorOperator_isUnmuted">Is unmuted</string>-->
 </resources>

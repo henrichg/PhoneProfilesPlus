@@ -1798,7 +1798,6 @@
     <string name="profile_preferences_endOfActivationType">Type of activation end</string>
     <string name="array_pref_aendOfActivationType_duration">Duration</string>
     <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
-    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
     <string name="profile_preferences_afterDurationDo">Kada trajanje istekne</string>
     <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
     <string name="profile_preferences_exactTime">Exact time</string>
@@ -1877,6 +1876,42 @@
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi. Click this to show how.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"\/\"Special app access\"\/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Show device Settings</string>
+    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Night mode.</string>
+    <string name="important_info_profile_grant_1_howTo_20_1">NOTE:</string>
+    <string name="important_info_profile_grant_1_howTo_20_2">For some devices must be in Developer options enabled:</string>
+    <string name="important_info_profile_grant_1_howTo_20_3">Xiaomi: \"USB debugging (Security settings)\".</string>
+    <string name="important_info_profile_grant_1_howTo_20_4">Oppo, OnePlus: \"Disable permission monitoring\".</string>
+    <string name="important_info_profile_grant_1_howTo_20_5">Maybe similar option exists in another devices.</string>
+    <string name="important_info_profile_grant_1_howTo_20_6">Without this, grant not working.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling">Wi-Fi scan throttling</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_summary">Click here to display how to disable Wi-Fi scan throttling, to allow scanning with interval less then 30 minutes.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info1">How Wi-Fi scan throttling works:</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info2">Each foreground app can scan four times in a 2-minute period. This allows for a burst of scans in a short time.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info3">All background apps combined can scan one time in a 30-minute period (PhoneProfilesPlus is running in background).</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info4">Note: Disabled Wi-Fi scan throttling consume more battery.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info5">How to disable Wi-Fi scan throttling:</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info6">Go to Settings &gt; Developer options &gt; find “Wi-Fi scan throttling” &gt; disable it (or Settings &gt; System &gt; Advanced &gt; Developer options).</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info7">In some devices not exists in Developer options parameter \"Wi-Fi scan throttling\". But is possible to disable it through your PC with installed adb.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info8">This help is better to open it in computer in his Internet browser. Help is in PhoneProfilesPlus GitHub README.md, marked as</string>
+    <string name="event_preference_sensor_volumes_summary">This sensor is for change of volumes. Parameters: Ringtone volume, Notification volume, Media volume, Alarm volume, System volume, Voice call volume, Bluetooth call volume.</string>
+    <string name="event_type_volumes">Volumes</string>
+    <string name="array_pref_volumesSensorOperator_doNotTestIt">Do not test it</string>
+    <string name="array_pref_volumesSensorOperator_equalsTo">Equals to</string>
+    <string name="array_pref_volumesSensorOperator_doNotEqualsTo">Do not equals to</string>
+    <string name="array_pref_volumesSensorOperator_islessThen">Is less than</string>
+    <string name="array_pref_volumesSensorOperator_isGreaterThen">Is greater than</string>
+    <string name="array_pref_volumesSensorOperator_isLessOrEqualTo">Is less or equal to</string>
+    <string name="array_pref_volumesSensorOperator_isGreaterOrEqualTo">Is greater or equal to</string>
+    <string name="event_preferences_category_eventVolumesParameters">Volumes sensor</string>
+    <string name="event_preferences_volumes_info_title">Sensor configuration</string>
+    <string name="event_preferences_volumes_info_summary">Level of all volumes must be fulfilled to start event. Configure only those volumes that you need.</string>
+    <string name="event_preferences_notificationSoundPlayAlsoInSilentMode">Play notification also in silent mode</string>
+    <string name="profile_preferences_endOfActivationNotificationCategory">Notification for end of activation</string>
+    <string name="profile_preferences_startOfEventNotificationCategory">Notification for start of event</string>
+    <string name="profile_preferences_endOfEventNotificationCategory">Notification for end of event</string>
+    <string name="profile_preferences_darkModeInfo_summary">Note: This parameter closes all running applications.</string>
+    <string name="check_releases_appgallery_application">Huawei AppGallery App installation site:</string>
+    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1964,4 +1999,10 @@
     <!--    <string name="mobile_cells_pref_dlg_sort_icon">Sort cell list</string>-->
     <!--    <string name="important_info_profile_settings">Some profile preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
     <!--    <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
+    <!--    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with [!]. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>-->
+    <!--    <string name="event_preferences_not_set_underlined_parameters">Some parameters marked with [!] are not configured!</string>-->
+    <!--    <string name="event_preferences_not_set_underlined_parameters_summary">Parameters marked with [!] are required.</string>-->
+    <!--    <string name="profile_preferences_endOfActivationCategory">End of activation</string>-->
+    <!--    <string name="array_pref_volumesSensorOperator_isMuted">Is muted</string>-->
+    <!--    <string name="array_pref_volumesSensorOperator_isUnmuted">Is unmuted</string>-->
 </resources>
