@@ -17,7 +17,6 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 

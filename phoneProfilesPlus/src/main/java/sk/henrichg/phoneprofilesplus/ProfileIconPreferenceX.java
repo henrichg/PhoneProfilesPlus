@@ -14,18 +14,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.DocumentsContract;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-
-import javax.sql.DataSource;
 
 public class ProfileIconPreferenceX extends DialogPreference {
 
@@ -237,8 +233,13 @@ public class ProfileIconPreferenceX extends DialogPreference {
                     try {
                         Uri picturesUri = Uri.parse(imageIdentifier);
                         //Log.e("ProfileIconPreferenceX.startGallery", "picturesUri="+picturesUri);
-                        if (picturesUri != null)
+                        if (picturesUri != null) {
+                            //Log.e("ProfileIconPreferenceX.startGallery", "path="+picturesUri.getPath());
+                            //List<String> segments = picturesUri.getPathSegments();
+                            //for (String segment : segments)
+                            //    Log.e("ProfileIconPreferenceX.startGallery", "segment="+segment);
                             intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
+                        }
                         ok = true;
                     } catch (Exception ignored) {
                     }
@@ -251,8 +252,13 @@ public class ProfileIconPreferenceX extends DialogPreference {
                         //Log.e("ProfileIconPreferenceX.startGallery", "fileName=" + fileName);
                         Uri picturesUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:" + fileName);
                         //Log.e("ProfileIconPreferenceX.startGallery", "picturesUri=" + picturesUri);
-                        if (picturesUri != null)
+                        if (picturesUri != null) {
+                            //Log.e("ProfileIconPreferenceX.startGallery", "path="+picturesUri.getPath());
+                            //List<String> segments = picturesUri.getPathSegments();
+                            //for (String segment : segments)
+                            //    Log.e("ProfileIconPreferenceX.startGallery", "segment="+segment);
                             intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
+                        }
                     } catch (Exception ignored) {
                     }
                 }
