@@ -1905,7 +1905,7 @@
     <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"\/\"Special app access\"\/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Show device Settings</string>
 
-    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Night mode</string>
+    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Night mode.</string>
     <string name="important_info_profile_grant_1_howTo_20_1">NOTE:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">For some devices must be in Developer options enabled:</string>
     <string name="important_info_profile_grant_1_howTo_20_3">Xiaomi: \"USB debuging (Security settings)\".</string>
@@ -1914,7 +1914,7 @@
     <string name="important_info_profile_grant_1_howTo_20_6">Without this, grant not working.</string>
 
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling">Wi-Fi scan throttling</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_summary">Click here to display how to disable Wi-Fi scan throttling, for allowing scanning with interval less then 30 minutes.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_summary">Click here to display how to disable Wi-Fi scan throttling, to allow scanning with interval less then 30 minutes.</string>
 
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info1">How Wi-Fi scan throttling works:</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info2">Each foreground app can scan four times in a 2-minute period. This allows for a burst of scans in a short time.</string>
@@ -1923,7 +1923,7 @@
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info5">How to disable Wi-Fi scan throttling:</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info6">Go to Settings > Developer options > find “Wi-Fi scan throttling” > disable it (or Settings > System > Advanced > Developer options).</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info7">In some devices not exists in Developer options parameter \"Wi-Fi scan throttling\". But is possible to disable it through your PC with installed adb.</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info8">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info8">This help is better to open it in computer in his Internet browser. Help is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info9" translatable="false">\"(HELP) How to disable Wi-Fi scan throttling\"</string>
 
     <string name="event_preference_sensor_volumes_summary">This sensor is for change of volumes. Parameters: Ringtone volume, Notification volume, Media volume, Alarm volume, System volume, Voice call volume, Bluetooth call volume.</string>
@@ -1941,9 +1941,9 @@
 
     <string name="event_preferences_notificationSoundPlayAlsoInSilentMode">Play notification also in silent mode</string>
 
-    <string name="profile_preferences_endOfActivationNotificationCategory">Notification of end of activation</string>
-    <string name="profile_preferences_startOfEventNotificationCategory">Notification of start of event</string>
-    <string name="profile_preferences_endOfEventNotificationCategory">Notification of end of event</string>
+    <string name="profile_preferences_endOfActivationNotificationCategory">Notification for end of activation</string>
+    <string name="profile_preferences_startOfEventNotificationCategory">Notification for start of event</string>
+    <string name="profile_preferences_endOfEventNotificationCategory">Notification for end of event</string>
 
     <string name="profile_preferences_darkModeInfo_summary">Note: This parameter closes all running applications.</string>
 
