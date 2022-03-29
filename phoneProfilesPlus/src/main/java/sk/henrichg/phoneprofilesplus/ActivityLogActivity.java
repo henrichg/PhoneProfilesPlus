@@ -179,7 +179,8 @@ public class ActivityLogActivity extends AppCompatActivity {
 
             TextView infoTextView = layout.findViewById(R.id.info_pref_dialog_info_text);
 
-            String message = "<br><b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
+            //String message = "<br><b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
+            String message = "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
 
             message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":</b><br>";
