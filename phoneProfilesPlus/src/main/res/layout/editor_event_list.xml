@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_events_list_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -172,11 +173,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="1dp"
                 android:ellipsize="end"
-                android:textSize="14sp"
+                android:textSize="15dp"
                 android:clickable="true"
                 android:text="@string/editor_drawer_title_events_order"
                 android:maxLines="1"
-                android:focusable="true"/>
+                android:focusable="true"
+                tools:ignore="SpUsage"/>
 <!--            android:textColor="?attr/editorFilterTitleColor"-->
 
             <androidx.appcompat.widget.AppCompatSpinner
