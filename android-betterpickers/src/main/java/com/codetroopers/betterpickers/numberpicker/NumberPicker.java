@@ -126,12 +126,12 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
     private void restyleViews() {
-        for (Button number : mNumbers) {
+        /*for (Button number : mNumbers) {
             if (number != null) {
                 number.setTextColor(mTextColor);
                 number.setBackgroundResource(mKeyBackgroundResId);
             }
-        }
+        }*/
         if (mDivider != null) {
             mDivider.setBackgroundColor(mDividerColor);
         }
