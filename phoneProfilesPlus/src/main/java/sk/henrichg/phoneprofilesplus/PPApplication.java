@@ -139,8 +139,14 @@ public class PPApplication extends Application
     static final String FDROID_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
     static final String FDROID_APPLICATION_URL = "https://www.f-droid.org/";
     static final String FDROID_REPOSITORY_URL = "https://apt.izzysoft.de/fdroid/index/info";
+
+    static final String AMAZON_APPSTORE_PPP_RELEASES_URL = "https://www.amazon.com/Henrich-Gron-PhoneProfilesPlus/dp/B01N3SM44J/ref=sr_1_1?keywords=phoneprofilesplus&qid=1637084235&qsid=134-9049988-7816540&s=mobile-apps&sr=1-1&sres=B01N3SM44J%2CB078K93HFD%2CB01LXZDPDR%2CB00LBK7OSY%2CB07RX5L3CP%2CB07XM7WVS8%2CB07XWGWPH5%2CB08KXB3R7S%2CB0919N2P7J%2CB08NWD7K8H%2CB01A7MACL2%2CB07XY8YFQQ%2CB07XM8GDWC%2CB07QVYLDRL%2CB09295KQ9Q%2CB01LVZ3JBI%2CB08723759H%2CB09728VTDK%2CB08R7D4KZJ%2CB01BUIGF9K";
     static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
+
     static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
+    static final String APKPURE_APPLICATION_URL = "https://apkpure.com/apkpure/com.apkpure.aegon";
+
+    static final String HUAWEI_APPGALLERY_PPP_RELEASES_URL = "https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000";
     static final String HUAWEI_APPGALLERY_APPLICATION_URL = "https://consumer.huawei.com/en/mobileservices/appgallery/";
 
     //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/grant_g1_permission.md
