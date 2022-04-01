@@ -59,4 +59,8 @@
 
     <dimen name="bottom_navigation_side_margins">15dp</dimen>
 
+    <dimen name="popup_widow_event_status_width">350dp</dimen>
+    <dimen name="popup_widow_dialog_help_width">300dp</dimen>
+    <dimen name="popup_window_run_stop_indicator_width">300dp</dimen>
+
 </resources>

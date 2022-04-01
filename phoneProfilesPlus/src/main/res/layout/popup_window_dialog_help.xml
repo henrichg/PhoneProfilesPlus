@@ -22,7 +22,7 @@
 
         <ScrollView
             android:id="@+id/dialog_help_popup_window_scroll_view"
-            android:layout_width="300dp"
+            android:layout_width="@dimen/popup_widow_dialog_help_width"
             android:layout_height="match_parent"
             android:scrollbarStyle="outsideOverlay"
             android:fadeScrollbars="false" >
