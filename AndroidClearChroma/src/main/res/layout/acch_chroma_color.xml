@@ -44,13 +44,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal"
-        android:digits="0123456789ABCDEF"
-        android:maxLength="6"
         android:imeOptions="actionDone|actionGo|actionSend"
         android:inputType="textCapCharacters|textNoSuggestions"
         android:textSize="20sp"
         android:importantForAutofill="no"
         tools:ignore="LabelFor" />
+<!--    android:digits="0123456789ABCDEF"-->
+<!--    android:maxLength="9"-->
 
     <LinearLayout
         android:id="@+id/acch_channel_container"
