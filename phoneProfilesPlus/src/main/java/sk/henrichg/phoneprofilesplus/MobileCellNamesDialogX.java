@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 
 import java.lang.ref.WeakReference;
@@ -97,6 +98,7 @@ class MobileCellNamesDialogX {
 
         ListView cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
         cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
+        cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.highlighted_spinner_all));
         if (!showFilterItems) {
             cellName.addTextChangedListener(new TextWatcher() {
                 @Override

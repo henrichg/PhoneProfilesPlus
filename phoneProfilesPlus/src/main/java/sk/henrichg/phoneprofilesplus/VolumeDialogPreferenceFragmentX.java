@@ -120,7 +120,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             voiceSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
             operatorSpinner.setAdapter(voiceSpinnerAdapter);
             operatorSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-            operatorSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner));
+            operatorSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
         }
 
         seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);

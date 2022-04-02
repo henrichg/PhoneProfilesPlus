@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -97,6 +98,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         });
 
         bluetoothName = view.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
+        bluetoothName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
         bluetoothName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

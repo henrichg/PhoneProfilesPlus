@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.kunzisoft.androidclearchroma.IndicatorMode;
@@ -102,6 +103,7 @@ public class ChromaColorView extends RelativeLayout {
 
         colorView = root.findViewById(R.id.acch_color_view);
         colorEdit = root.findViewById(R.id.acch_color_edit);
+        colorEdit.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_edittext_all));
         //colorEditButton = root.findViewById(R.id.acch_color_edit_button);
 
         //FragmentManager fragmentManager = context.getSupportFragmentManager();

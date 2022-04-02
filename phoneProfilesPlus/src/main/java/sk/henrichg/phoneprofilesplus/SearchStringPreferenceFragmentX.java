@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -36,6 +37,7 @@ public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCom
         super.onBindDialogView(view);
 
         editText = view.findViewById(R.id.search_string_pref_dlg_editText);
+        editText.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
         editText.setText(preference.value);
 
         final ImageView helpIcon = view.findViewById(R.id.search_string_pref_dlg_helpIcon);

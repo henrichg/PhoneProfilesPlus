@@ -12,7 +12,7 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
 
     GenerateNotificationDialogPreferenceFragmentX fragment;
 
-    private final Context _context;
+    final Context _context;
 
     // Custom xml attributes.
     int generate;

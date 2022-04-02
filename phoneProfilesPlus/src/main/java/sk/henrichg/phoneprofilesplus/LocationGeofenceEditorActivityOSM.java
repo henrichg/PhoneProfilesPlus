@@ -323,6 +323,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         */
 
         geofenceNameEditText = findViewById(R.id.location_editor_geofence_name);
+        geofenceNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         geofenceNameEditText.setText(geofence._name);
 
         addressText = findViewById(R.id.location_editor_address_text);
