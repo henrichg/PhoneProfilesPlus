@@ -23,7 +23,7 @@ If you do not have adb installed on your PC:
 NOTE:
 For some devices must be in Developer options enabled:
 - Xiaomi: "USB debuging (Security settings)"
-- Oppo, OnePlus: "Disable permission monitoring".
+- Oppo: "Disable permission monitoring".
 - Maybe similar option exists in another devices.
 
 Without this grant not working.
