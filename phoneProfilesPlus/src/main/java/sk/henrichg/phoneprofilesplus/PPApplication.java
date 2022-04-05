@@ -298,7 +298,8 @@ public class PPApplication extends Application
 
                                                 //+"|ActivateProfileHelper.setTones"
 
-                                                +"|EventPreferencesVolumes"
+                                                //+"|EventPreferencesVolumes"
+                                                //+"|PhoneProfilesPreferencesFragment"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

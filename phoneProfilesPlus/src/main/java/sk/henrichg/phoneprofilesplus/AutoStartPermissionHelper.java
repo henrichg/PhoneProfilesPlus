@@ -155,6 +155,7 @@ class AutoStartPermissionHelper  {
         PackageManager pm = context.getPackageManager();
         packages = pm.getInstalledApplications(0);
         for (ApplicationInfo packageInfo : packages) {
+//            Log.e("AutoStartPermissionHelper.isAutoStartPermissionAvailable", "packageInfo.packageName="+packageInfo.packageName);
             if (PACKAGES_TO_CHECK_FOR_PERMISSION.contains(packageInfo.packageName)) {
                 return true;
             }
