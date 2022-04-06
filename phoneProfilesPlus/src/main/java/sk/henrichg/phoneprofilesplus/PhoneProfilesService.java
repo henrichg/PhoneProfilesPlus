@@ -4950,16 +4950,16 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("[BLOCK_ACTIONS] PhoneProfilesService.doForPackageReplaced", "true");
             PPApplication.setBlockProfileEventActions(true);
 
-            PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "MobileCellsScanner.enabledAutoRegistration=" + MobileCellsScanner.enabledAutoRegistration);
+//            PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "MobileCellsScanner.enabledAutoRegistration=" + MobileCellsScanner.enabledAutoRegistration);
             if (MobileCellsScanner.enabledAutoRegistration) {
                 MobileCellsScanner.stopAutoRegistration(appContext, true);
-                PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "start of wait for end of autoregistration");
+//                PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "start of wait for end of autoregistration");
                 int count = 0;
                 while (MobileCellsRegistrationService.serviceStarted && (count < 50)) {
                     PPApplication.sleep(100);
                     count++;
                 }
-                PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "end of autoregistration");
+//                PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "end of autoregistration");
             }
 
     //        // cancel all PPP notification (except PPService notification

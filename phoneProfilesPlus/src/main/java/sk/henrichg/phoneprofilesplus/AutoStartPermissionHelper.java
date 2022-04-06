@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.Log;
 
 import java.util.Arrays;
 import java.util.List;
@@ -58,16 +59,6 @@ class AutoStartPermissionHelper  {
     private final String PACKAGE_HUAWEI_COMPONENT_FALLBACK = "com.huawei.systemmanager.optimize.process.ProtectActivity";
 
     /**
-     * Oppo
-     */
-    private final String BRAND_OPPO = "oppo";
-    private final String PACKAGE_OPPO_MAIN = "com.coloros.safecenter";
-    private final String PACKAGE_OPPO_FALLBACK = "com.oppo.safe";
-    private final String PACKAGE_OPPO_COMPONENT = "com.coloros.safecenter.permission.startup.StartupAppListActivity";
-    private final String PACKAGE_OPPO_COMPONENT_FALLBACK = "com.oppo.safe.permission.startup.StartupAppListActivity";
-    private final String PACKAGE_OPPO_COMPONENT_FALLBACK_A = "com.coloros.safecenter.startupapp.StartupAppListActivity";
-
-    /**
      * Vivo
      */
 
@@ -96,13 +87,26 @@ class AutoStartPermissionHelper  {
     private final String PACKAGE_SAMSUNG_COMPONENT_2 = "com.samsung.android.sm.battery.ui.usage.CheckableAppListActivity";
     private final String PACKAGE_SAMSUNG_COMPONENT_3 = "com.samsung.android.sm.battery.ui.BatteryActivity";
 
+    /**
+     * Oppo
+     */
+    private final String BRAND_OPPO = "oppo";
+    private final String PACKAGE_OPPO_MAIN = "com.coloros.safecenter";
+    private final String PACKAGE_OPPO_FALLBACK = "com.oppo.safe";
+    private final String PACKAGE_OPPO_COMPONENT = "com.coloros.safecenter.permission.startup.StartupAppListActivity";
+    private final String PACKAGE_OPPO_COMPONENT_FALLBACK = "com.oppo.safe.permission.startup.StartupAppListActivity";
+    private final String PACKAGE_OPPO_COMPONENT_FALLBACK_A = "com.coloros.safecenter.startupapp.StartupAppListActivity";
+
     /***
      * One plus
      */
     private final String BRAND_ONE_PLUS = "oneplus";
     private final String PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
+    private final String PACKAGE_ONE_PLUS_FALLBACK = "com.oplus.securitypermission";
     private final String PACKAGE_ONE_PLUS_COMPONENT = "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
     private final String PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
+    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK = "com.oplus.securitypermission.startup.StartupAppListActivity";
+    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK_A = "com.oneplus.security.startupapp.StartupAppListActivity";
 
     private final List<String> PACKAGES_TO_CHECK_FOR_PERMISSION = Arrays.asList(
             PACKAGE_ASUS_MAIN,
@@ -116,7 +120,8 @@ class AutoStartPermissionHelper  {
             PACKAGE_NOKIA_MAIN,
             PACKAGE_HUAWEI_MAIN,
 //            PACKAGE_SAMSUNG_MAIN,
-            PACKAGE_ONE_PLUS_MAIN);
+            PACKAGE_ONE_PLUS_MAIN,
+            PACKAGE_ONE_PLUS_FALLBACK);
 
     boolean getAutoStartPermission(Context context) {
 
@@ -136,26 +141,25 @@ class AutoStartPermissionHelper  {
                 return autoStartHuawei(context);
             case BRAND_OPPO:
                 return autoStartOppo(context);
+            case BRAND_ONE_PLUS:
+                return autoStartOnePlus(context);
             case BRAND_VIVO:
                 return autoStartVivo(context);
             case BRAND_NOKIA:
                 return autoStartNokia(context);
 //            case BRAND_SAMSUNG:
 //                return autoStartSamsung(context);
-            case BRAND_ONE_PLUS:
-                return autoStartOnePlus(context);
             default:
                 return false;
         }
     }
 
     boolean isAutoStartPermissionAvailable(Context context) {
-
         List<ApplicationInfo> packages;
         PackageManager pm = context.getPackageManager();
         packages = pm.getInstalledApplications(0);
         for (ApplicationInfo packageInfo : packages) {
-//            Log.e("AutoStartPermissionHelper.isAutoStartPermissionAvailable", "packageInfo.packageName="+packageInfo.packageName);
+            //Log.e("AutoStartPermissionHelper.isAutoStartPermissionAvailable", "packageInfo.packageName="+packageInfo.packageName);
             if (PACKAGES_TO_CHECK_FOR_PERMISSION.contains(packageInfo.packageName)) {
                 return true;
             }
@@ -278,7 +282,7 @@ class AutoStartPermissionHelper  {
             try {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 intent.addCategory(Intent.CATEGORY_DEFAULT);
-                intent.setData(Uri.parse("package:${context.packageName}"));
+                intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
                 try {
                     context.startActivity(intent);
                     ok = true;
@@ -363,13 +367,31 @@ class AutoStartPermissionHelper  {
 
     private boolean autoStartOnePlus(Context context) {
         boolean ok;
-        if (isPackageExists(context, PACKAGE_ONE_PLUS_MAIN)) {
+        if (isPackageExists(context, PACKAGE_ONE_PLUS_MAIN) || isPackageExists(context, PACKAGE_ONE_PLUS_FALLBACK)) {
             try {
                 startIntent(context, PACKAGE_ONE_PLUS_MAIN, PACKAGE_ONE_PLUS_COMPONENT);
                 ok = true;
             } catch (Exception e) {
                 e.printStackTrace();
-                ok = false;
+                try {
+                    startIntent(context, PACKAGE_ONE_PLUS_FALLBACK, PACKAGE_ONE_PLUS_COMPONENT_FALLBACK);
+                    ok = true;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    try {
+                        startIntent(context, PACKAGE_ONE_PLUS_MAIN, PACKAGE_ONE_PLUS_COMPONENT_FALLBACK_A);
+                        ok = true;
+                    } catch (Exception exx) {
+                        exx.printStackTrace();
+                        try {
+                            startAction(context, PACKAGE_ONE_PLUS_ACTION);
+                            ok = true;
+                        } catch (Exception exxx) {
+                            exxx.printStackTrace();
+                            ok = false;
+                        }
+                    }
+                }
             }
         } else {
             ok = false;
@@ -377,7 +399,16 @@ class AutoStartPermissionHelper  {
 
         if (!ok) {
             try {
-                startAction(context, PACKAGE_ONE_PLUS_ACTION);
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                try {
+                    context.startActivity(intent);
+                    ok = true;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    ok = false;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 ok = false;

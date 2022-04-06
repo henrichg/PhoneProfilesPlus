@@ -1021,8 +1021,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
-//            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "xxx");
+//            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "(1)");
             final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
+//            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "(2)");
             if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getActivity().getApplicationContext())) {
 //                PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "available");
                 preference.setOnPreferenceClickListener(preference119 -> {

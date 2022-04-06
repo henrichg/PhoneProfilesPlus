@@ -1519,7 +1519,7 @@ class ActivateProfileHelper {
                     G1OK = true;
                 }
                 catch (Exception e2) {
-                    PPApplication.logE("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e2));
+                    Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e2));
                     //PPApplication.recordException(e2);
                 }
             }
