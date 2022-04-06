@@ -6137,6 +6137,8 @@ public class PhoneProfilesService extends Service
                                                      decoratorColor,
                                                      appContext);
 
+        Log.e("PhoneProfilesService._showProfileNotification", "notificationProfileIconColor="+notificationProfileIconColor);
+        Log.e("PhoneProfilesService._showProfileNotification", "decoratorColor="+decoratorColor);
         if (notificationProfileIconColor.equals("0"))
             notificationBuilder.setColor(decoratorColor);
 
@@ -6346,8 +6348,8 @@ public class PhoneProfilesService extends Service
             }
 
             // do not use Notification.FLAG_ONGOING_EVENT,
-            // with this flag, is not possible to minimize this notification
-            phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR;// | Notification.FLAG_ONGOING_EVENT;
+            // with this flag, is not possible to colapse this notification
+            phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR; //| Notification.FLAG_ONGOING_EVENT;
 
             startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
         }

@@ -49,7 +49,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:key="notificationNotificationCategory"
+        app:key="notificationNotificationPanelCategory"
         app:title="@string/phone_profiles_pref_notificationNotificationPanelCategory"
         app:layout="@layout/mp_preference_category" >
 
@@ -95,7 +95,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:key="notificationNotificationCategory"
+        app:key="notificationNotificationPanelBackgroundColorCategory"
         app:title="@string/phone_profiles_pref_notificationBackgroundColorCategory"
         app:layout="@layout/mp_preference_category" >
 
@@ -126,7 +126,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:key="notificationNotificationCategory"
+        app:key="notificationNotificationPanelTextColorCategory"
         app:title="@string/phone_profiles_pref_notificationTextColorCategory"
         app:layout="@layout/mp_preference_category" >
 
@@ -142,7 +142,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:key="notificationNotificationCategory"
+        app:key="notificationNotificationPanelProfileIconCategory"
         app:title="@string/phone_profiles_pref_notificationProfileIconCategory"
         app:layout="@layout/mp_preference_category" >
 
@@ -167,7 +167,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:key="notificationNotificationCategory"
+        app:key="notificationNotificationPanelIndicatorCategory"
         app:title="@string/phone_profiles_pref_notificationPreferencesIndicatorCategory"
         app:layout="@layout/mp_preference_category" >
 
@@ -189,7 +189,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:key="notificationNotificationCategory"
+        app:key="notificationNotificationPanelButtonsCategory"
         app:title="@string/phone_profiles_pref_notificationButtonsCategory"
         app:layout="@layout/mp_preference_category" >
 

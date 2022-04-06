@@ -7668,7 +7668,7 @@ class ActivateProfileHelper {
 //            nTitle = appContext.getString(R.string.ppp_app_name);
 //            nText = title+": "+text;
 //        }
-        PPApplication.createInformationNotificationChannel(appContext);
+        PPApplication.createExclamationNotificationChannel(appContext);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon

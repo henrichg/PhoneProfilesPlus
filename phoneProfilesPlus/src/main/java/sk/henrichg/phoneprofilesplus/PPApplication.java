@@ -2479,43 +2479,17 @@ public class PPApplication extends Application
                 if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
                     return;// true;
 
-                int importance;
-                //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
-                //if (ApplicationPreferences.notificationShowInStatusBar(context)) {
-                /*KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-                if (myKM != null) {
-                    //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
-                    boolean screenUnlocked = !myKM.isKeyguardLocked();
-                    //boolean screenUnlocked = getScreenUnlocked(context);
-                    if ((ApplicationPreferences.notificationHideInLockScreen(context) && (!screenUnlocked)) ||
-                            ((profile != null) && profile._hideStatusBarIcon))
-                        importance = NotificationManager.IMPORTANCE_MIN;
-                    else
-                        importance = NotificationManager.IMPORTANCE_LOW;
-                }
-                else*/
-                //        importance = NotificationManager.IMPORTANCE_DEFAULT;
-                //}
-                //else
-                //    importance = NotificationManager.IMPORTANCE_MIN;
-                importance = NotificationManager.IMPORTANCE_LOW;
-
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_activated_profile);
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_activated_profile_description_ppp);
 
-                NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, importance);
+                NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
                 channel.setSound(null, null);
                 channel.setShowBadge(false);
                 channel.setBypassDnd(true);
@@ -2544,19 +2518,14 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_mobile_cells_registration_description);
 
-                NotificationChannel channel = new NotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
-                channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
-                channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                channel.setSound(null, null);
-                channel.setShowBadge(false);
+                channel.enableLights(true);
+                channel.enableVibration(true);
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2578,18 +2547,15 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.empty_string);
 
-                NotificationChannel channel = new NotificationChannel(INFORMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(INFORMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
-                channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
-                channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                //channel.setBypassDnd(true);
+                channel.enableLights(true);
+                channel.enableVibration(true);
+                //channel.setSound(null, null);
+                channel.setShowBadge(false);
+                channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2613,14 +2579,11 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_HIGH);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(true);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(true);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setSound(null, null);
+                //channel.setShowBadge(false);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2674,18 +2637,14 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_notify_event_start_description);
 
-                NotificationChannel channel = new NotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
-                channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                channel.setSound(null, null);
+                channel.enableVibration(true);
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2739,18 +2698,15 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.empty_string);
 
-                NotificationChannel channel = new NotificationChannel(DONATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(DONATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                //channel.setBypassDnd(true);
+                channel.setSound(null, null);
+                channel.setShowBadge(true);
+                channel.setBypassDnd(false);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2774,15 +2730,12 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(NEW_RELEASE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
-                channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
-                channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                channel.setBypassDnd(false);
+                channel.enableLights(true);
+                channel.enableVibration(true);
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
+                channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2807,14 +2760,11 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(true);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(true);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2840,14 +2790,11 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(true);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(true);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2874,15 +2821,12 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(KEEP_SCREEN_ON_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                channel.setBypassDnd(false);
+                //channel.setSound(null, null);
+                channel.setShowBadge(false);
+                channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {

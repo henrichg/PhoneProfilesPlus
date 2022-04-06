@@ -1266,8 +1266,7 @@ class ApplicationPreferences {
 
     static void notificationShowProfileIcon(Context context) {
         // show profile icon for Android 12+ is better false
-        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON,
-                Build.VERSION.SDK_INT < 31);
+        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
     }
 
     static void applicationEventPeriodicScanningEnableScanning(Context context) {
