@@ -6137,8 +6137,8 @@ public class PhoneProfilesService extends Service
                                                      decoratorColor,
                                                      appContext);
 
-        Log.e("PhoneProfilesService._showProfileNotification", "notificationProfileIconColor="+notificationProfileIconColor);
-        Log.e("PhoneProfilesService._showProfileNotification", "decoratorColor="+decoratorColor);
+//        Log.e("PhoneProfilesService._showProfileNotification", "notificationProfileIconColor="+notificationProfileIconColor);
+//        Log.e("PhoneProfilesService._showProfileNotification", "decoratorColor="+decoratorColor);
         if (notificationProfileIconColor.equals("0"))
             notificationBuilder.setColor(decoratorColor);
 

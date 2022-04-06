@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -155,14 +156,15 @@ class IgnoreBatteryOptimizationNotification {
 
         Intent intent;
         //PowerManager pm = (PowerManager) context.getApplicationContext().getSystemService(Context.POWER_SERVICE);
-        //String packageName = PPApplication.PACKAGE_NAME;
+        String packageName = PPApplication.PACKAGE_NAME;
         //if (pm.isIgnoringBatteryOptimizations(packageName)) {
-            intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+//            intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
         //}
         //else {
         //    DO NOT USE IT, CHANGE IS NOT DISPLAYED IN SYSTEM SETTINGS
-        //    intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-        //    intent.setData(Uri.parse("package:" + packageName));
+        //    But in ONEPLUS it IS ONLY SOLUTION !!!
+            intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + packageName));
         //    if (!GlobalGUIRoutines.activityIntentExists(intent, context)) {
         //        intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
         //    }
@@ -180,6 +182,7 @@ class IgnoreBatteryOptimizationNotification {
         //}
         mBuilder.setOnlyAlertOnce(true);
 
+        /*
         Intent disableIntent = new Intent(context, IgnoreBatteryOptimizationDisableActivity.class);
         @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pDisableIntent = PendingIntent.getActivity(context, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -188,6 +191,8 @@ class IgnoreBatteryOptimizationNotification {
                 context.getString(R.string.ignore_battery_optimization_notification_disable_button),
                 pDisableIntent);
         mBuilder.addAction(actionBuilder.build());
+        */
+
         mBuilder.setWhen(0);
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
