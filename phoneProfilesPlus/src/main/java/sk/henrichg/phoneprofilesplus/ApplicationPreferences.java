@@ -1321,19 +1321,22 @@ class ApplicationPreferences {
     }
     */
 
+    static final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE = true;
     static void notificationUseDecoration(Context context) {
         // default value for Pixel (Android 12+) -> true
-        notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, true);
+        notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE);
     }
 
+    static final String PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE = "0";
     static void notificationLayoutType(Context context) {
         // default value for Pixel (Android 12+) -> 0 (expandable)
-        notificationLayoutType = getSharedPreferences(context).getString(PREF_NOTIFICATION_LAYOUT_TYPE, "0");
+        notificationLayoutType = getSharedPreferences(context).getString(PREF_NOTIFICATION_LAYOUT_TYPE, PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE);
     }
 
+    static final String PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE = "0";
     static void notificationBackgroundColor(Context context) {
         // default value for Pixel (Android 12+) -> 0 (native)
-        notificationBackgroundColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
+        notificationBackgroundColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_BACKGROUND_COLOR, PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE);
     }
 
     /*
@@ -1343,30 +1346,38 @@ class ApplicationPreferences {
     }
     */
 
+    static final boolean PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED_DEFAULT_VALUE = true;
     static void applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(Context context) {
-        applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, true);
+        applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION_DEFAULT_VALUE = "0";
     static void applicationSamsungEdgeVerticalPosition(Context context) {
-        applicationSamsungEdgeVerticalPosition = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, "0");
+        applicationSamsungEdgeVerticalPosition = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION_DEFAULT_VALUE);
     }
 
+    static final int PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR_DEFAULT_VALUE = 0xFFFFFFFF;
     static void notificationBackgroundCustomColor(Context context) {
-        notificationBackgroundCustomColor = getSharedPreferences(context).getInt(PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
+        notificationBackgroundCustomColor = getSharedPreferences(context).getInt(PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR_DEFAULT_VALUE);
     }
 
 //    static void notificationNightMode(Context context) {
 //        notificationNightMode = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_NIGHT_MODE, false);
 //    }
 
+    static final boolean PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR_DEFAULT_VALUE = true;
     static void applicationEditorHideHeaderOrBottomBar(Context context) {
-        applicationEditorHideHeaderOrBottomBar = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, true);
+        applicationEditorHideHeaderOrBottomBar = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION_DEFAULT_VALUE = true;
     static void applicationWidgetIconShowProfileDuration(Context context) {
-        applicationWidgetIconShowProfileDuration = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, true);
+        applicationWidgetIconShowProfileDuration = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION_DEFAULT_VALUE);
     }
 
+    static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOT_NOTIFICATION_STYLE = "1";
+    static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS = "0";
+    static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_VALUE_SAMSUNG_NOTIFICATION_STYLE = "1";
     static void notificationNotificationStyle(Context context) {
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
@@ -1374,109 +1385,131 @@ class ApplicationPreferences {
                 // not contains this preference set to 1
                 SharedPreferences prefs = getSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "1");
+                editor.putString(PREF_NOTIFICATION_NOTIFICATION_STYLE, PREF_NOTIFICATION_NOTIFICATION_STYLE_VALUE_SAMSUNG_NOTIFICATION_STYLE);
                 editor.apply();
-                notificationNotificationStyle = "1";
+                notificationNotificationStyle = PREF_NOTIFICATION_NOTIFICATION_STYLE_VALUE_SAMSUNG_NOTIFICATION_STYLE;
             }
             else
-                notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "1");
+                notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOT_NOTIFICATION_STYLE);
         }
         else
             // default value for Pixel (Android 12) -> 0 (custom)
-            notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
+            notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS);
     }
 
+    static final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE = true;
     static void notificationShowProfileIcon(Context context) {
-        // show profile icon for Android 12+ is better false
-        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING_DEFAULT_VALUE = false;
     static void applicationEventPeriodicScanningEnableScanning(Context context) {
-        applicationEventPeriodicScanningEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, false);
+        applicationEventPeriodicScanningEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_DEFAULT_VALUE = "15";
     static void applicationEventPeriodicScanningScanInterval(Context context) {
-        applicationEventPeriodicScanningScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, "15"));
+        applicationEventPeriodicScanningScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_DEFAULT_VALUE));
     }
 
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE = "1";
     static void applicationEventPeriodicScanningScanInPowerSaveMode(Context context) {
-        applicationEventPeriodicScanningScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE, "1");
+        applicationEventPeriodicScanningScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE = false;
     static void applicationEventPeriodicScanningScanOnlyWhenScreenIsOn(Context context) {
-        applicationEventPeriodicScanningScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
+        applicationEventPeriodicScanningScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT_DEFAULT_VALUE = false;
     static void applicationEventWifiScanIgnoreHotspot(Context context) {
-        applicationEventWifiScanIgnoreHotspot = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT, false);
+        applicationEventWifiScanIgnoreHotspot = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT, PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING_DEFAULT_VALUE = false;
     static void applicationEventNotificationEnableScanning(Context context) {
-        applicationEventNotificationEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false);
+        applicationEventNotificationEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE = "1";
     static void applicationEventNotificationScanInPowerSaveMode(Context context) {
-        applicationEventNotificationScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE, "1");
+        applicationEventNotificationScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE, PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE = false;
     static void applicationEventNotificationScanOnlyWhenScreenIsOn(Context context) {
-        applicationEventNotificationScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
+        applicationEventNotificationScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
     static void applicationWidgetOneRowRoundedCornersRadius(Context context) {
-        applicationWidgetOneRowRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, "5"));
+        applicationWidgetOneRowRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
 
+    static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
     static void applicationWidgetListRoundedCornersRadius(Context context) {
-        applicationWidgetListRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, "5"));
+        applicationWidgetListRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
 
+    static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
     static void applicationWidgetIconRoundedCornersRadius(Context context) {
-        applicationWidgetIconRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, "5"));
+        applicationWidgetIconRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
 
+    static final String PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS_DEFAULT_VALUE = "3";
     static void applicationActivatorNumColums(Context context) {
-        applicationActivatorNumColums = getSharedPreferences(context).getString(PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS, "3");
+        applicationActivatorNumColums = getSharedPreferences(context).getString(PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS, PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE = "";
     static void applicationApplicationInterfaceNotificationSound(Context context) {
-        applicationApplicationInterfaceNotificationSound = getSharedPreferences(context).getString(PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND, "");
+        applicationApplicationInterfaceNotificationSound = getSharedPreferences(context).getString(PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND, PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE_DEFAULT_VALUE = false;
     static void applicationApplicationInterfaceNotificationVibrate(Context context) {
-        applicationApplicationInterfaceNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE, false);
+        applicationApplicationInterfaceNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE, PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST_DEFAULT_VALUE = false;
     static void applicationActivatorAddRestartEventsIntoProfileList(Context context) {
-        applicationActivatorAddRestartEventsIntoProfileList = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST, false);
+        applicationActivatorAddRestartEventsIntoProfileList = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST, PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS_DEFAULT_VALUE = false;
     static void applicationActivatorIncreaseBrightness(Context context) {
-        applicationActivatorIncreaseBrightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS, false);
+        applicationActivatorIncreaseBrightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS, PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_DEFAULT_VALUE = false;
     static void applicationForceSetBrightnessAtScreenOn(Context context) {
-        applicationForceSetBrightnessAtScreenOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, false);
+        applicationForceSetBrightnessAtScreenOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE = "0";
     static void applicationEventPeriodicScanningScanInTimeMultiply(Context context) {
-        applicationEventPeriodicScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, "0");
+        applicationEventPeriodicScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE = 0;
     static void applicationEventPeriodicScanningScanInTimeMultiplyFrom(Context context) {
-        applicationEventPeriodicScanningScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+        applicationEventPeriodicScanningScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE = 0;
     static void applicationEventPeriodicScanningScanInTimeMultiplyTo(Context context) {
-        applicationEventPeriodicScanningScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, 0);
+        applicationEventPeriodicScanningScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE = "0";
     static void applicationEventBluetoothScanInTimeMultiply(Context context) {
-        applicationEventBluetoothScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY, "0");
+        applicationEventBluetoothScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY, PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE = 0;
     static void applicationEventBluetoothScanInTimeMultiplyFrom(Context context) {
-        applicationEventBluetoothScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+        applicationEventBluetoothScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM, PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE);
     }
 
     static void applicationEventBluetoothScanInTimeMultiplyTo(Context context) {
