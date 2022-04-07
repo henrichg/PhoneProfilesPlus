@@ -1512,86 +1512,111 @@ class ApplicationPreferences {
         applicationEventBluetoothScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM, PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE = 0;
     static void applicationEventBluetoothScanInTimeMultiplyTo(Context context) {
-        applicationEventBluetoothScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO, 0);
+        applicationEventBluetoothScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO, PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE = "0";
     static void applicationEventLocationScanInTimeMultiply(Context context) {
-        applicationEventLocationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY, "0");
+        applicationEventLocationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY, PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE = 0;
     static void applicationEventLocationScanInTimeMultiplyFrom(Context context) {
-        applicationEventLocationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+        applicationEventLocationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM, PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE = 0;
     static void applicationEventLocationScanInTimeMultiplyTo(Context context) {
-        applicationEventLocationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO, 0);
+        applicationEventLocationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO, PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE = "1";
     static void applicationEventMobileCellScanInTimeMultiply(Context context) {
-        applicationEventMobileCellScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY, "1");
+        applicationEventMobileCellScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY, PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE = 0;
     static void applicationEventMobileCellScanInTimeMultiplyFrom(Context context) {
-        applicationEventMobileCellScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+        applicationEventMobileCellScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM, PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE = 0;
     static void applicationEventMobileCellScanInTimeMultiplyTo(Context context) {
-        applicationEventMobileCellScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO, 0);
+        applicationEventMobileCellScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO, PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE = "1";
     static void applicationEventNotificationScanInTimeMultiply(Context context) {
-        applicationEventNotificationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, "1");
+        applicationEventNotificationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE = 0;
     static void applicationEventNotificationScanInTimeMultiplyFrom(Context context) {
-        applicationEventNotificationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+        applicationEventNotificationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM, PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE = 0;
     static void applicationEventNotificationScanInTimeMultiplyTo(Context context) {
-        applicationEventNotificationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO, 0);
+        applicationEventNotificationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO, PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE = "0";
     static void applicationEventOrientationScanInTimeMultiply(Context context) {
-        applicationEventOrientationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY, "0");
+        applicationEventOrientationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY, PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE = 0;
     static void applicationEventOrientationScanInTimeMultiplyFrom(Context context) {
-        applicationEventOrientationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+        applicationEventOrientationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM, PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE = 0;
     static void applicationEventOrientationScanInTimeMultiplyTo(Context context) {
-        applicationEventOrientationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO, 0);
+        applicationEventOrientationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO, PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE = "0";
     static void applicationEventWifiScanInTimeMultiply(Context context) {
-        applicationEventWifiScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY, "0");
+        applicationEventWifiScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY, PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE = 0;
     static void applicationEventWifiScanInTimeMultiplyFrom(Context context) {
-        applicationEventWifiScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+        applicationEventWifiScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM, PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE);
     }
 
+    static final int PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE = 0;
     static void applicationEventWifiScanInTimeMultiplyTo(Context context) {
-        applicationEventWifiScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO, 0);
+        applicationEventWifiScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO, PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P = true;
+    static final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L = false;
     static void notificationShowRestartEventsAsButton(Context context) {
-        notificationShowRestartEventsAsButton = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON,
-                Build.VERSION.SDK_INT >= 31);
+        boolean defaultValue;
+        if (Build.VERSION.SDK_INT >= 31)
+            defaultValue = PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P;
+        else
+            defaultValue = PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L;
+        notificationShowRestartEventsAsButton = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON, defaultValue);
     }
 
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT_DEFAULT_VALUE = false;
     static void applicationWidgetOneRowHigherLayout(Context context) {
-        applicationWidgetOneRowHigherLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, false);
+        applicationWidgetOneRowHigherLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
+    static final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static void applicationWidgetIconChangeColorsByNightMode(Context context) {
         // copy bad preference into ok preference
         SharedPreferences mySPrefs = getSharedPreferences(context);
         if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
             SharedPreferences.Editor editor = mySPrefs.edit();
             editor.putBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE,
-                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS));
             editor.apply();
         }
 
@@ -1602,17 +1627,24 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE,
-                PPApplication.isPixelLauncherDefault(context) ||
-                        PPApplication.isOneUILauncherDefault(context));
+        boolean defaultValue;
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
+        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, defaultValue);
     }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static void applicationWidgetOneRowChangeColorsByNightMode(Context context) {
         // copy bad preference into ok preference
         SharedPreferences mySPrefs = getSharedPreferences(context);
         if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
             SharedPreferences.Editor editor = mySPrefs.edit();
             editor.putBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,
-                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS));
             editor.apply();
         }
 
@@ -1623,17 +1655,24 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,
-                PPApplication.isPixelLauncherDefault(context) ||
-                        PPApplication.isOneUILauncherDefault(context));
+        boolean defaultValue;
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
+        applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE, defaultValue);
     }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
+    static final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static void applicationWidgetListChangeColorsByNightMode(Context context) {
         // copy bad preference into ok preference
         SharedPreferences mySPrefs = getSharedPreferences(context);
         if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
             SharedPreferences.Editor editor = mySPrefs.edit();
             editor.putBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE,
-                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS));
             editor.apply();
         }
 
@@ -1644,10 +1683,17 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE,
-                PPApplication.isPixelLauncherDefault(context) ||
-                        PPApplication.isOneUILauncherDefault(context));
+        boolean defaultValue;
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
+        applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, defaultValue);
     }
+
+    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P = true;
+    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L = false;
     static void applicationSamsungEdgeChangeColorsByNightMode(Context context) {
         /*if (DebugVersion.enabled) {
             SharedPreferences mySPrefs = getSharedPreferences(context);
@@ -1656,8 +1702,12 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE,
-                Build.VERSION.SDK_INT >= 30);
+        boolean defaultValue;
+        if (Build.VERSION.SDK_INT >= 30)
+            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P;
+        else
+            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L;
+        applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, defaultValue);
     }
 
     static void notificationProfileIconColor(Context context) {
