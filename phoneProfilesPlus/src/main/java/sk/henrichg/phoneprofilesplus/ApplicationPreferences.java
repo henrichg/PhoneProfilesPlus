@@ -694,8 +694,8 @@ class ApplicationPreferences {
     }
     */
 
-    static private final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_OTHERS = "1";
-    static private final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL = "1";
+    static private final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_OTHERS = "1"; // android
+    static private final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL = "1";  // android
     static String notificationStatusBarStyleDefaultValue() {
         String defaultValue;
         if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31) &&
@@ -815,17 +815,12 @@ class ApplicationPreferences {
     }
     */
 
-    static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG = false;
+    static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_31P = false;
     static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_OTHERS = true;
-    static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS = false;
-    static boolean notificationPrefIndicatorDefaultValue(Context context) {
+    static boolean notificationPrefIndicatorDefaultValue() {
         boolean defaultValue;
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
-            if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_PREF_INDICATOR)) {
-                defaultValue = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS;
-            }
-            else
-                defaultValue = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG;
+            defaultValue = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_31P;
         }
         else
             defaultValue = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_OTHERS;
@@ -838,12 +833,12 @@ class ApplicationPreferences {
                 // not contains this preference set to false
                 SharedPreferences prefs = getSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean(PREF_NOTIFICATION_PREF_INDICATOR, PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS);
+                editor.putBoolean(PREF_NOTIFICATION_PREF_INDICATOR, PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_31P);
                 editor.apply();
-                notificationPrefIndicator = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS;
+                notificationPrefIndicator = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_31P;
             }
         }
-        notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, notificationPrefIndicatorDefaultValue(context));
+        notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, notificationPrefIndicatorDefaultValue());
     }
 
     static final String PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS_DEFAULT_VALUE = "50";
@@ -1417,17 +1412,13 @@ class ApplicationPreferences {
         applicationWidgetIconShowProfileDuration = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION_DEFAULT_VALUE);
     }
 
-    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOT_NOTIFICATION_STYLE = "1";
-    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS = "0";
-    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE = "1";
-    static String notificationNotificationStyleDefaultValue(Context context) {
+    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS = "0"; // custom
+    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P = "1"; // native
+    static String notificationNotificationStyleDefaultValue() {
         String defaultValue;
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
-            if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_NOTIFICATION_STYLE))
-                defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE;
-            else
-                defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOT_NOTIFICATION_STYLE;
+            defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P;
         }
         else
             // default value for Pixel (Android 12) -> 0 (custom)
@@ -1441,17 +1432,38 @@ class ApplicationPreferences {
                 // not contains this preference set to 1
                 SharedPreferences prefs = getSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(PREF_NOTIFICATION_NOTIFICATION_STYLE, PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE);
+                editor.putString(PREF_NOTIFICATION_NOTIFICATION_STYLE, PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P);
                 editor.apply();
-                notificationNotificationStyle = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE;
+                notificationNotificationStyle = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P;
             }
         }
-        notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, notificationNotificationStyleDefaultValue(context));
+        notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, notificationNotificationStyleDefaultValue());
     }
 
-    static final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE = true;
+    static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P = false;
+    static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_OTHERS = true;
+    static boolean notificationShowProfileIconDefaultValue() {
+        boolean defaultValue;
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
+            defaultValue = PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P;
+        }
+        else
+            defaultValue = PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
     static void notificationShowProfileIcon(Context context) {
-        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE);
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
+            // default value for One UI 4 is better 1 (native)
+            if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_SHOW_PROFILE_ICON)) {
+                // not contains this preference set to false
+                SharedPreferences prefs = getSharedPreferences(context);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P);
+                editor.apply();
+                notificationShowProfileIcon = PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P;
+            }
+        }
+        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, notificationShowProfileIconDefaultValue());
     }
 
     static final boolean PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING_DEFAULT_VALUE = false;
@@ -1644,15 +1656,15 @@ class ApplicationPreferences {
         applicationEventWifiScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO, PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE);
     }
 
-    static private final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P = true;
-    static private final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L = false;
+    //static private final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P = true;
+    //static private final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L = false;
     static boolean notificationShowRestartEventsAsButtonDefaultValue() {
-        boolean defaultValue;
+        /*boolean defaultValue;
         if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P;
         else
-            defaultValue = PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L;
-        return defaultValue;
+            defaultValue = PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L;*/
+        return false; //defaultValue;
     }
     static void notificationShowRestartEventsAsButton(Context context) {
         notificationShowRestartEventsAsButton = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON, notificationShowRestartEventsAsButtonDefaultValue());
