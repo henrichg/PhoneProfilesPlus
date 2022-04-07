@@ -64,12 +64,6 @@
             app:entryValues="@array/notificationLayoutTypeValues"
             app:layout="@layout/mp_preference_material_widget" />
 
-<!--        <SwitchPreferenceCompat-->
-<!--            app:key="notificationNightMode"-->
-<!--            app:title="@string/phone_profiles_pref_notificationNightMode"-->
-<!--            app:defaultValue="true"-->
-<!--            app:layout="@layout/mp_preference_material_widget" />-->
-
         <SwitchPreferenceCompat
             app:key="notificationUseDecoration"
             app:title="@string/phone_profiles_pref_notificationUseDecoration"

@@ -16,12 +16,6 @@
         app:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"/>
-<!--    <Preference-->
-<!--        app:key="permissionsAccessNotificationPolicyPermissions"-->
-<!--        app:title="@string/phone_profiles_pref_accessNotificationPolicyPermissions"-->
-<!--        app:summary="@string/phone_profiles_pref_accessNotificationPolicyPermissions_summary"-->
-<!--        app:widgetLayout="@layout/start_activity_preference"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
     <Preference
         app:key="permissionsDrawOverlaysPermissions"
         app:title="@string/phone_profiles_pref_drawOverlaysPermissions"

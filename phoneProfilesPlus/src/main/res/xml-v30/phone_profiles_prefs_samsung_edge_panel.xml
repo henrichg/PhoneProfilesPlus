@@ -12,25 +12,11 @@
         app:entries="@array/samsungEdgeVerticalPositionArray"
         app:entryValues="@array/samsungEdgeVerticalPositionValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <!--
-    <SwitchPreferenceCompat
-        app:key="applicationSamsungEdgePrefIndicator"
-        app:title="@string/phone_profiles_pref_applicationPrefIndicator"
-        app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
-    -->
     <SwitchPreferenceCompat
         app:key="applicationSamsungEdgeHeader"
         app:title="@string/phone_profiles_pref_applicationHeader"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <!--
-    <SwitchPreferenceCompat
-        app:key="applicationSamsungEdgeGridLayout"
-        app:title="@string/phone_profiles_pref_applicationGridLayout"
-        app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
-    -->
 
     <SwitchPreferenceCompat
         app:key="applicationSamsungEdgeChangeColorsByNightMode"
