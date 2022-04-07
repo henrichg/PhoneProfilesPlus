@@ -638,11 +638,14 @@ class ApplicationPreferences {
 
     static final String PREF_APPLICATION_THEME_DEFAULT_VALUE_WHITE = "white";
     static final String PREF_APPLICATION_THEME_DEFAULT_VALUE_NIGHT_MODE = "night_mode";
-    static void applicationTheme(Context context) {
+    static String applicationThemeDefaultValue() {
         String defaultValue = PREF_APPLICATION_THEME_DEFAULT_VALUE_WHITE;
         if (Build.VERSION.SDK_INT >= 28)
             defaultValue = PREF_APPLICATION_THEME_DEFAULT_VALUE_NIGHT_MODE;
-        applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, defaultValue);
+        return defaultValue;
+    }
+    static void applicationTheme(Context context) {
+        applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, applicationThemeDefaultValue());
     }
 
     /*
@@ -691,19 +694,28 @@ class ApplicationPreferences {
     }
     */
 
-    static final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE = "1";
-    static final String PREF_NOTIFICATION_STATUS_BAR_STYLE_VALUE_PIXEL = "1";
+    static final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_OTHERS = "1";
+    static final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL = "1";
+    static String notificationStatusBarStyleDefaultValue() {
+        String defaultValue;
+        if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31) &&
+                notificationStatusBarStyle.equals("0"))
+            defaultValue = PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
     static void notificationStatusBarStyle(Context context) {
-        notificationStatusBarStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_STATUS_BAR_STYLE, PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE);
+        notificationStatusBarStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_STATUS_BAR_STYLE, notificationStatusBarStyleDefaultValue());
         // Native (1) is OK, becuse in Pixel 5 with Android 12, Colorful (0) not working, icon is not displayed.
         // But by me, it is bug in Pixel 5, because in my Pixel 3a working also Colorful.
         if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31) &&
                 notificationStatusBarStyle.equals("0")) {
             SharedPreferences prefs = getSharedPreferences(context);
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putString(PREF_NOTIFICATION_STATUS_BAR_STYLE, PREF_NOTIFICATION_STATUS_BAR_STYLE_VALUE_PIXEL);
+            editor.putString(PREF_NOTIFICATION_STATUS_BAR_STYLE, PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL);
             editor.apply();
-            notificationStatusBarStyle = PREF_NOTIFICATION_STATUS_BAR_STYLE_VALUE_PIXEL;
+            notificationStatusBarStyle = PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL;
         }
     }
 
@@ -747,12 +759,17 @@ class ApplicationPreferences {
 
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL = "100";
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = "25";
+    static String applicationWidgetListBackgroundDefaultValue(Context context) {
+        String defaultValue;
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            defaultValue = PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
     static void applicationWidgetListBackground(Context context) {
-       if (PPApplication.isPixelLauncherDefault(context) ||
-               PPApplication.isOneUILauncherDefault(context))
-           applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL);
-       else
-           applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS);
+       applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, applicationWidgetListBackgroundDefaultValue(context));
     }
 
     static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B_DEFAULT_VALUE = "0";
@@ -800,7 +817,20 @@ class ApplicationPreferences {
 
     static final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG = false;
     static final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_OTHERS = true;
-    static final boolean PREF_NOTIFICATION_PREF_INDICATOR_VALUE_SAMSUNG_NO_INDICATORS = false;
+    static final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS = false;
+    static boolean notificationPrefIndicatorDefaultValue(Context context) {
+        boolean defaultValue;
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
+            if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_PREF_INDICATOR)) {
+                defaultValue = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS;
+            }
+            else
+                defaultValue = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG;
+        }
+        else
+            defaultValue = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
     static void notificationPrefIndicator(Context context) {
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
@@ -808,15 +838,12 @@ class ApplicationPreferences {
                 // not contains this preference set to false
                 SharedPreferences prefs = getSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean(PREF_NOTIFICATION_PREF_INDICATOR, PREF_NOTIFICATION_PREF_INDICATOR_VALUE_SAMSUNG_NO_INDICATORS);
+                editor.putBoolean(PREF_NOTIFICATION_PREF_INDICATOR, PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS);
                 editor.apply();
-                notificationPrefIndicator = PREF_NOTIFICATION_PREF_INDICATOR_VALUE_SAMSUNG_NO_INDICATORS;
+                notificationPrefIndicator = PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS;
             }
-            else
-                notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG);
         }
-        else
-            notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_OTHERS);
+        notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, notificationPrefIndicatorDefaultValue(context));
     }
 
     static final String PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS_DEFAULT_VALUE = "50";
@@ -970,12 +997,17 @@ class ApplicationPreferences {
 
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_PIXEL = "100";
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS = "25";
-    static void applicationWidgetIconBackground(Context context) {
+    static String applicationWidgetIconBackgroundDefaultValue(Context context) {
+        String defaultValue;
         if (PPApplication.isPixelLauncherDefault(context) ||
                 PPApplication.isOneUILauncherDefault(context))
-            applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_PIXEL);
+            defaultValue = PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
-            applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS);
+            defaultValue = PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
+    static void applicationWidgetIconBackground(Context context) {
+        applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, applicationWidgetIconBackgroundDefaultValue(context));
     }
 
     static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B_DEFAULT_VALUE = "0";
@@ -1017,12 +1049,17 @@ class ApplicationPreferences {
 
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30P = "100";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30M = "50";
-    static void applicationSamsungEdgeBackground(Context context) {
+    static String applicationSamsungEdgeBackgroundDefaultValue() {
+        String defaultValue;
         if (Build.VERSION.SDK_INT >= 30)
             // change by night mode is by default enabled, and for this reason set also opaqueness of background to 100
-            applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30P);
+            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30P;
         else
-            applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30M);
+            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30M;
+        return defaultValue;
+    }
+    static void applicationSamsungEdgeBackground(Context context) {
+        applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, applicationSamsungEdgeBackgroundDefaultValue());
     }
 
     static final String PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B_DEFAULT_VALUE = "0";
@@ -1221,12 +1258,17 @@ class ApplicationPreferences {
 
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_PIXEL = "100";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS = "25";
-    static void applicationWidgetOneRowBackground(Context context) {
+    static String applicationWidgetOneRowBackgroundDefaultValue(Context context) {
+        String defaultValue;
         if (PPApplication.isPixelLauncherDefault(context) ||
                 PPApplication.isOneUILauncherDefault(context))
-            applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_PIXEL);
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
-            applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS);
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
+    static void applicationWidgetOneRowBackground(Context context) {
+        applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, applicationWidgetOneRowBackgroundDefaultValue(context));
     }
 
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B_DEFAULT_VALUE = "0";
