@@ -1710,26 +1710,34 @@ class ApplicationPreferences {
         applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, defaultValue);
     }
 
+    static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_DEFAULT_VALUE = "0";
     static void notificationProfileIconColor(Context context) {
-        notificationProfileIconColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_ICON_COLOR, "0");
+        notificationProfileIconColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_ICON_COLOR, PREF_NOTIFICATION_PROFILE_ICON_COLOR_DEFAULT_VALUE);
     }
+
+    static final String PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS_DEFAULT_VALUE = "100";
     static void notificationProfileIconLightness(Context context) {
-        notificationProfileIconLightness = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS, "100");
+        notificationProfileIconLightness = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS, PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS_DEFAULT_VALUE);
     }
+
+    static final boolean PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS_DEFAULT_VALUE = false;
     static void notificationCustomProfileIconLightness(Context context) {
-        notificationCustomProfileIconLightness = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS, false);
+        notificationCustomProfileIconLightness = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS, PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_SHORTCUT_ICON_COLOR_DEFAULT_VALUE = "0";
     static void applicationShortcutIconColor(Context context) {
-        applicationShortcutIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_SHORTCUT_ICON_COLOR, "0");
+        applicationShortcutIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_SHORTCUT_ICON_COLOR, PREF_APPLICATION_SHORTCUT_ICON_COLOR_DEFAULT_VALUE);
     }
 
+    static final String PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS_DEFAULT_VALUE = "100";
     static void applicationShortcutIconLightness(Context context) {
-        applicationShortcutIconLightness = getSharedPreferences(context).getString(PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, "100");
+        applicationShortcutIconLightness = getSharedPreferences(context).getString(PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE = false;
     static void applicationShortcutCustomIconLightness(Context context) {
-        applicationShortcutCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, false);
+        applicationShortcutCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
     }
 
     static void deleteBadPreferences(Context context) {
