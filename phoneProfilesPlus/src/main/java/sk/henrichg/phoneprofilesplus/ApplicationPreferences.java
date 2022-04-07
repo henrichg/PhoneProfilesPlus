@@ -636,8 +636,8 @@ class ApplicationPreferences {
     }
     */
 
-    static final String PREF_APPLICATION_THEME_DEFAULT_VALUE_WHITE = "white";
-    static final String PREF_APPLICATION_THEME_DEFAULT_VALUE_NIGHT_MODE = "night_mode";
+    static private final String PREF_APPLICATION_THEME_DEFAULT_VALUE_WHITE = "white";
+    static private final String PREF_APPLICATION_THEME_DEFAULT_VALUE_NIGHT_MODE = "night_mode";
     static String applicationThemeDefaultValue() {
         String defaultValue = PREF_APPLICATION_THEME_DEFAULT_VALUE_WHITE;
         if (Build.VERSION.SDK_INT >= 28)
@@ -694,8 +694,8 @@ class ApplicationPreferences {
     }
     */
 
-    static final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_OTHERS = "1";
-    static final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL = "1";
+    static private final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_OTHERS = "1";
+    static private final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL = "1";
     static String notificationStatusBarStyleDefaultValue() {
         String defaultValue;
         if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31) &&
@@ -757,8 +757,8 @@ class ApplicationPreferences {
         applicationWidgetListHeader = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_HEADER, PREF_APPLICATION_WIDGET_LIST_HEADER_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL = "100";
-    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = "25";
+    static private final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL = "100";
+    static private final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = "25";
     static String applicationWidgetListBackgroundDefaultValue(Context context) {
         String defaultValue;
         if (PPApplication.isPixelLauncherDefault(context) ||
@@ -815,9 +815,9 @@ class ApplicationPreferences {
     }
     */
 
-    static final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG = false;
-    static final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_OTHERS = true;
-    static final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS = false;
+    static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG = false;
+    static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_OTHERS = true;
+    static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_NO_INDICATORS = false;
     static boolean notificationPrefIndicatorDefaultValue(Context context) {
         boolean defaultValue;
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
@@ -995,8 +995,8 @@ class ApplicationPreferences {
         applicationDeleteOldActivityLogs = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS_DEFAULT_VALUE));
     }
 
-    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_PIXEL = "100";
-    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS = "25";
+    static private final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_PIXEL = "100";
+    static private final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS = "25";
     static String applicationWidgetIconBackgroundDefaultValue(Context context) {
         String defaultValue;
         if (PPApplication.isPixelLauncherDefault(context) ||
@@ -1047,8 +1047,8 @@ class ApplicationPreferences {
         applicationSamsungEdgeHeader = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_HEADER, PREF_APPLICATION_SAMSUNG_EDGE_HEADER_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30P = "100";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30M = "50";
+    static private final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30P = "100";
+    static private final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30M = "50";
     static String applicationSamsungEdgeBackgroundDefaultValue() {
         String defaultValue;
         if (Build.VERSION.SDK_INT >= 30)
@@ -1256,8 +1256,8 @@ class ApplicationPreferences {
         applicationWidgetOneRowPrefIndicatorLightness = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS, PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_PIXEL = "100";
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS = "25";
+    static private final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_PIXEL = "100";
+    static private final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS = "25";
     static String applicationWidgetOneRowBackgroundDefaultValue(Context context) {
         String defaultValue;
         if (PPApplication.isPixelLauncherDefault(context) ||
@@ -1417,9 +1417,9 @@ class ApplicationPreferences {
         applicationWidgetIconShowProfileDuration = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION_DEFAULT_VALUE);
     }
 
-    static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOT_NOTIFICATION_STYLE = "1";
-    static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS = "0";
-    static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE = "1";
+    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOT_NOTIFICATION_STYLE = "1";
+    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS = "0";
+    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE = "1";
     static String notificationNotificationStyleDefaultValue(Context context) {
         String defaultValue;
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
@@ -1644,8 +1644,8 @@ class ApplicationPreferences {
         applicationEventWifiScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO, PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P = true;
-    static final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L = false;
+    static private final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P = true;
+    static private final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L = false;
     static boolean notificationShowRestartEventsAsButtonDefaultValue() {
         boolean defaultValue;
         if (Build.VERSION.SDK_INT >= 31)
@@ -1663,8 +1663,8 @@ class ApplicationPreferences {
         applicationWidgetOneRowHigherLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
-    static final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
+    static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
+    static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean pplicationWidgetIconChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
         if (PPApplication.isPixelLauncherDefault(context) ||
@@ -1694,8 +1694,8 @@ class ApplicationPreferences {
         applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, pplicationWidgetIconChangeColorsByNightModeDefaultValue(context));
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
-    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
+    static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
+    static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetOneRowChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
         if (PPApplication.isPixelLauncherDefault(context) ||
@@ -1725,8 +1725,8 @@ class ApplicationPreferences {
         applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetOneRowChangeColorsByNightModeDefaultValue(context));
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
-    static final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
+    static private final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
+    static private final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetListChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
         if (PPApplication.isPixelLauncherDefault(context) ||
@@ -1756,8 +1756,8 @@ class ApplicationPreferences {
         applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetListChangeColorsByNightModeDefaultValue(context));
     }
 
-    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P = true;
-    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L = false;
+    static private final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P = true;
+    static private final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L = false;
     static boolean applicationSamsungEdgeChangeColorsByNightModeDefaultValue() {
         boolean defaultValue;
         if (Build.VERSION.SDK_INT >= 30)
