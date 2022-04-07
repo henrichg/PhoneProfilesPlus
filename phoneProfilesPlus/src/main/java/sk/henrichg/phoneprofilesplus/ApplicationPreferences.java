@@ -1419,7 +1419,21 @@ class ApplicationPreferences {
 
     static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOT_NOTIFICATION_STYLE = "1";
     static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS = "0";
-    static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_VALUE_SAMSUNG_NOTIFICATION_STYLE = "1";
+    static final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE = "1";
+    static String notificationNotificationStyleDefaultValue(Context context) {
+        String defaultValue;
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
+            // default value for One UI 4 is better 1 (native)
+            if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_NOTIFICATION_STYLE))
+                defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE;
+            else
+                defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOT_NOTIFICATION_STYLE;
+        }
+        else
+            // default value for Pixel (Android 12) -> 0 (custom)
+            defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
     static void notificationNotificationStyle(Context context) {
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
@@ -1427,16 +1441,12 @@ class ApplicationPreferences {
                 // not contains this preference set to 1
                 SharedPreferences prefs = getSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(PREF_NOTIFICATION_NOTIFICATION_STYLE, PREF_NOTIFICATION_NOTIFICATION_STYLE_VALUE_SAMSUNG_NOTIFICATION_STYLE);
+                editor.putString(PREF_NOTIFICATION_NOTIFICATION_STYLE, PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE);
                 editor.apply();
-                notificationNotificationStyle = PREF_NOTIFICATION_NOTIFICATION_STYLE_VALUE_SAMSUNG_NOTIFICATION_STYLE;
+                notificationNotificationStyle = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOTIFICATION_STYLE;
             }
-            else
-                notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_NOT_NOTIFICATION_STYLE);
         }
-        else
-            // default value for Pixel (Android 12) -> 0 (custom)
-            notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS);
+        notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, notificationNotificationStyleDefaultValue(context));
     }
 
     static final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE = true;
@@ -1636,13 +1646,16 @@ class ApplicationPreferences {
 
     static final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P = true;
     static final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L = false;
-    static void notificationShowRestartEventsAsButton(Context context) {
+    static boolean notificationShowRestartEventsAsButtonDefaultValue() {
         boolean defaultValue;
         if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P;
         else
             defaultValue = PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L;
-        notificationShowRestartEventsAsButton = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON, defaultValue);
+        return defaultValue;
+    }
+    static void notificationShowRestartEventsAsButton(Context context) {
+        notificationShowRestartEventsAsButton = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON, notificationShowRestartEventsAsButtonDefaultValue());
     }
 
     static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT_DEFAULT_VALUE = false;
@@ -1652,6 +1665,15 @@ class ApplicationPreferences {
 
     static final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
+    static boolean pplicationWidgetIconChangeColorsByNightModeDefaultValue(Context context) {
+        boolean defaultValue;
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
     static void applicationWidgetIconChangeColorsByNightMode(Context context) {
         // copy bad preference into ok preference
         SharedPreferences mySPrefs = getSharedPreferences(context);
@@ -1669,17 +1691,20 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        boolean defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
-            defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
-        else
-            defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
-        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, defaultValue);
+        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, pplicationWidgetIconChangeColorsByNightModeDefaultValue(context));
     }
 
     static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
+    static boolean applicationWidgetOneRowChangeColorsByNightModeDefaultValue(Context context) {
+        boolean defaultValue;
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
     static void applicationWidgetOneRowChangeColorsByNightMode(Context context) {
         // copy bad preference into ok preference
         SharedPreferences mySPrefs = getSharedPreferences(context);
@@ -1697,17 +1722,20 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        boolean defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
-            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
-        else
-            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
-        applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE, defaultValue);
+        applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetOneRowChangeColorsByNightModeDefaultValue(context));
     }
 
     static final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
+    static boolean applicationWidgetListChangeColorsByNightModeDefaultValue(Context context) {
+        boolean defaultValue;
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
     static void applicationWidgetListChangeColorsByNightMode(Context context) {
         // copy bad preference into ok preference
         SharedPreferences mySPrefs = getSharedPreferences(context);
@@ -1725,17 +1753,19 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        boolean defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
-            defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
-        else
-            defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
-        applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, defaultValue);
+        applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetListChangeColorsByNightModeDefaultValue(context));
     }
 
     static final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P = true;
     static final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L = false;
+    static boolean applicationSamsungEdgeChangeColorsByNightModeDefaultValue() {
+        boolean defaultValue;
+        if (Build.VERSION.SDK_INT >= 30)
+            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P;
+        else
+            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L;
+        return defaultValue;
+    }
     static void applicationSamsungEdgeChangeColorsByNightMode(Context context) {
         /*if (DebugVersion.enabled) {
             SharedPreferences mySPrefs = getSharedPreferences(context);
@@ -1744,12 +1774,7 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        boolean defaultValue;
-        if (Build.VERSION.SDK_INT >= 30)
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P;
-        else
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L;
-        applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, defaultValue);
+        applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, applicationSamsungEdgeChangeColorsByNightModeDefaultValue());
     }
 
     static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_DEFAULT_VALUE = "0";
