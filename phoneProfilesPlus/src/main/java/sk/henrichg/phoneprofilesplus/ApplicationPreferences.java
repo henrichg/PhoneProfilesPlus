@@ -698,8 +698,7 @@ class ApplicationPreferences {
     static private final String PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL = "1";  // android
     static String notificationStatusBarStyleDefaultValue() {
         String defaultValue;
-        if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31) &&
-                notificationStatusBarStyle.equals("0"))
+        if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31))
             defaultValue = PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_NOTIFICATION_STATUS_BAR_STYLE_DEFAULT_VALUE_OTHERS;
