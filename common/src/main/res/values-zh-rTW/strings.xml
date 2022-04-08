@@ -1380,8 +1380,6 @@
     <string name="array_pref_wifiAPModeArray_on_keepWifi">關 (不停用 Wi-Fi)</string>
     <string name="array_pref_wifiAPModeArray_toggle_keepWifi">開關 (不停用 Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">忽略 Wi-Fi 熱點</string>
-    <string name="ignore_battery_optimization_notification_disable_button">不再顯示</string>
-    <string name="ignore_battery_optimization_confirm_notification_disable">如果 PhoneProfilesPlus 未被加到\"不最佳化\"，它在螢幕關閉時不會正常運作。您確定未來不再顯示此通知嗎？</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">選項\"開 (不停用 Wi-Fi)\"必須由系統支援</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">選項\"開 (忽略熱點)\"、\"開關 (忽略熱點)\"必須由系統支援</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">\"優先權\"類型類似於系統的\"勿擾模式\"。將使用系統設定\"忽擾模式\"設置所有選項</string>
@@ -1637,7 +1635,6 @@
     <string name="menu_check_releases_amazon_appstore">在 Amazon 應用商店檢查</string>
     <string name="check_releases_amazon_appstore_application">Amazon 應用商店程式安裝網站：</string>
     <string name="check_releases_open_amazon_appstore">開啟 Amazon 應用商店</string>
-    <string name="check_releases_install_amazon_appstore">請安裝 Amazon 應用商店程式。</string>
     <string name="applicationApplicationInterfaceActivationNotification">設定檔啟用通知</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">增加\"重啟事件\"到設定檔清單</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">即時藍牙掃描</string>
@@ -1911,7 +1908,6 @@
     <string name="profile_preferences_endOfEventNotificationCategory">事件結束通知</string>
     <string name="profile_preferences_darkModeInfo_summary">注意：此參數將關閉所有執行中的應用程式。</string>
     <string name="check_releases_appgallery_application">Huawei AppGallery App 安裝網站：</string>
-    <string name="check_releases_install_appgallery">請安裝 Huawei AppGallery 應用程式。</string>
     <string name="check_releases_go_to_amazon_appstore">移至 Amazon 應用商店</string>
     <string name="check_releases_apkpure_appstore_application">ApkPure 程式安裝網站：</string>
     <string name="check_releases_go_to_appgallery">移至 AppGallery</string>
@@ -2008,4 +2004,8 @@
     <!--    <string name="profile_preferences_endOfActivationCategory">End of activation</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isMuted">Is muted</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isUnmuted">Is unmuted</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
+    <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
 </resources>

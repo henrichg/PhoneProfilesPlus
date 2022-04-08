@@ -1380,8 +1380,6 @@
     <string name="array_pref_wifiAPModeArray_on_keepWifi">Увімкнуто (не вимикайте Wi-Fi)</string>
     <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Перемкнути (не вимикая Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Нехтувати точкою доступу Wi-Fi</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Не показувати знову</string>
-    <string name="ignore_battery_optimization_confirm_notification_disable">Якщо PhoneProfilesPlus не буде доданий до \"Не економити заряд\", то він не буде добре працюватиме при вимкненому екрані. Ви впевнені, що не бажаєте бачите це повідомлення в майбутньому?</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Опція \"Увімкнуто (не вимикайте Wi-Fi)\" повинна підтримуватися системою</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Опції \"Увімкнено (ігнорувати точку доступу)\", \"Перемкнути\" (ігнорувати точку доступу)\" повинні підтримуватися системою</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">Режим \"Пріоритет\" подібний до системного \"Не турбувати\". Будуть використані всі параметри, налаштовані в налаштуваннях системи для режиму \"Не турбувати\"</string>
@@ -1637,7 +1635,6 @@
     <string name="menu_check_releases_amazon_appstore">Перевірити в Amazon Appstore</string>
     <string name="check_releases_amazon_appstore_application">Сайт встановлення додатків Amazon Appstore:</string>
     <string name="check_releases_open_amazon_appstore">Відкрити Amazon Appstore</string>
-    <string name="check_releases_install_amazon_appstore">Будь ласка, встановіть додаток Amazon Appstore.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Повідомлення про активацію профілю</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Додати до списку профілів \"Перезапустити події\"</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Інтервал сканування Bluetooth</string>
@@ -1911,7 +1908,6 @@
     <string name="profile_preferences_endOfEventNotificationCategory">Повідомлення про закінчення події</string>
     <string name="profile_preferences_darkModeInfo_summary">Примітка: Цей параметр закриває всі запущені застосунки.</string>
     <string name="check_releases_appgallery_application">Huawei AppGallery сайт:</string>
-    <string name="check_releases_install_appgallery">Будь ласка, встановіть додаток Huawei AppGallery.</string>
     <string name="check_releases_go_to_amazon_appstore">Перейти до Amazon Appstore</string>
     <string name="check_releases_apkpure_appstore_application">Сайт додатків ApkPure:</string>
     <string name="check_releases_go_to_appgallery">Перейти до AppGallery</string>
@@ -2008,4 +2004,8 @@
     <!--    <string name="profile_preferences_endOfActivationCategory">End of activation</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isMuted">Is muted</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isUnmuted">Is unmuted</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
+    <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
 </resources>

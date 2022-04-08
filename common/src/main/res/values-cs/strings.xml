@@ -1380,8 +1380,6 @@
     <string name="array_pref_wifiAPModeArray_on_keepWifi">Zapnout (nevypínat Wi-Fi)</string>
     <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Přepnout stav (nevypínat Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignorovat Wi-Fi přístupový bod</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Příště nezobrazovat</string>
-    <string name="ignore_battery_optimization_confirm_notification_disable">Pokud PhoneProfilesPlus nebude přidán \"neoptimalizované\", nebude pracovat správně při vypnuté obrazovce. Opravdu nechcete více zobrazovat tuto notifikaci?</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Nastavení \"Zapnout (nevypínat Wi-Fi)\" musí být podporovány systémem</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Nastavení \"Zapnout (ignorovat přístupový bod)\", \"Přepnout stav (ignorovat přístupový bod)\" musí být podporovány systémem</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">Typ \"Prioritní\" je stejný jako systémové \"Nerušit\". Budou použity všechny nastavení nakonfigurované v systémových nastaveních pro \"Nerušit\"</string>
@@ -1637,7 +1635,6 @@
     <string name="menu_check_releases_amazon_appstore">Zkontrolovat v Amazon Appstore</string>
     <string name="check_releases_amazon_appstore_application">Web pro instalaci aplikace Amazon Appstore:</string>
     <string name="check_releases_open_amazon_appstore">Otevřít Amazon Appstore</string>
-    <string name="check_releases_install_amazon_appstore">Prosím nainstalujte si aplikaci Amazon Appstore.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notifikace aktivace profilu</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Přidej \"Restart událostí\" do seznamu profilů</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth skenování v čase</string>
@@ -1911,7 +1908,6 @@
     <string name="profile_preferences_endOfEventNotificationCategory">Notifikace pro konec události</string>
     <string name="profile_preferences_darkModeInfo_summary">Poznámka: Tento parametr zavře všechny spuštěné aplikace.</string>
     <string name="check_releases_appgallery_application">Web pro instalaci aplikace Huawei AppGallery:</string>
-    <string name="check_releases_install_appgallery">Prosím nainstalujte si aplikaci Huawei AppGallery.</string>
     <string name="check_releases_go_to_amazon_appstore">Jít do Amazon Appstore</string>
     <string name="check_releases_apkpure_appstore_application">Web pro instalaci aplikace ApkPure:</string>
     <string name="check_releases_go_to_appgallery">Jít do AppGallery</string>
@@ -2008,4 +2004,8 @@
     <!--    <string name="profile_preferences_endOfActivationCategory">End of activation</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isMuted">Is muted</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isUnmuted">Is unmuted</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
+    <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
 </resources>

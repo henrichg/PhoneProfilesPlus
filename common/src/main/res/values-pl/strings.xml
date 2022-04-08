@@ -1380,8 +1380,6 @@
     <string name="array_pref_wifiAPModeArray_on_keepWifi">Włączony (nie wyłączaj Wi-Fi)</string>
     <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Przełącz (nie wyłącza Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignoruj hotspot Wi-Fi</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Nie pokazuj ponownie</string>
-    <string name="ignore_battery_optimization_confirm_notification_disable">Jeśli PhoneProfilesPlus nie zostanie dodany do \"Nie zoptymalizowane\", to nie będzie działać poprawnie przy wyłączonym ekranie. Czy na pewno nie pokazać tego powiadomienia w przyszłości?</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Opcja \"Włączone (nie wyłączaj Wi-Fi)\" musi być obsługiwana przez system</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Opcje \"Włącz (ignoruj hotspot)\", \"Przełącz (ignoruj hotspot)\" muszą być obsługiwane przez system</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">Typ \"Priorytet\" jest podobny do systemowego \"Nie przeszkadzać\". Zostaną użyte wszystkie opcje skonfigurowane w ustawieniach systemu dla \"Nie przeszkadzać\"</string>
@@ -1637,7 +1635,6 @@
     <string name="menu_check_releases_amazon_appstore">Sprawdź w Amazon Appstore</string>
     <string name="check_releases_amazon_appstore_application">Strona instalacji w Amazon Appstore:</string>
     <string name="check_releases_open_amazon_appstore">Otwórz Amazon Appstore</string>
-    <string name="check_releases_install_amazon_appstore">Zainstaluj aplikację Amazon Appstore.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Powiadomienie o aktywacji profilu</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Dodaj \"Restart zdarzeń\" do listy profili</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Skanowanie Bluetooth w czasie</string>
@@ -1911,7 +1908,6 @@
     <string name="profile_preferences_endOfEventNotificationCategory">Notification for end of event</string>
     <string name="profile_preferences_darkModeInfo_summary">Note: This parameter closes all running applications.</string>
     <string name="check_releases_appgallery_application">Huawei AppGallery App installation site:</string>
-    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>
     <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>
     <string name="check_releases_apkpure_appstore_application">ApkPure App installation site:</string>
     <string name="check_releases_go_to_appgallery">Go to AppGallery</string>
@@ -2008,4 +2004,8 @@
     <!--    <string name="profile_preferences_endOfActivationCategory">End of activation</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isMuted">Is muted</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isUnmuted">Is unmuted</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
+    <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
 </resources>

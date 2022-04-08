@@ -1380,8 +1380,6 @@
     <string name="array_pref_wifiAPModeArray_on_keepWifi">Uključeno ( ne isključuj Wi- Fi)</string>
     <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Prebacivanje ( ne isključuj Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignoriraj Wi-Fi pistupnu točku</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Ne prikazuj ponovno</string>
-    <string name="ignore_battery_optimization_confirm_notification_disable">Ako PhoneProfilesPlus nebude dodat u \" Ne optimizovano\", neće dobro raditi sa isključenim zaslonom. Da li ste sigurni da ne želiti da se ova obavijest ponovo prikazuje u budućnosti?</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Opcija \"Uključeno ( ne isključuj Wi-Fi)\" mora biti podržana od strane sustava</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Opcije \"Uključeno (ignoriraj Pristupnu točku), Prebaci ( Ignoriraj Pristupnu točku)\" mora da su podržane od sustava</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">Tip \"Prioriteti\" sličan je sustavu \"Ne uznemiravaj\". Koristit će se sve opcije konfigurirane u postavkama sustava za \"Ne uznemiravaj\"</string>
@@ -1637,7 +1635,6 @@
     <string name="menu_check_releases_amazon_appstore">Pogledati u Amazon Appstore</string>
     <string name="check_releases_amazon_appstore_application">Amazon Appstore sajt za instalaciju:</string>
     <string name="check_releases_open_amazon_appstore">Otvori Amazon Appstore</string>
-    <string name="check_releases_install_amazon_appstore">Molimo vas da instalirate Amazon Appstore aplikaciju.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Obavijest o načinu aktivacije</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Dodaj \"Restart događaja\" u listu profila</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth skeniranje na vreme</string>
@@ -1911,7 +1908,6 @@
     <string name="profile_preferences_endOfEventNotificationCategory">Notification for end of event</string>
     <string name="profile_preferences_darkModeInfo_summary">Note: This parameter closes all running applications.</string>
     <string name="check_releases_appgallery_application">Huawei AppGallery App installation site:</string>
-    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>
     <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>
     <string name="check_releases_apkpure_appstore_application">ApkPure App installation site:</string>
     <string name="check_releases_go_to_appgallery">Go to AppGallery</string>
@@ -2008,4 +2004,8 @@
     <!--    <string name="profile_preferences_endOfActivationCategory">End of activation</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isMuted">Is muted</string>-->
     <!--    <string name="array_pref_volumesSensorOperator_isUnmuted">Is unmuted</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
+    <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
 </resources>
