@@ -1940,6 +1940,9 @@
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Normal</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Large</string>
 
+    <string name="autostart_permission_notification_title">Auto start permission configuration</string>
+    <string name="autostart_permission_notification_text">Please click here to enable auto start permission for PhoneProfilesPlus. It is required for starting it, when the device boots.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

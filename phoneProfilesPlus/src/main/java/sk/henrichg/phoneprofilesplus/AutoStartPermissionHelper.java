@@ -421,6 +421,7 @@ class AutoStartPermissionHelper  {
         try {
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(packageName, componentName));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -433,6 +434,7 @@ class AutoStartPermissionHelper  {
         try {
             Intent intent = new Intent();
             intent.setAction(action);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (Exception exception) {
             exception.printStackTrace();

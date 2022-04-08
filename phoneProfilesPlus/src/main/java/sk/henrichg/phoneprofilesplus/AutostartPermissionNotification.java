@@ -49,8 +49,8 @@ class AutostartPermissionNotification {
                                 //PPApplication.logE("AutostartPermissionNotification.showNotification", "optimized");
 
                                 showNotification(appContext,
-                                        appContext.getString(R.string.ignore_battery_optimization_notification_title),
-                                        appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                                        appContext.getString(R.string.autostart_permission_notification_title),
+                                        appContext.getString(R.string.autostart_permission_notification_text));
                             }
                         } catch (Exception ignore) {
                         }
@@ -82,8 +82,8 @@ class AutostartPermissionNotification {
                         //PPApplication.logE("AutostartPermissionNotification.showNotification", "optimized");
 
                         showNotification(appContext,
-                                appContext.getString(R.string.ignore_battery_optimization_notification_title),
-                                appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                                appContext.getString(R.string.autostart_permission_notification_title),
+                                appContext.getString(R.string.autostart_permission_notification_text));
                     }
                 } catch (Exception ignore) {
                 }
@@ -108,11 +108,9 @@ class AutostartPermissionNotification {
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
         Intent intent;
-        String packageName = PPApplication.PACKAGE_NAME;
-        intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-        intent.setData(Uri.parse("package:" + packageName));
-
+        intent = new Intent(context, AutostartPermissionActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
@@ -126,8 +124,8 @@ class AutostartPermissionNotification {
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
             mNotificationManager.notify(
-                    PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG,
-                    PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID, mBuilder.build());
+                    PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_TAG,
+                    PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_ID, mBuilder.build());
         } catch (Exception e) {
             //Log.e("AutostartPermissionNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -139,8 +137,8 @@ class AutostartPermissionNotification {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         try {
             notificationManager.cancel(
-                    PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG,
-                    PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID);
+                    PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_TAG,
+                    PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

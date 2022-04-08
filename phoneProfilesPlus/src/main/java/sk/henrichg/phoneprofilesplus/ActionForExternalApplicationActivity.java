@@ -95,6 +95,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
             boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
             if (!serviceStarted) {
 //                PPApplication.logE("ActionForExternalApplicationActivity.onStart", "application not started");
+
+                AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+
                 PPApplication.setApplicationStarted(getApplicationContext(), true);
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);

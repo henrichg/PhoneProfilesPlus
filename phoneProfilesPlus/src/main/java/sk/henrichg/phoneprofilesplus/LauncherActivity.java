@@ -183,6 +183,9 @@ public class LauncherActivity extends AppCompatActivity {
 //                if (PhoneProfilesService.getInstance() != null)
 //                    PPApplication.logE("LauncherActivity.startPPServiceWhenNotStarted", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
 //            }
+
+            AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+
             // start PhoneProfilesService
 //            PPApplication.logE("LauncherActivity.startPPServiceWhenNotStarted", "start PPService");
             //PPApplication.firstStartServiceStarted = false;

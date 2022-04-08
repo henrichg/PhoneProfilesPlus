@@ -692,6 +692,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (PhoneProfilesService.getInstance() != null)
                     PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
             }*/
+
+            AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
             PPApplication.setApplicationStarted(getApplicationContext(), true);
@@ -4408,7 +4411,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                     IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
-                    AutostartPermissionNotification.showNotification(_dataWrapper.context, true);
 
                     PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
                 } else {
@@ -5072,7 +5074,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                         IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
-                        AutostartPermissionNotification.showNotification(_dataWrapper.context, true);
 
                         PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, true);
                     } else {

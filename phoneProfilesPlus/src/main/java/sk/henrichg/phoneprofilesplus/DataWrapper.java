@@ -1722,7 +1722,6 @@ public class DataWrapper {
             // show notification when battery optimization is not enabled
             DrawOverAppsPermissionNotification.showNotification(context, false);
             IgnoreBatteryOptimizationNotification.showNotification(context, false);
-            AutostartPermissionNotification.showNotification(context, false);
 
             // remove last configured profile duration alarm
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
@@ -2471,7 +2470,6 @@ public class DataWrapper {
 
         DrawOverAppsPermissionNotification.showNotification(context, false);
         IgnoreBatteryOptimizationNotification.showNotification(context, false);
-        AutostartPermissionNotification.showNotification(context, false);
     }
 
     void restartEventsWithRescan(final boolean alsoRescan,
@@ -2604,6 +2602,9 @@ public class DataWrapper {
 
                 boolean serviceStarted = PhoneProfilesService.isServiceRunning(context, PhoneProfilesService.class, false);
                 if (!serviceStarted) {
+
+                    AutostartPermissionNotification.showNotification(context, true);
+
                     PPApplication.setApplicationStarted(context, true);
                     Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                     //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
