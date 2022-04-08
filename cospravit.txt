@@ -480,3 +480,14 @@ Cize v PPService.doForFirsStart() ju nastav na false, ak je mobil rootnuty.
 
 ---------
 
+Ako zdetegovat, ci servis bezi:
+  boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+
+Ako si pytat nastavenie Atutostart:
+Podobne ako:
+  IgnoreBatteryOptimizationNotification.showNotification(context, false);
+Volat vsade tam, kde je volane aj to.
+
+
+
+
