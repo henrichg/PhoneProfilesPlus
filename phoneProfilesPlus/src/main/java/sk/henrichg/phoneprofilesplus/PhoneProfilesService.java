@@ -4936,6 +4936,15 @@ public class PhoneProfilesService extends Service
                     editor.apply();
                 }
 
+                if (actualVersionCode <= 6730) {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, false)) {
+                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT, "1");
+                        editor.apply();
+                    }
+                }
+
             }
         } catch (Exception ee) {
             PPApplication.recordException(ee);

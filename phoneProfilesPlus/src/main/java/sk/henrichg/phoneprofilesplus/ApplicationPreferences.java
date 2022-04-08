@@ -212,7 +212,8 @@ class ApplicationPreferences {
     static boolean applicationApplicationInterfaceNotificationVibrate;
     static boolean applicationActivatorAddRestartEventsIntoProfileList;
     static boolean applicationActivatorIncreaseBrightness;
-    static boolean applicationWidgetOneRowHigherLayout;
+    //static boolean applicationWidgetOneRowHigherLayout;
+    static String applicationWidgetOneRowLayoutHeight;
     static boolean applicationWidgetIconChangeColorsByNightMode;
     static boolean applicationWidgetOneRowChangeColorsByNightMode;
     static boolean applicationWidgetListChangeColorsByNightMode;
@@ -469,6 +470,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS = "applicationActivatorIncreaseBrightness";
     static final String PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "applicationForceSetBrightnessAtScreenOn";
     static final String PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON = "notificationShowRestartEventsAsButton";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT = "applicationWidgetOneRowLayoutHeight";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT = "applicationWidgetOneRowHigherLayout";
     static final String PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetIconChangeColorsByNightMode";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetOneRowChangeColorsByNightMode";
@@ -1670,10 +1672,14 @@ class ApplicationPreferences {
         notificationShowRestartEventsAsButton = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON, notificationShowRestartEventsAsButtonDefaultValue());
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT_DEFAULT_VALUE = false;
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT_DEFAULT_VALUE = "0";
+    static void applicationWidgetOneRowLayoutHeight(Context context) {
+        applicationWidgetOneRowLayoutHeight = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT, PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT_DEFAULT_VALUE);
+    }
+    /*static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT_DEFAULT_VALUE = false;
     static void applicationWidgetOneRowHigherLayout(Context context) {
         applicationWidgetOneRowHigherLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT_DEFAULT_VALUE);
-    }
+    }*/
 
     static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;

@@ -26,10 +26,11 @@
 // 5900 = remove tap target helps, user can it start from Editor
 // 6200 = enable notification scanning when any non-stopped event has Notification sensor
 // 6700 = separated shortcut parameters from widhet icon parameters
+// 6730 = changed one row widget "Higher layout" parameter to "Layout height"
 
 ext.ppVersions = [
     publishVersion: '5.3b',
-    publishVersionCode: 6718,
+    publishVersionCode: 6719,  // set to 6730
 
     minSdk: 24,
     targetSdk: 28,
