@@ -18,7 +18,7 @@ class ApplicationPreferences {
     static boolean prefMergedRingNotificationVolumes;
     //static long prefActivatedProfileForDuration;
     static long prefActivatedProfileEndDurationTime;
-    static boolean prefShowIgnoreBatteryOptimizationNotificationOnStart;
+    //static boolean prefShowIgnoreBatteryOptimizationNotificationOnStart;
     //static boolean prefEventsBlocked;
     //static boolean prefForceRunEventRunning;
     static String prefApplicationInForeground;
@@ -1657,6 +1657,7 @@ class ApplicationPreferences {
 
     //static private final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_31P = true;
     //static private final boolean PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON_DEFAULT_VALUE_30L = false;
+    @SuppressWarnings("SameReturnValue")
     static boolean notificationShowRestartEventsAsButtonDefaultValue() {
         /*boolean defaultValue;
         if (Build.VERSION.SDK_INT >= 31)

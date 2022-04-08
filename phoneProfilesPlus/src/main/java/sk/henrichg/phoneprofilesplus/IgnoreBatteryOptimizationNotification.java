@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -16,7 +15,7 @@ import androidx.core.content.ContextCompat;
 
 class IgnoreBatteryOptimizationNotification {
 
-    private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
+    //private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
 
     static void showNotification(Context context, boolean useHandler) {
         //if (Build.VERSION.SDK_INT >= 23) {
@@ -62,16 +61,16 @@ class IgnoreBatteryOptimizationNotification {
                                     if (!pm.isIgnoringBatteryOptimizations(PPApplication.PACKAGE_NAME)) {
                                         //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
 
-                                        if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)
+                                        //if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)
                                             showNotification(appContext,
                                                     appContext.getString(R.string.ignore_battery_optimization_notification_title),
                                                     appContext.getString(R.string.ignore_battery_optimization_notification_text));
-                                    } else {
+                                    }/* else {
                                         //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
 
                                         // show notification again
                                         setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
-                                    }
+                                    }*/
                                 }
                             } catch (Exception ignore) {
                             }
@@ -116,17 +115,17 @@ class IgnoreBatteryOptimizationNotification {
                             if (!pm.isIgnoringBatteryOptimizations(PPApplication.PACKAGE_NAME)) {
                                 //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
 
-                                if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)
+                                //if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)
                                     showNotification(appContext,
                                             appContext.getString(R.string.ignore_battery_optimization_notification_title),
                                             appContext.getString(R.string.ignore_battery_optimization_notification_text));
                             }
-                            else {
+                            /*else {
                                 //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
 
                                 // show notification again
                                 setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
-                            }
+                            }*/
                         }
                     } catch (Exception ignore) {
                     }
@@ -218,6 +217,7 @@ class IgnoreBatteryOptimizationNotification {
         }
     }
 
+/*
     static void getShowIgnoreBatteryOptimizationNotificationOnStart(Context context)
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
@@ -236,4 +236,5 @@ class IgnoreBatteryOptimizationNotification {
             ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = show;
         }
     }
+ */
 }
