@@ -1912,6 +1912,9 @@
     <string name="profile_preferences_darkModeInfo_summary">Poznámka: Tento parametr zavře všechny spuštěné aplikace.</string>
     <string name="check_releases_appgallery_application">Web pro instalaci aplikace Huawei AppGallery:</string>
     <string name="check_releases_install_appgallery">Prosím nainstalujte si aplikaci Huawei AppGallery.</string>
+    <string name="check_releases_go_to_amazon_appstore">Jít do Amazon Appstore</string>
+    <string name="check_releases_apkpure_appstore_application">Web pro instalaci aplikace ApkPure:</string>
+    <string name="check_releases_go_to_appgallery">Jít do AppGallery</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

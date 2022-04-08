@@ -1877,9 +1877,9 @@
     <string name="phone_profiles_pref_applicationWifiControlInfo_message">L\'accès spécial \"Contrôle Wi-Fi\" doit être autorisé. Il est nécessaire pour activer et désactiver le Wi-Fi.\n\nDans les paramètres de l\'appareil, autorisez \"Application\" \/\"Accès spécial à l\'application\"\/\"Contrôle Wi-Fi\" pour PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Afficher les paramètres de l\'appareil</string>
     <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Night mode.</string>
-    <string name="important_info_profile_grant_1_howTo_20_1">NOTE:</string>
+    <string name="important_info_profile_grant_1_howTo_20_1">NOTE :</string>
     <string name="important_info_profile_grant_1_howTo_20_2">For some devices must be in Developer options enabled:</string>
-    <string name="important_info_profile_grant_1_howTo_20_3">Xiaomi: \"USB debugging (Security settings)\".</string>
+    <string name="important_info_profile_grant_1_howTo_20_3">Xiaomi : « Débogage USB (Paramètres de sécurité) ».</string>
     <string name="important_info_profile_grant_1_howTo_20_4">Oppo, OnePlus: \"Disable permission monitoring\".</string>
     <string name="important_info_profile_grant_1_howTo_20_5">Maybe similar option exists in another devices.</string>
     <string name="important_info_profile_grant_1_howTo_20_6">Without this, grant not working.</string>
@@ -1912,6 +1912,9 @@
     <string name="profile_preferences_darkModeInfo_summary">Note: This parameter closes all running applications.</string>
     <string name="check_releases_appgallery_application">Huawei AppGallery App installation site:</string>
     <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>
+    <string name="check_releases_go_to_amazon_appstore">Accéder à Amazon Appstore</string>
+    <string name="check_releases_apkpure_appstore_application">Site d\'installation de l\'application ApkPure :</string>
+    <string name="check_releases_go_to_appgallery">Aller à la galerie d\'applications</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

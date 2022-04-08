@@ -822,9 +822,9 @@
     <string name="mobile_cell_names_dialog_title">Cell names</string>
     <string name="mobile_cell_names_dialog_filter_title">Cell names filter</string>
     <string name="mobile_cell_names_dialog_item_show_selected">[ Selected ]</string>
-    <string name="mobile_cell_names_dialog_item_show_without_name">[ Without name ]</string>
+    <string name="mobile_cell_names_dialog_item_show_without_name">[ ללא שם ]</string>
     <string name="mobile_cell_names_dialog_item_show_new">[ New (N) ]</string>
-    <string name="mobile_cell_names_dialog_item_show_all">[ All ]</string>
+    <string name="mobile_cell_names_dialog_item_show_all">[ הכל ]</string>
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">Select all visible</string>
     <string name="array_pref_mobile_cells_rename_all_visible">All visible</string>
     <string name="import_profiles_alert_error_database_newer_version">The backed-up database is in a newer version.</string>
@@ -835,9 +835,9 @@
     <string name="start_event_notification_text1">Event name</string>
     <string name="event_preferences_notificationRepeat">Repeat notification</string>
     <string name="event_preferences_notificationRepeatInterval">Repeat notification interval</string>
-    <string name="duration_pref_dlg_activation_hours_label">Hours:</string>
-    <string name="duration_pref_dlg_activation_minutes_label">Minutes:</string>
-    <string name="duration_pref_dlg_activation_seconds_label">Seconds:</string>
+    <string name="duration_pref_dlg_activation_hours_label">שעות:</string>
+    <string name="duration_pref_dlg_activation_minutes_label">דקות:</string>
+    <string name="duration_pref_dlg_activation_seconds_label">שניות:</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Please enable Location and Wi-Fi scanning in System Settings. Without this, Wi-fi scanning will not work.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Keep Wi-Fi on\" system setting</string>
@@ -845,11 +845,11 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Please do not configure interval to value less than</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minutes. This greatly increases the battery consumption.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconds. This greatly increases the battery consumption.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>
+    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">פינות מעוגלות</string>
+    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">פינות מעוגלות</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">not upgraded PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">Activated profile:</string>
-    <string name="profile_activation_interactive_preference_notification_text">Click here to open:</string>
+    <string name="profile_activation_interactive_preference_notification_text">לחץ כאן בשביל לפתוח:</string>
     <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot preferences</string>
     <string name="preference_not_allowed_reason_not_supported_android_version">not supported Android version</string>
     <string name="event_preferences_notifications_inCall">In call</string>
@@ -858,7 +858,7 @@
     <string name="phone_profiles_pref_applicationWidgetBackgroundType">Color background type</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">Background color</string>
     <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Color background type</string>
-    <string name="phone_profiles_pref_applicationWidgetIconColorB">Background color</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColorB">צבע רקע</string>
     <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Enable Wi-Fi scanning</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Scan even if Wi-Fi is disabled</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Enable Bluetooth scanning</string>
@@ -1912,6 +1912,9 @@
     <string name="profile_preferences_darkModeInfo_summary">Note: This parameter closes all running applications.</string>
     <string name="check_releases_appgallery_application">Huawei AppGallery App installation site:</string>
     <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>
+    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>
+    <string name="check_releases_apkpure_appstore_application">ApkPure App installation site:</string>
+    <string name="check_releases_go_to_appgallery">Go to AppGallery</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

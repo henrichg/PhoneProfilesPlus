@@ -1912,6 +1912,9 @@
     <string name="profile_preferences_darkModeInfo_summary">Note: This parameter closes all running applications.</string>
     <string name="check_releases_appgallery_application">Huawei AppGallery App installation site:</string>
     <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>
+    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>
+    <string name="check_releases_apkpure_appstore_application">ApkPure App installation site:</string>
+    <string name="check_releases_go_to_appgallery">Go to AppGallery</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
