@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 
 class AutostartPermissionNotification {
 
-    static void showNotification(Context context, boolean useHandler) {
+    static void showNotification(Context context, @SuppressWarnings("SameParameterValue") boolean useHandler) {
         //PPApplication.logE("AutostartPermissionNotification.showNotification", "xxx");
 
         final Context appContext = context.getApplicationContext();
