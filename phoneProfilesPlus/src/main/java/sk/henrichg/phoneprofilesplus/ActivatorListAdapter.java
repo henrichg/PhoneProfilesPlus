@@ -214,7 +214,7 @@ class ActivatorListAdapter extends BaseAdapter
             } else*/ {
                 holder.profileName.setTypeface(null, Typeface.NORMAL);
                 if (applicationActivatorGridLayout)
-                    holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+                    holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
                 else
                     holder.profileName.setTextSize(15);
                 //noinspection ConstantConditions
