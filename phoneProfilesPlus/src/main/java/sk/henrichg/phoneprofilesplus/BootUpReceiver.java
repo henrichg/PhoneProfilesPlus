@@ -82,7 +82,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                             if (!serviceStarted) {
                                 // service is not started
 
-                                AutostartPermissionNotification.showNotification(appContext, false);
+                                //AutostartPermissionNotification.showNotification(appContext, false);
 
                                 PPApplication.logE("BootUpReceiver.onReceive", "start service");
                                 // service is not started, start it
