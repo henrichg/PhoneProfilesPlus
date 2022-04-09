@@ -280,7 +280,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         ////////////////////////////////////////////////
 
         // clicks
-        Intent intent = new Intent(context, EditorProfilesActivity.class);
+        Intent intent = new Intent(context, EditorActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
@@ -408,7 +408,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
 
                     //if ((appContext != null) && (cocktailManager != null)) {
-                        //if (EditorProfilesActivity.doImport)
+                        //if (EditorActivity.doImport)
                         //    return;
 
                         //createProfilesDataWrapper(context);

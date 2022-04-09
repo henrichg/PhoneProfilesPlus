@@ -1834,21 +1834,21 @@ class ApplicationPreferences {
 
     static void loadStartTargetHelps(Context context) {
         SharedPreferences _preferences = getSharedPreferences(context);
-        prefActivatorActivityStartTargetHelps = _preferences.getBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
-        prefActivatorActivityStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, false);
+        prefActivatorActivityStartTargetHelps = _preferences.getBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
+        prefActivatorActivityStartTargetHelpsFinished = _preferences.getBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, false);
         prefActivatorFragmentStartTargetHelps = _preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
         prefActivatorFragmentStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
         prefActivatorAdapterStartTargetHelps = _preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
         prefActivatorAdapterStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
 
-        prefEditorActivityStartTargetHelps = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, false);
-        prefEditorActivityStartTargetHelpsRunStopIndicator = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
-        prefEditorActivityStartTargetHelpsBottomNavigation = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
-        prefEditorActivityStartTargetHelpsFinished = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FINISHED, false);
+        prefEditorActivityStartTargetHelps = _preferences.getBoolean(EditorActivity.PREF_START_TARGET_HELPS, false);
+        prefEditorActivityStartTargetHelpsRunStopIndicator = _preferences.getBoolean(EditorActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
+        prefEditorActivityStartTargetHelpsBottomNavigation = _preferences.getBoolean(EditorActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
+        prefEditorActivityStartTargetHelpsFinished = _preferences.getBoolean(EditorActivity.PREF_START_TARGET_HELPS_FINISHED, false);
 
         prefEditorProfilesFragmentStartTargetHelps = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
         prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
-        prefEditorFragmentStartTargetHelpsDefaultProfile = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
+        prefEditorFragmentStartTargetHelpsDefaultProfile = _preferences.getBoolean(EditorActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
         prefEditorProfilesFragmentStartTargetHelpsFinished = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
         prefEditorProfilesAdapterStartTargetHelps = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
         prefEditorProfilesAdapterStartTargetHelpsOrder = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
@@ -1875,9 +1875,9 @@ class ApplicationPreferences {
     static void startStopTargetHelps(Context context, boolean start) {
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
 
-        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, start);
+        editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorActivityStartTargetHelps = start;
-        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
         ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = !start;
         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorFragmentStartTargetHelps = start;
@@ -1888,20 +1888,20 @@ class ApplicationPreferences {
         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, !start);
         ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = !start;
 
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, start);
+        editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelps = start;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, start);
+        editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator = start;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, start);
+        editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation = start;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
+        editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = !start;
 
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = start;
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, start);
         ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = start;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, start);
+        editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, start);
         ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile = start;
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, start);
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, !start);

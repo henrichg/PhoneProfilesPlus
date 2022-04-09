@@ -122,7 +122,7 @@ class Permissions {
     //static Activity profileActivationActivity = null;
     //static WallpaperViewPreference wallpaperViewPreference = null;
     //static ProfileIconPreference profileIconPreference = null;
-    //static EditorProfilesActivity editorActivity = null;
+    //static EditorActivity editorActivity = null;
     //static WifiSSIDPreference wifiSSIDPreference = null;
     //static BluetoothNamePreference bluetoothNamePreference = null;
     //static CalendarsMultiSelectDialogPreference calendarsMultiSelectDialogPreference = null;
@@ -1783,7 +1783,7 @@ class Permissions {
         return granted;
     }
 
-    static boolean grantExportPermissions(Context context, EditorProfilesActivity editor) {
+    static boolean grantExportPermissions(Context context, EditorActivity editor) {
         boolean granted = checkExport(context);
         if (!granted) {
             try {
@@ -1809,7 +1809,7 @@ class Permissions {
         return granted;
     }
 
-    static boolean grantImportPermissions(Context context, EditorProfilesActivity editor/*, String applicationDataPath*/) {
+    static boolean grantImportPermissions(Context context, EditorActivity editor/*, String applicationDataPath*/) {
         boolean granted = checkImport(context);
         if (!granted) {
             try {

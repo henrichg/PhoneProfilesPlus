@@ -169,9 +169,9 @@ class ActivateProfileListAdapter extends BaseAdapter
                 //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator;
                 boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 if (applicationActivatorPrefIndicator)
-                    vi = inflater.inflate(R.layout.activate_profile_list_item, parent, false);
+                    vi = inflater.inflate(R.layout.activator_list_item, parent, false);
                 else
-                    vi = inflater.inflate(R.layout.activate_profile_list_item_no_indicator, parent, false);
+                    vi = inflater.inflate(R.layout.activator_list_item_no_indicator, parent, false);
                 //holder.listItemRoot = vi.findViewById(R.id.act_prof_list_item_root);
                 holder.profileName = vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = vi.findViewById(R.id.act_prof_list_item_profile_icon);
@@ -180,7 +180,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             }
             else
             {
-                vi = inflater.inflate(R.layout.activate_profile_grid_item, parent, false);
+                vi = inflater.inflate(R.layout.activator_grid_item, parent, false);
                 //holder.listItemRoot = vi.findViewById(R.id.act_prof_list_item_root);
                 holder.profileName = vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = vi.findViewById(R.id.act_prof_list_item_profile_icon);
@@ -383,11 +383,11 @@ class ActivateProfileListAdapter extends BaseAdapter
                     //targetHelpsSequenceStarted = false;
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-                    editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
 
-                    editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 

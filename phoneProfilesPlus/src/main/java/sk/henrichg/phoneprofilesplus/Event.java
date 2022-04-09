@@ -2525,7 +2525,7 @@ class Event {
                             PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
                         }*/
 
-                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -2613,7 +2613,7 @@ class Event {
                             PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
                         }*/
 
-                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -2785,7 +2785,7 @@ class Event {
                             PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
                         }*/
 
-                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -2875,7 +2875,7 @@ class Event {
                             PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
                         }*/
 
-                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);

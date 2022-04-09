@@ -1285,7 +1285,7 @@ class EventPreferencesTime extends EventPreferences {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             if (applicationUseAlarmClock) {
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                Intent editorIntent = new Intent(context, EditorActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -1311,7 +1311,7 @@ class EventPreferencesTime extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 //                boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
 

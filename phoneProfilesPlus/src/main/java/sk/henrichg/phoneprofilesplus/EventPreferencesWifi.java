@@ -366,7 +366,7 @@ class EventPreferencesWifi extends EventPreferences {
 
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 
 //                if (PPApplication.logEnabled()) {

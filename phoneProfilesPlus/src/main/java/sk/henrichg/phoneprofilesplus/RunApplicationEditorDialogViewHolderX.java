@@ -54,8 +54,8 @@ class RunApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder impl
 
         // Display Application data
         if (dialog.selectedFilter != 2) {
-            if (EditorProfilesActivity.getApplicationsCache() != null)
-                imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, false));
+            if (EditorActivity.getApplicationsCache() != null)
+                imageViewIcon.setImageBitmap(EditorActivity.getApplicationsCache().getApplicationIcon(application, false));
         }
         textViewAppName.setText(application.appLabel);
 

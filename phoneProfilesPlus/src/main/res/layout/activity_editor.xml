@@ -82,7 +82,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginEnd="@dimen/run_stop_indicator_margin_end_editor"
-                        android:layout_marginTop="0dp"
+                        android:layout_marginTop="-2dp"
                         android:padding="5dp"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/run_stop_events_indicator"

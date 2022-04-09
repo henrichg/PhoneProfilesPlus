@@ -73,8 +73,8 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
         setWidgetLayoutResource(R.layout.preference_widget_applications_preference); // resource na layout custom preference - TextView-ImageView
 
-        if (EditorProfilesActivity.getApplicationsCache() == null)
-            EditorProfilesActivity.createApplicationsCache();
+        if (EditorActivity.getApplicationsCache() == null)
+            EditorActivity.createApplicationsCache();
 
     }
 
@@ -118,8 +118,8 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
         final List<Application> _applicationsList = new ArrayList<>();
 
-        if (EditorProfilesActivity.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getApplicationList(false);
+        if (EditorActivity.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = EditorActivity.getApplicationsCache().getApplicationList(false);
 
             String notPassedIntents = "";
 
@@ -734,8 +734,8 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
             return;
         }
 
-        if (EditorProfilesActivity.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getApplicationList(false);
+        if (EditorActivity.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = EditorActivity.getApplicationsCache().getApplicationList(false);
             if (cachedApplicationList != null) {
                 int _position = applicationsList.indexOf(application);
                 Application editedApplication = application;

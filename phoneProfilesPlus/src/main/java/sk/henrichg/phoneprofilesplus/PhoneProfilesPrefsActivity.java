@@ -263,10 +263,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
-                PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                PPApplication.logE("EditorActivity.onStart", "application is not started");
+                PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                 if (PhoneProfilesService.getInstance() != null)
-                    PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                    PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
             }*/
 
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
@@ -288,10 +288,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
-                    PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                    PPApplication.logE("EditorActivity.onStart", "application is started");
+                    PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                     if (PhoneProfilesService.getInstance() != null)
-                        PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                        PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
                 }*/
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
@@ -311,7 +311,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 return true;
             }
             //else {
-            //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
+            //    PPApplication.logE("EditorActivity.onStart", "application and service is started");
             //}
         }
 
@@ -478,13 +478,13 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
         {
             //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "theme changed");
-            //EditorProfilesActivity.setTheme(this, false);
+            //EditorActivity.setTheme(this, false);
             GlobalGUIRoutines.switchNightMode(appContext, false);
             invalidateEditor = true;
         }
         /*if (!activeNightModeOffTheme.equals(ApplicationPreferences.applicationNightModeOffTheme(appContext)))
         {
-            //EditorProfilesActivity.setTheme(this, false);
+            //EditorActivity.setTheme(this, false);
             invalidateEditor = true;
         }*/
         if (showEditorPrefIndicator != ApplicationPreferences.applicationEditorPrefIndicator)

@@ -319,7 +319,7 @@ class EventPreferencesLocation extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning) {
                     //if (forRestartEvents)

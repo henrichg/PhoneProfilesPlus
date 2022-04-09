@@ -5091,7 +5091,7 @@ class ActivateProfileHelper {
 
             NotificationCompat.Builder mBuilder;
             Intent _intent;
-            _intent = new Intent(appContext, EditorProfilesActivity.class);
+            _intent = new Intent(appContext, EditorActivity.class);
 
             String nTitle = profile.getGenerateNotificationTitle();
             String nText = profile.getGenerateNotificationBody();

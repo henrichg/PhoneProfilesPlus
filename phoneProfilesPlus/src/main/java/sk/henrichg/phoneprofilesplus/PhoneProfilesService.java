@@ -4665,10 +4665,10 @@ public class PhoneProfilesService extends Service
 
                     //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
 
-                    editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
@@ -7369,7 +7369,7 @@ public class PhoneProfilesService extends Service
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             if (ApplicationPreferences.applicationUseAlarmClock) {
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                Intent editorIntent = new Intent(context, EditorActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
@@ -8407,15 +8407,15 @@ public class PhoneProfilesService extends Service
         if (profile != null) {
             intent = new Intent(context, ProfilesPrefsActivity.class);
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-            intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+            intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+            intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
         }
         if (event != null) {
             intent = new Intent(context, EventsPrefsActivity.class);
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
-            intent.putExtra(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_EDIT);
-            intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+            intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_EDIT);
+            intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
         }
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -8486,7 +8486,7 @@ public class PhoneProfilesService extends Service
             // mNotificationManager.cancel(notificationID);
             mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
         } catch (Exception e) {
-            //Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
+            //Log.e("EditorActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
 

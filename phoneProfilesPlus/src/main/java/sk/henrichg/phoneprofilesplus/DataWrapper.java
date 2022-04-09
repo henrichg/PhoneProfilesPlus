@@ -2547,7 +2547,7 @@ public class DataWrapper {
                     Toast.LENGTH_SHORT);
 
             boolean finish;
-            if (activity instanceof ActivateProfileActivity)
+            if (activity instanceof ActivatorActivity)
                 finish = ApplicationPreferences.applicationClose;
             else
                 finish = (activity instanceof RestartEventsFromGUIActivity) ||
@@ -2578,7 +2578,7 @@ public class DataWrapper {
 //        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper.restartEventsWithAlert", "false");
         PPApplication.setBlockProfileEventActions(false);
 
-        if (ApplicationPreferences.applicationRestartEventsWithAlert || (activity instanceof EditorProfilesActivity))
+        if (ApplicationPreferences.applicationRestartEventsWithAlert || (activity instanceof EditorActivity))
         {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.restart_events_alert_title);
@@ -2588,7 +2588,7 @@ public class DataWrapper {
                 //PPApplication.logE("DataWrapper.restartEventsWithAlert", "restart");
 
                 boolean finish;
-                if (activity instanceof ActivateProfileActivity)
+                if (activity instanceof ActivatorActivity)
                     finish = ApplicationPreferences.applicationClose;
                 else
                 //noinspection RedundantIfStatement
@@ -2634,15 +2634,15 @@ public class DataWrapper {
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialogInterface, i) -> {
-                boolean finish = (!(activity instanceof ActivateProfileActivity)) &&
-                                 (!(activity instanceof EditorProfilesActivity));
+                boolean finish = (!(activity instanceof ActivatorActivity)) &&
+                                 (!(activity instanceof EditorActivity));
 
                 if (finish)
                     activity.finish();
             });
             dialogBuilder.setOnCancelListener(dialogInterface -> {
-                boolean finish = (!(activity instanceof ActivateProfileActivity)) &&
-                                 (!(activity instanceof EditorProfilesActivity));
+                boolean finish = (!(activity instanceof ActivatorActivity)) &&
+                                 (!(activity instanceof EditorActivity));
 
                 if (finish)
                     activity.finish();
@@ -2667,7 +2667,7 @@ public class DataWrapper {
             //PPApplication.logE("DataWrapper.restartEventsWithAlert", "restart");
 
             boolean finish;
-            if (activity instanceof ActivateProfileActivity)
+            if (activity instanceof ActivatorActivity)
                 finish = ApplicationPreferences.applicationClose;
             else
                 finish = (activity instanceof RestartEventsFromGUIActivity) ||

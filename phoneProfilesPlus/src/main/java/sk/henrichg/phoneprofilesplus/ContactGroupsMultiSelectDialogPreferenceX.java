@@ -25,8 +25,8 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
 
         _context = context;
 
-        //if (EditorProfilesActivity.getContactGroupsCache() == null)
-        //    EditorProfilesActivity.createContactGroupsCache();
+        //if (EditorActivity.getContactGroupsCache() == null)
+        //    EditorActivity.createContactGroupsCache();
 
     }
 

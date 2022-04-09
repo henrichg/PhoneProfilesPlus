@@ -82,8 +82,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         event_id = getIntent().getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
         old_event_status = getIntent().getIntExtra(PPApplication.EXTRA_EVENT_STATUS, -1);
-        newEventMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
-        predefinedEventIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+        newEventMode = getIntent().getIntExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
+        predefinedEventIndex = getIntent().getIntExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
         if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
@@ -321,8 +321,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-        returnIntent.putExtra(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, newEventMode);
-        returnIntent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+        returnIntent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, newEventMode);
+        returnIntent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         setResult(resultCode,returnIntent);
 
         super.finish();

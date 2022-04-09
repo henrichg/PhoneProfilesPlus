@@ -291,8 +291,8 @@ public class EditorProfileListFragment extends Fragment
             if (itemId == R.id.menu_add_profile) {
                 if (profileListAdapter != null) {
                     if (!activity.isFinishing()) {
-                        ((EditorProfilesActivity) activity).addProfileDialog = new AddProfileDialog(activity, fragment);
-                        ((EditorProfilesActivity) activity).addProfileDialog.show();
+                        ((EditorActivity) activity).addProfileDialog = new AddProfileDialog(activity, fragment);
+                        ((EditorActivity) activity).addProfileDialog.show();
                     }
                 }
                 return true;
@@ -927,7 +927,7 @@ public class EditorProfileListFragment extends Fragment
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == EditorProfilesActivity.REQUEST_CODE_ACTIVATE_PROFILE)
+        if (requestCode == EditorActivity.REQUEST_CODE_ACTIVATE_PROFILE)
         {
             if(resultCode == Activity.RESULT_OK)
             {
@@ -953,7 +953,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         }
         else
-            EditorProfilesActivity.showDialogAboutRedText(profile, null, true, false, false, false, getActivity());
+            EditorActivity.showDialogAboutRedText(profile, null, true, false, false, false, getActivity());
     }
 
     /*private void setProfileSelection(Profile profile) {
@@ -1295,7 +1295,7 @@ public class EditorProfileListFragment extends Fragment
                         profile._showInActivator = false;
                         DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
                         //profileListAdapter.notifyDataSetChanged();
-                        ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                        ((EditorActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
 
                         PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                 getString(R.string.show_profile_in_activator_not_show_toast),
@@ -1314,7 +1314,7 @@ public class EditorProfileListFragment extends Fragment
                         profile._showInActivator = true;
                         DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
                         //profileListAdapter.notifyDataSetChanged();
-                        ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                        ((EditorActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
 
                         PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                 getString(R.string.show_profile_in_activator_show_toast),
@@ -1339,7 +1339,7 @@ public class EditorProfileListFragment extends Fragment
                 popup.show();
         }
         else
-            EditorProfilesActivity.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
+            EditorActivity.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
     }
 
     /*
@@ -1382,7 +1382,7 @@ public class EditorProfileListFragment extends Fragment
         if (getActivity() == null)
             return;
 
-        //if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
+        //if (((EditorActivity)getActivity()).targetHelpsSequenceStarted)
         //    return;
 
         boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished;
@@ -1407,7 +1407,7 @@ public class EditorProfileListFragment extends Fragment
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
-                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
+                editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = false;
@@ -1431,7 +1431,7 @@ public class EditorProfileListFragment extends Fragment
                 if (startTargetHelps) {
                     try {
                         targets.add(
-                                TapTarget.forView(((EditorProfilesActivity)getActivity()).filterSpinner, getString(R.string.editor_activity_targetHelps_profilesFilterSpinner_title), getString(R.string.editor_activity_targetHelps_profilesFilterSpinner_description))
+                                TapTarget.forView(((EditorActivity)getActivity()).filterSpinner, getString(R.string.editor_activity_targetHelps_profilesFilterSpinner_title), getString(R.string.editor_activity_targetHelps_profilesFilterSpinner_description))
                                         .transparentTarget(true)
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:animateLayoutChanges="true"
-    tools:context=".ActivateProfileActivity" >
+    tools:context=".ActivatorActivity" >
 
     <RelativeLayout
         android:id="@+id/act_prof_header"

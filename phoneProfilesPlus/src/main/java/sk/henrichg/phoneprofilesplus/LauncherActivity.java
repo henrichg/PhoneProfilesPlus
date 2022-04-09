@@ -93,25 +93,25 @@ public class LauncherActivity extends AppCompatActivity {
                 //PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_NOTIFICATION");
                 //PPApplication.logE("LauncherActivity.endOnStart", "ApplicationPreferences.applicationNotificationLauncher="+ApplicationPreferences.applicationNotificationLauncher);
                 if (ApplicationPreferences.applicationNotificationLauncher.equals("activator"))
-                    intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
+                    intentLaunch = new Intent(getApplicationContext(), ActivatorActivity.class);
                 else
-                    intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
+                    intentLaunch = new Intent(getApplicationContext(), EditorActivity.class);
                 break;
             case PPApplication.STARTUP_SOURCE_WIDGET:
                 //PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_WIDGET");
                 //PPApplication.logE("LauncherActivity.endOnStart", "ApplicationPreferences.applicationWidgetLauncher="+ApplicationPreferences.applicationWidgetLauncher);
                 if (ApplicationPreferences.applicationWidgetLauncher.equals("activator"))
-                    intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
+                    intentLaunch = new Intent(getApplicationContext(), ActivatorActivity.class);
                 else
-                    intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
+                    intentLaunch = new Intent(getApplicationContext(), EditorActivity.class);
                 break;
             default:
 //                PPApplication.logE("LauncherActivity.endOnStart", "default");
                 //PPApplication.logE("LauncherActivity.endOnStart", "ApplicationPreferences.applicationHomeLauncher="+ApplicationPreferences.applicationHomeLauncher);
                 if (ApplicationPreferences.applicationHomeLauncher.equals("activator"))
-                    intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
+                    intentLaunch = new Intent(getApplicationContext(), ActivatorActivity.class);
                 else
-                    intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
+                    intentLaunch = new Intent(getApplicationContext(), EditorActivity.class);
                 break;
         }
 
@@ -229,7 +229,7 @@ public class LauncherActivity extends AppCompatActivity {
                 return true;
             }
             //else {
-            //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
+            //    PPApplication.logE("EditorActivity.onStart", "application and service is started");
             //}
         }
 

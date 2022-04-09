@@ -75,12 +75,12 @@ import sk.henrichg.phoneprofiles.PPShortcutForExport;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
 
-public class EditorProfilesActivity extends AppCompatActivity
+public class EditorActivity extends AppCompatActivity
                                     implements OnStartProfilePreferences,
                                                OnStartEventPreferences
 {
 
-    //private static volatile EditorProfilesActivity instance;
+    //private static volatile EditorActivity instance;
     private boolean activityStarted = false;
 
     private ImageView eventsRunStopIndicator;
@@ -188,21 +188,21 @@ public class EditorProfilesActivity extends AppCompatActivity
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] EditorProfilesActivity.refreshGUIBroadcastReceiver", "xxx");
+//            PPApplication.logE("[IN_BROADCAST] EditorActivity.refreshGUIBroadcastReceiver", "xxx");
             //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
             boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
             long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
             long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
             // not change selection in editor if refresh is outside editor
-            EditorProfilesActivity.this.refreshGUI(/*refresh,*//* true,*/  refreshIcons, false, profileId, eventId);
+            EditorActivity.this.refreshGUI(/*refresh,*//* true,*/  refreshIcons, false, profileId, eventId);
         }
     };
 
     private final BroadcastReceiver showTargetHelpsBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] EditorProfilesActivity.showTargetHelpsBroadcastReceiver", "xxx");
-            Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+//            PPApplication.logE("[IN_BROADCAST] EditorActivity.showTargetHelpsBroadcastReceiver", "xxx");
+            Fragment fragment = EditorActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
             if (fragment != null) {
                 if (fragment instanceof EditorProfileListFragment)
                     ((EditorProfileListFragment) fragment).showTargetHelps();
@@ -215,15 +215,15 @@ public class EditorProfilesActivity extends AppCompatActivity
     private final BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] EditorProfilesActivity.finishBroadcastReceiver", "xxx");
+//            PPApplication.logE("[IN_BROADCAST] EditorActivity.finishBroadcastReceiver", "xxx");
             String action = intent.getAction();
             if (action != null) {
                 if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                     String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
                     if (what.equals("editor")) {
                         try {
-                            EditorProfilesActivity.this.setResult(Activity.RESULT_CANCELED);
-                            EditorProfilesActivity.this.finishAffinity();
+                            EditorActivity.this.setResult(Activity.RESULT_CANCELED);
+                            EditorActivity.this.finishAffinity();
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }
@@ -238,7 +238,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //PPApplication.logE("EditorProfilesActivity.onCreate", "xxx");
+        //PPApplication.logE("EditorActivity.onCreate", "xxx");
 
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
@@ -274,9 +274,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                     @Override
                     public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
                         int statusBarHeight = insets.getSystemWindowInsetTop();
-                        PPApplication.logE("EditorProfilesActivity.onApplyWindowInsets", "statusBarHeight="+statusBarHeight);
+                        PPApplication.logE("EditorActivity.onApplyWindowInsets", "statusBarHeight="+statusBarHeight);
                         Rect rect = insets.getSystemWindowInsets();
-                        PPApplication.logE("EditorProfilesActivity.onApplyWindowInsets", "rect.top="+rect.top);
+                        PPApplication.logE("EditorActivity.onApplyWindowInsets", "rect.top="+rect.top);
                         rect.top = rect.top + statusBarHeight;
                         return insets.replaceSystemWindowInsets(rect);
                     }
@@ -465,9 +465,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(
                 (me.ibrahimsn.lib.OnItemSelectedListener) item -> {
-                    //PPApplication.logE("EditorProfilesActivity.bottomNavigationView.OnItemSelectedListener", "xxx");
+                    //PPApplication.logE("EditorActivity.bottomNavigationView.OnItemSelectedListener", "xxx");
                     //noinspection Convert2MethodRef
-                    return EditorProfilesActivity.this.selectViewItem(item);
+                    return EditorActivity.this.selectViewItem(item);
                 }
         );
         // set size of icons of BottomNavigationView
@@ -522,7 +522,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     return;
                 }
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
-//                Log.e("EditorProfilesActivity.filterSpinner.onItemSelected", "position=" + position);
+//                Log.e("EditorActivity.filterSpinner.onItemSelected", "position=" + position);
                 selectFilterItem(editorSelectedView, position, true/*, true*/);
             }
 
@@ -534,14 +534,14 @@ public class EditorProfilesActivity extends AppCompatActivity
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(view -> {
             if (!isFinishing()) {
-                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorProfilesActivity.this);
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorActivity.this);
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 int popupWidth = contentView.getMeasuredWidth();
                 //int popupHeight = contentView.getMeasuredHeight();
-                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
-                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
+                //Log.d("ActivatorActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
+                //Log.d("ActivatorActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
 
                 int[] runStopIndicatorLocation = new int[2];
                 //eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
@@ -580,9 +580,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 //            ApplicationPreferences.editorEventsViewSelectedItem(getApplicationContext());
             filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
-//            Log.e("EditorProfilesActivity.onCreate", "editorSelectedView="+editorSelectedView);
-//            Log.e("EditorProfilesActivity.onCreate", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
-//            Log.e("EditorProfilesActivity.onCreate", "filterEventsSelectedItem="+filterEventsSelectedItem);
+//            Log.e("EditorActivity.onCreate", "editorSelectedView="+editorSelectedView);
+//            Log.e("EditorActivity.onCreate", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
+//            Log.e("EditorActivity.onCreate", "filterEventsSelectedItem="+filterEventsSelectedItem);
         //}
 
         //startTargetHelps = false;
@@ -606,7 +606,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
                 int statusBarSize = insets.getSystemWindowInsetTop();
-                PPApplication.logE("EditorProfilesActivity.onApplyWindowInsets", "statusBarSize="+statusBarSize);
+                PPApplication.logE("EditorActivity.onApplyWindowInsets", "statusBarSize="+statusBarSize);
                 return insets;
             }
         });
@@ -633,7 +633,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             return;
         }
 
-        //PPApplication.logE("EditorProfilesActivity.onStart", "xxx");
+        //PPApplication.logE("EditorActivity.onStart", "xxx");
 
         if (activityStarted) {
             Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
@@ -655,7 +655,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-//        PPApplication.logE("[APP_START] EditorProfilesActivity.showNotStartedToast", "setApplicationFullyStarted");
+//        PPApplication.logE("[APP_START] EditorActivity.showNotStartedToast", "setApplicationFullyStarted");
         PPApplication.setApplicationFullyStarted(getApplicationContext());
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
@@ -687,10 +687,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
-                PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                PPApplication.logE("EditorActivity.onStart", "application is not started");
+                PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                 if (PhoneProfilesService.getInstance() != null)
-                    PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                    PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
             }*/
 
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
@@ -712,10 +712,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
-                    PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                    PPApplication.logE("EditorActivity.onStart", "application is started");
+                    PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                     if (PhoneProfilesService.getInstance() != null)
-                        PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                        PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
                 }*/
 
                 // start PhoneProfilesService
@@ -736,7 +736,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 return true;
             }
             //else {
-            //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
+            //    PPApplication.logE("EditorActivity.onStart", "application and service is started");
             //}
         }
 
@@ -747,7 +747,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onStop()
     {
         super.onStop();
-        //PPApplication.logE("EditorProfilesActivity.onStop", "xxx");
+        //PPApplication.logE("EditorActivity.onStop", "xxx");
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
@@ -984,7 +984,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             // ignore manual profile activation
             // and unblock forceRun events
-            //PPApplication.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
+            //PPApplication.logE("$$$ restartEvents","from EditorActivity.onOptionsItemSelected menu_restart_events");
             if (dataWrapper != null)
                 dataWrapper.restartEventsWithAlert(this);
             return true;
@@ -1168,7 +1168,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
                 ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
 
-                PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),EditorProfilesActivity.this, false, true);
+                PPApplication.exitApp(true, getApplicationContext(), EditorActivity.this.getDataWrapper(), EditorActivity.this, false, true);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
@@ -1379,57 +1379,57 @@ public class EditorProfilesActivity extends AppCompatActivity
     */
 
     private boolean selectViewItem(int item) {
-//        PPApplication.logE("EditorProfilesActivity.selectViewItem", "xxx");
+//        PPApplication.logE("EditorActivity.selectViewItem", "xxx");
 
         //int itemId = item.getItemId();
         //if (itemId == R.id.menu_profiles_view) {
         if (item == 0) {
-//            PPApplication.logE("EditorProfilesActivity.selectViewItem", "menu_profiles_view");
+//            PPApplication.logE("EditorActivity.selectViewItem", "menu_profiles_view");
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.selectViewItem (0)");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (0)");
                 String[] filterItems = new String[]{
-                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
-                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                        EditorActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
+                        EditorActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                        EditorActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
                 };
                 GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                        EditorProfilesActivity.this,
+                        EditorActivity.this,
                         R.layout.highlighted_filter_spinner,
                         filterItems);
                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                 filterSpinner.setAdapter(filterSpinnerAdapter);
-//                Log.e("EditorProfilesActivity.selectViewItem (0)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
-                EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
-                Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+//                Log.e("EditorActivity.selectViewItem (0)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
+                EditorActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
+                Fragment fragment = EditorActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment instanceof EditorProfileListFragment)
                     ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
             }, 200);
             return true;
             //} else if (itemId == R.id.menu_events_view) {
         } else if (item == 1) {
-//            PPApplication.logE("EditorProfilesActivity.selectViewItem", "menu_events_view");
+//            PPApplication.logE("EditorActivity.selectViewItem", "menu_events_view");
 
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.selectViewItem (1)");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (1)");
                 String[] filterItems = new String[]{
-                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
-                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_all),
-                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
-                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_running),
-                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
-                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
+                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
+                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_all),
+                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
+                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_running),
+                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
+                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
                 };
                 GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                        EditorProfilesActivity.this,
+                        EditorActivity.this,
                         R.layout.highlighted_filter_spinner,
                         filterItems);
                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                 filterSpinner.setAdapter(filterSpinnerAdapter);
-//                Log.e("EditorProfilesActivity.selectViewItem (1)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
-                EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
-                Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+//                Log.e("EditorActivity.selectViewItem (1)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
+                EditorActivity.this.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
+                Fragment fragment = EditorActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment instanceof EditorEventListFragment) {
                     ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
                 }
@@ -1441,9 +1441,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void selectFilterItem(int selectedView, int position, boolean fromClickListener/*, boolean startTargetHelps*/) {
 //        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
-//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
-//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position=" + position);
+//            PPApplication.logE("EditorActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
+//            PPApplication.logE("EditorActivity.selectFilterItem", "selectedView=" + selectedView);
+//            PPApplication.logE("EditorActivity.selectFilterItem", "position=" + position);
 //        }
 
         boolean viewChanged = false;
@@ -1461,17 +1461,17 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         int filterSelectedItem;
         if (selectedView == 0) {
-//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
+//            PPApplication.logE("EditorActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
             filterSelectedItem = filterProfilesSelectedItem;
         }
         else {
-//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
+//            PPApplication.logE("EditorActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
             filterSelectedItem = filterEventsSelectedItem;
         }
 
         if (viewChanged || (position != filterSelectedItem))
         {
-//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "items changed");
+//            PPApplication.logE("EditorActivity.selectFilterItem", "items changed");
 
             if (viewChanged) {
                 // stop running AsyncTask
@@ -1494,7 +1494,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterEventsSelectedItem = position;
             }
             filterSelectedItem = position;
-            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
+            //PPApplication.logE("EditorActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
 
             // save into shared preferences
             Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
@@ -1517,7 +1517,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     switch (filterProfilesSelectedItem) {
                         case DSI_PROFILES_ALL:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_ALL");
+                            //PPApplication.logE("EditorActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_ALL");
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
@@ -1536,7 +1536,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_PROFILES_SHOW_IN_ACTIVATOR:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_SHOW_IN_ACTIVATOR");
+                            //PPApplication.logE("EditorActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_SHOW_IN_ACTIVATOR");
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
@@ -1555,7 +1555,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_NO_SHOW_IN_ACTIVATOR");
+                            //PPApplication.logE("EditorActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_NO_SHOW_IN_ACTIVATOR");
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
@@ -1578,7 +1578,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     switch (filterEventsSelectedItem) {
                         case DSI_EVENTS_START_ORDER:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_START_ORDER;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_START_ORDER");
+                            //PPApplication.logE("EditorActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_START_ORDER");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1597,7 +1597,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_ALL:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_ALL");
+                            //PPApplication.logE("EditorActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_ALL");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1616,7 +1616,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_NOT_STOPPED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_NOT_STOPPED;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_NOT_STOPPED");
+                            //PPApplication.logE("EditorActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_NOT_STOPPED");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1635,7 +1635,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_RUNNING:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_RUNNING;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_RUNNING");
+                            //PPApplication.logE("EditorActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_RUNNING");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1654,7 +1654,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_PAUSED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_PAUSED;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_PAUSED");
+                            //PPApplication.logE("EditorActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_PAUSED");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1673,7 +1673,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_STOPPED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_STOPPED;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_STOPPED");
+                            //PPApplication.logE("EditorActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_STOPPED");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1850,7 +1850,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                }
 
                 boolean restart = data.getBooleanExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, false);
-                //PPApplication.logE("EditorProfilesActivity.onActivityResult", "restart="+restart);
+                //PPApplication.logE("EditorActivity.onActivityResult", "restart="+restart);
 
                 if (restart)
                 {
@@ -2005,14 +2005,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
                                         if (pickedDir == null) {
                                             // error for create directory
-                                            //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
+                                            //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
                                             ok = 0;
                                         }
                                     }
                                 }
                                 else {
                                     // pickedDir is not writable
-                                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is not writable");
+                                    //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is not writable");
                                     ok = 0;
                                 }
 
@@ -2026,7 +2026,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     }
                                     else {
                                         // cannot copy backup files, pickedDir is not writable
-                                        //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - cannot copy backup files, pickedDir is not writable");
+                                        //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - cannot copy backup files, pickedDir is not writable");
                                         ok = 0;
                                     }
                                 }
@@ -2034,7 +2034,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
                             else {
                                 // pickedDir is null
-                                //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is null");
+                                //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is null");
                                 ok = 0;
                             }
 
@@ -2055,7 +2055,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
 
                             if (result == 0) {
-                                //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - Error backup files");
+                                //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - Error backup files");
 
                                 if (!activity.isFinishing()) {
                                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -2151,17 +2151,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, getApplicationContext());
                                     } else {
                                         // cannot copy backup files, pickedDir is not writable
-                                        //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - cannot copy restore files, pickedDir is not writable");
+                                        //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - cannot copy restore files, pickedDir is not writable");
                                         ok = 0;
                                     }
                                 } else {
                                     // pickedDir is not writable
-                                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
+                                    //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
                                     ok = 0;
                                 }
                             } else {
                                 // pickedDir is null
-                                //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is null");
+                                //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is null");
                                 ok = 0;
                             }
 
@@ -2182,7 +2182,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
 
                             if (result == 0) {
-                                //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - Error restore files");
+                                //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - Error restore files");
 
                                 if (!activity.isFinishing()) {
                                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -2288,11 +2288,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             // refresh activity
-            GlobalGUIRoutines.reloadActivity(EditorProfilesActivity.this, true);
+            GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
         });
         dialogBuilder.setOnCancelListener(dialog -> {
             // refresh activity
-            GlobalGUIRoutines.reloadActivity(EditorProfilesActivity.this, true);
+            GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
         });
         AlertDialog dialog = dialogBuilder.create();
 
@@ -2405,7 +2405,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }/* catch (FileNotFoundException ignored) {
                 // no error, this is OK
             }*/ catch (Exception e) {
-                //Log.e("EditorProfilesActivity.importApplicationPreferences", Log.getStackTraceString(e));
+                //Log.e("EditorActivity.importApplicationPreferences", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
                 res = false;
             }
@@ -2435,7 +2435,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void doImportData(/*String applicationDataPath*/)
     {
-        //final EditorProfilesActivity activity = this;
+        //final EditorActivity activity = this;
         //final String _applicationDataPath = applicationDataPath;
 
         importAsyncTask = new ImportAsyncTask(this).execute();
@@ -2448,7 +2448,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder2.setMessage(R.string.import_profiles_alert_message);
 
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-            if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/)) {
+            if (Permissions.grantImportPermissions(getApplicationContext(), EditorActivity.this/*, PPApplication.EXPORT_PATH*/)) {
                 boolean ok = false;
                 try {
                     Intent intent;
@@ -2470,7 +2470,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     PPApplication.recordException(e);
                 }
                 if (!ok){
-                    AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorProfilesActivity.this);
+                    AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorActivity.this);
                     _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
                     //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     _dialogBuilder.setPositiveButton(android.R.string.ok, null);
@@ -2669,7 +2669,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (email)
                 doExportData(true, toAuthor);
             else
-            if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this))
+            if (Permissions.grantExportPermissions(getApplicationContext(), EditorActivity.this))
                 doExportData(false, false);
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -2738,9 +2738,9 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void startProfilePreferenceActivity(Profile profile, int editMode, int predefinedProfileIndex) {
         /*
         if (profile != null)
-            PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "profile._name="+profile._name);
-        PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "editMode="+editMode);
-        PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "predefinedProfileIndex="+predefinedProfileIndex);
+            PPApplication.logE("EditorActivity.startProfilePreferenceActivity", "profile._name="+profile._name);
+        PPApplication.logE("EditorActivity.startProfilePreferenceActivity", "editMode="+editMode);
+        PPApplication.logE("EditorActivity.startProfilePreferenceActivity", "predefinedProfileIndex="+predefinedProfileIndex);
         */
 
         Intent intent = new Intent(getBaseContext(), ProfilesPrefsActivity.class);
@@ -2752,7 +2752,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         //noinspection deprecation
         startActivityForResult(intent, REQUEST_CODE_PROFILE_PREFERENCES);
-        //PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "call of ProfilesPrefsActivity");
+        //PPApplication.logE("EditorActivity.startProfilePreferenceActivity", "call of ProfilesPrefsActivity");
     }
 
     public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {
@@ -2782,30 +2782,30 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
-//                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorActivity.redrawProfileListFragment");
                 PPApplication.updateGUI(true, false, fragment.activityDataWrapper.context);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
                 if (filterProfilesSelectedItem != 0) {
-                    final EditorProfilesActivity editorActivity = this;
+                    final EditorActivity editorActivity = this;
                     Handler handler = new Handler(getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.redrawProfileListFragment");
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawProfileListFragment");
                         if (!editorActivity.isFinishing()) {
                             boolean changeFilter = false;
                             switch (filterProfilesSelectedItem) {
-                                case EditorProfilesActivity.DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
+                                case EditorActivity.DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
                                     changeFilter = profile._showInActivator;
                                     break;
-                                case EditorProfilesActivity.DSI_PROFILES_SHOW_IN_ACTIVATOR:
+                                case EditorActivity.DSI_PROFILES_SHOW_IN_ACTIVATOR:
                                     changeFilter = !profile._showInActivator;
                                     break;
                             }
                             if (changeFilter) {
                                 fragment.scrollToProfile = profile;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
-//                                Log.e("EditorProfilesActivity.redrawProfileListFragment", "position=0");
+//                                Log.e("EditorActivity.redrawProfileListFragment", "position=0");
                                 editorActivity.selectFilterItem(0, 0, false/*, true*/);
                             }
                             else
@@ -2820,9 +2820,9 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void startEventPreferenceActivity(Event event, final int editMode, final int predefinedEventIndex) {
         /*
         if (event != null)
-            PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "event._name="+event._name);
-        PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "editMode="+editMode);
-        PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "predefinedEventIndex="+predefinedEventIndex);
+            PPApplication.logE("EditorActivity.startEventPreferenceActivity", "event._name="+event._name);
+        PPApplication.logE("EditorActivity.startEventPreferenceActivity", "editMode="+editMode);
+        PPApplication.logE("EditorActivity.startEventPreferenceActivity", "predefinedEventIndex="+predefinedEventIndex);
         */
 
         boolean profileExists = true;
@@ -2846,7 +2846,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
 
-        //PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "profileExists="+profileExists);
+        //PPApplication.logE("EditorActivity.startEventPreferenceActivity", "profileExists="+profileExists);
         if (profileExists) {
             Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
             if ((event == null) || (editMode == EditorEventListFragment.EDIT_MODE_INSERT))
@@ -2859,9 +2859,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
             //noinspection deprecation
             startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
-            //PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "call of EventsPrefsActivity");
+            //PPApplication.logE("EditorActivity.startEventPreferenceActivity", "call of EventsPrefsActivity");
         } else {
-            //PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "add new event");
+            //PPApplication.logE("EditorActivity.startEventPreferenceActivity", "add new event");
 
             final long _startProfileId = startProfileId;
             final long _endProfileId = endProfileId;
@@ -2966,30 +2966,30 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.updateHeader(activeProfile);
 
                 if (filterEventsSelectedItem != 0) {
-                    final EditorProfilesActivity editorActivity = this;
+                    final EditorActivity editorActivity = this;
                     Handler handler = new Handler(getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.redrawEventListFragment");
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawEventListFragment");
                         if (!editorActivity.isFinishing()) {
                             boolean changeFilter = false;
                             switch (filterEventsSelectedItem) {
-                                case EditorProfilesActivity.DSI_EVENTS_NOT_STOPPED:
+                                case EditorActivity.DSI_EVENTS_NOT_STOPPED:
                                     changeFilter = event.getStatus() == Event.ESTATUS_STOP;
                                     break;
-                                case EditorProfilesActivity.DSI_EVENTS_RUNNING:
+                                case EditorActivity.DSI_EVENTS_RUNNING:
                                     changeFilter = event.getStatus() != Event.ESTATUS_RUNNING;
                                     break;
-                                case EditorProfilesActivity.DSI_EVENTS_PAUSED:
+                                case EditorActivity.DSI_EVENTS_PAUSED:
                                     changeFilter = event.getStatus() != Event.ESTATUS_PAUSE;
                                     break;
-                                case EditorProfilesActivity.DSI_EVENTS_STOPPED:
+                                case EditorActivity.DSI_EVENTS_STOPPED:
                                     changeFilter = event.getStatus() != Event.ESTATUS_STOP;
                                     break;
                             }
                             if (changeFilter) {
                                 fragment.scrollToEvent = event;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
-//                                Log.e("EditorProfilesActivity.redrawEventListFragment", "position=0");
+//                                Log.e("EditorActivity.redrawEventListFragment", "position=0");
                                 editorActivity.selectFilterItem(1, 0, false/*, true*/);
                             }
                             else
@@ -3134,18 +3134,18 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             if (startTargetHelps || //startTargetHelpsProfilesFilterSpinner || startTargetHelpsEventsFilterSpinner ||
                     startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation) {
-                //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+                //Log.d("EditorActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
 
                 //if (editorSelectedView == 0)
-                //    editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_PROFILES_FILTER_SPINNER, false);
+                //    editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_PROFILES_FILTER_SPINNER, false);
                 //else
-                //    editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_EVENTS_FILTER_SPINNER, false);
+                //    editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_EVENTS_FILTER_SPINNER, false);
 
-                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
-                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
+                editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
+                editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorActivityStartTargetHelps = false;
 
@@ -3653,17 +3653,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                 sequence.start();
             }
             else {
-                //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                //Log.d("EditorActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 //final Context context = getApplicationContext();
                 final Handler handler = new Handler(getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.showTargetHelps");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.showTargetHelps");
 
 //                        PPApplication.logE("[LOCAL_BROADCAST_CALL] EditorProfileActivity.showTargetHelps", "xxx");
                     Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver");
                     LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-                    /*if (EditorProfilesActivity.getInstance() != null) {
-                        Fragment fragment = EditorProfilesActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);
+                    /*if (EditorActivity.getInstance() != null) {
+                        Fragment fragment = EditorActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);
                         if (fragment != null) {
                             if (fragment instanceof EditorProfileListFragment)
                                 ((EditorProfileListFragment) fragment).showTargetHelps();
@@ -3745,7 +3745,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, 0);
                             }
                             else {
-                                intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
@@ -3763,7 +3763,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (forActivator) {
                     dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
                             (dialog, which) -> {
-                                Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                                Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
                                 activity.startActivity(intent);
@@ -3791,7 +3791,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, 0);
                             }
                             else {
-                                intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
@@ -3809,7 +3809,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 /*
                 dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
                         (dialog, which) -> {
-                            Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                            Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                             if (forActivator)
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
@@ -3867,7 +3867,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // delete old file
             if (!oldFile.delete()) {
                 // cannot delete existed file
-                //PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", "cannot delete existed file");
+                //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot delete existed file");
                 return 0;
             }
         }
@@ -3892,18 +3892,18 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 else {
                     // cannot open fileName stream
-                    //PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", "cannot open fileName stream");
+                    //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot open fileName stream");
                     return 0;
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", Log.getStackTraceString(e));
+                //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", Log.getStackTraceString(e));
                 return 0;
             }
         }
         else {
             // cannot create fileName
-            //PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", "cannot create fileName");
+            //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot create fileName");
             return 0;
         }
         return 1;
@@ -3915,7 +3915,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // delete old file
             if (!importFile.delete()) {
                 // cannot delete existed file
-                //PPApplication.logE("--------- EditorProfilesActivity.copyFromBackupDirectory", "cannot delete existed file");
+                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot delete existed file");
                 return 0;
             }
         }
@@ -3939,18 +3939,18 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 else {
                     // cannot open fileName stream
-                    //PPApplication.logE("--------- EditorProfilesActivity.copyFromBackupDirectory", "cannot open fileName stream");
+                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot open fileName stream");
                     return 0;
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //PPApplication.logE("--------- EditorProfilesActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
+                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
                 return 0;
             }
         }
         else {
             // cannot create fileName
-            //PPApplication.logE("--------- EditorProfilesActivity.copyFromBackupDirectory", "cannot create fileName");
+            //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot create fileName");
             return 0;
         }
         return 1;
@@ -3963,9 +3963,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         final int requestCode;
         int ok = 1;
 
-        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+        private final WeakReference<EditorActivity> activityWeakRef;
 
-        public BackupAsyncTask(int requestCode, Uri treeUri, EditorProfilesActivity activity) {
+        public BackupAsyncTask(int requestCode, Uri treeUri, EditorActivity activity) {
             this.treeUri = treeUri;
             this.requestCode = requestCode;
 
@@ -3986,7 +3986,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPreExecute() {
             super.onPreExecute();
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
 
@@ -4000,7 +4000,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         @Override
         protected Integer doInBackground(Void... params) {
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (pickedDir != null) {
                     if (pickedDir.canWrite()) {
@@ -4010,13 +4010,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                             pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
                             if (pickedDir == null) {
                                 // error for create directory
-                                //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
+                                //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
                                 ok = 0;
                             }
                         }
                     } else {
                         // pickedDir is not writable
-                        //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is not writable");
+                        //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is not writable");
                         ok = 0;
                     }
 
@@ -4029,14 +4029,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
                         } else {
                             // cannot copy backup files, pickedDir is not writable
-                            //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - cannot copy backup files, pickedDir is not writable");
+                            //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - cannot copy backup files, pickedDir is not writable");
                             ok = 0;
                         }
                     }
 
                 } else {
                     // pickedDir is null
-                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is null");
+                    //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is null");
                     ok = 0;
                 }
             } else {
@@ -4049,7 +4049,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (!activity.isFinishing()) {
                     if ((activity.backupProgressDialog != null) && activity.backupProgressDialog.isShowing()) {
@@ -4061,7 +4061,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
 
                 if (result == 0) {
-                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - Error backup files");
+                    //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - Error backup files");
 
                     if (!activity.isFinishing()) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -4097,9 +4097,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         //int _requestCode;
         int ok = 1;
 
-        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+        private final WeakReference<EditorActivity> activityWeakRef;
 
-        public RestoreAsyncTask(/*int requestCode, */Uri treeUri, EditorProfilesActivity activity) {
+        public RestoreAsyncTask(/*int requestCode, */Uri treeUri, EditorActivity activity) {
             this.treeUri = treeUri;
             //this._requestCode = requestCode;
 
@@ -4120,7 +4120,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPreExecute() {
             super.onPreExecute();
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
 
@@ -4134,7 +4134,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         @Override
         protected Integer doInBackground(Void... params) {
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (pickedDir != null) {
                     if (pickedDir.canWrite()) {
@@ -4145,12 +4145,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
                     } else {
                         // pickedDir is not writable
-                        //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
+                        //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
                         ok = 0;
                     }
                 } else {
                     // pickedDir is null
-                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is null");
+                    //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is null");
                     ok = 0;
                 }
             } else {
@@ -4164,7 +4164,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (!activity.isFinishing()) {
                     if ((activity.restoreProgressDialog != null) && activity.restoreProgressDialog.isShowing()) {
@@ -4176,7 +4176,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
 
                 if (result == 0) {
-                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - Error restore files");
+                    //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - Error restore files");
 
                     if (!activity.isFinishing()) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -4213,9 +4213,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         private boolean appSettingsError = false;
         //private boolean sharedProfileError = false;
 
-        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+        private final WeakReference<EditorActivity> activityWeakRef;
 
-        public ImportAsyncTask(EditorProfilesActivity activity) {
+        public ImportAsyncTask(EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -4245,7 +4245,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPreExecute() {
             super.onPreExecute();
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 doImport = true;
 
@@ -4268,8 +4268,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
         @Override
         protected Integer doInBackground(Void... params) {
-            //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
-            EditorProfilesActivity activity = activityWeakRef.get();
+            //PPApplication.logE("PPApplication.exitApp", "from EditorActivity.doImportData shutdown=false");
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (_dataWrapper != null) {
                     PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false, true);
@@ -4319,9 +4319,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
 
                     /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "dbError=" + dbError);
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError=" + appSettingsError);
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "sharedProfileError=" + sharedProfileError);
+                        PPApplication.logE("EditorActivity.doImportData", "dbError=" + dbError);
+                        PPApplication.logE("EditorActivity.doImportData", "appSettingsError=" + appSettingsError);
+                        PPApplication.logE("EditorActivity.doImportData", "sharedProfileError=" + sharedProfileError);
                     }*/
 
                     if (!appSettingsError) {
@@ -4353,7 +4353,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 doImport = false;
 
@@ -4367,14 +4367,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
 
                 if (_dataWrapper != null) {
-                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
+                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorActivity.doImportData");
 
                     // clear shared preferences for last activated profile
                     //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
                     //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                     PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
-//                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorActivity.doImportData");
                     PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                     PPApplication.setApplicationStarted(_dataWrapper.context, true);
@@ -4390,7 +4390,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
 
                 if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/))) {
-                    //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
+                    //PPApplication.logE("EditorActivity.doImportData", "restore is ok");
 
                     // restart events
                     //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
@@ -4414,7 +4414,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
                 } else {
-                    //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
+                    //PPApplication.logE("EditorActivity.doImportData", "error restore");
 
                     int appSettingsResult = 1;
                     if (appSettingsError) appSettingsResult = 0;
@@ -4439,7 +4439,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         private boolean deleteProfilesError = true;
         private ImportPPDataBroadcastReceiver importPPDataBroadcastReceiver = null;
 
-        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+        private final WeakReference<EditorActivity> activityWeakRef;
         final boolean importProfiles;
         final boolean deleteConfiguredProfiles;
         final boolean importApplicationPreferences;
@@ -4448,7 +4448,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 final boolean importProfiles,
                 final boolean deleteConfiguredProfiles,
                 final boolean importApplicationPreferences,
-                EditorProfilesActivity activity) {
+                EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
             this.importProfiles = importProfiles;
             this.deleteConfiguredProfiles = deleteConfiguredProfiles;
@@ -4488,7 +4488,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPreExecute() {
             super.onPreExecute();
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 doImport = true;
 
@@ -4529,9 +4529,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
         @Override
         protected Integer doInBackground(Void... params) {
-            //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
+            //PPApplication.logE("PPApplication.exitApp", "from EditorActivity.doImportData shutdown=false");
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (_dataWrapper != null) {
 
@@ -5008,7 +5008,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 doImport = false;
 
@@ -5030,14 +5030,14 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 if (!importFromPPStopped) {
                     if (_dataWrapper != null) {
-                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
+                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorActivity.doImportData");
 
                         // clear shared preferences for last activated profile
                         //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
                         //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
-//                        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+//                        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorActivity.doImportData");
                         PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                         PPApplication.setApplicationStarted(_dataWrapper.context, true);
@@ -5053,7 +5053,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
 
                     if ((_dataWrapper != null) && (!deleteProfilesError) && (!profilesError) && (!shortcutsError) && (!intentsError) && (!appSettingsError)) {
-                        //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
+                        //PPApplication.logE("EditorActivity.doImportData", "restore is ok");
 
                         // restart events
                         //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
@@ -5077,7 +5077,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, true);
                     } else {
-                        //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
+                        //PPApplication.logE("EditorActivity.doImportData", "error restore");
 
                         int appSettingsResult = 1;
                         if (appSettingsError) appSettingsResult = 0;
@@ -5099,11 +5099,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         private final DataWrapper dataWrapper;
         private boolean runStopEvents;
 
-        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+        private final WeakReference<EditorActivity> activityWeakRef;
         final boolean email;
         final boolean toAuthor;
 
-        public ExportAsyncTask(final boolean email, final boolean toAuthor, EditorProfilesActivity activity) {
+        public ExportAsyncTask(final boolean email, final boolean toAuthor, EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
             this.email = email;
             this.toAuthor = toAuthor;
@@ -5135,7 +5135,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPreExecute() {
             super.onPreExecute();
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 GlobalGUIRoutines.lockScreenOrientation(activity, false);
                 activity.exportProgressDialog.setCancelable(false);
@@ -5151,7 +5151,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         @Override
         protected Integer doInBackground(Void... params) {
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (this.dataWrapper != null) {
                     //dataWrapper.globalRunStopEvents(true);
@@ -5219,7 +5219,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
 
-            EditorProfilesActivity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (!activity.isFinishing()) {
                     if ((activity.exportProgressDialog != null) && activity.exportProgressDialog.isShowing()) {
@@ -5273,7 +5273,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                             packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                         } catch (Exception e) {
-                            //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                            //Log.e("EditorActivity.doExportData", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         }
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
@@ -5300,7 +5300,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
                                 activity.startActivity(chooser);
                             } catch (Exception e) {
-                                //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                                //Log.e("EditorActivity.doExportData", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
                             }
                         }
@@ -5341,7 +5341,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 }
                                 //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                                 //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                                //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
+                                //PPApplication.logE("--------- EditorActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
                                 if (_createPPPSubfolder)
                                     //noinspection deprecation
                                     activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);

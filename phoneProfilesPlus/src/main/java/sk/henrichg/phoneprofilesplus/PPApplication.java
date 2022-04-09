@@ -291,10 +291,10 @@ public class PPApplication extends Application
                                                 //+"|BluetoothScanWorker.startCLScan"
                                                 //+"|BluetoothScanWorker.fillBoundedDevicesList"
 
-                                                //+"|EditorProfilesActivity.bottomNavigationView.OnItemSelectedListener"
-                                                //+"|EditorProfilesActivity.selectViewItem"
-                                                //+"|EditorProfilesActivity.selectFilterItem"
-                                                //+"|EditorProfilesActivity.onActivityResult"
+                                                //+"|EditorActivity.bottomNavigationView.OnItemSelectedListener"
+                                                //+"|EditorActivity.selectViewItem"
+                                                //+"|EditorActivity.selectFilterItem"
+                                                //+"|EditorActivity.onActivityResult"
 
                                                 //+"|ActivateProfileHelper.setTones"
 
@@ -4669,13 +4669,13 @@ public class PPApplication extends Application
 
     @Override
     public void onActivityStarted(Activity activity) {
-        if (activity instanceof EditorProfilesActivity)
+        if (activity instanceof EditorActivity)
             foregroundEditorActivity=new WeakReference<>(activity);
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        if (activity instanceof EditorProfilesActivity)
+        if (activity instanceof EditorActivity)
             foregroundEditorActivity=new WeakReference<>(activity);
     }
 
@@ -4686,7 +4686,7 @@ public class PPApplication extends Application
 
     @Override
     public void onActivityStopped(Activity activity) {
-        if (activity instanceof EditorProfilesActivity)
+        if (activity instanceof EditorActivity)
             foregroundEditorActivity = null;
     }
 

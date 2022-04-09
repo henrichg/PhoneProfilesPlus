@@ -5,6 +5,6 @@
     decription="@string/samsung_edge_panel_description"
     previewImage="@drawable/samsung_edge_panel"
     updatePeriodMills="0"
-    configure="sk.henrichg.phoneprofilesplus.EditorProfilesActivity"
+    configure="sk.henrichg.phoneprofilesplus.EditorActivity"
     cocktailWidth="550">
 </cocktail-provider>

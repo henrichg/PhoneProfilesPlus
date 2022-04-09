@@ -82,20 +82,20 @@ public class ActivateProfileListFragment extends Fragment {
         if (!applicationActivatorGridLayout)
         {
             if (applicationActivatorPrefIndicator/* && applicationActivatorHeader*/)
-                rootView = inflater.inflate(R.layout.activate_profile_list, container, false);
+                rootView = inflater.inflate(R.layout.activator_list, container, false);
             else
             //if (applicationActivatorHeader)
-                rootView = inflater.inflate(R.layout.activate_profile_list_no_indicator, container, false);
+                rootView = inflater.inflate(R.layout.activator_list_no_indicator, container, false);
             //else
             //    rootView = inflater.inflate(R.layout.activate_profile_list_no_header, container, false);
         }
         else
         {
             if (applicationActivatorPrefIndicator/* && applicationActivatorHeader*/)
-                rootView = inflater.inflate(R.layout.activate_profile_grid, container, false);
+                rootView = inflater.inflate(R.layout.activator_grid, container, false);
             else
             //if (applicationActivatorHeader)
-                rootView = inflater.inflate(R.layout.activate_profile_grid_no_indicator, container, false);
+                rootView = inflater.inflate(R.layout.activator_grid_no_indicator, container, false);
             //else
             //    rootView = inflater.inflate(R.layout.activate_profile_grid_no_header, container, false);
         }
@@ -368,7 +368,7 @@ public class ActivateProfileListFragment extends Fragment {
                         // no profile in list, start Editor
 
                         //noinspection ConstantConditions
-                        Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorProfilesActivity.class);
+                        Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
                         fragment.getActivity().startActivity(intent);
@@ -386,7 +386,7 @@ public class ActivateProfileListFragment extends Fragment {
 //                            // some profiles has errors
 //
 //                            //noinspection ConstantConditions
-//                            Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorProfilesActivity.class);
+//                            Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
 //                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
 //                            //noinspection ConstantConditions
@@ -421,7 +421,7 @@ public class ActivateProfileListFragment extends Fragment {
 
                     if (fragment.getActivity() != null) {
                         if (!fragment.getActivity().isFinishing())
-                            ((ActivateProfileActivity) fragment.getActivity()).startTargetHelpsActivity();
+                            ((ActivatorActivity) fragment.getActivity()).startTargetHelpsActivity();
                     }
                 }, 500);
 
@@ -451,7 +451,7 @@ public class ActivateProfileListFragment extends Fragment {
             profileListAdapter.notifyDataSetChanged(false);
         //setProfileSelection(profile, false);
 
-        //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onStart");
+        //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivatorActivity.onStart");
     }
 
     @Override
@@ -556,7 +556,7 @@ public class ActivateProfileListFragment extends Fragment {
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
             }
             else
-                EditorProfilesActivity.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
+                EditorActivity.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
         }
     }
 
@@ -623,7 +623,7 @@ public class ActivateProfileListFragment extends Fragment {
                 super.onPostExecute(result);
                 if ((getActivity() != null) && (!getActivity().isFinishing())) {
                     //if (!doNotRefresh) {
-                        ((ActivateProfileActivity) getActivity()).setEventsRunStopIndicator();
+                        ((ActivatorActivity) getActivity()).setEventsRunStopIndicator();
 
                         Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
                         if (profileFromAdapter != null)
@@ -657,7 +657,7 @@ public class ActivateProfileListFragment extends Fragment {
         if (getActivity() == null)
             return;
 
-        //if (((ActivateProfileActivity)getActivity()).targetHelpsSequenceStarted)
+        //if (((ActivatorActivity)getActivity()).targetHelpsSequenceStarted)
         //    return;
 
         boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished;
@@ -829,7 +829,7 @@ public class ActivateProfileListFragment extends Fragment {
             if (fragment != null) {
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
                     //if (!doNotRefresh) {
-                    ((ActivateProfileActivity) fragment.getActivity()).setEventsRunStopIndicator();
+                    ((ActivatorActivity) fragment.getActivity()).setEventsRunStopIndicator();
 
                     Profile profileFromAdapter = fragment.profileListAdapter.getActivatedProfile();
                     if (profileFromAdapter != null)

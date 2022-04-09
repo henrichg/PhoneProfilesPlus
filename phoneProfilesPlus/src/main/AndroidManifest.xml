@@ -192,7 +192,7 @@
         </activity>
 
         <activity
-            android:name=".ActivateProfileActivity"
+            android:name=".ActivatorActivity"
             android:label="@string/title_activity_activator"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
@@ -200,7 +200,7 @@
         </activity>
 
         <activity
-            android:name=".EditorProfilesActivity"
+            android:name=".EditorActivity"
             android:label="@string/title_activity_editor"
             android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_dayNight">
         </activity>
