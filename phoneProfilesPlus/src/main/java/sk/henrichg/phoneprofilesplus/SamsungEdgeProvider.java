@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.TypedValue;
 import android.widget.RemoteViews;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -234,7 +235,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red; blue = red;
             widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, red, green, blue));
-
+            widget.setTextViewTextSize(R.id.widget_profile_list_header_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
             /*if (applicationSamsungEdgePrefIndicator)
             {

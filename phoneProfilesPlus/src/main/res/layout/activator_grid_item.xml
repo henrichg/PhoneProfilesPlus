@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/act_prof_list_item_root"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/act_prof_list_item_root"
               android:layout_width="match_parent"
               android:layout_height="85dp"
               android:paddingStart="5dp"
@@ -13,7 +14,7 @@
         android:id="@+id/act_prof_list_item_profile_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="0dp"
         android:layout_gravity="center_horizontal"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
@@ -36,8 +37,9 @@
         android:minLines="1"
         android:maxLines="2"
         android:text="@string/profile_name_default"
-        android:textSize="13sp"
-        android:gravity="center_horizontal" />
+        android:textSize="13dp"
+        android:gravity="center_horizontal"
+        tools:ignore="SpUsage" />
 
 </LinearLayout>
 

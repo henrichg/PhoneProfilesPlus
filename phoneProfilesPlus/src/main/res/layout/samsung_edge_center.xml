@@ -44,7 +44,8 @@
             android:layout_gravity="center_vertical"
             android:text="@string/profile_name_default"
             android:textColor="#33b5e5"
-            android:textSize="15sp" />
+            android:textSize="15dp"
+            tools:ignore="SpUsage" />
 
         <!--<TextView
             android:id="@+id/widget_profile_list_header_profile_name"

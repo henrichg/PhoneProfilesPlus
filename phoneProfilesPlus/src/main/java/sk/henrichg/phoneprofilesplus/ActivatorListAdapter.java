@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.text.Spannable;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -213,7 +214,7 @@ class ActivatorListAdapter extends BaseAdapter
             } else*/ {
                 holder.profileName.setTypeface(null, Typeface.NORMAL);
                 if (applicationActivatorGridLayout)
-                    holder.profileName.setTextSize(13);
+                    holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
                 else
                     holder.profileName.setTextSize(15);
                 //noinspection ConstantConditions
