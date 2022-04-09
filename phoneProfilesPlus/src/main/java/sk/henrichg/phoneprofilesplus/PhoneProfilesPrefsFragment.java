@@ -1056,13 +1056,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     return false;
                 });
             } else {
-                PreferenceScreen preferenceScreen = findPreference("categorySystem");
+                /*PreferenceScreen preferenceScreen = findPreference("categorySystem");
                 if (preferenceScreen != null) {
                     PreferenceCategory preferenceCategory = findPreference("applicationAutostartCategory");
                     if (preferenceCategory != null)
                         preferenceScreen.removePreference(preferenceCategory);
-                }
-                preferenceScreen = findPreference("categoryApplicationStart");
+                }*/
+                PreferenceScreen preferenceScreen = findPreference("categoryApplicationStart");
                 if (preferenceScreen != null) {
                     preference = findPreference("applicationAutoStartManager");
                     if (preference != null)
