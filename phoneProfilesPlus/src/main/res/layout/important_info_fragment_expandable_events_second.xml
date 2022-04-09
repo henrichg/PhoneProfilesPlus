@@ -113,10 +113,11 @@
             android:layout_width="45dp"
             android:layout_height="21dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="3dp"
             android:padding="5dp"
             android:adjustViewBounds="true"
             android:scaleType="fitEnd"
-            android:src="?attr/runEventsIndicatorAll"
+            android:src="@drawable/ic_run_events_indicator_all_v"
             android:contentDescription="@string/important_infor_traffic_light_icon" />
     </LinearLayout>
     <TextView

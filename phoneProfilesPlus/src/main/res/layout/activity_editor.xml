@@ -77,17 +77,17 @@
 
                     <ImageView
                         android:id="@+id/editor_list_run_stop_indicator"
-                        android:layout_width="45dp"
-                        android:layout_height="21dp"
+                        android:layout_width="50dp"
+                        android:layout_height="26dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginEnd="@dimen/run_stop_indicator_margin_end"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="@dimen/run_stop_indicator_margin_end_editor"
+                        android:layout_marginTop="0dp"
                         android:padding="5dp"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/run_stop_events_indicator"
                         android:scaleType="fitEnd"
-                        android:src="@drawable/ic_run_events_indicator_stopped"
+                        android:src="@drawable/ic_run_events_indicator_stopped_v"
                         android:background="?attr/selectableItemBackground" />
 
                     <LinearLayout

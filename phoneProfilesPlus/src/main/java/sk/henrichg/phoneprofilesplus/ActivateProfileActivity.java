@@ -500,20 +500,20 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 //if (whiteTheme)
                 //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_white);
                 //else
-                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
+                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_v);
             }
             else {
                 //if (whiteTheme)
                 //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running_white);
                 //else
-                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running);
+                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running_v);
             }
         }
         else {
             //if (whiteTheme)
             //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped_white);
             //else
-                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped);
+                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped_v);
         }
     }
 

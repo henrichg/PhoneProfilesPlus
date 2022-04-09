@@ -7,6 +7,9 @@
     <dimen name="activity_margin_start">0dp</dimen>
     <dimen name="activity_margin_end">0dp</dimen>
 
+    <dimen name="run_stop_indicator_margin_end_editor">13dp</dimen>
+    <dimen name="run_stop_indicator_margin_end_activator">10dp</dimen>
+
     <dimen name="activator_min_width_minor">65%</dimen>
     <dimen name="activator_min_width_major">65%</dimen>
 
