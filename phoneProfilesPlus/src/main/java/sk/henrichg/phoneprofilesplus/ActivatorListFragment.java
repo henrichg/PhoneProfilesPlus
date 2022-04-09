@@ -26,10 +26,10 @@ import java.util.Comparator;
 
 import static android.view.View.GONE;
 
-public class ActivateProfileListFragment extends Fragment {
+public class ActivatorListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
-    private ActivateProfileListAdapter profileListAdapter = null;
+    private ActivatorListAdapter profileListAdapter = null;
     private RelativeLayout activatedProfileHeader;
     private ListView listView = null;
     private GridView gridView = null;
@@ -53,7 +53,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     static final int PORDER_FOR_EMPTY_SPACE = 1000000;
 
-    public ActivateProfileListFragment() {
+    public ActivatorListFragment() {
     }
 
     @Override
@@ -168,7 +168,7 @@ public class ActivateProfileListFragment extends Fragment {
                         return;
 
                     headerHeight = activatedProfileHeader.getMeasuredHeight();
-                    Log.e("ActivateProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
+                    Log.e("ActivatorListFragment.doOnViewCreated", "headerHeight="+headerHeight);
                     hideAnimator = ValueAnimator.ofInt(headerHeight / 4, 0);
                     hideAnimator.setDuration(500);
                     hideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -236,7 +236,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private final WeakReference<ActivateProfileListFragment> fragmentWeakRef;
+        private final WeakReference<ActivatorListFragment> fragmentWeakRef;
         private final DataWrapper dataWrapper;
 
         private final boolean applicationActivatorPrefIndicator;
@@ -258,7 +258,7 @@ public class ActivateProfileListFragment extends Fragment {
             }
         }
 
-        private LoadProfileListAsyncTask (ActivateProfileListFragment fragment) {
+        private LoadProfileListAsyncTask (ActivatorListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             //noinspection ConstantConditions
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
@@ -275,12 +275,12 @@ public class ActivateProfileListFragment extends Fragment {
         {
             super.onPreExecute();
 
-            final ActivateProfileListFragment fragment = this.fragmentWeakRef.get();
+            final ActivatorListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
                 progressBarRunnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.LoadProfileListAsyncTask (1)");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.LoadProfileListAsyncTask (1)");
 
                     //fragment.textViewNoData.setVisibility(View.GONE);
                     fragment.progressBar.setVisibility(View.VISIBLE);
@@ -345,7 +345,7 @@ public class ActivateProfileListFragment extends Fragment {
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
             
-            final ActivateProfileListFragment fragment = this.fragmentWeakRef.get();
+            final ActivatorListFragment fragment = this.fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler.removeCallbacks(progressBarRunnable);
@@ -403,7 +403,7 @@ public class ActivateProfileListFragment extends Fragment {
 //                    }
                 }
 
-                fragment.profileListAdapter = new ActivateProfileListAdapter(fragment, /*fragment.profileList, */fragment.activityDataWrapper);
+                fragment.profileListAdapter = new ActivatorListAdapter(fragment, /*fragment.profileList, */fragment.activityDataWrapper);
 
                 AbsListView absListView;
                 if (!applicationActivatorGridLayout)
@@ -417,7 +417,7 @@ public class ActivateProfileListFragment extends Fragment {
                 //noinspection ConstantConditions
                 final Handler handler = new Handler(fragment.getActivity().getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.LoadProfileListAsyncTask (2)");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.LoadProfileListAsyncTask (2)");
 
                     if (fragment.getActivity() != null) {
                         if (!fragment.getActivity().isFinishing())
@@ -565,7 +565,7 @@ public class ActivateProfileListFragment extends Fragment {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
-        ActivateProfileListFragment.RefreshGUIAsyncTask asyncTask = new ActivateProfileListFragment.RefreshGUIAsyncTask(refreshIcons, this, activityDataWrapper);
+        ActivatorListFragment.RefreshGUIAsyncTask asyncTask = new ActivatorListFragment.RefreshGUIAsyncTask(refreshIcons, this, activityDataWrapper);
         asyncTask.execute();
 
 /*
@@ -597,12 +597,12 @@ public class ActivateProfileListFragment extends Fragment {
 //                    if (!refresh) {
 //                        String pNameHeader = PPApplication.prefActivityProfileName1;
 //                        //if (PPApplication.logEnabled()) {
-//                        //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
-//                        //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
+//                        //    PPApplication.logE("ActivatorListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
+//                        //    PPApplication.logE("ActivatorListFragment.refreshGUI", "pName=" + pName);
 //                        //}
 //
 //                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-//                            //PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
+//                            //PPApplication.logE("ActivatorListFragment.refreshGUI", "activated profile NOT changed");
 //                            doNotRefresh = true;
 //                            return null;
 //                        }
@@ -670,11 +670,11 @@ public class ActivateProfileListFragment extends Fragment {
         if (showTargetHelps ||
                 ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
-            //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
+            //Log.d("ActivatorListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             if (showTargetHelps) {
 
-                //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+                //Log.d("ActivatorListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -686,10 +686,10 @@ public class ActivateProfileListFragment extends Fragment {
                 showAdapterTargetHelps();
             }
             else {
-                //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                //Log.d("ActivatorListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showTargetHelps (1)");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (1)");
                     //noinspection Convert2MethodRef
                     showAdapterTargetHelps();
                 }, 500);
@@ -698,10 +698,10 @@ public class ActivateProfileListFragment extends Fragment {
         else {
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showTargetHelps (2)");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (2)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
-                    //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
+                    //Log.d("ActivatorListFragment.showTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
@@ -736,17 +736,17 @@ public class ActivateProfileListFragment extends Fragment {
             else
                 itemView = gridView.getChildAt(0);
         }
-        //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
-        //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
+        //Log.d("ActivatorListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
+        //Log.d("ActivatorListFragment.showAdapterTargetHelps", "itemView="+itemView);
         if ((profileListAdapter != null) && (itemView != null))
             profileListAdapter.showTargetHelps(getActivity(), /*this,*/ itemView);
         else {
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showAdapterTargetHelps");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showAdapterTargetHelps");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
-                    //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
+                    //Log.d("ActivatorListFragment.showAdapterTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
@@ -766,12 +766,12 @@ public class ActivateProfileListFragment extends Fragment {
 
         //boolean doNotRefresh = false;
 
-        private final WeakReference<ActivateProfileListFragment> fragmentWeakRef;
+        private final WeakReference<ActivatorListFragment> fragmentWeakRef;
         final DataWrapper dataWrapper;
         private final boolean refreshIcons;
 
         public RefreshGUIAsyncTask(final boolean refreshIcons,
-                                   final ActivateProfileListFragment fragment,
+                                   final ActivatorListFragment fragment,
                                    final DataWrapper dataWrapper) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             this.dataWrapper = dataWrapper.copyDataWrapper();
@@ -800,12 +800,12 @@ public class ActivateProfileListFragment extends Fragment {
                     if (!refresh) {
                         String pNameHeader = PPApplication.prefActivityProfileName1;
                         //if (PPApplication.logEnabled()) {
-                        //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
-                        //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
+                        //    PPApplication.logE("ActivatorListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
+                        //    PPApplication.logE("ActivatorListFragment.refreshGUI", "pName=" + pName);
                         //}
 
                         if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                            //PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
+                            //PPApplication.logE("ActivatorListFragment.refreshGUI", "activated profile NOT changed");
                             doNotRefresh = true;
                             return null;
                         }
@@ -825,7 +825,7 @@ public class ActivateProfileListFragment extends Fragment {
         protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
-            ActivateProfileListFragment fragment = fragmentWeakRef.get();
+            ActivatorListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
                     //if (!doNotRefresh) {

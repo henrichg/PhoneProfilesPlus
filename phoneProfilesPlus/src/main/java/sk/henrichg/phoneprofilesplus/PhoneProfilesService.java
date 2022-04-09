@@ -4666,8 +4666,8 @@ public class PhoneProfilesService extends Service
                     //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
 
                     editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);

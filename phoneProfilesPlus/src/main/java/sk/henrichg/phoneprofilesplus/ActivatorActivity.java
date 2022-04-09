@@ -81,7 +81,7 @@ public class ActivatorActivity extends AppCompatActivity {
                 else {
                     Fragment fragment = ActivatorActivity.this.getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
                     if (fragment != null) {
-                        ((ActivateProfileListFragment) fragment).showTargetHelps();
+                        ((ActivatorListFragment) fragment).showTargetHelps();
                     }
                 }
             }
@@ -475,7 +475,7 @@ public class ActivatorActivity extends AppCompatActivity {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
 
                 if (fragment != null) {
-                    ((ActivateProfileListFragment) fragment).refreshGUI(/*refresh,*/ refreshIcons);
+                    ((ActivatorListFragment) fragment).refreshGUI(/*refresh,*/ refreshIcons);
                 }
         //    }
         //});
@@ -485,7 +485,7 @@ public class ActivatorActivity extends AppCompatActivity {
     {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
         if (fragment != null)
-            return ((ActivateProfileListFragment)fragment).activityDataWrapper;
+            return ((ActivatorListFragment)fragment).activityDataWrapper;
         else
             return null;
     }
@@ -640,7 +640,7 @@ public class ActivatorActivity extends AppCompatActivity {
                         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null)
                         {
-                            ((ActivateProfileListFragment)fragment).showTargetHelps();
+                            ((ActivatorListFragment)fragment).showTargetHelps();
                         }
                     }
 
@@ -655,12 +655,12 @@ public class ActivatorActivity extends AppCompatActivity {
 
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
                         editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
-                        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
-                        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS, false);
 
                         editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
-                        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                         editor.apply();
 
@@ -714,7 +714,7 @@ public class ActivatorActivity extends AppCompatActivity {
                     /*if (ActivatorActivity.getInstance() != null) {
                         Fragment fragment = ActivatorActivity.getInstance().getFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null) {
-                            ((ActivateProfileListFragment) fragment).showTargetHelps();
+                            ((ActivatorListFragment) fragment).showTargetHelps();
                         }
                     }*/
                 }, 500);

@@ -1836,10 +1836,10 @@ class ApplicationPreferences {
         SharedPreferences _preferences = getSharedPreferences(context);
         prefActivatorActivityStartTargetHelps = _preferences.getBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
         prefActivatorActivityStartTargetHelpsFinished = _preferences.getBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, false);
-        prefActivatorFragmentStartTargetHelps = _preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
-        prefActivatorFragmentStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
-        prefActivatorAdapterStartTargetHelps = _preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
-        prefActivatorAdapterStartTargetHelpsFinished = _preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+        prefActivatorFragmentStartTargetHelps = _preferences.getBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS, false);
+        prefActivatorFragmentStartTargetHelpsFinished = _preferences.getBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, false);
+        prefActivatorAdapterStartTargetHelps = _preferences.getBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS, false);
+        prefActivatorAdapterStartTargetHelpsFinished = _preferences.getBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
 
         prefEditorActivityStartTargetHelps = _preferences.getBoolean(EditorActivity.PREF_START_TARGET_HELPS, false);
         prefEditorActivityStartTargetHelpsRunStopIndicator = _preferences.getBoolean(EditorActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
@@ -1879,13 +1879,13 @@ class ApplicationPreferences {
         ApplicationPreferences.prefActivatorActivityStartTargetHelps = start;
         editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, !start);
         ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = !start;
-        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, start);
+        editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorFragmentStartTargetHelps = start;
-        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, !start);
+        editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, !start);
         ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = !start;
-        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, start);
+        editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorAdapterStartTargetHelps = start;
-        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, !start);
+        editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, !start);
         ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = !start;
 
         editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS, start);

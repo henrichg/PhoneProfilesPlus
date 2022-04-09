@@ -16,16 +16,16 @@ import android.widget.TextView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
-class ActivateProfileListAdapter extends BaseAdapter
+class ActivatorListAdapter extends BaseAdapter
 {
-    private ActivateProfileListFragment fragment;
+    private ActivatorListFragment fragment;
     private final DataWrapper activityDataWrapper;
 
     //public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
     static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_adapter_start_target_helps_finished";
 
-    ActivateProfileListAdapter(ActivateProfileListFragment f, /*List<Profile> pl, */DataWrapper dataWrapper)
+    ActivatorListAdapter(ActivatorListFragment f, /*List<Profile> pl, */DataWrapper dataWrapper)
     {
         fragment = f;
         this.activityDataWrapper = dataWrapper;
@@ -195,7 +195,7 @@ class ActivateProfileListAdapter extends BaseAdapter
         final Profile profile = (Profile)getItem(position);
 
         if ((applicationActivatorGridLayout) &&
-                (profile._porder == ActivateProfileListFragment.PORDER_FOR_EMPTY_SPACE)) {
+                (profile._porder == ActivatorListFragment.PORDER_FOR_EMPTY_SPACE)) {
             holder.profileName.setText(R.string.empty_string);
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
         }
@@ -265,7 +265,7 @@ class ActivateProfileListAdapter extends BaseAdapter
         return vi;
     }
 
-    void showTargetHelps(final Activity activity, /*final ActivateProfileListFragment fragment,*/ final View listItemView) {
+    void showTargetHelps(final Activity activity, /*final ActivatorListFragment fragment,*/ final View listItemView) {
         /*if (Build.VERSION.SDK_INT <= 19)
             // TapTarget.forToolbarMenuItem FC :-(
             // Toolbar.findViewById() returns null
@@ -282,10 +282,10 @@ class ActivateProfileListAdapter extends BaseAdapter
         if (!startTargetHelpsFinished) {
             final Handler handler = new Handler(activity.getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (3)");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
-                    //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                    //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
@@ -301,7 +301,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
         if (ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
-            //Log.e("ActivateProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+            //Log.e("ActivatorListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -350,18 +350,18 @@ class ActivateProfileListAdapter extends BaseAdapter
                     //targetHelpsSequenceStarted = false;
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-                    editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
                     ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (1)");
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (1)");
 
                         if (ActivatorTargetHelpsActivity.activity != null) {
-                            //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                            //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                             try {
                                 ActivatorTargetHelpsActivity.activity.finish();
                             } catch (Exception e) {
@@ -384,12 +384,12 @@ class ActivateProfileListAdapter extends BaseAdapter
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS, false);
 
                     editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                     editor.apply();
 
@@ -403,10 +403,10 @@ class ActivateProfileListAdapter extends BaseAdapter
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (2)");
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (2)");
 
                         if (ActivatorTargetHelpsActivity.activity != null) {
-                            //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                            //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                             try {
                                 ActivatorTargetHelpsActivity.activity.finish();
                             } catch (Exception e) {
@@ -423,7 +423,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             //targetHelpsSequenceStarted = true;
 
             editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-            editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+            editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
             editor.apply();
             ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = false;
 
@@ -432,10 +432,10 @@ class ActivateProfileListAdapter extends BaseAdapter
         else {
             final Handler handler = new Handler(activity.getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (3)");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
-                    //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                    //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
