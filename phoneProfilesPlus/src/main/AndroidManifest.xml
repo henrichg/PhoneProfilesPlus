@@ -196,7 +196,7 @@
             android:label="@string/title_activity_activator"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
-            android:theme="@style/PopupTheme_withToolbar_dayNight">
+            android:theme="@style/ActivatorTheme_dayNight">
         </activity>
 
         <activity
