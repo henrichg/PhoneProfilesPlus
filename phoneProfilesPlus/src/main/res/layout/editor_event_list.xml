@@ -188,6 +188,8 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginStart="1dp"
                 android:entries="@array/emptyArray"
+                android:clickable="true"
+                android:focusable="true"
                 android:popupElevation="0dp"
                 style="@style/Base.Widget.AppCompat.Spinner" />
 
