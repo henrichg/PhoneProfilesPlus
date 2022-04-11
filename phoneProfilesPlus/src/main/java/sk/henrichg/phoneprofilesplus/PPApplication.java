@@ -1304,6 +1304,7 @@ public class PPApplication extends Application
         body = body + getString(R.string.acra_email_body_text);
 
         PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
+
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST);
@@ -1327,7 +1328,33 @@ public class PPApplication extends Application
                 .withReportAsFile(true)
                 .withReportFileName("crash_report.txt")
                 .withEnabled(true);
+/*
+        CoreConfigurationBuilder builder = new CoreConfigurationBuilder()
+                .withBuildConfigClass(BuildConfig.class)
+                .withReportFormat(StringFormat.KEY_VALUE_LIST);
 
+        builder.withPluginConfigurations(
+            new NotificationConfigurationBuilder()
+                .withChannelName(getString(R.string.notification_channel_crash_report))
+                .withChannelImportance(NotificationManager.IMPORTANCE_HIGH)
+                .withResIcon(R.drawable.ic_exclamation_notify)
+                .withTitle(getString(R.string.acra_notification_title))
+                .withText(getString(R.string.acra_notification_text))
+                .withResSendButtonIcon(0)
+                .withResDiscardButtonIcon(0)
+                .withSendOnClick(true)
+                .withEnabled(true)
+                .build(),
+            new MailSenderConfigurationBuilder()
+                .withMailTo("henrich.gron@gmail.com")
+                .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
+                .withBody(body)
+                .withReportAsFile(true)
+                .withReportFileName("crash_report.txt")
+                .withEnabled(true)
+                .build()
+        );
+*/
         //ACRA.DEV_LOGGING = true;
 
         ACRA.init(this, builder);
@@ -1365,12 +1392,15 @@ public class PPApplication extends Application
                 //noinspection TryWithIdenticalCatches
                 try {
                     List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
                     // cancel only enqueued works
                     for (WorkInfo workInfo : workInfoList) {
                         WorkInfo.State state = workInfo.getState();
                         if (forceCancel || (state == WorkInfo.State.ENQUEUED)) {
                             // any work is enqueued, cancel it
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" forceCancel="+forceCancel);
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" state="+state);
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" cancel it");
                             workManager.cancelWorkById(workInfo.getId());
                         }
                     }
