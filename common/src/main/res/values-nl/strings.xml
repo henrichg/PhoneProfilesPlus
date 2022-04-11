@@ -1529,7 +1529,6 @@
     <string name="profile_preferences_cameraFlash">Camera flitser</string>
     <string name="permission_why_profile_camera_flash">voor schakelaar camera flitser</string>
     <string name="permission_group_name_camera">Camera</string>
-    <string name="phone_profiles_pref_applicationAutostartCategory">Automatisch starten</string>
     <string name="phone_profiles_pref_systemAutoStartManager">Automatische start systeem instelling</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Als PhoneProfilesPlus niet start bij opstarten telefoon, klik hier en zoek de parameter voor het automatisch starten van PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Instellingenscherm niet gevonden, maar deze instelling is niet nodig als PhoneProfilesPlus start bij opstarten van de telefoon.</string>
@@ -1759,7 +1758,6 @@
     <string name="important_info_event_event_sensors_waiting">Blauw: sensor is in wachtstand. De status \"Geslaagd\" is bepaald.</string>
     <string name="important_info_event_event_sensors_passed">Groen: sensor is \"Geslaagd\".</string>
     <string name="important_info_event_event_sensors_not_pased">Geel: sensor is niet \"geslaagd\".</string>
-    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Hogere lay-out</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN-instellingen</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Klik hier voor informatie over de connectie\/verbroken connectie VPN die geconfigureerd is in de OpenVPN-programma.</string>
@@ -1911,6 +1909,12 @@
     <string name="check_releases_go_to_amazon_appstore">Ga naar de Amazon Appstore</string>
     <string name="check_releases_apkpure_appstore_application">ApkPure App installatie site:</string>
     <string name="check_releases_go_to_appgallery">Ga naar AppGallery</string>
+    <string name="phone_profiles_pref_applicationWidgetLayoutHeight">Lay-out hoogte</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_compact">Compact</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_normal">Normaal</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_large">Groot</string>
+    <string name="autostart_permission_notification_title">Automatische start permissie configuratie</string>
+    <string name="autostart_permission_notification_text">Klik hier voor aanzetten toestemming automatische start voor PhoneProfilesPlus. Dit is nodig voor starten van PhoneProfilesPlus bij opstarten van apparaat.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -2008,4 +2012,6 @@
     <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
     <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
 </resources>

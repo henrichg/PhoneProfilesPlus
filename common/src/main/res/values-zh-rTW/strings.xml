@@ -1529,7 +1529,6 @@
     <string name="profile_preferences_cameraFlash">相機閃光燈</string>
     <string name="permission_why_profile_camera_flash">開關相機閃光燈</string>
     <string name="permission_group_name_camera">相機</string>
-    <string name="phone_profiles_pref_applicationAutostartCategory">自動啟動</string>
     <string name="phone_profiles_pref_systemAutoStartManager">自動啟動系統設定</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">如果 PhoneProfilesPlus 開機未啟動，按此處並搜尋 PhoneProfilesPlus 自啟動參數。</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">找不到設定畫面，如果 PhoneProfilesPlus 開機正常啟動，則不需要此設定。</string>
@@ -1759,7 +1758,6 @@
     <string name="important_info_event_event_sensors_waiting">藍: 感測器處於等待狀態。\"通過\"狀態已確定。</string>
     <string name="important_info_event_event_sensors_passed">綠: 感測器是\"已通過\"。</string>
     <string name="important_info_event_event_sensors_not_pased">黃: 感測器未\"通過\"。</string>
-    <string name="phone_profiles_pref_applicationWidgetHigherLayout">更高的佈局</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN 設定</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">按此處顯示有關在 OpenVPN 應用程式中設置連接\/中斷的資訊。</string>
@@ -1911,6 +1909,12 @@
     <string name="check_releases_go_to_amazon_appstore">移至 Amazon 應用商店</string>
     <string name="check_releases_apkpure_appstore_application">ApkPure 程式安裝網站：</string>
     <string name="check_releases_go_to_appgallery">移至 AppGallery</string>
+    <string name="phone_profiles_pref_applicationWidgetLayoutHeight">版面高度</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_compact">緊湊</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_normal">正常</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_large">大</string>
+    <string name="autostart_permission_notification_title">自動啟動權限設置</string>
+    <string name="autostart_permission_notification_text">請按此處為 PhoneProfilesPlus 啟用自動啟動權限。當裝置開機時，需要啟動它。</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允許 PhoneProfilesPlusExtender 用於:\n• 設定檔參數 \"強制停止應用程式\"\n• 事件參數 \"應用程式感測器\"、\"翻轉感測器\"、\"簡訊/多媒體簡訊感測器\"、\"來電感測器\"。</string>
@@ -2008,4 +2012,6 @@
     <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
     <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
 </resources>

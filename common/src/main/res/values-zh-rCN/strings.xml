@@ -1529,7 +1529,6 @@
     <string name="profile_preferences_cameraFlash">相机闪光灯</string>
     <string name="permission_why_profile_camera_flash">开关摄像头闪光灯</string>
     <string name="permission_group_name_camera">相机</string>
-    <string name="phone_profiles_pref_applicationAutostartCategory">自动启动</string>
     <string name="phone_profiles_pref_systemAutoStartManager">自动启动系统设置</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">如果 PhoneProfilesPlus 未开机启动，请点击这里并搜索参数启用 PhoneProfilesPlus 自动启动。</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">找不到设定画面，但如果 PhoneProfilesPlus 开机启动，则不需要此设置。</string>
@@ -1759,7 +1758,6 @@
     <string name="important_info_event_event_sensors_waiting">蓝：传感器处于等待状态，\"传递\"状态已确定。</string>
     <string name="important_info_event_event_sensors_passed">绿色：传感器是“已传递”。</string>
     <string name="important_info_event_event_sensors_not_pased">黄色：传感器非\"传递\"。</string>
-    <string name="phone_profiles_pref_applicationWidgetHigherLayout">更高布局</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN 设置</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">点击这里显示在 OpenVPN 应用程序中配置的连接信息\/断开连接 VPN</string>
@@ -1911,6 +1909,12 @@
     <string name="check_releases_go_to_amazon_appstore">前往 Amazon 应用商店</string>
     <string name="check_releases_apkpure_appstore_application">ApkPure 应用安装网站：</string>
     <string name="check_releases_go_to_appgallery">转到应用库</string>
+    <string name="phone_profiles_pref_applicationWidgetLayoutHeight">布局高度</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_compact">紧凑</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_normal">正常</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_large">较大</string>
+    <string name="autostart_permission_notification_title">自启动权限配置</string>
+    <string name="autostart_permission_notification_text">请点击此处启用 PhoneProfilesPlus 的自启动权限。设备启动时需要启动权限。</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -2008,4 +2012,6 @@
     <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
     <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
 </resources>

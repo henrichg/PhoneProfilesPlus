@@ -1529,7 +1529,6 @@
     <string name="profile_preferences_cameraFlash">Flash de l\'appareil photo</string>
     <string name="permission_why_profile_camera_flash">pour changer le flash de l\'appareil photo</string>
     <string name="permission_group_name_camera">Appareil photo</string>
-    <string name="phone_profiles_pref_applicationAutostartCategory">Démarrage automatique</string>
     <string name="phone_profiles_pref_systemAutoStartManager">Réglage de démarrage automatique du système</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Si PhoneProfilesPlus ne démarre pas au démarrage du téléphone, cliquez ici et cliquez sur le paramètre de recherche pour activer le démarrage automatique de PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Paramétrage de l\'écran non trouvé, mais ce paramètre n\'est pas nécessaire si PhoneProfilesPlus démarre au démarrage du téléphone.</string>
@@ -1759,7 +1758,6 @@
     <string name="important_info_event_event_sensors_waiting">Bleu : le capteur est en attente. Le statut de \"Passé\" est déterminé.</string>
     <string name="important_info_event_event_sensors_passed">Vert : le capteur est \"passé\".</string>
     <string name="important_info_event_event_sensors_not_pased">Jaune : le capteur n\'est pas \"passé\".</string>
-    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Mise en page supérieure</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Paramètres VPN</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Cliquez ici pour afficher des informations sur la connexion\/déconnexion du VPN configuré dans l\'application OpenVPN.</string>
@@ -1911,6 +1909,12 @@
     <string name="check_releases_go_to_amazon_appstore">Accéder à Amazon Appstore</string>
     <string name="check_releases_apkpure_appstore_application">Site d\'installation de l\'application ApkPure :</string>
     <string name="check_releases_go_to_appgallery">Aller à la galerie d\'applications</string>
+    <string name="phone_profiles_pref_applicationWidgetLayoutHeight">Hauteur de la mise en page</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_compact">Compact</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_normal">Normale</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_large">Gros</string>
+    <string name="autostart_permission_notification_title">Auto start permission configuration</string>
+    <string name="autostart_permission_notification_text">Please click here to enable auto start permission for PhoneProfilesPlus. It is required for starting it, when the device boots.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -2008,4 +2012,6 @@
     <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
     <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
 </resources>

@@ -1529,7 +1529,6 @@
     <string name="profile_preferences_cameraFlash">Вспышка</string>
     <string name="permission_why_profile_camera_flash">для включения/выключения вспышки</string>
     <string name="permission_group_name_camera">Камера</string>
-    <string name="phone_profiles_pref_applicationAutostartCategory">Автозапуск</string>
     <string name="phone_profiles_pref_systemAutoStartManager">Настройка системы \"Автозапуск\"</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Если PhoneProfilesPlus не запускается при загрузке телефона, нажмите сюда и найдите параметр, включающий автозапуск PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Экран настройки не найден, но если PhoneProfilesPlus запускается при загрузке телефона, то она и не нужна.</string>
@@ -1759,7 +1758,6 @@
     <string name="important_info_event_event_sensors_waiting">Синий: датчик находится в состоянии ожидания, идёт проверка выполнения условия.</string>
     <string name="important_info_event_event_sensors_passed">Зелёный: условие выполняется.</string>
     <string name="important_info_event_event_sensors_not_pased">Жёлтый: условие не выполняется.</string>
-    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Увеличенный размер</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Настройки VPN</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Нажмите сюда для просмотра информации о подключении\/отключении VPN, настроенного в приложении OpenVPN.</string>
@@ -1911,6 +1909,12 @@
     <string name="check_releases_go_to_amazon_appstore">Перейти в Amazon Appstore</string>
     <string name="check_releases_apkpure_appstore_application">Сайт для установки приложения ApkPure:</string>
     <string name="check_releases_go_to_appgallery">Перейти в AppGallery</string>
+    <string name="phone_profiles_pref_applicationWidgetLayoutHeight">Высота макета</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_compact">Компактная</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_normal">Нормальная</string>
+    <string name="array_pref_oneRowWidget_layoutHeight_large">Большая</string>
+    <string name="autostart_permission_notification_title">Настройка разрешения \"Автозапуск\"</string>
+    <string name="autostart_permission_notification_text">Нажмите сюда, чтобы предоставить PhoneProfilesPlus разрешение \"Автозапуск\". Оно необходимо для запуска приложения при загрузке устройства.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -2008,4 +2012,6 @@
     <!--    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>-->
     <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
 </resources>
