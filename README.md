@@ -68,6 +68,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager - https://developer.android.com/jetpack/androidx/versions
 - Google Material components - https://github.com/material-components/material-components-android
 - google-gson - https://code.google.com/p/google-gson/
+- guava - https://github.com/google/guava
 - ACRA - https://github.com/ACRA/acra
 - osmdroid - https://github.com/osmdroid/osmdroid
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
