@@ -50,10 +50,7 @@ dependencies {
 
     //implementation 'androidx.concurrent:concurrent-futures:1.1.0'
     api "com.google.guava:guava:31.1-android"
-
-    //noinspection GradleDependency
     implementation "ch.acra:acra-mail:$ppVersions.acra"
-    //noinspection GradleDependency
     implementation "ch.acra:acra-notification:$ppVersions.acra"
 
     implementation 'androidx.work:work-runtime:2.7.1'  // 2.6.0 - must be minCompileSDK=31 for 2.7.0+
