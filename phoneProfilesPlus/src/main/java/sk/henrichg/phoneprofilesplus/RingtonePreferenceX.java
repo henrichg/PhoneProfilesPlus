@@ -492,8 +492,16 @@ public class RingtonePreferenceX extends DialogPreference {
             super.onPreExecute();
 
             RingtonePreferenceX preference = preferenceWeakRef.get();
-            if ((preference != null) && (preference.fragment != null))
-                preference.fragment.showProgress();
+            if (preference != null) {
+                if (preference.toneList.size() > 0) {
+                    if (preference.fragment != null)
+                        preference.fragment.hideProgress();
+                }
+            }
+
+            //RingtonePreferenceX preference = preferenceWeakRef.get();
+            //if ((preference != null) && (preference.fragment != null))
+            //    preference.fragment.showProgress();
         }
         */
 

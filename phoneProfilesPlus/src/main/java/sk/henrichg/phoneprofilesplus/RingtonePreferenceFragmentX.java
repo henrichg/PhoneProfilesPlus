@@ -57,6 +57,11 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         listView.setAdapter(listAdapter);
 
         if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext)) {
+            //if (preference != null) {
+                if (preference.toneList.size() > 0)
+                    hideProgress();
+            //}
+
             Handler handler = new Handler(prefContext.getMainLooper());
             handler.postDelayed(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RingtonePreferenceFragmentX.onBindDialogView");
@@ -89,6 +94,11 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
 //        listView.setVisibility(View.GONE);
 //        linlaProgress.setVisibility(View.VISIBLE);
 //    }
+
+    void hideProgress() {
+        linlaProgress.setVisibility(View.GONE);
+        //listView.setVisibility(View.GONE);
+    }
 
     void updateListView(boolean alsoSelection) {
         linlaProgress.setVisibility(View.GONE);
