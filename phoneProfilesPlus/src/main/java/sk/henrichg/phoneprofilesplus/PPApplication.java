@@ -300,6 +300,7 @@ public class PPApplication extends Application
 
                                                 //+"|EventPreferencesVolumes"
                                                 //+"|PhoneProfilesPreferencesFragment"
+                                                //+"|EventsPrefsFragment.isRedTextNotificationRequired"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

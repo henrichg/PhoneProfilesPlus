@@ -1422,7 +1422,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false) == 1;
         boolean eventIsRunnable = event.isRunnable(appContext, false);
 
-//        if (event._name.equals("Nočný hovor")) {
+//        if (event._name.equals("At home")) {
 //            if ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable)) {
 //                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "enabledSomeSensor=" + enabledSomeSensor);
 //                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "grantedAllPermissions=" + grantedAllPermissions);

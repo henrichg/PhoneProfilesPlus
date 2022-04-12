@@ -1521,14 +1521,18 @@ class Permissions {
                             }
                         }
                         if (preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false)) {
-                            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                            if (telephonyManager != null) {
-                                int phoneCount = telephonyManager.getPhoneCount();
-                                if (phoneCount > 1) {
-                                    //noinspection DuplicateExpressions
-                                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
-                                        if (!grantedPhoneState)
-                                            permissions.add(new PermissionType(PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
+                            if ((!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, "0").equals("0")) ||
+                                    (!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, "0").equals("0")) ||
+                                    (!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, "0").equals("0"))) {
+                                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                                if (telephonyManager != null) {
+                                    int phoneCount = telephonyManager.getPhoneCount();
+                                    if (phoneCount > 1) {
+                                        //noinspection DuplicateExpressions
+                                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
+                                            if (!grantedPhoneState)
+                                                permissions.add(new PermissionType(PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
+                                        }
                                     }
                                 }
                             }

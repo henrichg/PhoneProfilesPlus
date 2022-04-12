@@ -35,9 +35,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     private static final String PREF_EVENT_RADIO_SWITCH_WIFI = "eventRadioSwitchWifi";
     private static final String PREF_EVENT_RADIO_SWITCH_BLUETOOTH = "eventRadioSwitchBluetooth";
     private static final String PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF = "eventRadioSwitchSIMOnOff";
-    private static final String PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = "eventRadioSwitchDefaultSIMForCalls";
-    private static final String PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = "eventRadioSwitchDefaultSIMForSMS";
-    private static final String PREF_EVENT_RADIO_SWITCH_MOBILE_DATA = "eventRadioSwitchMobileData";
+    static final String PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = "eventRadioSwitchDefaultSIMForCalls";
+    static final String PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = "eventRadioSwitchDefaultSIMForSMS";
+    static final String PREF_EVENT_RADIO_SWITCH_MOBILE_DATA = "eventRadioSwitchMobileData";
     private static final String PREF_EVENT_RADIO_SWITCH_GPS = "eventRadioSwitchGPS";
     private static final String PREF_EVENT_RADIO_SWITCH_NFC = "eventRadioSwitchNFC";
     private static final String PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE = "eventRadioSwitchAirplaneMode";
@@ -487,6 +487,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_RADIO_SWITCH).size() == 0;
+//                Log.e("EventPreferencesRadioSwitch.setCategorySummary", "enabled="+enabled);
+//                Log.e("EventPreferencesRadioSwitch.setCategorySummary", "permissionGranted="+permissionGranted);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
