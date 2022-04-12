@@ -488,6 +488,18 @@ Podobne ako:
   IgnoreBatteryOptimizationNotification.showNotification(context, false);
 Volat vsade tam, kde je volane aj to.
 
+------------------
+
+Night mode - cize zlty film:
+Pozeraj toto:
+/home/henrisko/Stiahnuté/Tweaker-master/app/src/main/java/com/zacharee1/systemuituner/views/NightModeView.kt
+/home/henrisko/Stiahnuté/Tweaker-master/app/src/main/java/com/zacharee1/systemuituner/services/tiles/NightModeTile.kt
+/home/henrisko/Stiahnuté/Tweaker-master/app/src/main/java/com/zacharee1/systemuituner/prefs/NightModePreference.kt
+
+Je to aplikacia SysteUI Tunner. Mas ho v S10.
+
+--------------
+
 
 
 
