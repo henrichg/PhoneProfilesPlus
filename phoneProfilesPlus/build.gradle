@@ -49,7 +49,7 @@ dependencies {
     //implementation 'androidx.multidex:multidex:2.0.1'
 
     //implementation 'androidx.concurrent:concurrent-futures:1.1.0'
-    //api "com.google.guava:guava:31.1-android"
+    api "com.google.guava:guava:31.1-android"
 
     //noinspection GradleDependency
     implementation "ch.acra:acra-mail:$ppVersions.acra"
