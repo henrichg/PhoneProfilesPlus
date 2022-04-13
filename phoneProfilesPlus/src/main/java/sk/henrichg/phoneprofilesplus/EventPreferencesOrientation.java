@@ -225,7 +225,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (extenderVersion == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_2) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), true)) {
@@ -409,7 +409,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary = context.getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2)
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_2)
                         summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -747,7 +747,7 @@ class EventPreferencesOrientation extends EventPreferences {
             }
         }
 
-        enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_6_1_2);
+        enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_6_2);
         ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(enabled);
@@ -893,7 +893,7 @@ class EventPreferencesOrientation extends EventPreferences {
                             PPApplication.startHandlerThreadOrientationScanner();
                             boolean lApplicationPassed = false;
                             if (!_ignoredApplications.isEmpty()) {
-                                if (PPPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_6_1_2)) {
+                                if (PPPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_6_2)) {
                                     String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
                                     if (!foregroundApplication.isEmpty()) {
                                         String[] splits = _ignoredApplications.split("\\|");

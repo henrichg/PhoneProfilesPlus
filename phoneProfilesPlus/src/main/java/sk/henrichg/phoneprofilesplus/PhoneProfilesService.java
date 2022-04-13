@@ -7486,7 +7486,7 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newZenMode="+newZenMode);
 
             String phoneNumber = "";
-            if (PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_6_1_2))
+            if (PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_6_2))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "phoneNumber="+phoneNumber);
 
