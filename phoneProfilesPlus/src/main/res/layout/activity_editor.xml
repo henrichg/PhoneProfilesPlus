@@ -68,7 +68,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/editor_subToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" >
+                android:layout_height="37dp" >
 
                 <RelativeLayout
                     android:id="@+id/editor_subToolbar_reLa1"

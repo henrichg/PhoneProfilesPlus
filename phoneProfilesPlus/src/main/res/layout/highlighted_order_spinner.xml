@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textColor="@color/highlighted_spinner_all"
-    android:textSize="16dp"
+    android:textSize="17dp"
     android:textStyle="bold"
     android:ellipsize="marquee"
     android:singleLine="true"
