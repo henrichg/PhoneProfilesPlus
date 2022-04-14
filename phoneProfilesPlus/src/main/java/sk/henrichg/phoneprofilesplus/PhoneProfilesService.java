@@ -7635,11 +7635,13 @@ public class PhoneProfilesService extends Service
             }
 
             String newRingtone;
-            if (!_ringtoneFromProfile.isEmpty())
-                newRingtone = _ringtoneFromProfile;
-            else
+            // PPP do not support chnage of tone in contacts
+            // for this contact ringtone has highest priority
             if (!_ringtoneFromContact.isEmpty())
                 newRingtone = _ringtoneFromContact;
+            else
+            if (!_ringtoneFromProfile.isEmpty())
+                newRingtone = _ringtoneFromProfile;
             else
                 newRingtone = _ringtoneFromSystem;
 
