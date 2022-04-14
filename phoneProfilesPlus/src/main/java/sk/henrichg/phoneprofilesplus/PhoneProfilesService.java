@@ -7716,7 +7716,8 @@ public class PhoneProfilesService extends Service
 
                 //}
 
-                // simulate rngong when in profile is change of tone
+                // simulate rnging when in profile is change of tone
+                // STREAM_RING will be mutted, for this, will not be played both by system and PPP
                 if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
                     simulateRinging = true;
 
