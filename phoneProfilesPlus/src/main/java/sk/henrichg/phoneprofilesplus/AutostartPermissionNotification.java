@@ -16,76 +16,77 @@ class AutostartPermissionNotification {
     static void showNotification(Context context, @SuppressWarnings("SameParameterValue") boolean useHandler) {
         //PPApplication.logE("AutostartPermissionNotification.showNotification", "xxx");
 
-        final Context appContext = context.getApplicationContext();
+        if (PPApplication.applicationFullyStarted) {
+            final Context appContext = context.getApplicationContext();
 
-        if (useHandler) {
-            PPApplication.startHandlerThread();
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-            //        context.getApplicationContext()) {
-            __handler.post(() -> {
+            if (useHandler) {
+                PPApplication.startHandlerThread();
+                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                //        context.getApplicationContext()) {
+                __handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=AutostartPermissionNotification.showNotification");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
 
-                boolean isServiceRunning = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
-                if (!isServiceRunning) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AutostartPermissionNotification_showNotification");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
+                    boolean isServiceRunning = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                    if (!isServiceRunning) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
                         try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AutostartPermissionNotification_showNotification");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            try {
                                 //PPApplication.logE("AutostartPermissionNotification.showNotification", "pm="+pm);
 
-                            final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
-                            if (autoStartPermissionHelper.isAutoStartPermissionAvailable(appContext)) {
-                                //PPApplication.logE("AutostartPermissionNotification.showNotification", "optimized");
+                                final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
+                                if (autoStartPermissionHelper.isAutoStartPermissionAvailable(appContext)) {
+                                    //PPApplication.logE("AutostartPermissionNotification.showNotification", "optimized");
 
-                                showNotification(appContext,
-                                        appContext.getString(R.string.autostart_permission_notification_title),
-                                        appContext.getString(R.string.autostart_permission_notification_text));
+                                    showNotification(appContext,
+                                            appContext.getString(R.string.autostart_permission_notification_title),
+                                            appContext.getString(R.string.autostart_permission_notification_text));
+                                }
+                            } catch (Exception ignore) {
                             }
-                        } catch (Exception ignore) {
-                        }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=AutostartPermissionNotification_showNotification");
-                    } catch (Exception e) {
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=AutostartPermissionNotification_showNotification");
+                        } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
 
-        }
-        else {
-            boolean isServiceRunning = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
-            if (!isServiceRunning) {
-                try {
+            } else {
+                boolean isServiceRunning = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                if (!isServiceRunning) {
+                    try {
                         //PPApplication.logE("AutostartPermissionNotification.showNotification", "pm="+pm);
 
-                    final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
-                    if (autoStartPermissionHelper.isAutoStartPermissionAvailable(appContext)) {
-                        //PPApplication.logE("AutostartPermissionNotification.showNotification", "optimized");
+                        final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
+                        if (autoStartPermissionHelper.isAutoStartPermissionAvailable(appContext)) {
+                            //PPApplication.logE("AutostartPermissionNotification.showNotification", "optimized");
 
-                        showNotification(appContext,
-                                appContext.getString(R.string.autostart_permission_notification_title),
-                                appContext.getString(R.string.autostart_permission_notification_text));
+                            showNotification(appContext,
+                                    appContext.getString(R.string.autostart_permission_notification_title),
+                                    appContext.getString(R.string.autostart_permission_notification_text));
+                        }
+                    } catch (Exception ignore) {
                     }
-                } catch (Exception ignore) {
-                }
 
+                }
             }
         }
     }
