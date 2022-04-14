@@ -309,10 +309,8 @@ public class PhoneCallsListener extends PhoneStateListener {
 
 //        PPApplication.logE("PhoneCallsListener.callAnswered", "incoming="+incoming);
 
-        if (PhoneProfilesService.getInstance() != null) {
 //            PPApplication.logE("PhoneCallsListener.callAnswered", "call of stopSimulatingRingingCall");
-            PhoneProfilesService.getInstance().stopSimulatingRingingCall(true);
-        }
+            PhoneProfilesService.stopSimulatingRingingCall(true, context.getApplicationContext());
 
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
@@ -398,10 +396,8 @@ public class PhoneCallsListener extends PhoneStateListener {
 ////            PPApplication.logE("PhoneCallsListener.callEnded", "savedSpeakerphone=" + savedSpeakerphone);
 //        }
 
-        if (PhoneProfilesService.getInstance() != null) {
 //            PPApplication.logE("PhoneCallsListener.callEnded", "call of stopSimulatingRingingCall");
-            PhoneProfilesService.getInstance().stopSimulatingRingingCall(false);
-        }
+            PhoneProfilesService.stopSimulatingRingingCall(false, context.getApplicationContext());
 
         // audio mode is set to MODE_IN_CALL by system
 
