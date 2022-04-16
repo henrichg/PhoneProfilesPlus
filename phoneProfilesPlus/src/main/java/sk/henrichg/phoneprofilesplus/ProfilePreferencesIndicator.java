@@ -1642,7 +1642,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableWifiScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableWifiScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "wfs:0";
@@ -1655,7 +1655,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._applicationDisableWifiScanning == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableWifiScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableWifiScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "wfs:1";
@@ -1673,7 +1673,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableBluetoothScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableBluetoothScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "bls:0";
@@ -1686,7 +1686,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._applicationDisableBluetoothScanning == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableBluetoothScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableBluetoothScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "bls:1";
@@ -1704,7 +1704,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableLocationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableLocationScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "los:0";
@@ -1717,7 +1717,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._applicationDisableLocationScanning == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableLocationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableLocationScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "los:1";
@@ -1735,7 +1735,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableMobileCellScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableMobileCellScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "mcs:0";
@@ -1748,7 +1748,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._applicationDisableMobileCellScanning == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableMobileCellScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableMobileCellScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "mcs:1";
@@ -1766,7 +1766,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableOrientationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableOrientationScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ors:0";
@@ -1779,7 +1779,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._applicationDisableOrientationScanning == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableOrientationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableOrientationScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ors:1";
@@ -1797,7 +1797,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableNotificationScanning == 1) || (profile._applicationDisableNotificationScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableNotificationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableNotificationScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "nos:0";
@@ -1810,7 +1810,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._applicationDisableNotificationScanning == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableNotificationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableNotificationScanning) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "nos:1";

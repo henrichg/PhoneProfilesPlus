@@ -6,10 +6,10 @@
 
     <PreferenceCategory
         app:key="prf_pref_applicationDisableScanningCategory"
-        app:title="@string/profile_preferences_applicationDisableScanning"
+        app:title="@string/profile_preferences_applicationEnableScanning"
         app:layout="@layout/mp_preference_category">
         <ListPreference
-            app:title="@string/profile_preferences_applicationDisableWifiScanning"
+            app:title="@string/profile_preferences_applicationEnableWifiScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationDisableWifiScanning"
             app:defaultValue="0"
@@ -17,7 +17,7 @@
             app:entryValues="@array/applicationDisableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
-            app:title="@string/profile_preferences_applicationDisableBluetoothScanning"
+            app:title="@string/profile_preferences_applicationEnableBluetoothScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationDisableBluetoothScanning"
             app:defaultValue="0"
@@ -25,7 +25,7 @@
             app:entryValues="@array/applicationDisableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
-            app:title="@string/profile_preferences_applicationDisableLocationScanning"
+            app:title="@string/profile_preferences_applicationEnableLocationScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationDisableLocationScanning"
             app:defaultValue="0"
@@ -33,7 +33,7 @@
             app:entryValues="@array/applicationDisableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
-            app:title="@string/profile_preferences_applicationDisableMobileCellScanning"
+            app:title="@string/profile_preferences_applicationEnableMobileCellScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationDisableMobileCellScanning"
             app:defaultValue="0"
@@ -41,7 +41,7 @@
             app:entryValues="@array/applicationDisableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
-            app:title="@string/profile_preferences_applicationDisableOrientationScanning"
+            app:title="@string/profile_preferences_applicationEnableOrientationScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationDisableOrientationScanning"
             app:defaultValue="0"
@@ -49,7 +49,7 @@
             app:entryValues="@array/applicationDisableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
-            app:title="@string/profile_preferences_applicationDisableNotificationScanning"
+            app:title="@string/profile_preferences_applicationEnableNotificationScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationDisableNotificationScanning"
             app:defaultValue="0"
