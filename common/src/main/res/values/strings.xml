@@ -1982,6 +1982,8 @@
     <string name="extender_battery_optimization_button">Open\nBattery optimization</string>
     <string name="extender_acra_email_body_device">Device:</string>
     <string name="extender_acra_email_body_android_version">Android version:</string>
+    <string name="extender_permissions_popup_windows_in_background">Please enable \"Display pop-up windows while running in the background\". Without this enabled, \"Force stop applications\" will not be working.</string>
+    <string name="extender_popup_windows_in_background_button">Open\nOther permissions\n(MIUI)</string>
 
 <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
 <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
