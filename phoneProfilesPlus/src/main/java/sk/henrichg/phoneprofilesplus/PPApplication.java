@@ -1500,7 +1500,7 @@ public class PPApplication extends Application
         if (getResources() == null) {
             try {
                 android.os.Process.killProcess(pid);
-                PPApplication.logToCrashlytics("E/PPApplication.checkAppReplacingState: app is replacing...kill");
+                PPApplication.logToACRA("E/PPApplication.checkAppReplacingState: app is replacing...kill");
             } catch (Exception e) {
                 //Log.e("PPApplication.checkAppReplacingState", Log.getStackTraceString(e));
             }
@@ -3459,7 +3459,7 @@ public class PPApplication extends Application
         }
         if (!cmd.isFinished()){
             //Log.e("PPApplication.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
-            PPApplication.logToCrashlytics("E/PPApplication.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
+            PPApplication.logToACRA("E/PPApplication.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 
@@ -5019,7 +5019,7 @@ public class PPApplication extends Application
         } catch (Exception ignored) {}
     }
 
-    static void logToCrashlytics(String s) {
+    static void logToACRA(String s) {
         try {
             //FirebaseCrashlytics.getInstance().log(s);
             ACRA.getErrorReporter().putCustomData("Log", s);

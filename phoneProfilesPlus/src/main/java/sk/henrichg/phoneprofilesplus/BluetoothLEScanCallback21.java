@@ -153,7 +153,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 //        PPApplication.logE("[IN_LISTENER] BluetoothLEScanCallback21.onScanFailed", "xxx");
 
         //Log.e("BluetoothLEScanCallback21.onScanFailed", "errorCode=" + errorCode);
-        PPApplication.logToCrashlytics("E/BluetoothLEScanCallback21.onScanFailed: errorCode=" + errorCode);
+        PPApplication.logToACRA("E/BluetoothLEScanCallback21.onScanFailed: errorCode=" + errorCode);
     }
 
 /*    private static abstract class PPHandlerThreadRunnable implements Runnable {
