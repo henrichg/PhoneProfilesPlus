@@ -26,15 +26,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.skydoves.expandablelayout.ExpandableLayout;
-
 public class ImportantInfoHelpFragment extends Fragment {
 
     boolean firstInstallation = false;
 
-    ExpandableLayout expandableLayoutSystem;
-    ExpandableLayout expandableLayoutProfiles;
-    ExpandableLayout expandableLayoutEvents;
+    //ExpandableLayout expandableLayoutSystem;
+    //ExpandableLayout expandableLayoutProfiles;
+    //ExpandableLayout expandableLayoutEvents;
 
     public ImportantInfoHelpFragment() {
         // Required empty public constructor
@@ -54,35 +52,35 @@ public class ImportantInfoHelpFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final Activity activity = getActivity();
+        final ImportantInfoActivity activity = (ImportantInfoActivity)getActivity();
         if (activity == null)
             return;
 
         final Context context = activity.getApplicationContext();
 
-        expandableLayoutSystem = view.findViewById(R.id.fragment_important_info_expandable_system);
-        expandableLayoutProfiles = view.findViewById(R.id.fragment_important_info_expandable_profiles);
-        expandableLayoutEvents = view.findViewById(R.id.fragment_important_info_expandable_events);
-        expandableLayoutSystem.setOnClickListener(v -> {
-            if (!expandableLayoutSystem.isExpanded()) {
-                expandableLayoutProfiles.collapse();
-                expandableLayoutEvents.collapse();
+        activity.expandableLayoutSystem = view.findViewById(R.id.fragment_important_info_expandable_system);
+        activity.expandableLayoutProfiles = view.findViewById(R.id.fragment_important_info_expandable_profiles);
+        activity.expandableLayoutEvents = view.findViewById(R.id.fragment_important_info_expandable_events);
+        activity.expandableLayoutSystem.setOnClickListener(v -> {
+            if (!activity.expandableLayoutSystem.isExpanded()) {
+                activity.expandableLayoutProfiles.collapse();
+                activity.expandableLayoutEvents.collapse();
             }
-            expandableLayoutSystem.toggleLayout();
+            activity.expandableLayoutSystem.toggleLayout();
         });
-        expandableLayoutProfiles.setOnClickListener(v -> {
-            if (!expandableLayoutProfiles.isExpanded()) {
-                expandableLayoutSystem.collapse();
-                expandableLayoutEvents.collapse();
+        activity.expandableLayoutProfiles.setOnClickListener(v -> {
+            if (!activity.expandableLayoutProfiles.isExpanded()) {
+                activity.expandableLayoutSystem.collapse();
+                activity.expandableLayoutEvents.collapse();
             }
-            expandableLayoutProfiles.toggleLayout();
+            activity.expandableLayoutProfiles.toggleLayout();
         });
-        expandableLayoutEvents.setOnClickListener(v -> {
-            if (!expandableLayoutEvents.isExpanded()) {
-                expandableLayoutSystem.collapse();
-                expandableLayoutProfiles.collapse();
+        activity.expandableLayoutEvents.setOnClickListener(v -> {
+            if (!activity.expandableLayoutEvents.isExpanded()) {
+                activity.expandableLayoutSystem.collapse();
+                activity.expandableLayoutProfiles.collapse();
             }
-            expandableLayoutEvents.toggleLayout();
+            activity.expandableLayoutEvents.toggleLayout();
         });
 
         int versionCode = 0;

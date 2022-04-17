@@ -18,11 +18,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class QuickGuideHelpFragment extends Fragment {
+public class ImportantInfoQuickGuideHelpFragment extends Fragment {
 
     //int scrollTo = 0;
 
-    public QuickGuideHelpFragment() {
+    public ImportantInfoQuickGuideHelpFragment() {
         // Required empty public constructor
     }
 
@@ -109,7 +109,7 @@ public class QuickGuideHelpFragment extends Fragment {
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=QuickGuideHelpFragment.onViewCreated");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoQuickGuideHelpFragment.onViewCreated");
                     scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }
