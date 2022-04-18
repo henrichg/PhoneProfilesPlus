@@ -297,8 +297,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         final Context context = activity.getBaseContext();
 
-        PPApplication.forceStartOrientationScanner(context);
-        forceStart = true;
+//        PPApplication.forceStartOrientationScanner(context);
+//        forceStart = true;
 
         // must be used handler for rewrite toolbar title/subtitle
         final EventsPrefsFragment fragment = this;
@@ -1102,11 +1102,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             editor.apply();
             */
 
-            forceStart = false;
-            if (getActivity() != null) {
-                final Context context = getActivity().getBaseContext();
-                PPApplication.restartOrientationScanner(context);
-            }
+//            forceStart = false;
+//            if (getActivity() != null) {
+//                final Context context = getActivity().getBaseContext();
+//                PPApplication.restartOrientationScanner(context);
+//            }
 
             //PPApplication.logE("EventsPrefsFragment.onDestroy", "xxx");
 
