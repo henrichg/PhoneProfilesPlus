@@ -73,7 +73,7 @@
     </declare-styleable>
 
     <!-- theme dependent drawables -->
-    <attr name="colorAccentDisabled" format="reference" />
+<!--    <attr name="colorAccentDisabled" format="reference" />-->
     <attr name="activityBackgroundColor" format="reference" />
     <attr name="activityWhiteTextColor" format="reference" />
     <attr name="activityNormalTextColor" format="reference" />

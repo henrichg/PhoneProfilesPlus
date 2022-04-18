@@ -3,7 +3,7 @@
     <color name="primary">#202020</color>
     <color name="primaryDark">#202020</color>
     <color name="accent">#E99B7F</color>
-    <color name="accent_disabled">#70E99B7F</color>
+<!--    <color name="accent_disabled">#70E99B7F</color>-->
     <color name="navigationBar">#000000</color>
 
     <!--<color name="activityBackgroundColor">#FF252525</color>-->
