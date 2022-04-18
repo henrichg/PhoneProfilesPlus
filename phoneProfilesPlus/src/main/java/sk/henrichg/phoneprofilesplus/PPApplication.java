@@ -245,8 +245,8 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
 
-                                                +"|PhoneProfilesService.startOrientationScanner"
-                                                +"|OrientationScanner.onSensorChanged"
+                                                //+"|PhoneProfilesService.startOrientationScanner"
+                                                //+"|OrientationScanner.onSensorChanged"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

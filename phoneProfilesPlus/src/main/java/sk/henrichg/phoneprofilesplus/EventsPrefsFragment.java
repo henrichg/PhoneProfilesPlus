@@ -49,8 +49,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     private Event event;
 
-    @SuppressWarnings("unused")
-    static boolean forceStart;
+    //static boolean forceStart;
 
     private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
     private static final String PRF_NOT_IS_RUNNABLE = "eventNotIsRunnable";

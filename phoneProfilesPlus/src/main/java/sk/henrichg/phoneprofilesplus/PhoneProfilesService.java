@@ -3678,8 +3678,8 @@ public class PhoneProfilesService extends Service
             Context appContext = getApplicationContext();
             //CallsCounter.logCounter(appContext, "PhoneProfilesService.startOrientationScanner", "PhoneProfilesService_startOrientationScanner");
             //PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "xxx");
-            if (!forceStart && EventsPrefsFragment.forceStart)
-                return;
+            //if (!forceStart && EventsPrefsFragment.forceStart)
+            //    return;
             if (stop) {
                 if (isOrientationScannerStarted()) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->STOP", "PhoneProfilesService_startOrientationScanner");
@@ -3691,12 +3691,12 @@ public class PhoneProfilesService extends Service
             }
             if (start) {
                 //PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
-                if (ApplicationPreferences.applicationEventOrientationEnableScanning||
-                        EventsPrefsFragment.forceStart) {
+                if (ApplicationPreferences.applicationEventOrientationEnableScanning /*||
+                        EventsPrefsFragment.forceStart*/) {
                     boolean eventAllowed = false;
-                    if (EventsPrefsFragment.forceStart)
+                    /*if (EventsPrefsFragment.forceStart)
                         eventAllowed = true;
-                    else {
+                    else*/ {
                         if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)) {
                             // start only for screen On
                             dataWrapper.fillEventList();
@@ -7241,7 +7241,7 @@ public class PhoneProfilesService extends Service
             }
 
             if (PPApplication.lightSensor != null) {
-                boolean registerLight = EventsPrefsFragment.forceStart ||
+                boolean registerLight = /*EventsPrefsFragment.forceStart ||*/
                         (DatabaseHandler.getInstance(getApplicationContext()).getOrientationWithLightSensorEventsCount() != 0);
                 if (registerLight) {
                     PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, orentationScannerHandler);
