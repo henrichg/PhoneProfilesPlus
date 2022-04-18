@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Glasnoće nisu povezane</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Koristi ovo ako detekcija veze glasnoće je pogrešna.</string>
     <string name="profile_preferences_category_application">Funkcije aplikacije</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">Isključi skeniranje Wi-Fi -ja</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">Isključi skeniranje Bluetooth -a</string>
     <string name="profile_preferences_volumeZenModeM">\"Ne uznemiravaj\" tip</string>
     <string name="array_pref_zenModeArray_off">Isklj</string>
     <string name="array_pref_zenModeArray_offButVibration">Isključi sa vibracijom</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Omogući Bluetooth skeniranje</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Skeniraj i kada je Bluetooth onemogućen</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Uključi skeniranje lokacije</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">Isključi skeniranje lokacije</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Omogući skeniranje mobilne ćelije</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Omogući skeniranje orijentacije</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">Onemogući skeniranje mobilne ćelije</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">Onemogući skeniranje orijentacije</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Iskačuća obaveštenja</string>
     <string name="profileicon_pref_dlg_customIconButton">Proizvoljna ikona</string>
     <string name="mobile_cells_registration_cell_name_hint">Klikni za izbor imena ćelije</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Pristup obaveštenjima nije omogućen</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Pristup obaveštenjima je omogućen</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Molimo da omogućite pristup Obaveštenjima za PhoneProfilesPlus u podešavanjima sistema. Bez ovoga, skeniranje Obaveštenja neće biti moguće.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Isključi skeniranje obaveštenja</string>
     <string name="event_preferences_orientation_light_level_min">Osvetljenje - minimalna vrednost</string>
     <string name="event_preferences_orientation_light_level_max">Osvetljenje - maksimalna vrednost</string>
     <string name="event_preferences_orientation_light_level_bad_value">Loša vrednost</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activate specific profile, then restart events</string>
-    <string name="profile_preferences_applicationDisableScanning">Disable scanning</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Disable events run</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Events run disabled</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Events run enabled</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">Large</string>
     <string name="autostart_permission_notification_title">Auto start permission configuration</string>
     <string name="autostart_permission_notification_text">Please click here to enable auto start permission for PhoneProfilesPlus. It is required for starting it, when the device boots.</string>
+    <string name="profile_preferences_applicationEnableScanning">Enable scanning</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">Enable Wi-Fi scanning</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">Enable Bluetooth scanning</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">Enable location scanning</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Enable mobile cell scanning</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">Enable orientation scanning</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">Enable notification scanning</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
+    <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verzija:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">Servis pristupačnosti za parametar profila \"Nasilno zaustavi aplikacije\"</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">Servis pristupačnosti za parametre profila \"Senzor aplikacije\" i \"Senzor orjentacije\"</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">Отвори\nОптимизација батерије</string>
     <string name="extender_acra_email_body_device">Uređaj:</string>
     <string name="extender_acra_email_body_android_version">Verzija Androida:</string>
+    <string name="extender_permissions_popup_windows_in_background">Please enable \"Display pop-up windows while running in the background\". Without this enabled, \"Force stop applications\" will not be working.</string>
+    <string name="extender_popup_windows_in_background_button">Open\nOther permissions\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">Grant permission</string>
+    <string name="extender_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
+    <string name="extender_notification_permission_title">Permission not granted</string>
+    <string name="extender_notification_sms_mms_permission_text">Permission for event parameter \"SMS/MMS sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
+    <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

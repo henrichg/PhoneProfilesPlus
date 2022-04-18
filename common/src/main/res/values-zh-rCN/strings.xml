@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">音量未关联</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">如果音量关联检测错误，请使用此选项。</string>
     <string name="profile_preferences_category_application">应用程序功能</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">禁用 Wi-Fi 扫描</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">禁用蓝牙扫描</string>
     <string name="profile_preferences_volumeZenModeM">\"勿扰\"模式</string>
     <string name="array_pref_zenModeArray_off">关闭</string>
     <string name="array_pref_zenModeArray_offButVibration">关闭但震动</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">启用蓝牙扫描</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">即使蓝牙已禁用也会扫描</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">启用位置扫描</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">禁用位置扫描</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">启用移动基站扫描</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">启用方向扫描</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">禁用移动基站扫描</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">禁用手机方向扫描</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) 弹出通知</string>
     <string name="profileicon_pref_dlg_customIconButton">自定义图标</string>
     <string name="mobile_cells_registration_cell_name_hint">单击以设置基站名称</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">通知访问权限已禁用</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">通知访问权限已启用</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">请在系统设置中启用 PhoneProfilesPlus 的通知权限。否则通知扫描将无法工作。</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">禁用通知扫描</string>
     <string name="event_preferences_orientation_light_level_min">亮-最小值</string>
     <string name="event_preferences_orientation_light_level_max">亮-最大值</string>
     <string name="event_preferences_orientation_light_level_bad_value">错误值</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">请在下个对话框中授权，然后您可以从文件夹选择器中选择随机壁纸的文件夹。</string>
     <string name="profile_preferences_deviceWallpaperFolder">图片文件夹</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] 激活特定情景，然后重启事件</string>
-    <string name="profile_preferences_applicationDisableScanning">禁用扫描</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">禁用事件运行</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">事件运行已禁用</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">事件运行已启用</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">较大</string>
     <string name="autostart_permission_notification_title">自启动权限配置</string>
     <string name="autostart_permission_notification_text">请点击此处启用 PhoneProfilesPlus 的自启动权限。设备启动时需要启动权限。</string>
+    <string name="profile_preferences_applicationEnableScanning">启用扫描</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">启用 Wi-Fi 扫描</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">启用蓝牙扫描</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">启用位置扫描</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">启用移动基站扫描</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">启用方向扫描</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">启用通知扫描</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
+    <string name="extender_accessibility_service_description">PhoneProfilesPlus 的扩展。它仅与 PhoneProfilesPlus 一起工作。</string>
     <string name="extender_about_application_version">版本：</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">•情景参数“强制停止应用程序”的辅助功能服务</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">•事件参数“应用程序传感器”和“方向传感器”的辅助功能服务</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">打开电池优化</string>
     <string name="extender_acra_email_body_device">设备：</string>
     <string name="extender_acra_email_body_android_version">Android 版本：</string>
+    <string name="extender_permissions_popup_windows_in_background">请启用\"在后台运行时显示弹出窗口\"。如果没有启用此功能，\"强制停止应用程序\"将无法工作。</string>
+    <string name="extender_popup_windows_in_background_button">打开\n其他权限\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">授予权限</string>
+    <string name="extender_notification_channel_grant_permission_description">显示需要授予的权限。</string>
+    <string name="extender_notification_permission_title">未授予权限</string>
+    <string name="extender_notification_sms_mms_permission_text">未授予事件参数“SMS/MMS传感器”权限，点击此通知打开扩展。使用按钮授予此权限。</string>
+    <string name="extender_notification_call_permission_text">未授予事件参数“调用传感器”的权限，点击此通知打开扩展。使用按钮授予此权限。</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

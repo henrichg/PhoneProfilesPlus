@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Hlasitosti nie sú zlúčené</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Použite, ak zistenie zlúčenia hlasitostí je špatné.</string>
     <string name="profile_preferences_category_application">Funkcie aplikácie</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">Zakázať skenovanie Wi-Fi</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">Zakázať skenovanie Bluetooth</string>
     <string name="profile_preferences_volumeZenModeM">Typ \"Nerušiť\"</string>
     <string name="array_pref_zenModeArray_off">Vypnuté</string>
     <string name="array_pref_zenModeArray_offButVibration">Vypnuté, ale s vibráciami</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Povoliť skenovanie Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Skenovať aj keď je Bluetooth vypnutý</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Povoliť skenovanie polohy</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">Zakázať skenovanie polohy</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Povoliť skenovanie mobilných buniek</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Povoliť skenovanie orientácie</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">Zakázať skenovanie mobilných buniek</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">Zakázať skenovanie orientácie</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Vyskakovacie notifikácie</string>
     <string name="profileicon_pref_dlg_customIconButton">Vlastná ikona</string>
     <string name="mobile_cells_registration_cell_name_hint">Kliknite pre nastavenie názvu bunky</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Prístup k notifikáciám vypnutý</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Prístup k notifikáciám zapnutý</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Prosím, povoľte Prístup k upozorneniam pre PhoneProfilesPlus v nastaveniach systému. Bez toho nebude skenovanie notifikácií fungovať.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Zakázať skenovanie polohy</string>
     <string name="event_preferences_orientation_light_level_min">Svetlo - minimálna hodnota</string>
     <string name="event_preferences_orientation_light_level_max">Svetlo - maximálna hodnota</string>
     <string name="event_preferences_orientation_light_level_bad_value">Zlá hodnota</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom si môžete vybrať priečinok pre náhodné tapety z výberu priečinka.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Priečinok s obrázkami</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Aktivuj špecifický profil a potom reštartuj udalosti</string>
-    <string name="profile_preferences_applicationDisableScanning">Zakázať skenovanie</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Zakázať beh udalostí</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Beh udalostí zakázaný</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Beh udalostí povolený</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">Veľká</string>
     <string name="autostart_permission_notification_title">Konfigurácia povolenia automatického spustenie</string>
     <string name="autostart_permission_notification_text">Kliknutím sem povolíte automatické spustenie pre PhoneProfilesPlus. Vyžaduje sa na jeho spustenie pri štarte zariadenia.</string>
+    <string name="profile_preferences_applicationEnableScanning">Povoliť skenovanie</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">Povoliť skenovanie Wi-Fi</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">Povoliť skenovanie Bluetooth</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">Povoliť skenovanie polohy</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Povoliť skenovanie mobilných buniek</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">Povoliť skenovanie orientácie</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">Povoliť skenovanie notifikácií</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
+    <string name="extender_accessibility_service_description">Extender pre PhoneProfilesPlus. Funguje iba v spojení s PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verzia:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Služba Dostupnosť pre parameter profilu \"Vynútiť zastavenie aplikácií\"</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• Služba Dostupnosť pre parametre udalosti \"Senzor aplikácií\" a \"Senzor orientácie\"</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">Otvor\nOptimalizáciu batérie</string>
     <string name="extender_acra_email_body_device">Zariadenie:</string>
     <string name="extender_acra_email_body_android_version">Verzia Android:</string>
+    <string name="extender_permissions_popup_windows_in_background">Povoľte \"Zobrazovať kontextové okná pri spustení na pozadí\". Bez tohoto povolenia nebude funkcia \"Vynútiť zastavenie aplikácií\" fungovať.</string>
+    <string name="extender_popup_windows_in_background_button">Otvor\nĎalšie povolenia\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">Udelenie povolenia</string>
+    <string name="extender_notification_channel_grant_permission_description">Zobrazuje povolenie, ktoré je potrebné, aby ste udelili.</string>
+    <string name="extender_notification_permission_title">Povolenie nebolo udelené</string>
+    <string name="extender_notification_sms_mms_permission_text">Povolenie pre parameter udalosti \"Senzor SMS/MMS\" nie je udelené. Kliknutím na toto upozornenie otvoríte Extender. V ňom použite tlačidlo na udelenie tohto povolenia.</string>
+    <string name="extender_notification_call_permission_text">Povolenie pre parameter udalosti \"Senzor hovoru\" nie je udelené. Kliknutím na toto upozornenie otvoríte Extender. V ňom použite tlačidlo na udelenie tohto povolenia.</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

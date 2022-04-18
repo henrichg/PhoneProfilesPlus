@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Рівні гучності не об\'єднані</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Використовуйте, якщо об\'єднаність визначається неправильно.</string>
     <string name="profile_preferences_category_application">Функції додатку</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">Вимкнути Wi-Fi сканування</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">Вимкнути сканування Bluetooth</string>
     <string name="profile_preferences_volumeZenModeM">тип «Не турбувати»</string>
     <string name="array_pref_zenModeArray_off">Вимк.</string>
     <string name="array_pref_zenModeArray_offButVibration">Вимк., з вібрацією</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Увімкнути сканування Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Сканувати, навіть якщо Bluetooth вимкнений</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Увімкнути сканування місцеположення</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">Вимкнути сканування місцеположення</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Увімкнути сканування мобільних вишок</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Увімкнути сканування орієнтації</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">Вимкнути сканування мобільних вишок</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">Вимкнути сканування орієнтації</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Спливаючі сповіщення</string>
     <string name="profileicon_pref_dlg_customIconButton">Власна іконка</string>
     <string name="mobile_cells_registration_cell_name_hint">Натисніть, щоб встановити ім\'я вишки</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Доступ до сповіщень вимкнено</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Доступ до сповіщень увімкнено</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Увімкніть доступ до сповіщень для PhoneProfilesPlus в налаштуваннях системи. Без цього, сканування сповіщень не працюватиме.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Вимкнути сканування сповіщень</string>
     <string name="event_preferences_orientation_light_level_min">Світло - найменше значення</string>
     <string name="event_preferences_orientation_light_level_max">Світло - найбільше значення</string>
     <string name="event_preferences_orientation_light_level_bad_value">Невірне значення</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього ви зможете вибрати теку зображень для шпалер.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Тека зображень</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Активувати певний профіль, потім перезапустити події</string>
-    <string name="profile_preferences_applicationDisableScanning">Вимкнути сканування</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Вимкнути запуск подій</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Запуск подій вимкнуто</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Запуск подій увімкнено</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">Великий</string>
     <string name="autostart_permission_notification_title">Налаштування дозволу на автозапуск</string>
     <string name="autostart_permission_notification_text">Натисніть тут, щоб увімкнути автозапуск для PhoneProfilesPlus. Це потрібно для запуску застосунку під час завантаження пристрою.</string>
+    <string name="profile_preferences_applicationEnableScanning">Увімкнути сканування</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">Увімкнути сканування Wi-Fi</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">Увімкнути сканування Bluetooth</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">Увімкнути сканування місцеположення</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Увімкнути сканування мобільних вишок</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">Увімкнути сканування орієнтації</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">Увімкнути сканування сповіщень</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
+    <string name="extender_accessibility_service_description">Extender для PhoneProfilesPlus. Працює лише у поєднанні з PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Версія:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Служба спец. можливостей для параметра профілю \"Примусова зупинка додатків\"</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• Служба спец. можливостей для датчиків \"Датчик додатків\" і \"Датчик орієнтації екрану\"</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">Оптимізація батареї</string>
     <string name="extender_acra_email_body_device">Пристрій:</string>
     <string name="extender_acra_email_body_android_version">Версія Android:</string>
+    <string name="extender_permissions_popup_windows_in_background">Будь ласка, увімкніть \"Показувати вікна що виринають під час роботи у фоновому режимі\". Якщо не увімкнути, то \"Примусова зупинка додатків\" не працюватиме.</string>
+    <string name="extender_popup_windows_in_background_button">Відкрити\nІнші дозволи\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">Надати дозвіл</string>
+    <string name="extender_notification_channel_grant_permission_description">Показує дозвіл, який потрібно надати.</string>
+    <string name="extender_notification_permission_title">Дозвіл не надано</string>
+    <string name="extender_notification_sms_mms_permission_text">Дозвіл на параметр подій \"Датчик SMS/MMS\" не надано. Натисніть це сповіщення, щоб відкрити Extender. У ньому натисніть на кнопку для надання цього дозволу.</string>
+    <string name="extender_notification_call_permission_text">Дозвіл на параметр подій \"Датчик викликів\" не надано. Натисніть це сповіщення, щоб відкрити Extender. У ньому натисніть кнопку для надання цього дозволу.</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

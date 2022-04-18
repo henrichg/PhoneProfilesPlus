@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volumes zijn niet samengevoegd</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Gebruik dit als detectie van volume samenvoegen verkeerd gaat.</string>
     <string name="profile_preferences_category_application">Programma functies</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">Wi-Fi scannen uitschakelen</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">Bluetooth scannen uitschakelen</string>
     <string name="profile_preferences_volumeZenModeM">\"Niet storen\" type</string>
     <string name="array_pref_zenModeArray_off">Uit</string>
     <string name="array_pref_zenModeArray_offButVibration">Uit, wel trillen</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Bluetooth scannen inschakelen</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Ook scannen bij uitgeschakelde Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Locatie scannen inschakelen</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">Locatie scannen uitschakelen</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Zendmast cel scannen inschakelen</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Oriëntatie scannen inschakelen</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">Zendmast cel scannen uitschakelen</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">Oriëntatie scannen uitschakelen</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) Pop-up meldingen</string>
     <string name="profileicon_pref_dlg_customIconButton">Aangepast icoon</string>
     <string name="mobile_cells_registration_cell_name_hint">Klik om celnaam in te stellen</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Meldingstoegang uitgeschakeld</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Meldingstoegang ingeschakeld</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Activeer notificatie toegang voor PhoneProfilesPlus in systeem instellingen. Zonder dit zal notificatie scannen niet werken.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Meldingsscan uitschakelen</string>
     <string name="event_preferences_orientation_light_level_min">Licht - minimale waarde</string>
     <string name="event_preferences_orientation_light_level_max">Licht - maximale waarde</string>
     <string name="event_preferences_orientation_light_level_bad_value">Verkeerde waarde</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Sta toe in de volgende schermen. Vervolgens kun je de map kiezen voor willekeurige achtergrond in de map kiezer.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Map met afbeeldingen</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activeer specifiek profiel en herstart events</string>
-    <string name="profile_preferences_applicationDisableScanning">Scannen uitschakelen</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Events uitvoeren uitschakelen</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Events uitvoeren uitgeschakeld</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Events uitvoeren ingeschakeld</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">Groot</string>
     <string name="autostart_permission_notification_title">Automatische start permissie configuratie</string>
     <string name="autostart_permission_notification_text">Klik hier voor aanzetten toestemming automatische start voor PhoneProfilesPlus. Dit is nodig voor starten van PhoneProfilesPlus bij opstarten van apparaat.</string>
+    <string name="profile_preferences_applicationEnableScanning">Scannen inschakelen</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">Wi-Fi scannen inschakelen</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">Bluetooth scannen inschakelen</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">Locatie scannen inschakelen</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Zendmast cel scannen inschakelen</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">Oriëntatie scannen uischakelen</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">Meldingsscan inschakelen</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
+    <string name="extender_accessibility_service_description">Extender voor PhoneProfilesPlus. Deze werkt alleen in combinatie met PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Versie:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Toegankelijkheid service voor profiel parameter \"Force stop programma\'s\"</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• Toegankelijkheids service voor event parameters \"Programma sensor\" en \"Oriëntatie-sensor\"</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">Open\nBatterijoptimalisatie</string>
     <string name="extender_acra_email_body_device">Apparaat:</string>
     <string name="extender_acra_email_body_android_version">Android versie:</string>
+    <string name="extender_permissions_popup_windows_in_background">Schakel \"Toon pop-upvensters tijdens draaien op de achtergrond\" in. Zonder dit aan te zetten zal \"Forceer stoppen applicaties\" niet werken.</string>
+    <string name="extender_popup_windows_in_background_button">Open\nAndere rechten\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">Toestemming verlenen</string>
+    <string name="extender_notification_channel_grant_permission_description">Toont toestemming die nodig is.</string>
+    <string name="extender_notification_permission_title">Geen toestemming verleend</string>
+    <string name="extender_notification_sms_mms_permission_text">Toestemming voor event parameter \"SMS/MMS sensor\" is niet gegeven. Klik op deze notificatie om de extensie te openen. Binnen deze optie kun je de knop gebruiken om deze machtiging te verlenen.</string>
+    <string name="extender_notification_call_permission_text">Er is geen toestemming gegeven voor de event parameter \"Oproep sensor\". Klik op deze melding om de Extender te openen. Daarbinnen gebruik je de knop om de toestemming te verlenen.</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Głośności niepołączone</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Użyj tego, jeśli wykrywanie połączonych głośności działa nieprawidłowo.</string>
     <string name="profile_preferences_category_application">Funkcje aplikacji</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">Skanowanie Wi-Fi</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">Skanowanie Bluetooth</string>
     <string name="profile_preferences_volumeZenModeM">Dozwolone powiadomienia</string>
     <string name="array_pref_zenModeArray_off">Włączone wszystkie</string>
     <string name="array_pref_zenModeArray_offButVibration">Tylko wibracje</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Włącz skanowanie Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Skanuj nawet jeśli Bluetooth jest wyłączony</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Włącz skanowanie lokalizacji</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">Wyłącz skanowanie lokalizacji</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Włącz skanowanie stacji bazowych</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Włącz skanowanie orientacji</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">Skanowanie stacji bazowych</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">Skanowanie orientacji</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) wyskakujące powiadomienia</string>
     <string name="profileicon_pref_dlg_customIconButton">Ikona niestandardowa</string>
     <string name="mobile_cells_registration_cell_name_hint">Kliknij, aby ustawić nazwę stacji</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Dostęp do powiadomień wyłączony</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Dostęp do powiadomień włączony</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Proszę włączyć dostęp do powiadomień dla PhoneProfilesPlus w ustawieniach systemowych. Bez tego skanowanie powiadomień nie będzie działać.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Wyłącz skanowanie powiadomień</string>
     <string name="event_preferences_orientation_light_level_min">Oświetlenie - wartość minimalna</string>
     <string name="event_preferences_orientation_light_level_max">Oświetlenie - wartość maksymalna</string>
     <string name="event_preferences_orientation_light_level_bad_value">Błędna wartość</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Proszę przyznać je w następnym oknie dialogowym. Następnie możesz wybrać folder dla losowej tapety z wyboru folderu.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder obrazów</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Uaktywnij konkretny profil, a następnie zrestartuj zdarzenia</string>
-    <string name="profile_preferences_applicationDisableScanning">Wyłącz skanowanie</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Wyłącz uruchamianie zdarzeń</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Uruchamianie zdarzeń wyłączone</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Uruchamianie zdarzeń włączone</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">Duży</string>
     <string name="autostart_permission_notification_title">Konfiguracja autostartu</string>
     <string name="autostart_permission_notification_text">Proszę kliknąć tutaj, aby włączyć autostart dla PhoneProfilesPlus. Jest on wymagany, aby aplikacja mogła się uruchomić przy włączeniu urządzenia.</string>
+    <string name="profile_preferences_applicationEnableScanning">Enable scanning</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">Enable Wi-Fi scanning</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">Enable Bluetooth scanning</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">Enable location scanning</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Enable mobile cell scanning</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">Enable orientation scanning</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">Enable notification scanning</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
+    <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Wersja:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Usługa ułatwień dostępu dla parametru Profili \"Wymuś zatrzymanie aplikacji\" Profili</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• Usługa Ułatwień Dostępu dla czujników: \"Czujnik Aplikacji\", \"Czujnik Orientacji\"</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">Otwórz\noptymalizację baterii</string>
     <string name="extender_acra_email_body_device">Urządzenie:</string>
     <string name="extender_acra_email_body_android_version">Wersja Androida:</string>
+    <string name="extender_permissions_popup_windows_in_background">Please enable \"Display pop-up windows while running in the background\". Without this enabled, \"Force stop applications\" will not be working.</string>
+    <string name="extender_popup_windows_in_background_button">Open\nOther permissions\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">Grant permission</string>
+    <string name="extender_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
+    <string name="extender_notification_permission_title">Permission not granted</string>
+    <string name="extender_notification_sms_mms_permission_text">Permission for event parameter \"SMS/MMS sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
+    <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

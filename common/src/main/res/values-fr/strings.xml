@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Deux volumes distincts</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">A utiliser si la détection de la fusion du volume est fausse.</string>
     <string name="profile_preferences_category_application">Fonctions de l\'application</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">Désactiver le scan du wifi</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">Désactiver le scan du bluetooth</string>
     <string name="profile_preferences_volumeZenModeM">\"Ne pas déranger\" modèle</string>
     <string name="array_pref_zenModeArray_off">Désactivé</string>
     <string name="array_pref_zenModeArray_offButVibration">Désactivé mais avec vibration</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Activez le scan Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Scan même si Bluetooth est désactivé</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Activer le scan de localisation (Gps + Wifi)</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">Désactiver le scan de localisation (Gps + Wifi)</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Activer le scan des antennes cellulaire</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Activer l’analyse de l’orientation</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">Désactiver le scan des antennes cellulaire</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">Désactiver le scan des antennes cellulaire</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Utiliser des notifications contextuelles (Popup)</string>
     <string name="profileicon_pref_dlg_customIconButton">Icône personnalisée</string>
     <string name="mobile_cells_registration_cell_name_hint">Cliquez pour définir le nom de l\'antenne mobile</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Accès aux notifications désactivé</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Accès aux notifications activé</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Veuillez activer l\'accès aux notifications pour PhoneProfilesPlus dans les paramètres du système. Sans cela, l\'analyse des notifications ne fonctionnera pas.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Désactiver l\'analyse des notifications</string>
     <string name="event_preferences_orientation_light_level_min">Luminosité - valeur minimale</string>
     <string name="event_preferences_orientation_light_level_max">Luminosité - valeur maximale</string>
     <string name="event_preferences_orientation_light_level_bad_value">Mauvaise valeur</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activez le profil spécifique, puis redémarrez les événements</string>
-    <string name="profile_preferences_applicationDisableScanning">Désactiver le scan</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Désactiver les événements en cours</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Événements en cours désactivés</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Événements en cours sactivés</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">Gros</string>
     <string name="autostart_permission_notification_title">Auto start permission configuration</string>
     <string name="autostart_permission_notification_text">Please click here to enable auto start permission for PhoneProfilesPlus. It is required for starting it, when the device boots.</string>
+    <string name="profile_preferences_applicationEnableScanning">Enable scanning</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">Enable Wi-Fi scanning</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">Enable Bluetooth scanning</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">Enable location scanning</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Enable mobile cell scanning</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">Enable orientation scanning</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">Enable notification scanning</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
+    <string name="extender_accessibility_service_description">Extender pour PhoneProfilesPlus. Il ne fonctionne qu\'avec PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version :</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">- Service d\’accessibilité pour le paramètre de profil \"Applications d\’arrêt forcé\"</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">- Service d\’accessibilité pour les paramètres d\’événement \"Application sensor\" et \"Capteur d\’orientation\"</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">Open\nBattery optimization</string>
     <string name="extender_acra_email_body_device">Device:</string>
     <string name="extender_acra_email_body_android_version">Version Android :</string>
+    <string name="extender_permissions_popup_windows_in_background">Please enable \"Display pop-up windows while running in the background\". Without this enabled, \"Force stop applications\" will not be working.</string>
+    <string name="extender_popup_windows_in_background_button">Open\nOther permissions\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">Accorder la permission</string>
+    <string name="extender_notification_channel_grant_permission_description">Affiche la permission nécessaire pour l\'accorder.</string>
+    <string name="extender_notification_permission_title">Autorisation non accordée</string>
+    <string name="extender_notification_sms_mms_permission_text">L\'autorisation pour le paramètre d\'événement \"Capteur SMS/MMS\" n\'est pas accordée. Cliquez sur cette notification pour ouvrir Extender. Dans celle-ci, utiliser le bouton pour accorder cette autorisation.</string>
+    <string name="extender_notification_call_permission_text">L\'autorisation pour le paramètre \"Capteur d\'appel\" n\'est pas accordée. Cliquez sur cette notification pour ouvrir Extender. Dedans, utilisez le bouton pour accorder cette autorisation.</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

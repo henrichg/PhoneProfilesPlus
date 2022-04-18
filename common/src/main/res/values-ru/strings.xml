@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Уровни громкости разделены</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Используйте, если объединённость определяется неправильно.</string>
     <string name="profile_preferences_category_application">Функции приложения</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">Отключить сканирование Wi-Fi</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">Отключить сканирование Bluetooth</string>
     <string name="profile_preferences_volumeZenModeM">Тип \"Не беспокоить\"</string>
     <string name="array_pref_zenModeArray_off">Выключить</string>
     <string name="array_pref_zenModeArray_offButVibration">Выключен, с вибрацией</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Включить сканирование Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Сканировать, даже если Bluetooth отключён</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Включить сканирование местоположения</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">Отключить сканирование местоположения</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Включить сканирование мобильных вышек</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Включить сканирование ориентации</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">Отключить сканирование мобильных вышек</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">Отключить сканирование ориентации</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Всплывающие уведомления</string>
     <string name="profileicon_pref_dlg_customIconButton">Пользовательская иконка</string>
     <string name="mobile_cells_registration_cell_name_hint">Нажмите, чтобы задать имя вышки</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Доступ к уведомлениям запрещён</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Доступ к уведомлениям разрешён</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Разрешите, пожалуйста, PhoneProfilesPlus доступ к уведомлениям в настройках системы. Без этого сканирование уведомлений работать не будет.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Отключить сканирование уведомлений</string>
     <string name="event_preferences_orientation_light_level_min">Освещённость - минимальное значение</string>
     <string name="event_preferences_orientation_light_level_max">Освещённость - максимальное значение</string>
     <string name="event_preferences_orientation_light_level_bad_value">Неверное значение</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. Затем вы сможете выбрать папку со случайным изображением для обоев.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Папка с изображениями</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Активировать конкретный профиль, затем перезапустить события</string>
-    <string name="profile_preferences_applicationDisableScanning">Отключить сканирование</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Отключить запуск событий</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Запуск событий отключён</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Запуск событий включён</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">Большая</string>
     <string name="autostart_permission_notification_title">Настройка разрешения \"Автозапуск\"</string>
     <string name="autostart_permission_notification_text">Нажмите сюда, чтобы предоставить PhoneProfilesPlus разрешение \"Автозапуск\". Оно необходимо для запуска приложения при загрузке устройства.</string>
+    <string name="profile_preferences_applicationEnableScanning">Включить сканирование</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">Включить сканирование Wi-Fi</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">Включить сканирование Bluetooth</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">Включить сканирование местоположения</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Включить сканирование мобильных вышек</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">Включить сканирование ориентации</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">Включить сканирование уведомлений</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
+    <string name="extender_accessibility_service_description">Extender для PhoneProfilesPlus. Он работает только вместе с PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Версия:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Служба спец. возможностей для параметра профиля \"Принудительная остановка приложений\"</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• Служба спец. возможностей для параметров события \"Датчик приложений\" и \"Датчик ориентации\"</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">Открыть\n\"Экономию заряда батареи\"</string>
     <string name="extender_acra_email_body_device">Устройство:</string>
     <string name="extender_acra_email_body_android_version">Версия Android:</string>
+    <string name="extender_permissions_popup_windows_in_background">Предоставьте, пожалуйста, разрешение \"Отображать всплывающие окна, когда запущено в фоновом режиме\". Без этого принудительная остановка приложений работать не будет.</string>
+    <string name="extender_popup_windows_in_background_button">Открыть\nДругие разрешения\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">Предоставление разрешения</string>
+    <string name="extender_notification_channel_grant_permission_description">Показывает разрешение, которое нужно предоставить.</string>
+    <string name="extender_notification_permission_title">Разрешение не предоставлено</string>
+    <string name="extender_notification_sms_mms_permission_text">Разрешение для параметра \"Датчик SMS/MMS\" не предоставлено. Нажмите на это уведомление, чтобы открыть Extender, и предоставьте разрешение, нажав на соответствующую кнопку.</string>
+    <string name="extender_notification_call_permission_text">Разрешение для параметра \"Датчик вызовов\" не предоставлено. Нажмите на это уведомление, чтобы открыть Extender, и предоставьте разрешение, нажав на соответствующую кнопку.</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Ses seviyeleri birleşik değil</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Ses seviyeleri birleştirme tesbitinde hata varsa bunu kullanın.</string>
     <string name="profile_preferences_category_application">Uygulama kabiliyetleri</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">Wi-Fi taramayı kapat</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">Bluetooth taramayı kapat</string>
     <string name="profile_preferences_volumeZenModeM">\"Rahatsız Etmeyin\" türü</string>
     <string name="array_pref_zenModeArray_off">Kapalı</string>
     <string name="array_pref_zenModeArray_offButVibration">Kapalı, titreşim var</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Bluetooth taramayı aç</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Bluetooth devre dışı olsa bile tara</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Konum taramasını aç</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">Konum taramasını kapat</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Şebeke hücre taramasını aç</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Döndürme şartı taramasını aç</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">Şebeke hücre taramasını kapat</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">Döndürme şartı taramasını kapat</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) açılan bildirimler</string>
     <string name="profileicon_pref_dlg_customIconButton">Özel simge</string>
     <string name="mobile_cells_registration_cell_name_hint">Hücre ismi vermek için buraya dokunun</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Bildirim erişimi devre dışı</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Bildirim erişimine izni verildi</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Lutfen Bildirim Erişimini sistem ayarlarında açın. Bu yapılmadan, Bildirim Tarama çalışmaz.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Bildirim taramasını kapat</string>
     <string name="event_preferences_orientation_light_level_min">Parlaklık - asgari değer</string>
     <string name="event_preferences_orientation_light_level_max">Parlaklık - azami değer</string>
     <string name="event_preferences_orientation_light_level_bad_value">Hatalı değer</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Lutfen sonraki iletişim kutularında izinleri verin. Daha sonra duvar kağıdını klasörden rastgele değiştirebilirsiniz.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Resimlerin klasörü</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M]  Hususi Tercihi faaliyete geçir, sonra Durumları baştan başlat</string>
-    <string name="profile_preferences_applicationDisableScanning">Taramayı kapat</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Durumların çalışmasına izin verilmesin</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Durumların başlaması kapatıldı</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Durumların başlaması açıldı</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">Large</string>
     <string name="autostart_permission_notification_title">Auto start permission configuration</string>
     <string name="autostart_permission_notification_text">Please click here to enable auto start permission for PhoneProfilesPlus. It is required for starting it, when the device boots.</string>
+    <string name="profile_preferences_applicationEnableScanning">Enable scanning</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">Enable Wi-Fi scanning</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">Enable Bluetooth scanning</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">Enable location scanning</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Enable mobile cell scanning</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">Enable orientation scanning</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">Enable notification scanning</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
+    <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Sürüm:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• \"Zorla durdurulan uygulamalar\" Tercih değeri için Erişebilirlik hizmeti</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• \"Uygulama şartı\" ve \"Ekran döndürme şartı\" Durum şartı için Erişilebilirlik hizmeti</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">\"Pilin en iyi duruma getirilmesi\"ni aç</string>
     <string name="extender_acra_email_body_device">Cihaz:</string>
     <string name="extender_acra_email_body_android_version">Android sürümü:</string>
+    <string name="extender_permissions_popup_windows_in_background">Please enable \"Display pop-up windows while running in the background\". Without this enabled, \"Force stop applications\" will not be working.</string>
+    <string name="extender_popup_windows_in_background_button">Open\nOther permissions\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">Grant permission</string>
+    <string name="extender_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
+    <string name="extender_notification_permission_title">Permission not granted</string>
+    <string name="extender_notification_sms_mms_permission_text">Permission for event parameter \"SMS/MMS sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
+    <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

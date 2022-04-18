@@ -738,8 +738,6 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">音量未連結</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">使用此配置若音量連結偵測錯誤.</string>
     <string name="profile_preferences_category_application">應用程式功能</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">禁用 Wi-Fi 掃描</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">禁用藍牙掃描</string>
     <string name="profile_preferences_volumeZenModeM">\"勿擾\"模式</string>
     <string name="array_pref_zenModeArray_off">關</string>
     <string name="array_pref_zenModeArray_offButVibration">關閉但震動</string>
@@ -864,11 +862,8 @@
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">啟用藍牙掃描</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">即使藍牙停用也掃描</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">啟用位置掃描</string>
-    <string name="profile_preferences_applicationDisableLocationScanning">停用位置掃描</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">啟用基地台掃描</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">啟用翻轉掃描</string>
-    <string name="profile_preferences_applicationDisableMobileCellScanning">停用基地台掃描</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">停用翻轉掃描</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) 彈出通知</string>
     <string name="profileicon_pref_dlg_customIconButton">自訂圖示</string>
     <string name="mobile_cells_registration_cell_name_hint">按下來設定基地台名稱</string>
@@ -1414,7 +1409,6 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">停用通知存取</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">啟用通知存取</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">請在系統設定中啟用 PhoneProfilesPlus 的通知存取。否則通知掃描無法運作。</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">停用通知掃描</string>
     <string name="event_preferences_orientation_light_level_min">亮度 - 最小值</string>
     <string name="event_preferences_orientation_light_level_max">亮度 - 最大值</string>
     <string name="event_preferences_orientation_light_level_bad_value">錯誤值</string>
@@ -1735,7 +1729,6 @@
     <string name="permissions_for_wallpaper_folder_text2">請在下個對話框中授予它們。您可以為隨機桌布選擇來源資料夾。</string>
     <string name="profile_preferences_deviceWallpaperFolder">影像資料夾</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] 啟用指定的設定檔，然後重啟事件</string>
-    <string name="profile_preferences_applicationDisableScanning">停用掃描</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">停用事件執行</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">事件執行已停用</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">事件執行已啟用</string>
@@ -1915,9 +1908,15 @@
     <string name="array_pref_oneRowWidget_layoutHeight_large">大</string>
     <string name="autostart_permission_notification_title">自動啟動權限設置</string>
     <string name="autostart_permission_notification_text">請按此處為 PhoneProfilesPlus 啟用自動啟動權限。當裝置開機時，需要啟動它。</string>
+    <string name="profile_preferences_applicationEnableScanning">啟用掃描</string>
+    <string name="profile_preferences_applicationEnableWifiScanning">啟用 Wi-Fi 掃描</string>
+    <string name="profile_preferences_applicationEnableBluetoothScanning">啟用藍牙掃描</string>
+    <string name="profile_preferences_applicationEnableLocationScanning">啟用位置掃描</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">啟用基地台掃描</string>
+    <string name="profile_preferences_applicationEnableOrientationScanning">啟用翻轉掃描</string>
+    <string name="profile_preferences_applicationEnableNotificationScanning">啟用通知掃描</string>
     <!-- **************************************************************************************** -->
-    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">允許 PhoneProfilesPlusExtender 用於:\n• 設定檔參數 \"強制停止應用程式\"\n• 事件參數 \"應用程式感測器\"、\"翻轉感測器\"、\"簡訊/多媒體簡訊感測器\"、\"來電感測器\"。</string>
+    <string name="extender_accessibility_service_description">PhoneProfilesPlus 的擴展器。它只能與 PhoneProfilesPlus 一起使用。</string>
     <string name="extender_about_application_version">版本:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• 設定檔參數 \"強制停止應用程式\" 的無障礙功能服務</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• 事件參數 \"應用程式感測器\" 與 \"翻轉感測器\" 的無障礙功能服務</string>
@@ -1950,6 +1949,13 @@
     <string name="extender_battery_optimization_button">開啟\n電池效能最佳化</string>
     <string name="extender_acra_email_body_device">裝置:</string>
     <string name="extender_acra_email_body_android_version">Android 版本:</string>
+    <string name="extender_permissions_popup_windows_in_background">請啟用 \"在背景執行時顯示彈出視窗\"。若未啟用，\"強制停止應用程式\" 將無法作用。</string>
+    <string name="extender_popup_windows_in_background_button">開啟\n其他權限\n(MIUI)</string>
+    <string name="extender_notification_channel_grant_permission">授予權限</string>
+    <string name="extender_notification_channel_grant_permission_description">顯示需要授予它的權限。</string>
+    <string name="extender_notification_permission_title">未授予權限</string>
+    <string name="extender_notification_sms_mms_permission_text">未授予事件參數 \"簡訊/MMS 感測器\" 的權限。按此通知開啟擴展器。按其中的按鍵授予權限。</string>
+    <string name="extender_notification_call_permission_text">未授予事件參數 \"來電感測器\" 的權限。按此通知開啟擴展器。按其中的按鍵授予權限。</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
