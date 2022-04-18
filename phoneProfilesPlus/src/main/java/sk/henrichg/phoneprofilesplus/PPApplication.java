@@ -578,7 +578,7 @@ public class PPApplication extends Application
 
     //static final int SCANNER_START_ORIENTATION_SCANNER = 4;
     //static final int SCANNER_STOP_ORIENTATION_SCANNER = 5;
-    static final int SCANNER_FORCE_START_ORIENTATION_SCANNER = 5;
+    //static final int SCANNER_FORCE_START_ORIENTATION_SCANNER = 5;
     static final int SCANNER_RESTART_ORIENTATION_SCANNER = 6;
 
     //static final int SCANNER_START_MOBILE_CELLS_SCANNER = 7;

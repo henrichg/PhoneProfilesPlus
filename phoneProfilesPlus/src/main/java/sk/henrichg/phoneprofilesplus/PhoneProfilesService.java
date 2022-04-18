@@ -5424,12 +5424,12 @@ public class PhoneProfilesService extends Service
                                         ppService.startOrientationScanner(true, false, dataWrapper, false);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
-                                    case PPApplication.SCANNER_FORCE_START_ORIENTATION_SCANNER:
+                                    /*case PPApplication.SCANNER_FORCE_START_ORIENTATION_SCANNER:
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_FORCE_START_ORIENTATION_SCANNER");
                                         //MobileCellsScanner.forceStart = true;
                                         ppService.startOrientationScanner(true, false, dataWrapper, true);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
-                                        break;
+                                        break;*/
                                     case PPApplication.SCANNER_RESTART_TWILIGHT_SCANNER:
 //                                        PPApplication.logE("[IN_THREAD_HANDLER]  PhoneProfilesService.doCommand", "SCANNER_RESTART_TWILIGHT_SCANNER");
                                         ppService.startTwilightScanner(true, false, dataWrapper);
