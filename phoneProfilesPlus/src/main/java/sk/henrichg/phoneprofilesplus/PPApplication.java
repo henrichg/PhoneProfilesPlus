@@ -164,7 +164,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -214,35 +214,6 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
-                                                //+"|%%%%% MobileCellsScanner.doAutoRegistration"
-                                                //+"|CmdWifiAP.isEnabled"
-                                                //+"|WifiApManager.isWifiAPEnabled"
-                                                //+"|CmdWifiAP.setWifiAP"
-                                                //+"|WifiApManager.setWifiApState"
-
-                                                //+"|[***] EventsHandler.doHandleEvents"
-                                                //+"|[***] Event.startEvent"
-                                                //+"|%%%%BLE BluetoothScanner.doScan"
-                                                //+"|%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd"
-                                                //+"|%%%%BLE BluetoothScanWorker.startLEScan"
-                                                //+"|%%%%BLE BluetoothScanWorker.stopLEScan"
-
-//                                                +"|%%%% BluetoothScanner.doScan"
-//                                                +"|BluetoothScanWorker._scheduleWork"
-//                                                +"|BluetoothScanWorker.doWork"
-//                                                +"|MobileCellsScanner.connect"
-//                                                +"|OrientationScanner.runEventsHandlerForOrientationChange"
-//                                                +"|PeriodicEventsHandlerWorker.doWork"
-//                                                +"|PeriodicEventsHandlerWorker.enqueueWork"
-//                                                +"|PhoneProfilesService.startListeningOrientationSensors"
-//                                                +"|%%%% WifiScanner.doScan"
-//                                                +"|WifiScanWorker._scheduleWork"
-//                                                +"|WifiScanWorker.doWork"
-//                                                +"|LocationScanner.startLocationUpdates"
-//                                                +"|LocationSensorWorker.enqueueWork"
-//                                                +"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
-//                                                +"|PPPExtenderBroadcastReceiver.onReceive"
-
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
@@ -274,34 +245,8 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
 
-                                                //+"|PApplication.getReleaseData"
-                                                //+"|CheckGitHubReleasesActivity"
-                                                //+"|WifiApManager._startTethering30"
-                                                //+"|NextAlarmClockBroadcastReceiver"
-
-                                                //+"|SimStateChangedBroadcastReceiver"
-                                                //+"|DefaultSIMChangedBroadcastReceiver"
-                                                //+"|MobileDataNetworkCallback"
-                                                //+"|EventPreferencesRadioSwitch"
-
-                                                //+"|ActivateProfileHelper.execute"
-                                                //+"|ActivateProfileHelper.createBrightnessView"
-                                                //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
-                                                //+"|$$$B BluetoothScanner"
-                                                //+"|$$$B PhoneProfilesService"
-                                                //+"|BluetoothScanWorker.startCLScan"
-                                                //+"|BluetoothScanWorker.fillBoundedDevicesList"
-
-                                                //+"|EditorActivity.bottomNavigationView.OnItemSelectedListener"
-                                                //+"|EditorActivity.selectViewItem"
-                                                //+"|EditorActivity.selectFilterItem"
-                                                //+"|EditorActivity.onActivityResult"
-
-                                                //+"|ActivateProfileHelper.setTones"
-
-                                                //+"|EventPreferencesVolumes"
-                                                //+"|PhoneProfilesPreferencesFragment"
-                                                //+"|EventsPrefsFragment.isRedTextNotificationRequired"
+                                                +"|PhoneProfilesService.startOrientationScanner"
+                                                +"|OrientationScanner.onSensorChanged"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

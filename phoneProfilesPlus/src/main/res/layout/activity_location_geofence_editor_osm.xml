@@ -116,7 +116,7 @@
                 android:textColor="@color/accent"
                 android:textStyle="bold"
                 android:background="?attr/buttonBackground"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 android:text="0"
                 android:clickable="true"
                 android:focusable="true"

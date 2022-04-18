@@ -90,7 +90,7 @@
                         android:paddingEnd="10dp"
                         android:paddingTop="7dp"
                         android:paddingBottom="7dp"
-                        android:textSize="17sp"
+                        android:textSize="16sp"
                         android:textColor="?attr/colorAccent"
                         android:textStyle="bold"
                         android:background="?attr/buttonBackground"
@@ -109,7 +109,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:text="00:00:00"
-                    android:textSize="17sp"
+                    android:textSize="16sp"
                     tools:ignore="HardcodedText"/>
 
             </LinearLayout>
