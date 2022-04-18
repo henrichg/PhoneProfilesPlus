@@ -164,7 +164,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -3708,15 +3708,18 @@ public class PPApplication extends Application
         }
     }
 
-    public static void forceStartOrientationScanner(Context context/*, boolean forScreenOn*/) {
+    /*
+    public static void forceStartOrientationScanner(Context context) {
         try {
             //PPApplication.logE("[RJS] PhoneProfilesService.forceStartOrientationScanner", "xxx");
-            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_ORIENTATION_SCANNER);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
-            PPApplication.startPPService(context, serviceIntent);*/
+
+            //Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_ORIENTATION_SCANNER);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
+            //PPApplication.startPPService(context, serviceIntent);
+
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -3726,6 +3729,7 @@ public class PPApplication extends Application
             PPApplication.recordException(e);
         }
     }
+    */
 
     public static void forceStartMobileCellsScanner(Context context/*, boolean forScreenOn*/) {
         try {

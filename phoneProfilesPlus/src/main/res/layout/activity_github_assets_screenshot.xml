@@ -35,17 +35,6 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/github_assets_screenshot_label" />
 
-            <!--
-            <Button
-                style="@style/btn"
-                android:id="@+id/btn"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/btn"
-                android:onClick="click"
-                android:text="text" />
-            -->
-
         </LinearLayout>
 
     </ScrollView>

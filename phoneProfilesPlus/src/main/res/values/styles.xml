@@ -104,11 +104,12 @@
 
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:background">@drawable/pp_alert_button_background_selector</item>
-        <item name="android:textColor">@color/button_color</item>
+        <item name="android:textColor">@color/action_button_text_color</item>
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
     </style>
+<!--    <item name="android:textColor">@color/alert_button_color</item>-->
 
 <!--    <style name="ppDialogStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">-->
 <!--        <item name="android:background">@drawable/pp_dialog_background</item>-->

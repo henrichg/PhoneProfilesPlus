@@ -49,6 +49,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     private Event event;
 
+    @SuppressWarnings("unused")
     static boolean forceStart;
 
     private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
