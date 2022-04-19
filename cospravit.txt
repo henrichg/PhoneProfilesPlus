@@ -510,6 +510,8 @@ Je to aplikacia SysteUI Tunner. Mas ho v S10.
 handleEventsWifiScannerFromReceiverWork - preco sa to ola a preco az po 4 sekundach?
 scheduleLongIntervalWifiWork - preco sa vola toto?
 
+Opraveny Wi-Fi a Bluetooth senzor. Zralo to sleep 1 sekunda + vypnutoe wi-fi, bluetooth.
+
 ---------------
 
 
