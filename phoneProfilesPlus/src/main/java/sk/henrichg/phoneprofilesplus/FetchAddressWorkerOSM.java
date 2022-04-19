@@ -30,7 +30,7 @@ public class FetchAddressWorkerOSM extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER]  FetchAddressWorkerOSM.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER]  FetchAddressWorkerOSM.doWork", "xxxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started

@@ -23,7 +23,7 @@ public class ShowProfileNotificationWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "xxxx");
 
             synchronized (PPApplication.applicationPreferencesMutex) {
                 if (PPApplication.doNotShowProfileNotification)

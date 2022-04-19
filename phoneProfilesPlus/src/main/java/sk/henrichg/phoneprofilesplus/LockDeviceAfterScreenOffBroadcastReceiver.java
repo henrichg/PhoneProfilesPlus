@@ -160,8 +160,6 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
     }
 
     static void doWork(boolean useHandler, Context context) {
-//        PPApplication.logE("[IN_WORKER] LockDeviceAfterScreenOffBroadcastReceiver.doWork", "useHandler="+useHandler);
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;

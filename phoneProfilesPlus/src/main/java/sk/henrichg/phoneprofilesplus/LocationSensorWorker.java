@@ -31,7 +31,7 @@ public class LocationSensorWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "xxxx");
 
             if (Event.getGlobalEventsRunning()) {
                 EventsHandler eventsHandler = new EventsHandler(context);

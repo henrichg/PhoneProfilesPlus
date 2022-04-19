@@ -52,7 +52,7 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "---------------------------------------- START");
 //            Set<String> tags = getTags();
@@ -106,7 +106,7 @@ public class WifiScanWorker extends Worker {
                     PPApplication.logE("WifiScanWorker.doWork", "global events running=true");
                     PPApplication.logE("WifiScanWorker.doWork", "start scanner");
                 }*/
-                startScanner(context, false);
+                startScanner(context, false); //TODO tu je 2x 1 sekunda sleep() + caka na koiec skenovania
             }
 
             //PPApplication.logE("[RJS] WifiScanWorker.doWork", "schedule work");
@@ -148,7 +148,7 @@ public class WifiScanWorker extends Worker {
             }, 1500);
             */
 
-            //PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
+            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
 
             return Result.success();
         } catch (Exception e) {
@@ -653,8 +653,8 @@ public class WifiScanWorker extends Worker {
             if (fromDialog)
                 setScanRequest(context, true);
 
-            WifiScanner wifiBluetoothScanner = new WifiScanner(context);
-            wifiBluetoothScanner.doScan();
+            WifiScanner wifiScanner = new WifiScanner(context);
+            wifiScanner.doScan();
         }
         //dataWrapper.invalidateDataWrapper();
     }
