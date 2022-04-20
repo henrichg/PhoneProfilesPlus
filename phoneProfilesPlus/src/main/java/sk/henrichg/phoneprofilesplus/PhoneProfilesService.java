@@ -3684,7 +3684,7 @@ public class PhoneProfilesService extends Service
                 if (isOrientationScannerStarted()) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->STOP", "PhoneProfilesService_startOrientationScanner");
                     stopOrientationScanner();
-                    PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "STOP");
+//                    PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "STOP");
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "not started");
@@ -3710,7 +3710,7 @@ public class PhoneProfilesService extends Service
                         if (!isOrientationScannerStarted()) {
                             //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->START", "PhoneProfilesService_startOrientationScanner");
                             startOrientationScanner();
-                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
+//                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
                         }
 //                        else
 //                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "started");

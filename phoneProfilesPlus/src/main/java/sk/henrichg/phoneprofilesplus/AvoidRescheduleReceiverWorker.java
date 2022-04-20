@@ -25,7 +25,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "xxxx");
+//            PPApplication.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "xxxx");
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)

@@ -500,19 +500,6 @@ Je to aplikacia SysteUI Tunner. Mas ho v S10.
 
 --------------
 
-2022-04-19 18:38:26.578 15908-16041/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: xxxx
-2022-04-19 18:38:30.140 15908-16041/sk.henrichg.phoneprofilesplus E/WifiScanWorker.doWork: ---------------------------------------- END
-2022-04-19 18:38:34.925 15908-15986/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: xxxx
-2022-04-19 18:38:34.935 15908-15986/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: tag=handleEventsWifiScannerFromReceiverWork
-2022-04-19 18:38:35.151 15908-16077/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: xxxx
-2022-04-19 18:38:35.162 15908-16077/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: tag=scheduleLongIntervalWifiWork
-
-handleEventsWifiScannerFromReceiverWork - preco sa to ola a preco az po 4 sekundach?
-scheduleLongIntervalWifiWork - preco sa vola toto?
-
-Opraveny Wi-Fi a Bluetooth senzor. Zralo to sleep 1 sekunda + vypnutoe wi-fi, bluetooth.
-
----------------
 
 
 

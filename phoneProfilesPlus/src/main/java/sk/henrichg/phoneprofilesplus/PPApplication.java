@@ -214,15 +214,15 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
-                                                +"|[IN_WORKER]"
+//                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-                                                +"|[IN_THREAD_HANDLER]"
-                                                +"|[IN_BROADCAST]"
+//                                                +"|[IN_THREAD_HANDLER]"
+//                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
 //                                                +"|[IN_LISTENER]"
 //                                                +"|[IN_EVENTS_HANDLER]"
-                                                +"|[EVENTS_HANDLER_CALL]"
+//                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
 //                                                +"|[APP_START]"
 //                                                +"|[HANDLER]"
@@ -244,13 +244,6 @@ public class PPApplication extends Application
                                                 //+"|[DB_LOCK]"
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
-
-                                                //+"|PhoneProfilesService.startOrientationScanner"
-                                                //+"|OrientationScanner.onSensorChanged"
-
-                                                +"|ScreenOnOffBroadcastReceiver"
-                                                +"|WifiScanner"
-                                                +"|WifiScanWorker"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

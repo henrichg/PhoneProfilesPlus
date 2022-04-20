@@ -58,7 +58,7 @@ public class BluetoothScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[IN_WORKER]  BluetoothScanWorker.doWork", "xxxx");
+//            PPApplication.logE("[IN_WORKER]  BluetoothScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- START");
 

@@ -20,7 +20,7 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "xxxx");
+//            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "xxxx");
 
             /*if (!PPApplication.getApplicationStarted(true))
                 // application is not started

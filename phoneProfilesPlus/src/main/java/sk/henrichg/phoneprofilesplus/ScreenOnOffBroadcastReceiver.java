@@ -12,10 +12,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent != null)
-            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
-        else
-            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+//        if (intent != null)
+//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+//        else
+//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "ScreenOnOffBroadcastReceiver.onReceive", "ScreenOnOffBroadcastReceiver_onReceive");
 
@@ -40,7 +40,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         __handler.post(() -> {
-            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
 
@@ -170,7 +170,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             */
 
                             // restart scanners for screen on when any is enabled
-                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on - restart scanners - start");
+//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on - restart scanners - start");
                             boolean restart = false;
                             if (ApplicationPreferences.applicationEventLocationEnableScanning)
                                 restart = true;
@@ -190,7 +190,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 //PPApplication.setBlockProfileEventActions(true);
                                 PPApplication.restartAllScanners(appContext, false);
                             }
-                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on - restart scanners - end");
+//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on - restart scanners - end");
                             break;
                         }
                         case Intent.ACTION_SCREEN_OFF: {
@@ -245,7 +245,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_OFF");
 
                             // for screen off restart scanners only when it is required for any scanner
-                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off - lock device set alarm - restart scanners - start");
+//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off - lock device set alarm - restart scanners - start");
                             boolean restart = false;
                             //noinspection RedundantIfStatement
                             if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning &&
@@ -271,7 +271,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 //PPApplication.setBlockProfileEventActions(true);
                                 PPApplication.restartAllScanners(appContext, false);
                             }
-                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off - lock device set alarm - restart scanners - end");
+//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off - lock device set alarm - restart scanners - end");
 
                             final Handler handler1 = new Handler(appContext.getMainLooper());
                             handler1.post(() -> {
@@ -341,12 +341,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     if (Event.getGlobalEventsRunning()) {
                         //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
-                        PPApplication.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SCREEN");
+//                        PPApplication.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SCREEN");
                         //PPApplication.setBlockProfileEventActions(true);
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
 
-                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
+//                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
                     }
 
 //                    PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "draw application npotification - start");

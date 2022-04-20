@@ -24,7 +24,7 @@ public class GeofenceScanWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        PPApplication.logE("[IN_WORKER]  GeofenceScanWorker.doWork", "xxxx");
+//        PPApplication.logE("[IN_WORKER]  GeofenceScanWorker.doWork", "xxxx");
         /*try {
 
             //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- START");

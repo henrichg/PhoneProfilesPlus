@@ -1612,9 +1612,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplication.isPixelLauncherDefault(getActivity()) ||
                     PPApplication.isOneUILauncherDefault(getActivity())) {
-                // Pixel Launcher is default
-                // TODO Maybe rounded corners will be also in another launchers.
-                //      But currently is checked only Pixel and OneUi launcher.
                 preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS);
                 if (preference != null)
                     preference.setVisible(false);
