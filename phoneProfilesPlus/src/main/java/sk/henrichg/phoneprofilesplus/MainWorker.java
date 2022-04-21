@@ -82,6 +82,7 @@ public class MainWorker extends Worker {
                 if (tag.startsWith(PPApplication.PACKAGE_NAME))
                     continue;
 
+                long start = System.currentTimeMillis();
                 PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
 
                 switch (tag) {
@@ -262,7 +263,9 @@ public class MainWorker extends Worker {
                         break;
                 }
 
-                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- END tag=" + tag);
+                long finish = System.currentTimeMillis();
+                long timeElapsed = finish - start;
+                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- END tag=" + tag + " - timeElapsed="+timeElapsed);
             }
 
             return Result.success();

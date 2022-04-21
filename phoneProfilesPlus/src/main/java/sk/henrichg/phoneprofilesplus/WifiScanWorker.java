@@ -52,6 +52,7 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
+            long start = System.currentTimeMillis();
             PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- START");
 
             //PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "---------------------------------------- START");
@@ -150,7 +151,9 @@ public class WifiScanWorker extends Worker {
 
 //            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
 
-            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- END");
+            long finish = System.currentTimeMillis();
+            long timeElapsed = finish - start;
+            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("WifiScanWorker.doWork", Log.getStackTraceString(e));

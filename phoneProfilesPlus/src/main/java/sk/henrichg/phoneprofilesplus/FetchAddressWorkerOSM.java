@@ -30,6 +30,7 @@ public class FetchAddressWorkerOSM extends Worker {
     @Override
     public Result doWork() {
         try {
+            long start = System.currentTimeMillis();
             PPApplication.logE("[IN_WORKER]  FetchAddressWorkerOSM.doWork", "--------------- START");
 
             if (!PPApplication.getApplicationStarted(true))
@@ -95,7 +96,9 @@ public class FetchAddressWorkerOSM extends Worker {
             //else
             // Return the output
 
-            PPApplication.logE("[IN_WORKER]  FetchAddressWorkerOSM.doWork", "--------------- END");
+            long finish = System.currentTimeMillis();
+            long timeElapsed = finish - start;
+            PPApplication.logE("[IN_WORKER]  FetchAddressWorkerOSM.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success(outputData);
         } catch (Exception e) {
             //Log.e("FetchAddressWorkerOSM.doWork", Log.getStackTraceString(e));
