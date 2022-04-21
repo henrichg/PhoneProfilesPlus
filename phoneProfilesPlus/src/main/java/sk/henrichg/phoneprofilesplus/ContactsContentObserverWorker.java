@@ -23,7 +23,7 @@ public class ContactsContentObserverWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- START");
 
             Context appContext = context.getApplicationContext();
 
@@ -36,6 +36,7 @@ public class ContactsContentObserverWorker extends Worker {
             EventsHandler eventsHandler = new EventsHandler(appContext);
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
 
+            PPApplication.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- END");
             return Result.success();
         } catch (Exception e) {
             PPApplication.recordException(e);

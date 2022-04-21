@@ -35,7 +35,7 @@ public class SearchCalendarEventsWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- START");
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- START");
 
@@ -99,6 +99,7 @@ public class SearchCalendarEventsWorker extends Worker {
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
 
+            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- END");
             return Result.success();
         } catch (Exception e) {
             //Log.e("SearchCalendarEventsWorker.doWork", Log.getStackTraceString(e));

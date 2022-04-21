@@ -25,11 +25,12 @@ public class DisableInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER]  DisableInternalChangeWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER]  DisableInternalChangeWorker.doWork", "--------------- START");
 
 //            PPApplication.logE("[VOLUMES] DisableInternalChangeWorker.doWork", "internaChange=FALSE");
             RingerModeChangeReceiver.internalChange = false;
 
+            PPApplication.logE("[IN_WORKER]  DisableInternalChangeWorker.doWork", "--------------- END");
             return Result.success();
         } catch (Exception e) {
             //Log.e("DisableInternalChangeWorker.doWork", Log.getStackTraceString(e));
@@ -41,6 +42,7 @@ public class DisableInternalChangeWorker extends Worker {
                 }
             };
             _handler.postDelayed(r, 1000);*/
+
             return Result.failure();
         }
     }

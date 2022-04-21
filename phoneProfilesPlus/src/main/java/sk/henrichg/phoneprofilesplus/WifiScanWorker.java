@@ -52,7 +52,7 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- START");
 
             //PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "---------------------------------------- START");
 //            Set<String> tags = getTags();
@@ -150,6 +150,7 @@ public class WifiScanWorker extends Worker {
 
 //            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
 
+            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- END");
             return Result.success();
         } catch (Exception e) {
             //Log.e("WifiScanWorker.doWork", Log.getStackTraceString(e));

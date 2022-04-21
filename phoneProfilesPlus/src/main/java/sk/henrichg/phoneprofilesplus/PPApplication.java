@@ -214,7 +214,7 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
-//                                                +"|[IN_WORKER]"
+                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
@@ -1328,7 +1328,7 @@ public class PPApplication extends Application
         PPApplication.startHandlerThreadCancelWork();
         final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
         __handler.post(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
 
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
