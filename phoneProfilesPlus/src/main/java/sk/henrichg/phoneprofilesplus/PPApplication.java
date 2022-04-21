@@ -90,7 +90,7 @@ public class PPApplication extends Application
     //static final int VERSION_CODE_EXTENDER_5_1_4_1 = 600;
     //static final int VERSION_CODE_EXTENDER_6_0 = 620;
     //static final int VERSION_CODE_EXTENDER_6_2 = 670;
-    static final int VERSION_CODE_EXTENDER_7_0 = 695;
+    static final int VERSION_CODE_EXTENDER_7_0 = 700;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_7_0;
     static final String VERSION_NAME_EXTENDER_LATEST = "7.0";
 
