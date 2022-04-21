@@ -47,6 +47,7 @@ _**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gro
 
 _*** Please help me with translation, thank you: <https://crowdin.com/project/phoneprofilesplus> ***_
 
+
 ##### (HELP) How to grant (G1) permission - for profile parameters that require this permission
 - [Show it](docs/grant_g1_permission.md)
 
@@ -55,6 +56,21 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Features
 - [Show it](docs/ppp_features.md)
+
+##### Screenshots
+[![1]](art/_base/phoneScreenshots/01.png)
+[![2]](art/_base/phoneScreenshots/02.png)
+[![3]](art/_base/phoneScreenshots/03.png)
+[![4]](art/_base/phoneScreenshots/04.png)
+[![5]](art/_base/phoneScreenshots/05.png)
+[![6]](art/_base/phoneScreenshots/06.png)
+[![7]](art/_base/phoneScreenshots/07.png)
+[![8]](art/_base/phoneScreenshots/08.png)
+[![9]](art/_base/phoneScreenshots/09.png)
+[![10]](art/_base/phoneScreenshots/10.png)
+[![11]](art/_base/phoneScreenshots/11.png)
+[![12]](art/_base/phoneScreenshots/12.png)
+[![13]](art/_base/phoneScreenshots/13.png)
 
 ##### Supported Android versions
 
