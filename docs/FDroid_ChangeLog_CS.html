@@ -7,33 +7,44 @@
 
 <h1 id="changelog">PhoneProfilesPlus Seznam změn</h1>
 
-<h2 id="version2">Verze: 5.2</h2>
+<h2 id="version2">Verze: 5.3</h2>
 
 <ul>
-    <li>Added installation of Extender from Galaxy Store.</li>
-    <li>Added support of night mode for Samsung Edge panel.</li>
-    <li>Added double arrow into clickable texts.</li>
-    <li>Added info about device root status for Settings/Permissions/Grant root.</li>
-    <li>Added "(I) Change to image with" for change wallpaper. Useful for Android 12 color palette support.</li>
-    <li>Added buttons to open profile/event preferences from dialog for red preferences.</li>
-    <li>Added info about "Wi-Fi control" special app access into Permissions settings.</li>
-    <li>Added support for monochrome profile icon in app notification.</li>
-    <li>Added tap target help for bottom navigation view in Editor.</li>
-    <li>Added Airplane mode on/off without root.</li>
-    <li>Added help info about custom profile icons and icon pack applications.</li>
-    <li>Added each day check for new required PPPExtender version.</li>
-    <li>Changed native bottom navigation view in Editor with better, Used is SmoothBottomBar library.</li>
-    <li>Changed PPP and PPPE installation form GitHub. Used is 'releases/latest/download' tag in GitHub for download.</li>
-    <li>Change: Separated shortcut parameters from widget icon parameters.</li>
-    <li>Change: Rewrite of tap target help.</li>
-    <li>Change: Updated README.md. Added links to download apk.</li>
-    <li>Enabled set of profile icon color type for widgets, when is used color change by night mode.</li>
-    <li>Fixed disabling Bluetooth and Wi-Fi by scanners after end of scan even when is manually enabled by user, for example from Quick panel.</li>
-    <li>Fixed not allowed change of indicators lightning when icon is set to monochrome in widgets preferences.</li>
-    <li>Fixed bad profile order in Activator in list view.</li>
-    <li>Fixed displaying of red error for PPPExtender, when is not needed for profile.</li>
-    <li>Fixed ringtone volume change, when device has merged ringing and notifications volume.</li>
-    <li>Fixed check root for devices which are rooted, but started is non-rooted system.</li>
+    <li>Added: "Volume change" event sensor.</li>
+    <li>Added "Play notification also in silent mode" parameter for start/end of event notification.</li>
+    <li>Added info for profile parameter "Dark mode".</li>
+    <li>Added: "How to disable Wi-Fi scan throttling".</li>
+    <li>Added Auto start notification generation.</li>
+    <li>Added initial uri (path) for start gallery of custom icon, wallpaper image, wallpaper folder.</li>
+    <li>Added support for installation of Huawei AppGallery in non-Huawei devices.</li>
+    <li>Added open of web for installation of Amazon AppStore, APKPure and open PPP releases in web version of AppGallery, Amazon AppStore, APKPure in check releases dialogs.</li>
+    <li>Added note about USB debugging security into Important info and grant_g1_permission.md.</li>
+    <li>Changed One row widget parameter "Higher layout" to "Layout height".</li>
+    <li>Changed name of all "Disable ... scanning" profile parameters to "Enable ... scanning"</li>
+    <li>Change: Allowed change of profile parameters which requires root on non-rooted devices.</li>
+    <li>Change: Allow change of parameters even when are not inserted 2 SIM cards.</li>
+    <li>Change of "Help with GUI items" text. Is better readable.</li>
+    <li>Change: Remove of non-critical check releases notification, when is displayed critical release notification and do not display non-critical check releases notification when nis displayed critical release notification.</li>
+    <li>Changed intent for ignore battery optimization to Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. Only solution for OnePlus.</li>
+    <li>Chnage: Some GUI changes.</li>
+    <li>Change: New PPPExtender required version. In it is fixed outgoing call.</li>
+    <li>Change: Updated README.md</li>
+    <li>Changed privacy policy link in README.md to PhoneProfilesPlus/docs/privacy_policy.md</li>
+    <li>Change: Updated grant_g1_permission.md</li>
+    <li>Changed screenshots of PPP for applications stores.</li>
+    <li>Fixed "Mute sound" for non-audible "Sound profile" profile parameter.</li>
+    <li>Fixed display and check of required event parameters.</li>
+    <li>Fix: call root functionality when G1 functionality crashes.</li>
+    <li>Fixed bad working Silent ringer mode.</li>
+    <li>Fixed bad working check of PPPE accessibility service.</li>
+    <li>Fixed not called whole EventsHandler for manual restart of events, when all events are stopped.</li>
+    <li>Fixed notification channels from IMPORTANCE_LOW to IMPORTANCE_DEFAULT. Changed some channel parameters.</li>
+    <li>Fixed Autostart for OnePlus, Android 12.</li>
+    <li>Fixed bad displayed red text for event radio switch preference category.</li>
+    <li>Fixed play of ringing simulation.</li>
+    <li>Fixed cropped Quick guide when all sections in Important info are collapsed.</li>
+    <li>Fix: Removed force start of orientation sensor from start of event preferences. This fixes battery consumption when event preferences are displayed.</li>
+    <li>Fixed Airplane mode set to disabled when is not PPP as default assistant.</li>
 </ul>
 
 <ul>
@@ -45,7 +56,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.2">Kompletní seznam změn je v GitHub</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.3">Kompletní seznam změn je v GitHub</a>
 </p>
 
 </body>

@@ -29,8 +29,8 @@
 // 6730 = changed one row widget "Higher layout" parameter to "Layout height"
 
 ext.ppVersions = [
-    publishVersion: '5.3b',
-    publishVersionCode: 6720,  // set to 6730
+    publishVersion: '5.3',
+    publishVersionCode: 6730,
 
     minSdk: 24,
     targetSdk: 28,

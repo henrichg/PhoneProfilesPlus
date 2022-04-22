@@ -3,7 +3,7 @@
 PhoneProfilesPlus
 =================
 
-[![version](https://img.shields.io/badge/version-5.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.2)
+[![version](https://img.shields.io/badge/version-5.3-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.3)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
@@ -84,7 +84,6 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager - https://developer.android.com/jetpack/androidx/versions
 - Google Material components - https://github.com/material-components/material-components-android
 - google-gson - https://code.google.com/p/google-gson/
-- guava - https://github.com/google/guava
 - ACRA - https://github.com/ACRA/acra
 - osmdroid - https://github.com/osmdroid/osmdroid
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
