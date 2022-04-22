@@ -645,7 +645,7 @@ class EventsHandler {
                 //runningEventCountP = _etl.size();
 
                 // 2. start events
-                //dataWrapper.sortEventsByStartOrderAsc();
+                //sortEventsByStartOrderAsc(dataWrapper.eventList);
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
 //                    if (PPApplication.logEnabled()) {
@@ -764,7 +764,7 @@ class EventsHandler {
 
                 //2. start events
                 //mergedProfile.copyProfile(mergedPausedProfile);
-                //dataWrapper.sortEventsByStartOrderAsc();
+                //sortEventsByStartOrderAsc(dataWrapper.eventList);
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
                     /*if (PPApplication.logEnabled()) {
@@ -2144,7 +2144,7 @@ class EventsHandler {
     }
 
     /*
-    void sortEventsByStartOrderAsc()
+    void sortEventsByStartOrderAsc(List<Event> eventList)
     {
         class PriorityComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
@@ -2155,10 +2155,7 @@ class EventsHandler {
             }
         }
 
-        synchronized (eventList) {
-            fillEventList();
-            Collections.sort(eventList, new PriorityComparator());
-        }
+        eventList.sort(new PriorityComparator());
     }
     */
 
@@ -2173,8 +2170,7 @@ class EventsHandler {
             }
         }
 
-        //noinspection Java8ListSort
-        Collections.sort(eventList, new PriorityComparator());
+        eventList.sort(new PriorityComparator());
     }
 
 }

@@ -18,7 +18,6 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -168,8 +167,7 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
                     }
                     //}
 
-                    //noinspection Java8ListSort
-                    Collections.sort(_wallpapersList, new SortList());
+                    _wallpapersList.sort(new SortList());
 
                 } catch (Exception e) {
                     PPApplication.recordException(e);

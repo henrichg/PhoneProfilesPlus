@@ -44,7 +44,6 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -1074,8 +1073,7 @@ public class EditorProfileListFragment extends Fragment
                     return 0;
             }
         }
-        //noinspection Java8ListSort
-        Collections.sort(profileList, new AlphabeticallyComparator());
+        profileList.sort(new AlphabeticallyComparator());
     }
 
     private static void sortByPOrder(List<Profile> profileList)
@@ -1088,8 +1086,7 @@ public class EditorProfileListFragment extends Fragment
                 return res;
             }
         }
-        //noinspection Java8ListSort
-        Collections.sort(profileList, new ByPOrderComparator());
+        profileList.sort(new ByPOrderComparator());
     }
 
     void refreshGUI(/*final boolean refresh,*/ final boolean refreshIcons, final boolean setPosition, final long profileId)

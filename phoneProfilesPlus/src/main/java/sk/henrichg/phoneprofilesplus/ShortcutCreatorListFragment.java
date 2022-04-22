@@ -25,7 +25,6 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.Fragment;
 
 import java.lang.ref.WeakReference;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class ShortcutCreatorListFragment extends Fragment {
@@ -155,8 +154,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
-            //noinspection Java8ListSort
-            Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
+            this.dataWrapper.profileList.sort(new ProfileComparator());
 
             // add restart events
             Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);

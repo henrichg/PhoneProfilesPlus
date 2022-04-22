@@ -48,7 +48,6 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -1369,28 +1368,22 @@ public class EditorEventListFragment extends Fragment
         switch (orderType)
         {
             case ORDER_TYPE_EVENT_NAME:
-                //noinspection Java8ListSort
-                Collections.sort(eventList, new EventNameComparator());
+                eventList.sort(new EventNameComparator());
                 break;
             case ORDER_TYPE_START_ORDER:
-                //noinspection Java8ListSort
-                Collections.sort(eventList, new StartOrderComparator());
+                eventList.sort(new StartOrderComparator());
                 break;
             case ORDER_TYPE_START_PROFILE_NAME:
-                //noinspection Java8ListSort
-                Collections.sort(eventList, new StartProfileNameComparator());
+                eventList.sort(new StartProfileNameComparator());
                 break;
             case ORDER_TYPE_END_PROFILE_NAME:
-                //noinspection Java8ListSort
-                Collections.sort(eventList, new EndProfileNameComparator());
+                eventList.sort(new EndProfileNameComparator());
                 break;
             case ORDER_TYPE_PRIORITY:
                 if (ApplicationPreferences.applicationEventUsePriority)
-                    //noinspection Java8ListSort
-                    Collections.sort(eventList, new PriorityComparator());
+                    eventList.sort(new PriorityComparator());
                 else
-                    //noinspection Java8ListSort
-                    Collections.sort(eventList, new StartOrderComparator());
+                    eventList.sort(new StartOrderComparator());
                 break;
         }
     }

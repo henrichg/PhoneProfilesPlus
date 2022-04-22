@@ -14,7 +14,6 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -238,8 +237,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                 }
                 //}
 
-                //noinspection Java8ListSort
-                Collections.sort(_SSIDList, new SortList());
+                _SSIDList.sort(new SortList());
 
                 //if (preference.disableSharedProfile == 0)
                 //    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));

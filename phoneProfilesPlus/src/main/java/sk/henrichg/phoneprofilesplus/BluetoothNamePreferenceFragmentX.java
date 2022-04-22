@@ -31,7 +31,6 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -554,8 +553,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     }
                 }
 
-                //noinspection Java8ListSort
-                Collections.sort(_bluetoothList, new SortList());
+                _bluetoothList.sort(new SortList());
 
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                 _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0, false, false));

@@ -34,7 +34,6 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -1024,11 +1023,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     }
 
                     if (_sortCellsBy == 0)
-                        //noinspection Java8ListSort
-                        Collections.sort(_cellsList, new SortByNameList());
+                        _cellsList.sort(new SortByNameList());
                     else
-                        //noinspection Java8ListSort
-                        Collections.sort(_cellsList, new SortByConnectionList());
+                        _cellsList.sort(new SortByConnectionList());
 
 
                     //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells into filtered list");

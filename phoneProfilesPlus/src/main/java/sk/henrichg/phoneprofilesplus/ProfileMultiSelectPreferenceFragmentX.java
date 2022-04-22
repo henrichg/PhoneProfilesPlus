@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -143,8 +142,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 synchronized (preference.dataWrapper.profileList) {
-                    //noinspection Java8ListSort
-                    Collections.sort(preference.dataWrapper.profileList, new AlphabeticallyComparator());
+                    preference.dataWrapper.profileList.sort(new AlphabeticallyComparator());
                 }
 
                 fragment.getValuePMSDP();

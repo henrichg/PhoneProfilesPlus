@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -403,8 +402,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 profile._porder = -1;
             }
         }
-        //noinspection Java8ListSort
-        Collections.sort(newProfileList, new ProfileComparator());
+        newProfileList.sort(new ProfileComparator());
 
         Profile restartEvents = null;
         if ((!applicationWidgetListHeader) &&

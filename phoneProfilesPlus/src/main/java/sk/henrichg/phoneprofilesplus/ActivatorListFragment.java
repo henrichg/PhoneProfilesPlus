@@ -21,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import java.lang.ref.WeakReference;
-import java.util.Collections;
 import java.util.Comparator;
 
 import static android.view.View.GONE;
@@ -332,8 +331,7 @@ public class ActivatorListFragment extends Fragment {
                 }
             }
 
-            //noinspection Java8ListSort
-            Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
+            this.dataWrapper.profileList.sort(new ProfileComparator());
 
             dataWrapper.getEventTimelineList(true);
 
