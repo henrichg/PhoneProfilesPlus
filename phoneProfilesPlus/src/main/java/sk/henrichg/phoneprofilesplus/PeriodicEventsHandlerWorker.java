@@ -30,8 +30,8 @@ public class PeriodicEventsHandlerWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER]  PeriodicEventsHandlerWorker.doWork", "--------------- START");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_WORKER]  PeriodicEventsHandlerWorker.doWork", "--------------- START");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -133,9 +133,9 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 */
             }
 
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER]  PeriodicEventsHandlerWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER]  PeriodicEventsHandlerWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("PeriodicEventsHandlerWorker.doWork", Log.getStackTraceString(e));
