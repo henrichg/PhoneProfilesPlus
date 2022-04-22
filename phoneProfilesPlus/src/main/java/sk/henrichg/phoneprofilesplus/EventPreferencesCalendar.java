@@ -680,7 +680,7 @@ class EventPreferencesCalendar extends EventPreferences {
             if (alarmManager != null) {
                 if (applicationUseAlarmClock) {
 //                    PPApplication.logE("EventPreferencesCalendar.setAlarm", "applicationUseAlarmClock=true");
-                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -727,7 +727,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         if (alarmManager != null) {
             if (applicationUseAlarmClock) {
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                Intent editorIntent = new Intent(context, EditorActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -1013,43 +1013,44 @@ class EventPreferencesCalendar extends EventPreferences {
         }
 
         if (ok) {
-            while (cur.moveToNext()) {
+            if (cur != null) {
+                while (cur.moveToNext()) {
 
-                boolean calendarFound = false;
-                for (String split : calendarsSplits) {
-                    long calendarId = Long.parseLong(split);
-                    if (cur.getLong(PROJECTION_CALENDAR_ID_INDEX) == calendarId) {
-                        calendarFound = true;
+                    boolean calendarFound = false;
+                    for (String split : calendarsSplits) {
+                        long calendarId = Long.parseLong(split);
+                        if (cur.getLong(PROJECTION_CALENDAR_ID_INDEX) == calendarId) {
+                            calendarFound = true;
+                        }
                     }
-                }
-                if (!calendarFound)
-                    continue;
+                    if (!calendarFound)
+                        continue;
 
-                //if ((cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1) && this._ignoreAllDayEvents)
-                //    continue;
-                int allDays = cur.getInt(PROJECTION_ALL_DAY_INDEX);
-                if ((this._allDayEvents == 1) && (allDays == 1))
-                    // required is only not all days event
-                    continue;
-                if ((this._allDayEvents == 2) && (allDays != 1))
-                    // required is only all days event
-                    continue;
+                    //if ((cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1) && this._ignoreAllDayEvents)
+                    //    continue;
+                    int allDays = cur.getInt(PROJECTION_ALL_DAY_INDEX);
+                    if ((this._allDayEvents == 1) && (allDays == 1))
+                        // required is only not all days event
+                        continue;
+                    if ((this._allDayEvents == 2) && (allDays != 1))
+                        // required is only all days event
+                        continue;
 
-                long beginVal;
-                long endVal;
-                //String title = null;
+                    long beginVal;
+                    long endVal;
+                    //String title = null;
 
-                // Get the field values
-                beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
-                endVal = cur.getLong(PROJECTION_END_INDEX);
+                    // Get the field values
+                    beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
+                    endVal = cur.getLong(PROJECTION_END_INDEX);
 
-                if (allDays == 1) {
-                    // get UTC offset
-                    Date _now = new Date();
-                    int utcOffset = TimeZone.getDefault().getOffset(_now.getTime());
+                    if (allDays == 1) {
+                        // get UTC offset
+                        Date _now = new Date();
+                        int utcOffset = TimeZone.getDefault().getOffset(_now.getTime());
 
-                    beginVal -= utcOffset;
-                    endVal -= utcOffset;
+                        beginVal -= utcOffset;
+                        endVal -= utcOffset;
 /*
                     String alarmTime = DateFormat.getDateFormat(dataWrapper.context).format(beginVal) +
                             " " + DateFormat.getTimeFormat(dataWrapper.context).format(beginVal);
@@ -1058,24 +1059,25 @@ class EventPreferencesCalendar extends EventPreferences {
                             " " + DateFormat.getTimeFormat(dataWrapper.context).format(endVal);
                     PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "endVal="+alarmTime);
  */
-                }
+                    }
 
-                //title = cur.getString(PROJECTION_TITLE_INDEX);
+                    //title = cur.getString(PROJECTION_TITLE_INDEX);
 
-                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
-                if ((beginVal <= now) && (endVal > now)) {
-                    // event instance is found - actual instance
-                    _eventFound = true;
-                    _startTime = beginVal + gmtOffset;
-                    _endTime = endVal + gmtOffset;
-                    break;
-                } else if (beginVal > now) {
-                    // event instance is found - future instance
-                    _eventFound = true;
-                    _startTime = beginVal + gmtOffset;
-                    _endTime = endVal + gmtOffset;
-                    break;
+                    if ((beginVal <= now) && (endVal > now)) {
+                        // event instance is found - actual instance
+                        _eventFound = true;
+                        _startTime = beginVal + gmtOffset;
+                        _endTime = endVal + gmtOffset;
+                        break;
+                    } else if (beginVal > now) {
+                        // event instance is found - future instance
+                        _eventFound = true;
+                        _startTime = beginVal + gmtOffset;
+                        _endTime = endVal + gmtOffset;
+                        break;
+                    }
                 }
             }
         }
@@ -1227,7 +1229,7 @@ class EventPreferencesCalendar extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& (Permissions.checkEventCalendar(context, event, null))*/) {
 
                 // compute start datetime

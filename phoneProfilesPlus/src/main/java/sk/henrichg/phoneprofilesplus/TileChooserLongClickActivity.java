@@ -149,11 +149,14 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
         boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
-                PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                PPApplication.logE("EditorActivity.onStart", "application is not started");
+                PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                 if (PhoneProfilesService.getInstance() != null)
-                    PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                    PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
             }*/
+
+            AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
             PPApplication.setApplicationStarted(getApplicationContext(), true);
@@ -164,17 +167,17 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//            PPApplication.logE("[START_PP_SERVICE] ActivateProfileActivity.startPPServiceWhenNotStarted", "(1)");
+//            PPApplication.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
             //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
-                    PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                    PPApplication.logE("EditorActivity.onStart", "application is started");
+                    PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                     if (PhoneProfilesService.getInstance() != null)
-                        PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                        PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
                 }*/
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
@@ -187,14 +190,14 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
                 serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                PPApplication.logE("[START_PP_SERVICE] ActivateProfileActivity.startPPServiceWhenNotStarted", "(2)");
+                PPApplication.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(2)");
                 PPApplication.startPPService(this, serviceIntent);
                 */
 
                 return true;
             }
             //else {
-            //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
+            //    PPApplication.logE("EditorActivity.onStart", "application and service is started");
             //}
         }
 

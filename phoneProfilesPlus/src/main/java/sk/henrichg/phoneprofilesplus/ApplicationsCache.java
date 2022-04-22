@@ -11,7 +11,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.collection.LruCache;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -183,10 +182,8 @@ class ApplicationsCache {
                 return;
         }
 
-        //noinspection Java8ListSort
-        Collections.sort(applicationsList, new SortList());
-        //noinspection Java8ListSort
-        Collections.sort(applicationsNoShortcutsList, new SortList());
+        applicationsList.sort(new SortList());
+        applicationsNoShortcutsList.sort(new SortList());
 
         cached = true;
     }

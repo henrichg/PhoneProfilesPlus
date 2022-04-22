@@ -24,11 +24,15 @@ public class DisableBlockProfileEventActionWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-//        PPApplication.logE("[IN_WORKER] DisableBlockProfileEventActionWorker.doWork", "xxxx");
+//        long start = System.currentTimeMillis();
+//        PPApplication.logE("[IN_WORKER] DisableBlockProfileEventActionWorker.doWork", "--------------- START");
 
         try {
             PPApplication.blockProfileEventActions = false;
 
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER] DisableBlockProfileEventActionWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("DisableInternalChangeWorker.doWork", Log.getStackTraceString(e));

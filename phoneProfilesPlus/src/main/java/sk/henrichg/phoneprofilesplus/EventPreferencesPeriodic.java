@@ -210,7 +210,8 @@ class EventPreferencesPeriodic extends EventPreferences {
         event._eventPreferencesPeriodic.saveSharedPreferences(prefMng.getSharedPreferences());
         Preference preference = prefMng.findPreference(PREF_EVENT_PERIODIC_RESULTING_INTERVAL);
         if (preference != null) {
-            int resultingInterval = event._eventPreferencesPeriodic._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
+            int resultingInterval = prefMng.getSharedPreferences().getInt(PREF_EVENT_PERIODIC_RESULTING_INTERVAL, 1)
+                                                    * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
             preference.setSummary(String.valueOf(resultingInterval));
         }
 
@@ -386,7 +387,7 @@ class EventPreferencesPeriodic extends EventPreferences {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
-                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);

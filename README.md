@@ -3,7 +3,7 @@
 PhoneProfilesPlus
 =================
 
-[![version](https://img.shields.io/badge/version-5.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.2)
+[![version](https://img.shields.io/badge/version-5.3-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.3)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
@@ -14,19 +14,24 @@ __[Google Play release](https://play.google.com/store/apps/details?id=sk.henrich
 
 __[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
-__Another sources of PhoneProfilesPlus:__
+__Another sources of PhoneProfilesPlus (PPP):__
 
-__[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
-&nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
+Use keyword "PhoneProfilesPlus" for search this application in these stores.
 
-__[F-Droid application](https://www.f-droid.org/)__
+__Galaxy Store (for Samsung devices)__
 
-__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore, APKPure__ 
-&nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores. 
+__[Huawei AppGallery PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)__  
+__[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)__
 
-__[Amazon AppStore application](https://www.amazon.com/gp/mas/get/amazonapp)__
+__[Amazon AppStore PPP release](https://www.amazon.com/Henrich-Gron-PhoneProfilesPlus/dp/B01N3SM44J/ref=sr_1_1?keywords=phoneprofilesplus&qid=1637084235&qsid=134-9049988-7816540&s=mobile-apps&sr=1-1&sres=B01N3SM44J%2CB078K93HFD%2CB01LXZDPDR%2CB00LBK7OSY%2CB07RX5L3CP%2CB07XM7WVS8%2CB07XWGWPH5%2CB08KXB3R7S%2CB0919N2P7J%2CB08NWD7K8H%2CB01A7MACL2%2CB07XY8YFQQ%2CB07XM8GDWC%2CB07QVYLDRL%2CB09295KQ9Q%2CB01LVZ3JBI%2CB08723759H%2CB09728VTDK%2CB08R7D4KZJ%2CB01BUIGF9K)__  
+__[Amazon AppStore application (download)](https://www.amazon.com/gp/mas/get/amazonapp)__
 
-__[APKPure release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)__
+__[APKPure PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)__  
+__[APKPure application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)__
+
+__[F-Droid PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
+&nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
+__[F-Droid application (download)](https://www.f-droid.org/)__
 
 ---
 
@@ -42,11 +47,30 @@ _**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gro
 
 _*** Please help me with translation, thank you: <https://crowdin.com/project/phoneprofilesplus> ***_
 
-##### (HELP) How to grant (G1) permission
+
+##### (HELP) How to grant (G1) permission - for profile parameters that require this permission
 - [Show it](docs/grant_g1_permission.md)
+
+##### (HELP) How to disable Wi-Fi scan throttling - useful for Wi-Fi scanning
+- [Show it](docs/wifi_scan_throttling.md)
 
 ##### Features
 - [Show it](docs/ppp_features.md)
+
+##### Screenshots
+- [[1]](art/_base/phoneScreenshots/01.png),
+[[2]](art/_base/phoneScreenshots/02.png),
+[[3]](art/_base/phoneScreenshots/03.png),
+[[4]](art/_base/phoneScreenshots/04.png),
+[[5]](art/_base/phoneScreenshots/05.png),
+[[6]](art/_base/phoneScreenshots/06.png),
+[[7]](art/_base/phoneScreenshots/07.png),
+[[8]](art/_base/phoneScreenshots/08.png),
+[[9]](art/_base/phoneScreenshots/09.png),
+[[10]](art/_base/phoneScreenshots/10.png),
+[[11]](art/_base/phoneScreenshots/11.png),
+[[12]](art/_base/phoneScreenshots/12.png),
+[[13]](art/_base/phoneScreenshots/13.png)
 
 ##### Supported Android versions
 

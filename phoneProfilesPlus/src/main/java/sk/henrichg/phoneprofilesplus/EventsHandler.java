@@ -65,6 +65,7 @@ class EventsHandler {
     boolean notAllowedDeviceBoot;
     boolean notAllowedSoundProfile;
     boolean notAllowedPeriodic;
+    boolean notAllowedVolumes;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -86,6 +87,7 @@ class EventsHandler {
     boolean deviceBootPassed;
     boolean soundProfilePassed;
     boolean periodicPassed;
+    boolean volumesPassed;
 
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
@@ -135,6 +137,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_SOUND_PROFILE = "soundProfile";
     static final String SENSOR_TYPE_PERIODIC = "periodic";
     static final String SENSOR_TYPE_PERIODIC_EVENT_END = "periodicEventEnd";
+    static final String SENSOR_TYPE_VOLUMES = "volumes";
     static final String SENSOR_TYPE_ALL = "ALL";
 
     public EventsHandler(Context context) {
@@ -283,7 +286,8 @@ class EventsHandler {
             //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
-            if (DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) {
+            if ((DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) &&
+                    (!manualRestart)){
                 // not any event is paused or running
 //                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (01)");
                 PPApplication.setApplicationFullyStarted(context);
@@ -618,7 +622,7 @@ class EventsHandler {
 
                             //anyEventPaused = true;
                             //notifyEventEnd = _event;
-                            _event.notifyEventEnd(false);
+                            _event.notifyEventEnd(false, false);
                         }
 
 //                        if (PPApplication.logEnabled()) {
@@ -641,7 +645,7 @@ class EventsHandler {
                 //runningEventCountP = _etl.size();
 
                 // 2. start events
-                //dataWrapper.sortEventsByStartOrderAsc();
+                //sortEventsByStartOrderAsc(dataWrapper.eventList);
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
 //                    if (PPApplication.logEnabled()) {
@@ -672,7 +676,7 @@ class EventsHandler {
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
 
-                            _event.notifyEventStart(context, false);
+                            _event.notifyEventStart(context, false, false);
                         }
 
 //                        if (PPApplication.logEnabled()) {
@@ -731,7 +735,7 @@ class EventsHandler {
 
                             //anyEventPaused = true;
                             //notifyEventEnd = _event;
-                            if (_event.notifyEventEnd(!notified))
+                            if (_event.notifyEventEnd(!notified, true))
                                 notified = true;
 
                             /*
@@ -760,7 +764,7 @@ class EventsHandler {
 
                 //2. start events
                 //mergedProfile.copyProfile(mergedPausedProfile);
-                //dataWrapper.sortEventsByStartOrderAsc();
+                //sortEventsByStartOrderAsc(dataWrapper.eventList);
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
                     /*if (PPApplication.logEnabled()) {
@@ -792,7 +796,7 @@ class EventsHandler {
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
 
-                            if (_event.notifyEventStart(context, !notified))
+                            if (_event.notifyEventStart(context, !notified, true))
                                 notified = true;
                         }
 
@@ -1130,7 +1134,10 @@ class EventsHandler {
                 // notify default profile
                 if (!defaultProfileNotificationSound.isEmpty() || defaultProfileNotificationVibrate) {
                     if (ppService != null) {
-                        ppService.playNotificationSound(defaultProfileNotificationSound, defaultProfileNotificationVibrate);
+                        ppService.playNotificationSound(
+                                defaultProfileNotificationSound,
+                                defaultProfileNotificationVibrate,
+                                false);
 //                        if (isRestart)
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "default profile notified");
                         notified = true;
@@ -1153,7 +1160,7 @@ class EventsHandler {
             // refresh all GUI - must be for restart scanners
             //if (PPApplication.isScreenOn) {
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
-//                PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents");
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents - all");
                 PPApplication.updateGUI(false, false, context);
 
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### in fifo is:");
@@ -1163,6 +1170,7 @@ class EventsHandler {
             }
             else {
                 // refresh only Editor
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents - only Editor");
                 Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver");
                 refreshIntent.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
                 //refreshIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
@@ -1589,6 +1597,7 @@ class EventsHandler {
         notAllowedDeviceBoot = false;
         notAllowedSoundProfile = false;
         notAllowedPeriodic = false;
+        notAllowedVolumes = false;
 
         timePassed = true;
         batteryPassed = true;
@@ -1609,6 +1618,8 @@ class EventsHandler {
         alarmClockPassed = true;
         deviceBootPassed = true;
         soundProfilePassed = true;
+        periodicPassed = true;
+        volumesPassed = true;
 
 //        if (PPApplication.logEnabled()) {
 //            if (forRestartEvents) {
@@ -1639,6 +1650,7 @@ class EventsHandler {
         event._eventPreferencesDeviceBoot.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesSoundProfile.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesPeriodic.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesVolumes.doHandleEvent(this/*, forRestartEvents*/);
 
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
@@ -1787,6 +1799,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedPeriodic)
                 allPassed &= periodicPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesVolumes._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedVolumes)
+                allPassed &= volumesPassed;
             else
                 someNotAllowed = true;
         }
@@ -2125,7 +2144,7 @@ class EventsHandler {
     }
 
     /*
-    void sortEventsByStartOrderAsc()
+    void sortEventsByStartOrderAsc(List<Event> eventList)
     {
         class PriorityComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
@@ -2136,10 +2155,7 @@ class EventsHandler {
             }
         }
 
-        synchronized (eventList) {
-            fillEventList();
-            Collections.sort(eventList, new PriorityComparator());
-        }
+        eventList.sort(new PriorityComparator());
     }
     */
 
@@ -2154,8 +2170,7 @@ class EventsHandler {
             }
         }
 
-        //noinspection Java8ListSort
-        Collections.sort(eventList, new PriorityComparator());
+        eventList.sort(new PriorityComparator());
     }
 
 }

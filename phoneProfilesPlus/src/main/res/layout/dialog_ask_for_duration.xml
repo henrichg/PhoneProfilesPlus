@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ask_for_duration_dlg_root2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+<ScrollView
     android:id="@+id/ask_for_duration_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/alert_dialog_top_padding" >
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    android:scrollbarStyle="outsideOverlay"
+    android:fadeScrollbars="false"
+    tools:ignore="UselessParent">
 
     <LinearLayout
         android:id="@+id/ask_for_duration_dlg_linla0"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="0dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp">
+        android:paddingBottom="0dp">
 
         <TextView
             android:id="@+id/duration_pref_dlg_range"
@@ -78,9 +88,9 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:paddingTop="7dp"
+                        android:paddingTop="6dp"
                         android:paddingBottom="7dp"
-                        android:textSize="17sp"
+                        android:textSize="16sp"
                         android:textColor="?attr/colorAccent"
                         android:textStyle="bold"
                         android:background="?attr/buttonBackground"
@@ -99,7 +109,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:text="00:00:00"
-                    android:textSize="17sp"
+                    android:textSize="16sp"
                     tools:ignore="HardcodedText"/>
 
             </LinearLayout>
@@ -286,3 +296,5 @@
     </LinearLayout>
 
 </ScrollView>
+
+</LinearLayout>

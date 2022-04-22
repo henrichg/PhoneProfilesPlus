@@ -599,7 +599,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         // clicks
         //if (largeLayout)
         //{
-            Intent intent = new Intent(context, EditorProfilesActivity.class);
+            Intent intent = new Intent(context, EditorActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,

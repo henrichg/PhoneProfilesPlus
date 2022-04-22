@@ -802,13 +802,13 @@
     </string-array>
     <string-array name="applicationDisableScanningArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_applicationDisableScanning_disabled</item>
         <item>@string/array_pref_applicationDisableScanning_enabled</item>
+        <item>@string/array_pref_applicationDisableScanning_disabled</item>
     </string-array>
     <string-array name="applicationDisableScanningValues">
         <item>0</item>
-        <item>1</item>
         <item>2</item>
+        <item>1</item>
     </string-array>
     <string-array name="wifiModeArray">
         <item>@string/array_pref_no_change</item>
@@ -1404,6 +1404,34 @@
     <string-array name="endOfProfileActivationTypeValues">
         <item>0</item>
         <item>1</item>
+    </string-array>
+    <string-array name="volumesSensorOperatorArray">
+        <item>@string/array_pref_volumesSensorOperator_doNotTestIt</item>
+        <item>@string/array_pref_volumesSensorOperator_equalsTo</item>
+        <item>@string/array_pref_volumesSensorOperator_doNotEqualsTo</item>
+        <item>@string/array_pref_volumesSensorOperator_islessThen</item>
+        <item>@string/array_pref_volumesSensorOperator_isGreaterThen</item>
+        <item>@string/array_pref_volumesSensorOperator_isLessOrEqualTo</item>
+        <item>@string/array_pref_volumesSensorOperator_isGreaterOrEqualTo</item>
+    </string-array>
+    <string-array name="volumesSensorOperatorValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string-array name="widgetOneRowLayoutHeightArray">
+        <item>@string/array_pref_oneRowWidget_layoutHeight_compact</item>
+        <item>@string/array_pref_oneRowWidget_layoutHeight_normal</item>
+        <item>@string/array_pref_oneRowWidget_layoutHeight_large</item>
+    </string-array>
+    <string-array name="widgetOneRowLayoutHeightValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
 </resources>

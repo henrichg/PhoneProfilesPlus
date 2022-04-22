@@ -19,11 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -79,6 +79,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         });
 
         nfcTagName = view.findViewById(R.id.nfc_tag_pref_dlg_bt_name);
+        nfcTagName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
         nfcTagName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -405,8 +406,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                     }
                 }
 
-                //noinspection Java8ListSort
-                Collections.sort(_nfcTagList, new SortList());
+                _nfcTagList.sort(new SortList());
 
                 // move checked on top
                 int i = 0;

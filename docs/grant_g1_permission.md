@@ -19,3 +19,12 @@ If you do not have adb installed on your PC:
 `adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS`
 
 4. After successful execution, all profile parameters marked with (G1) will be enabled.
+
+NOTE:
+For some devices must be in Developer options enabled:
+- Xiaomi: "USB debuging (Security settings)"
+- Oppo: "Disable permission monitoring".
+- Maybe similar option exists in another devices.
+
+Without this grant not working.
+

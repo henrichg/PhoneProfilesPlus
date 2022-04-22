@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -44,7 +45,9 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
         exclamationIconRBtn = view.findViewById(R.id.generateNotificationPrefDialogExclamationIcon);
         profileIconRBtn = view.findViewById(R.id.generateNotificationPrefDialogProfileIcon);
         notificationTitleEdtText = view.findViewById(R.id.generateNotificationPrefDialogNotificationTitle);
+        notificationTitleEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
         notificationBodyEdtText = view.findViewById(R.id.generateNotificationPrefDialogNotificationBody);
+        notificationBodyEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
 
         generateChBtn.setChecked(preference.generate == 1);
         informationIconRBtn.setChecked(preference.iconType == 0);

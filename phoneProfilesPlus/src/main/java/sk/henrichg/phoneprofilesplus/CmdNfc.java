@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.nfc.INfcAdapter;
 import android.os.ServiceManager;
+import android.util.Log;
 
 /**
  * A shell executable for NTC toggle.
@@ -26,8 +27,8 @@ public class CmdNfc {
             INfcAdapter adapter = INfcAdapter.Stub.asInterface(ServiceManager.getService("nfc")); // service list | grep INfcAdapter
             return enable ? adapter.enable() : adapter.disable(true);
         } catch (Throwable e) {
-            //Log.e("CmdNfc.setNFC", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            Log.e("CmdNfc.setNFC", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
             return false;
         }
     }

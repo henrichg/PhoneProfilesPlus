@@ -11,7 +11,6 @@ import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 
 import java.lang.ref.WeakReference;
-import java.util.Collections;
 import java.util.Comparator;
 
 class AskForDurationActivateProfileDialog
@@ -122,8 +121,7 @@ class AskForDurationActivateProfileDialog
             if (dialog != null) {
                 dialog.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 synchronized (dialog.dataWrapper.profileList) {
-                    //noinspection Java8ListSort
-                    Collections.sort(dialog.dataWrapper.profileList, new AlphabeticallyComparator());
+                    dialog.dataWrapper.profileList.sort(new AlphabeticallyComparator());
                 }
             }
 

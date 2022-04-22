@@ -199,6 +199,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof InfoDialogPreferenceX)
+        {
+            ((InfoDialogPreferenceX)preference).fragment = new InfoDialogPreferenceFragmentX();
+            dialogFragment = ((InfoDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -1013,8 +1021,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
-//            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "xxx");
+//            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "(1)");
             final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
+//            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "(2)");
             if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getActivity().getApplicationContext())) {
 //                PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "available");
                 preference.setOnPreferenceClickListener(preference119 -> {
@@ -1047,13 +1056,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     return false;
                 });
             } else {
-                PreferenceScreen preferenceScreen = findPreference("categorySystem");
+                /*PreferenceScreen preferenceScreen = findPreference("categorySystem");
                 if (preferenceScreen != null) {
                     PreferenceCategory preferenceCategory = findPreference("applicationAutostartCategory");
                     if (preferenceCategory != null)
                         preferenceScreen.removePreference(preferenceCategory);
-                }
-                preferenceScreen = findPreference("categoryApplicationStart");
+                }*/
+                PreferenceScreen preferenceScreen = findPreference("categoryApplicationStart");
                 if (preferenceScreen != null) {
                     preference = findPreference("applicationAutoStartManager");
                     if (preference != null)
@@ -1603,9 +1612,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplication.isPixelLauncherDefault(getActivity()) ||
                     PPApplication.isOneUILauncherDefault(getActivity())) {
-                // Pixel Launcher is default
-                // TODO Maybe rounded corners will be also in another launchers.
-                //      But currently is checked only Pixel launcher.
                 preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS);
                 if (preference != null)
                     preference.setVisible(false);
@@ -1659,6 +1665,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                 }
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("applicationEventWifiScanThrottlingInfo");
+            if (infoDialogPreference != null) {
+
+                String url;
+                if (DebugVersion.enabled)
+                    url = PPApplication.HELP_WIFI_SCAN_THROTTLING_DEVEL;
+                else
+                    url = PPApplication.HELP_WIFI_SCAN_THROTTLING;
+
+                String infoText =
+                        "<b>"+getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info1) + "</b><br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info2) + "<br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info3) + "<br><br>" +
+                        "<b>"+getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info4) + "</b><br><br>" +
+                        "<b>"+getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info5) + "</b><br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info6) + "<br><br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info7) + "<br><br>" +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info8) + " " +
+                        getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info9) + ":<br>" +
+                        "<a href=" + url + ">" + url+ " &#8658;</a>";
+
+                infoDialogPreference.setInfoText(infoText);
+                infoDialogPreference.setIsHtml(true);
             }
         }
     }
@@ -1991,7 +2024,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }*/
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE)) {
             RingtonePreferenceX preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
             if (preference != null)
                 preference.refreshListView();
@@ -2239,7 +2272,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE);

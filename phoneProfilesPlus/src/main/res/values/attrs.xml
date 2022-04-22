@@ -9,8 +9,10 @@
     </declare-styleable>
     -->
     <declare-styleable name="PPVolumeDialogPreference">
+        <attr name="forVolumesSensor" format="integer" />
         <attr name="volumeType" format="string" />
         <attr name="vNoChange" format="integer" />
+        <attr name="sensorOperator" format="integer" />
     </declare-styleable>
     <declare-styleable name="PPBrightnessDialogPreference">
         <attr name="bNoChange" format="integer" />
@@ -71,7 +73,7 @@
     </declare-styleable>
 
     <!-- theme dependent drawables -->
-    <attr name="colorAccentDisabled" format="reference" />
+<!--    <attr name="colorAccentDisabled" format="reference" />-->
     <attr name="activityBackgroundColor" format="reference" />
     <attr name="activityWhiteTextColor" format="reference" />
     <attr name="activityNormalTextColor" format="reference" />
@@ -120,7 +122,6 @@
     <attr name="editorSpinnerDropDownTextColor" format="reference" />
     <attr name="bottomToolbarTheme" format="reference" />
     <attr name="editorFilterTitleColor" format="reference" />
-    <attr name="runEventsIndicatorAll" format="reference" />
     <!--<attr name="editorDrawerFilterHeaderBg" format="reference" />-->
     <attr name="buttonBackground" format="reference" />
     <attr name="eventPauseTextColor" format="reference" />

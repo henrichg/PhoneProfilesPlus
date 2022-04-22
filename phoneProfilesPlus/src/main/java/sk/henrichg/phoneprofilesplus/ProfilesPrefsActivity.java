@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -60,8 +61,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         }
 
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        newProfileMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-        predefinedProfileIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+        newProfileMode = getIntent().getIntExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+        predefinedProfileIndex = getIntent().getIntExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
         if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
@@ -243,8 +244,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile_id);
-        returnIntent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        returnIntent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        returnIntent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
+        returnIntent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, Permissions.grantRootChanged);
         Permissions.grantRootChanged = false;
         setResult(resultCode,returnIntent);
@@ -734,6 +735,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(id)

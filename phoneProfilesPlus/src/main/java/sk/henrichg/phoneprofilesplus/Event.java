@@ -62,6 +62,8 @@ class Event {
     boolean _notificationVibrateEnd;
     //int _atEndHowUndo;
     boolean _manualProfileActivationAtEnd;
+    boolean _notificationSoundStartPlayAlsoInSilentMode;
+    boolean _notificationSoundEndPlayAlsoInSilentMode;
 
     //boolean _undoCalled;
 
@@ -85,6 +87,7 @@ class Event {
     EventPreferencesDeviceBoot _eventPreferencesDeviceBoot;
     EventPreferencesSoundProfile _eventPreferencesSoundProfile;
     EventPreferencesPeriodic _eventPreferencesPeriodic;
+    EventPreferencesVolumes _eventPreferencesVolumes;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -131,6 +134,8 @@ class Event {
     private static final String PREF_EVENT_END_OTHERS = "eventEndOthersCategoryRoot";
     //private static final String PREF_EVENT_AT_END_HOW_UNDO = "eventAtEndHowUndo";
     private static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
+    private  static final String PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "eventStartNotificationSoundPlayAlsoInSilentMode";
+    private  static final String PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "eventEndNotificationSoundPlayAlsoInSilentMode";
 
     static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
@@ -173,7 +178,9 @@ class Event {
                  String notificationSoundEnd,
                  boolean notificationVibrateEnd,
                  //int atEndHowUndo,
-                 boolean manualProfileActivationAtEnd
+                 boolean manualProfileActivationAtEnd,
+                 boolean notificationSoundStartPlayAlsoInSilentMode,
+                 boolean notificationSoundEndPlayAlsoInSilentMode
           )
     {
         this._id = id;
@@ -204,6 +211,8 @@ class Event {
         this._noPauseByManualActivation = noPauseByManualActivation;
         //this._atEndHowUndo = atEndHowUndo;
         this._manualProfileActivationAtEnd = manualProfileActivationAtEnd;
+        this._notificationSoundStartPlayAlsoInSilentMode = notificationSoundStartPlayAlsoInSilentMode;
+        this._notificationSoundEndPlayAlsoInSilentMode = notificationSoundEndPlayAlsoInSilentMode;
 
         //this._undoCalled = false;
 
@@ -237,7 +246,9 @@ class Event {
                  String notificationSoundEnd,
                  boolean notificationVibrateEnd,
                  //int atEndHowUndo
-                 boolean manualProfileActivationAtEnd
+                 boolean manualProfileActivationAtEnd,
+                 boolean notificationSoundStartPlayAlsoInSilentMode,
+                 boolean notificationSoundEndPlayAlsoInSilentMode
         )
     {
         this._name = name;
@@ -267,6 +278,8 @@ class Event {
         this._noPauseByManualActivation = noPauseByManualActivation;
         //this._atEndHowUndo = atEndHowUndo;
         this._manualProfileActivationAtEnd = manualProfileActivationAtEnd;
+        this._notificationSoundStartPlayAlsoInSilentMode = notificationSoundStartPlayAlsoInSilentMode;
+        this._notificationSoundEndPlayAlsoInSilentMode = notificationSoundEndPlayAlsoInSilentMode;
 
         //this._undoCalled = false;
 
@@ -303,6 +316,8 @@ class Event {
         this._noPauseByManualActivation = event._noPauseByManualActivation;
         //this._atEndHowUndo = event._atEndHowUndo;
         this._manualProfileActivationAtEnd = event._manualProfileActivationAtEnd;
+        this._notificationSoundStartPlayAlsoInSilentMode = event._notificationSoundStartPlayAlsoInSilentMode;
+        this._notificationSoundEndPlayAlsoInSilentMode = event._notificationSoundEndPlayAlsoInSilentMode;
 
         //this._undoCalled = event._undoCalled;
 
@@ -409,6 +424,18 @@ class Event {
         this._eventPreferencesPeriodic = new EventPreferencesPeriodic(this, false, 1, 5);
     }
 
+    private void createEventPreferencesVolumes()
+    {
+        this._eventPreferencesVolumes = new EventPreferencesVolumes(this, false,
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0"
+        );
+    }
 
     void createEventPreferences()
     {
@@ -432,6 +459,7 @@ class Event {
         createEventPreferencesDeviceBoot();
         createEventPreferencesSoundProfile();
         createEventPreferencesPeriodic();
+        createEventPreferencesVolumes();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -476,6 +504,8 @@ class Event {
             createEventPreferencesSoundProfile();
         if (this._eventPreferencesPeriodic == null)
             createEventPreferencesPeriodic();
+        if (this._eventPreferencesVolumes == null)
+            createEventPreferencesVolumes();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -496,6 +526,7 @@ class Event {
         this._eventPreferencesDeviceBoot.copyPreferences(fromEvent);
         this._eventPreferencesSoundProfile.copyPreferences(fromEvent);
         this._eventPreferencesPeriodic.copyPreferences(fromEvent);
+        this._eventPreferencesVolumes.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -539,13 +570,15 @@ class Event {
                 (this._eventPreferencesSoundProfile._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesPeriodic._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesVolumes._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
         Context appContext = context.getApplicationContext();
 
-        boolean runnable = (this._fkProfileStart != 0) && (this._fkProfileEnd != 0);
+        boolean runnable = true; //(this._fkProfileStart != 0) && (this._fkProfileEnd != 0);
         if (checkSomeSensorEnabled) {
             boolean someEnabled = isEnabledSomeSensor(appContext);
             if (!someEnabled)
@@ -591,6 +624,8 @@ class Event {
             runnable = runnable && this._eventPreferencesSoundProfile.isRunnable(appContext);
         if (this._eventPreferencesPeriodic._enabled)
             runnable = runnable && this._eventPreferencesPeriodic.isRunnable(appContext);
+        if (this._eventPreferencesVolumes._enabled)
+            runnable = runnable && this._eventPreferencesVolumes.isRunnable(appContext);
 
         return runnable;
     }
@@ -619,7 +654,8 @@ class Event {
                             this._eventPreferencesAlarmClock._enabled ||
                             this._eventPreferencesDeviceBoot._enabled ||
                             this._eventPreferencesSoundProfile._enabled ||
-                            this._eventPreferencesPeriodic._enabled;
+                            this._eventPreferencesPeriodic._enabled ||
+                            this._eventPreferencesVolumes._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -662,6 +698,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesSoundProfile.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesPeriodic._enabled)
                 accessibilityEnabled = this._eventPreferencesPeriodic.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesVolumes._enabled)
+                accessibilityEnabled = this._eventPreferencesVolumes.isAccessibilityServiceEnabled(context);
         }
 
         return accessibilityEnabled;
@@ -697,6 +735,9 @@ class Event {
         editor.putBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, this._noPauseByManualActivation);
         //editor.putString(PREF_EVENT_AT_END_HOW_UNDO, Integer.toString(this._atEndHowUndo));
         editor.putBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, this._manualProfileActivationAtEnd);
+        editor.putBoolean(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, this._notificationSoundStartPlayAlsoInSilentMode);
+        editor.putBoolean(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, this._notificationSoundEndPlayAlsoInSilentMode);
+
         this._eventPreferencesTime.loadSharedPreferences(preferences);
         this._eventPreferencesBattery.loadSharedPreferences(preferences);
         this._eventPreferencesCall.loadSharedPreferences(preferences);
@@ -717,6 +758,7 @@ class Event {
         this._eventPreferencesDeviceBoot.loadSharedPreferences(preferences);
         this._eventPreferencesSoundProfile.loadSharedPreferences(preferences);
         this._eventPreferencesPeriodic.loadSharedPreferences(preferences);
+        this._eventPreferencesVolumes.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -741,6 +783,8 @@ class Event {
         this._noPauseByManualActivation = preferences.getBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, false);
         //this._atEndHowUndo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0"));
         this._manualProfileActivationAtEnd = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
+        this._notificationSoundStartPlayAlsoInSilentMode = preferences.getBoolean(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, false);
+        this._notificationSoundEndPlayAlsoInSilentMode = preferences.getBoolean(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, false);
 
         String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
         if (sDelayStart.isEmpty()) sDelayStart = "0";
@@ -775,6 +819,7 @@ class Event {
         this._eventPreferencesDeviceBoot.saveSharedPreferences(preferences);
         this._eventPreferencesSoundProfile.saveSharedPreferences(preferences);
         this._eventPreferencesPeriodic.saveSharedPreferences(preferences);
+        this._eventPreferencesVolumes.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -956,7 +1001,9 @@ class Event {
                 key.equals(PREF_EVENT_DELAY_START) ||
                 key.equals(PREF_EVENT_DELAY_END) ||
                 key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE) ||
-                key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END)) {
+                key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END) ||
+                key.equals(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE) ||
+                key.equals(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE)) {
             //boolean forceRunChanged = false;
             boolean manualProfileActivationChanged;
             boolean profileStartWhenActivatedChanged;
@@ -968,6 +1015,8 @@ class Event {
             boolean notificationSoundEndChanged;
             boolean notificationVibrateEndChanged;
             boolean manualProfileActivationAtEndChanged;
+            boolean notificationSoundStartPlayAlsoInSilentMode;
+            boolean notificationSoundEndPlayAlsoInSilentMode;
 
             String startWhenActivatedProfile;
             int delayStart;
@@ -988,6 +1037,8 @@ class Event {
                 notificationSoundEndChanged = !this._notificationSoundEnd.isEmpty();
                 notificationVibrateEndChanged = this._notificationVibrateEnd;
                 manualProfileActivationAtEndChanged = this._manualProfileActivationAtEnd;
+                notificationSoundStartPlayAlsoInSilentMode = this._notificationSoundStartPlayAlsoInSilentMode;
+                notificationSoundEndPlayAlsoInSilentMode = this._notificationSoundEndPlayAlsoInSilentMode;
             }
             else {
                 //forceRunChanged = preferences.getBoolean(PREF_EVENT_IGNORE_MANUAL_ACTIVATION, false);
@@ -999,9 +1050,10 @@ class Event {
                 delayStart = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_START, "0"));
                 delayEnd = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_END, "0"));
                 notificationSoundStartChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND_START, "").isEmpty();
-
                 notificationVibrateStartChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE_START, false);
                 notificationVibrateEndChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE_END, false);
+                notificationSoundStartPlayAlsoInSilentMode = preferences.getBoolean(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, false);
+                notificationSoundEndPlayAlsoInSilentMode = preferences.getBoolean(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, false);
                 if (key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_START) ||
                         key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END)) {
                     Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -1024,7 +1076,8 @@ class Event {
                                 delayStartChanged ||
                                 notificationSoundStartChanged ||
                                 notificationVibrateStartChanged ||
-                                notificationRepeatStartChanged);
+                                notificationRepeatStartChanged ||
+                                notificationSoundStartPlayAlsoInSilentMode);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false);
                 if (bold) {
                     String summary = "";
@@ -1076,7 +1129,8 @@ class Event {
                 boolean bold = (delayEndChanged ||
                                 notificationSoundEndChanged ||
                                 notificationVibrateEndChanged ||
-                                manualProfileActivationAtEndChanged);
+                                manualProfileActivationAtEndChanged ||
+                                notificationSoundEndPlayAlsoInSilentMode);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false);
                 if (bold) {
                     String summary = "";
@@ -1127,7 +1181,9 @@ class Event {
             key.equals(PREF_EVENT_NOTIFICATION_REPEAT_START) ||
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END) ||
             key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION) ||
-            key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END)) {
+            key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END) ||
+            key.equals(PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE) ||
+            key.equals(PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, Boolean.toString(value), context);
         }
@@ -1216,6 +1272,8 @@ class Event {
         _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesPeriodic.setSummary(prefMng, key, preferences, context);
         _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesVolumes.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -1248,6 +1306,8 @@ class Event {
         setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context);
         //setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context);
         setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, preferences, context);
         setCategorySummary(prefMng, "", preferences, context);
         _eventPreferencesTime.setAllSummary(prefMng, preferences, context);
         _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
@@ -1289,6 +1349,8 @@ class Event {
         _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesPeriodic.setAllSummary(prefMng, preferences, context);
         _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesVolumes.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context, boolean addPassStatus)
@@ -1387,6 +1449,12 @@ class Event {
                 description = description + "<li>" + desc + "</li>";
         }
 
+        if (_eventPreferencesVolumes._enabled) {
+            String desc = _eventPreferencesVolumes.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
         if (_eventPreferencesApplication._enabled) {
             String desc = _eventPreferencesApplication.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
@@ -1444,6 +1512,7 @@ class Event {
         _eventPreferencesDeviceBoot.checkPreferences(prefMng, context);
         _eventPreferencesSoundProfile.checkPreferences(prefMng, context);
         _eventPreferencesPeriodic.checkPreferences(prefMng, context);
+        _eventPreferencesVolumes.checkPreferences(prefMng, context);
     }
 
     /*
@@ -2295,6 +2364,11 @@ class Event {
         //else
         //    _eventPreferencesPeriodic.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
 
+        //if (_eventPreferencesVolumes._enabled)
+        _eventPreferencesVolumes.setSensorPassed(_eventPreferencesVolumes.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        //else
+        //    _eventPreferencesPeriodic.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2323,6 +2397,7 @@ class Event {
             _eventPreferencesDeviceBoot.setSystemEventForStart(context);
             _eventPreferencesSoundProfile.setSystemEventForStart(context);
             _eventPreferencesPeriodic.setSystemEventForStart(context);
+            _eventPreferencesVolumes.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2349,6 +2424,7 @@ class Event {
             _eventPreferencesDeviceBoot.setSystemEventForPause(context);
             _eventPreferencesSoundProfile.setSystemEventForPause(context);
             _eventPreferencesPeriodic.setSystemEventForPause(context);
+            _eventPreferencesVolumes.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2375,6 +2451,7 @@ class Event {
             _eventPreferencesDeviceBoot.removeSystemEvent(context);
             _eventPreferencesSoundProfile.removeSystemEvent(context);
             _eventPreferencesPeriodic.removeSystemEvent(context);
+            _eventPreferencesVolumes.removeSystemEvent(context);
         }
     }
 
@@ -2448,7 +2525,7 @@ class Event {
                             PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
                         }*/
 
-                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -2536,7 +2613,7 @@ class Event {
                             PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
                         }*/
 
-                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -2708,7 +2785,7 @@ class Event {
                             PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
                         }*/
 
-                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -2798,7 +2875,7 @@ class Event {
                             PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
                         }*/
 
-                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -3239,9 +3316,12 @@ class Event {
 
     //----------------------------------
 
-    boolean notifyEventStart(Context context, boolean playSound) {
+    boolean notifyEventStart(Context context, boolean playSound, boolean canPlayAlsoInSilentMode) {
         String notificationSoundStart = _notificationSoundStart;
         boolean notificationVibrateStart = _notificationVibrateStart;
+        boolean playAlsoInSilentMode = false;
+        if (canPlayAlsoInSilentMode)
+            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundStart.isEmpty() || notificationVibrateStart) {
 
@@ -3307,22 +3387,32 @@ class Event {
 
             if (playSound)
                 if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().playNotificationSound(notificationSoundStart, notificationVibrateStart);
+                    PhoneProfilesService.getInstance().playNotificationSound(
+                            notificationSoundStart,
+                            notificationVibrateStart,
+                            playAlsoInSilentMode);
 
             return true;
         }
         return false;
     }
 
-    boolean notifyEventEnd(/*Context context*/ boolean playSound) {
+    boolean notifyEventEnd(/*Context context*/ boolean playSound,
+                           boolean canPlayAlsoInSilentMode) {
         String notificationSoundEnd = _notificationSoundEnd;
         boolean notificationVibrateEnd = _notificationVibrateEnd;
+        boolean playAlsoInSilentMode = false;
+        if (canPlayAlsoInSilentMode)
+            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
             if (playSound)
                 if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().playNotificationSound(notificationSoundEnd, notificationVibrateEnd);
+                    PhoneProfilesService.getInstance().playNotificationSound(
+                            notificationSoundEnd,
+                            notificationVibrateEnd,
+                            playAlsoInSilentMode);
 
             return true;
         }

@@ -24,10 +24,5 @@
         app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <!--<SwitchPreferenceCompat
-        app:key="applicationShortcutEmblem"
-        app:title="@string/phone_profiles_pref_applicationShortcutEmblem"
-        app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" /> -->
-    
+
 </androidx.preference.PreferenceScreen>

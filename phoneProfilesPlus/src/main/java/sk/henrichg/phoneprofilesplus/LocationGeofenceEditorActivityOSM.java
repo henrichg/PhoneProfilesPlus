@@ -323,6 +323,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         */
 
         geofenceNameEditText = findViewById(R.id.location_editor_geofence_name);
+        geofenceNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         geofenceNameEditText.setText(geofence._name);
 
         addressText = findViewById(R.id.location_editor_address_text);
@@ -499,7 +500,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY)) {
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "xxx");
             startLocationUpdates();
             refreshActivity(false, false);

@@ -354,29 +354,37 @@ class EventPreferencesNotification extends EventPreferences {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "").isEmpty();
             GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, true, !isRunnable);
         }
+
         Preference checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
-        if ((checkContactsPreference != null) && prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, false)) {
+        if (checkContactsPreference != null) {
+            boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkContactsPreference, enabled, bold, true, !isRunnable);
+
             Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
             if (_preference != null) {
-                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable);
+                bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "").isEmpty();
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, true, !isRunnable);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (_preference != null) {
-                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACTS, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable);
+                bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACTS, "").isEmpty();
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, true, !isRunnable);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (_preference != null) {
-                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, "").isEmpty();
+                bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, "").isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable);
             }
         }
+
         Preference checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
-        if ((checkTextPreference != null) && prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false)) {
+        if (checkTextPreference != null) {
+            boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkTextPreference, enabled, bold, true, !isRunnable);
+
             Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
             if (_preference != null) {
-                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_TEXT, "").isEmpty();
+                bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_TEXT, "").isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable);
             }
         }
@@ -458,7 +466,21 @@ class EventPreferencesNotification extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        runnable = runnable && (_inCall || _missedCall || (!_applications.isEmpty()));
+        boolean okCheck = false;
+
+        if (_checkContacts) {
+            runnable = runnable && ((_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                    (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
+            okCheck = true;
+        }
+
+        if (_checkText) {
+            runnable = runnable && (!_text.isEmpty());
+            okCheck = true;
+        }
+
+        if (!okCheck)
+            runnable = runnable && (_inCall || _missedCall || (!_applications.isEmpty()));
 
         return runnable;
     }
@@ -632,7 +654,7 @@ class EventPreferencesNotification extends EventPreferences {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
-                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);

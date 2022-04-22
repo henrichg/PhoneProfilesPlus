@@ -82,9 +82,9 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
             asyncTask.cancel(true);
         }
 
-        //EditorProfilesActivity.getContactGroupsCache().cancelCaching();
-        //if (!EditorProfilesActivity.getContactGroupsCache().cached)
-        //    EditorProfilesActivity.getContactGroupsCache().clearCache(false);
+        //EditorActivity.getContactGroupsCache().cancelCaching();
+        //if (!EditorActivity.getContactGroupsCache().cached)
+        //    EditorActivity.getContactGroupsCache().clearCache(false);
 
         preference.fragment = null;
     }
@@ -130,8 +130,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
             ContactGroupsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                //if (!EditorProfilesActivity.getContactGroupsCache().cached)
-                //    EditorProfilesActivity.getContactGroupsCache().getContactGroupList(prefContext);
+                //if (!EditorActivity.getContactGroupsCache().cached)
+                //    EditorActivity.getContactGroupsCache().getContactGroupList(prefContext);
 
                 // must be first
                 PhoneProfilesService.createContactsCache(prefContext.getApplicationContext(), false);
@@ -162,8 +162,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
             ContactGroupsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                //if (!EditorProfilesActivity.getContactGroupsCache().cached)
-                //    EditorProfilesActivity.getContactGroupsCache().clearCache(false);
+                //if (!EditorActivity.getContactGroupsCache().cached)
+                //    EditorActivity.getContactGroupsCache().clearCache(false);
 
                 fragment.listAdapter.notifyDataSetChanged();
 

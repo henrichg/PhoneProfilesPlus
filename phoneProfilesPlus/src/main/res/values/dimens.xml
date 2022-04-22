@@ -7,7 +7,11 @@
     <dimen name="activity_margin_start">0dp</dimen>
     <dimen name="activity_margin_end">0dp</dimen>
 
-    <dimen name="run_stop_indicator_margin_end">10dp</dimen>
+    <dimen name="run_stop_indicator_width">46dp</dimen>
+    <dimen name="run_stop_indicator_height">22dp</dimen>
+    <dimen name="run_stop_indicator_margin_top">1dp</dimen>
+    <dimen name="run_stop_indicator_margin_end_editor">13dp</dimen>
+    <dimen name="run_stop_indicator_margin_end_activator">10dp</dimen>
 
     <dimen name="activator_min_width_minor">65%</dimen>
     <dimen name="activator_min_width_major">65%</dimen>
@@ -42,6 +46,11 @@
     <dimen name="important_info_text_size">16sp</dimen>
     <dimen name="important_info_text_size_monospace">15sp</dimen>
 
+    <dimen name="gui_info_popup_title_size">16sp</dimen>
+    <dimen name="gui_info_popup_text_size">15sp</dimen>
+
+    <dimen name="event_status_drawable_padding">8dp</dimen>
+
 <!--    <dimen name="editor_bottom_bar_height">67dp</dimen>-->
 
     <!-- this is height of BottomNavigationView -->
@@ -53,5 +62,9 @@
     <dimen name="chackBox_radioButton_spacing_for_list_items">10dp</dimen>
 
     <dimen name="bottom_navigation_side_margins">15dp</dimen>
+
+    <dimen name="popup_widow_event_status_width">350dp</dimen>
+    <dimen name="popup_widow_dialog_help_width">300dp</dimen>
+    <dimen name="popup_window_run_stop_indicator_width">300dp</dimen>
 
 </resources>

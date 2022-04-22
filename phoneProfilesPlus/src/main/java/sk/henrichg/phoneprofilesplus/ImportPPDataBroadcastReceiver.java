@@ -41,7 +41,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
 
         switch (intent.getAction()) {
             case PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PP:
-                EditorProfilesActivity.importFromPPStopped = true;
+                EditorActivity.importFromPPStopped = true;
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_STARTED:
                 importStarted = true;

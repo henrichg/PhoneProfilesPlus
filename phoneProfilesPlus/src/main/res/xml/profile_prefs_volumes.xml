@@ -38,6 +38,7 @@
 
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeRingtone"
+            app:forVolumesSensor="0"
             app:volumeType="ringtone"
             app:vNoChange="1"
             app:layout="@layout/mp_preference_material_widget"
@@ -51,6 +52,7 @@
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeNotification"
+            app:forVolumesSensor="0"
             app:volumeType="notification"
             app:vNoChange="1"
             app:layout="@layout/mp_preference_material_widget"
@@ -70,6 +72,7 @@
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeMedia"
+            app:forVolumesSensor="0"
             app:volumeType="media"
             app:vNoChange="1"
             app:title="@string/profile_preferences_volumeMedia"
@@ -78,6 +81,7 @@
 
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeAlarm"
+            app:forVolumesSensor="0"
             app:volumeType="alarm"
             app:vNoChange="1"
             app:title="@string/profile_preferences_volumeAlarm"
@@ -85,6 +89,7 @@
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeSystem"
+            app:forVolumesSensor="0"
             app:volumeType="system"
             app:vNoChange="1"
             app:title="@string/profile_preferences_volumeSystem"
@@ -92,6 +97,7 @@
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeVoice"
+            app:forVolumesSensor="0"
             app:volumeType="voice"
             app:vNoChange="1"
             app:title="@string/profile_preferences_volumeVoiceCall"
@@ -99,6 +105,7 @@
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeBluetoothSCO"
+            app:forVolumesSensor="0"
             app:volumeType="bluetoothSco"
             app:vNoChange="1"
             app:title="@string/profile_preferences_volumeBluetoothSCO"
@@ -106,6 +113,7 @@
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeDTMF"
+            app:forVolumesSensor="0"
             app:volumeType="dtmf"
             app:vNoChange="1"
             app:title="@string/profile_preferences_volumeDTMF"

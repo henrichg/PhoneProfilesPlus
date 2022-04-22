@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -435,6 +436,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
@@ -442,6 +444,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
@@ -449,6 +452,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(3),
@@ -456,6 +460,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(4)
@@ -469,6 +474,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
@@ -476,6 +482,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
@@ -483,6 +490,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(3)
@@ -496,6 +504,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
@@ -503,6 +512,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
@@ -510,6 +520,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(3)
@@ -530,6 +541,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
+                                    .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1)
@@ -548,6 +560,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                 .outerCircleColor(outerCircleColor)
                                 .targetCircleColor(targetCircleColor)
                                 .textColor(textColor)
+                                .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(true)
                                 .drawShadow(true)
                                 .id(1)

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.TypedValue;
 import android.widget.RemoteViews;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -234,7 +235,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red; blue = red;
             widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, red, green, blue));
-
+            widget.setTextViewTextSize(R.id.widget_profile_list_header_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
             /*if (applicationSamsungEdgePrefIndicator)
             {
@@ -280,7 +281,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         ////////////////////////////////////////////////
 
         // clicks
-        Intent intent = new Intent(context, EditorProfilesActivity.class);
+        Intent intent = new Intent(context, EditorActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
@@ -408,7 +409,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
 
                     //if ((appContext != null) && (cocktailManager != null)) {
-                        //if (EditorProfilesActivity.doImport)
+                        //if (EditorActivity.doImport)
                         //    return;
 
                         //createProfilesDataWrapper(context);

@@ -12,7 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 public class ActivatorTargetHelpsActivity extends AppCompatActivity {
 
     public static ActivatorTargetHelpsActivity activity;
-    //public static ActivateProfileActivity activatorActivity;
+    //public static ActivatorActivity activatorActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class ActivatorTargetHelpsActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        /*if (ActivateProfileActivity.getInstance() == null) {
+        /*if (ActivatorActivity.getInstance() == null) {
             finish();
             return;
         }*/
@@ -45,9 +45,9 @@ public class ActivatorTargetHelpsActivity extends AppCompatActivity {
 
 //        PPApplication.logE("[LOCAL_BROADCAST_CALL] ActivatorTargetHelpsActivity.onStart", "xxx");
         Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
-        intent.putExtra(ActivateProfileActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, true);
+        intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, true);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-        //ActivateProfileActivity.getInstance().showTargetHelps();
+        //ActivatorActivity.getInstance().showTargetHelps();
     }
 
     @Override

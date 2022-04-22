@@ -194,7 +194,7 @@ class RunApplicationEditorDialogX
                     addButton.setVisibility(View.GONE);
 
                 fillApplicationList();
-                listView.getRecycledViewPool().clear();
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 listView.setAdapter(null);
                 listView.setAdapter(listAdapter);
                 listAdapter.notifyDataSetChanged();
@@ -222,10 +222,10 @@ class RunApplicationEditorDialogX
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
-        if (EditorProfilesActivity.getApplicationsCache() == null)
-            EditorProfilesActivity.createApplicationsCache();
+        if (EditorActivity.getApplicationsCache() == null)
+            EditorActivity.createApplicationsCache();
 
-        cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getApplicationList(false);
+        cachedApplicationList = EditorActivity.getApplicationsCache().getApplicationList(false);
 
         fillApplicationList();
         updateSelectedAppViews();
@@ -348,7 +348,7 @@ class RunApplicationEditorDialogX
         if (selectedPosition != -1) {
             selectedApplication = getSelectedApplication();
             if (selectedApplication != null) {
-                applicationIcon = EditorProfilesActivity.getApplicationsCache().getApplicationIcon(selectedApplication, false);
+                applicationIcon = EditorActivity.getApplicationsCache().getApplicationIcon(selectedApplication, false);
             }
         }
         if (selectedApplication != null) {
@@ -514,7 +514,7 @@ class RunApplicationEditorDialogX
     @SuppressLint("NotifyDataSetChanged")
     void updateAfterEdit() {
         fillApplicationList();
-        listView.getRecycledViewPool().clear();
+        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         listAdapter.notifyDataSetChanged();
     }
 
@@ -549,7 +549,7 @@ class RunApplicationEditorDialogX
                 }
             }
 
-            listView.getRecycledViewPool().clear();
+            listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
             listAdapter.notifyDataSetChanged();
         }
 

@@ -90,10 +90,10 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
             asyncTask.cancel(true);
         }
 
-        if (EditorProfilesActivity.getApplicationsCache() != null) {
-            EditorProfilesActivity.getApplicationsCache().cancelCaching();
-            if (!EditorProfilesActivity.getApplicationsCache().cached)
-                EditorProfilesActivity.getApplicationsCache().clearCache(false);
+        if (EditorActivity.getApplicationsCache() != null) {
+            EditorActivity.getApplicationsCache().cancelCaching();
+            if (!EditorActivity.getApplicationsCache().cached)
+                EditorActivity.getApplicationsCache().clearCache(false);
         }
 
         preference.fragment = null;
@@ -112,7 +112,7 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
 
     @SuppressLint("NotifyDataSetChanged")
     void updateGUI() {
-        applicationsListView.getRecycledViewPool().clear();
+        applicationsListView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         listAdapter.notifyDataSetChanged();
     }
 
@@ -151,9 +151,9 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
             RunApplicationsDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (EditorProfilesActivity.getApplicationsCache() != null)
-                    if (!EditorProfilesActivity.getApplicationsCache().cached)
-                        EditorProfilesActivity.getApplicationsCache().cacheApplicationsList(prefContext);
+                if (EditorActivity.getApplicationsCache() != null)
+                    if (!EditorActivity.getApplicationsCache().cached)
+                        EditorActivity.getApplicationsCache().cacheApplicationsList(prefContext);
 
                 List<PPIntent> _intentDBList = DatabaseHandler.getInstance(prefContext.getApplicationContext()).getAllIntents();
                 preference.intentDBList.clear();
@@ -186,9 +186,9 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
-                if (EditorProfilesActivity.getApplicationsCache() != null)
-                    if (!EditorProfilesActivity.getApplicationsCache().cached)
-                        EditorProfilesActivity.getApplicationsCache().clearCache(false);
+                if (EditorActivity.getApplicationsCache() != null)
+                    if (!EditorActivity.getApplicationsCache().cached)
+                        EditorActivity.getApplicationsCache().clearCache(false);
 
                 fragment.applicationsListView.setAdapter(fragment.listAdapter);
                 fragment.rellaDialog.setVisibility(View.VISIBLE);

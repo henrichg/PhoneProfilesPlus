@@ -44,6 +44,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         if ((!serviceStarted) && PPApplication.getApplicationStarted(false)) {
                             // service is not started
+
+                            //AutostartPermissionNotification.showNotification(appContext, false);
+
                             try {
                                 PPApplication.logE("##### PackageReplacedReceiver.onReceive", "start service");
                                 // service is not started, start it

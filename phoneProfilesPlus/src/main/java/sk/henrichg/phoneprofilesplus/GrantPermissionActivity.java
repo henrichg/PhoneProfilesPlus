@@ -1256,7 +1256,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //    finishGrant();
             }
         }
-        if ((requestCode == Permissions.REQUEST_CODE + grantType)/* || (requestCode == Permissions.REQUEST_CODE_FORCE_GRANT + grantType)*/) {
+        if ((requestCode == (Permissions.REQUEST_CODE + grantType))/* || (requestCode == Permissions.REQUEST_CODE_FORCE_GRANT + grantType)*/) {
 
             boolean finishActivity;// = false;
             boolean permissionsChanged;// = Permissions.getPermissionsChanged(context);

@@ -25,11 +25,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -92,6 +92,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         });
 
         SSIDName = view.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
+        SSIDName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
         SSIDName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -523,8 +524,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     }
                 }
 
-                //noinspection Java8ListSort
-                Collections.sort(_SSIDList, new SortList());
+                _SSIDList.sort(new SortList());
 
                 _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, /*"",*/ false, false, false));
                 _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, /*"",*/ false, false, false));

@@ -230,6 +230,13 @@ class EventPreferencesAccessories extends EventPreferences {
         return runnable;
     }
 
+    @Override
+    void checkPreferences(PreferenceManager prefMng, Context context) {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_ACCESSORIES_ENABLED, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
+    }
+
     /*
     @Override
     void setSystemEventForStart(Context context)

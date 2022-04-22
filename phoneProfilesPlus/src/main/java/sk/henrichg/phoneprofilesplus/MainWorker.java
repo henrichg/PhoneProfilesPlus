@@ -82,7 +82,8 @@ public class MainWorker extends Worker {
                 if (tag.startsWith(PPApplication.PACKAGE_NAME))
                     continue;
 
-//                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+//                long start = System.currentTimeMillis();
+//                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
 
                 switch (tag) {
                     case WifiScanWorker.WORK_TAG_START_SCAN:
@@ -261,6 +262,10 @@ public class MainWorker extends Worker {
 
                         break;
                 }
+
+//                long finish = System.currentTimeMillis();
+//                long timeElapsed = finish - start;
+//                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- END tag=" + tag + " - timeElapsed="+timeElapsed);
             }
 
             return Result.success();

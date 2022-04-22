@@ -11,20 +11,26 @@ import android.os.Build;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
-        implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
+        implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener,
+                   AdapterView.OnItemSelectedListener
+{
 
     private Context context;
     private VolumeDialogPreferenceX preference;
 
+    private AppCompatSpinner operatorSpinner = null;
     private SeekBar seekBar = null;
     private TextView valueText = null;
     //private CheckBox sharedProfileChBox = null;
@@ -103,9 +109,22 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             //PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "sharedProfile="+preference.sharedProfile);
         }*/
 
+        CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
+        operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
+
+        if (preference.forVolumesSensor == 1) {
+            GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                    (EventsPrefsActivity) context,
+                    R.layout.highlighted_spinner,
+                    getResources().getStringArray(R.array.volumesSensorOperatorArray));
+            voiceSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+            operatorSpinner.setAdapter(voiceSpinnerAdapter);
+            operatorSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+            operatorSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+        }
+
         seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
         valueText = view.findViewById(R.id.volumePrefDialogValueText);
-        CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
         //sharedProfileChBox = view.findViewById(R.id.volumePrefDialogSharedProfile);
 
         seekBar.setKeyProgressIncrement(preference.stepSize);
@@ -114,7 +133,28 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         valueText.setText(String.valueOf(preference.value/* + preference.minimumValue*/));
 
-        noChangeChBox.setChecked((preference.noChange == 1));
+        if (preference.forVolumesSensor == 0) {
+            operatorSpinner.setVisibility(View.GONE);
+            if (noChangeChBox != null) {
+                noChangeChBox.setVisibility(View.VISIBLE);
+                noChangeChBox.setChecked((preference.noChange == 1));
+            }
+        }
+        else {
+            if (noChangeChBox != null) {
+                noChangeChBox.setVisibility(View.GONE);
+            }
+            operatorSpinner.setVisibility(View.VISIBLE);
+            String[] entryValues = getResources().getStringArray(R.array.volumesSensorOperatorValues);
+            int operatorIdx = 0;
+            for (String entryValue : entryValues) {
+                if (entryValue.equals(String.valueOf(preference.sensorOperator))) {
+                    break;
+                }
+                ++operatorIdx;
+            }
+            operatorSpinner.setSelection(operatorIdx);
+        }
 
         //sharedProfileChBox.setChecked((preference.sharedProfile == 1));
         //sharedProfileChBox.setEnabled(preference.disableSharedProfile == 0);
@@ -124,11 +164,22 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         //if (preference.sharedProfile == 1)
         //    noChangeChBox.setChecked(false);
 
-        valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
-        seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+        if (preference.forVolumesSensor == 0) {
+            valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+            seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+        }
+        else {
+            valueText.setEnabled(preference.sensorOperator != 0);
+            seekBar.setEnabled(preference.sensorOperator != 0);
+        }
 
         seekBar.setOnSeekBarChangeListener(this);
-        noChangeChBox.setOnCheckedChangeListener(this);
+        if (preference.forVolumesSensor == 0) {
+            if (noChangeChBox != null)
+                noChangeChBox.setOnCheckedChangeListener(this);
+        }
+        else
+            operatorSpinner.setOnItemSelectedListener(this);
         //sharedProfileChBox.setOnCheckedChangeListener(this);
     }
 
@@ -156,8 +207,12 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             //if ((appContext != null) && (audioManager != null)) {
                 if (preference.defaultValueMusic != -1)
                     ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.defaultValueMusic);
-                if (preference.oldMediaMuted)
+                if (preference.oldMediaMuted) {
+                    EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+                    DisableVolumesInternalChangeWorker.enqueueWork();
+                }
                 if (VolumeDialogPreferenceX.mediaPlayer != null) {
                     try {
                         if (VolumeDialogPreferenceX.mediaPlayer.isPlaying())
@@ -179,29 +234,32 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView.getId() == R.id.volumePrefDialogNoChange)
-        {
-            preference.noChange = (isChecked)? 1 : 0;
+        if (preference.forVolumesSensor == 0) {
 
-            valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
-            seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
-            //if (isChecked)
-            //    sharedProfileChBox.setChecked(false);
+            if (buttonView.getId() == R.id.volumePrefDialogNoChange) {
+                preference.noChange = (isChecked) ? 1 : 0;
+
+                valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+                seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+
+                //if (isChecked)
+                //    sharedProfileChBox.setChecked(false);
+            }
+
+            /*
+            if (buttonView.getId() == R.id.volumePrefDialogSharedProfile)
+            {
+                preference.sharedProfile = (isChecked)? 1 : 0;
+
+                valueText.setEnabled((preference.noChange == 0) && (preference.sharedProfile == 0));
+                seekBar.setEnabled((preference.noChange == 0) && (preference.sharedProfile == 0));
+                if (isChecked)
+                    noChangeChBox.setChecked(false);
+            }
+            */
+
+            preference.callChangeListener(preference.getSValue());
         }
-
-        /*
-        if (buttonView.getId() == R.id.volumePrefDialogSharedProfile)
-        {
-            preference.sharedProfile = (isChecked)? 1 : 0;
-
-            valueText.setEnabled((preference.noChange == 0) && (preference.sharedProfile == 0));
-            seekBar.setEnabled((preference.noChange == 0) && (preference.sharedProfile == 0));
-            if (isChecked)
-                noChangeChBox.setChecked(false);
-        }
-        */
-
-        preference.callChangeListener(preference.getSValue());
     }
 
     @Override
@@ -243,8 +301,12 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                 volume = Math.round(preference.maximumMediaValue / 100.0f * percentage);
             }
 
-            if (preference.oldMediaMuted && (preference.audioManager != null))
+            if (preference.oldMediaMuted && (preference.audioManager != null)) {
+                EventPreferencesVolumes.internalChange = true;
                 preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+                DisableVolumesInternalChangeWorker.enqueueWork();
+            }
             ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume);
 
             final Context appContext = context.getApplicationContext();
@@ -345,6 +407,25 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             }
             */
         //}
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (preference.forVolumesSensor == 1) {
+            ((GlobalGUIRoutines.HighlightedSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
+
+            preference.sensorOperator = Integer.parseInt(preference.operatorValues[position]);
+
+            valueText.setEnabled(preference.sensorOperator != 0);
+            seekBar.setEnabled(preference.sensorOperator != 0);
+
+            preference.callChangeListener(preference.getSValue());
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
 /*    private static abstract class PlayRingtoneRunnable implements Runnable {

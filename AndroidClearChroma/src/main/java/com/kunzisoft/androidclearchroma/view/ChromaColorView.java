@@ -5,6 +5,10 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
@@ -19,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.kunzisoft.androidclearchroma.IndicatorMode;
@@ -98,12 +103,13 @@ public class ChromaColorView extends RelativeLayout {
 
         colorView = root.findViewById(R.id.acch_color_view);
         colorEdit = root.findViewById(R.id.acch_color_edit);
+        colorEdit.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_edittext_all));
         //colorEditButton = root.findViewById(R.id.acch_color_edit_button);
 
         //FragmentManager fragmentManager = context.getSupportFragmentManager();
         //Log.e("ChromaColorView.init", "fragmentManager="+fragmentManager);
 
-        createView();
+        createView(true);
     }
 
     private final ChannelView.OnProgressChangedListener seekBarChangeListener = new ChannelView.OnProgressChangedListener() {
@@ -127,9 +133,10 @@ public class ChromaColorView extends RelativeLayout {
         }
     };
 
-    private void createView() {
+    private void createView(boolean alsoColorEdit) {
         DrawableCompat.setTint(colorView.getDrawable(), currentColor);
-        colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
+        if (alsoColorEdit)
+            colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
         //colorEditButton.setText(String.format("%06X", 0xFFFFFF & currentColor));
 
         ViewGroup channelContainer = findViewById(R.id.acch_channel_container);
@@ -162,6 +169,56 @@ public class ChromaColorView extends RelativeLayout {
         });
         */
 
+
+        InputFilter inputFilter_colorEdit = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+//                Log.e("ChromaColorView.inputFilter_colorEdit", "source=" + source);
+//                Log.e("ChromaColorView.inputFilter_colorEdit", "dest=" + dest);
+
+                boolean keepOriginal = true;
+                StringBuilder sb = new StringBuilder(end - start);
+                for (int i = start; i < end; i++) {
+                    char c = source.charAt(i);
+                    if (isCharAllowed(c))
+                        sb.append(c);
+                    else
+                        keepOriginal = false;
+                }
+
+                if (keepOriginal)
+                    return null;
+                else {
+                    if (source instanceof Spanned) {
+                        SpannableString sp = new SpannableString(sb);
+                        TextUtils.copySpansFrom((Spanned) source, start, sb.length(), null, sp, 0);
+                        return sp;
+                    } else {
+                        return sb;
+                    }
+                }
+
+            }
+
+            private boolean isCharAllowed(char c) {
+                if (Character.isDigit(c))
+                    return true;
+                if ((c == 'A') || (c == 'B') || (c == 'C') || (c == 'D') || (c == 'E') || (c == 'F'))
+                    return true;
+                //noinspection RedundantIfStatement
+                if ((c == 'a') || (c == 'b') || (c == 'c') || (c == 'd') || (c == 'e') || (c == 'f'))
+                    return true;
+                //if (c == '#')
+                //    return true;
+                return false;
+            }
+
+        };
+        InputFilter[] filterArray = new InputFilter[2];
+        filterArray[0] = new InputFilter.LengthFilter(8);
+        filterArray[1] = inputFilter_colorEdit;
+        colorEdit.setFilters(filterArray);
+
         colorEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -174,19 +231,32 @@ public class ChromaColorView extends RelativeLayout {
             @Override
             public void afterTextChanged(Editable editable) {
                 //Log.e("ChromaColorView.afterTextChanged", "not initialize");
-                if (editable.length() == 6) {
-                    String color = "#FF" + editable;//.toString();
-                    //Log.e("ChromaColorView.afterTextChanged", "color="+color);
-                    //Log.e("ChromaColorView.afterTextChanged", "currentColor="+currentColor);
-                    int editedColor = Color.parseColor(color);
-                    //Log.e("ChromaColorView.afterTextChanged", "editedColor="+editedColor);
+                if (editable.length() >= 6) {
+                    String value = editable.toString();
 
-                    if (currentColor != editedColor) {
-                        //Log.e("ChromaColorView.afterTextChanged", "color changed");
-                        setCurrentColor(editedColor);
-                    }
-                    //else
-                    //    Log.e("ChromaColorView.afterTextChanged", "color not changed");
+//                    Log.e("ChromaColorView.afterTextChanged", "value (1)="+value);
+                    if (value.startsWith("#"))
+                        value = value.replace("#", "");
+                    if (value.length() > 6)
+                        value = value.substring(value.length() - 6);
+//                    Log.e("ChromaColorView.afterTextChanged", "value (2)="+value);
+
+                    String color = "#FF" + value;
+//                    Log.e("ChromaColorView.afterTextChanged", "color="+color);
+                    //Log.e("ChromaColorView.afterTextChanged", "currentColor="+currentColor);
+                    try {
+                        int editedColor = Color.parseColor(color);
+                        //Log.e("ChromaColorView.afterTextChanged", "editedColor="+editedColor);
+
+                        if (currentColor != editedColor) {
+                            //Log.e("ChromaColorView.afterTextChanged", "color changed");
+                            currentColor = editedColor;
+                            createView(false);
+                        }
+                        //else
+                        //    Log.e("ChromaColorView.afterTextChanged", "color not changed");
+
+                    } catch (Exception ignored) {}
                 }
             }
         });
@@ -210,7 +280,7 @@ public class ChromaColorView extends RelativeLayout {
 
     @Override
     public void invalidate() {
-        createView();
+        createView(true);
         super.invalidate();
     }
 

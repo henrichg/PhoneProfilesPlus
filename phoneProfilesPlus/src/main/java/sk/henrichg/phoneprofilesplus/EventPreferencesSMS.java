@@ -147,7 +147,7 @@ class EventPreferencesSMS extends EventPreferences {
                 if (extenderVersion == 0) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), true)) {
@@ -313,7 +313,7 @@ class EventPreferencesSMS extends EventPreferences {
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary = context.getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2)
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0)
                         summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -436,7 +436,7 @@ class EventPreferencesSMS extends EventPreferences {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2)
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0)
             return -1;
         if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true))
             return 1;
@@ -446,7 +446,7 @@ class EventPreferencesSMS extends EventPreferences {
     @Override
     void checkPreferences(PreferenceManager prefMng, Context context) {
         final boolean accessibilityEnabled =
-                PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_6_1_2);
+                PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_7_0);
 
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -502,6 +502,7 @@ class EventPreferencesSMS extends EventPreferences {
             }
         }
 
+        setSummary(prefMng, PREF_EVENT_SMS_ENABLED, preferences, context);
     }
 
     private long computeAlarm()
@@ -610,7 +611,7 @@ class EventPreferencesSMS extends EventPreferences {
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
                     if (ApplicationPreferences.applicationUseAlarmClock) {
-                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -800,7 +801,7 @@ class EventPreferencesSMS extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventSMSContacts(context, event, null)*/
                 /* moved to Extender && Permissions.checkEventSMSBroadcast(context, event, null)*/) {
                 // compute start time

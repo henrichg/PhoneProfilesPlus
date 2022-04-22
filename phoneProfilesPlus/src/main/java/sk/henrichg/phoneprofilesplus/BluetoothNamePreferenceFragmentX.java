@@ -26,11 +26,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -97,6 +97,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         });
 
         bluetoothName = view.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
+        bluetoothName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
         bluetoothName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -552,8 +553,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     }
                 }
 
-                //noinspection Java8ListSort
-                Collections.sort(_bluetoothList, new SortList());
+                _bluetoothList.sort(new SortList());
 
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                 _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0, false, false));

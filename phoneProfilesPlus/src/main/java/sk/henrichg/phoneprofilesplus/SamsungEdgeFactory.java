@@ -13,7 +13,6 @@ import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -201,14 +200,14 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             blue = red;
             if (!applicationSamsungEdgeHeader) {
                 if (profile._checked) {
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 16);
+                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
 
                     //if (PPApplication.applicationWidgetListIconColor.equals("1"))
                     row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
                     //else
                     //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.parseColor("#33b5e5"));
                 } else {
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 15);
+                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
 
                     //if (PPApplication.applicationWidgetListIconColor.equals("1"))
                     row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
@@ -216,6 +215,8 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                     //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
                 }
             } else {
+                row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
+
                 row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
             }
             if ((!applicationSamsungEdgeHeader) && (profile._checked)) {
@@ -293,8 +294,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             }
         }
 
-        //noinspection Java8ListSort
-        Collections.sort(newProfileList, new ProfileComparator());
+        newProfileList.sort(new ProfileComparator());
 
         Profile restartEvents = null;
         if (Event.getGlobalEventsRunning()) {

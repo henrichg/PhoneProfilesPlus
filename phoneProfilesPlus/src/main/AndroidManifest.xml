@@ -46,7 +46,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
-<!--    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />-->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.TETHER_PRIVILEGED" tools:ignore="ProtectedPermissions" />
 <!--    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />-->
@@ -192,15 +192,15 @@
         </activity>
 
         <activity
-            android:name=".ActivateProfileActivity"
+            android:name=".ActivatorActivity"
             android:label="@string/title_activity_activator"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
-            android:theme="@style/PopupTheme_withToolbar_dayNight">
+            android:theme="@style/ActivatorTheme_dayNight">
         </activity>
 
         <activity
-            android:name=".EditorProfilesActivity"
+            android:name=".EditorActivity"
             android:label="@string/title_activity_editor"
             android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_dayNight">
         </activity>
@@ -430,13 +430,6 @@
 <!--            android:theme="@style/EmptyAppCompatActivity">-->
 <!--        </activity>-->
         <activity
-            android:name=".IgnoreBatteryOptimizationDisableActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity">
-        </activity>
-        <activity
             android:name=".CheckPPPReleasesActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
@@ -481,6 +474,13 @@
         </activity>
         <activity
             android:name=".CheckRequiredExtenderReleasesActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
+            android:name=".AutostartPermissionActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"

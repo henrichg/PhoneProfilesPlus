@@ -162,8 +162,8 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
             ContactsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                //if (!EditorProfilesActivity.getContactsCache().cached)
-                //    EditorProfilesActivity.getContactsCache().clearCache(false);
+                //if (!EditorActivity.getContactsCache().cached)
+                //    EditorActivity.getContactsCache().clearCache(false);
 
                 fragment.listAdapter.notifyDataSetChanged();
                 if (notForUnselect) {

@@ -6,6 +6,7 @@ import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.Settings;
 
 class SettingsContentObserver  extends ContentObserver {
@@ -18,6 +19,10 @@ class SettingsContentObserver  extends ContentObserver {
     //private static int previousVolumeAlarm = 0;
     //private static int previousVolumeSystem = 0;
     //private static int previousVolumeVoice = 0;
+    //private static int previousVolumeBluetoothCall = 0;
+    //private static int previousVolumeDTMFTones = 0;
+    //private static int previousVolumeAccessibilityPrompt = 0;
+
     //private int defaultRingerMode = 0;
     private static int previousScreenTimeout = 0;
 
@@ -40,6 +45,9 @@ class SettingsContentObserver  extends ContentObserver {
             //previousVolumeAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
             //previousVolumeSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
             //previousVolumeVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            //previousVolumeBluetoothCall = audioManager.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
+            //previousVolumeDTMFTones = audioManager.getStreamVolume(AudioManager.STREAM_DTMF);
+            //previousVolumeAccessibilityPrompt = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
         }
 
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
@@ -152,16 +160,23 @@ class SettingsContentObserver  extends ContentObserver {
         }*/
 
         boolean okSetting = false;
+        boolean volumeChange = false;
+
         if (uri != null) {
             String sUri = uri.toString();
-            if (sUri.contains(Settings.System.VOLUME_RING))
+            if ((sUri.contains(Settings.System.VOLUME_RING)) ||
+                (sUri.contains(Settings.System.VOLUME_NOTIFICATION)) ||
+                (sUri.contains(Settings.System.VOLUME_MUSIC)) ||
+                (sUri.contains(Settings.System.VOLUME_ALARM)) ||
+                (sUri.contains(Settings.System.VOLUME_SYSTEM)) ||
+                (sUri.contains(Settings.System.VOLUME_VOICE)) ||
+                (sUri.contains(Settings.System.VOLUME_BLUETOOTH_SCO)) //||
+                //(sUri.contains(Settings.System.VOLUME_DTMF)) || -- not received
+                //(sUri.contains(Settings.System.VOLUME_ACCESSIBILITY))) -- not received
+            ) {
                 okSetting = true;
-            else
-            if (sUri.contains(Settings.System.VOLUME_NOTIFICATION))
-                okSetting = true;
-            //else
-            //if (sUri.contains(Settings.System.VOLUME_MUSIC))
-            //    okSetting = true;
+                volumeChange = true;
+            }
             else
             if (sUri.contains(Settings.System.SCREEN_BRIGHTNESS_MODE))
                 okSetting = true;
@@ -183,6 +198,7 @@ class SettingsContentObserver  extends ContentObserver {
         if (!okSetting)
             return;
 
+//        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "------ do onChange ------");
 
         ////// volume change
@@ -230,6 +246,57 @@ class SettingsContentObserver  extends ContentObserver {
             //int value = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
             //PPApplication.logE("[VOL] SettingsContentObserver.onChange", "STREAM_MUSIC="+value);
             //////////////
+        }
+        if (volumeChange) {
+            if (!EventPreferencesVolumes.internalChange) {
+
+                if (PPApplication.getApplicationStarted(true)) {
+                    // application is started
+
+                    if (Event.getGlobalEventsRunning()) {
+                        //PPApplication.logE("SettingsContentObserver.onChange","xxx");
+
+                        final Context appContext = context.getApplicationContext();
+                        PPApplication.startHandlerThreadBroadcast();
+                        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                        //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                        //        context.getApplicationContext()) {
+                        __handler.post(() -> {
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=SettingsContentObserver.onChange");
+
+                            //Context appContext= appContextWeakRef.get();
+                            //if (appContext != null) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CalendarProviderChangedBroadcastReceiver_onReceive");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+//                                PPApplication.logE("[EVENTS_HANDLER_CALL] SettingsContentObserver.onChange", "sensorType=SENSOR_TYPE_VOLUMES");
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_VOLUMES);
+
+                                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SettingsContentObserver.onChange");
+                            } catch (Exception e) {
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                            //}
+                        });
+                        //}
+
+                    }
+                }
+            }
         }
 
         ////// screen timeout change

@@ -66,7 +66,6 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
                     //}
                 });
             } else {
-//                PPApplication.logE("[IN_WORKER] EventDelayEndBroadcastReceiver.doWork", "handle events");
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventDelayEndBroadcastReceiver.doWork (2)");
 
                 //                PPApplication.logE("[EVENTS_HANDLER_CALL] EventDelayEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_END (2)");

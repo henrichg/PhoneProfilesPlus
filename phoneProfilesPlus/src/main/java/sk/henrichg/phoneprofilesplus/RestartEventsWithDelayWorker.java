@@ -24,7 +24,8 @@ public class RestartEventsWithDelayWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "xxxx");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "--------------- START");
 //            PPApplication.logE("[FIFO_TEST] RestartEventsWithDelayWorker.doWork","xxx"); //"clearOld="+clearOld);
 
             if (!PPApplication.getApplicationStarted(true))
@@ -53,6 +54,9 @@ public class RestartEventsWithDelayWorker extends Worker {
             dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);
             //dataWrapper.invalidateDataWrapper();
 
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("RestartEventsWithDelayWorker.doWork", Log.getStackTraceString(e));

@@ -90,10 +90,11 @@
             android:layout_width="45dp"
             android:layout_height="21dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="3dp"
             android:padding="5dp"
             android:adjustViewBounds="true"
             android:scaleType="fitEnd"
-            android:src="?attr/runEventsIndicatorAll"
+            android:src="@drawable/ic_run_events_indicator_all_v"
             android:contentDescription="@string/important_infor_traffic_light_icon" />
     </LinearLayout>
     <TextView
@@ -186,7 +187,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-15dp"
         android:paddingBottom="5dp"
         android:fontFamily="monospace"
         android:text="@string/empty_string"
@@ -228,7 +229,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-15dp"
         android:paddingBottom="5dp"
         android:fontFamily="monospace"
         android:text="@string/empty_string"
@@ -242,6 +243,14 @@
         android:text="@string/important_info_profile_grant_1_howTo_10"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_profile_grant_1_howTo_10" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/important_info_profile_grant_1_howTo_20_1"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_profile_grant_1_howTo_20" />
 
     <!--
     <TextView

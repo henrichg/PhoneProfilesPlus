@@ -8,11 +8,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.media.AudioManager;
-import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2486;
+    private static final int DATABASE_VERSION = 2490;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -113,6 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = 38;
     static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = 39;
     static final int ETYPE_RADIO_SWITCH_SIM_ON_OFF = 40;
+    static final int ETYPE_VOLUMES = 41;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -396,6 +397,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = "radioSwitchDefaultSIMForCalls";
     private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = "radioSwitchDefaultSIMForSMS";
     private static final String KEY_E_RADIO_SWITCH_SIM_ON_OFF = "radioSwitchSIMOnOff";
+    private static final String KEY_E_VOLUMES_ENABLED = "volumesEnabled";
+    private static final String KEY_E_VOLUMES_SENSOR_PASSED = "volumesSensorPassed";
+    private static final String KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundStartPlayAlsoInSilentMode";
+    private static final String KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundEndPlayAlsoInSilentMode";
+    private static final String KEY_E_VOLUMES_RINGTONE = "volumesRingtone";
+    private static final String KEY_E_VOLUMES_NOTIFICATION = "volumesNotification";
+    private static final String KEY_E_VOLUMES_MEDIA = "volumesMedia";
+    private static final String KEY_E_VOLUMES_ALARM = "volumesAlarm";
+    private static final String KEY_E_VOLUMES_SYSTEM = "volumesSystem";
+    private static final String KEY_E_VOLUMES_VOICE = "volumesVoice";
+    private static final String KEY_E_VOLUMES_BLUETOOTHSCO = "volumesBluetoothSCO";
+    private static final String KEY_E_VOLUMES_ACCESSIBILITY = "volumesAccessibility";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -830,7 +843,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_PERIODIC_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + " " + INTEGER_TYPE + ","
                 + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + " " + INTEGER_TYPE + ","
-                + KEY_E_RADIO_SWITCH_SIM_ON_OFF + " " + INTEGER_TYPE
+                + KEY_E_RADIO_SWITCH_SIM_ON_OFF + " " + INTEGER_TYPE + ","
+                + KEY_E_VOLUMES_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_VOLUMES_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE + " " + INTEGER_TYPE + ","
+                + KEY_E_VOLUMES_RINGTONE + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_NOTIFICATION + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_MEDIA + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_ALARM + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_SYSTEM + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_VOICE + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_BLUETOOTHSCO + " " + TEXT_TYPE + ","
+                + KEY_E_VOLUMES_ACCESSIBILITY + " " + TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -978,6 +1003,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__DEVICE_BOOT_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_DEVICE_BOOT_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SOUND_PROFILE_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SOUND_PROFILE_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIODIC_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_PERIODIC_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__VOLUMES_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_VOLUMES_ENABLED + ")");
 
         //db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
 
@@ -1289,6 +1315,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_SIM_ON_OFF, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_RINGTONE, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_NOTIFICATION, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_MEDIA, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_ALARM, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_SYSTEM, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_VOICE, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_BLUETOOTHSCO, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_VOLUMES_ACCESSIBILITY, TEXT_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3549,6 +3587,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_END_OF_ACTIVATION_TIME + "=0");
         }
 
+        if (oldVersion < 2487)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_SENSOR_PASSED + "=0");
+        }
+
+        if (oldVersion < 2488)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE + "=0");
+        }
+
+        if (oldVersion < 2490)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_RINGTONE + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_NOTIFICATION + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_MEDIA + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ALARM + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_SYSTEM + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_VOICE  + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_BLUETOOTHSCO + "='0|0|0'");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ACCESSIBILITY + "='0|0|0'");
+        }
+
     }
 
     private void afterUpdateDb(SQLiteDatabase db) {
@@ -5547,6 +5609,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+/*
     void fixPhoneProfilesSilentInProfiles() {
         importExportLock.lock();
         try {
@@ -5644,6 +5707,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+*/
 
     void updateProfileShowInActivator(Profile profile) {
         importExportLock.lock();
@@ -5703,7 +5767,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updatePeriodicStartTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateChangeWallpaperTime", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -5761,6 +5825,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile); // start when profile is activated
                 //values.put(KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
                 values.put(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0); // manual profile activation at end
+                values.put(KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundStartPlayAlsoInSilentMode ? 1 : 0);
+                values.put(KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundEndPlayAlsoInSilentMode ? 1 : 0);
 
                 db.beginTransaction();
 
@@ -5824,7 +5890,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_E_PAUSE_STATUS_TIME,
                                 KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION,
                                 KEY_E_AT_END_HOW_UNDO,
-                                KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END
+                                KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END,
+                                KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE,
+                                KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE
                         },
                         KEY_E_ID + "=?",
                         new String[]{String.valueOf(event_id)}, null, null, null, null);
@@ -5860,7 +5928,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_END)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_VIBRATE_END)) == 1,
                                 //cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_AT_END_HOW_UNDO))
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END)) == 1
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END)) == 1,
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE)) == 1,
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE)) == 1
                         );
                     }
 
@@ -5916,7 +5986,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_START_ORDER + "," +
                         KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + "," +
                         KEY_E_AT_END_HOW_UNDO + "," +
-                        KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END +
+                        KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END + "," +
+                        KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE + "," +
+                        KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE +
                         " FROM " + TABLE_EVENTS +
                         " ORDER BY " + KEY_E_ID;
 
@@ -5956,6 +6028,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         event._noPauseByManualActivation = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION)) == 1;
                         //event._atEndHowUndo = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_AT_END_HOW_UNDO));
                         event._manualProfileActivationAtEnd = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END)) == 1;
+                        event._notificationSoundStartPlayAlsoInSilentMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE)) == 1;
+                        event._notificationSoundEndPlayAlsoInSilentMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE)) == 1;
                         event.createEventPreferences();
                         getEventPreferences(event, db);
                         // Adding contact to list
@@ -6013,6 +6087,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0);
                 //values.put(KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
                 values.put(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0);
+                values.put(KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundStartPlayAlsoInSilentMode ? 1 : 0);
+                values.put(KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundEndPlayAlsoInSilentMode ? 1 : 0);
 
                 db.beginTransaction();
 
@@ -6303,6 +6379,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesDeviceBoot(event, db);
         getEventPreferencesSoundProfile(event, db);
         getEventPreferencesPeriodic(event, db);
+        getEventPreferencesVolumes(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -6992,6 +7069,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesVolumes(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_VOLUMES_ENABLED,
+                        KEY_E_VOLUMES_RINGTONE,
+                        KEY_E_VOLUMES_NOTIFICATION,
+                        KEY_E_VOLUMES_MEDIA,
+                        KEY_E_VOLUMES_ALARM,
+                        KEY_E_VOLUMES_SYSTEM,
+                        KEY_E_VOLUMES_VOICE,
+                        KEY_E_VOLUMES_BLUETOOTHSCO,
+                        KEY_E_VOLUMES_SENSOR_PASSED
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesVolumes eventPreferences = event._eventPreferencesVolumes;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ENABLED)) == 1);
+                eventPreferences._volumeRingtone = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_RINGTONE));
+                eventPreferences._volumeNotification = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_NOTIFICATION));
+                eventPreferences._volumeMedia = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_MEDIA));
+                eventPreferences._volumeAlarm = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ALARM));
+                eventPreferences._volumeSystem = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_SYSTEM));
+                eventPreferences._volumeVoice = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_VOICE));
+                eventPreferences._volumeBluetoothSCO = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_BLUETOOTHSCO));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_VOLUMES_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
 
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
@@ -7016,6 +7128,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         updateEventPreferencesDeviceBoot(event, db);
         updateEventPreferencesSoundProfile(event, db);
         updateEventPreferencesPeriodic(event, db);
+        updateEventPreferencesVolumes(event, db);
     }
 
     private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -7393,6 +7506,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(event._id) });
     }
 
+    private void updateEventPreferencesVolumes(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesVolumes eventPreferences = event._eventPreferencesVolumes;
+
+        values.put(KEY_E_VOLUMES_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_VOLUMES_RINGTONE, eventPreferences._volumeRingtone);
+        values.put(KEY_E_VOLUMES_NOTIFICATION, eventPreferences._volumeNotification);
+        values.put(KEY_E_VOLUMES_MEDIA, eventPreferences._volumeMedia);
+        values.put(KEY_E_VOLUMES_ALARM, eventPreferences._volumeAlarm);
+        values.put(KEY_E_VOLUMES_SYSTEM, eventPreferences._volumeSystem);
+        values.put(KEY_E_VOLUMES_VOICE, eventPreferences._volumeVoice);
+        values.put(KEY_E_VOLUMES_BLUETOOTHSCO, eventPreferences._volumeBluetoothSCO);
+        values.put(KEY_E_VOLUMES_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
     int getEventStatus(Event event)
     {
         importExportLock.lock();
@@ -7701,6 +7834,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         case ETYPE_PERIODIC:
                             sensorPassedField = KEY_E_PERIODIC_SENSOR_PASSED;
                             break;
+                        case ETYPE_VOLUMES:
+                            sensorPassedField = KEY_E_VOLUMES_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(TABLE_EVENTS,
@@ -7827,6 +7963,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         sensorPassed = event._eventPreferencesPeriodic.getSensorPassed();
                         sensorPassedField = KEY_E_PERIODIC_SENSOR_PASSED;
                         break;
+                    case ETYPE_VOLUMES:
+                        sensorPassed = event._eventPreferencesVolumes.getSensorPassed();
+                        sensorPassedField = KEY_E_VOLUMES_SENSOR_PASSED;
+                        break;
                 }
                 ContentValues values = new ContentValues();
                 values.put(sensorPassedField, sensorPassed);
@@ -7888,6 +8028,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, event._eventPreferencesDeviceBoot.getSensorPassed());
                 values.put(KEY_E_SOUND_PROFILE_SENSOR_PASSED, event._eventPreferencesSoundProfile.getSensorPassed());
                 values.put(KEY_E_PERIODIC_SENSOR_PASSED, event._eventPreferencesPeriodic.getSensorPassed());
+                values.put(KEY_E_VOLUMES_SENSOR_PASSED, event._eventPreferencesVolumes.getSensorPassed());
 
                 db.beginTransaction();
 
@@ -7946,6 +8087,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_SOUND_PROFILE_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_PERIODIC_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_VOLUMES_SENSOR_PASSED, sensorPassed);
 
                 db.beginTransaction();
 
@@ -8069,6 +8211,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         eventTypeChecked = eventTypeChecked + KEY_E_SOUND_PROFILE_ENABLED + "=1";
                     else if (eventType == ETYPE_PERIODIC)
                         eventTypeChecked = eventTypeChecked + KEY_E_PERIODIC_ENABLED + "=1";
+                    else if (eventType == ETYPE_VOLUMES)
+                        eventTypeChecked = eventTypeChecked + KEY_E_VOLUMES_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
@@ -11754,8 +11898,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_ORIENTATION_ENABLED + "," +
                         KEY_E_MOBILE_CELLS_ENABLED + "," +
                         KEY_E_NFC_ENABLED + "," +
-                        KEY_E_RADIO_SWITCH_ENABLED +"," +
-                        KEY_E_SOUND_PROFILE_ENABLED +
+                        KEY_E_RADIO_SWITCH_ENABLED + "," +
+                        KEY_E_SOUND_PROFILE_ENABLED + "," +
+                        KEY_E_VOLUMES_ENABLED + "," +
+                        KEY_E_VOLUMES_RINGTONE + "," +
+                        KEY_E_VOLUMES_NOTIFICATION + "," +
+                        KEY_E_VOLUMES_MEDIA + "," +
+                        KEY_E_VOLUMES_ALARM + "," +
+                        KEY_E_VOLUMES_SYSTEM + "," +
+                        KEY_E_VOLUMES_VOICE + "," +
+                        KEY_E_VOLUMES_BLUETOOTHSCO + "," +
+                        KEY_E_VOLUMES_ACCESSIBILITY +
                         " FROM " + TABLE_EVENTS;
 
                 //SQLiteDatabase db = this.getWritableDatabase();
@@ -11781,7 +11934,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
-                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)) {
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT)) {
                                     values.clear();
                                     values.put(KEY_DEVICE_AIRPLANE_MODE, 0);
                                     db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -12372,13 +12526,165 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
                             }
 
+                            if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ENABLED)) != 0) &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_E_VOLUMES_ENABLED, 0);
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                            }
+
+                            String value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_RINGTONE));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_RINGTONE, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_NOTIFICATION));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_NOTIFICATION, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_MEDIA));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_MEDIA, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ALARM));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_ALARM, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_SYSTEM));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_SYSTEM, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_VOICE));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_VOICE, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_BLUETOOTHSCO));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_BLUETOOTHSCO, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(KEY_E_VOLUMES_ACCESSIBILITY));
+                            if (value != null) {
+                                int operator = 0;
+                                String[] splits = value.split("\\|");
+                                if (splits.length > 1) {
+                                    try {
+                                        operator = Integer.parseInt(splits[1]);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                if (operator > 6) {
+                                    values.clear();
+                                    values.put(KEY_E_VOLUMES_ACCESSIBILITY, splits[0] + "|0|0");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(KEY_E_ID)))});
+                                }
+                            }
+
                         } while (eventsCursor.moveToNext());
                     }
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
+                    Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -12388,6 +12694,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
+                Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         } finally {

@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -320,8 +319,14 @@ class ContactGroupsCache {
 //                PPApplication.logE("ContactGroupsCache.getContactGroupListX", "_contactGroupList.size()="+_contactGroupList.size());
 //                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(6)");
 
-                //noinspection Java8ListSort
-                Collections.sort(_contactGroupList, new ContactGroupsCache.ContactGroupsComparator());
+                _contactGroupList.sort(new ContactGroupsComparator());
+
+                synchronized (PPApplication.contactsCacheMutex) {
+                    contactsCache.updateContacts(_contactList/*, false*/);
+                    //contactsCache.updateContacts(_contactListWithoutNumber, true);
+
+                    updateContactGroups(_contactGroupList);
+                }
 
                 cached = true;
             }
@@ -335,6 +340,13 @@ class ContactGroupsCache {
             clearGroups(_contactList);
             //contactsCache.clearGroups(_contactListWithoutNumber);
 
+            synchronized (PPApplication.contactsCacheMutex) {
+                contactsCache.updateContacts(_contactList/*, false*/);
+                //contactsCache.updateContacts(_contactListWithoutNumber, true);
+
+                updateContactGroups(_contactGroupList);
+            }
+
             cached = false;
         } catch (Exception e) {
 //            Log.e("ContactGroupsCache.getContactGroupListX", Log.getStackTraceString(e));
@@ -344,18 +356,15 @@ class ContactGroupsCache {
             clearGroups(_contactList);
             //contactsCache.clearGroups(_contactListWithoutNumber);
 
+            synchronized (PPApplication.contactsCacheMutex) {
+                contactsCache.updateContacts(_contactList/*, false*/);
+                //contactsCache.updateContacts(_contactListWithoutNumber, true);
+
+                updateContactGroups(_contactGroupList);
+            }
+
             cached = false;
         }
-
-        //if (cached) {
-        synchronized (PPApplication.contactsCacheMutex) {
-            contactsCache.updateContacts(_contactList/*, false*/);
-            //contactsCache.updateContacts(_contactListWithoutNumber, true);
-
-            contactGroupList.clear();
-            contactGroupList.addAll(_contactGroupList);
-        }
-        //}
 
 //        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "---- END");
 
@@ -370,6 +379,11 @@ class ContactGroupsCache {
             }
         else
             return 0;
+    }
+
+    void updateContactGroups(List<ContactGroup> _contactGroupList) {
+        contactGroupList.clear();
+        contactGroupList.addAll(_contactGroupList);
     }
 
     public List<ContactGroup> getList()

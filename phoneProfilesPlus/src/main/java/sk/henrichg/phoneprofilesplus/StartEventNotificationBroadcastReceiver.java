@@ -87,7 +87,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
                     }*/
 
-                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -164,7 +164,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
                     }*/
 
-                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -218,7 +218,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             Event event = databaseHandler.getEvent(event_id);
                             if (event != null)
-                                event.notifyEventStart(appContext, true);
+                                event.notifyEventStart(appContext, true, true);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.doWork");
                         } catch (Exception e) {
@@ -240,7 +240,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
             Event event = databaseHandler.getEvent(event_id);
             if (event != null)
-                event.notifyEventStart(appContext, true);
+                event.notifyEventStart(appContext, true, true);
         }
     }
 

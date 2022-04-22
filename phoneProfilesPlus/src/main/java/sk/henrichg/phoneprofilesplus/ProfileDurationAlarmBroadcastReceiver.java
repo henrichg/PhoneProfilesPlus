@@ -78,7 +78,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                     if (alarmManager != null) {
-                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -150,7 +150,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
                     if (ApplicationPreferences.applicationUseAlarmClock) {
-                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -209,7 +209,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
                     if (ApplicationPreferences.applicationUseAlarmClock) {
-                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                        Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -396,7 +396,10 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
                             if (PhoneProfilesService.getInstance() != null) {
                                 //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
-                                PhoneProfilesService.getInstance().playNotificationSound(profile._durationNotificationSound, profile._durationNotificationVibrate);
+                                PhoneProfilesService.getInstance().playNotificationSound(
+                                        profile._durationNotificationSound,
+                                        profile._durationNotificationVibrate,
+                                        false);
                                 //PPApplication.sleep(500);
                             }
                         }

@@ -68,7 +68,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/editor_subToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" >
+                android:layout_height="37dp" >
 
                 <RelativeLayout
                     android:id="@+id/editor_subToolbar_reLa1"
@@ -77,25 +77,25 @@
 
                     <ImageView
                         android:id="@+id/editor_list_run_stop_indicator"
-                        android:layout_width="45dp"
-                        android:layout_height="21dp"
+                        android:layout_width="@dimen/run_stop_indicator_width"
+                        android:layout_height="@dimen/run_stop_indicator_height"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginEnd="@dimen/run_stop_indicator_margin_end"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="@dimen/run_stop_indicator_margin_end_editor"
+                        android:layout_marginTop="@dimen/run_stop_indicator_margin_top"
                         android:padding="5dp"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/run_stop_events_indicator"
                         android:scaleType="fitEnd"
-                        android:src="@drawable/ic_run_events_indicator_stopped"
+                        android:src="@drawable/ic_run_events_indicator_stopped_v"
                         android:background="?attr/selectableItemBackground" />
 
                     <LinearLayout
                         android:id="@+id/editor_subToolbar_liLa1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="-3dp"
-                        android:layout_marginTop="-10dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="0dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_toStartOf="@id/editor_list_run_stop_indicator">
@@ -105,8 +105,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:entries="@array/emptyArray"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:popupElevation="0dp"
-                            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+                            style="@style/Base.Widget.AppCompat.Spinner" />
 
                     </LinearLayout>
 

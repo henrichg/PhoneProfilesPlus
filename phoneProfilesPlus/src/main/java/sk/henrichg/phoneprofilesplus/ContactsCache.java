@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -87,7 +86,7 @@ class ContactsCache {
                                 name = null;
                         }
 
-                        if (name != null) {
+                        if ((name != null) && (rawAccountType != null)) {
                             //if (hasPhone > 0) {
                                 projection = new String[]{
                                         ContactsContract.CommonDataKinds.Phone._ID,
@@ -168,8 +167,11 @@ class ContactsCache {
                     rawCursor.close();
                 }
 
-                //noinspection Java8ListSort
-                Collections.sort(_contactList, new ContactsComparator());
+                _contactList.sort(new ContactsComparator());
+                synchronized (PPApplication.contactsCacheMutex) {
+                    updateContacts(_contactList/*, false*/);
+                    //updateContacts(_contactListWithoutNumber, true);
+                }
 
                 cached = true;
             }
@@ -179,6 +181,10 @@ class ContactsCache {
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
+            synchronized (PPApplication.contactsCacheMutex) {
+                updateContacts(_contactList/*, false*/);
+                //updateContacts(_contactListWithoutNumber, true);
+            }
 
             cached = false;
         } catch (Exception e) {
@@ -187,16 +193,13 @@ class ContactsCache {
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
-
-            cached = false;
-        }
-
-        //if (cached) {
             synchronized (PPApplication.contactsCacheMutex) {
                 updateContacts(_contactList/*, false*/);
                 //updateContacts(_contactListWithoutNumber, true);
             }
-        //}
+
+            cached = false;
+        }
 
 //        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- END");
 

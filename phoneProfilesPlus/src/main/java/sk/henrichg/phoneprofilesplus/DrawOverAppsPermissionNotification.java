@@ -100,6 +100,8 @@ class DrawOverAppsPermissionNotification {
         //}
         mBuilder.setOnlyAlertOnce(true);
 
+        mBuilder.setWhen(0);
+
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
             mNotificationManager.notify(

@@ -12,11 +12,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.skydoves.expandablelayout.ExpandableLayout;
 
 
 public class ImportantInfoActivity extends AppCompatActivity {
 
     static final String EXTRA_SHOW_QUICK_GUIDE = "extra_important_info_activity_show_quick_guide";
+
+    ExpandableLayout expandableLayoutSystem;
+    ExpandableLayout expandableLayoutProfiles;
+    ExpandableLayout expandableLayoutEvents;
 
     @SuppressLint("InlinedApi")
     @Override
@@ -86,6 +91,25 @@ public class ImportantInfoActivity extends AppCompatActivity {
         final ViewPager2 viewPager = findViewById(R.id.activity_important_info_pager);
         ImportantInfoActivityFragmentStateAdapterX adapter = new ImportantInfoActivityFragmentStateAdapterX(getSupportFragmentManager(), getLifecycle());
         viewPager.setAdapter(adapter);
+        // this fixes cropped fragment in Quick guide
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                //Log.e("ImportantInfoActivity.viewPager.onPageSelected", "position="+position);
+                if (position == 1) {
+                    if (expandableLayoutSystem != null) {
+                        if (!expandableLayoutSystem.isExpanded()) {
+                            if (expandableLayoutProfiles != null)
+                                expandableLayoutProfiles.collapse();
+                            if (expandableLayoutEvents != null)
+                                expandableLayoutEvents.collapse();
+                            expandableLayoutSystem.toggleLayout();
+                        }
+                    }
+                }
+            }
+        });
 
         Intent intent = getIntent();
         boolean firstInstallation = intent.getBooleanExtra(ImportantInfoNotification.EXTRA_FIRST_INSTALLATION, false);
@@ -95,8 +119,8 @@ public class ImportantInfoActivity extends AppCompatActivity {
         importantInfoHelpFragment.firstInstallation = firstInstallation;
         adapter.addFragment(importantInfoHelpFragment);
 
-        QuickGuideHelpFragment quickGuideHelpFragment = new QuickGuideHelpFragment();
-        adapter.addFragment(quickGuideHelpFragment);
+        ImportantInfoQuickGuideHelpFragment importantInfoQuickGuideHelpFragment = new ImportantInfoQuickGuideHelpFragment();
+        adapter.addFragment(importantInfoQuickGuideHelpFragment);
 
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 

@@ -6,9 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.DocumentsContract;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -16,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 public class ProfileIconPreferenceX extends DialogPreference {
@@ -221,6 +226,43 @@ public class ProfileIconPreferenceX extends DialogPreference {
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setType("image/*");
+
+            if (Build.VERSION.SDK_INT >= 26) {
+                boolean ok = false;
+                if (!isImageResourceID) {
+                    try {
+                        Uri picturesUri = Uri.parse(imageIdentifier);
+                        //Log.e("ProfileIconPreferenceX.startGallery", "picturesUri="+picturesUri);
+                        if (picturesUri != null) {
+                            //Log.e("ProfileIconPreferenceX.startGallery", "path="+picturesUri.getPath());
+                            //List<String> segments = picturesUri.getPathSegments();
+                            //for (String segment : segments)
+                            //    Log.e("ProfileIconPreferenceX.startGallery", "segment="+segment);
+                            intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
+                        }
+                        ok = true;
+                    } catch (Exception ignored) {
+                    }
+                }
+                if (!ok) {
+                    try {
+                        File pictures = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                        //Log.e("ProfileIconPreferenceX.startGallery", "pictures=" + pictures);
+                        String fileName = pictures.getName();
+                        //Log.e("ProfileIconPreferenceX.startGallery", "fileName=" + fileName);
+                        Uri picturesUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:" + fileName);
+                        //Log.e("ProfileIconPreferenceX.startGallery", "picturesUri=" + picturesUri);
+                        if (picturesUri != null) {
+                            //Log.e("ProfileIconPreferenceX.startGallery", "path="+picturesUri.getPath());
+                            //List<String> segments = picturesUri.getPathSegments();
+                            //for (String segment : segments)
+                            //    Log.e("ProfileIconPreferenceX.startGallery", "segment="+segment);
+                            intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
 
             // is not possible to get activity from preference, used is static method
             //ProfilesPrefsFragment.setChangedProfileIconPreference(this);

@@ -89,9 +89,10 @@ public class PPApplication extends Application
     //static final int VERSION_CODE_EXTENDER_5_1_3_1 = 540;
     //static final int VERSION_CODE_EXTENDER_5_1_4_1 = 600;
     //static final int VERSION_CODE_EXTENDER_6_0 = 620;
-    static final int VERSION_CODE_EXTENDER_6_1_2 = 670;
-    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_6_1_2;
-    static final String VERSION_NAME_EXTENDER_LATEST = "6.1.2";
+    //static final int VERSION_CODE_EXTENDER_6_2 = 670;
+    static final int VERSION_CODE_EXTENDER_7_0 = 700;
+    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_7_0;
+    static final String VERSION_NAME_EXTENDER_LATEST = "7.0";
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
@@ -139,10 +140,23 @@ public class PPApplication extends Application
     static final String FDROID_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
     static final String FDROID_APPLICATION_URL = "https://www.f-droid.org/";
     static final String FDROID_REPOSITORY_URL = "https://apt.izzysoft.de/fdroid/index/info";
-    static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
-    static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
 
-    static final String HELP_HOW_TO_GRANT_G1_URL = "https://github.com/henrichg/PhoneProfilesPlus#help-how-to-grant-g1-permission";
+    static final String AMAZON_APPSTORE_PPP_RELEASES_URL = "https://www.amazon.com/Henrich-Gron-PhoneProfilesPlus/dp/B01N3SM44J/ref=sr_1_1?keywords=phoneprofilesplus&qid=1637084235&qsid=134-9049988-7816540&s=mobile-apps&sr=1-1&sres=B01N3SM44J%2CB078K93HFD%2CB01LXZDPDR%2CB00LBK7OSY%2CB07RX5L3CP%2CB07XM7WVS8%2CB07XWGWPH5%2CB08KXB3R7S%2CB0919N2P7J%2CB08NWD7K8H%2CB01A7MACL2%2CB07XY8YFQQ%2CB07XM8GDWC%2CB07QVYLDRL%2CB09295KQ9Q%2CB01LVZ3JBI%2CB08723759H%2CB09728VTDK%2CB08R7D4KZJ%2CB01BUIGF9K";
+    static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
+
+    static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
+    static final String APKPURE_APPLICATION_URL = "https://apkpure.com/apkpure/com.apkpure.aegon";
+
+    static final String HUAWEI_APPGALLERY_PPP_RELEASES_URL = "https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000";
+    static final String HUAWEI_APPGALLERY_APPLICATION_URL = "https://consumer.huawei.com/en/mobileservices/appgallery/";
+
+    //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/grant_g1_permission.md
+    static final String HELP_HOW_TO_GRANT_G1_URL = "https://henrichg.github.io/PhoneProfilesPlus/grant_g1_permission.html";
+    static final String HELP_HOW_TO_GRANT_G1_URL_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/grant_g1_permission.md";
+
+    //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/wifi_scan_throttling.md
+    static final String HELP_WIFI_SCAN_THROTTLING = "https://henrichg.github.io/PhoneProfilesPlus/wifi_scan_throttling.html";
+    static final String HELP_WIFI_SCAN_THROTTLING_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/wifi_scan_throttling.md";
 
     //static final boolean gitHubRelease = true;
     //static boolean googlePlayInstaller = false;
@@ -200,34 +214,6 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
-                                                //+"|%%%%% MobileCellsScanner.doAutoRegistration"
-                                                //+"|CmdWifiAP.isEnabled"
-                                                //+"|WifiApManager.isWifiAPEnabled"
-                                                //+"|CmdWifiAP.setWifiAP"
-                                                //+"|WifiApManager.setWifiApState"
-
-                                                //+"|[***] EventsHandler.doHandleEvents"
-                                                //+"|[***] Event.startEvent"
-                                                //+"|%%%%BLE BluetoothScanner.doScan"
-                                                //+"|%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd"
-                                                //+"|%%%%BLE BluetoothScanWorker.startLEScan"
-                                                //+"|%%%%BLE BluetoothScanWorker.stopLEScan"
-
-//                                                +"|%%%% BluetoothScanner.doScan"
-//                                                +"|BluetoothScanWorker._scheduleWork"
-//                                                +"|BluetoothScanWorker.doWork"
-//                                                +"|MobileCellsScanner.connect"
-//                                                +"|OrientationScanner.runEventsHandlerForOrientationChange"
-//                                                +"|PeriodicEventsHandlerWorker.doWork"
-//                                                +"|PeriodicEventsHandlerWorker.enqueueWork"
-//                                                +"|PhoneProfilesService.startListeningOrientationSensors"
-//                                                +"|%%%% WifiScanner.doScan"
-//                                                +"|WifiScanWorker._scheduleWork"
-//                                                +"|WifiScanWorker.doWork"
-//                                                +"|LocationScanner.startLocationUpdates"
-//                                                +"|LocationSensorWorker.enqueueWork"
-//                                                +"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
-
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
@@ -258,31 +244,6 @@ public class PPApplication extends Application
                                                 //+"|[DB_LOCK]"
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
-
-                                                //+"|PApplication.getReleaseData"
-                                                //+"|CheckGitHubReleasesActivity"
-                                                //+"|WifiApManager._startTethering30"
-                                                //+"|NextAlarmClockBroadcastReceiver"
-
-                                                //+"|SimStateChangedBroadcastReceiver"
-                                                //+"|DefaultSIMChangedBroadcastReceiver"
-                                                //+"|MobileDataNetworkCallback"
-                                                //+"|EventPreferencesRadioSwitch"
-
-                                                //+"|ActivateProfileHelper.execute"
-                                                //+"|ActivateProfileHelper.createBrightnessView"
-                                                //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
-                                                //+"|$$$B BluetoothScanner"
-                                                //+"|$$$B PhoneProfilesService"
-                                                //+"|BluetoothScanWorker.startCLScan"
-                                                //+"|BluetoothScanWorker.fillBoundedDevicesList"
-
-                                                //+"|EditorProfilesActivity.bottomNavigationView.OnItemSelectedListener"
-                                                //+"|EditorProfilesActivity.selectViewItem"
-                                                //+"|EditorProfilesActivity.selectFilterItem"
-                                                //+"|EditorProfilesActivity.onActivityResult"
-
-                                                //+"|ActivateProfileHelper.setTones"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -553,6 +514,9 @@ public class PPApplication extends Application
     static final int PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_ID = 143;
     static final String PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION";
 
+    static final int AUTOSTART_PERMISSION_NOTIFICATION_ID = 150;
+    static final String AUTOSTART_PERMISSION_NOTIFICATION_TAG = PACKAGE_NAME+"_AUTOSTART_PERMISSION_NOTIFICATION";
+
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;
     static final int EVENT_ID_NOTIFICATION_ID = 1000;
@@ -611,7 +575,7 @@ public class PPApplication extends Application
 
     //static final int SCANNER_START_ORIENTATION_SCANNER = 4;
     //static final int SCANNER_STOP_ORIENTATION_SCANNER = 5;
-    static final int SCANNER_FORCE_START_ORIENTATION_SCANNER = 5;
+    //static final int SCANNER_FORCE_START_ORIENTATION_SCANNER = 5;
     static final int SCANNER_RESTART_ORIENTATION_SCANNER = 6;
 
     //static final int SCANNER_START_MOBILE_CELLS_SCANNER = 7;
@@ -638,7 +602,7 @@ public class PPApplication extends Application
     //static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
     static final String EXTENDER_ACCESSIBILITY_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender";
 
-    static final String ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED";
+    //static final String ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED";
     static final String ACTION_ACCESSIBILITY_SERVICE_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_CONNECTED";
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_UNBIND";
     static final String ACTION_FOREGROUND_APPLICATION_CHANGED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_FOREGROUND_APPLICATION_CHANGED";
@@ -1284,6 +1248,7 @@ public class PPApplication extends Application
         body = body + getString(R.string.acra_email_body_text);
 
         PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
+
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST);
@@ -1308,6 +1273,33 @@ public class PPApplication extends Application
                 .withReportFileName("crash_report.txt")
                 .withEnabled(true);
 
+/*
+        CoreConfigurationBuilder builder = new CoreConfigurationBuilder()
+                .withBuildConfigClass(BuildConfig.class)
+                .withReportFormat(StringFormat.KEY_VALUE_LIST);
+
+        builder.withPluginConfigurations(
+            new NotificationConfigurationBuilder()
+                .withChannelName(getString(R.string.notification_channel_crash_report))
+                .withChannelImportance(NotificationManager.IMPORTANCE_HIGH)
+                .withResIcon(R.drawable.ic_exclamation_notify)
+                .withTitle(getString(R.string.acra_notification_title))
+                .withText(getString(R.string.acra_notification_text))
+                .withResSendButtonIcon(0)
+                .withResDiscardButtonIcon(0)
+                .withSendOnClick(true)
+                .withEnabled(true)
+                .build(),
+            new MailSenderConfigurationBuilder()
+                .withMailTo("henrich.gron@gmail.com")
+                .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
+                .withBody(body)
+                .withReportAsFile(true)
+                .withReportFileName("crash_report.txt")
+                .withEnabled(true)
+                .build()
+        );
+*/
         //ACRA.DEV_LOGGING = true;
 
         ACRA.init(this, builder);
@@ -1336,7 +1328,7 @@ public class PPApplication extends Application
         PPApplication.startHandlerThreadCancelWork();
         final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
         __handler.post(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
 
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
@@ -1345,12 +1337,15 @@ public class PPApplication extends Application
                 //noinspection TryWithIdenticalCatches
                 try {
                     List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
                     // cancel only enqueued works
                     for (WorkInfo workInfo : workInfoList) {
                         WorkInfo.State state = workInfo.getState();
                         if (forceCancel || (state == WorkInfo.State.ENQUEUED)) {
                             // any work is enqueued, cancel it
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" forceCancel="+forceCancel);
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" state="+state);
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" cancel it");
                             workManager.cancelWorkById(workInfo.getId());
                         }
                     }
@@ -1388,6 +1383,7 @@ public class PPApplication extends Application
         PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
         if (atStart) {
             cancelWork(DisableInternalChangeWorker.WORK_TAG, false);
+            cancelWork(DisableVolumesInternalChangeWorker.WORK_TAG, false);
             cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, false);
         }
         cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
@@ -1446,7 +1442,7 @@ public class PPApplication extends Application
         if (getResources() == null) {
             try {
                 android.os.Process.killProcess(pid);
-                PPApplication.logToCrashlytics("E/PPApplication.checkAppReplacingState: app is replacing...kill");
+                PPApplication.logToACRA("E/PPApplication.checkAppReplacingState: app is replacing...kill");
             } catch (Exception e) {
                 //Log.e("PPApplication.checkAppReplacingState", Log.getStackTraceString(e));
             }
@@ -1935,7 +1931,7 @@ public class PPApplication extends Application
                     getSharedPreferences(context).getBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, true);
         }
 
-        IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
+        //IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
         CheckCriticalPPPReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification(context);
         getActivityLogEnabled(context);
         //getNotificationProfileName(context);
@@ -2137,7 +2133,8 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate(context);
             ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
             ApplicationPreferences.applicationActivatorIncreaseBrightness(context);
-            ApplicationPreferences.applicationWidgetOneRowHigherLayout(context);
+            ApplicationPreferences.applicationWidgetOneRowLayoutHeight(context);
+            //ApplicationPreferences.applicationWidgetOneRowHigherLayout(context);
             ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode(context);
             ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode(context);
             ApplicationPreferences.applicationWidgetListChangeColorsByNightMode(context);
@@ -2461,43 +2458,17 @@ public class PPApplication extends Application
                 if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
                     return;// true;
 
-                int importance;
-                //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
-                //if (ApplicationPreferences.notificationShowInStatusBar(context)) {
-                /*KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-                if (myKM != null) {
-                    //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
-                    boolean screenUnlocked = !myKM.isKeyguardLocked();
-                    //boolean screenUnlocked = getScreenUnlocked(context);
-                    if ((ApplicationPreferences.notificationHideInLockScreen(context) && (!screenUnlocked)) ||
-                            ((profile != null) && profile._hideStatusBarIcon))
-                        importance = NotificationManager.IMPORTANCE_MIN;
-                    else
-                        importance = NotificationManager.IMPORTANCE_LOW;
-                }
-                else*/
-                //        importance = NotificationManager.IMPORTANCE_DEFAULT;
-                //}
-                //else
-                //    importance = NotificationManager.IMPORTANCE_MIN;
-                importance = NotificationManager.IMPORTANCE_LOW;
-
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_activated_profile);
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_activated_profile_description_ppp);
 
-                NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, importance);
+                NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
                 channel.setSound(null, null);
                 channel.setShowBadge(false);
                 channel.setBypassDnd(true);
@@ -2526,19 +2497,14 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_mobile_cells_registration_description);
 
-                NotificationChannel channel = new NotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
-                channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
-                channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                channel.setSound(null, null);
-                channel.setShowBadge(false);
+                channel.enableLights(true);
+                channel.enableVibration(true);
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2560,18 +2526,15 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.empty_string);
 
-                NotificationChannel channel = new NotificationChannel(INFORMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(INFORMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
-                channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
-                channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                //channel.setBypassDnd(true);
+                channel.enableLights(true);
+                channel.enableVibration(true);
+                //channel.setSound(null, null);
+                channel.setShowBadge(false);
+                channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2595,14 +2558,11 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_HIGH);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(true);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(true);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setSound(null, null);
+                //channel.setShowBadge(false);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2656,18 +2616,14 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_notify_event_start_description);
 
-                NotificationChannel channel = new NotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
-                channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                channel.setSound(null, null);
+                channel.enableVibration(true);
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2721,18 +2677,15 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.empty_string);
 
-                NotificationChannel channel = new NotificationChannel(DONATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(DONATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                //channel.setBypassDnd(true);
+                channel.setSound(null, null);
+                channel.setShowBadge(true);
+                channel.setBypassDnd(false);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2756,15 +2709,12 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(NEW_RELEASE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
-                channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
-                channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                channel.setBypassDnd(false);
+                channel.enableLights(true);
+                channel.enableVibration(true);
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
+                channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2789,14 +2739,11 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(true);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(true);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2822,14 +2769,11 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(true);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(true);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setSound(null, null);
+                channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
@@ -2856,15 +2800,12 @@ public class PPApplication extends Application
                 NotificationChannel channel = new NotificationChannel(KEEP_SCREEN_ON_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
-                //channel.setImportance(importance);
                 channel.setDescription(description);
                 channel.enableLights(false);
-                // Sets the notification light color for notifications posted to this
-                // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
                 channel.enableVibration(false);
-                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                channel.setBypassDnd(false);
+                //channel.setSound(null, null);
+                channel.setShowBadge(false);
+                channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -3460,7 +3401,7 @@ public class PPApplication extends Application
         }
         if (!cmd.isFinished()){
             //Log.e("PPApplication.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
-            PPApplication.logToCrashlytics("E/PPApplication.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
+            PPApplication.logToACRA("E/PPApplication.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 
@@ -3764,15 +3705,18 @@ public class PPApplication extends Application
         }
     }
 
-    public static void forceStartOrientationScanner(Context context/*, boolean forScreenOn*/) {
+    /*
+    public static void forceStartOrientationScanner(Context context) {
         try {
             //PPApplication.logE("[RJS] PhoneProfilesService.forceStartOrientationScanner", "xxx");
-            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_ORIENTATION_SCANNER);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
-            PPApplication.startPPService(context, serviceIntent);*/
+
+            //Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_ORIENTATION_SCANNER);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
+            //PPApplication.startPPService(context, serviceIntent);
+
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -3782,6 +3726,7 @@ public class PPApplication extends Application
             PPApplication.recordException(e);
         }
     }
+    */
 
     public static void forceStartMobileCellsScanner(Context context/*, boolean forScreenOn*/) {
         try {
@@ -4201,6 +4146,7 @@ public class PPApplication extends Application
                 ImportantInfoNotification.removeNotification(context);
                 DrawOverAppsPermissionNotification.removeNotification(context);
                 IgnoreBatteryOptimizationNotification.removeNotification(context);
+                AutostartPermissionNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
 
                 if (removeNotifications) {
@@ -4702,13 +4648,13 @@ public class PPApplication extends Application
 
     @Override
     public void onActivityStarted(Activity activity) {
-        if (activity instanceof EditorProfilesActivity)
+        if (activity instanceof EditorActivity)
             foregroundEditorActivity=new WeakReference<>(activity);
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        if (activity instanceof EditorProfilesActivity)
+        if (activity instanceof EditorActivity)
             foregroundEditorActivity=new WeakReference<>(activity);
     }
 
@@ -4719,7 +4665,7 @@ public class PPApplication extends Application
 
     @Override
     public void onActivityStopped(Activity activity) {
-        if (activity instanceof EditorProfilesActivity)
+        if (activity instanceof EditorActivity)
             foregroundEditorActivity = null;
     }
 
@@ -5019,7 +4965,7 @@ public class PPApplication extends Application
         } catch (Exception ignored) {}
     }
 
-    static void logToCrashlytics(String s) {
+    static void logToACRA(String s) {
         try {
             //FirebaseCrashlytics.getInstance().log(s);
             ACRA.getErrorReporter().putCustomData("Log", s);

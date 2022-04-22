@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_profile_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,8 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="@string/profile_name_default"
-        android:textSize="14sp"
-        android:textColor="#ffffffff" />
+        android:textSize="14dp"
+        android:textColor="#ffffffff"
+        tools:ignore="SpUsage" />
 
     <!--<TextView
         android:id="@+id/widget_profile_list_item_profile_name"

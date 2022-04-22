@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -47,7 +48,6 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -377,8 +377,8 @@ public class EditorEventListFragment extends Fragment
             if (itemId == R.id.menu_add_event) {
                 if (eventListAdapter != null) {
                     if (!getActivity().isFinishing()) {
-                        ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
-                        ((EditorProfilesActivity) getActivity()).addEventDialog.show();
+                        ((EditorActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
+                        ((EditorActivity) getActivity()).addEventDialog.show();
                     }
                 }
                 return true;
@@ -439,7 +439,7 @@ public class EditorEventListFragment extends Fragment
                 orderItems);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        orderSpinner.setBackgroundTintList(ContextCompat.getColorStateList(getActivity()/*.getBaseContext()*/, R.color.highlighted_spinner_all));
+        orderSpinner.setBackgroundTintList(ContextCompat.getColorStateList(getActivity()/*.getBaseContext()*/, R.color.highlighted_spinner_all_editor));
         orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -587,6 +587,8 @@ public class EditorEventListFragment extends Fragment
 
                 Profile profile = _dataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
+
+                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 fragment.eventListAdapter.notifyDataSetChanged(false);
 
                 if (defaultEventsGenerated)
@@ -733,7 +735,7 @@ public class EditorEventListFragment extends Fragment
 
                 }
                 else {
-                    EditorProfilesActivity.showDialogAboutRedText(null, event, false, false, false, true, getActivity());
+                    EditorActivity.showDialogAboutRedText(null, event, false, false, false, true, getActivity());
                     return false;
                 }
             } else {
@@ -782,7 +784,7 @@ public class EditorEventListFragment extends Fragment
             // redraw event list
             //updateListView(event, false, false, true, 0);
             if (getActivity() != null)
-                ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
             // restart events
             //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
@@ -813,7 +815,7 @@ public class EditorEventListFragment extends Fragment
             // redraw event list
             //updateListView(event, false, false, true, 0);
             if (getActivity() != null)
-                ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
             // restart events
             //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
@@ -874,7 +876,7 @@ public class EditorEventListFragment extends Fragment
 
         PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, "");
 
-        listView.getRecycledViewPool().clear();
+        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
         synchronized (activityDataWrapper.eventList) {
             // remove notifications about event parameters errors
@@ -1005,7 +1007,7 @@ public class EditorEventListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                 PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
 
-                listView.getRecycledViewPool().clear();
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
                 activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
@@ -1138,7 +1140,7 @@ public class EditorEventListFragment extends Fragment
 
         //if (eventListAdapter != null)
         if (listView != null)
-            listView.getRecycledViewPool().clear();
+            listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
         if (eventListAdapter != null) {
             if ((newEvent) && (event != null))
@@ -1223,7 +1225,6 @@ public class EditorEventListFragment extends Fragment
                                     ApplicationPreferences.applicationEditorPrefIndicator);
                             updateHeader(profile);
                         }
-                        listView.getRecycledViewPool().clear();
                     }
                     else {
                         if (filterType == FILTER_TYPE_START_ORDER)
@@ -1236,8 +1237,6 @@ public class EditorEventListFragment extends Fragment
                             updateHeader(profile);
                         }
 
-                        listView.getRecycledViewPool().clear();
-
                         eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 
                         // added touch helper for drag and drop items
@@ -1247,6 +1246,7 @@ public class EditorEventListFragment extends Fragment
 
                         listView.setAdapter(eventListAdapter);
                     }
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     eventListAdapter.notifyDataSetChanged();
                 }
             }
@@ -1278,6 +1278,7 @@ public class EditorEventListFragment extends Fragment
                     scrollToEvent = null;
                 }
 
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 eventListAdapter.notifyDataSetChanged();
 
                 if (eventPos != ListView.INVALID_POSITION) {
@@ -1367,28 +1368,22 @@ public class EditorEventListFragment extends Fragment
         switch (orderType)
         {
             case ORDER_TYPE_EVENT_NAME:
-                //noinspection Java8ListSort
-                Collections.sort(eventList, new EventNameComparator());
+                eventList.sort(new EventNameComparator());
                 break;
             case ORDER_TYPE_START_ORDER:
-                //noinspection Java8ListSort
-                Collections.sort(eventList, new StartOrderComparator());
+                eventList.sort(new StartOrderComparator());
                 break;
             case ORDER_TYPE_START_PROFILE_NAME:
-                //noinspection Java8ListSort
-                Collections.sort(eventList, new StartProfileNameComparator());
+                eventList.sort(new StartProfileNameComparator());
                 break;
             case ORDER_TYPE_END_PROFILE_NAME:
-                //noinspection Java8ListSort
-                Collections.sort(eventList, new EndProfileNameComparator());
+                eventList.sort(new EndProfileNameComparator());
                 break;
             case ORDER_TYPE_PRIORITY:
                 if (ApplicationPreferences.applicationEventUsePriority)
-                    //noinspection Java8ListSort
-                    Collections.sort(eventList, new PriorityComparator());
+                    eventList.sort(new PriorityComparator());
                 else
-                    //noinspection Java8ListSort
-                    Collections.sort(eventList, new StartOrderComparator());
+                    eventList.sort(new StartOrderComparator());
                 break;
         }
     }
@@ -1581,7 +1576,7 @@ public class EditorEventListFragment extends Fragment
         if (getActivity() == null)
             return;
 
-        //if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
+        //if (((EditorActivity)getActivity()).targetHelpsSequenceStarted)
         //    return;
 
         boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished;
@@ -1605,7 +1600,7 @@ public class EditorEventListFragment extends Fragment
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
-                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
+                editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 if (filterType != FILTER_TYPE_START_ORDER)
                     editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, false);
                 editor.apply();
@@ -1641,11 +1636,12 @@ public class EditorEventListFragment extends Fragment
                 if (startTargetHelps) {
                     try {
                         targets.add(
-                                TapTarget.forView(((EditorProfilesActivity)getActivity()).filterSpinner, getString(R.string.editor_activity_targetHelps_eventsFilterSpinner_title), getString(R.string.editor_activity_targetHelps_eventsFilterSpinner_description))
+                                TapTarget.forView(((EditorActivity)getActivity()).filterSpinner, getString(R.string.editor_activity_targetHelps_eventsFilterSpinner_title), getString(R.string.editor_activity_targetHelps_eventsFilterSpinner_description))
                                         .transparentTarget(true)
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
+                                        .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
@@ -1661,6 +1657,7 @@ public class EditorEventListFragment extends Fragment
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
+                                        .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
@@ -1676,6 +1673,7 @@ public class EditorEventListFragment extends Fragment
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
+                                        .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
@@ -1690,6 +1688,7 @@ public class EditorEventListFragment extends Fragment
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
+                                        .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
@@ -1706,6 +1705,7 @@ public class EditorEventListFragment extends Fragment
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
+                                        .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
@@ -1725,6 +1725,7 @@ public class EditorEventListFragment extends Fragment
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
                                             .textColor(textColor)
+                                            .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
                                             .id(1)
@@ -1851,9 +1852,9 @@ public class EditorEventListFragment extends Fragment
         //setStatusBarTitle();
 
         /*if (PPApplication.logEnabled()) {
-            //PPApplication.logE("EditorProfilesActivity.changeEventOrder", "filterSelectedItem="+filterSelectedItem);
-            PPApplication.logE("EditorProfilesActivity.changeEventOrder", "orderSelectedItem=" + orderSelectedItem);
-            PPApplication.logE("EditorProfilesActivity.changeEventOrder", "_eventsOrderType=" + _eventsOrderType);
+            //PPApplication.logE("EditorActivity.changeEventOrder", "filterSelectedItem="+filterSelectedItem);
+            PPApplication.logE("EditorActivity.changeEventOrder", "orderSelectedItem=" + orderSelectedItem);
+            PPApplication.logE("EditorActivity.changeEventOrder", "_eventsOrderType=" + _eventsOrderType);
         }*/
 
         changeListOrder(_eventsOrderType, fromOnViewCreated);
@@ -1957,7 +1958,7 @@ public class EditorEventListFragment extends Fragment
                     DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                     //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                    ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                             getString(R.string.ignore_manual_activation_not_ignore_toast),
@@ -1972,7 +1973,7 @@ public class EditorEventListFragment extends Fragment
                     DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                     //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                    ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                             getString(R.string.ignore_manual_activation_ignore_toast),
@@ -1987,7 +1988,7 @@ public class EditorEventListFragment extends Fragment
                     DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                     //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                    ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                             getString(R.string.ignore_manual_activation_ignore_no_pause_toast),

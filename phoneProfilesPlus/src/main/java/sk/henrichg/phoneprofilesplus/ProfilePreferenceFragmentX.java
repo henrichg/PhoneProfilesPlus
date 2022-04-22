@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -110,8 +109,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
             if (preference != null) {
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 synchronized (preference.dataWrapper.profileList) {
-                    //noinspection Java8ListSort
-                    Collections.sort(preference.dataWrapper.profileList, new AlphabeticallyComparator());
+                    preference.dataWrapper.profileList.sort(new AlphabeticallyComparator());
                 }
             }
             return null;

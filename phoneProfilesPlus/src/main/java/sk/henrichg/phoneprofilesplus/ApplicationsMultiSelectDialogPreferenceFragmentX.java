@@ -87,10 +87,10 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
             asyncTask.cancel(true);
         }
 
-        if (EditorProfilesActivity.getApplicationsCache() != null) {
-            EditorProfilesActivity.getApplicationsCache().cancelCaching();
-            if (!EditorProfilesActivity.getApplicationsCache().cached)
-                EditorProfilesActivity.getApplicationsCache().clearCache(false);
+        if (EditorActivity.getApplicationsCache() != null) {
+            EditorActivity.getApplicationsCache().cancelCaching();
+            if (!EditorActivity.getApplicationsCache().cached)
+                EditorActivity.getApplicationsCache().clearCache(false);
         }
 
         preference.fragment = null;
@@ -138,9 +138,9 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
             ApplicationsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (EditorProfilesActivity.getApplicationsCache() != null)
-                    if (!EditorProfilesActivity.getApplicationsCache().cached)
-                        EditorProfilesActivity.getApplicationsCache().cacheApplicationsList(prefContext);
+                if (EditorActivity.getApplicationsCache() != null)
+                    if (!EditorActivity.getApplicationsCache().cached)
+                        EditorActivity.getApplicationsCache().cacheApplicationsList(prefContext);
 
                 preference.getValueAMSDP();
             }
@@ -158,9 +158,9 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
             ApplicationsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (EditorProfilesActivity.getApplicationsCache() != null)
-                    if (!EditorProfilesActivity.getApplicationsCache().cached)
-                        EditorProfilesActivity.getApplicationsCache().clearCache(false);
+                if (EditorActivity.getApplicationsCache() != null)
+                    if (!EditorActivity.getApplicationsCache().cached)
+                        EditorActivity.getApplicationsCache().clearCache(false);
 
                 fragment.listAdapter.notifyDataSetChanged();
                 if (notForUnselect) {

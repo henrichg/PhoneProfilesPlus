@@ -22,8 +22,10 @@
 
         <ScrollView
             android:id="@+id/dialog_help_popup_window_scroll_view"
-            android:layout_width="300dp"
-            android:layout_height="match_parent">
+            android:layout_width="@dimen/popup_widow_dialog_help_width"
+            android:layout_height="match_parent"
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false" >
 
             <LinearLayout
                 android:id="@+id/dialog_help_popup_window_liLa1"
@@ -37,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/empty_string"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/gui_info_popup_text_size" />
 
             </LinearLayout>
 

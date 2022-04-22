@@ -39,8 +39,8 @@ class ApplicationsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.Vi
         this.application = application;
 
         // Display Application data
-        if (EditorProfilesActivity.getApplicationsCache() != null)
-            imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, true));
+        if (EditorActivity.getApplicationsCache() != null)
+            imageViewIcon.setImageBitmap(EditorActivity.getApplicationsCache().getApplicationIcon(application, true));
         textViewAppName.setText(application.appLabel);
 
         // Tag the CheckBox with the Application it is displaying, so that we

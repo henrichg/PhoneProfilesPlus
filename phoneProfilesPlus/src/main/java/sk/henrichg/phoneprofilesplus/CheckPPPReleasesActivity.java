@@ -183,10 +183,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
         else
         if (store == R.id.menu_check_in_appgallery) {
-            if (appGalleryInstalled) {
+            //if (appGalleryInstalled) {
                 checkInHuaweiAppGallery(activity);
                 displayed = true;
-            }
+            //}
         }
         else
         if (store == R.id.menu_check_in_github) {
@@ -206,10 +206,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled)
                     checkInGalaxyStore(activity);
-                else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
-                    checkInHuaweiAppGallery(activity);
+                //else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
+                //    checkInHuaweiAppGallery(activity);
                 else {
-                    if (amazonAppStoreInstalled)
+                    if (appGalleryInstalled)
+                        checkInHuaweiAppGallery(activity);
+                    else if (amazonAppStoreInstalled)
                         checkInAmazonAppstore(activity);
                     else if (fdroidInstalled)
                         checkInFDroid(activity);
@@ -422,41 +424,43 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_fdroid_info_text);
         text.setText(message);
 
-        text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
-        CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
-        CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL + " \u21D2";
+        if (!fdroidInstalled) {
+            text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
+            CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
+            CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL + " \u21D2";
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.FDROID_APPLICATION_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        text = layout.findViewById(R.id.dialog_for_fdroid_repository_with_ppp_to_configure);
+        CharSequence str1 = activity.getString(R.string.check_releases_fdroid_repository_with_ppp);
+        CharSequence str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL + " \u21D2";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setColor(ds.linkColor);    // you can use custom color
-                ds.setUnderlineText(false);    // this remove the underline
-            }
-
-            @Override
-            public void onClick(@NonNull View textView) {
-                String url = PPApplication.FDROID_APPLICATION_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
-            }
-        };
-        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-        text.setText(sbt);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
-
-        text = layout.findViewById(R.id.dialog_for_fdroid_repository_with_ppp_to_configure);
-        str1 = activity.getString(R.string.check_releases_fdroid_repository_with_ppp);
-        str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL + " \u21D2";
-        sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        clickableSpan = new ClickableSpan() {
             @Override
             public void updateDrawState(TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
@@ -638,21 +642,69 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_amazon_appstore_info_text);
         text.setText(message);
 
-        text = layout.findViewById(R.id.dialog_for_amazon_appstore_amazon_appstore_application);
-        CharSequence str1 = activity.getString(R.string.check_releases_amazon_appstore_application);
-        CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL + " \u21D2";
-        Spannable sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setColor(ds.linkColor);    // you can use custom color
-                ds.setUnderlineText(false);    // this remove the underline
-            }
+        boolean amazonStoreInstalled = false;
+        PackageManager pm = activity.getPackageManager();
+        try {
+            pm.getPackageInfo("com.amazon.venezia", PackageManager.GET_ACTIVITIES);
+            amazonStoreInstalled = true;
+        } catch (Exception ignored) {}
 
-            @Override
-            public void onClick(@NonNull View textView) {
-                String url = PPApplication.AMAZON_APPSTORE_APPLICATION_URL;
+        if (!amazonStoreInstalled) {
+            text = layout.findViewById(R.id.dialog_for_amazon_appstore_amazon_appstore_application);
+            text.setVisibility(View.VISIBLE);
+            CharSequence str1 = activity.getString(R.string.check_releases_amazon_appstore_application);
+            CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL + " \u21D2";
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.AMAZON_APPSTORE_APPLICATION_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+        } else {
+            text = layout.findViewById(R.id.dialog_for_amazon_appstore_amazon_appstore_application);
+            text.setVisibility(View.GONE);
+        }
+
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        dialogBuilder.setCancelable(true);
+
+        final boolean _amazonStoreInstalled = amazonStoreInstalled;
+        int buttonRes = R.string.check_releases_go_to_amazon_appstore;
+        if (amazonStoreInstalled)
+            buttonRes = R.string.check_releases_open_amazon_appstore;
+
+        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
+
+            if (_amazonStoreInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("amzn://apps/android?p=sk.henrichg.phoneprofilesplus"));
+                intent.setPackage("com.amazon.venezia");
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            } else {
+                String url = PPApplication.AMAZON_APPSTORE_PPP_RELEASES_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -661,77 +713,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     PPApplication.recordException(e);
                 }
             }
-        };
-        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-        text.setText(sbt);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
-
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setCancelable(true);
-
-        PackageManager packageManager = activity.getPackageManager();
-        Intent _intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
-        if (_intent != null) {
-            dialogBuilder.setPositiveButton(R.string.check_releases_open_amazon_appstore, (dialog, which) -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("amzn://apps/android?p=sk.henrichg.phoneprofilesplus"));
-                intent.setPackage("com.amazon.venezia");
-                try {
-                    activity.startActivity(intent);
-                } catch (Exception e) {
-                    AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(activity);
-                    dialogBuilder2.setMessage(R.string.check_releases_install_amazon_appstore);
-                    //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder2.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog2 = dialogBuilder2.create();
-
-//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
-
-                    if (!activity.isFinishing())
-                        dialog2.show();
-                }
-/*
-                PackageManager packageManager = activity.getPackageManager();
-                Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
-                if (intent != null) {
-                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    try {
-                        activity.startActivity(intent);
-                    } catch (Exception e) {
-                        AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(activity);
-                        dialogBuilder2.setMessage(R.string.check_releases_install_amazon_appstore);
-                        //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder2.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog2 = dialogBuilder2.create();
-
-//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
-
-                        if (!activity.isFinishing())
-                            dialog2.show();
-                    }
-                }
- */
-                activity.finish();
-            });
-        }
+            activity.finish();
+        });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         dialogBuilder.setOnCancelListener(dialog -> activity.finish());
         dialogBuilder.setOnDismissListener(dialog -> activity.finish());
@@ -773,16 +756,82 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_appgallery_info_text);
         text.setText(message);
 
+        boolean appGalleryInstalled = false;
+        PackageManager pm = activity.getPackageManager();
+        try {
+            pm.getPackageInfo("com.huawei.appmarket", PackageManager.GET_ACTIVITIES);
+            appGalleryInstalled = true;
+        } catch (Exception ignored) {}
+
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            text = layout.findViewById(R.id.dialog_for_appgallery_application);
+            text.setVisibility(View.GONE);
+        } else {
+            if (!appGalleryInstalled) {
+                text = layout.findViewById(R.id.dialog_for_appgallery_application);
+                text.setVisibility(View.VISIBLE);
+                CharSequence str1 = activity.getString(R.string.check_releases_appgallery_application);
+                CharSequence str2 = str1 + " " + PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL + " \u21D2";
+                Spannable sbt = new SpannableString(str2);
+                sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ds.linkColor);    // you can use custom color
+                        ds.setUnderlineText(false);    // this remove the underline
+                    }
+
+                    @Override
+                    public void onClick(@NonNull View textView) {
+                        String url = PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL;
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        try {
+                            activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    }
+                };
+                sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+                text.setText(sbt);
+                text.setMovementMethod(LinkMovementMethod.getInstance());
+            } else {
+                text = layout.findViewById(R.id.dialog_for_appgallery_application);
+                text.setVisibility(View.GONE);
+            }
+        }
+
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
 
-        dialogBuilder.setPositiveButton(R.string.check_releases_open_appgallery, (dialog, which) -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplus"));
-            try {
-                activity.startActivity(intent);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+        //PackageManager packageManager = activity.getPackageManager();
+        //Intent _intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+
+        final boolean _appGalleryInstalled = appGalleryInstalled;
+        int buttonRes = R.string.check_releases_go_to_appgallery;
+        if (appGalleryInstalled)
+            buttonRes = R.string.check_releases_open_appgallery;
+
+        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
+            if (_appGalleryInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplus"));
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            } else {
+                String url = PPApplication.HUAWEI_APPGALLERY_PPP_RELEASES_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
             }
             activity.finish();
         });
@@ -851,6 +900,41 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             pm.getPackageInfo("com.apkpure.aegon", PackageManager.GET_ACTIVITIES);
             apkPureInstalled = true;
         } catch (Exception ignored) {}
+
+        if (!apkPureInstalled) {
+            text = layout.findViewById(R.id.dialog_for_apkpure_appkpure_application);
+            text.setVisibility(View.VISIBLE);
+            CharSequence str1 = activity.getString(R.string.check_releases_apkpure_appstore_application);
+            CharSequence str2 = str1 + " " + PPApplication.APKPURE_APPLICATION_URL + " \u21D2";
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.APKPURE_APPLICATION_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+        } else {
+            text = layout.findViewById(R.id.dialog_for_apkpure_appkpure_application);
+            text.setVisibility(View.GONE);
+        }
 
         final boolean _apkPureInstalled = apkPureInstalled;
         int buttonRes = R.string.check_releases_go_to_apkpure;

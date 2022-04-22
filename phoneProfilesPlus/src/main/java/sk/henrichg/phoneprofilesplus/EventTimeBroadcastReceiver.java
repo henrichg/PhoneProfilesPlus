@@ -16,12 +16,11 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action != null) {
             //PPApplication.logE("EventTimeBroadcastReceiver.onReceive", "action=" + action);
-            doWork(/*true,*/ context);
+            doReceiver(/*true,*/ context);
         }
     }
 
-    private void doWork(/*boolean useHandler,*/ Context context) {
-//        PPApplication.logE("[IN_WORKER] EventTimeBroadcastReceiver.doWork", "xxx");
+    private void doReceiver(/*boolean useHandler,*/ Context context) {
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started

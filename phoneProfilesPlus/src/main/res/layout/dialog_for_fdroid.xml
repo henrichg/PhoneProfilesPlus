@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_for_fdroid_root2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+<ScrollView
     android:id="@+id/dialog_for_fdroid_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/alert_dialog_top_padding" >
+    android:scrollbarStyle="outsideOverlay"
+    android:fadeScrollbars="false"
+    tools:ignore="UselessParent">
 
     <LinearLayout
         android:id="@+id/dialog_for_fdroid_linla0"
@@ -44,3 +55,5 @@
     </LinearLayout>
 
 </ScrollView>
+
+</LinearLayout>

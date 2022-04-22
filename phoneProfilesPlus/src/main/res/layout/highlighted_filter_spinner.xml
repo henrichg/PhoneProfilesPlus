@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@android:id/text1"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textColor="@color/editorFilterTitleColor"
-          android:textSize="15sp"
-          android:ellipsize="marquee"
-          android:singleLine="true"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/highlighted_spinner_all"
+    android:textSize="17dp"
+    android:textStyle="bold"
+    android:ellipsize="marquee"
+    android:singleLine="true"
+    tools:ignore="SpUsage" />
+<!--    android:textColor="@color/editorFilterTitleColor"-->

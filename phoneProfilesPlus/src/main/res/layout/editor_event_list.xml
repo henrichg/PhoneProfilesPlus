@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_events_list_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -52,7 +53,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text="@string/empty_string"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -170,24 +171,28 @@
                 android:id="@+id/editor_events_list_bottom_bar_order_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
                 android:layout_marginStart="1dp"
                 android:ellipsize="end"
-                android:textSize="14sp"
+                android:textSize="15dp"
                 android:clickable="true"
                 android:text="@string/editor_drawer_title_events_order"
                 android:maxLines="1"
-                android:focusable="true"/>
+                android:focusable="true"
+                tools:ignore="SpUsage"/>
 <!--            android:textColor="?attr/editorFilterTitleColor"-->
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/editor_events_list_bottom_bar_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-7dp"
-                android:layout_marginStart="-3dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="1dp"
                 android:entries="@array/emptyArray"
+                android:clickable="true"
+                android:focusable="true"
                 android:popupElevation="0dp"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+                style="@style/Base.Widget.AppCompat.Spinner" />
 
         </LinearLayout>
 

@@ -4,14 +4,22 @@
     <dimen name="activity_margin_start">40dp</dimen>
     <dimen name="activity_margin_end">40dp</dimen>
 
-    <dimen name="run_stop_indicator_margin_end">0dp</dimen>
+    <dimen name="run_stop_indicator_width">48dp</dimen>
+    <dimen name="run_stop_indicator_height">24dp</dimen>
+    <dimen name="run_stop_indicator_margin_top">0dp</dimen>
+    <dimen name="run_stop_indicator_margin_end_editor">3dp</dimen>
+    <dimen name="run_stop_indicator_margin_end_activator">0dp</dimen>
 
-    <dimen name="activator_min_width_minor">45%</dimen>
-    <dimen name="activator_min_width_major">45%</dimen>
+    <dimen name="activator_min_width_minor">65%</dimen>
+    <dimen name="activator_min_width_major">65%</dimen>
 
-    <dimen name="dialog_min_width_minor">45%</dimen>
-    <dimen name="dialog_min_width_major">45%</dimen>
+    <dimen name="dialog_min_width_minor">65%</dimen>
+    <dimen name="dialog_min_width_major">65%</dimen>
 
     <dimen name="bottom_navigation_side_margins">60dp</dimen>
+
+    <dimen name="popup_widow_event_status_width">500dp</dimen>
+    <dimen name="popup_widow_dialog_help_width">400dp</dimen>
+    <dimen name="popup_window_run_stop_indicator_width">400dp</dimen>
 
 </resources>

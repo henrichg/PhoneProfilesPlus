@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.media.RingtoneManager;
-import android.net.Uri;
-import android.provider.Settings;
 
 //import me.drakeet.support.toast.ToastCompat;
 
@@ -49,6 +47,7 @@ class TonesHandler {
     }
     */
 
+    /*
     static String searchUri(Context context, int type, String searchUri) {
         try {
             if ((type == RingtoneManager.TYPE_RINGTONE) &&
@@ -81,6 +80,7 @@ class TonesHandler {
         }
         return "";
     }
+    */
 
 
     static String getToneName(Context context,

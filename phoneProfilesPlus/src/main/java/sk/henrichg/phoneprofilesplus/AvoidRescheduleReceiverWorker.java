@@ -25,7 +25,8 @@ public class AvoidRescheduleReceiverWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "xxxx");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "--------------- START");
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -53,6 +54,9 @@ public class AvoidRescheduleReceiverWorker extends Worker {
                 PPApplication.recordException(e);
             }
 
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("AvoidRescheduleReceiverWorker.doWork", Log.getStackTraceString(e));
