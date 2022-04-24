@@ -79,9 +79,9 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
 
         ImageView check = (ImageView) defaultColorLayout.getChildAt(0);
 
-        if(Color.red(profileIconPreference.customColor) +
-            Color.green(profileIconPreference.customColor) +
-            Color.blue(profileIconPreference.customColor) < 300)
+        if(Color.red(defaultColor) +
+            Color.green(defaultColor) +
+            Color.blue(defaultColor) < 300)
             check.setImageResource(R.drawable.ic_check);
         else
             check.setImageResource(R.drawable.ic_check_dark);
@@ -118,23 +118,27 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
 
         check = (ImageView) customColorLayout.getChildAt(0);
 
-        if(Color.red(profileIconPreference.customColor) +
-            Color.green(profileIconPreference.customColor) +
-            Color.blue(profileIconPreference.customColor) < 300)
+        int customColor = preference.customColor;
+        if (customColor == 0)
+            customColor = defaultColor;
+
+        if(Color.red(customColor) +
+            Color.green(customColor) +
+            Color.blue(customColor) < 300)
             check.setImageResource(R.drawable.ic_check);
         else
             check.setImageResource(R.drawable.ic_check_dark);
 
         check.setVisibility(preselect == -2 ? View.VISIBLE : View.GONE);
 
-        selector = createSelector(profileIconPreference.customColor);
+        selector = createSelector(customColor);
         states = new int[][]{
                 new int[]{-android.R.attr.state_pressed},
                 new int[]{android.R.attr.state_pressed}
         };
         colors = new int[]{
-                shiftColor(profileIconPreference.customColor),
-                profileIconPreference.customColor
+                shiftColor(customColor),
+                customColor
         };
         rippleColors = new ColorStateList(states, colors);
         setBackgroundCompat(customColorLayout, new RippleDrawable(rippleColors, selector, null));
@@ -190,12 +194,12 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
                 chromaColorView.setColorMode(ColorMode.values()[0]);
                 chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);
 
-                dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     int color = chromaColorView.getCurrentColor();
                     profileIconPreference.setCustomColor(true, color);
                     mDialog.dismiss();
                 });
-                dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
                 AlertDialog dialog = dialogBuilder.create();
                 if (!activity.isFinishing())
