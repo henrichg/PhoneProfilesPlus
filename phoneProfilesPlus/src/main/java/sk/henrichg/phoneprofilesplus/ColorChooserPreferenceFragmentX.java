@@ -128,7 +128,6 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference.context);
                     dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
                     dialogBuilder.setCancelable(true);
-                    dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
                     //LayoutInflater inflater = getLayoutInflater();
                     // WARNING - use this for get transparent beckround of EditText celector handler
@@ -143,13 +142,13 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
                     chromaColorView.setColorMode(ColorMode.values()[0]);
                     chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);
 
-                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                    dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         int color = chromaColorView.getCurrentColor();
                         preference.value = String.valueOf(color);
                         preference.persistValue();
                         dismiss();
                     });
-                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                    dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
                     AlertDialog dialog = dialogBuilder.create();
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
