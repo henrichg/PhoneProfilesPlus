@@ -1,3 +1,15 @@
+Preco uz noe je PPP v GPlay:
+
+Google restrictions:
+1. Android - All Wi-Fi related functions not working since Android 10.
+2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:
+    targetSdkVersion targetSdk
+  and in PPP must be target sdk = 28. Android 10 is 29.
+
+In stores, in which is currently deployed PPP, restriction about target sdk not exists.
+
+----------------------
+
 Stare Privacy policy. Asi nemozes odstranit, lebo asi je potrebne pre PPP 4.2.0.3 co je
 v Obchode Play a co maju ludia nainstalovanu staru verziu. :-(
 https://sites.google.com/site/phoneprofilesplus/home/privacy-policy
@@ -499,46 +511,4 @@ Pozeraj toto:
 Je to aplikacia SysteUI Tunner. Mas ho v S10.
 
 --------------
-
-- Added: "Volume change" event sensor.
-- Added "Play notification also in silent mode" parameter for start/end of event notification.
-- Added info for profile parameter "Dark mode".
-- Added: "How to disable Wi-Fi scan throttling".
-- Added Auto start notification generation.
-- Added initial uri (path) for start gallery of custom icon, wallpaper image, wallpaper folder.
-- Added support for installation of Huawei AppGallery in non-Huawei devices.
-- Added open of web for installation of Amazon AppStore, APKPure and open PPP releases in web version of AppGallery, Amazon AppStore, APKPure in check releases dialogs.
-- Added note about USB debugging security into Important info and grant_g1_permission.md.
-
-- Changed One row widget parameter "Higher layout" to "Layout height".
-- Changed name of all "Disable ... scanning" profile parameters to "Enable ... scanning"
-- Change: Allowed change of profile parameters which requires root on non-rooted devices.
-- Change: Allow change of parameters even when are not inserted 2 SIM cards.
-- Change of "Help with GUI items" text. Is better readable.
-- Change: Remove of non-critical check releases notification, when is displayed critical release notification and do not display non-critical check releases notification when nis displayed critical release notification.
-- Changed intent for ignore battery optimization to Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. Only solution for OnePlus. :-(
-- Some GUI changes.
-- Change: New PPPExtender required version. In it is fixed outgoing call.
-- Change: Updated README.md
-- Changed privacy policy link in README.md to PhoneProfilesPlus/docs/privacy_policy.md
-- Change: Updated grant_g1_permission.md
-- Changed screenshots of PPP for applications stores.
-
-- Fixed "Mute sound" for non-audible "Sound profile" profile parameter.
-- Fixed display and check of required event parameters.
-- Fix: call root functionality when G1 functionality crashes.
-- Fixed bad working Silent ringer mode.
-- Fixed bad working check of PPPE accessibility service.
-- Fixed not called whole EventsHandler for manual restart of events, when all events are stopped.
-- Fixed notification channels from IMPORTANCE_LOW to IMPORTANCE_DEFAULT. Changed some channel parameters.
-- Fixed Autostart for OnePlus, Android 12.
-- Fixed bad displayed red text for event radio switch preference category.
-- Fixed play of ringing simulation.
-- Fixed cropped Quick guide when all sections in Important info are collapsed.
-- Fix: Removed force start of orientation sensor from start of event preferences. This fixes battery consumption when event preferences are displayed.
-- Fixed Airplane mode set to disabled when is not PPP as default assistant.
-
-
-
-
 
