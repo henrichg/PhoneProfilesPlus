@@ -46,17 +46,16 @@
                 android:id="@+id/ringtone_pref_dlg_item_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
                 android:text="@string/empty_string"
-                android:textSize="17sp" />
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/ringtone_pref_dlg_item_path"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/empty_string"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textStyle="italic" />
 
         </LinearLayout>
