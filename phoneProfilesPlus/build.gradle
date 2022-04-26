@@ -48,8 +48,8 @@ android {
 dependencies {
     //implementation 'androidx.multidex:multidex:2.0.1'
 
-    //implementation 'androidx.concurrent:concurrent-futures:1.1.0'
-//    api "com.google.guava:guava:31.1-android"
+    // https://developer.android.com/guide/background/listenablefuture
+    implementation "com.google.guava:guava:31.0.1-android"
     //noinspection GradleDependency
     implementation "ch.acra:acra-mail:$ppVersions.acra"
     //noinspection GradleDependency

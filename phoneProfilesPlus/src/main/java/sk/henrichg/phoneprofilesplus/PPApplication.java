@@ -1249,6 +1249,7 @@ public class PPApplication extends Application
 
         PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
 
+/*
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST);
@@ -1272,8 +1273,8 @@ public class PPApplication extends Application
                 .withReportAsFile(true)
                 .withReportFileName("crash_report.txt")
                 .withEnabled(true);
+*/
 
-/*
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder()
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST);
@@ -1299,7 +1300,7 @@ public class PPApplication extends Application
                 .withEnabled(true)
                 .build()
         );
-*/
+
         //ACRA.DEV_LOGGING = true;
 
         ACRA.init(this, builder);
