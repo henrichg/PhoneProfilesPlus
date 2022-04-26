@@ -119,8 +119,11 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
         check = (ImageView) customColorLayout.getChildAt(0);
 
         int customColor = preference.customColor;
-        if (customColor == 0)
+        if (customColor == 0) {
             customColor = defaultColor;
+            // set it for custom color dialog changer
+            preference.customColor = customColor;
+        }
 
         if(Color.red(customColor) +
             Color.green(customColor) +
