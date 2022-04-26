@@ -6,8 +6,9 @@
 
     <ImageView
         android:id="@+id/profile_multiselect_pref_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="5dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_profile_default"
@@ -16,12 +17,14 @@
     <RelativeLayout
         android:id="@+id/profile_multiselect_pref_icons"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp" >
 
         <ImageView
             android:id="@+id/profile_multiselect_pref_icon1"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:padding="2dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
@@ -31,8 +34,9 @@
 
         <ImageView
             android:id="@+id/profile_multiselect_pref_icon2"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:padding="2dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
@@ -42,8 +46,9 @@
 
         <ImageView
             android:id="@+id/profile_multiselect_pref_icon3"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:padding="2dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:adjustViewBounds="true"
@@ -53,8 +58,9 @@
 
         <ImageView
             android:id="@+id/profile_multiselect_pref_icon4"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:padding="2dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:adjustViewBounds="true"
