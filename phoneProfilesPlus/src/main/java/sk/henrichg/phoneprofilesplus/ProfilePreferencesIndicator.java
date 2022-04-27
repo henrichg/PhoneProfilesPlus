@@ -1373,16 +1373,33 @@ class ProfilePreferencesIndicator {
             // lock device
             if (profile._lockDevice != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_lockDevice);
-                    if (fillStrings)
-                        strings[countDrawables++] = "lock";
-                    else {
-                        disabled[countDrawables] = false;
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
+                    if (profile._lockDevice == 3) {
+                        boolean enabled;
+                        enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_7_0);
+                        if (enabled) {
+                            if (fillPreferences)
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_lockDevice);
+                            if (fillStrings)
+                                strings[countDrawables++] = "lock";
+                            else {
+                                disabled[countDrawables] = false;
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
+                            }
+                            if (fillPreferences)
+                                countItems[countPreferences++] = 1;
+                        }
+                    } else {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_lockDevice);
+                        if (fillStrings)
+                            strings[countDrawables++] = "lock";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
                     }
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
                 }
             }
             // notification led

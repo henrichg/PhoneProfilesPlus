@@ -7495,24 +7495,26 @@ public class PhoneProfilesService extends Service
             // get ringtone from contact
             //boolean phoneNumberFound = false;
             String _ringtoneFromContact = "";
-            try {
-                Uri contactLookup = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
-                Cursor contactLookupCursor = context.getContentResolver().query(contactLookup, new String[]{ContactsContract.PhoneLookup._ID, ContactsContract.PhoneLookup.CUSTOM_RINGTONE}, null, null, null);
-                if (contactLookupCursor != null) {
-                    if (contactLookupCursor.moveToNext()) {
-                        _ringtoneFromContact = contactLookupCursor.getString(contactLookupCursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
-                        if (_ringtoneFromContact == null)
-                            _ringtoneFromContact = "";
+            if (!phoneNumber.isEmpty()) {
+                try {
+                    Uri contactLookup = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+                    Cursor contactLookupCursor = context.getContentResolver().query(contactLookup, new String[]{ContactsContract.PhoneLookup._ID, ContactsContract.PhoneLookup.CUSTOM_RINGTONE}, null, null, null);
+                    if (contactLookupCursor != null) {
+                        if (contactLookupCursor.moveToNext()) {
+                            _ringtoneFromContact = contactLookupCursor.getString(contactLookupCursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
+                            if (_ringtoneFromContact == null)
+                                _ringtoneFromContact = "";
 //                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "_ringtoneFromContact from contact="+_ringtoneFromContact);
-                        //phoneNumberFound = true;
+                            //phoneNumberFound = true;
+                        }
+                        contactLookupCursor.close();
                     }
-                    contactLookupCursor.close();
+                } catch (SecurityException e) {
+                    Permissions.grantPlayRingtoneNotificationPermissions(context, true);
+                    _ringtoneFromContact = "";
+                } catch (Exception e) {
+                    _ringtoneFromContact = "";
                 }
-            } catch (SecurityException e) {
-                Permissions.grantPlayRingtoneNotificationPermissions(context, true);
-                _ringtoneFromContact = "";
-            } catch (Exception e) {
-                _ringtoneFromContact = "";
             }
 
             String _ringtoneFromProfile = "";

@@ -340,7 +340,9 @@ class EventPreferencesSMS extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_LIST_TYPE);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isRunnable);
-        boolean isAccessibilityEnabled = event._eventPreferencesSMS.isAccessibilityServiceEnabled(context) == 1;
+
+        int _isAccessibilityEnabled = event._eventPreferencesSMS.isAccessibilityServiceEnabled(context);
+        boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
         preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
@@ -348,8 +350,14 @@ class EventPreferencesSMS extends EventPreferences {
             if (isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
                 summary = context.getString(R.string.accessibility_service_enabled);
             else {
-                summary = context.getString(R.string.accessibility_service_disabled);
-                summary = summary + "\n\n" + context.getString(R.string.event_preferences_sms_AccessibilitySettingsForExtender_summary);
+                if (_isAccessibilityEnabled == -1) {
+                    summary = context.getString(R.string.accessibility_service_not_used);
+                    summary = summary + "\n\n" + context.getString(R.string.preference_not_used_extender_reason) + " " +
+                            context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else {
+                    summary = context.getString(R.string.accessibility_service_disabled);
+                    summary = summary + "\n\n" + context.getString(R.string.event_preferences_sms_AccessibilitySettingsForExtender_summary);
+                }
             }
             preference.setSummary(summary);
 

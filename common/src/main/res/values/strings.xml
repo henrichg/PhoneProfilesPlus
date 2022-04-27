@@ -1931,6 +1931,8 @@
     <string name="profile_preferences_applicationEnableNotificationScanning">Enable notification scanning</string>
 
     <string name="check_github_releases_installed_version">Installed version:</string>
+    <string name="accessibility_service_not_used">Not used</string>
+    <string name="preference_not_used_extender_reason">Reason:</string>
 
     <!-- **************************************************************************************** -->
 

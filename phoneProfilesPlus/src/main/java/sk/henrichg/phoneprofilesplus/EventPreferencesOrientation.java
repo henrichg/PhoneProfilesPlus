@@ -467,7 +467,8 @@ class EventPreferencesOrientation extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, true, !isRunnable);
         }
 
-        boolean isAccessibilityEnabled = event._eventPreferencesOrientation.isAccessibilityServiceEnabled(context) == 1;
+        int _isAccessibilityEnabled = event._eventPreferencesOrientation.isAccessibilityServiceEnabled(context);
+        boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
@@ -475,8 +476,14 @@ class EventPreferencesOrientation extends EventPreferences {
             if (isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
                 summary = context.getString(R.string.accessibility_service_enabled);
             else {
-                summary = context.getString(R.string.accessibility_service_disabled);
-                summary = summary + "\n\n" + context.getString(R.string.event_preferences_orientation_AccessibilitySettingsForExtender_summary);
+                if (_isAccessibilityEnabled == -1) {
+                    summary = context.getString(R.string.accessibility_service_not_used);
+                    summary = summary + "\n\n" + context.getString(R.string.preference_not_used_extender_reason) + " " +
+                            context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else {
+                    summary = context.getString(R.string.accessibility_service_disabled);
+                    summary = summary + "\n\n" + context.getString(R.string.event_preferences_orientation_AccessibilitySettingsForExtender_summary);
+                }
             }
             preference.setSummary(summary);
 
@@ -627,6 +634,19 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @Override
+    int isAccessibilityServiceEnabled(Context context)
+    {
+        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        if (extenderVersion == 0)
+            return -2;
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0)
+            return -1;
+        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true))
+            return 1;
+        return 0;
+    }
+
+    @Override
     void checkPreferences(PreferenceManager prefMng, Context context) {
         SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
@@ -747,7 +767,7 @@ class EventPreferencesOrientation extends EventPreferences {
             }
         }
 
-        enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_7_0);
+        enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), -1);
         ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(enabled);

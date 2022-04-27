@@ -710,7 +710,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                              @SuppressWarnings("SameParameterValue") int version) {
         int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
-        if (extenderVersion >= version)
+        if ((version == -1) || (extenderVersion >= version)) // -1 => do not check version
             enabled = isAccessibilityServiceEnabled(context, true);
         return  (extenderVersion >= version) && enabled;
     }

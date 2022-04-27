@@ -379,7 +379,9 @@ class EventPreferencesCall extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, !isRunnable);
-        boolean isAccessibilityEnabled = event._eventPreferencesCall.isAccessibilityServiceEnabled(context) == 1;
+
+        int _isAccessibilityEnabled = event._eventPreferencesCall.isAccessibilityServiceEnabled(context);
+        boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
         preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
@@ -387,8 +389,14 @@ class EventPreferencesCall extends EventPreferences {
             if (isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
                 summary = context.getString(R.string.accessibility_service_enabled);
             else {
-                summary = context.getString(R.string.accessibility_service_disabled);
-                summary = summary + "\n\n" + context.getString(R.string.event_preferences_call_AccessibilitySettingsForExtender_summary);
+                if (_isAccessibilityEnabled == -1) {
+                    summary = context.getString(R.string.accessibility_service_not_used);
+                    summary = summary + "\n\n" + context.getString(R.string.preference_not_used_extender_reason) + " " +
+                            context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else {
+                    summary = context.getString(R.string.accessibility_service_disabled);
+                    summary = summary + "\n\n" + context.getString(R.string.event_preferences_call_AccessibilitySettingsForExtender_summary);
+                }
             }
             preference.setSummary(summary);
 

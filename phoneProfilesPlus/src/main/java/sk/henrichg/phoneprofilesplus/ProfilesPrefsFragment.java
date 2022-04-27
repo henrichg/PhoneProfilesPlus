@@ -3023,22 +3023,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
             if (extenderVersion == 0) {
                 //ok = false;
-                cattegorySummaryData.summary = cattegorySummaryData.summary +
+                cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
                         getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
             } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0) {
                 //ok = false;
-                cattegorySummaryData.summary = cattegorySummaryData.summary +
+                cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
                         getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
             } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
                 //ok = false;
-                cattegorySummaryData.summary = cattegorySummaryData.summary +
+                cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
                         getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
             } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                 //ok = false;
-                cattegorySummaryData.summary = cattegorySummaryData.summary +
+                cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
                         getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
             }
@@ -4347,18 +4347,28 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Profile profile = new Profile();
                 profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
 
-                boolean _accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
+                if (profile._lockDevice == 3) {
+                    int _isAccessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
+                    boolean _accessibilityEnabled = _isAccessibilityEnabled == 1;
 
-                String summary;
-                if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
-                    summary = getString(R.string.accessibility_service_enabled);
-                else {
-                    summary = getString(R.string.accessibility_service_disabled);
-                    summary = summary + "\n\n" + getString(R.string.profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary);
+                    String summary;
+                    if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
+                        summary = getString(R.string.accessibility_service_enabled);
+                    else {
+                        if (_isAccessibilityEnabled == -1) {
+                            summary = getString(R.string.accessibility_service_not_used);
+                            summary = summary + "\n\n" + getString(R.string.preference_not_used_extender_reason) + " " +
+                                    getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                        } else {
+                            summary = getString(R.string.accessibility_service_disabled);
+                            summary = summary + "\n\n" + getString(R.string.profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary);
+                        }
+                    }
+                    preference.setSummary(summary);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, true, !_accessibilityEnabled);
+                } else {
+                    preference.setSummary(R.string.accessibility_service_not_used);
                 }
-                preference.setSummary(summary);
-
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, true, !_accessibilityEnabled);
             }
         }
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS)) {
@@ -4367,14 +4377,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Profile profile = new Profile();
                 profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
 
-                boolean _accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
+                int _isAccessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
+                boolean _accessibilityEnabled = _isAccessibilityEnabled == 1;
 
                 String summary;
                 if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
                     summary = getString(R.string.accessibility_service_enabled);
                 else {
-                    summary = getString(R.string.accessibility_service_disabled);
-                    summary = summary + "\n\n" + getString(R.string.profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary);
+                    if (_isAccessibilityEnabled == -1) {
+                        summary = getString(R.string.accessibility_service_not_used);
+                        summary = summary + "\n\n" + getString(R.string.preference_not_used_extender_reason) + " " +
+                                getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                    } else {
+                        summary = getString(R.string.accessibility_service_disabled);
+                        summary = summary + "\n\n" + getString(R.string.profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary);
+                    }
                 }
                 preference.setSummary(summary);
 
@@ -5334,7 +5351,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
             setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean enabled;
-            enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_7_0);
+            enabled = PPPExtenderBroadcastReceiver.isEnabled(context, -1);
+            //enabled = PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             if (preference != null) {
