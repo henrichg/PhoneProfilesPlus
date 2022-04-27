@@ -24,6 +24,7 @@ __[Huawei AppGallery PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C
 __[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)__
 
 __Last version in Amazon AppStore is 5.2. New versions will never be released due to store restrictions. Not allowed is change of device settings which requires superuser permission (root). Sorry.__
+
 __[Amazon AppStore PPP release](https://www.amazon.com/Henrich-Gron-PhoneProfilesPlus/dp/B01N3SM44J/ref=sr_1_1?keywords=phoneprofilesplus&qid=1637084235&qsid=134-9049988-7816540&s=mobile-apps&sr=1-1&sres=B01N3SM44J%2CB078K93HFD%2CB01LXZDPDR%2CB00LBK7OSY%2CB07RX5L3CP%2CB07XM7WVS8%2CB07XWGWPH5%2CB08KXB3R7S%2CB0919N2P7J%2CB08NWD7K8H%2CB01A7MACL2%2CB07XY8YFQQ%2CB07XM8GDWC%2CB07QVYLDRL%2CB09295KQ9Q%2CB01LVZ3JBI%2CB08723759H%2CB09728VTDK%2CB08R7D4KZJ%2CB01BUIGF9K)__  
 __[Amazon AppStore application (download)](https://www.amazon.com/gp/mas/get/amazonapp)__
 
