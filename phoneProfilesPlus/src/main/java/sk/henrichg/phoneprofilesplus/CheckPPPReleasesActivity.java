@@ -154,9 +154,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     private void showDialog(final Activity activity, int store) {
 
         PackageManager packageManager = activity.getPackageManager();
-        Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
-        boolean amazonAppStoreInstalled = (intent != null);
-        intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+//        Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
+//        boolean amazonAppStoreInstalled = (intent != null);
+        Intent intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
         boolean fdroidInstalled = (intent != null);
         intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
         boolean galaxyStoreInstalled = (intent != null);
@@ -176,11 +176,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 displayed = true;
             }
         }
-        else
-        if (store == R.id.menu_check_in_amazon_appstore) {
-            checkInAmazonAppstore(activity);
-            displayed = true;
-        }
+//        else
+//        if (store == R.id.menu_check_in_amazon_appstore) {
+//            checkInAmazonAppstore(activity);
+//            displayed = true;
+//        }
         else
         if (store == R.id.menu_check_in_appgallery) {
             //if (appGalleryInstalled) {
@@ -211,8 +211,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 else {
                     if (appGalleryInstalled)
                         checkInHuaweiAppGallery(activity);
-                    else if (amazonAppStoreInstalled)
-                        checkInAmazonAppstore(activity);
+//                    else if (amazonAppStoreInstalled)
+//                        checkInAmazonAppstore(activity);
                     else if (fdroidInstalled)
                         checkInFDroid(activity);
                     else
@@ -624,6 +624,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
     }
 
+/*
     @SuppressLint("InflateParams")
     private void checkInAmazonAppstore(final Activity activity) {
         // com.amazon.venezia
@@ -738,6 +739,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             alertDialog.show();
 
     }
+*/
 
     @SuppressLint("InflateParams")
     private void checkInHuaweiAppGallery(final Activity activity) {
@@ -767,12 +769,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             appGalleryInstalled = true;
         } catch (Exception ignored) {}
 
+        text = layout.findViewById(R.id.dialog_for_appgallery_application);
         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
-            text = layout.findViewById(R.id.dialog_for_appgallery_application);
             text.setVisibility(View.GONE);
         } else {
             if (!appGalleryInstalled) {
-                text = layout.findViewById(R.id.dialog_for_appgallery_application);
                 text.setVisibility(View.VISIBLE);
                 CharSequence str1 = activity.getString(R.string.check_releases_appgallery_application);
                 CharSequence str2 = str1 + " " + PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL + " \u21D2";
@@ -802,7 +803,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 text.setText(sbt);
                 text.setMovementMethod(LinkMovementMethod.getInstance());
             } else {
-                text = layout.findViewById(R.id.dialog_for_appgallery_application);
                 text.setVisibility(View.GONE);
             }
         }
@@ -905,8 +905,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             apkPureInstalled = true;
         } catch (Exception ignored) {}
 
+        text = layout.findViewById(R.id.dialog_for_apkpure_appkpure_application);
         if (!apkPureInstalled) {
-            text = layout.findViewById(R.id.dialog_for_apkpure_appkpure_application);
             text.setVisibility(View.VISIBLE);
             CharSequence str1 = activity.getString(R.string.check_releases_apkpure_appstore_application);
             CharSequence str2 = str1 + " " + PPApplication.APKPURE_APPLICATION_URL + " \u21D2";
@@ -936,7 +936,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
-            text = layout.findViewById(R.id.dialog_for_apkpure_appkpure_application);
             text.setVisibility(View.GONE);
         }
 
