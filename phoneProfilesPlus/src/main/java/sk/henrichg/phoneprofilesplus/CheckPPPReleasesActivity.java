@@ -243,7 +243,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
         } catch (Exception e) {
             message = "";
         }
@@ -399,7 +399,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
             message = "";
         }
@@ -577,7 +577,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
             message = "";
         }
@@ -632,7 +632,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
             message = "";
         }
@@ -746,7 +746,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
             message = "";
         }
@@ -867,7 +867,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
             message = "";
         }
