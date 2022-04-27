@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:paddingStart="28dp"
     android:paddingEnd="28dp"
+    android:paddingBottom="10dp"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <TextView
@@ -85,8 +86,8 @@
             android:id="@+id/duration_pref_dlg_liLa4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:orientation="vertical">
+<!--            android:layout_marginBottom="10dp"-->
             <TextView
                 android:id="@+id/duration_pref_dlg_textView4"
                 android:layout_width="wrap_content"
