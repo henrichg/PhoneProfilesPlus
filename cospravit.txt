@@ -512,3 +512,8 @@ Je to aplikacia SysteUI Tunner. Mas ho v S10.
 
 --------------
 
+Vyskusaj nahodit mobilne data s WRITE_SECURE_SETTINGS: Nefunguje :-(
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data", r4) // r4 = 1 - zapnut, 0 - vypnut
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data1", r5)  // r5 = 1 - zapnut, 0 - vypnut
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data2", r5)  // r5 = 1 - zapnut, 0 - vypnut
+
