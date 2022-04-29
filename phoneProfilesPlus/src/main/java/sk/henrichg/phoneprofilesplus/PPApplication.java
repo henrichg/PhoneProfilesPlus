@@ -67,6 +67,7 @@ import java.lang.reflect.Method;
 import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -532,6 +533,7 @@ public class PPApplication extends Application
     static final String GENERATED_BY_PROFILE_NOTIFICATION_TAG = PACKAGE_NAME+"_GENERATED_BY_PROFILE_NOTIFICATION_TAG";
 
     // shared preferences names !!! Configure also in res/xml/phoneprofiles_backup_scheme.xml !!!
+    //static final String ACRA_PREFS_NAME = "phone_profiles_plus_acra";
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     //static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
     //static final String ACTIVATED_PROFILE_PREFS_NAME = "profile_preferences_activated_profile";
@@ -1275,9 +1277,13 @@ public class PPApplication extends Application
                 .withEnabled(true);
 */
 
+        //noinspection ArraysAsListWithZeroOrOneArgument
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder()
                 .withBuildConfigClass(BuildConfig.class)
-                .withReportFormat(StringFormat.KEY_VALUE_LIST);
+                .withReportFormat(StringFormat.KEY_VALUE_LIST)
+                //.withSharedPreferencesName(ACRA_PREFS_NAME)
+                .withAdditionalSharedPreferences(Arrays.asList(APPLICATION_PREFS_NAME))
+                ;
 
         builder.withPluginConfigurations(
             new NotificationConfigurationBuilder()
