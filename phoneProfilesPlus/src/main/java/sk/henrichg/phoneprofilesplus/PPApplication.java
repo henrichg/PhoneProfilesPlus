@@ -1180,6 +1180,13 @@ public class PPApplication extends Application
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+
+        // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
+        if (ACRA.isACRASenderServiceProcess()) {
+            Log.e("################# PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");
+            return;
+        }
+
         collator = getCollator();
         //MultiDex.install(this);
 
@@ -1192,12 +1199,6 @@ public class PPApplication extends Application
         //}
 
         PPApplication.logE("################# PPApplication.attachBaseContext", "actualVersionCode="+actualVersionCode);
-
-        // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
-        if (ACRA.isACRASenderServiceProcess()) {
-            Log.e("################# PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");
-            return;
-        }
 
         PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
 
