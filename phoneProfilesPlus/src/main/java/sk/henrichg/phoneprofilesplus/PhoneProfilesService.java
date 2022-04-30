@@ -14,6 +14,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -8299,6 +8300,17 @@ public class PhoneProfilesService extends Service
                 if (isAudible || playAlsoInSilentMode) {
 
                     Uri notificationUri = Uri.parse(notificationSound);
+                    try {
+                        ContentResolver contentResolver = getContentResolver();
+                        grantUriPermission(PPApplication.PACKAGE_NAME, notificationUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                        contentResolver.takePersistableUriPermission(notificationUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    } catch (Exception e) {
+                        // java.lang.SecurityException: UID 10157 does not have permission to
+                        // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
+                        // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
+                        //Log.e("PhoneProfilesService.playNotificationSound", Log.getStackTraceString(e));
+                        //PPApplication.recordException(e);
+                    }
 
                     try {
                         notificationMediaPlayer = new MediaPlayer();
