@@ -3674,7 +3674,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void startOrientationScanner(boolean start, boolean stop, DataWrapper dataWrapper, boolean forceStart) {
+    private void startOrientationScanner(boolean start, boolean stop, DataWrapper dataWrapper/*, boolean forceStart*/) {
         synchronized (PPApplication.orientationScannerMutex) {
             Context appContext = getApplicationContext();
             //CallsCounter.logCounter(appContext, "PhoneProfilesService.startOrientationScanner", "PhoneProfilesService_startOrientationScanner");
@@ -3716,9 +3716,9 @@ public class PhoneProfilesService extends Service
 //                        else
 //                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "started");
                     } else
-                        startOrientationScanner(false, true, dataWrapper, forceStart);
+                        startOrientationScanner(false, true, dataWrapper/*, forceStart*/);
                 } else
-                    startOrientationScanner(false, true, dataWrapper, forceStart);
+                    startOrientationScanner(false, true, dataWrapper/*, forceStart*/);
             }
         }
     }
@@ -3927,7 +3927,7 @@ public class PhoneProfilesService extends Service
 
         startLocationScanner(true, true, dataWrapper, false);
         startMobileCellsScanner(true, true, dataWrapper, false, false);
-        startOrientationScanner(true, true, dataWrapper, false);
+        startOrientationScanner(true, true, dataWrapper/*, false*/);
         startTwilightScanner(true, true, dataWrapper);
         startNotificationScanner(true, true, dataWrapper);
 
@@ -3983,7 +3983,7 @@ public class PhoneProfilesService extends Service
 
         startLocationScanner(false, true, null, false);
         startMobileCellsScanner(false, true, null, false, false);
-        startOrientationScanner(false, true, null, false);
+        startOrientationScanner(false, true, null/*, false*/);
         startTwilightScanner(false, true, null);
         startNotificationScanner(false, true, null);
 
@@ -4043,7 +4043,7 @@ public class PhoneProfilesService extends Service
         //scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
 
         startMobileCellsScanner(true, true, dataWrapper, false, false);
-        startOrientationScanner(true, true, dataWrapper, false);
+        startOrientationScanner(true, true, dataWrapper/*, false*/);
         startTwilightScanner(true, true, dataWrapper);
         startNotificationScanner(true, true, dataWrapper);
 
@@ -5422,7 +5422,7 @@ public class PhoneProfilesService extends Service
                                         break;
                                     case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
-                                        ppService.startOrientationScanner(true, false, dataWrapper, false);
+                                        ppService.startOrientationScanner(true, false, dataWrapper/*, false*/);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     /*case PPApplication.SCANNER_FORCE_START_ORIENTATION_SCANNER:
@@ -5513,7 +5513,7 @@ public class PhoneProfilesService extends Service
                                         if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
                                             boolean canRestart = (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
-                                                ppService.startOrientationScanner(true, true, dataWrapper, false);
+                                                ppService.startOrientationScanner(true, true, dataWrapper/*, false*/);
                                             }
                                         }
 
