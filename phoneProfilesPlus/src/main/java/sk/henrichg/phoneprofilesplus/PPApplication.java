@@ -852,32 +852,34 @@ public class PPApplication extends Application
     @Override
     public void onCreate()
     {
-        PPApplication.logE("##### PPApplication.onCreate", "onCreate() start");
+        PPApplication.logE("################# PPApplication.onCreate", "onCreate() start");
 
         /* Hm this resets start, why?!
         if (DebugVersion.enabled) {
-            PPApplication.logE("##### PPApplication.onCreate", "strict mode");
+            if (!ACRA.isACRASenderServiceProcess()) {
+                PPApplication.logE("##### PPApplication.onCreate", "strict mode");
 
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectDiskReads()
-                    .detectDiskWrites()
-                    .detectAll()
-                    //.detectNetwork()   // or .detectAll() for all detectable problems
-                    .penaltyLog()
-                    .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .penaltyLog()
-                    .penaltyDeath()
-                    .build());
+                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                        .detectDiskReads()
+                        .detectDiskWrites()
+                        .detectAll()
+                        //.detectNetwork()   // or .detectAll() for all detectable problems
+                        .penaltyLog()
+                        .build());
+                StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                        .detectLeakedSqlLiteObjects()
+                        .detectLeakedClosableObjects()
+                        .penaltyLog()
+                        .penaltyDeath()
+                        .build());
+            }
         }*/
 
         super.onCreate();
 
-        // !!! this must be, without this not working click to ACRA notification !!!
+        // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
         if (ACRA.isACRASenderServiceProcess()) {
-            Log.e("##### PPApplication.onCreate", "ACRA.isACRASenderServiceProcess()");
+            Log.e("################# PPApplication.onCreate", "ACRA.isACRASenderServiceProcess()");
             return;
         }
 
@@ -1189,34 +1191,39 @@ public class PPApplication extends Application
         } catch (Exception ignored) {}
         //}
 
-        PPApplication.logE("##### PPApplication.attachBaseContext", "actualVersionCode="+actualVersionCode);
+        PPApplication.logE("################# PPApplication.attachBaseContext", "actualVersionCode="+actualVersionCode);
 
-        if (!ACRA.isACRASenderServiceProcess()) {
-            PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
+        // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
+        if (ACRA.isACRASenderServiceProcess()) {
+            Log.e("################# PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");
+            return;
+        }
 
-            String packageVersion = "";
-            try {
-                PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
+        PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
 
-            String body;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
-                body = getString(R.string.important_info_email_body_device) + " " +
-                        Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
-                        " (" + Build.MODEL + ")" + " \n";
-            else {
-                String manufacturer = Build.MANUFACTURER;
-                String model = Build.MODEL;
-                if (model.startsWith(manufacturer))
-                    body = getString(R.string.important_info_email_body_device) + " " + model + " \n";
-                else
-                    body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
-            }
-            body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
-            body = body + getString(R.string.acra_email_body_text);
+        String packageVersion = "";
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
+        String body;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+            body = getString(R.string.important_info_email_body_device) + " " +
+                    Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
+                    " (" + Build.MODEL + ")" + " \n";
+        else {
+            String manufacturer = Build.MANUFACTURER;
+            String model = Build.MODEL;
+            if (model.startsWith(manufacturer))
+                body = getString(R.string.important_info_email_body_device) + " " + model + " \n";
+            else
+                body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
+        }
+        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
+        body = body + getString(R.string.acra_email_body_text);
 
 /*
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
@@ -1244,42 +1251,38 @@ public class PPApplication extends Application
                 .withEnabled(true);
 */
 
-            //noinspection ArraysAsListWithZeroOrOneArgument
-            CoreConfigurationBuilder builder = new CoreConfigurationBuilder()
-                    .withBuildConfigClass(BuildConfig.class)
-                    .withReportFormat(StringFormat.KEY_VALUE_LIST)
-                    //.withSharedPreferencesName(ACRA_PREFS_NAME)
-                    .withAdditionalSharedPreferences(Arrays.asList(APPLICATION_PREFS_NAME));
+        //noinspection ArraysAsListWithZeroOrOneArgument
+        CoreConfigurationBuilder builder = new CoreConfigurationBuilder()
+                .withBuildConfigClass(BuildConfig.class)
+                .withReportFormat(StringFormat.KEY_VALUE_LIST)
+                //.withSharedPreferencesName(ACRA_PREFS_NAME)
+                .withAdditionalSharedPreferences(Arrays.asList(APPLICATION_PREFS_NAME));
 
-            builder.withPluginConfigurations(
-                    new NotificationConfigurationBuilder()
-                            .withChannelName(getString(R.string.notification_channel_crash_report))
-                            .withChannelImportance(NotificationManager.IMPORTANCE_HIGH)
-                            .withResIcon(R.drawable.ic_exclamation_notify)
-                            .withTitle(getString(R.string.acra_notification_title))
-                            .withText(getString(R.string.acra_notification_text))
-                            .withResSendButtonIcon(0)
-                            .withResDiscardButtonIcon(0)
-                            .withSendOnClick(true)
-                            .withEnabled(true)
-                            .build(),
-                    new MailSenderConfigurationBuilder()
-                            .withMailTo("henrich.gron@gmail.com")
-                            .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
-                            .withBody(body)
-                            .withReportAsFile(true)
-                            .withReportFileName("crash_report.txt")
-                            .withEnabled(true)
-                            .build()
-            );
+        builder.withPluginConfigurations(
+                new NotificationConfigurationBuilder()
+                        .withChannelName(getString(R.string.notification_channel_crash_report))
+                        .withChannelImportance(NotificationManager.IMPORTANCE_HIGH)
+                        .withResIcon(R.drawable.ic_exclamation_notify)
+                        .withTitle(getString(R.string.acra_notification_title))
+                        .withText(getString(R.string.acra_notification_text))
+                        .withResSendButtonIcon(0)
+                        .withResDiscardButtonIcon(0)
+                        .withSendOnClick(true)
+                        .withEnabled(true)
+                        .build(),
+                new MailSenderConfigurationBuilder()
+                        .withMailTo("henrich.gron@gmail.com")
+                        .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
+                        .withBody(body)
+                        .withReportAsFile(true)
+                        .withReportFileName("crash_report.txt")
+                        .withEnabled(true)
+                        .build()
+        );
 
-            //ACRA.DEV_LOGGING = true;
+        //ACRA.DEV_LOGGING = true;
 
-            ACRA.init(this, builder);
-        } else {
-            Log.e("##### PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");
-            return;
-        }
+        ACRA.init(this, builder);
 
         // this must be after ACRA init
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
