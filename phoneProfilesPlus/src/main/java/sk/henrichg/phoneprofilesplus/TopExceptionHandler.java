@@ -32,6 +32,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     @SuppressWarnings("StringConcatenationInLoop")
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
     {
+//        PPApplication.logE("TopExceptionHandler.uncaughtException", "xxxx");
+
         try {
             if (PPApplication.lockDeviceActivity != null) {
                 boolean canWriteSettings;// = true;
