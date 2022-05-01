@@ -2759,7 +2759,7 @@ class ActivateProfileHelper {
         return noError;
     }
 
-    private static Uri getUriOfSavedTone(Context context, String savedTone, int toneType) {
+    static Uri getUriOfSavedTone(Context context, String savedTone, int toneType) {
         //Log.e("ActivateProfileHelper.getUriOfSavedTone", "savedTone="+savedTone);
         Uri toneUri;
         boolean uriFound = false;

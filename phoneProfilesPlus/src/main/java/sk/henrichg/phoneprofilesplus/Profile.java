@@ -2260,12 +2260,38 @@ public class Profile {
         return value;
     }
 
+    public static String getIconIdentifier(String icon)
+    {
+        //Log.e("Profile.getIconIdentifier", "_icon="+_icon);
+        String value;
+        try {
+            String[] splits = icon.split("\\|");
+            value = splits[0];
+        } catch (Exception e) {
+            value = "ic_profile_default";
+        }
+        return value;
+    }
+
     // getting where icon is resource id
     public boolean getIsIconResourceID()
     {
         boolean value;
         try {
             String[] splits = _icon.split("\\|");
+            value = splits[1].equals("1");
+
+        } catch (Exception e) {
+            value = true;
+        }
+        return value;
+    }
+
+    public static boolean getIsIconResourceID(String icon)
+    {
+        boolean value;
+        try {
+            String[] splits = icon.split("\\|");
             value = splits[1].equals("1");
 
         } catch (Exception e) {
