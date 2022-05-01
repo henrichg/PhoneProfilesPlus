@@ -13092,18 +13092,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // set profile parameters to "Not used" for non-granted Uri premissions
         try {
             cursorImportDB = db.rawQuery("SELECT " +
-                    KEY_ID + ","+
-                    KEY_ICON + "," +
-                    KEY_SOUND_RINGTONE + "," +
-                    KEY_SOUND_RINGTONE_SIM1 + "," +
-                    KEY_SOUND_RINGTONE_SIM2 + "," +
-                    KEY_SOUND_NOTIFICATION + "," +
-                    KEY_SOUND_NOTIFICATION_SIM1 + "," +
-                    KEY_SOUND_NOTIFICATION_SIM2 + "," +
-                    KEY_SOUND_ALARM + "," +
-                    KEY_DEVICE_WALLPAPER_CHANGE + "," +
-                    KEY_DEVICE_WALLPAPER + "," +
-                    KEY_DEVICE_WALLPAPER_FOLDER +
+                            KEY_ID + ","+
+                            KEY_ICON + "," +
+                            KEY_SOUND_RINGTONE + "," +
+                            KEY_SOUND_RINGTONE_SIM1 + "," +
+                            KEY_SOUND_RINGTONE_SIM2 + "," +
+                            KEY_SOUND_NOTIFICATION + "," +
+                            KEY_SOUND_NOTIFICATION_SIM1 + "," +
+                            KEY_SOUND_NOTIFICATION_SIM2 + "," +
+                            KEY_SOUND_ALARM + "," +
+                            KEY_DEVICE_WALLPAPER_CHANGE + "," +
+                            KEY_DEVICE_WALLPAPER + "," +
+                            KEY_DEVICE_WALLPAPER_FOLDER + "," +
+                            KEY_DURATION_NOTIFICATION_SOUND +
                     " FROM " + TABLE_PROFILES, null);
 
             ContentResolver contentResolver = context.getContentResolver();
@@ -13127,7 +13128,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             } catch (Exception e) {
                                 isGranted = false;
                             }
-                            Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_ICON -isGranted=" + isGranted);
                         }
                         if (!isGranted) {
                             values.clear();
@@ -13152,7 +13153,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13163,7 +13164,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
                         }
                     }
-                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE_SIM1));
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM1));
                     splits = tone.split("\\|");
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
@@ -13178,7 +13179,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE_SIM1 isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13189,7 +13190,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
                         }
                     }
-                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE_SIM2));
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM2));
                     splits = tone.split("\\|");
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
@@ -13204,7 +13205,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE_SIM2 isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13230,7 +13231,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13256,7 +13257,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION_SIM1 isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13282,7 +13283,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION_SIM2 isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13308,7 +13309,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_ALARM isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13332,7 +13333,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             } catch (Exception e) {
                                 isGranted = false;
                             }
-                            Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DEVICE_WALLPAPER isGranted=" + isGranted);
                         }
                         if (!isGranted) {
                             values.clear();
@@ -13360,7 +13361,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             } catch (Exception e) {
                                 isGranted = false;
                             }
-                            Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DEVICE_WALLPAPER_FOLDER isGranted=" + isGranted);
                         }
                         if (!isGranted) {
                             values.clear();
@@ -13386,7 +13387,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DURATION_NOTIFICATION_SOUND isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13434,7 +13435,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_E_NOTIFICATION_SOUND_START isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13457,7 +13458,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_E_NOTIFICATION_SOUND_END isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -13475,6 +13476,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                 cursorImportDB.close();
         }
+
+//        Log.e("*********** DatabaseHandler.afterImportDb", "*** END ***");
 
     }
 

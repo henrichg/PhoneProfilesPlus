@@ -25,7 +25,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -2416,7 +2415,7 @@ public class EditorActivity extends AppCompatActivity
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
+//                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
@@ -2441,7 +2440,7 @@ public class EditorActivity extends AppCompatActivity
                                 } catch (Exception e) {
                                     isGranted = false;
                                 }
-                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
+//                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
