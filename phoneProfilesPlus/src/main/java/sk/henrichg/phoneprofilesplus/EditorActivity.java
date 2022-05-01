@@ -2396,6 +2396,7 @@ public class EditorActivity extends AppCompatActivity
                     for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)
                         ApplicationPreferences.setQuickTileProfileId(getApplicationContext(),i, 0);
 
+
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
                     PPApplication.loadApplicationPreferences(getApplicationContext());
                     PPApplication.loadProfileActivationData(getApplicationContext());

@@ -13405,6 +13405,76 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursorImportDB.close();
         }
 
+        try {
+            cursorImportDB = db.rawQuery("SELECT " +
+                    KEY_E_ID + ","+
+                    KEY_E_NOTIFICATION_SOUND_START + "," +
+                    KEY_E_NOTIFICATION_SOUND_END +
+                    " FROM " + TABLE_EVENTS, null);
+
+            ContentResolver contentResolver = context.getContentResolver();
+
+            if (cursorImportDB.moveToFirst()) {
+                do {
+                    long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(KEY_E_ID));
+
+                    ContentValues values = new ContentValues();
+
+                    String tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_START));
+                    if (!tone.isEmpty()) {
+                        if (tone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = Uri.parse(tone);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    isGranted = false;
+                                }
+                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_E_NOTIFICATION_SOUND_START, "");
+                                db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(eventId)});
+                            }
+                        }
+                    }
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_END));
+                    if (!tone.isEmpty()) {
+                        if (tone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = Uri.parse(tone);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    isGranted = false;
+                                }
+                                Log.e("*********** DatabaseHandler.afterImportDb", "isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_E_NOTIFICATION_SOUND_END, "");
+                                db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(eventId)});
+                            }
+                        }
+                    }
+
+                } while (cursorImportDB.moveToNext());
+            }
+            cursorImportDB.close();
+        } finally {
+            if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                cursorImportDB.close();
+        }
+
     }
 
     private void importEvents(SQLiteDatabase db, SQLiteDatabase exportedDBObj,
