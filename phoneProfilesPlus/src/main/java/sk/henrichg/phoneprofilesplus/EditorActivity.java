@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -24,6 +25,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -2396,6 +2398,59 @@ public class EditorActivity extends AppCompatActivity
                     for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)
                         ApplicationPreferences.setQuickTileProfileId(getApplicationContext(),i, 0);
 
+
+                    // set application parameters to "Not used" for non-granted Uri premissions
+                    ContentResolver contentResolver = getApplicationContext().getContentResolver();
+                    String tone = ApplicationPreferences.getSharedPreferences(getApplicationContext()).getString(
+                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND,
+                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                    if (!tone.isEmpty()) {
+                        if (tone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = Uri.parse(tone);
+                            if (uri != null) {
+                                try {
+                                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    isGranted = false;
+                                }
+                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                                editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND,
+                                        ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                                editor.apply();
+                            }
+                        }
+                    }
+                    tone = ApplicationPreferences.getSharedPreferences(getApplicationContext()).getString(
+                            ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND,
+                            ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                    if (!tone.isEmpty()) {
+                        if (tone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = Uri.parse(tone);
+                            if (uri != null) {
+                                try {
+                                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    isGranted = false;
+                                }
+                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                                editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND,
+                                        ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                                editor.apply();
+                            }
+                        }
+                    }
 
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
                     PPApplication.loadApplicationPreferences(getApplicationContext());

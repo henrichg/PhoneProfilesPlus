@@ -13089,7 +13089,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_SIM_ON_OFF + "=0");
         }
 
-        // set parameters to "Not used" for non-granted Uri premissions
+        // set profile parameters to "Not used" for non-granted Uri premissions
         try {
             cursorImportDB = db.rawQuery("SELECT " +
                     KEY_ID + ","+
@@ -13405,6 +13405,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursorImportDB.close();
         }
 
+        // set event parameters to "Not used" for non-granted Uri premissions
         try {
             cursorImportDB = db.rawQuery("SELECT " +
                     KEY_E_ID + ","+
