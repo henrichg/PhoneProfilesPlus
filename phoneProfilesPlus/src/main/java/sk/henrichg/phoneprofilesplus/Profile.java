@@ -2287,6 +2287,7 @@ public class Profile {
         return value;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean getIsIconResourceID(String icon)
     {
         boolean value;

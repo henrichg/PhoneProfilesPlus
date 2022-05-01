@@ -65,7 +65,7 @@
     <color name="buttonBackgroundColor">#FF1C1C1C</color>
     <color name="buttonClickedBackgroundColor">#FF505050</color>
     <color name="popupMenuBorderColor">#FF454545</color>
-    <color name="profileIconBorderColor">#FF505050</color>
+<!--    <color name="profileIconBorderColor">#FF505050</color>-->
 <!--    <color name="cardViewBorderColor">#FF454545</color>-->
 
     <color name="altype_profile">#FF4040FF</color>
