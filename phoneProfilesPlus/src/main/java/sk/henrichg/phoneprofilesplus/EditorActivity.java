@@ -17,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
 import android.media.AudioManager;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -5030,6 +5031,135 @@ public class EditorActivity extends AppCompatActivity
                                             newValue = newValue + newSplit;
                                         }
                                         profile._deviceRunApplicationPackageName = newValue;
+
+                                        ContentResolver contentResolver = _dataWrapper.context.getContentResolver();
+
+                                        // set profile parameters to "Not used" for non-granted Uri premissions
+                                        String icon = profile._icon;
+                                        if (!Profile.getIsIconResourceID(icon)) {
+                                            String iconIdentifier = Profile.getIconIdentifier(icon);
+                                            boolean isGranted = false;
+                                            Uri uri = Uri.parse(iconIdentifier);
+                                            if (uri != null) {
+                                                try {
+                                                    _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                    isGranted = true;
+                                                } catch (Exception e) {
+                                                    isGranted = false;
+                                                }
+                                            }
+                                            if (!isGranted) {
+                                                profile._icon = Profile.defaultValuesString.get(Profile.PREF_PROFILE_ICON);
+                                            }
+                                        }
+                                        String tone = profile._soundRingtone;
+                                        splits = tone.split("\\|");
+                                        String ringtone = splits[0];
+                                        if (!ringtone.isEmpty()) {
+                                            if (ringtone.contains("content://media/external")) {
+                                                boolean isGranted = false;
+                                                Uri uri = ActivateProfileHelper.getUriOfSavedTone(_dataWrapper.context, ringtone, RingtoneManager.TYPE_RINGTONE);
+                                                if (uri != null) {
+                                                    try {
+                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                        isGranted = true;
+                                                    } catch (Exception e) {
+                                                        isGranted = false;
+                                                    }
+                                                }
+                                                if (!isGranted) {
+                                                    //noinspection ConstantConditions
+                                                    profile._soundRingtoneChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE));
+                                                    profile._soundRingtone = Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE);
+                                                }
+                                            }
+                                        }
+                                        tone = profile._soundNotification;
+                                        splits = tone.split("\\|");
+                                        ringtone = splits[0];
+                                        if (!ringtone.isEmpty()) {
+                                            if (ringtone.contains("content://media/external")) {
+                                                boolean isGranted = false;
+                                                Uri uri = ActivateProfileHelper.getUriOfSavedTone(_dataWrapper.context, ringtone, RingtoneManager.TYPE_NOTIFICATION);
+                                                if (uri != null) {
+                                                    try {
+                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                        isGranted = true;
+                                                    } catch (Exception e) {
+                                                        isGranted = false;
+                                                    }
+                                                }
+                                                if (!isGranted) {
+                                                    //noinspection ConstantConditions
+                                                    profile._soundNotificationChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE));
+                                                    profile._soundNotification = Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
+                                                }
+                                            }
+                                        }
+                                        tone = profile._soundAlarm;
+                                        splits = tone.split("\\|");
+                                        ringtone = splits[0];
+                                        if (!ringtone.isEmpty()) {
+                                            if (ringtone.contains("content://media/external")) {
+                                                boolean isGranted = false;
+                                                Uri uri = ActivateProfileHelper.getUriOfSavedTone(_dataWrapper.context, ringtone, RingtoneManager.TYPE_ALARM);
+                                                if (uri != null) {
+                                                    try {
+                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                        isGranted = true;
+                                                    } catch (Exception e) {
+                                                        isGranted = false;
+                                                    }
+                                                }
+                                                if (!isGranted) {
+                                                    //noinspection ConstantConditions
+                                                    profile._soundAlarmChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE));
+                                                    profile._soundAlarm = Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM);
+                                                }
+                                            }
+                                        }
+                                        String wallpaper = profile._deviceWallpaper;
+                                        if (!wallpaper.isEmpty() && !wallpaper.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER))) {
+                                            boolean isGranted = false;
+                                            Uri uri = Uri.parse(wallpaper);
+                                            if (uri != null) {
+                                                try {
+                                                    _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                    isGranted = true;
+                                                } catch (Exception e) {
+                                                    isGranted = false;
+                                                }
+                                            }
+                                            if (!isGranted) {
+                                                //noinspection ConstantConditions
+                                                profile._deviceWallpaperChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
+                                                profile._deviceWallpaper = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+                                            }
+                                        }
+                                        tone = profile._durationNotificationSound;
+                                        if (!tone.isEmpty()) {
+                                            if (tone.contains("content://media/external")) {
+                                                boolean isGranted = false;
+                                                Uri uri = Uri.parse(tone);
+                                                if (uri != null) {
+                                                    try {
+                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                        isGranted = true;
+                                                    } catch (Exception e) {
+                                                        isGranted = false;
+                                                    }
+                                                }
+                                                if (!isGranted) {
+                                                    profile._durationNotificationSound = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND);
+                                                }
+                                            }
+                                        }
 
                                         DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
                                     }
