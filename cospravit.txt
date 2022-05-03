@@ -542,3 +542,107 @@ ActivateProfileHelper:
 No vypada to, ze okrem par vynimiek sa pouziva handlerThreadProfileActivation.
 Takze ja by som vsade pouzival tento handler. A ostatne zapoznamkoval.
 V kazdom handleri sa pouziva wakelock. To zerie baterku.
+
+---------------------
+
+Test workov, Galaxy S21
+
+Dlhy je, lebo je tam skenovanie, trva tak 3 sekundy:
+2022-05-03 20:17:38.597 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- END tag=afterFirstStartWork - timeElapsed=3915
+
+Start PPP, mrte workov:
+2022-05-03 20:17:34.682 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=afterFirstStartWork
+2022-05-03 20:17:36.525 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+2022-05-03 20:17:39.550 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork: --------------- START
+2022-05-03 20:17:39.963 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork: --------------- START
+2022-05-03 20:17:40.028 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 20:17:40.459 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsSoundProfileWork
+2022-05-03 20:17:41.484 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  DisableInternalChangeWorker.doWork: --------------- START
+2022-05-03 20:17:48.291 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 20:17:48.579 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 20:17:48.668 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 20:17:57.117 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 20:17:57.252 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 20:17:57.372 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 20:18:05.726 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 20:18:05.948 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 20:19:41.348 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+
+Bezna prevadzka - zhasnuty display:
+2022-05-03 20:33:06.156 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 20:33:14.697 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 20:33:14.854 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+
+Bezna prevadzka - zaznutie displaya:
+2022-05-03 20:38:33.235 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+2022-05-03 20:38:37.404 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 20:38:45.848 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 20:38:46.031 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 20:39:28.743 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+2022-05-03 20:39:37.696 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+
+Bezna prevadzka - zhasnutie displaya:
+2022-05-03 20:40:47.836 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+
+Bezna prevadzka - zhasnuty display:
+2022-05-03 20:53:46.275 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 20:53:54.880 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 20:53:54.952 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 21:08:55.097 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 21:09:03.600 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 21:09:03.711 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 21:24:03.894 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 21:24:12.392 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 21:24:12.579 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 21:39:12.699 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 21:39:21.212 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 21:39:21.302 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 21:54:21.368 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 21:54:29.839 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 21:54:30.021 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+
+2022-05-03 22:05:31.198 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+2022-05-03 22:05:35.353 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 22:05:43.698 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 22:05:43.933 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 22:06:43.067 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+
+2022-05-03 22:08:53.946 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+2022-05-03 22:09:15.034 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+2022-05-03 22:09:24.343 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+2022-05-03 22:09:43.727 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+
+2022-05-03 22:18:06.239 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  ContactsContentObserverWorker.doWork: --------------- START
+2022-05-03 22:18:17.266 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  ContactsContentObserverWorker.doWork: --------------- END - timeElapsed=11027
+2022-05-03 22:19:15.346 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  ContactsContentObserverWorker.doWork: --------------- START
+2022-05-03 22:19:30.817 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  ContactsContentObserverWorker.doWork: --------------- END - timeElapsed=15472
+
+2022-05-03 22:20:44.059 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 22:20:52.621 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 22:20:52.706 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 22:35:52.922 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 22:36:01.476 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 22:36:01.630 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 22:51:01.770 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 22:51:10.294 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 22:51:10.375 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+
+2022-05-03 23:06:10.519 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 23:06:19.175 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 23:06:19.655 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 23:21:19.803 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 23:21:28.306 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 23:21:28.437 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 23:36:28.580 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 23:36:37.037 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 23:36:37.197 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+2022-05-03 23:51:37.345 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- START
+2022-05-03 23:51:45.938 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsWifiScannerFromReceiverWork
+2022-05-03 23:51:46.008 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=scheduleLongIntervalWifiWork
+
+Start udalosti Spanok:
+2022-05-04 00:00:01.116 31599-31813/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  ContactsContentObserverWorker.doWork: --------------- START
+2022-05-04 00:00:08.184 31599-31723/sk.henrichg.phoneprofilesplus E/[IN_WORKER] ShowProfileNotificationWorker.doWork: --------------- START
+2022-05-04 00:00:12.262 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsSoundProfileWork
+2022-05-04 00:00:13.275 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  DisableInternalChangeWorker.doWork: --------------- START
+
