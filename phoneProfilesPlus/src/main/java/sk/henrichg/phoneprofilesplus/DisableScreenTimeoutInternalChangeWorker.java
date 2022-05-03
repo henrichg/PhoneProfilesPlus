@@ -20,8 +20,8 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- START");
+            long start = System.currentTimeMillis();
+            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- START");
 
             /*if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -56,9 +56,9 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
             if (!foundEnqueued)*/
                 ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
 
-//            long finish = System.currentTimeMillis();
-//            long timeElapsed = finish - start;
-//            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+            long finish = System.currentTimeMillis();
+            long timeElapsed = finish - start;
+            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("DisableScreenTimeoutInternalChangeWorker.doWork", Log.getStackTraceString(e));

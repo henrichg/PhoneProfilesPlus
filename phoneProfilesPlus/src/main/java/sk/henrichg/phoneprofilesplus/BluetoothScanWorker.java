@@ -58,8 +58,8 @@ public class BluetoothScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_WORKER]  BluetoothScanWorker.doWork", "--------------- START");
+            long start = System.currentTimeMillis();
+            PPApplication.logE("[IN_WORKER]  BluetoothScanWorker.doWork", "--------------- START");
 
             //PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- START");
 
@@ -142,9 +142,9 @@ public class BluetoothScanWorker extends Worker {
             }, 1500);
             */
 
-//            long finish = System.currentTimeMillis();
-//            long timeElapsed = finish - start;
-//            PPApplication.logE("[IN_WORKER]  BluetoothScanWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+            long finish = System.currentTimeMillis();
+            long timeElapsed = finish - start;
+            PPApplication.logE("[IN_WORKER]  BluetoothScanWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("BluetoothScanWorker.doWork", Log.getStackTraceString(e));
