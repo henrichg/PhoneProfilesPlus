@@ -517,3 +517,28 @@ boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobi
 boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data1", r5)  // r5 = 1 - zapnut, 0 - vypnut
 boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data2", r5)  // r5 = 1 - zapnut, 0 - vypnut
 
+--------------
+
+handler ma:
+ActivateProfileHelper:
+- executeForRadios() - handlerThreadRadios - len z execute()
+
+- executeForVolumes() - handlerThreadVolumes - execute(), PhoneCallsListener.setLinkUnlinkNotificationVolume()
+
+- setNotificationLed() - handlerThreadProfileActivation - len execute()
+- setHeadsUpNotifications() - handlerThreadProfileActivation - len execute()
+- setAlwaysOnDisplay() - handlerThreadProfileActivation - len execute()
+
+- changeImageWallpaper() - handlerThreadWallpaper - len execute()
+- changeWallpaperFromFolder() - handlerThreadWallpaper - len execute()
+
+- executeForRunApplications() - handlerThreadRunApplication - execute(), PPPExtenderBroadcastReceiver.onReceive()
+- executeRootForAdaptiveBrightness() - handlerThreadProfileActivation - execute(), SreeenOnOffBroadcastReceiver.onReceive()
+
+- setCamerFlash() - handlerThreadProfileActivation - len execute()
+- setPowerSaveMode() - handlerThreadProfileActivation - len execute()
+- lockDevice() - handlerThreadProfileActivation - len execute()
+
+No vypada to, ze okrem par vynimiek sa pouziva handlerThreadProfileActivation.
+Takze ja by som vsade pouzival tento handler. A ostatne zapoznamkoval.
+V kazdom handleri sa pouziva wakelock. To zerie baterku.

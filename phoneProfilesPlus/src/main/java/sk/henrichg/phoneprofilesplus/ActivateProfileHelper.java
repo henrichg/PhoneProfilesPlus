@@ -2852,6 +2852,14 @@ class ActivateProfileHelper {
 
                         final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
 
+                        // sleep for change of ringer mode and volumes
+                        // because may be changed by another profile or from outside of PPP
+                        PPApplication.sleep(500);
+
+//                                PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
+                        RingerModeChangeReceiver.internalChange = true;
+                        //EventPreferencesVolumes.internalChange = true;
+
                         if ((profile._volumeRingerMode != 0) ||
                                 profile.getVolumeRingtoneChange() ||
                                 profile.getVolumeNotificationChange() ||
@@ -2869,31 +2877,21 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
                                 changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
-//                                PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
-                                RingerModeChangeReceiver.internalChange = true;
-                                //EventPreferencesVolumes.internalChange = true;
-
                                 //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode()");
                                 setRingerMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
 
-                                // get actual system zen mode (may be changed in setRingerMode())
-                                int systemZenMode = getSystemZenMode(appContext/*, -1*/);
-
                                 //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 PPApplication.sleep(500);
+
+                                // get actual system zen mode (may be changed in setRingerMode())
+                                int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
 //                                  PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
                                 setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
 
                                 //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
-
-                                PPApplication.sleep(500);
-
-                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
-                                DisableInternalChangeWorker.enqueueWork();
-                                //DisableVolumesInternalChangeWorker.enqueueWork();
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -2963,6 +2961,10 @@ class ActivateProfileHelper {
                             }
                         }
                         */
+
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
+                        DisableInternalChangeWorker.enqueueWork();
+                        //DisableVolumesInternalChangeWorker.enqueueWork();
 
                         if (noErrorSetTone) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 2");
@@ -5169,100 +5171,7 @@ class ActivateProfileHelper {
             }
         }
 
-        if (profile._cameraFlash != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).allowed
-                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (Permissions.checkProfileCameraFlash(context, profile, null)) {
-                    switch (profile._cameraFlash) {
-                        case 1:
-//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
-                            try {
-                                PPApplication.startHandlerThreadProfileActivation();
-                                final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                                //        context.getApplicationContext()) {
-                                __handler.post(() -> {
-//                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
-
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        NoobCameraManager.getInstance().init(context);
-                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
-                                        if (noobCameraManager != null) {
-                                            noobCameraManager.turnOnFlash();
-                                            NoobCameraManager.getInstance().release();
-                                        }
-
-//                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
-                                    } catch (Exception e) {
-//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                        PPApplication.recordException(e);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                });
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                            break;
-                        case 2:
-//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
-                            try {
-                                PPApplication.startHandlerThreadProfileActivation();
-                                final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                                //        context.getApplicationContext()) {
-                                __handler.post(() -> {
-//                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
-
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        NoobCameraManager.getInstance().init(context);
-                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
-                                        if (noobCameraManager != null) {
-                                            noobCameraManager.turnOffFlash();
-                                            NoobCameraManager.getInstance().release();
-                                        }
-
-//                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
-                                    } catch (Exception e) {
-//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                        PPApplication.recordException(e);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                });
-
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                            break;
-                    }
-                }
-            }
-        }
+        setCameraFlash(appContext, profile, executedProfileSharedPreferences);
 
         if (profile._applicationDisableGloabalEventsRun != 0) {
 //            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableGloabalEventsRun");
@@ -7400,6 +7309,103 @@ class ActivateProfileHelper {
                 }
 //                else
 //                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "transactionCode == -1");
+            }
+        }
+    }
+
+    private static void setCameraFlash(Context appContext, Profile profile, SharedPreferences executedProfileSharedPreferences) {
+        if (profile._cameraFlash != 0) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).allowed
+                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (Permissions.checkProfileCameraFlash(appContext, profile, null)) {
+                    switch (profile._cameraFlash) {
+                        case 1:
+//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
+                            try {
+                                PPApplication.startHandlerThreadProfileActivation();
+                                final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                                //        context.getApplicationContext()) {
+                                __handler.post(() -> {
+//                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
+
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
+
+                                        NoobCameraManager.getInstance().init(appContext);
+                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
+                                        if (noobCameraManager != null) {
+                                            noobCameraManager.turnOnFlash();
+                                            NoobCameraManager.getInstance().release();
+                                        }
+
+//                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
+                                    } catch (Exception e) {
+//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                        PPApplication.recordException(e);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
+                                        }
+                                    }
+                                });
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                            break;
+                        case 2:
+//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
+                            try {
+                                PPApplication.startHandlerThreadProfileActivation();
+                                final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                                //        context.getApplicationContext()) {
+                                __handler.post(() -> {
+//                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
+
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
+
+                                        NoobCameraManager.getInstance().init(appContext);
+                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
+                                        if (noobCameraManager != null) {
+                                            noobCameraManager.turnOffFlash();
+                                            NoobCameraManager.getInstance().release();
+                                        }
+
+//                                        PPApplication.logE("[EVENTS_HANDLER_CALL] ActivateProfileHelper.execute", "END run");
+                                    } catch (Exception e) {
+//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                        PPApplication.recordException(e);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
+                                        }
+                                    }
+                                });
+
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                            break;
+                    }
+                }
             }
         }
     }
