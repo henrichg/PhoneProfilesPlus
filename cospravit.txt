@@ -646,3 +646,17 @@ Start udalosti Spanok:
 2022-05-04 00:00:12.262 31599-31772/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsSoundProfileWork
 2022-05-04 00:00:13.275 31599-31810/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  DisableInternalChangeWorker.doWork: --------------- START
 
+---------------
+
+Kde je volany PPApplication.cancelWork():
+Event.removeDelayStartAlarm - MainWorker.EVENT_DELAY_START_TAG_WORK
+Event.removeDelayEndAlarm - MainWorker.EVENT_DELAY_END_TAG_WORK
+LocationScanner.startLocationUpdates - LocationSensorWorker.LOCATION_SENSOR_WORK_TAG
+LocationScanner.stopLocationUpdates - LocationSensorWorker.LOCATION_SENSOR_WORK_TAG
+LocationScannerSwitchGPSBroadcastReceiver.removeAlarm - MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK
+PhoneProfilesService.cancelPeriodicScanningWorker - PeriodicEventsHandlerWorker.WORK_TAG, PeriodicEventsHandlerWorker.WORK_TAG_SHORT
+PhoneProfilesService.clearProfileNotification - ShowProfileNotificationWorker.WORK_TAG
+PPApplication.setBlockProfileEventActions - DisableBlockProfileEventActionWorker.WORK_TAG
+PPPExtenderBroadcastReceiver.onReceive - MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
+StartEventNotificationBroadcastReceiver.removeAlarm - MainWorker.START_EVENT_NOTIFICATION_WORK_TAG
+
