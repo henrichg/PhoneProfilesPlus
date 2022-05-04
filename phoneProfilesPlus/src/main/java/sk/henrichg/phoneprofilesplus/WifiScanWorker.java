@@ -267,6 +267,7 @@ public class WifiScanWorker extends Worker {
         }
     }
 
+    // shortInterval = true is called only from PPService.scheduleWifoWorker
     static void scheduleWork(Context context, final boolean shortInterval) {
 //        PPApplication.logE("[SHEDULE_WORK] WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
 

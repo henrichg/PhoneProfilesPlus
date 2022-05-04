@@ -261,6 +261,7 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
+    // shortInterval = true is called only from PPService.scheduleBluetoothWorker
     static void scheduleWork(Context context, boolean shortInterval) {
         //PPApplication.logE("BluetoothScanWorker.scheduleJob", "shortInterval="+shortInterval);
 

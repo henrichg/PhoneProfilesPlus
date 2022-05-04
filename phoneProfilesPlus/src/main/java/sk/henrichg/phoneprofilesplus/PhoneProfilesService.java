@@ -3292,7 +3292,8 @@ public class PhoneProfilesService extends Service
         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false/*, useHandler*/);
     }
 
-    void schedulePeriodicScanningWorker(/*final DataWrapper dataWrapper , final boolean rescan*/) {
+    // this is called from ThreadHanlder
+    void schedulePeriodicScanningWorker() {
         //final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.schedulePeriodicScanningWorker", "PhoneProfilesService_schedulePeriodicScanningWorker");
         //PPApplication.logE("[RJS] PhoneProfilesService.schedulePeriodicScanningWorker", "xxx");
@@ -3361,9 +3362,8 @@ public class PhoneProfilesService extends Service
         WifiScanWorker.setWifiEnabledForScan(context, false);
     }
 
-    void scheduleWifiWorker(/*final boolean schedule,*/ /*final boolean cancel,*/ final DataWrapper dataWrapper//,
-                            //final boolean forScreenOn, final boolean afterEnableWifi,
-                         /*final boolean forceStart, final boolean rescan*/) {
+    // this is called from ThreadHanlder
+    void scheduleWifiWorker(final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleWifiWorker", "PhoneProfilesService_scheduleWifiWorker");
         //PPApplication.logE("[FIFO_TEST] PhoneProfilesService.scheduleWifiWorker", "rescan="+rescan);
@@ -3426,6 +3426,7 @@ public class PhoneProfilesService extends Service
 //        PPApplication.logE("$$$B PhoneProfilesService.cancelBluetoothWorker", "(1) prefEventBluetoothEnabledForScan="+ApplicationPreferences.prefEventBluetoothEnabledForScan);
     }
 
+    // this is called from ThreadHanlder
     private void scheduleBluetoothWorker(final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothWorker", "PhoneProfilesService_scheduleBluetoothWorker");
@@ -3523,7 +3524,8 @@ public class PhoneProfilesService extends Service
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "not scheduled");
     }
 
-    private void scheduleSearchCalendarEventsWorker(/*final boolean schedule,*/ final DataWrapper dataWrapper/*, final boolean rescan*/) {
+    // this is called from ThreadHanlder
+    private void scheduleSearchCalendarEventsWorker(final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsWorker", "PhoneProfilesService_scheduleSearchCalendarEventsWorker");
         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "xxx");

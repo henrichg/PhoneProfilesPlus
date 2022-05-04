@@ -183,6 +183,7 @@ public class SearchCalendarEventsWorker extends Worker {
         }
     }
 
+    // shortInterval = true is called only from PPService.scheduleSearchCalendarEventsWorker and TimeVjangedReceiver.doWork
     static void scheduleWork(final boolean shortInterval) {
         //PPApplication.logE("SearchCalendarEventsWorker.scheduleWork", "shortInterval="+shortInterval);
 
