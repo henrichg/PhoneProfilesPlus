@@ -8,12 +8,6 @@ Google restrictions:
 
 In stores, in which is currently deployed PPP, restriction about target sdk not exists.
 
-----------------------
-
-Stare Privacy policy. Asi nemozes odstranit, lebo asi je potrebne pre PPP 4.2.0.3 co je
-v Obchode Play a co maju ludia nainstalovanu staru verziu. :-(
-https://sites.google.com/site/phoneprofilesplus/home/privacy-policy
-
 ------------------------
 funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
 
