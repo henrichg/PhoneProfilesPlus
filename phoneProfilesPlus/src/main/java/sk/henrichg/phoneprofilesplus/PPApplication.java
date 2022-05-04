@@ -710,7 +710,6 @@ public class PPApplication extends Application
     static final SamsungEdgeProvider edgePanelBroadcastReceiver = new SamsungEdgeProvider();
 
     static TimeChangedReceiver timeChangedReceiver = null;
-    //static PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
     static StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
     static NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
     static ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
@@ -1307,39 +1306,45 @@ public class PPApplication extends Application
             return null;
     }
 
-    static void cancelWork(final String name, final boolean forceCancel) {
-        // cancel only enqueued works
-        PPApplication.startHandlerThreadCancelWork();
-        final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
-        __handler.post(() -> {
-//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
-
-            WorkManager workManager = PPApplication.getWorkManagerInstance();
-            if (workManager != null) {
-                ListenableFuture<List<WorkInfo>> statuses;
-                statuses = workManager.getWorkInfosForUniqueWork(name);
-                //noinspection TryWithIdenticalCatches
-                try {
-                    List<WorkInfo> workInfoList = statuses.get();
+    static void _cancelWork(final String name, final boolean forceCancel) {
+        WorkManager workManager = PPApplication.getWorkManagerInstance();
+        if (workManager != null) {
+            ListenableFuture<List<WorkInfo>> statuses;
+            statuses = workManager.getWorkInfosForUniqueWork(name);
+            //noinspection TryWithIdenticalCatches
+            try {
+                List<WorkInfo> workInfoList = statuses.get();
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
-                    // cancel only enqueued works
-                    for (WorkInfo workInfo : workInfoList) {
-                        WorkInfo.State state = workInfo.getState();
-                        if (forceCancel || (state == WorkInfo.State.ENQUEUED)) {
-                            // any work is enqueued, cancel it
+                // cancel only enqueued works
+                for (WorkInfo workInfo : workInfoList) {
+                    WorkInfo.State state = workInfo.getState();
+                    if (forceCancel || (state == WorkInfo.State.ENQUEUED)) {
+                        // any work is enqueued, cancel it
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" forceCancel="+forceCancel);
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" state="+state);
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" cancel it");
-                            workManager.cancelWorkById(workInfo.getId());
-                        }
+                        workManager.cancelWorkById(workInfo.getId());
                     }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });
+        }
+    }
+
+    static void cancelWork(final String name, final boolean forceCancel/*, final boolean useHander*/) {
+        // cancel only enqueued works
+        //if (useHander) {
+            PPApplication.startHandlerThreadCancelWork();
+            final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
+            __handler.post(() -> {
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
+                _cancelWork(name, forceCancel);
+            });
+        //} else
+        //    _cancelWork(name, forceCancel);
     }
 
     static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {

@@ -71,8 +71,8 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
             DatabaseHandler.getInstance(context).addNFCTag(tag);
             refreshListView(tagName);*/
 
-            /*Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagReadEditorActivity.class);
-            nfcTagIntent.putExtra(NFCTagReadEditorActivity.EXTRA_TAG_NAME, tag);
+            /*Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagReadActivity.class);
+            nfcTagIntent.putExtra(NFCTagReadActivity.EXTRA_TAG_NAME, tag);
             ((Activity)context).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_READ_EDITOR);*/
 
             preference.writeToNFCTag(0, tagName);
@@ -255,9 +255,9 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                 /*case R.id.nfc_tag_pref_item_menu_readNfcUid:
                     Log.e("NFCTagPreference.showEditMenu.readNfcUid", "tagInItem._name="+tagInItem._name);
                     Log.e("NFCTagPreference.showEditMenu.readNfcUid", "tagInItem._id="+tagInItem._id);
-                    Intent nfcTagIntent = new Intent(context, NFCTagReadEditorActivity.class);
-                    nfcTagIntent.putExtra(NFCTagReadEditorActivity.EXTRA_TAG_NAME, tagInItem._name);
-                    nfcTagIntent.putExtra(NFCTagReadEditorActivity.EXTRA_TAG_DB_ID, tagInItem._id);
+                    Intent nfcTagIntent = new Intent(context, NFCTagReadActivity.class);
+                    nfcTagIntent.putExtra(NFCTagReadActivity.EXTRA_TAG_NAME, tagInItem._name);
+                    nfcTagIntent.putExtra(NFCTagReadActivity.EXTRA_TAG_DB_ID, tagInItem._id);
                     ((Activity)context).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_READ_EDITOR);
                     return true;*/
             else

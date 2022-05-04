@@ -448,7 +448,7 @@ public class PhoneProfilesService extends Service
         registerAllTheTimeContentObservers(false);
         registerAllTheTimeCallbacks(false);
         registerPPPPExtenderReceiver(false, null);
-        unregisterEventsReceiversAndWorkers();
+        unregisterEventsReceiversAndWorkers(true);
 
         if (Build.VERSION.SDK_INT < 31) {
             try {
@@ -590,18 +590,6 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "xxx");
         if (!register) {
-            /*
-            if (PPApplication.permissionsNotificationDeletedReceiver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER permissions notification delete", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER permissions notification delete");
-                try {
-                    appContext.unregisterReceiver(PPApplication.permissionsNotificationDeletedReceiver);
-                    PPApplication.permissionsNotificationDeletedReceiver = null;
-                } catch (Exception e) {
-                    PPApplication.permissionsNotificationDeletedReceiver = null;
-                }
-            }
-            */
             if (PPApplication.startEventNotificationDeletedReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER start event notification delete", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER start event notification delete");
@@ -757,16 +745,6 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            /*
-            if (PPApplication.permissionsNotificationDeletedReceiver == null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->REGISTER permissions notification delete", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER permissions notification delete");
-                PPApplication.permissionsNotificationDeletedReceiver = new PermissionsNotificationDeletedReceiver();
-                IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(GrantPermissionActivity.NOTIFICATION_DELETED_ACTION);
-                appContext.registerReceiver(PPApplication.permissionsNotificationDeletedReceiver, intentFilter5);
-            }
-            */
 
             if (PPApplication.startEventNotificationDeletedReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->REGISTER start event notification delete", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
@@ -3308,10 +3286,10 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void cancelPeriodicScanningWorker() {
+    private void cancelPeriodicScanningWorker(/*boolean useHandler*/) {
         //PPApplication.logE("[RJS] PhoneProfilesService.cancelPeriodicScanningWorker", "xxx");
-        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
-        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
+        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false/*, useHandler*/);
+        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false/*, useHandler*/);
     }
 
     void schedulePeriodicScanningWorker(/*final DataWrapper dataWrapper , final boolean rescan*/) {
@@ -3329,9 +3307,11 @@ public class PhoneProfilesService extends Service
                 eventAllowed = true;
             }
             if (eventAllowed) {
-                PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
-                PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
-                PPApplication.sleep(5000);
+                //PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
+                //PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
+                PPApplication._cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
+                PPApplication._cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
+                //PPApplication.sleep(5000);
                 OneTimeWorkRequest periodicEventsHandlerWorker =
                         new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
                                 .addTag(PeriodicEventsHandlerWorker.WORK_TAG_SHORT)
@@ -3357,21 +3337,21 @@ public class PhoneProfilesService extends Service
                     PPApplication.recordException(e);
                 }
             } else
-                cancelPeriodicScanningWorker();
+                cancelPeriodicScanningWorker(/*false*/);
         } else
-            cancelPeriodicScanningWorker();
+            cancelPeriodicScanningWorker(/*false*/);
         //}
         //else
         //    cancelPeriodicScanningWorker();
     }
 
-    private void cancelWifiWorker(final Context context, boolean forSchedule) {
+    private void cancelWifiWorker(final Context context, boolean forSchedule, boolean useHandler) {
 //        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.cancelWifiWorker", "forSchedule="+forSchedule);
         if ((!forSchedule) ||
                 (WifiScanWorker.isWorkScheduled(false) || WifiScanWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelWifiWorker->CANCEL", "PhoneProfilesService_cancelWifiWorker");
 //            PPApplication.logE("[FIFO_TEST] PhoneProfilesService.cancelWifiWorker", "CANCEL");
-            WifiScanWorker.cancelWork(context, true/*, null*/);
+            WifiScanWorker.cancelWork(context, useHandler/*, null*/);
         }
         //else
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiWorker", "not scheduled");
@@ -3416,23 +3396,23 @@ public class PhoneProfilesService extends Service
                 //}
             } else {
 //                PPApplication.logE("[FIFO_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (1)");
-                cancelWifiWorker(appContext, true);
+                cancelWifiWorker(appContext, true, false);
             }
         } else {
 //            PPApplication.logE("[FIFO_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (2)");
-            cancelWifiWorker(appContext, true);
+            cancelWifiWorker(appContext, true, false);
         }
         //}
         //else
         //    cancelWifiWorker(appContext, handler);
     }
 
-    private void cancelBluetoothWorker(final Context context, boolean forSchedule) {
+    private void cancelBluetoothWorker(final Context context, boolean forSchedule, boolean useHandler) {
         if ((!forSchedule) ||
                 (BluetoothScanWorker.isWorkScheduled(false) || BluetoothScanWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelBluetoothWorker->CANCEL", "PhoneProfilesService_cancelBluetoothWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelBluetoothWorker", "CANCEL");
-            BluetoothScanWorker.cancelWork(context, true/*, null*/);
+            BluetoothScanWorker.cancelWork(context, useHandler);
         }
         //else
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelBluetoothWorker", "not scheduled");
@@ -3446,8 +3426,7 @@ public class PhoneProfilesService extends Service
 //        PPApplication.logE("$$$B PhoneProfilesService.cancelBluetoothWorker", "(1) prefEventBluetoothEnabledForScan="+ApplicationPreferences.prefEventBluetoothEnabledForScan);
     }
 
-    private void scheduleBluetoothWorker(/*final boolean schedule,*/ /*final boolean cancel,*/ final DataWrapper dataWrapper
-                              /*final boolean forScreenOn, final boolean forceStart,*/ /*final boolean rescan*/) {
+    private void scheduleBluetoothWorker(final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothWorker", "PhoneProfilesService_scheduleBluetoothWorker");
         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothWorker", "xxx");
@@ -3473,9 +3452,9 @@ public class PhoneProfilesService extends Service
                 }*/
                 BluetoothScanWorker.scheduleWork(appContext, true);
             } else
-                cancelBluetoothWorker(appContext, true);
+                cancelBluetoothWorker(appContext, true, false);
         } else
-            cancelBluetoothWorker(appContext, true);
+            cancelBluetoothWorker(appContext, true, false);
         //}
         //else
         //    cancelBluetoothWorker(appContext, handler);
@@ -3533,12 +3512,12 @@ public class PhoneProfilesService extends Service
     }
     */
 
-    private void cancelSearchCalendarEventsWorker(boolean forSchedule) {
+    private void cancelSearchCalendarEventsWorker(boolean forSchedule, boolean useHandler) {
         if ((!forSchedule) ||
                 (SearchCalendarEventsWorker.isWorkScheduled(false) || SearchCalendarEventsWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelSearchCalendarEventsWorker->CANCEL", "PhoneProfilesService_cancelSearchCalendarEventsWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "CANCEL");
-            SearchCalendarEventsWorker.cancelWork(true/*, null*/);
+            SearchCalendarEventsWorker.cancelWork(useHandler);
         }
         //else
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "not scheduled");
@@ -3567,7 +3546,7 @@ public class PhoneProfilesService extends Service
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "scheduled");
         } else
-            cancelSearchCalendarEventsWorker(true);
+            cancelSearchCalendarEventsWorker(true, false);
         //}
         //else
         //    cancelSearchCalendarEventsWorker(appContext, handler);
@@ -3940,7 +3919,7 @@ public class PhoneProfilesService extends Service
         AvoidRescheduleReceiverWorker.enqueueWork();
     }
 
-    private void unregisterEventsReceiversAndWorkers() {
+    private void unregisterEventsReceiversAndWorkers(boolean useHandler) {
 //         PPApplication.logE("[FIFO_TEST] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
 
         Context appContext = getApplicationContext();
@@ -3987,11 +3966,11 @@ public class PhoneProfilesService extends Service
         startTwilightScanner(false, true, null);
         startNotificationScanner(false, true, null);
 
-        cancelPeriodicScanningWorker();
-        cancelWifiWorker(appContext, false);
-        cancelBluetoothWorker(appContext, false);
+        cancelPeriodicScanningWorker(/*useHandler*/);
+        cancelWifiWorker(appContext, false, useHandler);
+        cancelBluetoothWorker(appContext, false, useHandler);
         //cancelGeofenceWorker(false);
-        cancelSearchCalendarEventsWorker(false);
+        cancelSearchCalendarEventsWorker(false, useHandler);
 
     }
 
@@ -5208,7 +5187,7 @@ public class PhoneProfilesService extends Service
                                 ppService.registerEventsReceiversAndWorkers(true);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS");
-                                ppService.unregisterEventsReceiversAndWorkers();
+                                ppService.unregisterEventsReceiversAndWorkers(false);
                             } else if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);

@@ -642,7 +642,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "orientationScanningCategoryRoot");
-                //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 //noinspection deprecation
                 startActivityForResult(intent, RESULT_ORIENTATION_SCANNING_SETTINGS);
                 return false;
@@ -1342,9 +1342,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (resultCode == Activity.RESULT_OK) {
                 NFCTagPreferenceX preference = prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_NFC_TAGS);
                 if (preference != null) {
-                    String tagName = data.getStringExtra(NFCTagReadEditorActivity.EXTRA_TAG_NAME);
-                    String tagUid = data.getStringExtra(NFCTagReadEditorActivity.EXTRA_TAG_UID);
-                    long tagDbId = data.getLongExtra(NFCTagReadEditorActivity.EXTRA_TAG_DB_ID, 0);
+                    String tagName = data.getStringExtra(NFCTagReadActivity.EXTRA_TAG_NAME);
+                    String tagUid = data.getStringExtra(NFCTagReadActivity.EXTRA_TAG_UID);
+                    long tagDbId = data.getLongExtra(NFCTagReadActivity.EXTRA_TAG_DB_ID, 0);
                     Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagName="+tagName);
                     Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagUid="+tagUid);
                     Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagDbId="+tagDbId);

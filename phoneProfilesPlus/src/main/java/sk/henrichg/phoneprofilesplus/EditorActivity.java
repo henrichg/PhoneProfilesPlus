@@ -124,7 +124,7 @@ public class EditorActivity extends AppCompatActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
     // request code for startActivityForResult with intent ProfilesPrefsActivity
     private static final int REQUEST_CODE_PROFILE_PREFERENCES = 6221;
-    // request code for startActivityForResult with intent EventPreferencesActivity
+    // request code for startActivityForResult with intent EventPrefsActivity
     private static final int REQUEST_CODE_EVENT_PREFERENCES = 6222;
     // request code for startActivityForResult with intent PhoneProfilesActivity
     private static final int REQUEST_CODE_APPLICATION_PREFERENCES = 6229;

@@ -41,7 +41,7 @@ class BluetoothScanner {
         this.context = context.getApplicationContext();
     }
 
-    void doScan() {
+    void doScan(@SuppressWarnings("unused") boolean fromDialog) {
         synchronized (PPApplication.bluetoothScannerMutex) {
             //CallsCounter.logCounter(context, "BluetoothScanner.doScan", "Scanner_doScan");
 
@@ -502,7 +502,7 @@ class BluetoothScanner {
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
 
                     if (getShowEnableLocationNotification(context, scanType)) {
-                        //Intent notificationIntent = new Intent(context, PhoneProfilesPreferencesActivity.class);
+                        //Intent notificationIntent = new Intent(context, PhoneProfilesPrefsActivity.class);
                         Intent notificationIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -528,10 +528,10 @@ class BluetoothScanner {
                         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
                         int requestCode;
-                        //notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategory");
+                        //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategory");
                         requestCode = 2;
 
-                        //notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                        //notificationIntent.putExtra(PhoneProfilesPresActivity.EXTRA_SCROLL_TO_TYPE, "screen");
 
                         PendingIntent pi = PendingIntent.getActivity(context, requestCode, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         mBuilder.setContentIntent(pi);

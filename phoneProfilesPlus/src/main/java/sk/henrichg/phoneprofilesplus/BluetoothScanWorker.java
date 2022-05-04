@@ -8,7 +8,6 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
@@ -268,7 +267,11 @@ public class BluetoothScanWorker extends Worker {
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (shortInterval) {
-                final Context appContext = context;
+                _cancelWork(context, false);
+                //PPApplication.sleep(5000);
+                _scheduleWork(context, true);
+
+                /*final Context appContext = context;
                 PPApplication.startHandlerThreadPPScanners();
                 final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
@@ -281,7 +284,7 @@ public class BluetoothScanWorker extends Worker {
                         PPApplication.sleep(5000);
                         _scheduleWork(appContext, true);
                     //}
-                });
+                });*/
             }
             else
                 _scheduleWork(context, false);
@@ -290,7 +293,7 @@ public class BluetoothScanWorker extends Worker {
         //    PPApplication.logE("BluetoothScanWorker.scheduleJob","BluetoothHardware=false");
     }
 
-    private static void _cancelWork(final Context context) {
+    private static void _cancelWork(final Context context, final boolean useHandler) {
         if (isWorkScheduled(false) || isWorkScheduled(true)) {
             try {
                 waitForFinish(false);
@@ -304,8 +307,14 @@ public class BluetoothScanWorker extends Worker {
                 BluetoothScanner.setForceOneBluetoothScan(context, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
                 BluetoothScanner.setForceOneLEBluetoothScan(context, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
-                PPApplication.cancelWork(WORK_TAG, false);
-                PPApplication.cancelWork(WORK_TAG_SHORT, false);
+                if (useHandler) {
+                    PPApplication.cancelWork(WORK_TAG, false);
+                    PPApplication.cancelWork(WORK_TAG_SHORT, false);
+                }
+                else {
+                    PPApplication._cancelWork(WORK_TAG, false);
+                    PPApplication._cancelWork(WORK_TAG_SHORT, false);
+                }
 
                 //PPApplication.logE("BluetoothScanWorker._cancelWork", "CANCELED");
 
@@ -373,7 +382,9 @@ public class BluetoothScanWorker extends Worker {
     static void cancelWork(Context context, boolean useHandler/*, final Handler _handler*/) {
         //PPApplication.logE("BluetoothScanWorker.cancelWork", "xxx");
 
-        if (useHandler /*&& (_handler == null)*/) {
+        _cancelWork(context, useHandler);
+
+        /*if (useHandler) {
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadPPScanners();
             final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -389,7 +400,7 @@ public class BluetoothScanWorker extends Worker {
         }
         else {
             _cancelWork(context);
-        }
+        }*/
     }
 
     private static boolean isWorkRunning(boolean shortWork) {
@@ -784,7 +795,7 @@ public class BluetoothScanWorker extends Worker {
 
             //PPApplication.logE("$$$ BluetoothScanWorker.startScanner", "scanning enabled");
             BluetoothScanner bluetoothScanner = new BluetoothScanner(context);
-            bluetoothScanner.doScan();
+            bluetoothScanner.doScan(fromDialog);
         }
         //dataWrapper.invalidateDataWrapper();
     }
