@@ -1326,6 +1326,18 @@ public class PPApplication extends Application
                         workManager.cancelWorkById(workInfo.getId());
                     }
                 }
+
+                if (name.startsWith(MainWorker.EVENT_DELAY_START_TAG_WORK))
+                    PPApplication.elapsedAlarmsEventDelayStartWork.remove(name);
+                if (name.startsWith(MainWorker.EVENT_DELAY_END_TAG_WORK))
+                    PPApplication.elapsedAlarmsEventDelayEndWork.remove(name);
+                if (name.startsWith(MainWorker.PROFILE_DURATION_WORK_TAG))
+                    PPApplication.elapsedAlarmsProfileDurationWork.remove(name);
+                if (name.startsWith(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG))
+                    PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(name);
+                if (name.startsWith(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG))
+                    PPApplication.elapsedAlarmsStartEventNotificationWork.remove(name);
+
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
