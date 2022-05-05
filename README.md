@@ -17,7 +17,7 @@ Reason: Google restrictions:
    `targetSdkVersion targetSdk`  
    and in PPP must be target sdk = 28. Android 10 is 29.
 
-In stores, in which is currently deployed PPP, restriction about target sdk not exists.
+In stores, in which is currently deployed PPP, restriction about target sdk does not apply.
 
 __[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
