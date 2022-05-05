@@ -10,7 +10,14 @@ PhoneProfilesPlus
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
 __[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__
-&nbsp;&nbsp;&nbsp;Latest version is 4.2.0.3 and will never by upgraded. 
+Latest version is 4.2.0.3 and will never by upgraded.  
+Reason: Google restrictions:
+1. Android - All Wi-Fi related functions not working since Android 10.
+2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:  
+   `targetSdkVersion targetSdk`  
+   and in PPP must be target sdk = 28. Android 10 is 29.
+
+In stores, in which is currently deployed PPP, restriction about target sdk does not apply.
 
 __[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
