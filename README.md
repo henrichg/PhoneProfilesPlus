@@ -1,4 +1,4 @@
-<img src="art/ic_launcher-web.png" width="100" height="100">  
+<img src="/art/ic_launcher-web.png" width="100" height="100">  
 
 PhoneProfilesPlus
 =================
