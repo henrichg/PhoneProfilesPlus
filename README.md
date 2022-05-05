@@ -14,7 +14,7 @@ Latest version is 4.2.0.3 and will never by upgraded.
 Reason: Google restrictions:  
 1. Android - All Wi-Fi related functions not working since Android 10.  
 2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:  
-     targetSdkVersion targetSdk  
+   `targetSdkVersion targetSdk`  
    and in PPP must be target sdk = 28. Android 10 is 29.  
 In stores, in which is currently deployed PPP, restriction about target sdk not exists.
 
