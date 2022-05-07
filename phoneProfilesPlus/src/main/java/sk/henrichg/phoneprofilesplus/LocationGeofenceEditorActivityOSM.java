@@ -149,7 +149,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         mMap = findViewById(R.id.location_editor_map);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
-        mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+        //mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+        mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
         //mMap.setMaxZoomLevel(20d);
         mMap.setMultiTouchControls(true);
         //mMap.setTilesScaledToDpi(true);
@@ -453,7 +454,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         if (Permissions.grantLocationGeofenceEditorPermissionsOSM(getApplicationContext(), this)) {
             startLocationUpdates();
-            refreshActivity(false, false);
+            refreshActivity(true, true);
         }
     }
 
