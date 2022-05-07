@@ -242,7 +242,7 @@ public class EditorActivity extends AppCompatActivity
 
         //PPApplication.logE("EditorActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false);
+        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         savedInstanceStateChanged = (savedInstanceState != null);

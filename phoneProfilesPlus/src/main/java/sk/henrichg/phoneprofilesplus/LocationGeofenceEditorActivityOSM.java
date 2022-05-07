@@ -14,6 +14,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -105,7 +106,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false);
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -195,14 +196,19 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         IMapController mapController = mMap.getController();
         //mapController.setZoom(15f);
 
+        /*
         mMap.getOverlayManager().getTilesOverlay().getTileStates().getRunAfters().add(() -> {
-            if (mapIsLoading.getVisibility() != View.GONE)
-                mapIsLoading.setVisibility(View.GONE);
-            if (mMap.getVisibility() != View.VISIBLE) {
-                mMap.setVisibility(View.VISIBLE);
-                addressText.setVisibility(View.VISIBLE);
+            if (mMap.getOverlayManager().getTilesOverlay().getTileStates().isDone()) {
+                PPApplication.logE("LocationGeofenceEditorActivityOSM.getTileStatuses", "map loaded");
+                if (mapIsLoading.getVisibility() != View.GONE)
+                    mapIsLoading.setVisibility(View.GONE);
+                if (mMap.getVisibility() != View.VISIBLE) {
+                    mMap.setVisibility(View.VISIBLE);
+                    addressText.setVisibility(View.VISIBLE);
+                }
             }
         });
+        */
 
         mMap.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override
@@ -446,6 +452,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             mapController.setCenter(new GeoPoint(geofence._latitude, geofence._longitude));
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onStart() {
         super.onStart();
@@ -523,12 +530,14 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             zoom = 15f;
         else {
             DisplayMetrics metrics = getResources().getDisplayMetrics();
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "metrics.scaledDensity=" + metrics.scaledDensity);
             int mapWidth = Math.round(mMap.getWidth() / metrics.scaledDensity);
 
 //            int mapHeight = Math.round(mMap.getHeight() / metrics.scaledDensity);
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "mapWidth=" + mapWidth);
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "mapHeight=" + mapHeight);
 
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "geofence._radius=" + geofence._radius);
             zoom = calcZoom(geofence._radius * 2, mapWidth, mLocation.getLatitude());
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom=" + zoom);
 
@@ -637,7 +646,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
      */
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
-        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
+//        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
 
         boolean locationEnabled;
         String provider = "";
@@ -663,14 +672,17 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 //locationEnabled = false;
             }
         }
-        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "locationEnabled="+locationEnabled);
-        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "mListenerEnabled="+mListenerEnabled);
+//        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "locationEnabled="+locationEnabled);
+//        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "mListenerEnabled="+mListenerEnabled);
         if (!mListenerEnabled && locationEnabled) {
             if (Permissions.checkLocation(getApplicationContext())) {
                 mListenerEnabled = true;
                 try {
-                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
+//                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
                     mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
+
+                    // force get location
+                    mLocationManager.getLastLocation();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -745,25 +757,25 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
                     workManager.getWorkInfoByIdLiveData(fetchAddressWorkerOSM.getId())
                             .observe(this, workInfo -> {
-                                PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "xxx");
+//                                PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "xxx");
 
                                 if ((workInfo != null) && (workInfo.getState() == WorkInfo.State.SUCCEEDED)) {
-                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
+//                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
 
                                     Data outputData = workInfo.getOutputData();
-                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "outputData=" + outputData);
+//                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "outputData=" + outputData);
 
                                     int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
-                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
+//                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
                                     boolean enableAddressButton = false;
                                     if (resultCode == SUCCESS_RESULT) {
-                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
+//                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
                                         // Display the address string
                                         // or an error message sent from the intent service.
                                         String addressOutput = outputData.getString(RESULT_DATA_KEY);
-                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
+//                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
 
                                         addressText.setText(addressOutput);
 
@@ -1129,8 +1141,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         double zoom256 = Math.log(parallel_length/visible_distance)/Math.log(2);
 
         // adapt the zoom to the image size
-        int x = (int) (Math.log(img_width/256f)/Math.log(2));
-        return zoom256 + x + 2f;
+        int x = (int) (Math.log((img_width*4)/256f)/Math.log(2));
+        return zoom256 + x;
     }
 
 

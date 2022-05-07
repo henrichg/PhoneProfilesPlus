@@ -121,7 +121,7 @@ public class ActivatorActivity extends AppCompatActivity {
 
         //PPApplication.logE("ActivatorActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true, false);
+        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
     //-----------------------------------------------------------------------------------
