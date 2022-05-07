@@ -195,6 +195,18 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         IMapController mapController = mMap.getController();
         //mapController.setZoom(15f);
 
+        mMap.getOverlayManager().getTilesOverlay().getTileStates().getRunAfters().add(new Runnable() {
+            @Override
+            public void run() {
+                if (mapIsLoading.getVisibility() != View.GONE)
+                    mapIsLoading.setVisibility(View.GONE);
+                if (mMap.getVisibility() != View.VISIBLE) {
+                    mMap.setVisibility(View.VISIBLE);
+                    addressText.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         mMap.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint point) {
@@ -623,7 +635,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
      */
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
-//        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
+        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
 
         boolean locationEnabled;
         String provider = "";
@@ -649,12 +661,13 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 //locationEnabled = false;
             }
         }
-//        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "locationEnabled="+locationEnabled);
+        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "locationEnabled="+locationEnabled);
+        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "mListenerEnabled="+mListenerEnabled);
         if (!mListenerEnabled && locationEnabled) {
             if (Permissions.checkLocation(getApplicationContext())) {
                 mListenerEnabled = true;
                 try {
-//                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
+                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
                     mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -730,25 +743,25 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
                     workManager.getWorkInfoByIdLiveData(fetchAddressWorkerOSM.getId())
                             .observe(this, workInfo -> {
-//                                PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "xxx");
+                                PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "xxx");
 
                                 if ((workInfo != null) && (workInfo.getState() == WorkInfo.State.SUCCEEDED)) {
-//                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
+                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
 
                                     Data outputData = workInfo.getOutputData();
-//                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "outputData=" + outputData);
+                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "outputData=" + outputData);
 
                                     int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
-//                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
+                                    PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
                                     boolean enableAddressButton = false;
                                     if (resultCode == SUCCESS_RESULT) {
-//                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
+                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
                                         // Display the address string
                                         // or an error message sent from the intent service.
                                         String addressOutput = outputData.getString(RESULT_DATA_KEY);
-//                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
+                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
 
                                         addressText.setText(addressOutput);
 
@@ -1121,7 +1134,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
+            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
 
             final Location oldLastLocation = mLastLocation;
 

@@ -202,7 +202,7 @@
 
     <RelativeLayout
         android:id="@+id/location_editor_linla_map"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="0dp"
         android:orientation="vertical"
