@@ -195,15 +195,12 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         IMapController mapController = mMap.getController();
         //mapController.setZoom(15f);
 
-        mMap.getOverlayManager().getTilesOverlay().getTileStates().getRunAfters().add(new Runnable() {
-            @Override
-            public void run() {
-                if (mapIsLoading.getVisibility() != View.GONE)
-                    mapIsLoading.setVisibility(View.GONE);
-                if (mMap.getVisibility() != View.VISIBLE) {
-                    mMap.setVisibility(View.VISIBLE);
-                    addressText.setVisibility(View.VISIBLE);
-                }
+        mMap.getOverlayManager().getTilesOverlay().getTileStates().getRunAfters().add(() -> {
+            if (mapIsLoading.getVisibility() != View.GONE)
+                mapIsLoading.setVisibility(View.GONE);
+            if (mMap.getVisibility() != View.VISIBLE) {
+                mMap.setVisibility(View.VISIBLE);
+                addressText.setVisibility(View.VISIBLE);
             }
         });
 
@@ -527,6 +524,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         else {
             DisplayMetrics metrics = getResources().getDisplayMetrics();
             int mapWidth = Math.round(mMap.getWidth() / metrics.scaledDensity);
+
+//            int mapHeight = Math.round(mMap.getHeight() / metrics.scaledDensity);
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "mapWidth=" + mapWidth);
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "mapHeight=" + mapHeight);
+
             zoom = calcZoom(geofence._radius * 2, mapWidth, mLocation.getLatitude());
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom=" + zoom);
 
@@ -1123,7 +1125,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         visible_distance = Math.abs(visible_distance);
         double parallel_length = getParallelLength(atLat); // in meters
 
-        // for an immage of 256 pixel pixel
+        // for an immage of 256 pixel
         double zoom256 = Math.log(parallel_length/visible_distance)/Math.log(2);
 
         // adapt the zoom to the image size
