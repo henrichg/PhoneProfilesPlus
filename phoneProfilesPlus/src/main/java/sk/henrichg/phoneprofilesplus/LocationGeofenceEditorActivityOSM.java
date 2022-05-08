@@ -14,7 +14,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -470,7 +469,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         if (Permissions.grantLocationGeofenceEditorPermissionsOSM(getApplicationContext(), this)) {
             startLocationUpdates();
-            refreshActivity(true, true);
+            refreshActivity(false, false);
         }
     }
 
@@ -641,9 +640,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
     }
 
-    /**
-     * Requests location updates from the FusedLocationApi.
-     */
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
@@ -676,23 +672,36 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "mListenerEnabled="+mListenerEnabled);
         if (!mListenerEnabled && locationEnabled) {
             if (Permissions.checkLocation(getApplicationContext())) {
-                mListenerEnabled = true;
                 try {
-//                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
+                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "****** requestLocationUpdates ********");
                     mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
 
-                    // force get location
-                    mLocationManager.getLastLocation();
+//                    if (Build.VERSION.SDK_INT >= 30) {
+//                        mLocationManager.getCurrentLocation(
+//                                LocationManager.GPS_PROVIDER,
+//                                null,
+//                                ContextCompat.getMainExecutor(this),
+//                                new Consumer<Location>() {
+//                                    @Override
+//                                    public void accept(Location location) {
+//                                        PPApplication.logE("******* LocationGeofenceEditorActivityOSM.startLocationUpdates", "location="+location);
+//                                    }
+//                                }
+//                        );
+//                    }
+                    mListenerEnabled = true;
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
             }
         }
+        if (!mListenerEnabled || !locationEnabled) {
+            //TODO tu porozmyslaj, co spravis.
+            // podla mna asi zmenit text v mapIsLoading, co napise, ze nejde
+            // zapnut sledovanie polohy
+        }
     }
 
-    /**
-     * Removes location updates from the FusedLocationApi.
-     */
     private void stopLocationUpdates() {
         // It is a good practice to remove location requests when the activity is in a paused or
         // stopped state. Doing so helps battery performance and is especially
@@ -1150,6 +1159,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         public void onLocationChanged(Location location) {
             PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
 
+            if (location == null)
+                return;
+
             final Location oldLastLocation = mLastLocation;
 
             mLastLocation = location;
@@ -1191,7 +1203,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
 
         public void onProviderEnabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderEnabled", "xxx");
+//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderEnabled", "888888888888888");
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
