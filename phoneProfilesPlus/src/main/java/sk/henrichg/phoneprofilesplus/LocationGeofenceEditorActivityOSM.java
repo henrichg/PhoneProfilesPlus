@@ -471,8 +471,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         final LocationGeofenceEditorActivityOSM activity = this;
         final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(() -> {
-//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.onStart");
-            if (!activity.isFinishing()) {
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.onStart");
+            if (!activity.isFinishing() && !activity.isDestroyed()) {
                 if (activity.mLastLocation == null) {
                     //TODO stale nie je zistena poloha, zobraz sem ten dialog, o tom, ze
                     // mobil nie je online (toto zisti) alebo nie je zapnuta poloha alebo v nastaveniach
