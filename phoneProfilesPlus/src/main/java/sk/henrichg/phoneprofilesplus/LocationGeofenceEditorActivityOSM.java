@@ -13,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -467,6 +468,19 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "startLocationUpdates");
 
+        final LocationGeofenceEditorActivityOSM activity = this;
+        final Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(() -> {
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.onStart");
+            if (!activity.isFinishing()) {
+                if (activity.mLastLocation == null) {
+                    //TODO stale nie je zistena poloha, zobraz sem ten dialog, o tom, ze
+                    // mobil nie je online (toto zisti) alebo nie je zapnuta poloha alebo v nastaveniach
+                    // polohy nie je zapnute vyhladavanie Wi-Fi.
+                }
+            }
+        }, 1500);
+
         if (Permissions.grantLocationGeofenceEditorPermissionsOSM(getApplicationContext(), this)) {
             startLocationUpdates();
             refreshActivity(false, false);
@@ -696,9 +710,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             }
         }
         if (!mListenerEnabled || !locationEnabled) {
-            //TODO tu porozmyslaj, co spravis.
-            // podla mna asi zmenit text v mapIsLoading, co napise, ze nejde
-            // zapnut sledovanie polohy
+            //TODO zobraz sem ten dialog, o tom, ze
+            // mobil nie je online (toto zisti) alebo nie je zapnuta poloha alebo v nastaveniach
+            // polohy nie je zapnute vyhladavanie Wi-Fi.
         }
     }
 
