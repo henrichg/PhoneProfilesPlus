@@ -158,6 +158,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     red = 0xE0;
                     break;
                 case "100":
+                    //noinspection ConstantConditions
                     red = 0xFF;
                     break;
             }
@@ -273,6 +274,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 monochromeValue = 0xE0;
                 break;
             case "100":
+                //noinspection ConstantConditions
                 monochromeValue = 0xFF;
                 break;
         }
@@ -282,6 +284,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         switch (applicationWidgetListPrefIndicatorLightness) {
             case "0":
                 prefIndicatorLightnessValue = -128f;
+                //noinspection ConstantConditions
                 prefIndicatorMonochromeValue = 0x00;
                 break;
             case "12":

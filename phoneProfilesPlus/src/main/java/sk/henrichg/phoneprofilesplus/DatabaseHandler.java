@@ -13126,7 +13126,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 isGranted = true;
                             } catch (Exception e) {
-                                isGranted = false;
+                                //isGranted = false;
                             }
 //                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_ICON -isGranted=" + isGranted);
                         }
@@ -13151,7 +13151,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE isGranted=" + isGranted);
                             }
@@ -13177,7 +13177,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE_SIM1 isGranted=" + isGranted);
                             }
@@ -13203,7 +13203,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE_SIM2 isGranted=" + isGranted);
                             }
@@ -13229,7 +13229,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION isGranted=" + isGranted);
                             }
@@ -13255,7 +13255,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION_SIM1 isGranted=" + isGranted);
                             }
@@ -13281,7 +13281,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION_SIM2 isGranted=" + isGranted);
                             }
@@ -13307,7 +13307,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_ALARM isGranted=" + isGranted);
                             }
@@ -13331,7 +13331,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 isGranted = true;
                             } catch (Exception e) {
-                                isGranted = false;
+                                //isGranted = false;
                             }
 //                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DEVICE_WALLPAPER isGranted=" + isGranted);
                         }
@@ -13359,7 +13359,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 context.getContentResolver().takePersistableUriPermission(uri, takeFlags);
                                 isGranted = true;
                             } catch (Exception e) {
-                                isGranted = false;
+                                //isGranted = false;
                             }
 //                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DEVICE_WALLPAPER_FOLDER isGranted=" + isGranted);
                         }
@@ -13385,7 +13385,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DURATION_NOTIFICATION_SOUND isGranted=" + isGranted);
                             }
@@ -13433,7 +13433,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_E_NOTIFICATION_SOUND_START isGranted=" + isGranted);
                             }
@@ -13456,7 +13456,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_E_NOTIFICATION_SOUND_END isGranted=" + isGranted);
                             }

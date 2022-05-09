@@ -287,11 +287,11 @@ class AutoStartPermissionHelper  {
                     ok = true;
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    ok = false;
+                    //ok = false;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                ok = false;
+                //ok = false;
             }
         }
 
@@ -406,11 +406,11 @@ class AutoStartPermissionHelper  {
                     ok = true;
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    ok = false;
+                    //ok = false;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                ok = false;
+                //ok = false;
             }
         }
 

@@ -1,14 +1,11 @@
 package com.kunzisoft.androidclearchroma.view;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import androidx.annotation.RequiresApi;
 
 import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.R;
@@ -46,7 +43,6 @@ public class ChannelView extends RelativeLayout {
     }
 
     @SuppressWarnings("unused")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ChannelView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);

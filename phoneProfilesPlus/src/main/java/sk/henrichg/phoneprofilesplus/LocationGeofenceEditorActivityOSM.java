@@ -164,10 +164,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         //mMap.setTilesScaledToDpi(true);
         //mMap.getTileProvider().clearTileCache();
 
-        boolean isNightMode = false;
+        boolean isNightMode;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
         switch (applicationThene) {
             case "white":
+                //noinspection DuplicateBranchesInSwitch
                 isNightMode = false;
                 break;
             case "dark":
@@ -185,15 +186,22 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                         //    notificationTextColor = "2";
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
+                        //noinspection DuplicateBranchesInSwitch
                         isNightMode = false;
                         // this is possible only when device has option for set background color
                         //if ((Build.VERSION.SDK_INT < 29) && notificationNightMode)
                         //    notificationTextColor = "1";
                         break;
                     case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                        //noinspection DuplicateBranchesInSwitch
+                        isNightMode = false;
                         break;
+                    default:
+                        isNightMode = false;
                 }
                 break;
+            default:
+                isNightMode = false;
         }
         if (isNightMode)
             mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);

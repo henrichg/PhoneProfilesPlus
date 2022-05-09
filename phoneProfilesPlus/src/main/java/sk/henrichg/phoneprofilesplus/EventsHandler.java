@@ -1813,6 +1813,7 @@ class EventsHandler {
         if (!anySensorEnabled) {
             // force set event as paused
             allPassed = false;
+            //noinspection ConstantConditions
             someNotAllowed = false;
         }
 

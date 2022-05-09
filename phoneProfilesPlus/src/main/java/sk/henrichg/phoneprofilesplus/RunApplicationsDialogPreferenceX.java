@@ -177,6 +177,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                                         applicationPassed = typePassed && packagePassed && activityPassed;
                                     }
                                     else
+                                        //noinspection ConstantConditions
                                         applicationPassed = false;
                                     break;
                                 default:
@@ -274,6 +275,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                                 intentPassed = intentId.equals(String.valueOf(ppIntent._id));
                             }
                         } catch (IndexOutOfBoundsException e) {
+                            //noinspection ConstantConditions
                             intentPassed = false;
                         }
 

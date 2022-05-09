@@ -144,7 +144,7 @@ class ActivateProfileHelper {
                             //boolean _isSIM1On = isSIMOn(appContext, 1);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM1On="+_isSIM1On);
                             boolean _setSIM1OnOff = false;
-                            boolean _setOn = true;
+                            boolean _setOn;
                             switch (profile._deviceOnOffSIM1) {
                                 case 1:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 1");
@@ -157,6 +157,8 @@ class ActivateProfileHelper {
                                     _setSIM1OnOff = true;
                                     _setOn = false;
                                     break;
+                                default:
+                                    _setOn = true;
                             }
                             if (_setSIM1OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
@@ -174,7 +176,7 @@ class ActivateProfileHelper {
                             //boolean _isSIM2On = isSIMOn(appContext, 2);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM2On="+_isSIM2On);
                             boolean _setSIM2OnOff = false;
-                            boolean _setOn = true;
+                            boolean _setOn;
                             switch (profile._deviceOnOffSIM2) {
                                 case 1:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 1");
@@ -187,6 +189,8 @@ class ActivateProfileHelper {
                                     _setSIM2OnOff = true;
                                     _setOn = false;
                                     break;
+                                default:
+                                    _setOn = true;
                             }
                             if (_setSIM2OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
@@ -432,6 +436,7 @@ class ActivateProfileHelper {
                                 if (isWifiAPEnabled) {
                                     isWifiAPEnabled = false;
                                     setWifiAPState = true;
+                                    //noinspection ConstantConditions
                                     canChangeWifi = true;
                                 }
                                 break;
@@ -442,6 +447,7 @@ class ActivateProfileHelper {
                                 setWifiAPState = true;
                                 doNotChangeWifi = profile._deviceWiFiAP == 5;
                                 if (doNotChangeWifi)
+                                    //noinspection ConstantConditions
                                     canChangeWifi = true;
                                 else
                                     canChangeWifi = !isWifiAPEnabled;
@@ -474,6 +480,7 @@ class ActivateProfileHelper {
                             if (isWifiAPEnabled) {
                                 isWifiAPEnabled = false;
                                 setWifiAPState = true;
+                                //noinspection ConstantConditions
                                 canChangeWifi = true;
                             }
                             break;
@@ -484,6 +491,7 @@ class ActivateProfileHelper {
                             setWifiAPState = true;
                             doNotChangeWifi = profile._deviceWiFiAP == 5;
                             if (doNotChangeWifi)
+                                //noinspection ConstantConditions
                                 canChangeWifi = true;
                             else
                                 canChangeWifi = !isWifiAPEnabled;

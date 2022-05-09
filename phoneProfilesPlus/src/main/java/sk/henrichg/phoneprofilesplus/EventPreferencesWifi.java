@@ -624,6 +624,7 @@ class EventPreferencesWifi extends EventPreferences {
                                                 i++;
                                             }
 
+                                            //noinspection ConstantConditions
                                             done = false;
                                             if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY) {
                                                 eventsHandler.wifiPassed = true;

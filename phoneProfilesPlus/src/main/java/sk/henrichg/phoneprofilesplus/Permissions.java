@@ -711,6 +711,7 @@ class Permissions {
             if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                 grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                //noinspection ConstantConditions
                 grantedAccessBackgroundLocation = true;
                 if (Build.VERSION.SDK_INT >= 29)
                     grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;

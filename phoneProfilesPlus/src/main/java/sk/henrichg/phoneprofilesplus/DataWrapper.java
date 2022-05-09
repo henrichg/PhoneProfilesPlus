@@ -909,6 +909,7 @@ public class DataWrapper {
                         }
                     }
 
+                    //noinspection ConstantConditions
                     if (shortcuts.size() > 0)
                         shortcutManager.setDynamicShortcuts(shortcuts);
                 }

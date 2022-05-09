@@ -148,6 +148,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                 int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
                 switch (zenMode) {
                     case ActivateProfileHelper.ZENMODE_ALL:
+                        //noinspection ConstantConditions
                         interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
                         break;
                     case ActivateProfileHelper.ZENMODE_PRIORITY:

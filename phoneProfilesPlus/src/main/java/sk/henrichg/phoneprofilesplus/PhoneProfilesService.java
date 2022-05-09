@@ -5928,6 +5928,7 @@ public class PhoneProfilesService extends Service
                 monochromeValue = 0xE0;
                 break;
             case "100":
+                //noinspection ConstantConditions
                 monochromeValue = 0xFF;
                 break;
         }
@@ -5972,6 +5973,7 @@ public class PhoneProfilesService extends Service
                     switch (notificationPrefIndicatorLightness) {
                         case "0":
                             prefIndicatorLightnessValue = -128f;
+                            //noinspection ConstantConditions
                             prefIndicatorMonochromeValue = 0x00;
                             break;
                         case "12":

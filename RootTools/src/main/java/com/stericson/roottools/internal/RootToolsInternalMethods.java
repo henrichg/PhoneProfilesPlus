@@ -54,6 +54,7 @@ public final class RootToolsInternalMethods {
     // # Internal methods #
     // --------------------
 
+    @SuppressWarnings("ProtectedMemberInFinalClass")
     protected RootToolsInternalMethods() {
     }
 

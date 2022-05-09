@@ -61,7 +61,7 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
             }
         }*/
 
-        preference.dualSIMSupported = false;
+        //preference.dualSIMSupported = false;
 
         //if (transactionCodeVoice != -1) {
             preference.dualSIMSupported = true;

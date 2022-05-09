@@ -111,6 +111,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         break;
                     case Event.ESTATUS_STOP:
                         //if (isRunnable)
+                        //noinspection ConstantConditions
                         statusRes = R.drawable.ic_event_status_stop;
                         //statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
                         //else

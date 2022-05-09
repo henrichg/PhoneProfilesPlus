@@ -622,6 +622,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                             i++;
                                         }
 
+                                        //noinspection ConstantConditions
                                         done = false;
                                         if (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY) {
                                             eventsHandler.bluetoothPassed = true;

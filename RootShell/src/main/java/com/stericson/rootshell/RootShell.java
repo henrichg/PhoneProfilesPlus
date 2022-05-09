@@ -272,6 +272,7 @@ public class RootShell {
                     RootShell.log(binaryName + " was found here: " + path);
                     foundPaths.add(path);
 
+                    //noinspection ConstantConditions
                     if(foundPaths.size() > 0 && singlePath) {
                         break;
                     }

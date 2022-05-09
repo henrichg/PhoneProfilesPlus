@@ -1007,7 +1007,8 @@ class EventPreferencesTime extends EventPreferences {
                                             //if (inOneHour)
                                             //    idx = daysIndex+1;
                                             //else
-                                                idx = daysIndex;
+                                            //noinspection ConstantConditions
+                                            idx = daysIndex;
 
                                             if (twilightDaysSunset[idx] != -1)
                                                 calEndTime.setTimeInMillis(twilightDaysSunset[idx]);

@@ -2414,7 +2414,7 @@ public class EditorActivity extends AppCompatActivity
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
                             }
@@ -2439,7 +2439,7 @@ public class EditorActivity extends AppCompatActivity
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
-                                    isGranted = false;
+                                    //isGranted = false;
                                 }
 //                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
                             }
@@ -5046,7 +5046,7 @@ public class EditorActivity extends AppCompatActivity
                                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                                     isGranted = true;
                                                 } catch (Exception e) {
-                                                    isGranted = false;
+                                                    //isGranted = false;
                                                 }
                                             }
                                             if (!isGranted) {
@@ -5066,7 +5066,7 @@ public class EditorActivity extends AppCompatActivity
                                                         contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                                         isGranted = true;
                                                     } catch (Exception e) {
-                                                        isGranted = false;
+                                                        //isGranted = false;
                                                     }
                                                 }
                                                 if (!isGranted) {
@@ -5089,7 +5089,7 @@ public class EditorActivity extends AppCompatActivity
                                                         contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                                         isGranted = true;
                                                     } catch (Exception e) {
-                                                        isGranted = false;
+                                                        //isGranted = false;
                                                     }
                                                 }
                                                 if (!isGranted) {
@@ -5112,7 +5112,7 @@ public class EditorActivity extends AppCompatActivity
                                                         contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                                         isGranted = true;
                                                     } catch (Exception e) {
-                                                        isGranted = false;
+                                                        //isGranted = false;
                                                     }
                                                 }
                                                 if (!isGranted) {
@@ -5132,7 +5132,7 @@ public class EditorActivity extends AppCompatActivity
                                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                                     isGranted = true;
                                                 } catch (Exception e) {
-                                                    isGranted = false;
+                                                    //isGranted = false;
                                                 }
                                             }
                                             if (!isGranted) {
@@ -5152,7 +5152,7 @@ public class EditorActivity extends AppCompatActivity
                                                         contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                                         isGranted = true;
                                                     } catch (Exception e) {
-                                                        isGranted = false;
+                                                        //isGranted = false;
                                                     }
                                                 }
                                                 if (!isGranted) {
@@ -5375,6 +5375,7 @@ public class EditorActivity extends AppCompatActivity
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
                                 ret = 0;*/
+                            //noinspection ConstantConditions
                             ret = 1;
                         } else
                             ret = 0;

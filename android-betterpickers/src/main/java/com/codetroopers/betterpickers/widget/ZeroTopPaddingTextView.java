@@ -77,6 +77,7 @@ public class ZeroTopPaddingTextView extends TextView {
         if (getPaint().getTypeface() != null && getPaint().getTypeface().equals(Typeface.DEFAULT_BOLD)) {
             //noinspection ConstantConditions
             paddingRatio = BOLD_FONT_PADDING_RATIO;
+            //noinspection ConstantConditions
             bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
         }
         /*if (getTypeface() != null && getTypeface().equals(SAN_SERIF_BOLD)) {
