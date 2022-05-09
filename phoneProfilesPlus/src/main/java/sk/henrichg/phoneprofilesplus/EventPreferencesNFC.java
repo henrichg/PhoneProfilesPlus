@@ -121,14 +121,14 @@ class EventPreferencesNFC extends EventPreferences {
         if (key.equals(PREF_EVENT_NFC_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
             }
         }
 
         if (key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
             if (preference != null) {
@@ -143,7 +143,7 @@ class EventPreferencesNFC extends EventPreferences {
             } catch (Exception e) {
                 delay = 5;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
         }
 
         Event event = new Event();
@@ -154,7 +154,7 @@ class EventPreferencesNFC extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NFC_NFC_TAGS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
         }
     }
 
@@ -204,7 +204,7 @@ class EventPreferencesNFC extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NFC_TAG).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }

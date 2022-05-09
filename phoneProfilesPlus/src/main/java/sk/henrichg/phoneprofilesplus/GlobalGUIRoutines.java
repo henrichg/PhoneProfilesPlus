@@ -331,7 +331,7 @@ class GlobalGUIRoutines {
     }
 
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
-                                         boolean bold, //boolean addBullet,
+                                         boolean bold, boolean addArrows,
                                          boolean underline, boolean errorColor)
     {
         if (preference != null) {
@@ -355,6 +355,9 @@ class GlobalGUIRoutines {
                 //    title = TextUtils.concat("[!] ", title);
                 if (bold)
                     title = TextUtils.concat("• ", title);
+                else
+                if (addArrows)
+                    title = TextUtils.concat("» ", title);
 
                 //}
                 Spannable sbt = new SpannableString(title);
@@ -374,7 +377,7 @@ class GlobalGUIRoutines {
                     if (underline) {
                         //if (preference.getKey().equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_APPLICATIONS))
                         //    Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "(3)");
-                        if (bold) // && addBullet)
+                        if (bold)
                             sbt.setSpan(new UnderlineSpan(), 2, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         else
                             sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
