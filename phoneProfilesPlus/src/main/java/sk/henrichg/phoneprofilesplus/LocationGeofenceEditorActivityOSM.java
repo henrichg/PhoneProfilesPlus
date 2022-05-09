@@ -752,8 +752,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             errorLocationRunnable = () -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.startLocationUpdates");
                 if (!activity.isFinishing() && !activity.isDestroyed()) {
-                    if ((!CheckOnlineStatusBroadcastReceiver.isOnline(getApplicationContext())) ||
-                            (activity.mLastLocation == null)) {
+                    if (activity.mLastLocation == null) {
 //                        Log.e("LocationGeofenceEditorActivityOSM.startLocationUpdates", "************** show error dialog from handler");
                         showErrorLocationDialog();
                     }
@@ -825,8 +824,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             }
         }
 
-        if (((!CheckOnlineStatusBroadcastReceiver.isOnline(getApplicationContext())) ||
-                (!mListenerEnabled) || (!locationEnabled)) && showErrorDialog) {
+        if (((!mListenerEnabled) || (!locationEnabled)) && showErrorDialog) {
 //            Log.e("LocationGeofenceEditorActivityOSM.startLocationUpdates", "************** show error dialog");
             showErrorLocationDialog();
         }
