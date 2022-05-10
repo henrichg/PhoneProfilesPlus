@@ -1927,7 +1927,7 @@
     <string name="accessibility_service_not_used">Not used</string>
     <string name="preference_not_used_extender_reason">Reason:</string>
 
-    <string name="location_editor_enable_location_summary">Sorry, is not possible to get location. Please enable Location and Wi-Fi scanning in System Settings. Also connect device to network if not already connected. Without this, location not working.</string>
+    <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and Wi-Fi scanning in System Settings.\nAlso connect device to network if is not already connected.</string>
 
     <!-- **************************************************************************************** -->
 
