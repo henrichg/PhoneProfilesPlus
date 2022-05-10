@@ -9,8 +9,8 @@
       android:fillColor="#00a000"
       android:fillType="evenOdd"/>
   <path
-      android:pathData="M3.97,33.64a29.67,29.48 0,1 0,59.34 0a29.67,29.48 0,1 0,-59.34 0z"
-      android:strokeWidth="0.232624"
+      android:pathData="M33.64,33.64m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0"
+      android:strokeWidth="0.220225"
       android:fillColor="#ffffff"
       android:fillType="evenOdd"/>
   <path
@@ -19,8 +19,8 @@
       android:fillColor="#ff9000"
       android:fillType="evenOdd"/>
   <path
-      android:pathData="M77.86,33.64a29.67,29.48 0,1 0,59.34 0a29.67,29.48 0,1 0,-59.34 0z"
-      android:strokeWidth="0.232624"
+      android:pathData="M107.53,33.64m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0"
+      android:strokeWidth="0.220225"
       android:fillColor="#ffffff"
       android:fillType="evenOdd"/>
   <path
@@ -29,8 +29,8 @@
       android:fillColor="#dc0000"
       android:fillType="evenOdd"/>
   <path
-      android:pathData="M151.76,33.64a29.67,29.48 0,1 0,59.34 0a29.67,29.48 0,1 0,-59.34 0z"
-      android:strokeWidth="0.232624"
+      android:pathData="M181.43,33.64m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0"
+      android:strokeWidth="0.220225"
       android:fillColor="#dc0000"
       android:fillType="evenOdd"/>
 </vector>
