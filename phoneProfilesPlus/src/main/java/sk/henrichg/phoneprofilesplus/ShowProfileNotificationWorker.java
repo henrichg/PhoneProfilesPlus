@@ -23,8 +23,8 @@ public class ShowProfileNotificationWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- START");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- START");
 
             synchronized (PPApplication.applicationPreferencesMutex) {
                 if (PPApplication.doNotShowProfileNotification) {
@@ -55,9 +55,9 @@ public class ShowProfileNotificationWorker extends Worker {
                 }
             }
 
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             PPApplication.recordException(e);

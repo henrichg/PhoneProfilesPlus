@@ -21,7 +21,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
-        //CallsCounter.logCounter(context, "LocationScannerSwitchGPSBroadcastReceiver.onReceive", "LocationScannerSwitchGPSBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 

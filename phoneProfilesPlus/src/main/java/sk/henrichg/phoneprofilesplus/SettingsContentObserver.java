@@ -193,8 +193,6 @@ class SettingsContentObserver  extends ContentObserver {
         else
             okSetting = true;
 
-        //CallsCounter.logCounter(context, "SettingsContentObserver.onChange", "SettingsContentObserver_onChange");
-
         if (!okSetting)
             return;
 

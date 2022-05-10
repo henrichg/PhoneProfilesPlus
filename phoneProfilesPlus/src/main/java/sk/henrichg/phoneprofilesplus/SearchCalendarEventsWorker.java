@@ -34,12 +34,10 @@ public class SearchCalendarEventsWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- START");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- START");
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- START");
-
-            //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.doWork", "SearchCalendarEventsWorker_doWork");
 
             if (!PPApplication.getApplicationStarted(true)) {
                 // application is not started
@@ -99,9 +97,9 @@ public class SearchCalendarEventsWorker extends Worker {
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
 
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("SearchCalendarEventsWorker.doWork", Log.getStackTraceString(e));
@@ -119,8 +117,6 @@ public class SearchCalendarEventsWorker extends Worker {
 
     public void onStopped () {
 //        PPApplication.logE("[IN_LISTENER] SearchCalendarEventsWorker.onStopped", "xxx");
-
-        //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.onStopped", "SearchCalendarEventsWorker_onStopped");
     }
 
     private static void _scheduleWork(final boolean shortInterval) {

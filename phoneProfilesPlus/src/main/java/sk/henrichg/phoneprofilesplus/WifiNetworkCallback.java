@@ -50,8 +50,6 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 //        PPApplication.logE("[TEST BATTERY] WifiNetworkCallback.doConnection", "xxx");
 //        PPApplication.logE("[TEST BATTERY] WifiNetworkCallback.doConnection", "current thread="+Thread.currentThread());
 
-        //CallsCounter.logCounter(context, "WifiNetworkCallback.doConnection", "WifiNetworkCallback_doConnection");
-
         //final Context appContext = getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
@@ -95,8 +93,6 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     private void doConnection() {
 //        PPApplication.logE("[TEST BATTERY] WifiNetworkCallback.doConnection", "xxx");
 //        PPApplication.logE("[TEST BATTERY] WifiNetworkCallback.doConnection", "current thread="+Thread.currentThread());
-
-        //CallsCounter.logCounter(context, "WifiNetworkCallback.doConnection", "WifiNetworkCallback_doConnection");
 
         //final Context appContext = getApplicationContext();
 

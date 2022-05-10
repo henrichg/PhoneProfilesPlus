@@ -533,18 +533,6 @@
                 android:resource="@xml/samsung_edge"/>
         </receiver>
 
-        <!-- pending intents -->
-        <!--
-        <receiver
-            android:name=".SIPCallBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL"/>
-            </intent-filter>
-        </receiver>
-        -->
-
         <!-- main service -->
         <service
             android:name=".PhoneProfilesService"

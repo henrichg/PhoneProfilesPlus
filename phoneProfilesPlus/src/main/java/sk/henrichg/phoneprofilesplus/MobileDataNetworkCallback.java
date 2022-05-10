@@ -49,8 +49,6 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 //        PPApplication.logE("[TEST BATTERY] MobileDataNetworkCallback.doConnection", "xxx");
 //        PPApplication.logE("[TEST BATTERY] MobileDataNetworkCallback.doConnection", "current thread="+Thread.currentThread());
 
-        //CallsCounter.logCounter(context, "MobileDataNetworkCallback.doConnection", "MobileDataNetworkCallback_doConnection");
-
         //final Context appContext = getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))

@@ -413,7 +413,6 @@ class LocationScanner
         if (location.getAccuracy() > 500)
             return;
 
-        //CallsCounter.logCounter(LocationScanner.this.context, "LocationScanner.doLocationChanged", "LocationScannerGMS_doLocationChanged");
         //PPApplication.logE("LocationScanner.doLocationChanged", "location="+location);
 
         synchronized (PPApplication.locationScannerLastLocationMutex) {

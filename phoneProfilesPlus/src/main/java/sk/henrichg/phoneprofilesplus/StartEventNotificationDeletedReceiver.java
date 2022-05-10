@@ -13,7 +13,6 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] StartEventNotificationDeletedReceiver.onReceive", "xxx");
-        //CallsCounter.logCounter(context, "StartEventNotificationDeletedReceiver.onReceive", "StartEventNotificationDeletedReceiver_onReceive");
 
         final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
         final Context appContext = context;

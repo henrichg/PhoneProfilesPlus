@@ -18,8 +18,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","xxx");
 
-        //CallsCounter.logCounter(context, "BluetoothScanBroadcastReceiver.onReceive", "BluetoothScanBroadcastReceiver_onReceive");
-
         if (intent == null)
             return;
 

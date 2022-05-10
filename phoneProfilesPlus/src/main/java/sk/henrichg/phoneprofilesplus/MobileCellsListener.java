@@ -191,7 +191,6 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         //PPApplication.logE("MobileCellsScanner.onCellInfoChanged."+simSlot, "telephonyManager="+telephonyManager);
-        //CallsCounter.logCounter(context, "MobileCellsScanner.onCellInfoChanged."+simSlot, "MobileCellsScanner_onCellInfoChanged");
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellInfoChanged"*/);
@@ -250,7 +249,6 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         //PPApplication.logE("MobileCellsScanner.onServiceStateChanged."+simSlot, "telephonyManager=" + telephonyManager);
-        //CallsCounter.logCounter(context, "MobileCellsScanner.onServiceStateChanged."+simSlot, "MobileCellsScanner_onServiceStateChanged");
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onServiceStateChanged"*/);
@@ -387,7 +385,6 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         //PPApplication.logE("MobileCellsScanner.onCellLocationChanged", "telephonyManager="+telephonyManager);
-        //CallsCounter.logCounter(context, "MobileCellsScanner.onCellLocationChanged", "MobileCellsScanner_onCellLocationChanged");
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellLocationChanged"*/);

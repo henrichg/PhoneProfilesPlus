@@ -13,8 +13,6 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] StartLauncherFromNotificationReceiver.onReceive", "xxx");
 
-        //CallsCounter.logCounter(context, "StartLauncherFromNotificationReceiver.onReceive", "StartLauncherFromNotificationReceiver_onReceive");
-
         if (intent != null) {
             String action = intent.getAction();
             if (action != null) {

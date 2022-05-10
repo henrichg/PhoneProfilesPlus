@@ -25,15 +25,15 @@ public class DisableVolumesInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork", "--------------- START");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork", "--------------- START");
 
 //            PPApplication.logE("[VOLUMES] DisableVolumesInternalChangeWorker.doWork", "internaChange=FALSE");
             EventPreferencesVolumes.internalChange = false;
 
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("DisableVolumesInternalChangeWorker.doWork", Log.getStackTraceString(e));

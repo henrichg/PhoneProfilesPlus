@@ -17,8 +17,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //        else
 //            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
-        //CallsCounter.logCounter(context, "ScreenOnOffBroadcastReceiver.onReceive", "ScreenOnOffBroadcastReceiver_onReceive");
-
         /*if (intent != null)
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
         else

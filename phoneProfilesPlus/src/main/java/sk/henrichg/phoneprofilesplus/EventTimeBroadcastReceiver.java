@@ -11,7 +11,6 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST]  EventTimeBroadcastReceiver.onReceive", "xxx");
-        //CallsCounter.logCounter(context, "EventTimeBroadcastReceiver.onReceive", "EventTimeBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {

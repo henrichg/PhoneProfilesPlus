@@ -51,15 +51,13 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- START");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- START");
 
             //PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "---------------------------------------- START");
 //            Set<String> tags = getTags();
 //            for (String tag : tags)
 //                PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "tag=" + tag);
-
-            //CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -150,9 +148,9 @@ public class WifiScanWorker extends Worker {
 
 //            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
 
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("WifiScanWorker.doWork", Log.getStackTraceString(e));
@@ -170,8 +168,6 @@ public class WifiScanWorker extends Worker {
 
     public void onStopped () {
 //        PPApplication.logE("[IN_LISTENER] WifiScanWorker.onStopped", "xxx");
-
-        //CallsCounter.logCounter(context, "WifiScanWorker.onStopped", "WifiScanWorker_onStopped");
 
         setScanRequest(context, false);
         setWaitForResults(context, false);

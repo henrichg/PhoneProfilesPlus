@@ -31,7 +31,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
-//        CallsCounter.logCounter(context, "CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
 
         if (intent != null) {
 
