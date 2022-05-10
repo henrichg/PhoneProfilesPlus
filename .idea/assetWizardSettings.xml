@@ -82,8 +82,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="fcb21f" />
-                            <entry key="outputName" value="ic_traffic_light_running_light" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../_balast/ic_traffic_light_running_light.svg" />
+                            <entry key="outputName" value="ic_traffic_light_stopped_night" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../_balast/ic_traffic_light_stopped_night.svg" />
                           </map>
                         </option>
                       </PersistentState>
