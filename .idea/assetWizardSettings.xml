@@ -80,8 +80,9 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="fcb21f" />
-                            <entry key="outputName" value="ic_ringtone_external" />
+                            <entry key="outputName" value="ic_traffic_light_stopped_night" />
                             <entry key="sourceFile" value="$PROJECT_DIR$/../_balast/ic_run_events_indicator_stopped_night.svg" />
                           </map>
                         </option>

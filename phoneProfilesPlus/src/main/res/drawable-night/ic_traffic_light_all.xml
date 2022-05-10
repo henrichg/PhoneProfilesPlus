@@ -1,35 +1,35 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="215.06845dp"
-    android:height="67.27976dp"
-    android:viewportWidth="215.06845"
-    android:viewportHeight="67.27976">
+    android:width="215.07dp"
+    android:height="67.28dp"
+    android:viewportWidth="215.07"
+    android:viewportHeight="67.28">
   <path
       android:pathData="M33.64,33.64m-33.64,0a33.64,33.64 0,1 1,67.28 0a33.64,33.64 0,1 1,-67.28 0"
       android:strokeWidth="0.264583"
       android:fillColor="#00d800"
       android:fillType="evenOdd"/>
   <path
-      android:pathData="M3.969,33.64a29.671,29.482 0,1 0,59.342 0a29.671,29.482 0,1 0,-59.342 0z"
+      android:pathData="M3.97,33.64a29.67,29.48 0,1 0,59.34 0a29.67,29.48 0,1 0,-59.34 0z"
       android:strokeWidth="0.232624"
       android:fillColor="#00d800"
       android:fillType="evenOdd"/>
   <path
-      android:pathData="M107.534,33.64m-33.64,0a33.64,33.64 0,1 1,67.28 0a33.64,33.64 0,1 1,-67.28 0"
+      android:pathData="M107.53,33.64m-33.64,0a33.64,33.64 0,1 1,67.28 0a33.64,33.64 0,1 1,-67.28 0"
       android:strokeWidth="0.264583"
-      android:fillColor="#ffde00"
+      android:fillColor="#ffb000"
       android:fillType="evenOdd"/>
   <path
-      android:pathData="M77.863,33.64a29.671,29.482 0,1 0,59.342 0a29.671,29.482 0,1 0,-59.342 0z"
+      android:pathData="M77.86,33.64a29.67,29.48 0,1 0,59.34 0a29.67,29.48 0,1 0,-59.34 0z"
       android:strokeWidth="0.232624"
-      android:fillColor="#ffde00"
+      android:fillColor="#ffb000"
       android:fillType="evenOdd"/>
   <path
-      android:pathData="M181.429,33.64m-33.64,0a33.64,33.64 0,1 1,67.28 0a33.64,33.64 0,1 1,-67.28 0"
+      android:pathData="M181.43,33.64m-33.64,0a33.64,33.64 0,1 1,67.28 0a33.64,33.64 0,1 1,-67.28 0"
       android:strokeWidth="0.264583"
       android:fillColor="#ff0000"
       android:fillType="evenOdd"/>
   <path
-      android:pathData="M151.757,33.64a29.671,29.482 0,1 0,59.342 0a29.671,29.482 0,1 0,-59.342 0z"
+      android:pathData="M151.76,33.64a29.67,29.48 0,1 0,59.34 0a29.67,29.48 0,1 0,-59.34 0z"
       android:strokeWidth="0.232624"
       android:fillColor="#ff0000"
       android:fillType="evenOdd"/>

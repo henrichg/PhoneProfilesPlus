@@ -3093,23 +3093,14 @@ public class EditorActivity extends AppCompatActivity
         {
             //if (ApplicationPreferences.prefEventsBlocked) {
             if (Event.getEventsBlocked(getApplicationContext())) {
-                //if (whiteTheme)
-                //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_white);
-                //else
-                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_v);
+                eventsRunStopIndicator.setImageResource(R.drawable.ic_traffic_light_manual_activation);
             }
             else {
-                //if (whiteTheme)
-                //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running_white);
-                //else
-                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running_v);
+                eventsRunStopIndicator.setImageResource(R.drawable.ic_traffic_light_running);
             }
         }
         else {
-            //if (whiteTheme)
-            //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped_white);
-            //else
-                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped_v);
+            eventsRunStopIndicator.setImageResource(R.drawable.ic_traffic_light_stopped);
         }
     }
 
