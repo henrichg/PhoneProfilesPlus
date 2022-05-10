@@ -343,7 +343,7 @@ class GlobalGUIRoutines {
                 if (s.startsWith("• "))
                     title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
 
-                // remove arrows -
+                // remove arrows
                 if (s.startsWith("» "))
                     title = TextUtils.replace(title, new String[]{"» "}, new CharSequence[]{""});
 
