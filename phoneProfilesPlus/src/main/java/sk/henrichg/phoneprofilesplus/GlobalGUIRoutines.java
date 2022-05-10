@@ -337,13 +337,15 @@ class GlobalGUIRoutines {
         if (preference != null) {
             CharSequence title = preference.getTitle();
             if (title != null) {
-                //if (addBullet) {
-
                 // remove bullet
                 String s = title.toString();
                 title = s;
                 if (s.startsWith("• "))
                     title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
+
+                // remove arrows
+                if (s.startsWith("» "))
+                    title = TextUtils.replace(title, new String[]{"» "}, new CharSequence[]{""});
 
                 // remove underline
                 //s = title.toString();
