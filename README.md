@@ -93,6 +93,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - Google Material components - https://github.com/material-components/material-components-android
 - google-gson - https://code.google.com/p/google-gson/
 - ACRA - https://github.com/ACRA/acra
+- guava - https://github.com/google/guava
 - osmdroid - https://github.com/osmdroid/osmdroid
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - doki - https://github.com/DoubleDotLabs/doki
