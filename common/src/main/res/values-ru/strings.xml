@@ -1370,8 +1370,6 @@
     <string name="array_pref_locationModeArray_highAccuracy">По всем источникам</string>
     <string name="colorChooser_pref_dialog_customIconColor">Пользовательский цвет иконки</string>
     <string name="colorChooser_pref_dialog_customColor">Пользовательский цвет</string>
-    <string name="background_jobs_not_working_alert_title">Ошибка при запуске PhoneProfilesPlus</string>
-    <string name="background_jobs_not_working_alert_message">Не удалось запустить фоновые задачи. Перезагрузите, пожалуйста, устройство. Спасибо.</string>
     <string name="array_pref_wifiAPModeArray_on_keepWifi">Включить (не отключая Wi-Fi)</string>
     <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Переключить (не отключая Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Игнорировать точку доступа Wi-Fi</string>
@@ -1418,7 +1416,6 @@
     <string name="profile_activation_activation_error_change_wifi">Ошибка при активации профиля. Не удалось изменить состояние Wi-Fi.</string>
     <string name="profile_activation_activation_error_close_all_applications">Ошибка при активации профиля. Не удалось закрыть все приложения.</string>
     <string name="menu_check_github_releases">Проверить релизы</string>
-    <string name="check_github_releases_actual_version">Актуальная версия:</string>
     <string name="check_github_releases_go_to_github">Перейти к релизам на GitHub</string>
     <string name="check_github_releases_install_info_1">Загрузите последнюю версию PhoneProfilesPlus.apk с GitHub. Затем нажмите на уведомление о загруженном apk и установите его.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk находится в</string>
@@ -1504,7 +1501,6 @@
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Только на весь день</string>
     <string name="altype_applicationSystemRestart">перезапуск приложения системой</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">не предоставлено разрешение \"Телефон\"</string>
-    <string name="application_cannot_be_started_button_restart">Перезапустить приложение</string>
     <string name="contact_group_name_myContacts">Мои контакты</string>
     <string name="contact_group_name_family">Семья</string>
     <string name="contact_group_name_friends">Друзья</string>
@@ -1625,9 +1621,6 @@
     <string name="profile_preferences_volumeMediaInfo_summary">Если изменение уровня громкости медиа не работает, это может происходить из-за включённого \"признака безопасного уровня громкости\". Если вы хотите отключить его, предоставьте необходимое для этого разрешение (G1).</string>
     <string name="menu_check_releases_galaxy_store">Проверить в Galaxy Store</string>
     <string name="check_releases_open_galaxy_store">Открыть Galaxy Store</string>
-    <string name="menu_check_releases_amazon_appstore">Проверить в Amazon Appstore</string>
-    <string name="check_releases_amazon_appstore_application">Сайт для установки приложения Amazon Appstore:</string>
-    <string name="check_releases_open_amazon_appstore">Открыть Amazon Appstore</string>
     <string name="applicationApplicationInterfaceActivationNotification">Уведомление об активации профиля</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Добавить \"Перезапустить события\" в список профилей</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Сканирование Bluetooth по времени</string>
@@ -1831,7 +1824,7 @@
     <string name="editor_activity_targetHelps_bottomNavigation_description">Нажмите сюда, чтобы переключиться между экранами со списками профилей и событий.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help">Пользовательская иконка из набора иконок</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Если вы хотите использовать иконки из набора иконок, установите приложение, умеющее извлекать иконки из установленного набора иконок в виде png-файлов.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Пример приложения</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Например, приложение</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Оно старое, но работает даже на последней версии Android.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Ищите его в Google Play.</string>
     <string name="popup_window_close_button_name">Закрыть</string>
@@ -1899,7 +1892,6 @@
     <string name="profile_preferences_endOfEventNotificationCategory">Уведомление об окончании события</string>
     <string name="profile_preferences_darkModeInfo_summary">Примечание: Этот параметр закрывает все запущенные приложения.</string>
     <string name="check_releases_appgallery_application">Сайт для установки приложения Huawei AppGallery:</string>
-    <string name="check_releases_go_to_amazon_appstore">Перейти в Amazon Appstore</string>
     <string name="check_releases_apkpure_appstore_application">Сайт для установки приложения ApkPure:</string>
     <string name="check_releases_go_to_appgallery">Перейти в AppGallery</string>
     <string name="phone_profiles_pref_applicationWidgetLayoutHeight">Высота макета</string>
@@ -1915,6 +1907,10 @@
     <string name="profile_preferences_applicationEnableMobileCellScanning">Включить сканирование мобильных вышек</string>
     <string name="profile_preferences_applicationEnableOrientationScanning">Включить сканирование ориентации</string>
     <string name="profile_preferences_applicationEnableNotificationScanning">Включить сканирование уведомлений</string>
+    <string name="check_github_releases_installed_version">Installed version:</string>
+    <string name="accessibility_service_not_used">Not used</string>
+    <string name="preference_not_used_extender_reason">Reason:</string>
+    <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender для PhoneProfilesPlus. Он работает только вместе с PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Версия:</string>
@@ -2020,4 +2016,12 @@
     <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>-->
     <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
+    <!--    <string name="check_github_releases_actual_version">Actual version:</string>-->
+    <!--    <string name="background_jobs_not_working_alert_title">Error on start of PhoneProfilesPlus</string>-->
+    <!--    <string name="background_jobs_not_working_alert_message">Background jobs was not started. Please do reboot of device. Thank you.</string>-->
+    <!--    <string name="application_cannot_be_started_button_restart">Restart application</string>-->
+    <!--    <string name="menu_check_releases_amazon_appstore">Check in Amazon Appstore</string>-->
+    <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
+    <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
+    <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
 </resources>

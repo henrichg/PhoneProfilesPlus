@@ -416,7 +416,7 @@
     <string name="event_preferences_battery_power_save_mode">Power save mode</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Power save mode settings</string>
     <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, it is not possible to change the level of \"Adaptive brightness\" on non-rooted devices.</string>
-    <string name="important_info_profile_wifiScanning_location">In Android 6+, for Wi-Fi scanning to work, you must enable Location and Wi-Fi scanning in Location settings.</string>
+    <string name="important_info_profile_wifiScanning_location">In Android 6+, for Wi-Fi scanning to work, you must enable Location and \"Wi-Fi scanning\" in Location settings.</string>
     <string name="important_info_profile_bluetoothScanning_location">In Android 6+, for Bluetooth LE scanning to work, you must enable Location and Bluetooth scanning in Location settings.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Power save mode</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (seconds)</string>
@@ -842,7 +842,7 @@
     <string name="duration_pref_dlg_activation_hours_label">Hours:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minutes:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Seconds:</string>
-    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Please enable Location and Wi-Fi scanning in System Settings. Without this, Wi-fi scanning will not work.</string>
+    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Please enable Location and \"Wi-Fi scanning\" in System Settings. Without this, Wi-fi scanning will not work.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Keep Wi-Fi on\" system setting</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary">Please configure \"Keep Wi-Fi on during sleep\" to \"Always\". Without this, Wi-Fi scanning will not work during device sleep.</string>
@@ -1927,7 +1927,7 @@
     <string name="accessibility_service_not_used">Not used</string>
     <string name="preference_not_used_extender_reason">Reason:</string>
 
-    <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and Wi-Fi scanning in System Settings.\nAlso connect device to network if is not already connected.</string>
+    <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
 
     <!-- **************************************************************************************** -->
 
