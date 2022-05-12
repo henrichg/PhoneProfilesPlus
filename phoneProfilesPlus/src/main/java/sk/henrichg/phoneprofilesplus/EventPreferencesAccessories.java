@@ -175,7 +175,10 @@ class EventPreferencesAccessories extends EventPreferences {
                             //noinspection StringConcatenationInLoop
                             accessoryType = accessoryType + ", ";
                         //noinspection StringConcatenationInLoop
-                        accessoryType = accessoryType + accessoryTypeNames[Arrays.asList(accessoryTypeValues).indexOf(s)];
+                        int pos = Arrays.asList(accessoryTypeValues).indexOf(s);
+                        if (pos != -1)
+                            //noinspection StringConcatenationInLoop
+                            accessoryType = accessoryType + accessoryTypeNames[pos];
                     }
                 }
                 if (accessoryType.isEmpty())

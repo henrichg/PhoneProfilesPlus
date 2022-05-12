@@ -444,7 +444,11 @@ public class EditorEventListFragment extends Fragment
         orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)orderSpinner.getAdapter()).setSelection(position);
+                if (orderSpinner.getAdapter() != null) {
+                    //if (orderSpinner.getAdapter().getCount() <= position)
+                    //    position = 0;
+                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) orderSpinner.getAdapter()).setSelection(position);
+                }
                 if (position != orderSelectedItem)
                     changeEventOrder(position, false);
             }
@@ -1836,7 +1840,10 @@ public class EditorEventListFragment extends Fragment
     }
 
     private void changeEventOrder(int position, boolean fromOnViewCreated) {
-        orderSelectedItem = position;
+        if ((orderSpinner.getAdapter() == null) || (orderSpinner.getAdapter().getCount() >= position))
+            orderSelectedItem = 0;
+        else
+            orderSelectedItem = position;
 
         if (filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) {
             // save into shared preferences

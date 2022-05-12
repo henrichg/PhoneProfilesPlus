@@ -225,7 +225,9 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     if (!s.isEmpty()) {
                         if (!values.isEmpty())
                             values = values + ", ";
-                        values = values + sNames[Arrays.asList(sValues).indexOf(s)];
+                        int pos = Arrays.asList(sValues).indexOf(s);
+                        if (pos != -1)
+                            values = values + sNames[pos];
                     }
                 }
                 if (values.isEmpty())
@@ -245,7 +247,9 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     if (!s.isEmpty()) {
                         if (!values.isEmpty())
                             values = values + ", ";
-                        values = values + sNames[Arrays.asList(sValues).indexOf(s)];
+                        int pos = Arrays.asList(sValues).indexOf(s);
+                        if (pos != -1)
+                            values = values + sNames[pos];
                     }
                 }
                 if (values.isEmpty())
@@ -325,10 +329,13 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     String[] sValues = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
                     for (String s : set) {
                         if (!s.isEmpty()) {
-                            String value = sValues[Arrays.asList(sValues).indexOf(s)];
-                            if (value.equals(RINGER_MODE_DO_NOT_DISTURB_VALUE)) {
-                                // checked is "Do not disturb"
-                                checked = true;
+                            int pos = Arrays.asList(sValues).indexOf(s);
+                            if (pos != -1) {
+                                String value = sValues[pos];
+                                if (value.equals(RINGER_MODE_DO_NOT_DISTURB_VALUE)) {
+                                    // checked is "Do not disturb"
+                                    checked = true;
+                                }
                             }
                         }
                     }

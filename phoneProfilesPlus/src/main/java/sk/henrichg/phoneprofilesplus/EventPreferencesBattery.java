@@ -258,7 +258,9 @@ class EventPreferencesBattery extends EventPreferences {
                     if (!s.isEmpty()) {
                         if (!plugged.isEmpty())
                             plugged = plugged + ", ";
-                        plugged = plugged + pluggedNames[Arrays.asList(pluggedValues).indexOf(s)];
+                        int pos = Arrays.asList(pluggedValues).indexOf(s);
+                        if (pos != -1)
+                            plugged = plugged + pluggedNames[pos];
                     }
                 }
                 if (plugged.isEmpty())

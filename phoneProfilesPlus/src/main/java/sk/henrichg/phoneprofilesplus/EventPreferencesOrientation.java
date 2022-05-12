@@ -199,7 +199,9 @@ class EventPreferencesOrientation extends EventPreferences {
                         for (String s : splits) {
                             if (!selectedValues.isEmpty())
                                 selectedValues = selectedValues + ", ";
-                            selectedValues = selectedValues + sideNames[Arrays.asList(sideValues).indexOf(s)];
+                            int pos = Arrays.asList(sideValues).indexOf(s);
+                            if (pos != -1)
+                                selectedValues = selectedValues + sideNames[pos];
                         }
                     }
                     descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + selectedValues + "</b>";
@@ -511,7 +513,9 @@ class EventPreferencesOrientation extends EventPreferences {
                     if (!s.isEmpty()) {
                         if (!sides.isEmpty())
                             sides = sides + ", ";
-                        sides = sides + sideNames[Arrays.asList(sideValues).indexOf(s)];
+                        int pos = Arrays.asList(sideValues).indexOf(s);
+                        if (pos != -1)
+                            sides = sides + sideNames[pos];
                     }
                 }
                 if (sides.isEmpty())
@@ -532,7 +536,9 @@ class EventPreferencesOrientation extends EventPreferences {
                     if (!s.isEmpty()) {
                         if (!sides.isEmpty())
                             sides = sides + ", ";
-                        sides = sides + sideNames[Arrays.asList(sideValues).indexOf(s)];
+                        int pos = Arrays.asList(sideValues).indexOf(s);
+                        if (pos != -1)
+                            sides = sides + sideNames[pos];
                     }
                 }
                 if (sides.isEmpty())

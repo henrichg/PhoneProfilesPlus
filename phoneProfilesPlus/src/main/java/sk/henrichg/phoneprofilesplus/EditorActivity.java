@@ -523,8 +523,13 @@ public class EditorActivity extends AppCompatActivity
                     filterInitialized = true;
                     return;
                 }
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
-//                Log.e("EditorActivity.filterSpinner.onItemSelected", "position=" + position);
+                if (filterSpinner.getAdapter() != null) {
+                    //if (filterSpinner.getAdapter().getCount() <= position)
+                    //    position = 0;
+                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
+                }
+
+                //Log.e("EditorActivity.filterSpinner.onItemSelected", "position=" + position);
                 selectFilterItem(editorSelectedView, position, true/*, true*/);
             }
 
@@ -1464,10 +1469,16 @@ public class EditorActivity extends AppCompatActivity
         int filterSelectedItem;
         if (selectedView == 0) {
 //            PPApplication.logE("EditorActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
-            filterSelectedItem = filterProfilesSelectedItem;
+            if ((filterSpinner.getAdapter() == null) || (filterSpinner.getAdapter().getCount() <= filterProfilesSelectedItem))
+                filterSelectedItem = 0;
+            else
+                filterSelectedItem = filterProfilesSelectedItem;
         }
         else {
 //            PPApplication.logE("EditorActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
+            if ((filterSpinner.getAdapter() == null) || (filterSpinner.getAdapter().getCount() <= filterEventsSelectedItem))
+                filterSelectedItem = 0;
+            else
             filterSelectedItem = filterEventsSelectedItem;
         }
 
@@ -1490,12 +1501,25 @@ public class EditorActivity extends AppCompatActivity
 
             editorSelectedView = selectedView;
             if (editorSelectedView == 0) {
-                filterProfilesSelectedItem = position;
+                if ((filterSpinner.getAdapter() == null) || (filterSpinner.getAdapter().getCount() <= position)) {
+                    filterProfilesSelectedItem = 0;
+                    filterSelectedItem = ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE;
+                }
+                else {
+                    filterProfilesSelectedItem = position;
+                    filterSelectedItem = position;
+                }
             }
             else {
-                filterEventsSelectedItem = position;
+                if ((filterSpinner.getAdapter() == null) || (filterSpinner.getAdapter().getCount() <= position)) {
+                    filterEventsSelectedItem = 0;
+                    filterSelectedItem = ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE;
+                }
+                else {
+                    filterEventsSelectedItem = position;
+                    filterSelectedItem = position;
+                }
             }
-            filterSelectedItem = position;
             //PPApplication.logE("EditorActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
 
             // save into shared preferences
@@ -2860,9 +2884,10 @@ public class EditorActivity extends AppCompatActivity
                             }
                             if (changeFilter) {
                                 fragment.scrollToProfile = profile;
-                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                                        .setSelection(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
 //                                Log.e("EditorActivity.redrawProfileListFragment", "position=0");
-                                editorActivity.selectFilterItem(0, 0, false/*, true*/);
+                                editorActivity.selectFilterItem(0, ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                             }
                             else
                                 fragment.scrollToProfile = null;
@@ -3044,9 +3069,10 @@ public class EditorActivity extends AppCompatActivity
                             }
                             if (changeFilter) {
                                 fragment.scrollToEvent = event;
-                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                                        .setSelection(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
 //                                Log.e("EditorActivity.redrawEventListFragment", "position=0");
-                                editorActivity.selectFilterItem(1, 0, false/*, true*/);
+                                editorActivity.selectFilterItem(1, ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                             }
                             else
                                 fragment.scrollToEvent = null;

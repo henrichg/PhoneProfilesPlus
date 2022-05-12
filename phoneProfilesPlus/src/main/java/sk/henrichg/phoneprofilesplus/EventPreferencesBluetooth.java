@@ -116,11 +116,13 @@ class EventPreferencesBluetooth extends EventPreferences {
                     }
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
-                String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
                 String[] connectionListTypes = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeValues);
                 int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
-                descr = descr + ": <b>" + connectionListTypeNames[index] + "</b> • ";
+                if (index != -1) {
+                    descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
+                    String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
+                    descr = descr + ": <b>" + connectionListTypeNames[index] + "</b> • ";
+                }
 
                 /*
                 if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
