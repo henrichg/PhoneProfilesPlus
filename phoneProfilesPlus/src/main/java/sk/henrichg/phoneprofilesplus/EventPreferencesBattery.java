@@ -256,11 +256,12 @@ class EventPreferencesBattery extends EventPreferences {
                 String[] pluggedNames = context.getResources().getStringArray(R.array.eventBatteryPluggedArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!plugged.isEmpty())
-                            plugged = plugged + ", ";
                         int pos = Arrays.asList(pluggedValues).indexOf(s);
-                        if (pos != -1)
+                        if (pos != -1) {
+                            if (!plugged.isEmpty())
+                                plugged = plugged + ", ";
                             plugged = plugged + pluggedNames[pos];
+                        }
                     }
                 }
                 if (plugged.isEmpty())

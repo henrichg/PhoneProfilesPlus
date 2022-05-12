@@ -223,11 +223,12 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 String[] sNames = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!values.isEmpty())
-                            values = values + ", ";
                         int pos = Arrays.asList(sValues).indexOf(s);
-                        if (pos != -1)
+                        if (pos != -1) {
+                            if (!values.isEmpty())
+                                values = values + ", ";
                             values = values + sNames[pos];
+                        }
                     }
                 }
                 if (values.isEmpty())
@@ -245,11 +246,12 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 String[] sNames = context.getResources().getStringArray(R.array.eventSoundProfileZenModeArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!values.isEmpty())
-                            values = values + ", ";
                         int pos = Arrays.asList(sValues).indexOf(s);
-                        if (pos != -1)
+                        if (pos != -1) {
+                            if (!values.isEmpty())
+                                values = values + ", ";
                             values = values + sNames[pos];
+                        }
                     }
                 }
                 if (values.isEmpty())

@@ -171,14 +171,14 @@ class EventPreferencesAccessories extends EventPreferences {
                 String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!accessoryType.isEmpty())
-                            //noinspection StringConcatenationInLoop
-                            accessoryType = accessoryType + ", ";
-                        //noinspection StringConcatenationInLoop
                         int pos = Arrays.asList(accessoryTypeValues).indexOf(s);
-                        if (pos != -1)
+                        if (pos != -1) {
+                            if (!accessoryType.isEmpty())
+                                //noinspection StringConcatenationInLoop
+                                accessoryType = accessoryType + ", ";
                             //noinspection StringConcatenationInLoop
                             accessoryType = accessoryType + accessoryTypeNames[pos];
+                        }
                     }
                 }
                 if (accessoryType.isEmpty())

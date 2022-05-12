@@ -197,11 +197,12 @@ class EventPreferencesOrientation extends EventPreferences {
                         String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
                         selectedValues = "";
                         for (String s : splits) {
-                            if (!selectedValues.isEmpty())
-                                selectedValues = selectedValues + ", ";
                             int pos = Arrays.asList(sideValues).indexOf(s);
-                            if (pos != -1)
+                            if (pos != -1) {
+                                if (!selectedValues.isEmpty())
+                                    selectedValues = selectedValues + ", ";
                                 selectedValues = selectedValues + sideNames[pos];
+                            }
                         }
                     }
                     descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + selectedValues + "</b>";
@@ -511,11 +512,12 @@ class EventPreferencesOrientation extends EventPreferences {
                 String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!sides.isEmpty())
-                            sides = sides + ", ";
                         int pos = Arrays.asList(sideValues).indexOf(s);
-                        if (pos != -1)
+                        if (pos != -1) {
+                            if (!sides.isEmpty())
+                                sides = sides + ", ";
                             sides = sides + sideNames[pos];
+                        }
                     }
                 }
                 if (sides.isEmpty())
@@ -534,11 +536,12 @@ class EventPreferencesOrientation extends EventPreferences {
                 String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!sides.isEmpty())
-                            sides = sides + ", ";
                         int pos = Arrays.asList(sideValues).indexOf(s);
-                        if (pos != -1)
+                        if (pos != -1) {
+                            if (!sides.isEmpty())
+                                sides = sides + ", ";
                             sides = sides + sideNames[pos];
+                        }
                     }
                 }
                 if (sides.isEmpty())
