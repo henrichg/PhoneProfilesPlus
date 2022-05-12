@@ -348,17 +348,19 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             int plFrom = activityDataWrapper.profileList.indexOf(getItem(fromPosition));
             int plTo = activityDataWrapper.profileList.indexOf(getItem(toPosition));
 
-            if (plFrom < plTo) {
-                for (int i = plFrom; i < plTo; i++) {
-                    Collections.swap(activityDataWrapper.profileList, i, i + 1);
+            if ((plFrom != -1) && (plTo != -1)) {
+                if (plFrom < plTo) {
+                    for (int i = plFrom; i < plTo; i++) {
+                        Collections.swap(activityDataWrapper.profileList, i, i + 1);
+                    }
+                } else {
+                    for (int i = plFrom; i > plTo; i--) {
+                        Collections.swap(activityDataWrapper.profileList, i, i - 1);
+                    }
                 }
-            } else {
-                for (int i = plFrom; i > plTo; i--) {
-                    Collections.swap(activityDataWrapper.profileList, i, i - 1);
-                }
-            }
 
-            DatabaseHandler.getInstance(activityDataWrapper.context).setProfileOrder(activityDataWrapper.profileList);  // set profiles _porder and write it into db
+                DatabaseHandler.getInstance(activityDataWrapper.context).setProfileOrder(activityDataWrapper.profileList);  // set profiles _porder and write it into db
+            }
         }
 
 //        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListAdapter.onItemMove");

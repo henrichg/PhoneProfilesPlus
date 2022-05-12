@@ -4900,44 +4900,46 @@ public class PPApplication extends Application
                 if ((startIndex >= 0) && (endIndex > startIndex)) {
                     String version = contents.substring(startIndex, endIndex);
                     startIndex = version.indexOf(":");
-                    version = version.substring(startIndex + 1);
+                    if (startIndex != -1) {
+                        version = version.substring(startIndex + 1);
 //                    PPApplication.logE("PPApplication.getReleaseData", "version="+version);
-                    String[] splits = version.split(":");
-                    if (splits.length >= 2) {
+                        String[] splits = version.split(":");
+                        if (splits.length >= 2) {
 //                        PPApplication.logE("PPApplication.getReleaseData", "newVersionName=" + splits[0]);
 //                        PPApplication.logE("PPApplication.getReleaseData", "newVersionCode=" + splits[1]);
-                        int versionCode = 0;
-                        try {
-                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                            versionCode = PPApplication.getVersionCode(pInfo);
-                        } catch (Exception ignored) {
-                        }
-                        pppReleaseData.versionNameInReleases = splits[0];
-                        pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
+                            int versionCode = 0;
+                            try {
+                                PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                                versionCode = PPApplication.getVersionCode(pInfo);
+                            } catch (Exception ignored) {
+                            }
+                            pppReleaseData.versionNameInReleases = splits[0];
+                            pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
 //                        PPApplication.logE("PPApplication.getReleaseData", "versionCode=" + versionCode);
 //                        PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
 //                        PPApplication.logE("PPApplication.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification=" + ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
-                        if (forceDoData)
-                            doData = true;
-                        else {
-                            if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < pppReleaseData.versionCodeInReleases) {
-                                if ((versionCode > 0) && (versionCode < pppReleaseData.versionCodeInReleases))
-                                    doData = true;
+                            if (forceDoData)
+                                doData = true;
+                            else {
+                                if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < pppReleaseData.versionCodeInReleases) {
+                                    if ((versionCode > 0) && (versionCode < pppReleaseData.versionCodeInReleases))
+                                        doData = true;
+                                }
                             }
                         }
-                    }
-                    /*if (splits.length == 2) {
-                        // old check, always critical update
-                        PPApplication.logE("PPApplication.getReleaseData", "OLD CHECK");
-                        //critical = true;
-                    }*/
-                    if (splits.length == 3) {
-                        // new, better check
+                        /*if (splits.length == 2) {
+                            // old check, always critical update
+                            PPApplication.logE("PPApplication.getReleaseData", "OLD CHECK");
+                            //critical = true;
+                        }*/
+                        if (splits.length == 3) {
+                            // new, better check
 //                        PPApplication.logE("PPApplication.getReleaseData", "NEW CHECK");
-                        // last parameter:
-                        //  "normal" - normal update
-                        //  "critical" - critical update
-                        pppReleaseData.critical = splits[2].equals("critical");
+                            // last parameter:
+                            //  "normal" - normal update
+                            //  "critical" - critical update
+                            pppReleaseData.critical = splits[2].equals("critical");
+                        }
                     }
                 }
             }

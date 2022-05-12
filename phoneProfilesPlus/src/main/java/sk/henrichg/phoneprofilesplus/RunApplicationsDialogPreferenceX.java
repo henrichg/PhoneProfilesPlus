@@ -746,30 +746,32 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                     applicationsList.add(editedApplication);
                     _position = applicationsList.size() - 1;
                 }
-                editedApplication.type = selectedApplication.type;
-                editedApplication.appLabel = selectedApplication.appLabel;
-                editedApplication.packageName = selectedApplication.packageName;
-                editedApplication.activityName = selectedApplication.activityName;
+                if (_position != -1) {
+                    editedApplication.type = selectedApplication.type;
+                    editedApplication.appLabel = selectedApplication.appLabel;
+                    editedApplication.packageName = selectedApplication.packageName;
+                    editedApplication.activityName = selectedApplication.activityName;
 
-                if (editedApplication.type != Application.TYPE_SHORTCUT)
-                    editedApplication.shortcutId = 0;
-                if (editedApplication.type != Application.TYPE_INTENT)
-                    editedApplication.intentId = 0;
-                editedApplication.startApplicationDelay = startApplicationDelay;
+                    if (editedApplication.type != Application.TYPE_SHORTCUT)
+                        editedApplication.shortcutId = 0;
+                    if (editedApplication.type != Application.TYPE_INTENT)
+                        editedApplication.intentId = 0;
+                    editedApplication.startApplicationDelay = startApplicationDelay;
 
-                if (fragment != null)
-                    fragment.updateGUI();
+                    if (fragment != null)
+                        fragment.updateGUI();
 
-                if ((editedApplication.type == Application.TYPE_SHORTCUT) &&
-                        (editedApplication.packageName != null)) {
-                    Intent intent = new Intent(context, LaunchShortcutActivity.class);
-                    intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, editedApplication.packageName);
-                    intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, editedApplication.activityName);
-                    intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, _position);
-                    intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
+                    if ((editedApplication.type == Application.TYPE_SHORTCUT) &&
+                            (editedApplication.packageName != null)) {
+                        Intent intent = new Intent(context, LaunchShortcutActivity.class);
+                        intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, editedApplication.packageName);
+                        intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, editedApplication.activityName);
+                        intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, _position);
+                        intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
 
-                    //ProfilesPrefsFragment.setApplicationsDialogPreference(this);
-                    ((Activity) context).startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
+                        //ProfilesPrefsFragment.setApplicationsDialogPreference(this);
+                        ((Activity) context).startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
+                    }
                 }
             }
         }

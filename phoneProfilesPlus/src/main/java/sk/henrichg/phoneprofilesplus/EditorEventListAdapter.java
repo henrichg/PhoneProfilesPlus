@@ -339,18 +339,20 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             int plFrom = activityDataWrapper.eventList.indexOf(getItem(fromPosition));
             int plTo = activityDataWrapper.eventList.indexOf(getItem(toPosition));
 
-            if (plFrom < plTo) {
-                for (int i = plFrom; i < plTo; i++) {
-                    Collections.swap(activityDataWrapper.eventList, i, i + 1);
+            if ((plFrom != -1) && (plTo != -1)) {
+                if (plFrom < plTo) {
+                    for (int i = plFrom; i < plTo; i++) {
+                        Collections.swap(activityDataWrapper.eventList, i, i + 1);
+                    }
+                } else {
+                    for (int i = plFrom; i > plTo; i--) {
+                        Collections.swap(activityDataWrapper.eventList, i, i - 1);
+                    }
                 }
-            } else {
-                for (int i = plFrom; i > plTo; i--) {
-                    Collections.swap(activityDataWrapper.eventList, i, i - 1);
-                }
-            }
 
-            DatabaseHandler.getInstance(activityDataWrapper.context).setEventStartOrder(activityDataWrapper.eventList);  // set events _startOrder and write it into db
-            activityDataWrapper.restartEventsWithDelay(15, true, false, false, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+                DatabaseHandler.getInstance(activityDataWrapper.context).setEventStartOrder(activityDataWrapper.eventList);  // set events _startOrder and write it into db
+                activityDataWrapper.restartEventsWithDelay(15, true, false, false, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+            }
         }
         notifyItemMoved(fromPosition, toPosition);
         return true;

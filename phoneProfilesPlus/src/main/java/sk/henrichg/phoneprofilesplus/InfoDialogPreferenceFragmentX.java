@@ -47,7 +47,7 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
         int importantInfoTagBeginIndex = _infoText.indexOf(beginTag);
         int importantInfoTagEndIndex = _infoText.indexOf("]>");
 
-        if (importantInfoTagBeginIndex != -1) {
+        if ((importantInfoTagBeginIndex != -1) && (importantInfoTagEndIndex != -1)) {
             String importantInfoTagDataString = _infoText.substring(importantInfoTagBeginIndex + beginTag.length(), importantInfoTagEndIndex);
 
             /*if (PPApplication.logEnabled()) {
@@ -64,72 +64,74 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
             importantInfoTagBeginIndex = _infoText.indexOf(beginTag);
             importantInfoTagEndIndex = _infoText.indexOf(endTag);
 
-            //String clickableString = _infoText.substring(importantInfoTagBeginIndex + beginTag.length(), importantInfoTagEndIndex);
-            //PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "clickableString=" + clickableString);
+            if ((importantInfoTagBeginIndex != -1) && (importantInfoTagEndIndex != -1)) {
+                //String clickableString = _infoText.substring(importantInfoTagBeginIndex + beginTag.length(), importantInfoTagEndIndex);
+                //PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "clickableString=" + clickableString);
 
-            _infoText = _infoText.replace(beginTag, "");
-            _infoText = _infoText.replace(endTag, "");
+                _infoText = _infoText.replace(beginTag, "");
+                _infoText = _infoText.replace(endTag, "");
 
-            //PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "_infoText=" + _infoText);
+                //PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "_infoText=" + _infoText);
 
-            final String _tagType = beginTag.substring(1, 3);
-            final String _importantInfoTagDataString = importantInfoTagDataString;
+                final String _tagType = beginTag.substring(1, 3);
+                final String _importantInfoTagDataString = importantInfoTagDataString;
 
-            Spannable sbt = new SpannableString(_infoText);
-            /*sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),
-                    importantInfoTagBeginIndex, importantInfoTagEndIndex-beginTag.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
-            /*sbt.setSpan(new RelativeSizeSpan(1.05f),
-                    importantInfoTagBeginIndex, importantInfoTagEndIndex-beginTag.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void updateDrawState(TextPaint ds) {
-                    ds.setColor(ds.linkColor);    // you can use custom color
-                    ds.setUnderlineText(false);    // this remove the underline
-                }
+                Spannable sbt = new SpannableString(_infoText);
+                /*sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),
+                        importantInfoTagBeginIndex, importantInfoTagEndIndex-beginTag.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
+                /*sbt.setSpan(new RelativeSizeSpan(1.05f),
+                        importantInfoTagBeginIndex, importantInfoTagEndIndex-beginTag.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ds.linkColor);    // you can use custom color
+                        ds.setUnderlineText(false);    // this remove the underline
+                    }
 
-                @Override
-                public void onClick(@NonNull View textView) {
+                    @Override
+                    public void onClick(@NonNull View textView) {
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "_tagType=" + _tagType);
                         PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "_importantInfoTagDataString=" + _importantInfoTagDataString);
                     }*/
 
-                    String[] splits = _importantInfoTagDataString.split(",");
-                    int page = Integer.parseInt(splits[0]);
+                        String[] splits = _importantInfoTagDataString.split(",");
+                        int page = Integer.parseInt(splits[0]);
 
-                    int fragment = Integer.parseInt(splits[1]);
-                    // 0 = System
-                    // 1 = Profiles
-                    // 2 = Events
+                        int fragment = Integer.parseInt(splits[1]);
+                        // 0 = System
+                        // 1 = Profiles
+                        // 2 = Events
 
-                    int resource = Integer.parseInt(splits[2]);
+                        int resource = Integer.parseInt(splits[2]);
 
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "page=" + page);
                         PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "resource=" + resource);
                     }*/
 
-                    if (_tagType.equals("II")) {
-                        Intent intentLaunch = new Intent(context, ImportantInfoActivityForceScroll.class);
-                        intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, page == 1);
-                        intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, fragment);
-                        intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, resource);
-                        startActivity(intentLaunch);
+                        if (_tagType.equals("II")) {
+                            Intent intentLaunch = new Intent(context, ImportantInfoActivityForceScroll.class);
+                            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, page == 1);
+                            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, fragment);
+                            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, resource);
+                            startActivity(intentLaunch);
+                        }
+
+                        if (getDialog() != null)
+                            getDialog().cancel();
                     }
+                };
+                sbt.setSpan(clickableSpan,
+                        importantInfoTagBeginIndex, importantInfoTagEndIndex - beginTag.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-                    if (getDialog() != null)
-                        getDialog().cancel();
-                }
-            };
-            sbt.setSpan(clickableSpan,
-                    importantInfoTagBeginIndex, importantInfoTagEndIndex - beginTag.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            infoTextView.setText(sbt);
-            infoTextView.setClickable(true);
-            infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+                infoTextView.setText(sbt);
+                infoTextView.setClickable(true);
+                infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            }
         }
         else {
             if (preference.isHtml) {
