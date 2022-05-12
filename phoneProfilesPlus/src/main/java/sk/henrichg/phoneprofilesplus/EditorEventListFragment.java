@@ -426,11 +426,11 @@ public class EditorEventListFragment extends Fragment
         orderLabel.setText(getString(R.string.editor_drawer_title_events_order) + ":");
 
         String[] orderItems = new String[] {
-                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_start_order),
-                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_event_name),
-                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_start_profile_name),
-                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_end_profile_name),
-                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_priority)
+                getString(R.string.editor_drawer_order_start_order),
+                getString(R.string.editor_drawer_order_event_name),
+                getString(R.string.editor_drawer_order_start_profile_name),
+                getString(R.string.editor_drawer_order_end_profile_name),
+                getString(R.string.editor_drawer_order_priority)
         };
 
         GlobalGUIRoutines.HighlightedSpinnerAdapter orderSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
