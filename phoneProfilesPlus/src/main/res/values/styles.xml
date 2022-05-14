@@ -179,4 +179,8 @@
 <!--        <item name="android:maxLines">2</item>-->
     </style>
 
+    <style name="IntentEditorEditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/activityNormalTextColor</item>
+    </style>
 </resources>

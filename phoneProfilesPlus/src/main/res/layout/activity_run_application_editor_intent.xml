@@ -116,7 +116,8 @@
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_intent_name_hint"
                 android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                style="@style/IntentEditorEditTextStyle" />
 
             <View
                 android:id="@+id/application_editor_intent_divider1"
@@ -173,13 +174,15 @@
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_package_name_hint"
                 android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                style="@style/IntentEditorEditTextStyle" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
+                android:layout_marginTop="10dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_class_name"/>
@@ -191,7 +194,8 @@
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_class_name_hint"
                 android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                style="@style/IntentEditorEditTextStyle" />
 
             <View
                 android:id="@+id/application_editor_intent_divider3"
@@ -229,7 +233,8 @@
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_action_hint"
                 android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                style="@style/IntentEditorEditTextStyle" />
 
             <View
                 android:id="@+id/application_editor_intent_divider4"
@@ -257,7 +262,8 @@
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_data_hint"
                 android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                style="@style/IntentEditorEditTextStyle" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView7"
@@ -276,7 +282,8 @@
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_mime_type_hint"
                 android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                style="@style/IntentEditorEditTextStyle" />
 
             <View
                 android:id="@+id/application_editor_intent_divider5"
@@ -321,6 +328,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_toStartOf = "@id/application_editor_intent_category_btn"
+                    android:textSize="16sp"
                     android:text="@string/empty_string"/>
             </RelativeLayout>
 
@@ -367,6 +375,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_toStartOf = "@id/application_editor_intent_flags_btn"
+                    android:textSize="16sp"
                     android:text="@string/empty_string"/>
             </RelativeLayout>
 
@@ -393,7 +402,17 @@
                 android:id="@+id/application_editor_intent_extra_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
+                <TextView
+                    android:id="@+id/application_editor_intent_extra_1_param"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="1:"
+                    tools:ignore="HardcodedText"/>
                 <EditText
                     android:id="@+id/application_editor_intent_extra_key_1"
                     android:layout_width="match_parent"
@@ -402,7 +421,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle" />
                 <EditText
                     android:id="@+id/application_editor_intent_extra_value_1"
                     android:layout_width="match_parent"
@@ -411,7 +431,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle" />
                 <LinearLayout
                     android:id="@+id/application_editor_intent_extra_1_liLa1"
                     android:layout_width="match_parent"
@@ -422,7 +443,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="19dp"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/application_editor_intent_extra_type_spinner_1"
@@ -441,6 +462,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
+                <TextView
+                    android:id="@+id/application_editor_intent_extra_2_param"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="2:"
+                    tools:ignore="HardcodedText"/>
                 <EditText
                     android:id="@+id/application_editor_intent_extra_key_2"
                     android:layout_width="match_parent"
@@ -449,7 +479,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle" />
                 <EditText
                     android:id="@+id/application_editor_intent_extra_value_2"
                     android:layout_width="match_parent"
@@ -458,7 +489,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle" />
                 <LinearLayout
                     android:id="@+id/application_editor_intent_extra_2_liLa1"
                     android:layout_width="match_parent"
@@ -469,7 +501,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="19dp"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/application_editor_intent_extra_type_spinner_2"
@@ -488,6 +520,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
+                <TextView
+                    android:id="@+id/application_editor_intent_extra_3_param"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="3:"
+                    tools:ignore="HardcodedText"/>
                 <EditText
                     android:id="@+id/application_editor_intent_extra_key_3"
                     android:layout_width="match_parent"
@@ -496,7 +537,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle"/>
                 <EditText
                     android:id="@+id/application_editor_intent_extra_value_3"
                     android:layout_width="match_parent"
@@ -505,7 +547,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle" />
                 <LinearLayout
                     android:id="@+id/application_editor_intent_extra_3_liLa1"
                     android:layout_width="match_parent"
@@ -516,7 +559,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="19dp"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/application_editor_intent_extra_type_spinner_3"
@@ -535,6 +578,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
+                <TextView
+                    android:id="@+id/application_editor_intent_extra_4_param"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="4:"
+                    tools:ignore="HardcodedText"/>
                 <EditText
                     android:id="@+id/application_editor_intent_extra_key_4"
                     android:layout_width="match_parent"
@@ -543,7 +595,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle" />
                 <EditText
                     android:id="@+id/application_editor_intent_extra_value_4"
                     android:layout_width="match_parent"
@@ -552,7 +605,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle" />
                 <LinearLayout
                     android:id="@+id/application_editor_intent_extra_4_liLa1"
                     android:layout_width="match_parent"
@@ -563,7 +617,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="19dp"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/application_editor_intent_extra_type_spinner_4"
@@ -582,6 +636,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
+                <TextView
+                    android:id="@+id/application_editor_intent_extra_5_param"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="5:"
+                    tools:ignore="HardcodedText" />
                 <EditText
                     android:id="@+id/application_editor_intent_extra_key_5"
                     android:layout_width="match_parent"
@@ -590,7 +653,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle" />
                 <EditText
                     android:id="@+id/application_editor_intent_extra_value_5"
                     android:layout_width="match_parent"
@@ -599,7 +663,8 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    style="@style/IntentEditorEditTextStyle" />
                 <LinearLayout
                     android:id="@+id/application_editor_intent_extra_5_liLa1"
                     android:layout_width="match_parent"
@@ -610,7 +675,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="19dp"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/application_editor_intent_extra_type_spinner_5"
