@@ -433,7 +433,7 @@
     <string name="important_info_profile_activation_text8">V titulku Aktivátora a Editora je \"semafór\".</string>
     <string name="important_info_profile_activation_text9">Zelená farba: udalosti môžu byť spustené.</string>
     <string name="important_info_profile_activation_text10">Oranžová farba: udalosti nemôžu byť spustené - profil je aktivovaný manuálne.</string>
-    <string name="important_info_profile_activation_text11">Červená farba: udalosti sú zastavené - beh udalostí môže byt povolený z menu Editora položkou \"Povoľ beh udalostí\".</string>
+    <string name="important_info_profile_activation_text11">Červená farba: udalosti sú zastavené - beh udalostí môže byt povolený z menu Editora položkou \"Povoliť beh udalostí\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Ikona Reštart udalostí:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Ikona \"semafór\":</string>
     <string name="important_info_android_doze_mode">V Android 6+ je implementovaný \"Doze mode\" a \"App Standby\". Ak ste narazili na problémy s aktiváciou profilu z udalostí, ak ste nechali zariadenie v kľude a odpojené nejakú dobu, s vypnutou obrazovkou, pridajte PhoneProfilesPlus do \"Batéria\"→\"Optimalizácia batérie\"→\"Neoptimalizované\".</string>
@@ -623,7 +623,7 @@
     <string name="editor_event_list_item_event_status">Indikátor stavu udalosti</string>
     <string name="editor_event_list_item_profile_start_icon">Ikona profilu začiatku udalosti</string>
     <string name="editor_event_list_item_profile_end_icon">Ikona profilu konca udalosti</string>
-    <string name="run_stop_events_indicator">Povoľ/zastav beh udalostí</string>
+    <string name="run_stop_events_indicator">Povoliť/zakázať beh udalostí</string>
     <string name="important_info_how_to_show">Tieto dôležité informácie môžete zobraziť v Editore cez ikonu otáznika v nástrojovej lište.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">nepodporované aplikáciou</string>
     <string name="preference_not_allowed_reason_detail_old_android">stará verzia Androida</string>
@@ -1079,17 +1079,11 @@
     <string name="intent_editor_title">Editor intentu</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intenty</string>
     <string name="application_editor_intent_intent_name">Názov intentu:</string>
-    <string name="application_editor_intent_intent_name_hint">Názov intentu</string>
     <string name="application_editor_intent_package_name">Názov balíka:</string>
-    <string name="application_editor_intent_package_name_hint">Názov balíka</string>
     <string name="application_editor_intent_class_name">Názov triedy:</string>
-    <string name="application_editor_intent_class_name_hint">Názov triedy</string>
     <string name="application_editor_intent_action">Akcia:</string>
-    <string name="application_editor_intent_action_hint">Akcia</string>
     <string name="application_editor_intent_data">Údaje:</string>
-    <string name="application_editor_intent_data_hint">Údaje</string>
     <string name="application_editor_intent_mime_type">MIME typ:</string>
-    <string name="application_editor_intent_mime_type_hint">MIME typ</string>
     <string name="application_editor_intent_extras">Parametre:</string>
     <string name="application_editor_intent_categories">Kategórie:</string>
     <string name="application_editor_intent_categories_dlg_title">Kategórie</string>
@@ -1114,7 +1108,7 @@
     <string name="array_pref_lockDevice_extender">Použi PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">V Android 9+, aby fungovalo skenovanie mobilných buniek, musíte povoliť Polohu v systémových nastaveniach.</string>
     <string name="info_notification_event_not_started_1">Udalosť sa nespustí, keď:</string>
-    <string name="info_notification_event_not_started_2">Máte zakázané spúšťanie udalostí (červený \"semafór\") - povoľte spúšťanie udalostí v menu Editora položkou menu \"Povoľ beh udalostí\".</string>
+    <string name="info_notification_event_not_started_2">Máte zakázané spúšťanie udalostí (červený \"semafór\") - povoľte spúšťanie udalostí v menu Editora položkou menu \"Povoliť beh udalostí\".</string>
     <string name="info_notification_event_not_started_3">Máte manuálne aktivovaný profil (oranžový \"semafór\") - musíte reštartovať udalosti. Použite ikonu \"Reštart udalostí\" v titulku Aktivátora, Editora alebo v notifikácii. Manuálna aktivácia profilu je tiež indikovaná \"[M]\" pred názvom profilu. Výnimkou z blokovania udalosti manuálnou aktiváciou je, ak máte v parametroch udalosti zaškrnutý parameter \"Ignoruj manuálnu aktiváciu\".</string>
     <string name="info_notification_event_not_started_4">Máte zakázané spustenie udalosti v jeho parametroch - parameter \"Povoľ beh\" musí byť zaškrtnutý. Poznámka: \"Semafór\" sa nachádza v titulku Aktivátora a Editora.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Ak skenovanie mobilných buniek nefunguje, aktivujte Polohu v nastaveniach systému.</string>
@@ -1908,9 +1902,14 @@
     <string name="accessibility_service_not_used">Nepoužitý</string>
     <string name="preference_not_used_extender_reason">Dôvod:</string>
     <string name="location_editor_enable_location_summary">Ľutujeme, nie je možné získať polohu.\n\nPovoľte Polohu a \"Vyhľadávanie sietí Wi-Fi\" v nastaveniach systému.\nPripojte tiež zariadenie k sieti, ak ešte nie je pripojené.</string>
-    <string name="profile_preferences_applicationEnableGlobalEventsRun">Povoľ beh udalostí</string>
-    <string name="menu_run_events">Povoľ beh udalostí</string>
-    <string name="menu_stop_events">Zakáž beh udalostí</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Povoliť beh udalostí</string>
+    <string name="menu_run_events">Povoliť beh udalostí</string>
+    <string name="menu_stop_events">Zakázať beh udalostí</string>
+    <string name="application_editor_intent_hint_not_set">Nenastavené</string>
+    <string name="application_editor_intent_hint_custom_not_set">Vlastné nenastavené</string>
+    <string name="application_editor_intent_hint_not_selected">Nevybraté</string>
+    <string name="application_editor_intent_action_none">[Nič]</string>
+    <string name="application_editor_intent_action_custom">[Vlastné]</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pre PhoneProfilesPlus. Funguje iba v spojení s PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verzia:</string>

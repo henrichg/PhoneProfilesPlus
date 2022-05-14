@@ -1079,17 +1079,11 @@
     <string name="intent_editor_title">Éditeur d\'évènement</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Evènement</string>
     <string name="application_editor_intent_intent_name">Nom d’événement :</string>
-    <string name="application_editor_intent_intent_name_hint">Nom de l\'événement</string>
     <string name="application_editor_intent_package_name">Nom Du Paquet :</string>
-    <string name="application_editor_intent_package_name_hint">Nom du paquet</string>
     <string name="application_editor_intent_class_name">Nom de la classe :</string>
-    <string name="application_editor_intent_class_name_hint">Nom de la classe</string>
     <string name="application_editor_intent_action">Action :</string>
-    <string name="application_editor_intent_action_hint">Action</string>
     <string name="application_editor_intent_data">Données :</string>
-    <string name="application_editor_intent_data_hint">Données</string>
     <string name="application_editor_intent_mime_type">Type MIME :</string>
-    <string name="application_editor_intent_mime_type_hint">Type MIME</string>
     <string name="application_editor_intent_extras">Paramètres :</string>
     <string name="application_editor_intent_categories">Catégories :</string>
     <string name="application_editor_intent_categories_dlg_title">Catégories</string>
@@ -1908,9 +1902,14 @@
     <string name="accessibility_service_not_used">Non utilisé</string>
     <string name="preference_not_used_extender_reason">Motif :</string>
     <string name="location_editor_enable_location_summary">Désolé, il n\'est pas possible d\'obtenir la position.\n\nVeuillez activer la localisation et l\'analyse Wi-Fi dans les paramètres.\nConnecter le périphérique au réseau s\'il n\'est pas déjà connecté.</string>
-    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
-    <string name="menu_run_events">Enable events run</string>
-    <string name="menu_stop_events">Disable events run</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Activer les événements</string>
+    <string name="menu_run_events">Activer les événements</string>
+    <string name="menu_stop_events">Désactiver les événements</string>
+    <string name="application_editor_intent_hint_not_set">Not set</string>
+    <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
+    <string name="application_editor_intent_hint_not_selected">Not selected</string>
+    <string name="application_editor_intent_action_none">[None]</string>
+    <string name="application_editor_intent_action_custom">[Custom]</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pour PhoneProfilesPlus. Il ne fonctionne qu\'avec PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version :</string>

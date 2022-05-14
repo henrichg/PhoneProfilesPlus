@@ -310,7 +310,7 @@
     <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Zobrazit ve stavovém řádku a zamčené obrazovce</string>
     <string name="menu_activity_log_reload">Znovu načíst</string>
     <string name="event_preferences_atEndDo">A provést</string>
-    <string name="array_pref_atEndDo_none">Žádné</string>
+    <string name="array_pref_atEndDo_none">Nic</string>
     <string name="array_pref_atEndDo_undoneProfile">Vrať zpět profil</string>
     <string name="array_pref_atEndDo_restartEvents">Restart událostí</string>
     <string name="event_preference_profile_restartEvents">Restart</string>
@@ -433,7 +433,7 @@
     <string name="important_info_profile_activation_text8">V záhlaví Aktivátoru a Editoru je \"semafor\".</string>
     <string name="important_info_profile_activation_text9">Zelená: události mohou být spuštěny.</string>
     <string name="important_info_profile_activation_text10">Oranžová: události nemohou být spuštěny - profil je aktivován ručně.</string>
-    <string name="important_info_profile_activation_text11">Červená: události jsou zastaveny - spouštění událostí může být povoleno v menu Editoru pomocí \"Povol běh událostí\".</string>
+    <string name="important_info_profile_activation_text11">Červená: události jsou zastaveny - spouštění událostí může být povoleno v menu Editoru pomocí \"Povolit běh událostí\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Ikona pro restart událostí:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Ikona pro \"semafor\":</string>
     <string name="important_info_android_doze_mode">Android 6+ implementuje \"Doze režim\" a \"App Standby\". Pokud jste narazili na problémy s aktivací profilu z událostí, ppokud jste nechali zařízení v klidu a odpojeno nějakou dobu, s vypnutou obrazovkou, klikněte zde a přidejte PhoneProfilesPlus do \"Neoptimalizováno\".</string>
@@ -623,7 +623,7 @@
     <string name="editor_event_list_item_event_status">Indikátor stavu události</string>
     <string name="editor_event_list_item_profile_start_icon">Ikona profilu začátku události</string>
     <string name="editor_event_list_item_profile_end_icon">Ikona profilu konce události</string>
-    <string name="run_stop_events_indicator">Povol/zastav běh událostí</string>
+    <string name="run_stop_events_indicator">Povolit/zakázat běh událostí</string>
     <string name="important_info_how_to_show">Tyto důležité informace lze zobrazit v Editoru pomocí ikony otazníku v panelu nástrojů.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">není podporováno aplikací</string>
     <string name="preference_not_allowed_reason_detail_old_android">stará verze Androidu</string>
@@ -1079,17 +1079,11 @@
     <string name="intent_editor_title">Editor intentu</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intenty</string>
     <string name="application_editor_intent_intent_name">Název intentu:</string>
-    <string name="application_editor_intent_intent_name_hint">Název intentu</string>
     <string name="application_editor_intent_package_name">Název balíčku:</string>
-    <string name="application_editor_intent_package_name_hint">Název balíčku</string>
     <string name="application_editor_intent_class_name">Název třídy:</string>
-    <string name="application_editor_intent_class_name_hint">Název třídy</string>
     <string name="application_editor_intent_action">Akce:</string>
-    <string name="application_editor_intent_action_hint">Akce</string>
     <string name="application_editor_intent_data">Údaje:</string>
-    <string name="application_editor_intent_data_hint">Údaje</string>
     <string name="application_editor_intent_mime_type">MIME typ:</string>
-    <string name="application_editor_intent_mime_type_hint">MIME typ</string>
     <string name="application_editor_intent_extras">Parametry:</string>
     <string name="application_editor_intent_categories">Kategorie:</string>
     <string name="application_editor_intent_categories_dlg_title">Kategorie</string>
@@ -1114,7 +1108,7 @@
     <string name="array_pref_lockDevice_extender">Použij PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">V Android 9+, aby fungovalo skenování mobilních buněk, musíte povolit Polohu v systémových nastaveních.</string>
     <string name="info_notification_event_not_started_1">Událost se nespustí, když:</string>
-    <string name="info_notification_event_not_started_2">Máte zakázáno spouštění událostí (červený \"semafor\") - povolte spouštění událostí v menu Editoru položkou menu \"Povol běh událostí\".</string>
+    <string name="info_notification_event_not_started_2">Máte zakázáno spouštění událostí (červený \"semafor\") - povolte spouštění událostí v menu Editoru položkou menu \"Povolit běh událostí\".</string>
     <string name="info_notification_event_not_started_3">Máte manuálně aktivován profil (oranžový \"semafor\") - musíte restartovat události. Použijte ikonu \"Restart událostí\" v titulku Aktivátoru, Editoru nebo v notifikaci. Manuální aktivace profilu je také indikována \"[M]\" před názvem profilu. Výjimkou z blokování události manuální aktivací je, pokud máte v parametrech události zaškrnutý parametr \"Ignoruj manuální aktivaci\".</string>
     <string name="info_notification_event_not_started_4">Máte zakázáno spuštění události v jeho parametrech - parametr \"Povol běh\" musí být zaškrtnutý. Poznámka: \"Semafor\" se nachází v titulku Aktivátoru a Editoru.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Pokud skenování mobilních buněk nefunguje, aktivujte Polohu v nastaveních systému.</string>
@@ -1908,9 +1902,14 @@
     <string name="accessibility_service_not_used">Nepoužívá se</string>
     <string name="preference_not_used_extender_reason">Důvod:</string>
     <string name="location_editor_enable_location_summary">Litujeme, není možné získat polohu.\n\nPovolte Polohu a \"Vyhledávání sítí Wi-Fi\" v nastavení systému.\nPřipojte také zařízení k síti, pokud ještě není připojeno.</string>
-    <string name="profile_preferences_applicationEnableGlobalEventsRun">Povol běh událostí</string>
-    <string name="menu_run_events">Povol běh událostí</string>
-    <string name="menu_stop_events">Zakaž běh událostí</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Povolit běh událostí</string>
+    <string name="menu_run_events">Povolit běh událostí</string>
+    <string name="menu_stop_events">Zakázat běh událostí</string>
+    <string name="application_editor_intent_hint_not_set">Nenastaveno</string>
+    <string name="application_editor_intent_hint_custom_not_set">Vlastní nastaveno</string>
+    <string name="application_editor_intent_hint_not_selected">Nevybráno</string>
+    <string name="application_editor_intent_action_none">[Nic]</string>
+    <string name="application_editor_intent_action_custom">[Vlastní]</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pro PhoneProfilesPlus. Funguje pouze ve spojení s PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verze:</string>

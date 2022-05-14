@@ -1079,17 +1079,11 @@
     <string name="intent_editor_title">Editor dell\'Intento</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intenti</string>
     <string name="application_editor_intent_intent_name">Nome intento:</string>
-    <string name="application_editor_intent_intent_name_hint">Nome intento</string>
     <string name="application_editor_intent_package_name">Nome pacchetto:</string>
-    <string name="application_editor_intent_package_name_hint">Nome pacchetto</string>
     <string name="application_editor_intent_class_name">Nome della classe:</string>
-    <string name="application_editor_intent_class_name_hint">Nome classe</string>
     <string name="application_editor_intent_action">Azione:</string>
-    <string name="application_editor_intent_action_hint">Azione</string>
     <string name="application_editor_intent_data">Dati:</string>
-    <string name="application_editor_intent_data_hint">Dati</string>
     <string name="application_editor_intent_mime_type">Tipo MIME:</string>
-    <string name="application_editor_intent_mime_type_hint">Tipo MIME</string>
     <string name="application_editor_intent_extras">Parametri:</string>
     <string name="application_editor_intent_categories">Categorie:</string>
     <string name="application_editor_intent_categories_dlg_title">Categorie</string>
@@ -1911,6 +1905,11 @@
     <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
     <string name="menu_run_events">Enable events run</string>
     <string name="menu_stop_events">Disable events run</string>
+    <string name="application_editor_intent_hint_not_set">Not set</string>
+    <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
+    <string name="application_editor_intent_hint_not_selected">Not selected</string>
+    <string name="application_editor_intent_action_none">[None]</string>
+    <string name="application_editor_intent_action_custom">[Custom]</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender per PhoneProfilesPlus. Funziona solo in combinazione con PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Versione:</string>

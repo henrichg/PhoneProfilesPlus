@@ -1079,17 +1079,11 @@
     <string name="intent_editor_title">Intent редактор</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
     <string name="application_editor_intent_intent_name">Intent назва:</string>
-    <string name="application_editor_intent_intent_name_hint">Intent назва</string>
     <string name="application_editor_intent_package_name">Назва пакету:</string>
-    <string name="application_editor_intent_package_name_hint">Назва пакету</string>
     <string name="application_editor_intent_class_name">Назва класу:</string>
-    <string name="application_editor_intent_class_name_hint">Назва класу</string>
     <string name="application_editor_intent_action">Дія:</string>
-    <string name="application_editor_intent_action_hint">Дія</string>
     <string name="application_editor_intent_data">Дані:</string>
-    <string name="application_editor_intent_data_hint">Дані</string>
     <string name="application_editor_intent_mime_type">MIME тип:</string>
-    <string name="application_editor_intent_mime_type_hint">MIME тип</string>
     <string name="application_editor_intent_extras">Параметри:</string>
     <string name="application_editor_intent_categories">Категорії:</string>
     <string name="application_editor_intent_categories_dlg_title">Категорії</string>
@@ -1908,9 +1902,14 @@
     <string name="accessibility_service_not_used">Не використовується</string>
     <string name="preference_not_used_extender_reason">Підстава:</string>
     <string name="location_editor_enable_location_summary">На жаль, не вдалося визначити розташування.\n\nБудь ласка, увімкніть Розташування та \"Сканування Wi-Fi\" в налаштуваннях системи.\nТакож під\'єднайте пристрій до мережі, якщо він ще не підключений.</string>
-    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
-    <string name="menu_run_events">Enable events run</string>
-    <string name="menu_stop_events">Disable events run</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Дозволити події</string>
+    <string name="menu_run_events">Запустити події</string>
+    <string name="menu_stop_events">Зупинити події</string>
+    <string name="application_editor_intent_hint_not_set">Not set</string>
+    <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
+    <string name="application_editor_intent_hint_not_selected">Not selected</string>
+    <string name="application_editor_intent_action_none">[None]</string>
+    <string name="application_editor_intent_action_custom">[Custom]</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender для PhoneProfilesPlus. Працює лише у поєднанні з PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Версія:</string>
