@@ -979,8 +979,8 @@
         <item>3</item>
     </string-array>
     <string-array name="runApplicationEditorIntentActionArray">
-        <item>[None]</item>
-        <item>[Custom]</item>
+        <item>@string/application_editor_intent_action_none</item>
+        <item>@string/application_editor_intent_action_custom</item>
         <item>ACTION_ALL_APPS</item>
         <item>ACTION_ANSWER</item>
         <item>ACTION_APPLICATION_PREFERENCES</item>

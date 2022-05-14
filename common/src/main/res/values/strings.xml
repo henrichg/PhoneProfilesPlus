@@ -1927,6 +1927,8 @@
     <string name="application_editor_intent_hint_not_set">Not set</string>
     <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
     <string name="application_editor_intent_hint_not_selected">Not selected</string>
+    <string name="application_editor_intent_action_none">[None]</string>
+    <string name="application_editor_intent_action_custom">[Custom]</string>
 
     <!-- **************************************************************************************** -->
 
