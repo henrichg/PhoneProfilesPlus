@@ -1734,7 +1734,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activate specific profile, then restart events</string>
-    <string name="profile_preferences_applicationDisableGlobalEventsRun">Disable events run</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Events run disabled</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Events run enabled</string>
     <string name="icon_widget_description">Displays activated profile icon.</string>
@@ -1929,6 +1928,8 @@
 
     <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
 
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -2048,7 +2049,6 @@
 <!--    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>-->
 <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
 <!--    <string name="check_github_releases_actual_version">Actual version:</string>-->
-
 <!--    <string name="background_jobs_not_working_alert_title">Error on start of PhoneProfilesPlus</string>-->
 <!--    <string name="background_jobs_not_working_alert_message">Background jobs was not started. Please do reboot of device. Thank you.</string>-->
 <!--    <string name="application_cannot_be_started_button_restart">Restart application</string>-->

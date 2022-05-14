@@ -1845,7 +1845,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableGloabalEventsRun == 1) || (profile._applicationDisableGloabalEventsRun == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableGlobalEventsRun) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ern:0";
@@ -1858,7 +1858,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._applicationDisableGloabalEventsRun == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableGlobalEventsRun) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ern:1";
