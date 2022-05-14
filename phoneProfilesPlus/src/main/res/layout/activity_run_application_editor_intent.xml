@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:hint="@string/application_editor_intent_intent_name_hint"
+                android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
                 android:importantForAutofill="no"
                 style="@style/IntentEditorEditTextStyle" />
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:hint="@string/application_editor_intent_package_name_hint"
+                android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
                 android:importantForAutofill="no"
                 style="@style/IntentEditorEditTextStyle" />
@@ -192,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:hint="@string/application_editor_intent_class_name_hint"
+                android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
                 android:importantForAutofill="no"
                 style="@style/IntentEditorEditTextStyle" />
@@ -231,7 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:hint="@string/application_editor_intent_action_hint"
+                android:hint="@string/application_editor_intent_hint_custom_not_set"
                 android:inputType="textNoSuggestions"
                 android:importantForAutofill="no"
                 style="@style/IntentEditorEditTextStyle" />
@@ -260,7 +260,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:hint="@string/application_editor_intent_data_hint"
+                android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
                 android:importantForAutofill="no"
                 style="@style/IntentEditorEditTextStyle" />
@@ -280,7 +280,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:hint="@string/application_editor_intent_mime_type_hint"
+                android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
                 android:importantForAutofill="no"
                 style="@style/IntentEditorEditTextStyle" />
@@ -331,7 +331,7 @@
                     android:layout_toStartOf = "@id/application_editor_intent_category_btn"
                     android:textSize="16sp"
                     android:text="@string/empty_string"
-                    android:hint="@string/application_editor_intent_categories_hint" />
+                    android:hint="@string/application_editor_intent_hint_not_selected" />
             </RelativeLayout>
 
             <View
@@ -380,7 +380,7 @@
                     android:layout_toStartOf = "@id/application_editor_intent_flags_btn"
                     android:textSize="16sp"
                     android:text="@string/empty_string"
-                    android:hint="@string/application_editor_intent_flags_hint" />
+                    android:hint="@string/application_editor_intent_hint_not_selected" />
             </RelativeLayout>
 
             <View

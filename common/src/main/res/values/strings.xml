@@ -1089,17 +1089,11 @@
     <string name="intent_editor_title">Intent editor</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
     <string name="application_editor_intent_intent_name">Intent name:</string>
-    <string name="application_editor_intent_intent_name_hint">Intent name</string>
     <string name="application_editor_intent_package_name">Package name:</string>
-    <string name="application_editor_intent_package_name_hint">Package name</string>
     <string name="application_editor_intent_class_name">Class name:</string>
-    <string name="application_editor_intent_class_name_hint">Class name</string>
     <string name="application_editor_intent_action">Action:</string>
-    <string name="application_editor_intent_action_hint">Action</string>
     <string name="application_editor_intent_data">Data:</string>
-    <string name="application_editor_intent_data_hint">Data</string>
     <string name="application_editor_intent_mime_type">MIME type:</string>
-    <string name="application_editor_intent_mime_type_hint">MIME type</string>
     <string name="application_editor_intent_extras">Parameters:</string>
     <string name="application_editor_intent_categories">Categories:</string>
     <string name="application_editor_intent_categories_dlg_title">Categories</string>
@@ -1930,8 +1924,9 @@
     <string name="menu_run_events">Enable events run</string>
     <string name="menu_stop_events">Disable events run</string>
 
-    <string name="application_editor_intent_categories_hint">Categories</string>
-    <string name="application_editor_intent_flags_hint">Flags</string>
+    <string name="application_editor_intent_hint_not_set">Not set</string>
+    <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
+    <string name="application_editor_intent_hint_not_selected">Not selected</string>
 
     <!-- **************************************************************************************** -->
 
