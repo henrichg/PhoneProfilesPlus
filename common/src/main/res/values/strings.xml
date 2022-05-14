@@ -1930,6 +1930,9 @@
     <string name="menu_run_events">Enable events run</string>
     <string name="menu_stop_events">Disable events run</string>
 
+    <string name="application_editor_intent_categories_hint">Categories</string>
+    <string name="application_editor_intent_flags_hint">Flags</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
