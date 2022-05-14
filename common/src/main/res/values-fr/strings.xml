@@ -136,8 +136,6 @@
     <string name="profile_preferences_deviceAutoRotation">Rotation d\'écran</string>
     <string name="title_activity_activator">Sélection</string>
     <string name="title_activity_editor">Éditeur</string>
-    <string name="menu_run_events">Activer les événements</string>
-    <string name="menu_stop_events">Désactiver les événements</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -1722,7 +1720,6 @@
     <string name="permissions_for_wallpaper_folder_text2">S\'il vous plaît validez-les dans la boîte de dialogue suivante. Vous pouvez ensuite sélectionner un dossier pour le fond d\'écran aléatoire dans le sélecteur de dossier.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Dossier des images</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activez le profil spécifique, puis redémarrez les événements</string>
-    <string name="profile_preferences_applicationDisableGlobalEventsRun">Désactiver les événements en cours</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Événements en cours désactivés</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Événements en cours sactivés</string>
     <string name="icon_widget_description">Affiche l\'icône du profil activée.</string>
@@ -1907,10 +1904,13 @@
     <string name="profile_preferences_applicationEnableMobileCellScanning">Enable mobile cell scanning</string>
     <string name="profile_preferences_applicationEnableOrientationScanning">Enable orientation scanning</string>
     <string name="profile_preferences_applicationEnableNotificationScanning">Enable notification scanning</string>
-    <string name="check_github_releases_installed_version">Installed version:</string>
-    <string name="accessibility_service_not_used">Not used</string>
-    <string name="preference_not_used_extender_reason">Reason:</string>
-    <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
+    <string name="check_github_releases_installed_version">Version installée :</string>
+    <string name="accessibility_service_not_used">Non utilisé</string>
+    <string name="preference_not_used_extender_reason">Motif :</string>
+    <string name="location_editor_enable_location_summary">Désolé, il n\'est pas possible d\'obtenir la position.\n\nVeuillez activer la localisation et l\'analyse Wi-Fi dans les paramètres.\nConnecter le périphérique au réseau s\'il n\'est pas déjà connecté.</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
+    <string name="menu_run_events">Enable events run</string>
+    <string name="menu_stop_events">Disable events run</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pour PhoneProfilesPlus. Il ne fonctionne qu\'avec PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version :</string>

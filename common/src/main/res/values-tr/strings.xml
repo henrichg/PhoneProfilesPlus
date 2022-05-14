@@ -136,8 +136,6 @@
     <string name="profile_preferences_deviceAutoRotation">Ekran döndürme ayarlarını aç</string>
     <string name="title_activity_activator">Muharrik</string>
     <string name="title_activity_editor">Düzenleyici</string>
-    <string name="menu_run_events">Durumların çalışmasına izin ver</string>
-    <string name="menu_stop_events">Durumları durdur</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -1722,7 +1720,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Lutfen sonraki iletişim kutularında izinleri verin. Daha sonra duvar kağıdını klasörden rastgele değiştirebilirsiniz.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Resimlerin klasörü</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M]  Hususi Tercihi faaliyete geçir, sonra Durumları baştan başlat</string>
-    <string name="profile_preferences_applicationDisableGlobalEventsRun">Durumların çalışmasına izin verilmesin</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Durumların başlaması kapatıldı</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Durumların başlaması açıldı</string>
     <string name="icon_widget_description">Faal Tercih simgesini gösterir.</string>
@@ -1911,6 +1908,9 @@
     <string name="accessibility_service_not_used">Not used</string>
     <string name="preference_not_used_extender_reason">Reason:</string>
     <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
+    <string name="menu_run_events">Enable events run</string>
+    <string name="menu_stop_events">Disable events run</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Sürüm:</string>

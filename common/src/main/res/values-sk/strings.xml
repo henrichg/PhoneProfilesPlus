@@ -136,8 +136,6 @@
     <string name="profile_preferences_deviceAutoRotation">Rotácia displeja</string>
     <string name="title_activity_activator">Aktivátor</string>
     <string name="title_activity_editor">Editor</string>
-    <string name="menu_run_events">Povoľ beh udalostí</string>
-    <string name="menu_stop_events">Zastav udalosti</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -1722,7 +1720,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom si môžete vybrať priečinok pre náhodné tapety z výberu priečinka.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Priečinok s obrázkami</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Aktivuj špecifický profil a potom reštartuj udalosti</string>
-    <string name="profile_preferences_applicationDisableGlobalEventsRun">Zakázať beh udalostí</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Beh udalostí zakázaný</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Beh udalostí povolený</string>
     <string name="icon_widget_description">Zobrazí ikonu aktivovaného profilu.</string>
@@ -1911,6 +1908,9 @@
     <string name="accessibility_service_not_used">Nepoužitý</string>
     <string name="preference_not_used_extender_reason">Dôvod:</string>
     <string name="location_editor_enable_location_summary">Ľutujeme, nie je možné získať polohu.\n\nPovoľte Polohu a \"Vyhľadávanie sietí Wi-Fi\" v nastaveniach systému.\nPripojte tiež zariadenie k sieti, ak ešte nie je pripojené.</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Povoľ beh udalostí</string>
+    <string name="menu_run_events">Povoľ beh udalostí</string>
+    <string name="menu_stop_events">Zakáž beh udalostí</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pre PhoneProfilesPlus. Funguje iba v spojení s PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verzia:</string>

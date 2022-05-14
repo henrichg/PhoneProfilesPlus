@@ -136,8 +136,6 @@
     <string name="profile_preferences_deviceAutoRotation">Ротација екрана</string>
     <string name="title_activity_activator">Активатор</string>
     <string name="title_activity_editor">Едитор</string>
-    <string name="menu_run_events">Омогући старт догађаја</string>
-    <string name="menu_stop_events">Заустави догађаје</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -1722,7 +1720,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activate specific profile, then restart events</string>
-    <string name="profile_preferences_applicationDisableGlobalEventsRun">Disable events run</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Events run disabled</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Events run enabled</string>
     <string name="icon_widget_description">Displays activated profile icon.</string>
@@ -1911,6 +1908,9 @@
     <string name="accessibility_service_not_used">Not used</string>
     <string name="preference_not_used_extender_reason">Reason:</string>
     <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
+    <string name="menu_run_events">Enable events run</string>
+    <string name="menu_stop_events">Disable events run</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version:</string>

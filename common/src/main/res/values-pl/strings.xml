@@ -136,8 +136,6 @@
     <string name="profile_preferences_deviceAutoRotation">Obrót ekranu</string>
     <string name="title_activity_activator">Aktywator</string>
     <string name="title_activity_editor">Edytor</string>
-    <string name="menu_run_events">Uaktywnij zdarzenia</string>
-    <string name="menu_stop_events">Zatrzymaj zdarzenia</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -1722,7 +1720,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Proszę przyznać je w następnym oknie dialogowym. Następnie możesz wybrać folder dla losowej tapety z wyboru folderu.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder obrazów</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Uaktywnij konkretny profil, a następnie zrestartuj zdarzenia</string>
-    <string name="profile_preferences_applicationDisableGlobalEventsRun">Wyłącz uruchamianie zdarzeń</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Uruchamianie zdarzeń wyłączone</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Uruchamianie zdarzeń włączone</string>
     <string name="icon_widget_description">Wyświetla ikonę aktywowanego profilu.</string>
@@ -1911,6 +1908,9 @@
     <string name="accessibility_service_not_used">Not used</string>
     <string name="preference_not_used_extender_reason">Reason:</string>
     <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
+    <string name="menu_run_events">Enable events run</string>
+    <string name="menu_stop_events">Disable events run</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Wersja:</string>

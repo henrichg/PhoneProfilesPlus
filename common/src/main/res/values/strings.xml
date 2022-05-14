@@ -142,8 +142,6 @@
     <string name="profile_preferences_deviceAutoRotation">Display rotation</string>
     <string name="title_activity_activator">Activator</string>
     <string name="title_activity_editor">Editor</string>
-    <string name="menu_run_events">Enable run events</string>
-    <string name="menu_stop_events">Stop events</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -1929,6 +1927,8 @@
     <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
 
     <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
+    <string name="menu_run_events">Enable events run</string>
+    <string name="menu_stop_events">Disable events run</string>
 
     <!-- **************************************************************************************** -->
 

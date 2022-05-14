@@ -136,8 +136,6 @@
     <string name="profile_preferences_deviceAutoRotation">Schermrotatie</string>
     <string name="title_activity_activator">Activator</string>
     <string name="title_activity_editor">Editor</string>
-    <string name="menu_run_events">Event uitvoeren activeren</string>
-    <string name="menu_stop_events">Events stoppen</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -1722,7 +1720,6 @@
     <string name="permissions_for_wallpaper_folder_text2">Sta toe in de volgende schermen. Vervolgens kun je de map kiezen voor willekeurige achtergrond in de map kiezer.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Map met afbeeldingen</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activeer specifiek profiel en herstart events</string>
-    <string name="profile_preferences_applicationDisableGlobalEventsRun">Events uitvoeren uitschakelen</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Events uitvoeren uitgeschakeld</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Events uitvoeren ingeschakeld</string>
     <string name="icon_widget_description">Toon geactiveerde profiel icoon.</string>
@@ -1907,10 +1904,13 @@
     <string name="profile_preferences_applicationEnableMobileCellScanning">Zendmast cel scannen inschakelen</string>
     <string name="profile_preferences_applicationEnableOrientationScanning">Oriëntatie scannen uischakelen</string>
     <string name="profile_preferences_applicationEnableNotificationScanning">Meldingsscan inschakelen</string>
-    <string name="check_github_releases_installed_version">Installed version:</string>
-    <string name="accessibility_service_not_used">Not used</string>
-    <string name="preference_not_used_extender_reason">Reason:</string>
-    <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
+    <string name="check_github_releases_installed_version">Geïnstalleerde versie:</string>
+    <string name="accessibility_service_not_used">Niet gebruikt</string>
+    <string name="preference_not_used_extender_reason">Reden:</string>
+    <string name="location_editor_enable_location_summary">Sorry, het is niet mogelijk om locatie te verkrijgen.\n\nSchakel locatie en \"Wi-Fi scanning\" in bij Systeeminstellingen.\nSluit apparaat ook aan op het netwerk indien niet verbonden.</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
+    <string name="menu_run_events">Enable events run</string>
+    <string name="menu_stop_events">Disable events run</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender voor PhoneProfilesPlus. Deze werkt alleen in combinatie met PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Versie:</string>

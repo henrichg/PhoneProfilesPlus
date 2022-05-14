@@ -136,8 +136,6 @@
     <string name="profile_preferences_deviceAutoRotation">螢幕旋轉</string>
     <string name="title_activity_activator">啟用清單</string>
     <string name="title_activity_editor">編輯器</string>
-    <string name="menu_run_events">啟用執行事件</string>
-    <string name="menu_stop_events">停止事件</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -1722,7 +1720,6 @@
     <string name="permissions_for_wallpaper_folder_text2">請在下個對話框中授予它們。您可以為隨機桌布選擇來源資料夾。</string>
     <string name="profile_preferences_deviceWallpaperFolder">影像資料夾</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] 啟用指定的設定檔，然後重啟事件</string>
-    <string name="profile_preferences_applicationDisableGlobalEventsRun">停用事件執行</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">事件執行已停用</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">事件執行已啟用</string>
     <string name="icon_widget_description">顯示啟用的設定檔圖示。</string>
@@ -1907,10 +1904,13 @@
     <string name="profile_preferences_applicationEnableMobileCellScanning">啟用基地台掃描</string>
     <string name="profile_preferences_applicationEnableOrientationScanning">啟用翻轉掃描</string>
     <string name="profile_preferences_applicationEnableNotificationScanning">啟用通知掃描</string>
-    <string name="check_github_releases_installed_version">Installed version:</string>
-    <string name="accessibility_service_not_used">Not used</string>
-    <string name="preference_not_used_extender_reason">Reason:</string>
-    <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
+    <string name="check_github_releases_installed_version">已安裝的版本：</string>
+    <string name="accessibility_service_not_used">未使用</string>
+    <string name="preference_not_used_extender_reason">原因：</string>
+    <string name="location_editor_enable_location_summary">抱歉，無法取得位置。\n\n請在系統設定中啟用位置與 \"Wi-Fi 掃描\"。\n如果尚未連接，請同時將裝置連接到網路。</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
+    <string name="menu_run_events">Enable events run</string>
+    <string name="menu_stop_events">Disable events run</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlus 的擴展器。它只能與 PhoneProfilesPlus 一起使用。</string>
     <string name="extender_about_application_version">版本:</string>
