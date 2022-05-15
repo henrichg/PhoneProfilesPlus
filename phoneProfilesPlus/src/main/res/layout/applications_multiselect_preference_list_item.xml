@@ -3,7 +3,8 @@
     android:id="@+id/applications_multiselect_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:padding="3dp" >
+    android:padding="3dp"
+    android:background="?attr/selectableItemBackground"  >
 
     <CheckBox
         android:id="@+id/applications_multiselect_pref_dlg_item_checkbox"

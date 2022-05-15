@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:paddingBottom="5dp"
+    android:background="?attr/selectableItemBackground" >
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/run_applications_editor_dlg_item_edit_menu"

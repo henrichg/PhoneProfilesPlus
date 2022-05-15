@@ -6,7 +6,8 @@
     android:paddingStart="3dp"
     android:paddingEnd="3dp"
     android:paddingTop="6dp"
-    android:paddingBottom="6dp" >
+    android:paddingBottom="6dp"
+    android:background="?attr/selectableItemBackground"  >
 
     <CheckBox
         android:id="@+id/contacts_multiselect_pref_dlg_item_checkbox"
