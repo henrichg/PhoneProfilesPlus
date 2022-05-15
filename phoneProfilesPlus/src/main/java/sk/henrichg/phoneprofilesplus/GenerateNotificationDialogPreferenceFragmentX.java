@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -39,6 +40,13 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
+
+        TextView text = view.findViewById(R.id.generateNotificationPrefDialogIconTypeLabel);
+        text.setText(getString(R.string.generate_notification_pref_dialog_icon_type)+":");
+        text = view.findViewById(R.id.generateNotificationPrefDialogNotificationTitleLabel);
+        text.setText(getString(R.string.generate_notification_pref_dialog_notification_title)+":");
+        text = view.findViewById(R.id.generateNotificationPrefDialogNotificationBodyLabel);
+        text.setText(getString(R.string.generate_notification_pref_dialog_notification_body)+":");
 
         generateChBtn = view.findViewById(R.id.generateNotificationPrefDialogGenerate);
         informationIconRBtn = view.findViewById(R.id.generateNotificationPrefDialogInformationIcon);

@@ -1932,6 +1932,8 @@
 
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) application, (S) shortcut, (I) intent.</string>
 
+    <string name="generated_notification_intent_hint_not_set">Not set</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
