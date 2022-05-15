@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="-5dp"
+        android:textSize="16sp"
         android:text="@string/generate_notification_pref_dialog_generate_chb"/>
 
     <TextView
