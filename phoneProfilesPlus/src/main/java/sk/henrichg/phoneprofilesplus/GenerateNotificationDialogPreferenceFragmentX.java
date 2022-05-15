@@ -46,7 +46,7 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(preference.getTitle());
+        dialogBuilder.setTitle(R.string.profile_preferences_generateNotification);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
