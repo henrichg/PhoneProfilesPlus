@@ -20,7 +20,7 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
     final DragHandle dragHandle;
     private final ImageView imageViewIcon;
     private final TextView textViewAppName;
-    private final TextView textViewAppType;
+    //private final TextView textViewAppType;
     private final AppCompatImageButton imageViewMenu;
     private final TextView textViewStartApplicationDelay;
 
@@ -39,7 +39,7 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
         dragHandle = itemView.findViewById(R.id.run_applications_pref_dlg_item_drag_handle);
         imageViewIcon = itemView.findViewById(R.id.run_applications_pref_dlg_item_icon);
         textViewAppName = itemView.findViewById(R.id.run_applications_pref_dlg_item_app_name);
-        textViewAppType = itemView.findViewById(R.id.run_applications_pref_dlg_item_app_type);
+        //textViewAppType = itemView.findViewById(R.id.run_applications_pref_dlg_item_app_type);
         imageViewMenu = itemView.findViewById(R.id.run_applications_pref_dlg_item_edit_menu);
         textViewStartApplicationDelay = itemView.findViewById(R.id.run_applications_pref_dlg_item_startApplicationDelay);
 
@@ -58,17 +58,17 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
         }
         else
             imageViewIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
-        String text = application.appLabel;
+        String text = "(A) " + application.appLabel;
         if (application.shortcutId > 0) {
             Shortcut shortcut = DatabaseHandler.getInstance(context.getApplicationContext()).getShortcut(application.shortcutId);
             if (shortcut != null)
-                text = shortcut._name;
+                text = "(S) " + shortcut._name;
         }
         else
         if (application.intentId > 0) {
             PPIntent intent = DatabaseHandler.getInstance(context.getApplicationContext()).getIntent(application.intentId);
             if (intent != null)
-                text = intent._name;
+                text = "(I) " + intent._name;
         }
         textViewAppName.setText(text);
         boolean errorColor = false;
@@ -79,7 +79,7 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
             errorColor = true;
         setTextStyle(textViewAppName, errorColor);
 
-        switch (application.type) {
+        /*switch (application.type) {
             case Application.TYPE_APPLICATION:
                 textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
                 break;
@@ -90,7 +90,7 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
                 textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_intent));
                 break;
         }
-        setTextStyle(textViewAppType, errorColor);
+        setTextStyle(textViewAppType, errorColor);*/
 
         text = context.getString(R.string.applications_editor_dialog_startApplicationDelay);
         text = text + " " + GlobalGUIRoutines.getDurationString(application.startApplicationDelay);

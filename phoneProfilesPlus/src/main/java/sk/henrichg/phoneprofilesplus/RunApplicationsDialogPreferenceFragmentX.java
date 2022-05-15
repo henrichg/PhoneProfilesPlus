@@ -1,10 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -71,6 +73,14 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
         ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(listAdapter, false, false);
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(applicationsListView);
+
+        final ImageView helpIcon = view.findViewById(R.id.run_applications_pref_dlg_helpIcon);
+        TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
+        helpIcon.setOnClickListener(v -> {
+            String helpString = getString(R.string.run_applications_preference_application_type);
+
+            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ helpString, false);
+        });
 
         addButton.setOnClickListener(v -> preference.startEditor(null));
 
