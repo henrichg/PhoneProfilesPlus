@@ -3278,7 +3278,7 @@ public class Profile {
             String[] splits = _generateNotification.split("\\|");
             value = splits[2];
         } catch (Exception e) {
-            value = "x";
+            value = "";
         }
         return value;
     }
@@ -3290,7 +3290,7 @@ public class Profile {
             String[] splits = _generateNotification.split("\\|");
             value = splits[2];
         } catch (Exception e) {
-            value = "x";
+            value = "";
         }
         return value;
     }

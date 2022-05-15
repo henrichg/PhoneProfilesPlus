@@ -71,7 +71,7 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
         try {
             notificationTitle = splits[2];
         } catch (Exception e) {
-            notificationTitle = "x";
+            notificationTitle = "";
         }
         try {
             notificationBody = splits[3];
