@@ -6072,7 +6072,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             dialogText = dialogText + getString(R.string.install_extender_required_version) +
                     " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
-            dialogText = dialogText + getString(R.string.install_extender_text1) + " \"" + getString(R.string.alert_button_install) + "\".\n\n";
+            dialogText = dialogText + getString(R.string.install_extender_text1) + " \"" + getString(R.string.alert_button_install) + "\".";
 
             text.setText(dialogText);
 
