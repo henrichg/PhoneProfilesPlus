@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -37,6 +38,13 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
+
+        TextView text = view.findViewById(R.id.default_sim_voice_textView);
+        text.setText(getString(R.string.default_sim_pref_dlg_voice)+":");
+        text = view.findViewById(R.id.default_sim_sms_textView);
+        text.setText(getString(R.string.default_sim_pref_dlg_sms)+":");
+        text = view.findViewById(R.id.default_sim_data_textView);
+        text.setText(getString(R.string.default_sim_pref_dlg_data)+":");
 
         voiceSpinner = view.findViewById(R.id.default_sim_voice_spinner);
         smsSpinner = view.findViewById(R.id.default_sim_sms_spinner);
