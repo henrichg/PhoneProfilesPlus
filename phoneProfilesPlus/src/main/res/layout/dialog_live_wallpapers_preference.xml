@@ -21,15 +21,43 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/live_wallpapers_pref_dlg_listview"
+    <LinearLayout
+        android:id="@+id/live_wallpapers_pref_dlg_listview_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:clipToPadding="false"
-        android:choiceMode="singleChoice"
-        android:scrollbarStyle="outsideOverlay"
-        android:divider="@android:color/transparent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/live_wallpapers_pref_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="?attr/dialogDivider" />
+
+        <ListView
+            android:id="@+id/live_wallpapers_pref_dlg_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:clipToPadding="false"
+            android:choiceMode="singleChoice"
+            android:scrollbarStyle="outsideOverlay"
+            android:divider="@android:color/transparent" />
+
+        <View
+            android:id="@+id/live_wallpapers_pref_dlg_bottomBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="3dp"
+            android:background="?attr/dialogDivider" />
+
+    </LinearLayout>
 
 </LinearLayout>
