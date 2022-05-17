@@ -207,6 +207,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
         else
             mMap.getOverlayManager().getTilesOverlay().setColorFilter(null);
+        //mMap.getOverlayManager().getTilesOverlay().setLoadingBackgroundColor(GlobalGUIRoutines.getThemeDialogBackgroundColor(this));
+        //mMap.getOverlayManager().getTilesOverlay().setLoadingLineColor(GlobalGUIRoutines.getThemeNormalTextColor(this));
 
         IMapController mapController = mMap.getController();
         //mapController.setZoom(15f);
