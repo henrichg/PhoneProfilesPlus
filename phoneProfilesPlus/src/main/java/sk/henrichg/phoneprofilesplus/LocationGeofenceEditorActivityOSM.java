@@ -798,6 +798,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
 
         provider = mLocationManager.getBestProvider(criteria, false);
         if (provider != null)

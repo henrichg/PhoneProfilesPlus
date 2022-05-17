@@ -216,8 +216,8 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                                     LocationScanner.useGPS = !LocationScanner.useGPS;
 
                                 // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
-                                locationScanner.startLocationUpdates();
-                                locationScanner.updateTransitionsByLastKnownLocation();
+                                String provider = locationScanner.startLocationUpdates();
+                                locationScanner.updateTransitionsByLastKnownLocation(provider);
                             }
                         }
                     }

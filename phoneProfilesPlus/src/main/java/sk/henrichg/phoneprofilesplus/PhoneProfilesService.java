@@ -5020,8 +5020,10 @@ public class PhoneProfilesService extends Service
                             } else if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
-                                    if (PPApplication.locationScanner != null)
-                                        PPApplication.locationScanner.updateTransitionsByLastKnownLocation();
+                                    if (PPApplication.locationScanner != null) {
+                                        String provider = PPApplication.locationScanner.getProvider();
+                                        PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
+                                    }
                                 }
 
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
@@ -6874,7 +6876,8 @@ public class PhoneProfilesService extends Service
             PPApplication.locationScanner.connect(resetUseGPS);
         }
         else {
-            PPApplication.locationScanner.updateTransitionsByLastKnownLocation();
+            String provider = PPApplication.locationScanner.getProvider();
+            PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
         }
     }
 
