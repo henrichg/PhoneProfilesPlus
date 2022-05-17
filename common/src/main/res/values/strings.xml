@@ -1934,6 +1934,8 @@
 
     <string name="generated_notification_intent_hint_not_set">Not set</string>
 
+    <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">None installed</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
