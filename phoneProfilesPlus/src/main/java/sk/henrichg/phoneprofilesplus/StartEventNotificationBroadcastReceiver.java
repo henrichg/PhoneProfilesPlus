@@ -174,6 +174,16 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 } else {
                     long alarmTime = SystemClock.elapsedRealtime() + event._repeatNotificationIntervalStart * 1000L;
 
+//                        if (PPApplication.logEnabled()) {
+//                            Calendar now = Calendar.getInstance();
+//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                            long _alarmTime = now.getTimeInMillis();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                            String result = sdf.format(_alarmTime);
+//                            PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
+//                        }
+
                     //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else //if (android.os.Build.VERSION.SDK_INT >= 19)

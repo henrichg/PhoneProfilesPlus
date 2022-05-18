@@ -8,7 +8,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import java.util.List;
 
@@ -215,16 +214,17 @@ class LocationScanner
 
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
-            //PPApplication.logE("##### LocationScanner.startLocationUpdates","NETWORK_PROVIDER");
+            PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER");
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
-            //PPApplication.logE("##### LocationScanner.startLocationUpdates","GPS_PROVIDER");
+            PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER");
             provider = LocationManager.GPS_PROVIDER;
         }
 
         boolean gpsForced = false;
-        if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
-//                                 PPApplication.logE("##### LocationScanner.startLocationUpdates", "NOT ONLINE");
+        if (provider.equals(LocationManager.NETWORK_PROVIDER) &&
+                (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
+            PPApplication.logE("##### LocationScanner.getProvider", "NOT ONLINE");
             // device is not connected to network, force GPS_PROVIDER
             provider = LocationManager.GPS_PROVIDER;
             gpsForced = true;
@@ -236,7 +236,7 @@ class LocationScanner
             try {
                 //noinspection ConstantConditions
                 locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//                                    PPApplication.logE("##### LocationScanner.startLocationUpdates","GPS_PROVIDER="+locationEnabled);
+                PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER="+locationEnabled);
                 if ((!locationEnabled) && (!gpsForced))
                     provider = LocationManager.NETWORK_PROVIDER;
             } catch (Exception e) {
@@ -251,7 +251,7 @@ class LocationScanner
                 try {
                     //noinspection ConstantConditions
                     locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-//                                        PPApplication.logE("##### LocationScanner.startLocationUpdates","NETWORK_PROVIDER="+locationEnabled);
+                    PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER="+locationEnabled);
                 } catch (Exception e) {
                     // we may get IllegalArgumentException if network location provider
                     // does not exist or is not yet installed.
@@ -260,10 +260,13 @@ class LocationScanner
             }
         }
 
-        if (!locationEnabled)
+        if (!locationEnabled) {
             provider = "";
+            //TODO, sem daj notifikaciu, ze nema povoleneho ziadneho providera
+            // cize sa neda zistit poloha
+        }
 
-//        Log.e("LocationScanner.getProvider", "provider="+provider);
+        PPApplication.logE("##### LocationScanner.getProvider","provider="+provider);
 
         return provider;
     }
@@ -360,12 +363,13 @@ class LocationScanner
         if (!mListenerEnabled)
             provider = "";
 
-        if (ApplicationPreferences.applicationEventLocationUseGPS && CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
+        //if (ApplicationPreferences.applicationEventLocationUseGPS &&
+        //        CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
             // recursive call this for switch usage of GPS
             LocationScannerSwitchGPSBroadcastReceiver.setAlarm(context);
-        }
-        else
-            LocationScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+        //}
+        //else
+        //    LocationScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
 
         return provider;
     }
@@ -507,7 +511,8 @@ class LocationScanner
 
 //                    PPApplication.logE("LocationScanner.onlineStatusChanged", "xxx");
 
-                    if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
+                    if (ApplicationPreferences.applicationEventLocationUseGPS &&
+                            (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
                         // device is not online
 //                        PPApplication.logE("LocationScanner.onlineStatusChanged", "NOT ONLINE");
 

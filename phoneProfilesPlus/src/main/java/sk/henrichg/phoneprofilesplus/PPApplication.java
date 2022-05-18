@@ -250,6 +250,8 @@ public class PPApplication extends Application
                                                 //+"|[VOLUMES]"
 
                                                 //+"|LocationGeofenceEditorActivityOSM"
+                                                +"|LocationScanner"
+                                                +"|LocationScannerSwitchGPSBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

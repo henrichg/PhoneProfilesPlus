@@ -2622,6 +2622,16 @@ class Event {
                     } else {
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000L;
 
+//                        if (PPApplication.logEnabled()) {
+//                            Calendar now = Calendar.getInstance();
+//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                            long _alarmTime = now.getTimeInMillis();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                            String result = sdf.format(_alarmTime);
+//                            PPApplication.logE("Event.setDelayStartAlarm", "alarmTime=" + result);
+//                        }
+
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                         //else
@@ -2886,9 +2896,16 @@ class Event {
 //                        PPApplication.logE("Event.setDelayEndAlarm", "setExactAndAllowWhileIdle - this._delayEnd="+this._delayEnd);
 
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000L;
-                        //Calendar now = Calendar.getInstance();
-                        //now.add(Calendar.SECOND, this._delayEnd);
-                        //long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
+
+//                        if (PPApplication.logEnabled()) {
+//                            Calendar now = Calendar.getInstance();
+//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                            long _alarmTime = now.getTimeInMillis();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                            String result = sdf.format(_alarmTime);
+//                            PPApplication.logE("Event.setDelayEndAlarm", "alarmTime=" + result);
+//                        }
 
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);

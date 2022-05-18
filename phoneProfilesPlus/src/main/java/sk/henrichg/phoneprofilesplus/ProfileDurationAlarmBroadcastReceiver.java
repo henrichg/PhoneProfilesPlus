@@ -158,6 +158,16 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     } else {
                         alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
 
+//                        if (PPApplication.logEnabled()) {
+//                            Calendar now = Calendar.getInstance();
+//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                            long _alarmTime = now.getTimeInMillis();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                            String result = sdf.format(_alarmTime);
+//                            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.setAlarm", "alarmTime=" + result);
+//                        }
+
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                         //else //if (android.os.Build.VERSION.SDK_INT >= 19)
@@ -216,6 +226,16 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
                         alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
+
+//                        if (PPApplication.logEnabled()) {
+//                            Calendar now = Calendar.getInstance();
+//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                            long _alarmTime = now.getTimeInMillis();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                            String result = sdf.format(_alarmTime);
+//                            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.setAlarm", "alarmTime=" + result);
+//                        }
 
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);

@@ -12788,7 +12788,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    //TODO
     private void afterImportDb(SQLiteDatabase db) {
         Cursor cursorImportDB = null;
 

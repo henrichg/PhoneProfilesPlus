@@ -268,7 +268,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);
         */
-//TODO
         if (!nestedFragment) {
             Preference preferenceCategoryScreen;
             preferenceCategoryScreen = findPreference("applicationInterfaceCategoryRoot");
