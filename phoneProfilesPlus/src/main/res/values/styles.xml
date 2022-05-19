@@ -168,7 +168,6 @@
         <item name="android:layout_marginStart">@dimen/activity_margin_start</item>
         <item name="android:layout_marginEnd">@dimen/activity_margin_end</item>
 
-
 <!--        <item name="contentInsetStart">@dimen/activity_horizontal_margin</item>-->
 <!--        <item name="contentInsetEnd">0dp</item>-->
     </style>
