@@ -403,20 +403,18 @@ public class TimeDurationPicker extends FrameLayout {
 
         // measure the display
         final int displayRowWidth = Math.max(minDisplayWidth, preferredWidth);
-        @SuppressWarnings("UnnecessaryLocalVariable")
-        final int displayRowHeight = minDisplayHeight;
-        displayRow.measure(MeasureSpec.makeMeasureSpec(displayRowWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(displayRowHeight, MeasureSpec.EXACTLY));
+        displayRow.measure(MeasureSpec.makeMeasureSpec(displayRowWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(minDisplayHeight, MeasureSpec.EXACTLY));
 
         // measure the numPad
         // if we have more space available, we can try to grow the num pad
         final int numPadWidth = Math.max(minNumPadWidth, displayRowWidth);
-        final int numPadHeight = Math.max(minNumPadHeight, preferredHeight - displayRowHeight);
+        final int numPadHeight = Math.max(minNumPadHeight, preferredHeight - minDisplayHeight);
         numPad.measure(MeasureSpec.makeMeasureSpec(numPadWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(numPadHeight, MeasureSpec.EXACTLY));
 
         // forward calculated size to super implementation
         //noinspection ConstantConditions
         final int width = Math.max(displayRowWidth, numPadWidth);
-        final int height = displayRowHeight + numPadHeight;
+        final int height = minDisplayHeight + numPadHeight;
         setMeasuredDimension(width, height);
     }
 
@@ -434,9 +432,7 @@ public class TimeDurationPicker extends FrameLayout {
         final int numPadWidth = numPad.getMeasuredWidth();
         final int numPadHeight = numPad.getMeasuredHeight();
         final int numPadX = (width - numPadWidth) / 2;
-        @SuppressWarnings("UnnecessaryLocalVariable")
-        final int numPadY = displayRowHeight;
-        numPad.layout(numPadX, numPadY, numPadX + numPadWidth, numPadY + numPadHeight);
+        numPad.layout(numPadX, displayRowHeight, numPadX + numPadWidth, displayRowHeight + numPadHeight);
     }
 
     //

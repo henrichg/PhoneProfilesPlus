@@ -1,13 +1,20 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.provider.Settings;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
@@ -262,8 +269,7 @@ class LocationScanner
 
         if (!locationEnabled) {
             provider = "";
-            //TODO, sem daj notifikaciu, ze nema povoleneho ziadneho providera
-            // cize sa neda zistit poloha
+            showNotification();
         }
 
         PPApplication.logE("##### LocationScanner.getProvider","provider="+provider);
@@ -547,6 +553,41 @@ class LocationScanner
                     }
                 }
             }
+        }
+    }
+
+    private void showNotification() {
+        String nText = context.getString(R.string.location_scanner_location_not_working_notification_text);
+
+        PPApplication.createExclamationNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(context.getString(R.string.location_scanner_location_not_working_notification_title)) // title for notification
+                .setContentText(nText) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        @SuppressLint("UnspecifiedImmutableFlag")
+        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+
+        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+        try {
+            mNotificationManager.notify(
+                    PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_TAG,
+                    PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_ID, mBuilder.build());
+        } catch (Exception e) {
+            //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
         }
     }
 

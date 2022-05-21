@@ -686,7 +686,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("PPPExtenderBroadcastReceiver.isExtenderInstalled", "installed=true");
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                 //noinspection UnnecessaryLocalVariable
-
                 String version =  pInfo.versionName;
                 //PPApplication.logE("PPPExtenderBroadcastReceiver.isExtenderInstalled", "version="+version);
                 return version;

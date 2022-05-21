@@ -43,10 +43,8 @@ class ProfilePreferencesIndicator {
 
         int iconSize = GlobalGUIRoutines.dpToPx(24);
         int width = iconSize * countDrawables;
-        //noinspection UnnecessaryLocalVariable
-        int height = iconSize;
 
-        return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        return Bitmap.createBitmap(width, iconSize, Bitmap.Config.ARGB_8888);
     }
 
     private void addIndicator(int preferenceBitmapResourceID, int index,

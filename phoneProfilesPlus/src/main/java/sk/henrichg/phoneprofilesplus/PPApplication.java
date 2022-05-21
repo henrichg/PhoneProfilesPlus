@@ -524,6 +524,8 @@ public class PPApplication extends Application
 
     static final int AUTOSTART_PERMISSION_NOTIFICATION_ID = 150;
     static final String AUTOSTART_PERMISSION_NOTIFICATION_TAG = PACKAGE_NAME+"_AUTOSTART_PERMISSION_NOTIFICATION";
+    static final int LOCATION_NOT_WORKING_NOTIFICATION_ID = 151;
+    static final String LOCATION_NOT_WORKING_NOTIFICATION_TAG = PACKAGE_NAME+"_LOCATION_NOT_WORKING_NOTIFICATION_NOTIFICATION";
 
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;

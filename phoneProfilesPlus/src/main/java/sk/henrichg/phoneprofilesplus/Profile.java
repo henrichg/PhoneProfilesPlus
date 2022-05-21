@@ -2926,12 +2926,10 @@ public class Profile {
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
         //noinspection UnnecessaryLocalVariable
         int percentage = BrightnessLookup.lookup(_settingsValue, true);
-
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("getBrightnessPercentage_A9", "settingsValue=" + settingsValue);
             PPApplication.logE("getBrightnessPercentage_A9", "percentage=" + percentage);
         }*/
-
         return percentage;
     }
 
