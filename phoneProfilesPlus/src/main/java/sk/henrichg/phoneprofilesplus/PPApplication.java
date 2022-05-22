@@ -250,8 +250,14 @@ public class PPApplication extends Application
                                                 //+"|[VOLUMES]"
 
                                                 //+"|LocationGeofenceEditorActivityOSM"
-                                                +"|LocationScanner"
-                                                +"|LocationScannerSwitchGPSBroadcastReceiver"
+                                                //+"|LocationScanner"
+                                                //+"|LocationScannerSwitchGPSBroadcastReceiver"
+
+                                                //+"|ActivateProfileHelper.execute"
+                                                //+"|PhoneProfilesService.doCommand"
+                                                //+"|ScreenOnOffBroadcastReceiver.onReceive"
+                                                //+"|PhoneProfilesService.disableKeyguard"
+                                                //+"|PhoneProfilesService.reenableKeyguard"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -952,6 +958,12 @@ public class PPApplication extends Application
 //        } catch (Exception e) {
 //            PPApplication.recordException(e);
 //        }
+
+        if (keyguardManager == null)
+            keyguardManager = (KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE);
+        if (keyguardManager != null)
+            //noinspection deprecation
+            keyguardLock = keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
 
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());

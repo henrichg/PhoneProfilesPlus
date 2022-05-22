@@ -74,6 +74,20 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
     //                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
     //                        }
 
+                            if (!ApplicationPreferences.prefLockScreenDisabled) {
+//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - start");
+                                // enable/disable keyguard
+                                try {
+                                    PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                                    if (ppService != null) {
+                                        ppService.switchKeyguard();
+                                    }
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - end");
+                            }
+
                             // reset brightness
                             if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
                                 if (ApplicationPreferences.applicationForceSetBrightnessAtScreenOn) {
@@ -310,22 +324,19 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             setScreenTimeout(appContext);
 //                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - setScrteenTimeput - end");
 
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - start");
-                            // enable/disable keyguard
-                            try {
-                                // start PhoneProfilesService
-                                /*Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
-                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
-                                PPApplication.startPPService(appContext, serviceIntent);*/
-                                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                                commandIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
-                                PPApplication.runCommand(appContext, commandIntent);
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
+                            if (ApplicationPreferences.prefLockScreenDisabled) {
+//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - start");
+                                // enable/disable keyguard
+                                try {
+                                    PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                                    if (ppService != null) {
+                                        ppService.switchKeyguard();
+                                    }
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - end");
                             }
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - end");
 
                             /*if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

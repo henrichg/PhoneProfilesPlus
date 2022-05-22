@@ -4706,16 +4706,16 @@ class ActivateProfileHelper {
         boolean setLockScreen = false;
         switch (profile._deviceKeyguard) {
             case 1:
-                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceKeyguard 1");
+//                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceKeyguard 1");
                 // enable lock screen
-                //PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=ON");
+//                PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=ON");
                 setLockScreenDisabled(appContext, false);
                 setLockScreen = true;
                 break;
             case 2:
-                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceKeyguard 2");
+//                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceKeyguard 2");
                 // disable lock screen
-                //PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=OFF");
+//                PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=OFF");
                 setLockScreenDisabled(appContext, true);
                 setLockScreen = true;
                 break;
@@ -4724,7 +4724,7 @@ class ActivateProfileHelper {
             //boolean isScreenOn;
             //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
             //if (pm != null) {
-                //PPApplication.logE("$$$ ActivateProfileHelper.execute", "isScreenOn=" + PPApplication.isScreenOn);
+//                PPApplication.logE("$$$ ActivateProfileHelper.execute", "isScreenOn=" + PPApplication.isScreenOn);
                 boolean keyguardShowing;
                 KeyguardManager kgMgr = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                 if (kgMgr != null) {
@@ -4733,17 +4733,11 @@ class ActivateProfileHelper {
 
                     if (PPApplication.isScreenOn && !keyguardShowing) {
                         try {
-                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "switch keyguard");
-                            // start PhoneProfilesService
-                            //PPApplication.firstStartServiceStarted = false;
-                            /*Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
-                            PPApplication.startPPService(context, serviceIntent);*/
-                            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                            commandIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
-                            PPApplication.runCommand(appContext, commandIntent);
+//                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "switch keyguard");
+                            PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                            if (ppService != null) {
+                                ppService.switchKeyguard();
+                            }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }

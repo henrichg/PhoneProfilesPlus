@@ -340,6 +340,7 @@ public class MainWorker extends Worker {
             //__handler.post(new PPHandlerThreadRunnable(
             //        appContext, dataWrapper) {
             __handler.post(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (1)");
                 PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
                 //Context appContext= appContextWeakRef.get();
@@ -436,6 +437,7 @@ public class MainWorker extends Worker {
             //__handler.post(new PPHandlerThreadRunnable(
             //        appContext, dataWrapper) {
             __handler.post(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (2)");
                 PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
                 //Context appContext= appContextWeakRef.get();

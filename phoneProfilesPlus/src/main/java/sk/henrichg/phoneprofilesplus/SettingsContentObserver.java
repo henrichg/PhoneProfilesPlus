@@ -139,6 +139,8 @@ class SettingsContentObserver  extends ContentObserver {
     public void onChange(boolean selfChange, Uri uri) {
         //super.onChange(selfChange);
 
+//        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=SettingsContentObserver.onChange");
+
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "current thread="+Thread.currentThread());
 
@@ -255,11 +257,12 @@ class SettingsContentObserver  extends ContentObserver {
                         //PPApplication.logE("SettingsContentObserver.onChange","xxx");
 
                         final Context appContext = context.getApplicationContext();
-                        PPApplication.startHandlerThreadBroadcast();
-                        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                        //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                        //        context.getApplicationContext()) {
-                        __handler.post(() -> {
+                        // handler is not needed because is already used:
+                        //PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
+
+                        //PPApplication.startHandlerThreadBroadcast();
+                        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                        //__handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=SettingsContentObserver.onChange");
 
                             //Context appContext= appContextWeakRef.get();
@@ -289,7 +292,7 @@ class SettingsContentObserver  extends ContentObserver {
                                 }
                             }
                             //}
-                        });
+                        //});
                         //}
 
                     }

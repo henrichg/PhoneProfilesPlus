@@ -120,7 +120,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_ACTIVATE_PROFILES = "activate_profiles";
     //static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     //static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
-    static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
+    //static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
 
     static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
     static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
@@ -375,11 +375,12 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);
 
-        if (PPApplication.keyguardManager == null)
-            PPApplication.keyguardManager = (KeyguardManager)appContext.getSystemService(Context.KEYGUARD_SERVICE);
-        if (PPApplication.keyguardManager != null)
+        // moved to PPApplication.onCreate()
+        //if (PPApplication.keyguardManager == null)
+        //    PPApplication.keyguardManager = (KeyguardManager)appContext.getSystemService(Context.KEYGUARD_SERVICE);
+        //if (PPApplication.keyguardManager != null)
             //noinspection deprecation
-            PPApplication.keyguardLock = PPApplication.keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
+        //    PPApplication.keyguardLock = PPApplication.keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
 
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
@@ -4820,6 +4821,38 @@ public class PhoneProfilesService extends Service
         return START_STICKY;
     }
 
+    void switchKeyguard() {
+//        PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_SWITCH_KEYGUARD");
+
+        //boolean isScreenOn;
+        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+        //isScreenOn = ((pm != null) && PPApplication.isScreenOn(pm));
+
+        boolean secureKeyguard;
+        //if (PPApplication.keyguardManager == null)
+        //    KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
+        if (PPApplication.keyguardManager != null) {
+            secureKeyguard = PPApplication.keyguardManager.isKeyguardSecure();
+//            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "secureKeyguard=" + secureKeyguard);
+            if (!secureKeyguard) {
+//                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "getLockScreenDisabled=" + ApplicationPreferences.prefLockScreenDisabled);
+
+                if (PPApplication.isScreenOn) {
+//                    PPApplication.logE("$$$ PhoneProfilesService.doCommand", "screen on");
+
+                    if (ApplicationPreferences.prefLockScreenDisabled) {
+//                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "disableKeyguard()");
+                        reenableKeyguard();
+                        disableKeyguard();
+                    } else {
+//                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "reenableKeyguard()");
+                        reenableKeyguard();
+                    }
+                }
+            }
+        }
+    }
+
     private void doCommand(Intent _intent) {
 //        PPApplication.logE("*************** PhoneProfilesService.doCommand", "xxxxxx");
         if (_intent != null) {
@@ -4901,7 +4934,7 @@ public class PhoneProfilesService extends Service
 //            __handler.post(new DoCommandRunnable(
 //                    getApplicationContext(), _intent) {
             __handler.post(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBroadcast", "START run - from=PhoneProfilesService.doCommand");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doCommand (1)");
 
                 //Context appContext= appContextWeakRef.get();
                 //Intent intent = intentWeakRef.get();
@@ -4945,37 +4978,30 @@ public class PhoneProfilesService extends Service
                                 //showProfileNotification();
                             }
                             else*/
-                            if (intent.getBooleanExtra(EXTRA_SWITCH_KEYGUARD, false)) {
-//                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_SWITCH_KEYGUARD");
-
+                            /*if (intent.getBooleanExtra(EXTRA_SWITCH_KEYGUARD, false)) {
                                 //boolean isScreenOn;
                                 //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                 //isScreenOn = ((pm != null) && PPApplication.isScreenOn(pm));
 
                                 boolean secureKeyguard;
-                                if (PPApplication.keyguardManager == null)
-                                    PPApplication.keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
+                                //if (PPApplication.keyguardManager == null)
+                                //    PPApplication.keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                                 if (PPApplication.keyguardManager != null) {
                                     secureKeyguard = PPApplication.keyguardManager.isKeyguardSecure();
-                                    //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "secureKeyguard=" + secureKeyguard);
                                     if (!secureKeyguard) {
-                                        //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "getLockScreenDisabled=" + ActivateProfileHelper.getLockScreenDisabled(appContext));
 
                                         if (PPApplication.isScreenOn) {
-                                            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "screen on");
 
                                             if (ApplicationPreferences.prefLockScreenDisabled) {
-                                                //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "disableKeyguard(), START_STICKY");
                                                 ppService.reenableKeyguard();
                                                 ppService.disableKeyguard();
                                             } else {
-                                                //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "reenableKeyguard(), stopSelf(), START_NOT_STICKY");
                                                 ppService.reenableKeyguard();
                                             }
                                         }
                                     }
                                 }
-                            }
+                            }*/
                             /*
                             else
                             if (intent.getBooleanExtra(EXTRA_START_LOCATION_UPDATES, false)) {
@@ -4996,7 +5022,7 @@ public class PhoneProfilesService extends Service
                                 //}
                             }
                             */
-                            else if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_WORKERS, false)) {
+                            /*else*/ if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
                                 ppService.registerEventsReceiversAndWorkers(true);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, false)) {
@@ -6795,9 +6821,11 @@ public class PhoneProfilesService extends Service
 
     // switch keyguard ------------------------------------
 
+    @SuppressWarnings("deprecation")
     private void disableKeyguard()
     {
-        //PPApplication.logE("$$$ disableKeyguard","keyguardLock="+keyguardLock);
+//        PPApplication.logE("$$$ PhoneProfilesService.disableKeyguard","keyguardLock="+PPApplication.keyguardLock);
+
         if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
             try {
                 PPApplication.keyguardLock.disableKeyguard();
@@ -6808,9 +6836,11 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void reenableKeyguard()
     {
-        //PPApplication.logE("$$$ reenableKeyguard","keyguardLock="+keyguardLock);
+//        PPApplication.logE("$$$ PhoneProfilesService.reenableKeyguard","keyguardLock="+PPApplication.keyguardLock);
+
         if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
             try {
                 PPApplication.keyguardLock.reenableKeyguard();
