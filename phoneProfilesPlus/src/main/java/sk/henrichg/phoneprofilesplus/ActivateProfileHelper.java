@@ -109,7 +109,7 @@ class ActivateProfileHelper {
     private static final String PREF_RINGER_MODE = "ringer_mode";
     private static final String PREF_ZEN_MODE = "zen_mode";
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
-    private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
+    private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT_WHEN_SCREEN_OFF = "activated_profile_screen_timeout";
     private static final String PREF_KEEP_SCREEN_ON_PERMANENT = "keep_screen_on_permanent";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
@@ -4688,14 +4688,14 @@ class ActivateProfileHelper {
                 if (PPApplication.screenTimeoutHandler != null) {
                     PPApplication.screenTimeoutHandler.post(() -> {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "setScreenTimeout()");
-                        setScreenTimeout(profile._deviceScreenTimeout, appContext);
+                        setScreenTimeout(profile._deviceScreenTimeout, false, appContext);
                     });
                 }// else
                 //    setScreenTimeout(profile._deviceScreenTimeout);
             }
             else {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "setActivatedProfileScreenTimeout()");
-                setActivatedProfileScreenTimeout(appContext, profile._deviceScreenTimeout);
+                setActivatedProfileScreenTimeoutWhenScreenOff(appContext, profile._deviceScreenTimeout);
             }
         }
         //else
@@ -5188,7 +5188,7 @@ class ActivateProfileHelper {
         }
     }
 
-    static void setScreenTimeout(int screenTimeout, Context context) {
+    static void setScreenTimeout(int screenTimeout, boolean forceSet, Context context) {
         //PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "xxx");
 
         Context appContext = context.getApplicationContext();
@@ -5198,9 +5198,9 @@ class ActivateProfileHelper {
         switch (screenTimeout) {
             case 1:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
+                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutBeforeDeviceLock = 15000;
+                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 15000;
                 else {
                     /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
@@ -5227,9 +5227,9 @@ class ActivateProfileHelper {
                 break;
             case 2:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
+                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutBeforeDeviceLock = 30000;
+                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 30000;
                 else {
                     /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
@@ -5257,9 +5257,9 @@ class ActivateProfileHelper {
                 break;
             case 3:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
+                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutBeforeDeviceLock = 60000;
+                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 60000;
                 else {
                     /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
@@ -5287,9 +5287,9 @@ class ActivateProfileHelper {
                 break;
             case 4:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
+                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutBeforeDeviceLock = 120000;
+                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 120000;
                 else {
                     /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
@@ -5317,9 +5317,9 @@ class ActivateProfileHelper {
                 break;
             case 5:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
+                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutBeforeDeviceLock = 600000;
+                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 600000;
                 else {
                     /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
@@ -5359,9 +5359,9 @@ class ActivateProfileHelper {
                 break;*/
             case 7:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
+                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutBeforeDeviceLock = 300000;
+                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 300000;
                 else {
                     /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
@@ -5397,9 +5397,9 @@ class ActivateProfileHelper {
                 break;*/
             case 9:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
+                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutBeforeDeviceLock = 1800000;
+                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 1800000;
                 else {
                     /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
@@ -5426,7 +5426,7 @@ class ActivateProfileHelper {
                 }
                 break;
         }
-        setActivatedProfileScreenTimeout(appContext, 0);
+        setActivatedProfileScreenTimeoutWhenScreenOff(appContext, 0);
 
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableScreenTimeoutInternalChangeWorker.class)
@@ -7590,21 +7590,21 @@ class ActivateProfileHelper {
         }
     }
 
-    static void getActivatedProfileScreenTimeout(Context context)
+    static void getActivatedProfileScreenTimeoutWhenScreenOff(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.prefActivatedProfileScreenTimeout = ApplicationPreferences.
-                    getSharedPreferences(context).getInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, 0);
+            ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff = ApplicationPreferences.
+                    getSharedPreferences(context).getInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT_WHEN_SCREEN_OFF, 0);
             //return prefActivatedProfileScreenTimeout;
         }
     }
-    static void setActivatedProfileScreenTimeout(Context context, int timeout)
+    static void setActivatedProfileScreenTimeoutWhenScreenOff(Context context, int timeout)
     {
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, timeout);
+            editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT_WHEN_SCREEN_OFF, timeout);
             editor.apply();
-            ApplicationPreferences.prefActivatedProfileScreenTimeout = timeout;
+            ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff = timeout;
         }
     }
 

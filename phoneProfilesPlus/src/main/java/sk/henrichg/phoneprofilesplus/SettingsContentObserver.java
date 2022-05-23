@@ -301,15 +301,15 @@ class SettingsContentObserver  extends ContentObserver {
         }
 
         ////// screen timeout change
-        int screenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0);
-        if (!ActivateProfileHelper.disableScreenTimeoutInternalChange) {
-            if (previousScreenTimeout != screenTimeout) {
-                //if (Permissions.checkScreenTimeout(context)) {
-                    ActivateProfileHelper.setActivatedProfileScreenTimeout(context, 0);
-                //}
+        int screenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
+        if (screenTimeout != -1) {
+            if (!ActivateProfileHelper.disableScreenTimeoutInternalChange) {
+                if (previousScreenTimeout != screenTimeout) {
+                    ActivateProfileHelper.setActivatedProfileScreenTimeoutWhenScreenOff(context, 0);
+                }
             }
+            previousScreenTimeout = screenTimeout;
         }
-        previousScreenTimeout = screenTimeout;
 
         if (!ActivateProfileHelper.brightnessDialogInternalChange) {
             savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);

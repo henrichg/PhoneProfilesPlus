@@ -60,7 +60,9 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                             });
                         }
                     } else*/
-                        Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+                    if ((PPApplication.lockDeviceActivity != null) &&
+                            (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
+                        Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
                 }
             }
         } catch (Exception ee) {

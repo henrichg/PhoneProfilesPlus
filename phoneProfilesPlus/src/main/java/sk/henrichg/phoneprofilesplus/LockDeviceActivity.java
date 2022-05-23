@@ -74,7 +74,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                 displayed = true;
                 //PPApplication.logE("LockDeviceActivity.onCreate", "displayed=true");
 
-                PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                 //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
 
                 /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
@@ -132,6 +132,8 @@ public class LockDeviceActivity extends AppCompatActivity {
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
 
             if (Settings.System.canWrite(appContext)) {
+                // restore screen timeout set before creation of this activity
+
                 /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                     if (PPApplication.screenTimeoutHandler != null) {
                         PPApplication.screenTimeoutHandler.post(() -> {
@@ -153,22 +155,23 @@ public class LockDeviceActivity extends AppCompatActivity {
                         });
                     }
                 } else*/
-                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+                if (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0)
+                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
+                else
+                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
 
-                // change screen timeout
-                //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeout;
+                // set screen timeout from ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff
+                // this replaces screen timeout set in this activity
+                final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff;
                 //PPApplication.logE("LockDeviceActivity.onDestroy", "screenTimeout="+screenTimeout);
                 if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
                     //PPApplication.logE("LockDeviceActivity.onDestroy", "permission ok");
                     if (PPApplication.screenTimeoutHandler != null) {
                         PPApplication.screenTimeoutHandler.post(() -> {
                             //PPApplication.logE("LockDeviceActivity.onDestroy", "call ActivateProfileHelper.setScreenTimeout");
-                            ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext);
+                            ActivateProfileHelper.setScreenTimeout(screenTimeout, true, appContext);
                         });
-                    }/* else {
-                    dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
-                    }*/
+                    }
                 }
             }
             //dataWrapper.invalidateDataWrapper();

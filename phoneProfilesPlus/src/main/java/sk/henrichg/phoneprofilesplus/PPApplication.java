@@ -698,7 +698,7 @@ public class PPApplication extends Application
     static BrightnessView keepScreenOnView = null;
 
     static LockDeviceActivity lockDeviceActivity = null;
-    static int screenTimeoutBeforeDeviceLock = 0;
+    static int screenTimeoutWhenLockDeviceActivityIsDisplayed = 0;
 
 //    static int brightnessBeforeScreenOff;
 //    static float adaptiveBrightnessBeforeScreenOff;
@@ -2199,7 +2199,7 @@ public class PPApplication extends Application
         ActivateProfileHelper.getRingerMode(context);
         ActivateProfileHelper.getZenMode(context);
         ActivateProfileHelper.getLockScreenDisabled(context);
-        ActivateProfileHelper.getActivatedProfileScreenTimeout(context);
+        ActivateProfileHelper.getActivatedProfileScreenTimeoutWhenScreenOff(context);
         ActivateProfileHelper.getKeepScreenOnPermanent(context);
         ActivateProfileHelper.getMergedRingNotificationVolumes(context);
         //Profile.getActivatedProfileForDuration(context);
