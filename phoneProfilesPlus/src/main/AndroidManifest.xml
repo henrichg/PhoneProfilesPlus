@@ -45,6 +45,7 @@
 <!--    Must be granted at start of PPP because: -->
 <!--    https://developer.android.com/guide/components/activities/background-starts    -->
 <!--    DrawOverAppsPermissionNotification.showNotification() is for granting it.-->
+<!--    better: usage of android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION is for granting it.-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
