@@ -42,7 +42,7 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
     <uses-permission android:name="android.permission.NFC"/>
 
-<!--    Must be granted at start of PPP because: -->
+<!--    Must be granted because of: -->
 <!--    https://developer.android.com/guide/components/activities/background-starts    -->
 <!--    DrawOverAppsPermissionNotification.showNotification() is for granting it.-->
 <!--    better: usage of android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION is for granting it.-->

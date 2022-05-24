@@ -18,6 +18,9 @@ class DrawOverAppsPermissionNotification {
 
     static void showNotification(Context context, boolean useHandler) {
         if (Build.VERSION.SDK_INT >= 29) {
+            // Must be granted because of:
+            // https://developer.android.com/guide/components/activities/background-starts
+
             //PPApplication.logE("DrawOverAppsPermissionNotification.showNotification", "xxx");
 
             if (useHandler) {
