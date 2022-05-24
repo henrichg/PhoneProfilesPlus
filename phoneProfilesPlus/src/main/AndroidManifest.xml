@@ -41,7 +41,12 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
     <uses-permission android:name="android.permission.NFC"/>
+
+<!--    Must be granted at start of PPP because: -->
+<!--    https://developer.android.com/guide/components/activities/background-starts    -->
+<!--    DrawOverAppsPermissionNotification.showNotification() is for granting it.-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
     <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
