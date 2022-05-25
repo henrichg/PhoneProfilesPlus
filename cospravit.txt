@@ -524,3 +524,37 @@ https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
 
 --------------------
 
+- Added ringtone type icon into Ringtone preference dialog.
+- Added application settings into acra crash report.
+- Added grant Uri permission into for play notification sound.
+- Added into Editor menu/"Backup/restore"/"Restore settings" set parameters into "do not change"/"not configured" which requires grant Uri permission, when this grant now working.
+- Added monochrome launcher icon (Android 13). Not tested.
+- Added (but currently commented): Support for app multi-language settings. Requires AndroidX appcompat 1.6.0+ (Android 13).
+- Added Google Play restrictions information into README.md
+- Removed Amazon store due to store restrictions. Not allowed is change of device settings which requires superuser permission (root).
+- Changed "Actual version:" to "Installed version:" in check releases dialogs.
+- Change: small dialog layout changes.
+- Changes of "traffic light" in Activator and Editor.
+- Change: better Intent editor layout.
+- Changed display of event sensor names in Editor event list.
+- Change in Location editor: calc zoom, start of displaying map, layout without start/end margin in all device sizes.
+- Change in Location editor: start of displaying map.
+- Change: replaced bold preferences in Settings by arrows.
+- Change: converted png images to to webp.
+- Change: profile parameter "Disable events run" changed to "Enable events run".
+- Change: disable OK button in "Generate notification" dialog if notification title is not set.
+- Change: added "Unselect all" button into Profile multiselect dialog.
+- Change: display "None installed" in live wallpaper dialog, when live wallpapers was not installed.
+- Change: Location sensor and get provider for get last known location.
+- Change: generated notification when location provider is not returned.
+- Changed screenshots size for F-Droid. Maybe will be synchronized also in F-Droid application.
+- Fix: changed dialog buttons for custom color dialog from Yes/No to OK/Cancel.
+- Fixed display of custom color for profiles icon.
+- Fixed not allowed profile parameters change when old version of Extender is installed.
+- Fixed call of TopExceptionHandler. Maybe this fixes also ACRA notification after restart of PPP (for example package upgrade).
+- Fixed generated ACRA notification for exception android.os.DeadSystemException.
+- Fixed bad working "Lock screen" profile parameter.
+- Fixed set screen timeout.
+- Fixed not working title style in preferences.
+- Maybe fixed not displayed map in Location editor, when map is not cached.
+- Maybe fixed start of map display in Location editor. Will be displayed immediately at end of map load.
