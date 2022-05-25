@@ -70,7 +70,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 
         if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
             if (ApplicationPreferences.applicationUseAlarmClock) {
-                PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "not ignored battery optimization, use alarm clock");
+//                PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "not ignored battery optimization, use alarm clock");
                 //Intent intent = new Intent(_context, LocationScannerSwitchGPSBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
@@ -102,7 +102,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             /*int keepResultsDelay = delay * 5;
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
-                PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "not ignored battery optimization, use worker");
+//                PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "not ignored battery optimization, use worker");
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK)
@@ -146,7 +146,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
-                    PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "ignored battery optimization, use alarm clock");
+//                    PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "ignored battery optimization, use alarm clock");
 
                     Calendar now = Calendar.getInstance();
                     now.add(Calendar.SECOND, delay);
@@ -165,7 +165,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
-                    PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "ignored battery optimization, use exact alarm");
+//                    PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "ignored battery optimization, use exact alarm");
 
                     long alarmTime = SystemClock.elapsedRealtime() + delay * 1000L;
 
@@ -176,7 +176,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                         long _alarmTime = now.getTimeInMillis();
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String result = sdf.format(_alarmTime);
-                        PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
+//                        PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
                     }
 
                     //if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -191,7 +191,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
     }
 
     static void doWork(final Context appContext) {
-        PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
+//        PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
 
         PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
         final Handler __handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());

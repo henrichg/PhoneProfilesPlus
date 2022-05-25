@@ -221,17 +221,17 @@ class LocationScanner
 
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
-            PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER");
+//            PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER");
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
-            PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER");
+//            PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER");
             provider = LocationManager.GPS_PROVIDER;
         }
 
         boolean gpsForced = false;
         if (provider.equals(LocationManager.NETWORK_PROVIDER) &&
                 (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
-            PPApplication.logE("##### LocationScanner.getProvider", "NOT ONLINE");
+//            PPApplication.logE("##### LocationScanner.getProvider", "NOT ONLINE");
             // device is not connected to network, force GPS_PROVIDER
             provider = LocationManager.GPS_PROVIDER;
             gpsForced = true;
@@ -243,7 +243,7 @@ class LocationScanner
             try {
                 //noinspection ConstantConditions
                 locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER="+locationEnabled);
+//                PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER="+locationEnabled);
                 if ((!locationEnabled) && (!gpsForced))
                     provider = LocationManager.NETWORK_PROVIDER;
             } catch (Exception e) {
@@ -258,7 +258,7 @@ class LocationScanner
                 try {
                     //noinspection ConstantConditions
                     locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-                    PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER="+locationEnabled);
+//                    PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER="+locationEnabled);
                 } catch (Exception e) {
                     // we may get IllegalArgumentException if network location provider
                     // does not exist or is not yet installed.
@@ -272,7 +272,7 @@ class LocationScanner
             showNotification();
         }
 
-        PPApplication.logE("##### LocationScanner.getProvider","provider="+provider);
+//        PPApplication.logE("##### LocationScanner.getProvider","provider="+provider);
 
         return provider;
     }

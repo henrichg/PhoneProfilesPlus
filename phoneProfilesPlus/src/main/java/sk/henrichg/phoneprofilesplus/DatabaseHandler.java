@@ -12688,7 +12688,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
+//                    Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -12698,7 +12698,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
+//                Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         } finally {
