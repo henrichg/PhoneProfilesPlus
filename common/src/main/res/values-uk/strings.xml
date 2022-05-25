@@ -1905,11 +1905,16 @@
     <string name="profile_preferences_applicationEnableGlobalEventsRun">Дозволити події</string>
     <string name="menu_run_events">Запустити події</string>
     <string name="menu_stop_events">Зупинити події</string>
-    <string name="application_editor_intent_hint_not_set">Not set</string>
-    <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
-    <string name="application_editor_intent_hint_not_selected">Not selected</string>
-    <string name="application_editor_intent_action_none">[None]</string>
-    <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="application_editor_intent_hint_not_set">Не визначено</string>
+    <string name="application_editor_intent_hint_custom_not_set">Не визначено користувачем</string>
+    <string name="application_editor_intent_hint_not_selected">Не обрано</string>
+    <string name="application_editor_intent_action_none">[Нічого]</string>
+    <string name="application_editor_intent_action_custom">[Власне]</string>
+    <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(А) застосунок, (S) ярлик, (I) intent.</string>
+    <string name="generated_notification_intent_hint_not_set">Не встановлено</string>
+    <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Не встановлено</string>
+    <string name="location_scanner_location_not_working_notification_title">Розташування не визначено</string>
+    <string name="location_scanner_location_not_working_notification_text">Вибачте, але неможливо визначити розташування. Будь ласка, перевірте налаштування пристрою.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender для PhoneProfilesPlus. Працює лише у поєднанні з PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Версія:</string>

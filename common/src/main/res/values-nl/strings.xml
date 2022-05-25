@@ -1902,14 +1902,19 @@
     <string name="accessibility_service_not_used">Niet gebruikt</string>
     <string name="preference_not_used_extender_reason">Reden:</string>
     <string name="location_editor_enable_location_summary">Sorry, het is niet mogelijk om locatie te verkrijgen.\n\nSchakel locatie en \"Wi-Fi scanning\" in bij Systeeminstellingen.\nSluit apparaat ook aan op het netwerk indien niet verbonden.</string>
-    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
-    <string name="menu_run_events">Enable events run</string>
-    <string name="menu_stop_events">Disable events run</string>
-    <string name="application_editor_intent_hint_not_set">Not set</string>
-    <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
-    <string name="application_editor_intent_hint_not_selected">Not selected</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Events uitvoeren inschakelen</string>
+    <string name="menu_run_events">Events uitvoeren inschakelen</string>
+    <string name="menu_stop_events">Events uitvoeren uitschakelen</string>
+    <string name="application_editor_intent_hint_not_set">Niet ingesteld</string>
+    <string name="application_editor_intent_hint_custom_not_set">Aangepaste niet ingesteld</string>
+    <string name="application_editor_intent_hint_not_selected">Niet geselecteerd</string>
     <string name="application_editor_intent_action_none">[None]</string>
     <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) applicatie, (S) snelkoppeling, (I) intent.</string>
+    <string name="generated_notification_intent_hint_not_set">Niet ingesteld</string>
+    <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Geen geïnstalleerd</string>
+    <string name="location_scanner_location_not_working_notification_title">Locatie werkt niet</string>
+    <string name="location_scanner_location_not_working_notification_text">Sorry, maar het is niet mogelijk om locatiegegevens te krijgen. Controleer de locatie-instellingen.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender voor PhoneProfilesPlus. Deze werkt alleen in combinatie met PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Versie:</string>

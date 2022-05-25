@@ -1910,6 +1910,11 @@
     <string name="application_editor_intent_hint_not_selected">Nevybraté</string>
     <string name="application_editor_intent_action_none">[Nič]</string>
     <string name="application_editor_intent_action_custom">[Vlastné]</string>
+    <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) aplikácia, (S) odkaz, (I) intent.</string>
+    <string name="generated_notification_intent_hint_not_set">Nenastavené</string>
+    <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Žiadne nainštalované</string>
+    <string name="location_scanner_location_not_working_notification_title">Poloha nefunguje</string>
+    <string name="location_scanner_location_not_working_notification_text">Prepáčte, ale nie je možné zistiť polohu. Skontrolujte Nastavenia Polohy v zariadení.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pre PhoneProfilesPlus. Funguje iba v spojení s PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verzia:</string>

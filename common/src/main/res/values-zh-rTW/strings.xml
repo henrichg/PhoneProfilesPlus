@@ -1902,14 +1902,19 @@
     <string name="accessibility_service_not_used">未使用</string>
     <string name="preference_not_used_extender_reason">原因：</string>
     <string name="location_editor_enable_location_summary">抱歉，無法取得位置。\n\n請在系統設定中啟用位置與 \"Wi-Fi 掃描\"。\n如果尚未連接，請同時將裝置連接到網路。</string>
-    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
-    <string name="menu_run_events">Enable events run</string>
-    <string name="menu_stop_events">Disable events run</string>
-    <string name="application_editor_intent_hint_not_set">Not set</string>
-    <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
-    <string name="application_editor_intent_hint_not_selected">Not selected</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">啟用事件執行</string>
+    <string name="menu_run_events">啟用事件執行</string>
+    <string name="menu_stop_events">停用事件執行</string>
+    <string name="application_editor_intent_hint_not_set">未設定</string>
+    <string name="application_editor_intent_hint_custom_not_set">未設自訂</string>
+    <string name="application_editor_intent_hint_not_selected">未選取</string>
     <string name="application_editor_intent_action_none">[None]</string>
     <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) 應用程式、(S) 捷徑、(I) 意圖。</string>
+    <string name="generated_notification_intent_hint_not_set">未設定</string>
+    <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">無安裝</string>
+    <string name="location_scanner_location_not_working_notification_title">位置不運作</string>
+    <string name="location_scanner_location_not_working_notification_text">抱歉，無法取得位置。請檢查裝置的位置設定。</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlus 的擴展器。它只能與 PhoneProfilesPlus 一起使用。</string>
     <string name="extender_about_application_version">版本:</string>

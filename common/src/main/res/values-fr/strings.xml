@@ -173,7 +173,7 @@
     <string name="pref_event_battery_level">Niveau</string>
     <string name="pref_event_battery_charging">Chargement</string>
     <string name="event_preferences_category_eventTimeParameters">Capteur temps</string>
-    <string name="event_preferences_category_eventBatteryParameters">Capteur Batterie</string>
+    <string name="event_preferences_category_eventBatteryParameters">Capteur batterie</string>
     <string name="contacts_multiselect_summary_text_selected">Sélectionné</string>
     <string name="contacts_multiselect_summary_text_not_selected">désélectionné</string>
     <string name="event_preferences_category_eventCallParameters">Capteur appel téléphonique</string>
@@ -384,7 +384,7 @@
     <string name="phone_profiles_pref_writeSystemSettingPermissions">Changer les réglages système</string>
     <string name="phone_profiles_pref_writeSystemSettingPermissions_summary">S\'il vous plaît chercher l\' application \"PhoneProfilesPlus\" et lui donner l\'autorisation.</string>
     <string name="phone_profiles_pref_applicationPermissions">Autorisations de l\'application</string>
-    <string name="phone_profiles_pref_applicationPermissions_summary">Veuillez activer les autorisations dans l\'option \"Permissions\".</string>
+    <string name="phone_profiles_pref_applicationPermissions_summary">Accordez les permissions android sous \"Autorisation\".</string>
     <string name="permissions_for_event_text1">Événement</string>
     <string name="permissions_for_event_text2">requiert ces autorisations :</string>
     <string name="permissions_for_event_text3">S\'il vous plaît validez les boîtes de dialogue suivante. Puis les événements seront redémarrés.</string>
@@ -412,7 +412,7 @@
     <string name="important_info_profile_bluetoothScanning_location">Dans Android 6+, pour pouvoir scanner le Bluetooth il faut le valider dans les paramètres de localisation.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) mode économie d\'énergie</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Durée de balayage Bluetooth LE (s)</string>
-    <string name="phone_profiles_pref_category_wifi_scanning">Scan Wi-fi</string>
+    <string name="phone_profiles_pref_category_wifi_scanning">Scan WiFi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Scan Bluetooth</string>
     <string name="profile_preferences_category_sound_profile">Profil sonore</string>
     <string name="profile_preferences_category_radios">Radios</string>
@@ -855,8 +855,8 @@
     <string name="phone_profiles_pref_applicationWidgetColorB">Couleur d\'arrière-plan</string>
     <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Type de couleur de fond</string>
     <string name="phone_profiles_pref_applicationWidgetIconColorB">Couleur d’arrière-plan</string>
-    <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Activer le scan Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Scan, même si le WiFi est désactivé</string>
+    <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Activer le scan WiFi</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Scan même si le WiFi est désactivé</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Activez le scan Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Scan même si Bluetooth est désactivé</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Activer le scan de localisation (Gps + Wifi)</string>
@@ -894,7 +894,7 @@
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Fonctionne uniquement quand l\'écran est allumé et déverrouillé.</string>
     <string name="important_info_contact">Si vous avez des problèmes, questions et suggestions, écrivez-moi un email :</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) Préférences relatives au type de réseau mobile</string>
-    <string name="profile_preferences_deviceCloseAllApplications">Fermez toutes les applications</string>
+    <string name="profile_preferences_deviceCloseAllApplications">Fermer toutes les applications</string>
     <string name="array_pref_do_not_close">Ne pas fermer</string>
     <string name="array_pref_close">Fermer</string>
     <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simule l\'appui sur le bouton Accueil dans la barre de navigation.</string>
@@ -1018,7 +1018,7 @@
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Autoriser PhoneProfilesPlusExtender dans les paramètres système. La fonction d\’accessibilité n\’est pas utilisée, ce service en cours d\’exécution est nécessaire pour recevoir des SMS et MMS. </string>
     <string name="event_preferences_sms_PPPExtender_install_summary">Cliquez ici pour installer PhoneProfilesPlusExtender. Ce service en cours d\’exécution est nécessaire pour recevoir des SMS et MMS. </string>
     <string name="permission_not_granted">Non accordée </string>
-    <string name="permission_granted">Accordé </string>
+    <string name="permission_granted">Accordée</string>
     <string name="menu_dark_theme_on">Activer le thème sombre </string>
     <string name="menu_dark_theme_off">Désactiver le thème sombre </string>
     <string name="important_info_email_body_device">Appareil:</string>
@@ -1337,7 +1337,7 @@
     <string name="gui_items_help_alert_title">Démarrer l\'aide sur les éléments de l\'interface</string>
     <string name="gui_items_help_alert_message">Il n\'est pas possible d\'annuler cette aide. Et elle sera présente sur toutes les interfaces graphiques. La démarrer ?</string>
     <string name="alert_button_grant">Accorder</string>
-    <string name="alert_button_not_grant">Non accordé</string>
+    <string name="alert_button_not_grant">Non accordée</string>
     <string name="profile_preferences_screenDarkMode">(G1)(R) Mode sombre</string>
     <string name="donation_activity_close">Fermer</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Garder l\'écran allumé</string>
@@ -1775,8 +1775,8 @@
     <string name="profile_preferences_exactTime">Heure exacte</string>
     <string name="profile_preferences_category_end_of_activation">Fin de l\'activation</string>
     <string name="end_of_activation_time_end_acronym">te (à traduire)</string>
-    <string name="end_of_activation_duration_acronym">d</string>
-    <string name="end_of_activation_time_acronym">t</string>
+    <string name="end_of_activation_duration_acronym">j</string>
+    <string name="end_of_activation_time_acronym">h</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Afficher la fin de l\'activation du profil</string>
     <string name="event_delay_start_acronym">ds</string>
     <string name="event_delay_end_acronym">de</string>
@@ -1870,11 +1870,11 @@
     <string name="array_pref_volumesSensorOperator_doNotTestIt">Do not test it</string>
     <string name="array_pref_volumesSensorOperator_equalsTo">Equals to</string>
     <string name="array_pref_volumesSensorOperator_doNotEqualsTo">Do not equals to</string>
-    <string name="array_pref_volumesSensorOperator_islessThen">Is less than</string>
-    <string name="array_pref_volumesSensorOperator_isGreaterThen">Is greater than</string>
+    <string name="array_pref_volumesSensorOperator_islessThen">Est inférieur à</string>
+    <string name="array_pref_volumesSensorOperator_isGreaterThen">Est supérieur à</string>
     <string name="array_pref_volumesSensorOperator_isLessOrEqualTo">Is less or equal to</string>
     <string name="array_pref_volumesSensorOperator_isGreaterOrEqualTo">Is greater or equal to</string>
-    <string name="event_preferences_category_eventVolumesParameters">Volumes sensor</string>
+    <string name="event_preferences_category_eventVolumesParameters">Capteur Volume</string>
     <string name="event_preferences_volumes_info_title">Sensor configuration</string>
     <string name="event_preferences_volumes_info_summary">Level of all volumes must be fulfilled to start event. Configure only those volumes that you need.</string>
     <string name="event_preferences_notificationSoundPlayAlsoInSilentMode">Play notification also in silent mode</string>
@@ -1905,11 +1905,16 @@
     <string name="profile_preferences_applicationEnableGlobalEventsRun">Activer les événements</string>
     <string name="menu_run_events">Activer les événements</string>
     <string name="menu_stop_events">Désactiver les événements</string>
-    <string name="application_editor_intent_hint_not_set">Not set</string>
-    <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
-    <string name="application_editor_intent_hint_not_selected">Not selected</string>
-    <string name="application_editor_intent_action_none">[None]</string>
-    <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="application_editor_intent_hint_not_set">Non défini</string>
+    <string name="application_editor_intent_hint_custom_not_set">Personnalisation non définie</string>
+    <string name="application_editor_intent_hint_not_selected">Non sélectionné</string>
+    <string name="application_editor_intent_action_none">[Aucun]</string>
+    <string name="application_editor_intent_action_custom">[Personalisé]</string>
+    <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) application, (S) raccourci, (I) événement.</string>
+    <string name="generated_notification_intent_hint_not_set">Non défini</string>
+    <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Aucun installé</string>
+    <string name="location_scanner_location_not_working_notification_title">Localisation non fonctionnelle</string>
+    <string name="location_scanner_location_not_working_notification_text">Localisation impossible. Veuillez vérifier les paramètres du téléphone.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pour PhoneProfilesPlus. Il ne fonctionne qu\'avec PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version :</string>
@@ -1922,8 +1927,8 @@
     <string name="extender_accessibility_service_permission">Service  d\’accessibilité PhoneProfilesPlusExtender </string>
     <string name="extender_accessibility_service_event_sensor_sms_mms">- Service d\’accessibilité pour le paramètre événement \"Capteur SMS/MMS\". La fonction d\’accessibilité n\’est pas utilisée, le service est nécessaire pour recevoir des SMS et MMS.</string>
     <string name="extender_permissions_event_sensor_sms_mms">- Autorisations pour le paramètre d\’événement \"Capteur SMS/MMS\" - permission SMS</string>
-    <string name="extender_permissions_not_granted">Non accordée </string>
-    <string name="extender_permissions_granted">Accordé </string>
+    <string name="extender_permissions_not_granted">Non accordée</string>
+    <string name="extender_permissions_granted">Accordée</string>
     <string name="extender_permissions_button">Accorder/refuser les autorisations </string>
     <string name="extender_accessibility_service_event_sensor_call">• Accessibilité pour le paramètre \" Capteur d\'appel\". La fonction d\'accessibilité n\'est pas utilisée, le service est nécessaire pour recevoir des appels.</string>
     <string name="extender_permissions_event_sensor_call">• Autorisations pour le paramètre \"Capteur d\'appel\" - Permission du téléphone</string>
@@ -1939,8 +1944,8 @@
     <string name="extender_notification_channel_crash_report">Rapport d\'erreur</string>
     <string name="extender_scroll_info">Note: Faites défiler vers le bas dans cet écran pour afficher tous les paramètres.</string>
     <string name="extender_battery_optimization_text">• Battery optimization for PhoneProfilesPlusExtender - please add it to \"Not optimized\" group</string>
-    <string name="extender_battery_optimization_optimized">Optimized</string>
-    <string name="extender_battery_optimization_not_optimized">Not optimized</string>
+    <string name="extender_battery_optimization_optimized">Optimisée</string>
+    <string name="extender_battery_optimization_not_optimized">Non optimisée</string>
     <string name="extender_battery_optimization_button">Open\nBattery optimization</string>
     <string name="extender_acra_email_body_device">Appareil:</string>
     <string name="extender_acra_email_body_android_version">Version Android :</string>
