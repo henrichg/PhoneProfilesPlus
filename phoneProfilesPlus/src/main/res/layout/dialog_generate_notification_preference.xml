@@ -13,14 +13,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="-5dp"
+        android:textSize="16sp"
         android:text="@string/generate_notification_pref_dialog_generate_chb"/>
 
     <TextView
+        android:id="@+id/generateNotificationPrefDialogIconTypeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:textSize="16sp"
         android:text="@string/generate_notification_pref_dialog_icon_type" />
     <RadioGroup
+        android:id="@+id/generateNotificationPrefDialogInformationIconRG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -29,23 +33,28 @@
             android:id="@+id/generateNotificationPrefDialogInformationIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="@string/generate_notification_pref_dialog_information_icon_rb"/>
         <RadioButton
             android:id="@+id/generateNotificationPrefDialogExclamationIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="@string/generate_notification_pref_dialog_exclamation_icon_rb"/>
         <RadioButton
             android:id="@+id/generateNotificationPrefDialogProfileIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="@string/generate_notification_pref_dialog_profile_icon_rb"/>
     </RadioGroup>
 
     <TextView
+        android:id="@+id/generateNotificationPrefDialogNotificationTitleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textSize="16sp"
         android:text="@string/generate_notification_pref_dialog_notification_title" />
     <EditText
         android:id="@+id/generateNotificationPrefDialogNotificationTitle"
@@ -53,21 +62,23 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:selectAllOnFocus="true"
-        android:hint="@string/generate_notification_pref_dialog_notification_title"
+        android:hint="@string/generated_notification_intent_hint_not_set"
         android:inputType="textNoSuggestions"
         android:importantForAutofill="no" />
 
     <TextView
+        android:id="@+id/generateNotificationPrefDialogNotificationBodyLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textSize="16sp"
         android:text="@string/generate_notification_pref_dialog_notification_body" />
     <EditText
         android:id="@+id/generateNotificationPrefDialogNotificationBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:selectAllOnFocus="true"
-        android:hint="@string/generate_notification_pref_dialog_notification_body"
+        android:hint="@string/generated_notification_intent_hint_not_set"
         android:inputType="textNoSuggestions|textMultiLine"
         android:importantForAutofill="no" />
 

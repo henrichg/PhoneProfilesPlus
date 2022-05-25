@@ -46,7 +46,8 @@
     <color name="eventStopTextColor">#FFb5b5b5</color>
 <!--    <color name="eventInDelayTextColor">#FFffb000</color>-->
 
-    <color name="sensor_pass_status_passed">#FF00C000</color>
+<!--    <color name="sensor_pass_status_passed">#FF00C000</color>-->
+    <color name="sensor_pass_status_passed">#FF00d800</color>
     <color name="sensor_pass_status_not_passed">#FFffb000</color>
     <color name="sensor_pass_status_waiting">#FF0060FF</color>
 
@@ -65,7 +66,7 @@
     <color name="buttonBackgroundColor">#FF1C1C1C</color>
     <color name="buttonClickedBackgroundColor">#FF505050</color>
     <color name="popupMenuBorderColor">#FF454545</color>
-    <color name="profileIconBorderColor">#FF505050</color>
+<!--    <color name="profileIconBorderColor">#FF505050</color>-->
 <!--    <color name="cardViewBorderColor">#FF454545</color>-->
 
     <color name="altype_profile">#FF4040FF</color>

@@ -61,7 +61,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false, false);
+        GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -670,7 +670,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             return;
 
         if (ApplicationPreferences.prefEventPrefsActivityStartTargetHelps) {
-            //Log.d("EventPreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+            //Log.d("EventPrefsActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
             editor.putBoolean(PREF_START_TARGET_HELPS, false);

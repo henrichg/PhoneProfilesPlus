@@ -73,8 +73,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
-        //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationPosted", "PPNotificationListenerService_onNotificationPosted");
-
 //        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
         if (!PPApplication.notificationScannerRunning)
@@ -233,8 +231,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onNotificationRemoved(sbn);
 //        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
-        //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationRemoved", "PPNotificationListenerService_onNotificationRemoved");
-
         if (!PPApplication.notificationScannerRunning)
             return;
 
@@ -389,8 +385,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onInterruptionFilterChanged(interruptionFilter);
 
 //        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onInterruptionFilterChanged", "xxx");
-
-        //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onInterruptionFilterChanged", "PPNotificationListenerService_onInterruptionFilterChanged");
 
         boolean a60 = //(android.os.Build.VERSION.SDK_INT == 23) &&
                         Build.VERSION.RELEASE.equals("6.0");
@@ -623,8 +617,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         @Override
         public void onReceive(Context context, Intent intent) {
 //            PPApplication.logE("[IN_BROADCAST] PPNotificationListenerService.NLServiceReceiver.onReceive", "xxx");
-
-            //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.NLServiceReceiver.onReceive", "PPNotificationListenerService_NLServiceReceiver_onReceive");
 
             boolean a60 = //(android.os.Build.VERSION.SDK_INT == 23) &&
                     Build.VERSION.RELEASE.equals("6.0");

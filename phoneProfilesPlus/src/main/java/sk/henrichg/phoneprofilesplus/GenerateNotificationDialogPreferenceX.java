@@ -22,7 +22,7 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
 
     private String sValue = "";
     private String defaultValue;
-    private boolean savedInstanceState;
+    //private boolean savedInstanceState;
 
     public GenerateNotificationDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -71,7 +71,7 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
         try {
             notificationTitle = splits[2];
         } catch (Exception e) {
-            notificationTitle = "x";
+            notificationTitle = "";
         }
         try {
             notificationBody = splits[3];
@@ -115,6 +115,7 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
         }
     }
 
+    /*
     void resetSummary() {
         if (!savedInstanceState) {
             sValue = getPersistedString(defaultValue);
@@ -123,6 +124,7 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
         }
         savedInstanceState = false;
     }
+    */
 
     static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");
@@ -140,7 +142,7 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
     @Override
     protected Parcelable onSaveInstanceState()
     {
-        savedInstanceState = true;
+        //savedInstanceState = true;
 
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {

@@ -1,13 +1,17 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.media.AudioManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
@@ -12684,7 +12688,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
+//                    Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -12694,7 +12698,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
+//                Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         } finally {
@@ -12789,7 +12793,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // update volumes by device max value
         try {
-            cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_PROFILES, null);
+            cursorImportDB = db.rawQuery("SELECT " +
+                            KEY_ID + ","+
+                            KEY_VOLUME_RINGTONE + ","+
+                            KEY_VOLUME_NOTIFICATION + ","+
+                            KEY_VOLUME_MEDIA + ","+
+                            KEY_VOLUME_ALARM + ","+
+                            KEY_VOLUME_SYSTEM + ","+
+                            KEY_VOLUME_VOICE + ","+
+                            KEY_VOLUME_DTMF + ","+
+                            KEY_VOLUME_ACCESSIBILITY + ","+
+                            KEY_VOLUME_BLUETOOTH_SCO +
+                    " FROM " + TABLE_PROFILES, null);
 
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
@@ -13072,6 +13087,397 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_SIM_ON_OFF + "=0");
         }
+
+        // set profile parameters to "Not used" for non-granted Uri premissions
+        try {
+            cursorImportDB = db.rawQuery("SELECT " +
+                            KEY_ID + ","+
+                            KEY_ICON + "," +
+                            KEY_SOUND_RINGTONE + "," +
+                            KEY_SOUND_RINGTONE_SIM1 + "," +
+                            KEY_SOUND_RINGTONE_SIM2 + "," +
+                            KEY_SOUND_NOTIFICATION + "," +
+                            KEY_SOUND_NOTIFICATION_SIM1 + "," +
+                            KEY_SOUND_NOTIFICATION_SIM2 + "," +
+                            KEY_SOUND_ALARM + "," +
+                            KEY_DEVICE_WALLPAPER_CHANGE + "," +
+                            KEY_DEVICE_WALLPAPER + "," +
+                            KEY_DEVICE_WALLPAPER_FOLDER + "," +
+                            KEY_DURATION_NOTIFICATION_SOUND +
+                    " FROM " + TABLE_PROFILES, null);
+
+            ContentResolver contentResolver = context.getContentResolver();
+
+            if (cursorImportDB.moveToFirst()) {
+                do {
+                    long profileId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(KEY_ID));
+
+                    ContentValues values = new ContentValues();
+
+                    String icon = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_ICON));
+                    if (!Profile.getIsIconResourceID(icon)) {
+                        String iconIdentifier = Profile.getIconIdentifier(icon);
+                        boolean isGranted = false;
+                        Uri uri = Uri.parse(iconIdentifier);
+                        if (uri != null) {
+                            try {
+                                context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                isGranted = true;
+                            } catch (Exception e) {
+                                //isGranted = false;
+                            }
+//                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_ICON -isGranted=" + isGranted);
+                        }
+                        if (!isGranted) {
+                            values.clear();
+                            values.put(KEY_ICON, Profile.defaultValuesString.get(Profile.PREF_PROFILE_ICON));
+                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                    new String[]{String.valueOf(profileId)});
+                        }
+                    }
+
+                    String tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_RINGTONE));
+                    String[] splits = tone.split("\\|");
+                    String ringtone = splits[0];
+                    if (!ringtone.isEmpty()) {
+                        if (ringtone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = ActivateProfileHelper.getUriOfSavedTone(context, ringtone, RingtoneManager.TYPE_RINGTONE);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_SOUND_RINGTONE_CHANGE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE));
+                                values.put(KEY_SOUND_RINGTONE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE));
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(profileId)});
+                            }
+                        }
+                    }
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM1));
+                    splits = tone.split("\\|");
+                    ringtone = splits[0];
+                    if (!ringtone.isEmpty()) {
+                        if (ringtone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = ActivateProfileHelper.getUriOfSavedTone(context, ringtone, RingtoneManager.TYPE_RINGTONE);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE_SIM1 isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_SOUND_RINGTONE_CHANGE_SIM1, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1));
+                                values.put(KEY_SOUND_RINGTONE_SIM1, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1));
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(profileId)});
+                            }
+                        }
+                    }
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM2));
+                    splits = tone.split("\\|");
+                    ringtone = splits[0];
+                    if (!ringtone.isEmpty()) {
+                        if (ringtone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = ActivateProfileHelper.getUriOfSavedTone(context, ringtone, RingtoneManager.TYPE_RINGTONE);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE_SIM2 isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_SOUND_RINGTONE_CHANGE_SIM2, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2));
+                                values.put(KEY_SOUND_RINGTONE_SIM2, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2));
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(profileId)});
+                            }
+                        }
+                    }
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION));
+                    splits = tone.split("\\|");
+                    ringtone = splits[0];
+                    if (!ringtone.isEmpty()) {
+                        if (ringtone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = ActivateProfileHelper.getUriOfSavedTone(context, ringtone, RingtoneManager.TYPE_NOTIFICATION);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_SOUND_NOTIFICATION_CHANGE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE));
+                                values.put(KEY_SOUND_NOTIFICATION, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION));
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(profileId)});
+                            }
+                        }
+                    }
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_SIM1));
+                    splits = tone.split("\\|");
+                    ringtone = splits[0];
+                    if (!ringtone.isEmpty()) {
+                        if (ringtone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = ActivateProfileHelper.getUriOfSavedTone(context, ringtone, RingtoneManager.TYPE_NOTIFICATION);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION_SIM1 isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM1, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1));
+                                values.put(KEY_SOUND_NOTIFICATION_SIM1, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1));
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(profileId)});
+                            }
+                        }
+                    }
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_SIM2));
+                    splits = tone.split("\\|");
+                    ringtone = splits[0];
+                    if (!ringtone.isEmpty()) {
+                        if (ringtone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = ActivateProfileHelper.getUriOfSavedTone(context, ringtone, RingtoneManager.TYPE_NOTIFICATION);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION_SIM2 isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2));
+                                values.put(KEY_SOUND_NOTIFICATION_SIM2, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2));
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(profileId)});
+                            }
+                        }
+                    }
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_SOUND_ALARM));
+                    splits = tone.split("\\|");
+                    ringtone = splits[0];
+                    if (!ringtone.isEmpty()) {
+                        if (ringtone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = ActivateProfileHelper.getUriOfSavedTone(context, ringtone, RingtoneManager.TYPE_ALARM);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_ALARM isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_SOUND_ALARM_CHANGE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE));
+                                values.put(KEY_SOUND_ALARM, Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM));
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(profileId)});
+                            }
+                        }
+                    }
+
+                    String wallpaper = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER));
+                    if (!wallpaper.isEmpty() && !wallpaper.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER))) {
+                        boolean isGranted = false;
+                        Uri uri = Uri.parse(wallpaper);
+                        if (uri != null) {
+                            try {
+                                context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                isGranted = true;
+                            } catch (Exception e) {
+                                //isGranted = false;
+                            }
+//                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DEVICE_WALLPAPER isGranted=" + isGranted);
+                        }
+                        if (!isGranted) {
+                            values.clear();
+                            String wallpaperChange = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_CHANGE));
+                            if (wallpaperChange.equals("1"))
+                                values.put(KEY_DEVICE_WALLPAPER_CHANGE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
+                            values.put(KEY_DEVICE_WALLPAPER, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER));
+                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                    new String[]{String.valueOf(profileId)});
+                        }
+                    }
+                    String wallpaperFolder = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_FOLDER));
+                    if (!wallpaperFolder.isEmpty() && !wallpaperFolder.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER))) {
+                        boolean isGranted = false;
+                        Uri uri = Uri.parse(wallpaperFolder);
+                        if (uri != null) {
+                            try {
+                                context.grantUriPermission(PPApplication.PACKAGE_NAME, uri,
+                                        Intent.FLAG_GRANT_READ_URI_PERMISSION /* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
+                                // persistent permissions
+                                final int takeFlags = //data.getFlags() &
+                                        (Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                context.getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                                isGranted = true;
+                            } catch (Exception e) {
+                                //isGranted = false;
+                            }
+//                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DEVICE_WALLPAPER_FOLDER isGranted=" + isGranted);
+                        }
+                        if (!isGranted) {
+                            values.clear();
+                            String wallpaperChange = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_CHANGE));
+                            if (wallpaperChange.equals("3"))
+                                values.put(KEY_DEVICE_WALLPAPER_CHANGE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
+                            values.put(KEY_DEVICE_WALLPAPER_FOLDER, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER));
+                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                    new String[]{String.valueOf(profileId)});
+                        }
+                    }
+
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_DURATION_NOTIFICATION_SOUND));
+                    if (!tone.isEmpty()) {
+                        if (tone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = Uri.parse(tone);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DURATION_NOTIFICATION_SOUND isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_DURATION_NOTIFICATION_SOUND, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND));
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(profileId)});
+                            }
+                        }
+                    }
+
+                } while (cursorImportDB.moveToNext());
+            }
+            cursorImportDB.close();
+        } finally {
+            if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                cursorImportDB.close();
+        }
+
+        // set event parameters to "Not used" for non-granted Uri premissions
+        try {
+            cursorImportDB = db.rawQuery("SELECT " +
+                    KEY_E_ID + ","+
+                    KEY_E_NOTIFICATION_SOUND_START + "," +
+                    KEY_E_NOTIFICATION_SOUND_END +
+                    " FROM " + TABLE_EVENTS, null);
+
+            ContentResolver contentResolver = context.getContentResolver();
+
+            if (cursorImportDB.moveToFirst()) {
+                do {
+                    long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(KEY_E_ID));
+
+                    ContentValues values = new ContentValues();
+
+                    String tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_START));
+                    if (!tone.isEmpty()) {
+                        if (tone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = Uri.parse(tone);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_E_NOTIFICATION_SOUND_START isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_E_NOTIFICATION_SOUND_START, "");
+                                db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(eventId)});
+                            }
+                        }
+                    }
+                    tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_END));
+                    if (!tone.isEmpty()) {
+                        if (tone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = Uri.parse(tone);
+                            if (uri != null) {
+                                try {
+                                    context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_E_NOTIFICATION_SOUND_END isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                values.clear();
+                                values.put(KEY_E_NOTIFICATION_SOUND_END, "");
+                                db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(eventId)});
+                            }
+                        }
+                    }
+
+                } while (cursorImportDB.moveToNext());
+            }
+            cursorImportDB.close();
+        } finally {
+            if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                cursorImportDB.close();
+        }
+
+//        Log.e("*********** DatabaseHandler.afterImportDb", "*** END ***");
+
     }
 
     private void importEvents(SQLiteDatabase db, SQLiteDatabase exportedDBObj,

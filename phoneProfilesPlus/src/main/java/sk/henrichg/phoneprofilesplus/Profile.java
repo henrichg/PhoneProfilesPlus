@@ -2260,12 +2260,39 @@ public class Profile {
         return value;
     }
 
+    public static String getIconIdentifier(String icon)
+    {
+        //Log.e("Profile.getIconIdentifier", "_icon="+_icon);
+        String value;
+        try {
+            String[] splits = icon.split("\\|");
+            value = splits[0];
+        } catch (Exception e) {
+            value = "ic_profile_default";
+        }
+        return value;
+    }
+
     // getting where icon is resource id
     public boolean getIsIconResourceID()
     {
         boolean value;
         try {
             String[] splits = _icon.split("\\|");
+            value = splits[1].equals("1");
+
+        } catch (Exception e) {
+            value = true;
+        }
+        return value;
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean getIsIconResourceID(String icon)
+    {
+        boolean value;
+        try {
+            String[] splits = icon.split("\\|");
             value = splits[1].equals("1");
 
         } catch (Exception e) {
@@ -2899,12 +2926,10 @@ public class Profile {
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
         //noinspection UnnecessaryLocalVariable
         int percentage = BrightnessLookup.lookup(_settingsValue, true);
-
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("getBrightnessPercentage_A9", "settingsValue=" + settingsValue);
             PPApplication.logE("getBrightnessPercentage_A9", "percentage=" + percentage);
         }*/
-
         return percentage;
     }
 
@@ -3251,7 +3276,7 @@ public class Profile {
             String[] splits = _generateNotification.split("\\|");
             value = splits[2];
         } catch (Exception e) {
-            value = "x";
+            value = "";
         }
         return value;
     }
@@ -3263,7 +3288,7 @@ public class Profile {
             String[] splits = _generateNotification.split("\\|");
             value = splits[2];
         } catch (Exception e) {
-            value = "x";
+            value = "";
         }
         return value;
     }

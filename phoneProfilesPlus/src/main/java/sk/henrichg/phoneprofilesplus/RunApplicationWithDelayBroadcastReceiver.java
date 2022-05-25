@@ -26,7 +26,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
-        //CallsCounter.logCounter(context, "RunApplicationWithDelayBroadcastReceiver.onReceive", "RunApplicationWithDelayBroadcastReceiver_onReceive");
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -206,6 +205,16 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     } else {
                         long alarmTime = SystemClock.elapsedRealtime() + startApplicationDelay * 1000L;
 
+//                        if (PPApplication.logEnabled()) {
+//                            Calendar now = Calendar.getInstance();
+//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                            long _alarmTime = now.getTimeInMillis();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                            String result = sdf.format(_alarmTime);
+//                            PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "alarmTime=" + result);
+//                        }
+
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                         //else //if (android.os.Build.VERSION.SDK_INT >= 19)
@@ -246,8 +255,10 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode, false);
-        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode);
+        PPApplication._cancelWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode, false);
+        // moved to cancelWork
+        //PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode);
+
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
 

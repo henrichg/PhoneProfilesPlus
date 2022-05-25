@@ -172,6 +172,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 monochromeValue = 0xE0;
                 break;
             case "100":
+                //noinspection ConstantConditions
                 monochromeValue = 0xFF;
                 break;
         }
@@ -181,6 +182,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         switch (applicationWidgetOneRowPrefIndicatorLightness) {
             case "0":
                 prefIndicatorLightnessValue = -128f;
+                //noinspection ConstantConditions
                 prefIndicatorMonochromeValue = 0x00;
                 break;
             case "12":
@@ -246,6 +248,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             } else {
                 switch (applicationWidgetOneRowLightnessB) {
                     case "0":
+                        //noinspection ConstantConditions
                         redBackground = 0x00;
                         break;
                     case "12":
@@ -286,6 +289,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     alphaBackground = 0x20;
                     break;
                 case "25":
+                    //noinspection ConstantConditions
                     alphaBackground = 0x40;
                     break;
                 case "37":
@@ -339,6 +343,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         redBorder = 0xE0;
                         break;
                     case "100":
+                        //noinspection ConstantConditions
                         redBorder = 0xFF;
                         break;
                 }
@@ -374,6 +379,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     redText = 0xE0;
                     break;
                 case "100":
+                    //noinspection ConstantConditions
                     redText = 0xFF;
                     break;
             }

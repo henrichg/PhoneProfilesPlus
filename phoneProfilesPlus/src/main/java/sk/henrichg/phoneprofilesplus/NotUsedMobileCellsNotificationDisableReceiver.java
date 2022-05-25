@@ -14,8 +14,6 @@ public class NotUsedMobileCellsNotificationDisableReceiver extends BroadcastRece
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] NotUsedMobileCellsNotificationDisableReceiver.onReceive", "xxx");
 
-        //CallsCounter.logCounter(context, "NotUsedMobileCellsNotificationDisableReceiver.onReceive", "NotUsedMobileCellsNotificationDisableReceiver_onReceive");
-
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, false);
         editor.apply();

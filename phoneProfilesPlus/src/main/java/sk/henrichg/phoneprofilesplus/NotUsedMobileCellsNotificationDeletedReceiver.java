@@ -16,8 +16,6 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
 
-        //CallsCounter.logCounter(context, "NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "NewMobileCellsNotificationDeletedReceiver_onReceive");
-
         if (intent != null) {
             final int mobileCellId = intent.getIntExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, 0);
             if (mobileCellId != 0) {

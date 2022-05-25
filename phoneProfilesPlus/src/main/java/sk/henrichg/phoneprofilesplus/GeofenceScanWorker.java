@@ -24,12 +24,10 @@ public class GeofenceScanWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-//        PPApplication.logE("[IN_WORKER]  GeofenceScanWorker.doWork", "xxxx");
+//        PPApplication.logE("[IN_WORKER]  GeofenceScanWorker.doWork", "xxxx EMPTY xxxx");
         /*try {
 
             //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- START");
-
-            //CallsCounter.logCounter(context, "GeofenceScanWorker.doWork", "GeofenceScanWorker_doWork");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -140,8 +138,6 @@ public class GeofenceScanWorker extends Worker {
     /*
     public void onStopped () {
         //PPApplication.logE("GeofenceScanWorker.onStopped", "xxx");
-
-        //CallsCounter.logCounter(context, "GeofenceScanWorker.onStopped", "GeofenceScanWorker_onStopped");
     }
 
     private static void _scheduleWork(final Context context, boolean shortInterval) {

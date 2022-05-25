@@ -70,7 +70,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/home/henrisko/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_cancel_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/home/henrisko/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/audiotrack/baseline_audiotrack_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -81,8 +81,9 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_run_events_indicator_stopped_night" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../_balast/ic_run_events_indicator_stopped_night.svg" />
+                            <entry key="color" value="fcb21f" />
+                            <entry key="outputName" value="ic_monochrome_launcher" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../_balast/ic_ppp_icon.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -835,7 +835,7 @@ class Event {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_PROFILE_START) || key.equals(PREF_EVENT_PROFILE_END))
@@ -852,21 +852,21 @@ class Event {
                 //if (key.equals(PREF_EVENT_PROFILE_START))
                 //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, lProfileId == 0, false);
                 //else
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, lProfileId == 0);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, false, lProfileId == 0);
             }
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
         {
             ProfileMultiSelectPreferenceX preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND_START) ||
             key.equals(PREF_EVENT_NOTIFICATION_SOUND_END))
         {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
         }
         if (key.equals(PREF_EVENT_PRIORITY_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
@@ -880,7 +880,7 @@ class Event {
                             context.getString(R.string.phone_profiles_pref_eventUsePriorityAppSettings_summary);
                 }
                 preference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, applicationEventUsePriority, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, applicationEventUsePriority, false, true, false);
             }
         }
         if (key.equals(PREF_EVENT_PRIORITY))
@@ -892,10 +892,10 @@ class Event {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, !value.equals("0"), false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, !value.equals("0"), false, false, false);
                 } else {
                     listPreference.setSummary(R.string.event_preferences_priority_notUse);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, false);
                 }
                 listPreference.setEnabled(applicationEventUsePriority);
             }
@@ -907,7 +907,7 @@ class Event {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
             }
         }
         /*if (key.equals(PREF_EVENT_AT_END_HOW_UNDO))
@@ -929,7 +929,7 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false);
         }
         if (key.equals(PREF_EVENT_DELAY_END))
         {
@@ -940,7 +940,7 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false);
         }
         /*
         if (key.equals(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL)) {
@@ -978,7 +978,7 @@ class Event {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null)
                     preference.setVisible(true);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false, false);
             } else {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null)
@@ -1078,7 +1078,7 @@ class Event {
                                 notificationVibrateStartChanged ||
                                 notificationRepeatStartChanged ||
                                 notificationSoundStartPlayAlsoInSilentMode);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
                 if (bold) {
                     String summary = "";
                     //if (forceRunChanged)
@@ -1131,7 +1131,7 @@ class Event {
                                 notificationVibrateEndChanged ||
                                 manualProfileActivationAtEndChanged ||
                                 notificationSoundEndPlayAlsoInSilentMode);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
                 if (bold) {
                     String summary = "";
                     if (manualProfileActivationAtEndChanged) {
@@ -2622,6 +2622,16 @@ class Event {
                     } else {
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000L;
 
+//                        if (PPApplication.logEnabled()) {
+//                            Calendar now = Calendar.getInstance();
+//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                            long _alarmTime = now.getTimeInMillis();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                            String result = sdf.format(_alarmTime);
+//                            PPApplication.logE("Event.setDelayStartAlarm", "alarmTime=" + result);
+//                        }
+
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                         //else
@@ -2699,7 +2709,8 @@ class Event {
             PPApplication.recordException(e);
         }
         PPApplication.cancelWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id), false);
-        PPApplication.elapsedAlarmsEventDelayStartWork.remove(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
+        // moved to cancelWork
+        //PPApplication.elapsedAlarmsEventDelayStartWork.remove(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
 
         this._isInDelayStart = false;
         this._startStatusTime = 0;
@@ -2885,9 +2896,16 @@ class Event {
 //                        PPApplication.logE("Event.setDelayEndAlarm", "setExactAndAllowWhileIdle - this._delayEnd="+this._delayEnd);
 
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000L;
-                        //Calendar now = Calendar.getInstance();
-                        //now.add(Calendar.SECOND, this._delayEnd);
-                        //long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
+
+//                        if (PPApplication.logEnabled()) {
+//                            Calendar now = Calendar.getInstance();
+//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                            long _alarmTime = now.getTimeInMillis();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                            String result = sdf.format(_alarmTime);
+//                            PPApplication.logE("Event.setDelayEndAlarm", "alarmTime=" + result);
+//                        }
 
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
@@ -2985,7 +3003,8 @@ class Event {
             PPApplication.recordException(e);
         }
         PPApplication.cancelWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id), false);
-        PPApplication.elapsedAlarmsEventDelayEndWork.remove(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
+        // moved to cancelWork
+        //PPApplication.elapsedAlarmsEventDelayEndWork.remove(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
 
         this._isInDelayEnd = false;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);

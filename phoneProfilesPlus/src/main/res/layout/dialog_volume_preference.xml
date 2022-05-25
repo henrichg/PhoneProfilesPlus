@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
+    android:paddingBottom="10dp"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
@@ -17,6 +18,7 @@
             android:id="@+id/volumePrefDialogNoChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="@string/volume_pref_dialog_no_change_chb" />
 
         <!--
@@ -24,6 +26,7 @@
             android:id="@+id/volumePrefDialogSharedProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="@string/volume_pref_dialog_default_profile_chb" />
         -->
 

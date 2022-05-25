@@ -216,6 +216,7 @@ class PreferenceAllowed {
                     // test if grant root is disabled
                     if ((profile._deviceMobileData != 0)) {
                         if (applicationNeverAskForGrantRoot) {
+                            //noinspection UnusedAssignment
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                         }
@@ -1215,13 +1216,16 @@ class PreferenceAllowed {
                             if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                                 if (PPApplication.serviceBinaryExists(fromUIThread)) {
                                     if (profile == null)
+                                        //noinspection UnusedAssignment
                                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                                     else {
                                         if ((profile._deviceNetworkTypeSIM1 != 0) ||
                                                 (profile._deviceNetworkTypeSIM2 != 0))
+                                            //noinspection UnusedAssignment
                                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                                     }
                                 } else {
+                                    //noinspection UnusedAssignment
                                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
                                 }

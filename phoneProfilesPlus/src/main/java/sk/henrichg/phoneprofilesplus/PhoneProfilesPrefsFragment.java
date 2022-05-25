@@ -268,7 +268,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);
         */
-
         if (!nestedFragment) {
             Preference preferenceCategoryScreen;
             preferenceCategoryScreen = findPreference("applicationInterfaceCategoryRoot");
@@ -280,26 +279,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
             preferenceCategoryScreen = findPreference("categorySystemRoot");
             if (preferenceCategoryScreen != null) {
-                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
-                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
             preferenceCategoryScreen = findPreference("categoryPermissionsRoot");
             if (preferenceCategoryScreen != null) {
-                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
-                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
             preferenceCategoryScreen = findPreference("profileActivationCategoryRoot");
             if (preferenceCategoryScreen != null) {
-                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
-                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
             preferenceCategoryScreen = findPreference("eventRunCategoryRoot");
             if (preferenceCategoryScreen != null) {
-                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
-                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
             preferenceCategoryScreen = findPreference("categoryNotificationsRoot");

@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/alert_dialog_top_padding"
     android:paddingStart="25dp"
     android:paddingEnd="25dp"
-    android:paddingBottom="25dp">
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/notification_0_pref_dialog_text"
@@ -20,11 +20,13 @@
 <!--        android:id="@+id/notification_0_pref_dialog_PhoneProfilesSilent_rb"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="16sp"-->
 <!--        android:layout_marginTop="3dp"/>-->
     <RadioButton
         android:id="@+id/notification_0_pref_dialog_None_rb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
         android:layout_marginTop="5dp" />
 
 </LinearLayout>

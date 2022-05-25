@@ -197,9 +197,12 @@ class EventPreferencesOrientation extends EventPreferences {
                         String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
                         selectedValues = "";
                         for (String s : splits) {
-                            if (!selectedValues.isEmpty())
-                                selectedValues = selectedValues + ", ";
-                            selectedValues = selectedValues + sideNames[Arrays.asList(sideValues).indexOf(s)];
+                            int pos = Arrays.asList(sideValues).indexOf(s);
+                            if (pos != -1) {
+                                if (!selectedValues.isEmpty())
+                                    selectedValues = selectedValues + ", ";
+                                selectedValues = selectedValues + sideNames[pos];
+                            }
                         }
                     }
                     descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + selectedValues + "</b>";
@@ -275,7 +278,7 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
             }
         }
 
@@ -365,13 +368,13 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(hasLight);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
                 }
                 minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(hasLight);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
                 }
             }
             else {
@@ -385,13 +388,13 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(false);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
                 }
                 minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(false);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
                 }
             }
         }
@@ -419,7 +422,7 @@ class EventPreferencesOrientation extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
         }
 
         Event event = new Event();
@@ -439,7 +442,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
@@ -453,21 +456,22 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
         }
         ListPreference distancePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (distancePreference != null) {
             int index = distancePreference.findIndexOfValue(distancePreference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(distancePreference, enabled, index > 0, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(distancePreference, enabled, index > 0, false, true, !isRunnable);
         }
 
         SwitchPreferenceCompat checkLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CHECK_LIGHT);
         if (checkLightPreference != null) {
             boolean bold = checkLightPreference.isChecked();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, false, true, !isRunnable);
         }
 
-        boolean isAccessibilityEnabled = event._eventPreferencesOrientation.isAccessibilityServiceEnabled(context) == 1;
+        int _isAccessibilityEnabled = event._eventPreferencesOrientation.isAccessibilityServiceEnabled(context);
+        boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
@@ -475,8 +479,14 @@ class EventPreferencesOrientation extends EventPreferences {
             if (isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
                 summary = context.getString(R.string.accessibility_service_enabled);
             else {
-                summary = context.getString(R.string.accessibility_service_disabled);
-                summary = summary + "\n\n" + context.getString(R.string.event_preferences_orientation_AccessibilitySettingsForExtender_summary);
+                if (_isAccessibilityEnabled == -1) {
+                    summary = context.getString(R.string.accessibility_service_not_used);
+                    summary = summary + "\n\n" + context.getString(R.string.preference_not_used_extender_reason) + " " +
+                            context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else {
+                    summary = context.getString(R.string.accessibility_service_disabled);
+                    summary = summary + "\n\n" + context.getString(R.string.event_preferences_orientation_AccessibilitySettingsForExtender_summary);
+                }
             }
             preference.setSummary(summary);
 
@@ -502,9 +512,12 @@ class EventPreferencesOrientation extends EventPreferences {
                 String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!sides.isEmpty())
-                            sides = sides + ", ";
-                        sides = sides + sideNames[Arrays.asList(sideValues).indexOf(s)];
+                        int pos = Arrays.asList(sideValues).indexOf(s);
+                        if (pos != -1) {
+                            if (!sides.isEmpty())
+                                sides = sides + ", ";
+                            sides = sides + sideNames[pos];
+                        }
                     }
                 }
                 if (sides.isEmpty())
@@ -523,9 +536,12 @@ class EventPreferencesOrientation extends EventPreferences {
                 String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!sides.isEmpty())
-                            sides = sides + ", ";
-                        sides = sides + sideNames[Arrays.asList(sideValues).indexOf(s)];
+                        int pos = Arrays.asList(sideValues).indexOf(s);
+                        if (pos != -1) {
+                            if (!sides.isEmpty())
+                                sides = sides + ", ";
+                            sides = sides + sideNames[pos];
+                        }
                     }
                 }
                 if (sides.isEmpty())
@@ -584,7 +600,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }
@@ -624,6 +640,19 @@ class EventPreferencesOrientation extends EventPreferences {
        */
 
         return runnable;
+    }
+
+    @Override
+    int isAccessibilityServiceEnabled(Context context)
+    {
+        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        if (extenderVersion == 0)
+            return -2;
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0)
+            return -1;
+        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true))
+            return 1;
+        return 0;
     }
 
     @Override
@@ -747,7 +776,7 @@ class EventPreferencesOrientation extends EventPreferences {
             }
         }
 
-        enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_7_0);
+        enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), -1);
         ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(enabled);

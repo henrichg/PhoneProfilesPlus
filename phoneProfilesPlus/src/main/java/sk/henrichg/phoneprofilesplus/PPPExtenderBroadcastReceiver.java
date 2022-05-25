@@ -46,8 +46,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] PPPExtenderBroadcastReceiver.onReceive", "xxx");
 
-        //CallsCounter.logCounter(context.getApplicationContext(), "PPPExtenderBroadcastReceiver.onReceive", "ForegroundApplicationChangedBroadcastReceiver_onReceive");
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -64,7 +62,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
                 // cancel ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
-                PPApplication.cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
+                PPApplication._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
 
                 PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
                 PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
@@ -112,7 +110,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND");
 
                 // cancel ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
-                PPApplication.cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
+                PPApplication._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
 
                 PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
 
@@ -688,7 +686,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("PPPExtenderBroadcastReceiver.isExtenderInstalled", "installed=true");
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                 //noinspection UnnecessaryLocalVariable
-
                 String version =  pInfo.versionName;
                 //PPApplication.logE("PPPExtenderBroadcastReceiver.isExtenderInstalled", "version="+version);
                 return version;
@@ -710,7 +707,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                              @SuppressWarnings("SameParameterValue") int version) {
         int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
-        if (extenderVersion >= version)
+        if ((version == -1) || (extenderVersion >= version)) // -1 => do not check version
             enabled = isAccessibilityServiceEnabled(context, true);
         return  (extenderVersion >= version) && enabled;
     }

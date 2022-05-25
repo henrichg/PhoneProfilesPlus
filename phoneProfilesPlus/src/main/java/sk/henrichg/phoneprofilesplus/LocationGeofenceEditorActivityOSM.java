@@ -8,11 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +59,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     private GeofenceOverlayOSM geofenceOverlay = null;
     private Marker editedMarker = null;
 
+    private Handler errorLocationHandler = null;
+    private Runnable errorLocationRunnable = null;
+    private boolean errorLocationDisplayed = false;
+
     static final int SUCCESS_RESULT = 0;
     static final int FAILURE_RESULT = 1;
     static final String RESULT_CODE = PPApplication.PACKAGE_NAME + ".RESULT_CODE";
@@ -63,6 +70,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     static final String LATITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LATITUDE_EXTRA";
     static final String LONGITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LONGITUDE_EXTRA";
     static final String UPDATE_NAME_EXTRA = PPApplication.PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
+    private static final int RESULT_LOCATION_SETTINGS = 2992;
 
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
@@ -105,7 +113,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false);
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -149,16 +157,18 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         mMap = findViewById(R.id.location_editor_map);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
-        mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+        //mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+        mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
         //mMap.setMaxZoomLevel(20d);
         mMap.setMultiTouchControls(true);
         //mMap.setTilesScaledToDpi(true);
         //mMap.getTileProvider().clearTileCache();
 
-        boolean isNightMode = false;
+        boolean isNightMode;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
         switch (applicationThene) {
             case "white":
+                //noinspection DuplicateBranchesInSwitch
                 isNightMode = false;
                 break;
             case "dark":
@@ -176,23 +186,46 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                         //    notificationTextColor = "2";
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
+                        //noinspection DuplicateBranchesInSwitch
                         isNightMode = false;
                         // this is possible only when device has option for set background color
                         //if ((Build.VERSION.SDK_INT < 29) && notificationNightMode)
                         //    notificationTextColor = "1";
                         break;
                     case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                        //noinspection DuplicateBranchesInSwitch
+                        isNightMode = false;
                         break;
+                    default:
+                        isNightMode = false;
                 }
                 break;
+            default:
+                isNightMode = false;
         }
         if (isNightMode)
             mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
         else
             mMap.getOverlayManager().getTilesOverlay().setColorFilter(null);
+        //mMap.getOverlayManager().getTilesOverlay().setLoadingBackgroundColor(GlobalGUIRoutines.getThemeDialogBackgroundColor(this));
+        //mMap.getOverlayManager().getTilesOverlay().setLoadingLineColor(GlobalGUIRoutines.getThemeNormalTextColor(this));
 
         IMapController mapController = mMap.getController();
         //mapController.setZoom(15f);
+
+        /*
+        mMap.getOverlayManager().getTilesOverlay().getTileStates().getRunAfters().add(() -> {
+            if (mMap.getOverlayManager().getTilesOverlay().getTileStates().isDone()) {
+                PPApplication.logE("LocationGeofenceEditorActivityOSM.getTileStatuses", "map loaded");
+                if (mapIsLoading.getVisibility() != View.GONE)
+                    mapIsLoading.setVisibility(View.GONE);
+                if (mMap.getVisibility() != View.VISIBLE) {
+                    mMap.setVisibility(View.VISIBLE);
+                    addressText.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        */
 
         mMap.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override
@@ -436,9 +469,12 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             mapController.setCenter(new GeoPoint(geofence._latitude, geofence._longitude));
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onStart() {
         super.onStart();
+//        Log.e("LocationGeofenceEditorActivityOSM.onStart", "xxx");
+
         GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         if (checkOnlineStatusBroadcatReceiver == null) {
@@ -452,7 +488,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "startLocationUpdates");
 
         if (Permissions.grantLocationGeofenceEditorPermissionsOSM(getApplicationContext(), this)) {
-            startLocationUpdates();
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "startLocationUpdates");
+            startLocationUpdates(true);
             refreshActivity(false, false);
         }
     }
@@ -477,8 +514,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         try {
-//            PPApplication.logE("LocationGeofenceEditorActivityOSM.onResume", "xxx");
-            startLocationUpdates();
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.onResume", "startLocationUpdates");
+            if (!mListenerEnabled)
+                startLocationUpdates(false);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -497,13 +535,33 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMap.onPause();
+        try {
+            stopLocationUpdates();
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY)) {
-//            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "xxx");
-            startLocationUpdates();
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "permission granted");
+            stopLocationUpdates();
+            PPApplication.sleep(1000);
+            startLocationUpdates(true);
             refreshActivity(false, false);
+        }
+
+        if (requestCode == RESULT_LOCATION_SETTINGS) {
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "Location settngs");
+            stopLocationUpdates();
+            PPApplication.sleep(1000);
+            startLocationUpdates(true);
         }
     }
 
@@ -513,7 +571,14 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             zoom = 15f;
         else {
             DisplayMetrics metrics = getResources().getDisplayMetrics();
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "metrics.scaledDensity=" + metrics.scaledDensity);
             int mapWidth = Math.round(mMap.getWidth() / metrics.scaledDensity);
+
+//            int mapHeight = Math.round(mMap.getHeight() / metrics.scaledDensity);
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "mapWidth=" + mapWidth);
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "mapHeight=" + mapHeight);
+
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "geofence._radius=" + geofence._radius);
             zoom = calcZoom(geofence._radius * 2, mapWidth, mLocation.getLatitude());
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom=" + zoom);
 
@@ -617,16 +682,98 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
     }
 
-    /**
-     * Requests location updates from the FusedLocationApi.
-     */
+    private void showErrorLocationDialog() {
+        if (!errorLocationDisplayed) {
+//            Log.e("LocationGeofenceEditorActivityOSM.showErrorLocationDialog", "xxx");
+            errorLocationDisplayed = true;
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LocationGeofenceEditorActivityOSM.this);
+            dialogBuilder.setTitle(R.string.location_editor_title);
+            dialogBuilder.setMessage(R.string.location_editor_enable_location_summary);
+            dialogBuilder.setCancelable(true);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+
+            dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                boolean ok = false;
+                //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, LocationGeofenceEditorActivityOSM.this.getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        //noinspection deprecation
+                        LocationGeofenceEditorActivityOSM.this.startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+                if (!ok) {
+                    AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(LocationGeofenceEditorActivityOSM.this);
+                    dialogBuilder1.setMessage(R.string.setting_screen_not_found_alert);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder1.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog _dialog = dialogBuilder1.create();
+
+//                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                    if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
+                        _dialog.show();
+                }
+
+                errorLocationDisplayed = false;
+
+            });
+
+            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> errorLocationDisplayed = false);
+            dialogBuilder.setOnCancelListener(dialog -> errorLocationDisplayed = false);
+
+            AlertDialog dialog = dialogBuilder.create();
+
+            //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            //            @Override
+            //            public void onShow(DialogInterface dialog) {
+            //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+            //                if (positive != null) positive.setAllCaps(false);
+            //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+            //                if (negative != null) negative.setAllCaps(false);
+            //            }
+            //        });
+
+            if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
+                dialog.show();
+        }
+    }
+
     @SuppressLint("MissingPermission")
-    private void startLocationUpdates() {
+    private void startLocationUpdates(boolean showErrorDialog) {
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
 
-        boolean locationEnabled;
-        String provider = "";
-        try {
+        if (showErrorDialog) {
+            final LocationGeofenceEditorActivityOSM activity = this;
+            errorLocationHandler = new Handler(getMainLooper());
+            errorLocationRunnable = () -> {
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.startLocationUpdates");
+                if (!activity.isFinishing() && !activity.isDestroyed()) {
+                    if (activity.mLastLocation == null) {
+//                        Log.e("LocationGeofenceEditorActivityOSM.startLocationUpdates", "************** show error dialog from handler");
+                        showErrorLocationDialog();
+                    }
+                }
+            };
+            errorLocationHandler.postDelayed(errorLocationRunnable, 15000);
+        }
+
+        boolean locationEnabled = false;
+        String provider; // = "";
+        /*try {
             //noinspection ConstantConditions
             locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             if (locationEnabled)
@@ -647,24 +794,53 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 // does not exist or is not yet installed.
                 //locationEnabled = false;
             }
-        }
+        }*/
+
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+
+        provider = mLocationManager.getBestProvider(criteria, false);
+        if (provider != null)
+            locationEnabled = true;
+        else
+            provider = "";
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "locationEnabled="+locationEnabled);
+//        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "mListenerEnabled="+mListenerEnabled);
+
         if (!mListenerEnabled && locationEnabled) {
             if (Permissions.checkLocation(getApplicationContext())) {
-                mListenerEnabled = true;
                 try {
-//                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
+//                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "****** requestLocationUpdates ********");
                     mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
+
+//                    if (Build.VERSION.SDK_INT >= 30) {
+//                        mLocationManager.getCurrentLocation(
+//                                LocationManager.GPS_PROVIDER,
+//                                null,
+//                                ContextCompat.getMainExecutor(this),
+//                                new Consumer<Location>() {
+//                                    @Override
+//                                    public void accept(Location location) {
+//                                        PPApplication.logE("******* LocationGeofenceEditorActivityOSM.startLocationUpdates", "location="+location);
+//                                    }
+//                                }
+//                        );
+//                    }
+                    mListenerEnabled = true;
                 } catch (Exception e) {
+                    mListenerEnabled = false;
                     PPApplication.recordException(e);
                 }
             }
         }
+
+        if (((!mListenerEnabled) || (!locationEnabled)) && showErrorDialog) {
+//            Log.e("LocationGeofenceEditorActivityOSM.startLocationUpdates", "************** show error dialog");
+            showErrorLocationDialog();
+        }
     }
 
-    /**
-     * Removes location updates from the FusedLocationApi.
-     */
     private void stopLocationUpdates() {
         // It is a good practice to remove location requests when the activity is in a paused or
         // stopped state. Doing so helps battery performance and is especially
@@ -674,6 +850,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             if (mLocationManager != null)
                 mLocationManager.removeUpdates(mLocationListener);
             mListenerEnabled = false;
+        }
+        if ((errorLocationHandler != null) && (errorLocationRunnable != null)) {
+            errorLocationHandler.removeCallbacks(errorLocationRunnable);
+            errorLocationHandler = null;
+            errorLocationRunnable = null;
         }
     }
 
@@ -1109,18 +1290,21 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         visible_distance = Math.abs(visible_distance);
         double parallel_length = getParallelLength(atLat); // in meters
 
-        // for an immage of 256 pixel pixel
+        // for an immage of 256 pixel
         double zoom256 = Math.log(parallel_length/visible_distance)/Math.log(2);
 
         // adapt the zoom to the image size
-        int x = (int) (Math.log(img_width/256f)/Math.log(2));
-        return zoom256 + x + 2f;
+        int x = (int) (Math.log((img_width*4)/256f)/Math.log(2));
+        return zoom256 + x;
     }
 
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
 //            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
+
+            if (location == null)
+                return;
 
             final Location oldLastLocation = mLastLocation;
 
@@ -1163,7 +1347,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
 
         public void onProviderEnabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderEnabled", "xxx");
+//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderEnabled", "888888888888888");
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {

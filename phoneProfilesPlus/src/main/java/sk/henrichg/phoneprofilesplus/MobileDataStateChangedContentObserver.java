@@ -69,8 +69,6 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 //        PPApplication.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "uri="+uri);
 //        PPApplication.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "current thread="+Thread.currentThread());
 
-        //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
-
         if (PPApplication.HAS_FEATURE_TELEPHONY) {
             if (Build.VERSION.SDK_INT >= 26) {
                 boolean actualStateSIM1 = ActivateProfileHelper.isMobileData(context, 1);

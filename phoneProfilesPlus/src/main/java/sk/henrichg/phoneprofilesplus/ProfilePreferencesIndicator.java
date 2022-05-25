@@ -43,10 +43,8 @@ class ProfilePreferencesIndicator {
 
         int iconSize = GlobalGUIRoutines.dpToPx(24);
         int width = iconSize * countDrawables;
-        //noinspection UnnecessaryLocalVariable
-        int height = iconSize;
 
-        return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        return Bitmap.createBitmap(width, iconSize, Bitmap.Config.ARGB_8888);
     }
 
     private void addIndicator(int preferenceBitmapResourceID, int index,
@@ -1373,16 +1371,33 @@ class ProfilePreferencesIndicator {
             // lock device
             if (profile._lockDevice != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_lockDevice);
-                    if (fillStrings)
-                        strings[countDrawables++] = "lock";
-                    else {
-                        disabled[countDrawables] = false;
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
+                    if (profile._lockDevice == 3) {
+                        boolean enabled;
+                        enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_7_0);
+                        if (enabled) {
+                            if (fillPreferences)
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_lockDevice);
+                            if (fillStrings)
+                                strings[countDrawables++] = "lock";
+                            else {
+                                disabled[countDrawables] = false;
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
+                            }
+                            if (fillPreferences)
+                                countItems[countPreferences++] = 1;
+                        }
+                    } else {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_lockDevice);
+                        if (fillStrings)
+                            strings[countDrawables++] = "lock";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
                     }
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
                 }
             }
             // notification led
@@ -1828,7 +1843,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableGloabalEventsRun == 1) || (profile._applicationDisableGloabalEventsRun == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableGlobalEventsRun) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ern:0";
@@ -1841,7 +1856,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._applicationDisableGloabalEventsRun == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableGlobalEventsRun) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + ": " +
                                     appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ern:1";

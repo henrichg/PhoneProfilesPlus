@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.os.Handler;
 import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
@@ -39,8 +38,6 @@ public class SearchCalendarEventsWorker extends Worker {
 //            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- START");
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- START");
-
-            //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.doWork", "SearchCalendarEventsWorker_doWork");
 
             if (!PPApplication.getApplicationStarted(true)) {
                 // application is not started
@@ -120,8 +117,6 @@ public class SearchCalendarEventsWorker extends Worker {
 
     public void onStopped () {
 //        PPApplication.logE("[IN_LISTENER] SearchCalendarEventsWorker.onStopped", "xxx");
-
-        //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.onStopped", "SearchCalendarEventsWorker_onStopped");
     }
 
     private static void _scheduleWork(final boolean shortInterval) {
@@ -184,31 +179,41 @@ public class SearchCalendarEventsWorker extends Worker {
         }
     }
 
+    // shortInterval = true is called only from PPService.scheduleSearchCalendarEventsWorker and TimeVjangedReceiver.doWork
     static void scheduleWork(final boolean shortInterval) {
         //PPApplication.logE("SearchCalendarEventsWorker.scheduleWork", "shortInterval="+shortInterval);
 
         if (shortInterval) {
-            PPApplication.startHandlerThreadPPScanners();
+            _cancelWork(false);
+            //PPApplication.sleep(5000);
+            _scheduleWork(true);
+
+            /*PPApplication.startHandlerThreadPPScanners();
             final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             __handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork" + " shortInterval=true");
                 _cancelWork();
                 PPApplication.sleep(5000);
                 _scheduleWork(true);
-            });
+            });*/
         }
         else
             _scheduleWork(false);
     }
 
-    private static void _cancelWork() {
+    private static void _cancelWork(final boolean useHandler) {
         if (isWorkScheduled(false) || isWorkScheduled(true)) {
             try {
                 waitForFinish(false);
                 waitForFinish(true);
 
-                PPApplication.cancelWork(WORK_TAG, false);
-                PPApplication.cancelWork(WORK_TAG_SHORT, false);
+                if (useHandler) {
+                    PPApplication.cancelWork(WORK_TAG, false);
+                    PPApplication.cancelWork(WORK_TAG_SHORT, false);
+                } else {
+                    PPApplication._cancelWork(WORK_TAG, false);
+                    PPApplication._cancelWork(WORK_TAG_SHORT, false);
+                }
 
                 //PPApplication.logE("SearchCalendarEventsWorker._cancelWork", "CANCELED");
 
@@ -273,11 +278,12 @@ public class SearchCalendarEventsWorker extends Worker {
         }
     }
 
-    static void cancelWork(@SuppressWarnings("SameParameterValue") final boolean useHandler/*,
-                           final Handler _handler*/) {
+    static void cancelWork(final boolean useHandler) {
         //PPApplication.logE("SearchCalendarEventsWorker.cancelWork", "xxx");
 
-        if (useHandler /*&& (_handler == null)*/) {
+        _cancelWork(useHandler);
+
+        /*if (useHandler) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             __handler.post(() -> {
@@ -288,7 +294,7 @@ public class SearchCalendarEventsWorker extends Worker {
         }
         else {
             _cancelWork();
-        }
+        }*/
     }
 
     private static boolean isWorkRunning(boolean shortWork) {

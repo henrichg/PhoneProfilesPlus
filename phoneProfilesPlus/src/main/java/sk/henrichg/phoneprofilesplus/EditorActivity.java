@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -16,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
 import android.media.AudioManager;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -122,7 +124,7 @@ public class EditorActivity extends AppCompatActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
     // request code for startActivityForResult with intent ProfilesPrefsActivity
     private static final int REQUEST_CODE_PROFILE_PREFERENCES = 6221;
-    // request code for startActivityForResult with intent EventPreferencesActivity
+    // request code for startActivityForResult with intent EventPrefsActivity
     private static final int REQUEST_CODE_EVENT_PREFERENCES = 6222;
     // request code for startActivityForResult with intent PhoneProfilesActivity
     private static final int REQUEST_CODE_APPLICATION_PREFERENCES = 6229;
@@ -240,7 +242,7 @@ public class EditorActivity extends AppCompatActivity
 
         //PPApplication.logE("EditorActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false);
+        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         savedInstanceStateChanged = (savedInstanceState != null);
@@ -521,8 +523,13 @@ public class EditorActivity extends AppCompatActivity
                     filterInitialized = true;
                     return;
                 }
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
-//                Log.e("EditorActivity.filterSpinner.onItemSelected", "position=" + position);
+                if (filterSpinner.getAdapter() != null) {
+                    //if (filterSpinner.getAdapter().getCount() <= position)
+                    //    position = 0;
+                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
+                }
+
+                //Log.e("EditorActivity.filterSpinner.onItemSelected", "position=" + position);
                 selectFilterItem(editorSelectedView, position, true/*, true*/);
             }
 
@@ -1287,7 +1294,7 @@ public class EditorActivity extends AppCompatActivity
         if ((itemId == R.id.menu_check_in_github) ||
                 (itemId == R.id.menu_check_in_fdroid) ||
                 (itemId == R.id.menu_check_in_galaxy_store) ||
-                (itemId == R.id.menu_check_in_amazon_appstore) ||
+//                (itemId == R.id.menu_check_in_amazon_appstore) ||
                 (itemId == R.id.menu_check_in_appgallery) ||
                 (itemId == R.id.menu_check_in_apkpure)) {
 
@@ -1462,10 +1469,16 @@ public class EditorActivity extends AppCompatActivity
         int filterSelectedItem;
         if (selectedView == 0) {
 //            PPApplication.logE("EditorActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
-            filterSelectedItem = filterProfilesSelectedItem;
+            if ((filterSpinner.getAdapter() == null) || (filterSpinner.getAdapter().getCount() <= filterProfilesSelectedItem))
+                filterSelectedItem = 0;
+            else
+                filterSelectedItem = filterProfilesSelectedItem;
         }
         else {
 //            PPApplication.logE("EditorActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
+            if ((filterSpinner.getAdapter() == null) || (filterSpinner.getAdapter().getCount() <= filterEventsSelectedItem))
+                filterSelectedItem = 0;
+            else
             filterSelectedItem = filterEventsSelectedItem;
         }
 
@@ -1488,12 +1501,25 @@ public class EditorActivity extends AppCompatActivity
 
             editorSelectedView = selectedView;
             if (editorSelectedView == 0) {
-                filterProfilesSelectedItem = position;
+                if ((filterSpinner.getAdapter() == null) || (filterSpinner.getAdapter().getCount() <= position)) {
+                    filterProfilesSelectedItem = 0;
+                    filterSelectedItem = ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE;
+                }
+                else {
+                    filterProfilesSelectedItem = position;
+                    filterSelectedItem = position;
+                }
             }
             else {
-                filterEventsSelectedItem = position;
+                if ((filterSpinner.getAdapter() == null) || (filterSpinner.getAdapter().getCount() <= position)) {
+                    filterEventsSelectedItem = 0;
+                    filterSelectedItem = ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE;
+                }
+                else {
+                    filterEventsSelectedItem = position;
+                    filterSelectedItem = position;
+                }
             }
-            filterSelectedItem = position;
             //PPApplication.logE("EditorActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
 
             // save into shared preferences
@@ -2396,6 +2422,60 @@ public class EditorActivity extends AppCompatActivity
                     for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)
                         ApplicationPreferences.setQuickTileProfileId(getApplicationContext(),i, 0);
 
+
+                    // set application parameters to "Not used" for non-granted Uri premissions
+                    ContentResolver contentResolver = getApplicationContext().getContentResolver();
+                    String tone = ApplicationPreferences.getSharedPreferences(getApplicationContext()).getString(
+                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND,
+                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                    if (!tone.isEmpty()) {
+                        if (tone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = Uri.parse(tone);
+                            if (uri != null) {
+                                try {
+                                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                                editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND,
+                                        ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                                editor.apply();
+                            }
+                        }
+                    }
+                    tone = ApplicationPreferences.getSharedPreferences(getApplicationContext()).getString(
+                            ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND,
+                            ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                    if (!tone.isEmpty()) {
+                        if (tone.contains("content://media/external")) {
+                            boolean isGranted = false;
+                            Uri uri = Uri.parse(tone);
+                            if (uri != null) {
+                                try {
+                                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    isGranted = true;
+                                } catch (Exception e) {
+                                    //isGranted = false;
+                                }
+//                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
+                            }
+                            if (!isGranted) {
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                                editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND,
+                                        ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                                editor.apply();
+                            }
+                        }
+                    }
+
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
                     PPApplication.loadApplicationPreferences(getApplicationContext());
                     PPApplication.loadProfileActivationData(getApplicationContext());
@@ -2804,9 +2884,10 @@ public class EditorActivity extends AppCompatActivity
                             }
                             if (changeFilter) {
                                 fragment.scrollToProfile = profile;
-                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                                        .setSelection(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
 //                                Log.e("EditorActivity.redrawProfileListFragment", "position=0");
-                                editorActivity.selectFilterItem(0, 0, false/*, true*/);
+                                editorActivity.selectFilterItem(0, ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                             }
                             else
                                 fragment.scrollToProfile = null;
@@ -2988,9 +3069,10 @@ public class EditorActivity extends AppCompatActivity
                             }
                             if (changeFilter) {
                                 fragment.scrollToEvent = event;
-                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                                        .setSelection(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
 //                                Log.e("EditorActivity.redrawEventListFragment", "position=0");
-                                editorActivity.selectFilterItem(1, 0, false/*, true*/);
+                                editorActivity.selectFilterItem(1, ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                             }
                             else
                                 fragment.scrollToEvent = null;
@@ -3037,23 +3119,14 @@ public class EditorActivity extends AppCompatActivity
         {
             //if (ApplicationPreferences.prefEventsBlocked) {
             if (Event.getEventsBlocked(getApplicationContext())) {
-                //if (whiteTheme)
-                //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_white);
-                //else
-                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_v);
+                eventsRunStopIndicator.setImageResource(R.drawable.ic_traffic_light_manual_activation);
             }
             else {
-                //if (whiteTheme)
-                //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running_white);
-                //else
-                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running_v);
+                eventsRunStopIndicator.setImageResource(R.drawable.ic_traffic_light_running);
             }
         }
         else {
-            //if (whiteTheme)
-            //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped_white);
-            //else
-                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped_v);
+            eventsRunStopIndicator.setImageResource(R.drawable.ic_traffic_light_stopped);
         }
     }
 
@@ -4976,6 +5049,135 @@ public class EditorActivity extends AppCompatActivity
                                         }
                                         profile._deviceRunApplicationPackageName = newValue;
 
+                                        ContentResolver contentResolver = _dataWrapper.context.getContentResolver();
+
+                                        // set profile parameters to "Not used" for non-granted Uri premissions
+                                        String icon = profile._icon;
+                                        if (!Profile.getIsIconResourceID(icon)) {
+                                            String iconIdentifier = Profile.getIconIdentifier(icon);
+                                            boolean isGranted = false;
+                                            Uri uri = Uri.parse(iconIdentifier);
+                                            if (uri != null) {
+                                                try {
+                                                    _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                    isGranted = true;
+                                                } catch (Exception e) {
+                                                    //isGranted = false;
+                                                }
+                                            }
+                                            if (!isGranted) {
+                                                profile._icon = Profile.defaultValuesString.get(Profile.PREF_PROFILE_ICON);
+                                            }
+                                        }
+                                        String tone = profile._soundRingtone;
+                                        splits = tone.split("\\|");
+                                        String ringtone = splits[0];
+                                        if (!ringtone.isEmpty()) {
+                                            if (ringtone.contains("content://media/external")) {
+                                                boolean isGranted = false;
+                                                Uri uri = ActivateProfileHelper.getUriOfSavedTone(_dataWrapper.context, ringtone, RingtoneManager.TYPE_RINGTONE);
+                                                if (uri != null) {
+                                                    try {
+                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                        isGranted = true;
+                                                    } catch (Exception e) {
+                                                        //isGranted = false;
+                                                    }
+                                                }
+                                                if (!isGranted) {
+                                                    //noinspection ConstantConditions
+                                                    profile._soundRingtoneChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE));
+                                                    profile._soundRingtone = Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE);
+                                                }
+                                            }
+                                        }
+                                        tone = profile._soundNotification;
+                                        splits = tone.split("\\|");
+                                        ringtone = splits[0];
+                                        if (!ringtone.isEmpty()) {
+                                            if (ringtone.contains("content://media/external")) {
+                                                boolean isGranted = false;
+                                                Uri uri = ActivateProfileHelper.getUriOfSavedTone(_dataWrapper.context, ringtone, RingtoneManager.TYPE_NOTIFICATION);
+                                                if (uri != null) {
+                                                    try {
+                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                        isGranted = true;
+                                                    } catch (Exception e) {
+                                                        //isGranted = false;
+                                                    }
+                                                }
+                                                if (!isGranted) {
+                                                    //noinspection ConstantConditions
+                                                    profile._soundNotificationChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE));
+                                                    profile._soundNotification = Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
+                                                }
+                                            }
+                                        }
+                                        tone = profile._soundAlarm;
+                                        splits = tone.split("\\|");
+                                        ringtone = splits[0];
+                                        if (!ringtone.isEmpty()) {
+                                            if (ringtone.contains("content://media/external")) {
+                                                boolean isGranted = false;
+                                                Uri uri = ActivateProfileHelper.getUriOfSavedTone(_dataWrapper.context, ringtone, RingtoneManager.TYPE_ALARM);
+                                                if (uri != null) {
+                                                    try {
+                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                        isGranted = true;
+                                                    } catch (Exception e) {
+                                                        //isGranted = false;
+                                                    }
+                                                }
+                                                if (!isGranted) {
+                                                    //noinspection ConstantConditions
+                                                    profile._soundAlarmChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE));
+                                                    profile._soundAlarm = Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM);
+                                                }
+                                            }
+                                        }
+                                        String wallpaper = profile._deviceWallpaper;
+                                        if (!wallpaper.isEmpty() && !wallpaper.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER))) {
+                                            boolean isGranted = false;
+                                            Uri uri = Uri.parse(wallpaper);
+                                            if (uri != null) {
+                                                try {
+                                                    _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                    isGranted = true;
+                                                } catch (Exception e) {
+                                                    //isGranted = false;
+                                                }
+                                            }
+                                            if (!isGranted) {
+                                                //noinspection ConstantConditions
+                                                profile._deviceWallpaperChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
+                                                profile._deviceWallpaper = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+                                            }
+                                        }
+                                        tone = profile._durationNotificationSound;
+                                        if (!tone.isEmpty()) {
+                                            if (tone.contains("content://media/external")) {
+                                                boolean isGranted = false;
+                                                Uri uri = Uri.parse(tone);
+                                                if (uri != null) {
+                                                    try {
+                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                        isGranted = true;
+                                                    } catch (Exception e) {
+                                                        //isGranted = false;
+                                                    }
+                                                }
+                                                if (!isGranted) {
+                                                    profile._durationNotificationSound = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND);
+                                                }
+                                            }
+                                        }
+
                                         DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
                                     }
                                     profilesError = false;
@@ -5190,6 +5392,7 @@ public class EditorActivity extends AppCompatActivity
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
                                 ret = 0;*/
+                            //noinspection ConstantConditions
                             ret = 1;
                         } else
                             ret = 0;

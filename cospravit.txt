@@ -1,6 +1,12 @@
-Stare Privacy policy. Asi nemozes odstranit, lebo asi je potrebne pre PPP 4.2.0.3 co je
-v Obchode Play a co maju ludia nainstalovanu staru verziu. :-(
-https://sites.google.com/site/phoneprofilesplus/home/privacy-policy
+Preco uz noe je PPP v GPlay:
+
+Google restrictions:
+1. Android - All Wi-Fi related functions not working since Android 10.
+2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:
+    targetSdkVersion targetSdk
+  and in PPP must be target sdk = 28. Android 10 is 29.
+
+In stores, in which is currently deployed PPP, restriction about target sdk not exists.
 
 ------------------------
 funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
@@ -500,45 +506,55 @@ Je to aplikacia SysteUI Tunner. Mas ho v S10.
 
 --------------
 
-- Added: "Volume change" event sensor.
-- Added "Play notification also in silent mode" parameter for start/end of event notification.
-- Added info for profile parameter "Dark mode".
-- Added: "How to disable Wi-Fi scan throttling".
-- Added Auto start notification generation.
-- Added initial uri (path) for start gallery of custom icon, wallpaper image, wallpaper folder.
-- Added support for installation of Huawei AppGallery in non-Huawei devices.
-- Added open of web for installation of Amazon AppStore, APKPure and open PPP releases in web version of AppGallery, Amazon AppStore, APKPure in check releases dialogs.
-- Added note about USB debugging security into Important info and grant_g1_permission.md.
+Vyskusaj nahodit mobilne data s WRITE_SECURE_SETTINGS:
+Nefunguje :-(
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data", r4) // r4 = 1 - zapnut, 0 - vypnut
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data1", r5)  // r5 = 1 - zapnut, 0 - vypnut
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data2", r5)  // r5 = 1 - zapnut, 0 - vypnut
 
-- Changed One row widget parameter "Higher layout" to "Layout height".
-- Changed name of all "Disable ... scanning" profile parameters to "Enable ... scanning"
-- Change: Allowed change of profile parameters which requires root on non-rooted devices.
-- Change: Allow change of parameters even when are not inserted 2 SIM cards.
-- Change of "Help with GUI items" text. Is better readable.
-- Change: Remove of non-critical check releases notification, when is displayed critical release notification and do not display non-critical check releases notification when nis displayed critical release notification.
-- Changed intent for ignore battery optimization to Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. Only solution for OnePlus. :-(
-- Some GUI changes.
-- Change: New PPPExtender required version. In it is fixed outgoing call.
-- Change: Updated README.md
-- Changed privacy policy link in README.md to PhoneProfilesPlus/docs/privacy_policy.md
-- Change: Updated grant_g1_permission.md
-- Changed screenshots of PPP for applications stores.
+-------------------
 
-- Fixed "Mute sound" for non-audible "Sound profile" profile parameter.
-- Fixed display and check of required event parameters.
-- Fix: call root functionality when G1 functionality crashes.
-- Fixed bad working Silent ringer mode.
-- Fixed bad working check of PPPE accessibility service.
-- Fixed not called whole EventsHandler for manual restart of events, when all events are stopped.
-- Fixed notification channels from IMPORTANCE_LOW to IMPORTANCE_DEFAULT. Changed some channel parameters.
-- Fixed Autostart for OnePlus, Android 12.
-- Fixed bad displayed red text for event radio switch preference category.
-- Fixed play of ringing simulation.
-- Fixed cropped Quick guide when all sections in Important info are collapsed.
-- Fix: Removed force start of orientation sensor from start of event preferences. This fixes battery consumption when event preferences are displayed.
-- Fixed Airplane mode set to disabled when is not PPP as default assistant.
+Vraj synchronizacia kontaktov. Testuje sa tam ContactsContract.Contacts.CONTACT_LAST_UPDATED_TIMESTAMP
+A len novsie ako posledna synchronizacia (zapisat si treba cas poslednej do sharend preferences),
+sa synchronizuju.
+Ono to urychli synchronizaciu, to je pravda. Mozno by bolo super to takto spravit, len je to
+vela prerabky celej sychronizacie kontaktov aj grup.
 
+https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
 
+--------------------
 
-
-
+- Added ringtone type icon into Ringtone preference dialog.
+- Added application settings into acra crash report.
+- Added grant Uri permission into for play notification sound.
+- Added into Editor menu/"Backup/restore"/"Restore settings" set parameters into "do not change"/"not configured" which requires grant Uri permission, when this grant now working.
+- Added monochrome launcher icon (Android 13). Not tested.
+- Added (but currently commented): Support for app multi-language settings. Requires AndroidX appcompat 1.6.0+ (Android 13).
+- Added Google Play restrictions information into README.md
+- Removed Amazon store due to store restrictions. Not allowed is change of device settings which requires superuser permission (root).
+- Changed "Actual version:" to "Installed version:" in check releases dialogs.
+- Change: small dialog layout changes.
+- Changes of "traffic light" in Activator and Editor.
+- Change: better Intent editor layout.
+- Changed display of event sensor names in Editor event list.
+- Change in Location editor: calc zoom, start of displaying map, layout without start/end margin in all device sizes.
+- Change in Location editor: start of displaying map.
+- Change: replaced bold preferences in Settings by arrows.
+- Change: converted png images to to webp.
+- Change: profile parameter "Disable events run" changed to "Enable events run".
+- Change: disable OK button in "Generate notification" dialog if notification title is not set.
+- Change: added "Unselect all" button into Profile multiselect dialog.
+- Change: display "None installed" in live wallpaper dialog, when live wallpapers was not installed.
+- Change: Location sensor and get provider for get last known location.
+- Change: generated notification when location provider is not returned.
+- Changed screenshots size for F-Droid. Maybe will be synchronized also in F-Droid application.
+- Fix: changed dialog buttons for custom color dialog from Yes/No to OK/Cancel.
+- Fixed display of custom color for profiles icon.
+- Fixed not allowed profile parameters change when old version of Extender is installed.
+- Fixed call of TopExceptionHandler. Maybe this fixes also ACRA notification after restart of PPP (for example package upgrade).
+- Fixed generated ACRA notification for exception android.os.DeadSystemException.
+- Fixed bad working "Lock screen" profile parameter.
+- Fixed set screen timeout.
+- Fixed not working title style in preferences.
+- Maybe fixed not displayed map in Location editor, when map is not cached.
+- Maybe fixed start of map display in Location editor. Will be displayed immediately at end of map load.

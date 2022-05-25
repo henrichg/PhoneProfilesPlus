@@ -180,7 +180,10 @@ class RunApplicationEditorDialogX
             }
         }
 
-        filterSpinner.setSelection(Arrays.asList(filterValues).indexOf(String.valueOf(selectedFilter)));
+        int position = Arrays.asList(filterValues).indexOf(String.valueOf(selectedFilter));
+        if (position == -1)
+            position = 0;
+        filterSpinner.setSelection(position);
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @SuppressLint("NotifyDataSetChanged")

@@ -46,7 +46,7 @@ public class AutostartPermissionActivity extends AppCompatActivity
 
         if (activityStarted) {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
+            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
 //            PPApplication.logE("[BACKGROUND_ACTIVITY] AutostartPermissionActivity.onStart", "do AutoStartPermissionHelper.getAutoStartPermission()");

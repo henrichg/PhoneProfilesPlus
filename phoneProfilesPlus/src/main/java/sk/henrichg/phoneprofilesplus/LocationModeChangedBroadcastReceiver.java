@@ -13,8 +13,6 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
-        //CallsCounter.logCounter(context, "LocationModeChangedBroadcastReceiver.onReceive", "LocationModeChangedBroadcastReceiver_onReceive");
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -57,8 +55,10 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                             //PPApplication.logE("LocationModeChangedBroadcastReceiver.onReceive", "updateTransitionsByLastKnownLocation");
                         }*/
 
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted())
-                            PhoneProfilesService.getInstance().getLocationScanner().updateTransitionsByLastKnownLocation();
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
+                            String provider = PhoneProfilesService.getInstance().getLocationScanner().getProvider();
+                            PhoneProfilesService.getInstance().getLocationScanner().updateTransitionsByLastKnownLocation(provider);
+                        }
 
                         PPApplication.sleep(10000);
 

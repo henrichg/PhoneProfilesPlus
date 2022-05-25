@@ -67,6 +67,7 @@ import java.lang.reflect.Method;
 import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -141,8 +142,8 @@ public class PPApplication extends Application
     static final String FDROID_APPLICATION_URL = "https://www.f-droid.org/";
     static final String FDROID_REPOSITORY_URL = "https://apt.izzysoft.de/fdroid/index/info";
 
-    static final String AMAZON_APPSTORE_PPP_RELEASES_URL = "https://www.amazon.com/Henrich-Gron-PhoneProfilesPlus/dp/B01N3SM44J/ref=sr_1_1?keywords=phoneprofilesplus&qid=1637084235&qsid=134-9049988-7816540&s=mobile-apps&sr=1-1&sres=B01N3SM44J%2CB078K93HFD%2CB01LXZDPDR%2CB00LBK7OSY%2CB07RX5L3CP%2CB07XM7WVS8%2CB07XWGWPH5%2CB08KXB3R7S%2CB0919N2P7J%2CB08NWD7K8H%2CB01A7MACL2%2CB07XY8YFQQ%2CB07XM8GDWC%2CB07QVYLDRL%2CB09295KQ9Q%2CB01LVZ3JBI%2CB08723759H%2CB09728VTDK%2CB08R7D4KZJ%2CB01BUIGF9K";
-    static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
+    //static final String AMAZON_APPSTORE_PPP_RELEASES_URL = "https://www.amazon.com/Henrich-Gron-PhoneProfilesPlus/dp/B01N3SM44J/ref=sr_1_1?keywords=phoneprofilesplus&qid=1637084235&qsid=134-9049988-7816540&s=mobile-apps&sr=1-1&sres=B01N3SM44J%2CB078K93HFD%2CB01LXZDPDR%2CB00LBK7OSY%2CB07RX5L3CP%2CB07XM7WVS8%2CB07XWGWPH5%2CB08KXB3R7S%2CB0919N2P7J%2CB08NWD7K8H%2CB01A7MACL2%2CB07XY8YFQQ%2CB07XM8GDWC%2CB07QVYLDRL%2CB09295KQ9Q%2CB01LVZ3JBI%2CB08723759H%2CB09728VTDK%2CB08R7D4KZJ%2CB01BUIGF9K";
+    //static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
 
     static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
     static final String APKPURE_APPLICATION_URL = "https://apkpure.com/apkpure/com.apkpure.aegon";
@@ -204,6 +205,7 @@ public class PPApplication extends Application
                                                 //+"|DataWrapper.setProfileActive"
                                                 //+"|DataWrapper.activateProfileOnBoot"
                                                 +"|BootUpReceiver"
+                                                +"|BootUpReceiver"
                                                 //+"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
                                                 +"|DatabaseHandler.onUpgrade"
@@ -213,6 +215,8 @@ public class PPApplication extends Application
 
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
+
+                                                //+"|TopExceptionHandler.uncaughtException"
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
@@ -244,6 +248,16 @@ public class PPApplication extends Application
                                                 //+"|[DB_LOCK]"
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
+
+                                                //+"|LocationGeofenceEditorActivityOSM"
+                                                //+"|LocationScanner"
+                                                //+"|LocationScannerSwitchGPSBroadcastReceiver"
+
+                                                //+"|ActivateProfileHelper.execute"
+                                                //+"|PhoneProfilesService.doCommand"
+                                                //+"|ScreenOnOffBroadcastReceiver.onReceive"
+                                                //+"|PhoneProfilesService.disableKeyguard"
+                                                //+"|PhoneProfilesService.reenableKeyguard"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -516,6 +530,8 @@ public class PPApplication extends Application
 
     static final int AUTOSTART_PERMISSION_NOTIFICATION_ID = 150;
     static final String AUTOSTART_PERMISSION_NOTIFICATION_TAG = PACKAGE_NAME+"_AUTOSTART_PERMISSION_NOTIFICATION";
+    static final int LOCATION_NOT_WORKING_NOTIFICATION_ID = 151;
+    static final String LOCATION_NOT_WORKING_NOTIFICATION_TAG = PACKAGE_NAME+"_LOCATION_NOT_WORKING_NOTIFICATION_NOTIFICATION";
 
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;
@@ -532,6 +548,7 @@ public class PPApplication extends Application
     static final String GENERATED_BY_PROFILE_NOTIFICATION_TAG = PACKAGE_NAME+"_GENERATED_BY_PROFILE_NOTIFICATION_TAG";
 
     // shared preferences names !!! Configure also in res/xml/phoneprofiles_backup_scheme.xml !!!
+    //static final String ACRA_PREFS_NAME = "phone_profiles_plus_acra";
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     //static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
     //static final String ACTIVATED_PROFILE_PREFS_NAME = "profile_preferences_activated_profile";
@@ -565,7 +582,7 @@ public class PPApplication extends Application
 
     // WorkManager tags
     static final String AFTER_FIRST_START_WORK_TAG = "afterFirstStartWork";
-    static final String PACKAGE_REPLACED_WORK_TAG = "packageReplacedWork";
+    //static final String PACKAGE_REPLACED_WORK_TAG = "packageReplacedWork";
     static final String AVOID_RESCHEDULE_RECEIVER_WORK_TAG = "avoidRescheduleReceiverWorker";
 
     // scanner start/stop types
@@ -681,7 +698,7 @@ public class PPApplication extends Application
     static BrightnessView keepScreenOnView = null;
 
     static LockDeviceActivity lockDeviceActivity = null;
-    static int screenTimeoutBeforeDeviceLock = 0;
+    static int screenTimeoutWhenLockDeviceActivityIsDisplayed = 0;
 
 //    static int brightnessBeforeScreenOff;
 //    static float adaptiveBrightnessBeforeScreenOff;
@@ -705,7 +722,6 @@ public class PPApplication extends Application
     static final SamsungEdgeProvider edgePanelBroadcastReceiver = new SamsungEdgeProvider();
 
     static TimeChangedReceiver timeChangedReceiver = null;
-    //static PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
     static StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
     static NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
     static ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
@@ -847,81 +863,41 @@ public class PPApplication extends Application
     @Override
     public void onCreate()
     {
+        PPApplication.logE("################# PPApplication.onCreate", "onCreate() start");
+
         /* Hm this resets start, why?!
         if (DebugVersion.enabled) {
-            PPApplication.logE("##### PPApplication.onCreate", "strict mode");
+            if (!ACRA.isACRASenderServiceProcess()) {
+                PPApplication.logE("##### PPApplication.onCreate", "strict mode");
 
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectDiskReads()
-                    .detectDiskWrites()
-                    .detectAll()
-                    //.detectNetwork()   // or .detectAll() for all detectable problems
-                    .penaltyLog()
-                    .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .penaltyLog()
-                    .penaltyDeath()
-                    .build());
+                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                        .detectDiskReads()
+                        .detectDiskWrites()
+                        .detectAll()
+                        //.detectNetwork()   // or .detectAll() for all detectable problems
+                        .penaltyLog()
+                        .build());
+                StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                        .detectLeakedSqlLiteObjects()
+                        .detectLeakedClosableObjects()
+                        .penaltyLog()
+                        .penaltyDeath()
+                        .build());
+            }
         }*/
 
         super.onCreate();
 
+        // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
         if (ACRA.isACRASenderServiceProcess()) {
-            Log.e("##### PPApplication.onCreate", "ACRA.isACRASenderServiceProcess()");
+            Log.e("################# PPApplication.onCreate", "ACRA.isACRASenderServiceProcess()");
             return;
         }
-
-        /*
-        CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
-                .setBuildConfigClass(BuildConfig.class)
-                .setReportFormat(StringFormat.KEY_VALUE_LIST);
-        //builder.getPluginConfigurationBuilder(ToastConfigurationBuilder.class)
-        //        .setResText(R.string.acra_toast_text)
-        //        .setEnabled(true);
-        builder.getPluginConfigurationBuilder(NotificationConfigurationBuilder.class)
-                .setResChannelName(R.string.notification_channel_crash_report)
-                .setResChannelImportance(NotificationManager.IMPORTANCE_DEFAULT)
-                .setResIcon(R.drawable.ic_exclamation_notify)
-                .setResTitle(R.string.acra_notification_title)
-                .setResText(R.string.acra_notification_text)
-                .setResSendButtonIcon(0)
-                .setResDiscardButtonIcon(0)
-                .setSendOnClick(true)
-                .setEnabled(true);
-        builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
-                .setMailTo("henrich.gron@gmail.com")
-                .setResSubject(R.string.acra_email_subject_text)
-                .setResBody(R.string.acra_email_body_text)
-                .setReportAsFile(true)
-                .setReportFileName("crash_report.txt")
-                .setEnabled(true);
-
-        ACRA.DEV_LOGGING = true;
-
-        ACRA.init(this, builder);
-
-        // don't schedule anything in crash reporter process
-        if (ACRA.isACRASenderServiceProcess())
-            return;
-        */
-
-        //if (DebugVersion.enabled) {
-        int actualVersionCode = 0;
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            actualVersionCode = PPApplication.getVersionCode(pInfo);
-        } catch (Exception ignored) {}
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
-        //}
 
         applicationFullyStarted = false;
         normalServiceStart = false;
         showToastForProfileActivation = false;
         instance = this;
-
-        PPApplication.logE("##### PPApplication.onCreate", "actualVersionCode="+actualVersionCode);
 
         //registerActivityLifecycleCallbacks(PPApplication.this);
 
@@ -982,6 +958,12 @@ public class PPApplication extends Application
 //        } catch (Exception e) {
 //            PPApplication.recordException(e);
 //        }
+
+        if (keyguardManager == null)
+            keyguardManager = (KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE);
+        if (keyguardManager != null)
+            //noinspection deprecation
+            keyguardLock = keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
 
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());
@@ -1215,13 +1197,31 @@ public class PPApplication extends Application
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+
+        // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
+        if (ACRA.isACRASenderServiceProcess()) {
+            Log.e("################# PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");
+            return;
+        }
+
         collator = getCollator();
         //MultiDex.install(this);
 
-        if (ACRA.isACRASenderServiceProcess()) {
-            Log.e("##### PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");
-            return;
-        }
+        //if (DebugVersion.enabled) {
+        int actualVersionCode = 0;
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            actualVersionCode = PPApplication.getVersionCode(pInfo);
+        } catch (Exception ignored) {}
+
+        // this must be before ACRA init, ACRA must ignore some exceptions
+        // Look at TopExceptionHandler.uncaughtException() for ignored exceptions
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
+        //}
+
+//        PPApplication.logE("################# PPApplication.attachBaseContext", "actualVersionCode="+actualVersionCode);
+
+//        PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
 
         String packageVersion = "";
         try {
@@ -1247,8 +1247,7 @@ public class PPApplication extends Application
         body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
         body = body + getString(R.string.acra_email_body_text);
 
-        PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
-
+/*
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST);
@@ -1272,34 +1271,37 @@ public class PPApplication extends Application
                 .withReportAsFile(true)
                 .withReportFileName("crash_report.txt")
                 .withEnabled(true);
+*/
 
-/*
+        //noinspection ArraysAsListWithZeroOrOneArgument
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder()
                 .withBuildConfigClass(BuildConfig.class)
-                .withReportFormat(StringFormat.KEY_VALUE_LIST);
+                .withReportFormat(StringFormat.KEY_VALUE_LIST)
+                //.withSharedPreferencesName(ACRA_PREFS_NAME)
+                .withAdditionalSharedPreferences(Arrays.asList(APPLICATION_PREFS_NAME));
 
         builder.withPluginConfigurations(
-            new NotificationConfigurationBuilder()
-                .withChannelName(getString(R.string.notification_channel_crash_report))
-                .withChannelImportance(NotificationManager.IMPORTANCE_HIGH)
-                .withResIcon(R.drawable.ic_exclamation_notify)
-                .withTitle(getString(R.string.acra_notification_title))
-                .withText(getString(R.string.acra_notification_text))
-                .withResSendButtonIcon(0)
-                .withResDiscardButtonIcon(0)
-                .withSendOnClick(true)
-                .withEnabled(true)
-                .build(),
-            new MailSenderConfigurationBuilder()
-                .withMailTo("henrich.gron@gmail.com")
-                .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
-                .withBody(body)
-                .withReportAsFile(true)
-                .withReportFileName("crash_report.txt")
-                .withEnabled(true)
-                .build()
+                new NotificationConfigurationBuilder()
+                        .withChannelName(getString(R.string.notification_channel_crash_report))
+                        .withChannelImportance(NotificationManager.IMPORTANCE_HIGH)
+                        .withResIcon(R.drawable.ic_exclamation_notify)
+                        .withTitle(getString(R.string.acra_notification_title))
+                        .withText(getString(R.string.acra_notification_text))
+                        .withResSendButtonIcon(0)
+                        .withResDiscardButtonIcon(0)
+                        .withSendOnClick(true)
+                        .withEnabled(true)
+                        .build(),
+                new MailSenderConfigurationBuilder()
+                        .withMailTo("henrich.gron@gmail.com")
+                        .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
+                        .withBody(body)
+                        .withReportAsFile(true)
+                        .withReportFileName("crash_report.txt")
+                        .withEnabled(true)
+                        .build()
         );
-*/
+
         //ACRA.DEV_LOGGING = true;
 
         ACRA.init(this, builder);
@@ -1323,110 +1325,127 @@ public class PPApplication extends Application
             return null;
     }
 
-    static void cancelWork(final String name, final boolean forceCancel) {
-        // cancel only enqueued works
-        PPApplication.startHandlerThreadCancelWork();
-        final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
-        __handler.post(() -> {
-//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
-
-            WorkManager workManager = PPApplication.getWorkManagerInstance();
-            if (workManager != null) {
-                ListenableFuture<List<WorkInfo>> statuses;
-                statuses = workManager.getWorkInfosForUniqueWork(name);
-                //noinspection TryWithIdenticalCatches
-                try {
-                    List<WorkInfo> workInfoList = statuses.get();
+    static void _cancelWork(final String name, final boolean forceCancel) {
+        WorkManager workManager = PPApplication.getWorkManagerInstance();
+        if (workManager != null) {
+            ListenableFuture<List<WorkInfo>> statuses;
+            statuses = workManager.getWorkInfosForUniqueWork(name);
+            //noinspection TryWithIdenticalCatches
+            try {
+                List<WorkInfo> workInfoList = statuses.get();
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
-                    // cancel only enqueued works
-                    for (WorkInfo workInfo : workInfoList) {
-                        WorkInfo.State state = workInfo.getState();
-                        if (forceCancel || (state == WorkInfo.State.ENQUEUED)) {
-                            // any work is enqueued, cancel it
+                // cancel only enqueued works
+                for (WorkInfo workInfo : workInfoList) {
+                    WorkInfo.State state = workInfo.getState();
+                    if (forceCancel || (state == WorkInfo.State.ENQUEUED)) {
+                        // any work is enqueued, cancel it
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" forceCancel="+forceCancel);
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" state="+state);
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" cancel it");
-                            workManager.cancelWorkById(workInfo.getId());
-                        }
+                        workManager.cancelWorkById(workInfo.getId());
                     }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+
+                if (name.startsWith(MainWorker.EVENT_DELAY_START_TAG_WORK))
+                    PPApplication.elapsedAlarmsEventDelayStartWork.remove(name);
+                if (name.startsWith(MainWorker.EVENT_DELAY_END_TAG_WORK))
+                    PPApplication.elapsedAlarmsEventDelayEndWork.remove(name);
+                if (name.startsWith(MainWorker.PROFILE_DURATION_WORK_TAG))
+                    PPApplication.elapsedAlarmsProfileDurationWork.remove(name);
+                if (name.startsWith(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG))
+                    PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(name);
+                if (name.startsWith(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG))
+                    PPApplication.elapsedAlarmsStartEventNotificationWork.remove(name);
+
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });
+        }
     }
 
-    static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {
+    static void cancelWork(final String name, final boolean forceCancel/*, final boolean useHander*/) {
+        // cancel only enqueued works
+        //if (useHander) {
+            PPApplication.startHandlerThreadCancelWork();
+            final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
+            __handler.post(() -> {
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
+                _cancelWork(name, forceCancel);
+            });
+        //} else
+        //    _cancelWork(name, forceCancel);
+    }
+
+    // is called from ThreadHandler
+    static void cancelAllWorks(/*@SuppressWarnings("SameParameterValue") boolean atStart*/) {
         //PPApplication.logE("------------ PPApplication.cancelAllWorks", "atStart="+atStart);
-        if (atStart) {
+        /*if (atStart) {
             cancelWork(ShowProfileNotificationWorker.WORK_TAG, false);
             cancelWork(UpdateGUIWorker.WORK_TAG, false);
-        }
-        if (!atStart)
-            cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
+        }*/
+        //if (!atStart)
+            _cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
-            cancelWork(tag, false);
+            _cancelWork(tag, false);
         PPApplication.elapsedAlarmsProfileDurationWork.clear();
         for (String tag : PPApplication.elapsedAlarmsRunApplicationWithDelayWork)
-            cancelWork(tag, false);
+            _cancelWork(tag, false);
         PPApplication.elapsedAlarmsRunApplicationWithDelayWork.clear();
         for (String tag : PPApplication.elapsedAlarmsEventDelayStartWork)
-            cancelWork(tag, false);
+            _cancelWork(tag, false);
         PPApplication.elapsedAlarmsEventDelayStartWork.clear();
         for (String tag : PPApplication.elapsedAlarmsEventDelayEndWork)
-            cancelWork(tag, false);
+            _cancelWork(tag, false);
         PPApplication.elapsedAlarmsEventDelayEndWork.clear();
         for (String tag : PPApplication.elapsedAlarmsStartEventNotificationWork)
-            cancelWork(tag, false);
+            _cancelWork(tag, false);
         PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
-        if (atStart) {
+        /*if (atStart) {
             cancelWork(DisableInternalChangeWorker.WORK_TAG, false);
             cancelWork(DisableVolumesInternalChangeWorker.WORK_TAG, false);
             cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, false);
-        }
-        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
-        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
-        cancelWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG, false);
-        cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG, false);
-        cancelWork(BluetoothScanWorker.WORK_TAG, false);
-        cancelWork(BluetoothScanWorker.WORK_TAG_SHORT, false);
-        cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, false);
-        cancelWork(RestartEventsWithDelayWorker.WORK_TAG, false);
-        cancelWork(GeofenceScanWorker.WORK_TAG, false);
-        cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
-        cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
-        //cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, false);
-        cancelWork(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG_OSM, false);
-        if (atStart)
-            cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
-        cancelWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, false);
-        if (atStart) {
+        }*/
+        _cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
+        _cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
+        _cancelWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG, false);
+        _cancelWork(BluetoothScanWorker.WORK_TAG, false);
+        _cancelWork(BluetoothScanWorker.WORK_TAG_SHORT, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, false);
+        _cancelWork(RestartEventsWithDelayWorker.WORK_TAG, false);
+        _cancelWork(GeofenceScanWorker.WORK_TAG, false);
+        _cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
+        _cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
+        _cancelWork(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG_OSM, false);
+        //if (atStart)
+        //    cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
+        _cancelWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, false);
+        /*if (atStart) {
             cancelWork(PACKAGE_REPLACED_WORK_TAG, false);
             cancelWork(AFTER_FIRST_START_WORK_TAG, false);
             cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG, false);
-        }
-        cancelWork(SearchCalendarEventsWorker.WORK_TAG, false);
-        cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT, false);
-        cancelWork(WifiScanWorker.WORK_TAG, false);
-        cancelWork(WifiScanWorker.WORK_TAG_SHORT, false);
-        cancelWork(WifiScanWorker.WORK_TAG_START_SCAN, false);
-        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG, false);
-        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, false);
-        cancelWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, false);
-        cancelWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, false);
-        cancelWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG, false);
-        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG, false);
-        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG, false);
-        cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG, false);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG, false);
-        //cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG, false);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG, false);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG, false);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG, false);
-        cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
+        }*/
+        _cancelWork(SearchCalendarEventsWorker.WORK_TAG, false);
+        _cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT, false);
+        _cancelWork(WifiScanWorker.WORK_TAG, false);
+        _cancelWork(WifiScanWorker.WORK_TAG_SHORT, false);
+        _cancelWork(WifiScanWorker.WORK_TAG_START_SCAN, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG, false);
+        _cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
+        _cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG, false);
+        _cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG, false);
+        _cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG, false);
+        _cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG, false);
+        _cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG, false);
+        _cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
     }
 
     /*
@@ -2180,7 +2199,7 @@ public class PPApplication extends Application
         ActivateProfileHelper.getRingerMode(context);
         ActivateProfileHelper.getZenMode(context);
         ActivateProfileHelper.getLockScreenDisabled(context);
-        ActivateProfileHelper.getActivatedProfileScreenTimeout(context);
+        ActivateProfileHelper.getActivatedProfileScreenTimeoutWhenScreenOff(context);
         ActivateProfileHelper.getKeepScreenOnPermanent(context);
         ActivateProfileHelper.getMergedRingNotificationVolumes(context);
         //Profile.getActivatedProfileForDuration(context);
@@ -4135,7 +4154,7 @@ public class PPApplication extends Application
             PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
             if (!shutdown)
-                PPApplication.cancelAllWorks(false);
+                PPApplication.cancelAllWorks(/*false*/);
 
             if (dataWrapper != null)
                 dataWrapper.stopAllEvents(false, false, false, false);
@@ -4898,44 +4917,46 @@ public class PPApplication extends Application
                 if ((startIndex >= 0) && (endIndex > startIndex)) {
                     String version = contents.substring(startIndex, endIndex);
                     startIndex = version.indexOf(":");
-                    version = version.substring(startIndex + 1);
+                    if (startIndex != -1) {
+                        version = version.substring(startIndex + 1);
 //                    PPApplication.logE("PPApplication.getReleaseData", "version="+version);
-                    String[] splits = version.split(":");
-                    if (splits.length >= 2) {
+                        String[] splits = version.split(":");
+                        if (splits.length >= 2) {
 //                        PPApplication.logE("PPApplication.getReleaseData", "newVersionName=" + splits[0]);
 //                        PPApplication.logE("PPApplication.getReleaseData", "newVersionCode=" + splits[1]);
-                        int versionCode = 0;
-                        try {
-                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                            versionCode = PPApplication.getVersionCode(pInfo);
-                        } catch (Exception ignored) {
-                        }
-                        pppReleaseData.versionNameInReleases = splits[0];
-                        pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
+                            int versionCode = 0;
+                            try {
+                                PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                                versionCode = PPApplication.getVersionCode(pInfo);
+                            } catch (Exception ignored) {
+                            }
+                            pppReleaseData.versionNameInReleases = splits[0];
+                            pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
 //                        PPApplication.logE("PPApplication.getReleaseData", "versionCode=" + versionCode);
 //                        PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
 //                        PPApplication.logE("PPApplication.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification=" + ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
-                        if (forceDoData)
-                            doData = true;
-                        else {
-                            if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < pppReleaseData.versionCodeInReleases) {
-                                if ((versionCode > 0) && (versionCode < pppReleaseData.versionCodeInReleases))
-                                    doData = true;
+                            if (forceDoData)
+                                doData = true;
+                            else {
+                                if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < pppReleaseData.versionCodeInReleases) {
+                                    if ((versionCode > 0) && (versionCode < pppReleaseData.versionCodeInReleases))
+                                        doData = true;
+                                }
                             }
                         }
-                    }
-                    /*if (splits.length == 2) {
-                        // old check, always critical update
-                        PPApplication.logE("PPApplication.getReleaseData", "OLD CHECK");
-                        //critical = true;
-                    }*/
-                    if (splits.length == 3) {
-                        // new, better check
+                        /*if (splits.length == 2) {
+                            // old check, always critical update
+                            PPApplication.logE("PPApplication.getReleaseData", "OLD CHECK");
+                            //critical = true;
+                        }*/
+                        if (splits.length == 3) {
+                            // new, better check
 //                        PPApplication.logE("PPApplication.getReleaseData", "NEW CHECK");
-                        // last parameter:
-                        //  "normal" - normal update
-                        //  "critical" - critical update
-                        pppReleaseData.critical = splits[2].equals("critical");
+                            // last parameter:
+                            //  "normal" - normal update
+                            //  "critical" - critical update
+                            pppReleaseData.critical = splits[2].equals("critical");
+                        }
                     }
                 }
             }

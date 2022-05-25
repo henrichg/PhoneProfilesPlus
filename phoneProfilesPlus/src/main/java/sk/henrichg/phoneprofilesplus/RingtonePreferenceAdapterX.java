@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -49,6 +50,7 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
         TextView ringtoneLabel;
         TextView ringtonePath;
         RadioButton radioBtn;
+        ImageView ringtoneTypeImage;
         //int position;
     }
 
@@ -67,6 +69,7 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
             holder.ringtoneLabel = vi.findViewById(R.id.ringtone_pref_dlg_item_label);
             holder.ringtonePath = vi.findViewById(R.id.ringtone_pref_dlg_item_path);
             holder.radioBtn = vi.findViewById(R.id.ringtone_pref_dlg_item_radiobtn);
+            holder.ringtoneTypeImage = vi.findViewById(R.id.ringtone_pref_dlg_item_rigtone_type_image);
             vi.setTag(holder);
         }
         else
@@ -86,11 +89,13 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
         if (ringtone.contains("content://media/internal")) {
             holder.ringtonePath.setVisibility(View.VISIBLE);
             holder.ringtonePath.setText(R.string.ringtone_pref_dlg_system_tone);
+            holder.ringtoneTypeImage.setImageResource(R.drawable.ic_ringtone_system);
         }
         else
         if (ringtone.contains("content://media/external")) {
             holder.ringtonePath.setVisibility(View.VISIBLE);
             holder.ringtonePath.setText(R.string.ringtone_pref_dlg_extenal_tone);
+            holder.ringtoneTypeImage.setImageResource(R.drawable.ic_ringtone_external);
         }
         else {
             /*if (ringtoneUri != null) {

@@ -109,7 +109,9 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
             if (alsoSelection) {
                 List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
-                final int position = uris.indexOf(preference.ringtoneUri);
+                int position = uris.indexOf(preference.ringtoneUri);
+                if (position == -1)
+                    position = 0;
                 listView.setSelection(position);
             }
         }

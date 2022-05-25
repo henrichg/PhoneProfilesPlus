@@ -73,8 +73,10 @@ class RunApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder impl
     @Override
     public void onClick(View v) {
         int position = dialog.applicationList.indexOf(application);
-        dialog.doOnItemSelected(position);
-        radioBtn.setChecked(true);
+        if (position != -1) {
+            dialog.doOnItemSelected(position);
+            radioBtn.setChecked(true);
+        }
     }
 
 }

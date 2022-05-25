@@ -14,6 +14,7 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +22,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
-        //CallsCounter.logCounter(context, "LocationScannerSwitchGPSBroadcastReceiver.onReceive", "LocationScannerSwitchGPSBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 
@@ -70,6 +70,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 
         if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
             if (ApplicationPreferences.applicationUseAlarmClock) {
+//                PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "not ignored battery optimization, use alarm clock");
                 //Intent intent = new Intent(_context, LocationScannerSwitchGPSBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
@@ -101,6 +102,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             /*int keepResultsDelay = delay * 5;
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+//                PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "not ignored battery optimization, use worker");
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK)
@@ -144,6 +146,8 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
+//                    PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "ignored battery optimization, use alarm clock");
+
                     Calendar now = Calendar.getInstance();
                     now.add(Calendar.SECOND, delay);
                     long alarmTime = now.getTimeInMillis();
@@ -161,7 +165,19 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
+//                    PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "ignored battery optimization, use exact alarm");
+
                     long alarmTime = SystemClock.elapsedRealtime() + delay * 1000L;
+
+                    if (PPApplication.logEnabled()) {
+                        Calendar now = Calendar.getInstance();
+                        now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+                        now.add(Calendar.MILLISECOND, (int)alarmTime);
+                        long _alarmTime = now.getTimeInMillis();
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String result = sdf.format(_alarmTime);
+//                        PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                    }
 
                     //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
@@ -198,27 +214,28 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                         LocationScanner locationScanner = PhoneProfilesService.getInstance().getLocationScanner();
                         if (locationScanner != null) {
                             if (LocationScanner.mUpdatesStarted) {
-//                            if (LocationScanner.useGPS) {
-//                                if (PPApplication.googlePlayServiceAvailable) {
-//                                    locationScanner.flushLocations();
-//                                    PPApplication.sleep(5000);
-//                                }
-//                            }
+//                              if (LocationScanner.useGPS) {
+//                                  if (PPApplication.googlePlayServiceAvailable) {
+//                                      locationScanner.flushLocations();
+//                                      PPApplication.sleep(5000);
+//                                  }
+//                              }
 
-//                            PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "LocationScanner.useGPS="+LocationScanner.useGPS);
+//                                PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "LocationScanner.useGPS="+LocationScanner.useGPS);
                                 locationScanner.stopLocationUpdates();
 
                                 PPApplication.sleep(1000);
 
-                                if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
+                                if (ApplicationPreferences.applicationEventLocationUseGPS &&
+                                        (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
                                     // force useGPS
                                     LocationScanner.useGPS = true;
                                 else
                                     LocationScanner.useGPS = !LocationScanner.useGPS;
 
                                 // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
-                                locationScanner.startLocationUpdates();
-                                locationScanner.updateTransitionsByLastKnownLocation();
+                                String provider = locationScanner.startLocationUpdates();
+                                locationScanner.updateTransitionsByLastKnownLocation(provider);
                             }
                         }
                     }

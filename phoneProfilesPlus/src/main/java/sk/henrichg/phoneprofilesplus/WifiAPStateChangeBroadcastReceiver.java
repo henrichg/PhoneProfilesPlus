@@ -12,7 +12,6 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] WifiAPStateChangeBroadcastReceiver.onReceive", "xxx");
-        //CallsCounter.logCounter(context, "WifiAPStateChangeBroadcastReceiver.onReceive", "WifiAPStateChangeBroadcastReceiver_onReceive");
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -49,7 +48,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
                         if (isWifiAPEnabled) {
                             // Wifi AP is enabled - cancel wifi scan work
                             //PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP enabled");
-                            WifiScanWorker.cancelWork(appContext, true);
+                            WifiScanWorker.cancelWork(appContext, false);
                         } else {
                             // Wifi AP is disabled - schedule wifi scan work
                             //PPApplication.logE("[RJS] WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP disabled");

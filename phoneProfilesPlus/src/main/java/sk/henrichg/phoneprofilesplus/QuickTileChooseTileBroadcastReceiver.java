@@ -18,8 +18,6 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] QuickTileChooseTileBroadcastReceiver.onReceive", "xxx");
 
-        //CallsCounter.logCounter(context, "QuickTileChooseTileBroadcastReceiver.onReceive", "QuickTileChooseTileBroadcastReceiver_onReceive");
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;

@@ -24,7 +24,6 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
-//        CallsCounter.logCounter(context, "CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
 
         if (intent != null) {
 

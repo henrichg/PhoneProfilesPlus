@@ -7,44 +7,43 @@
 
 <h1 id="changelog">PhoneProfilesPlus Seznam změn</h1>
 
-<h2 id="version2">Verze: 5.3</h2>
+<h2 id="version2">Verze: 5.3.1</h2>
 
 <ul>
-    <li>Added: "Volume change" event sensor.</li>
-    <li>Added "Play notification also in silent mode" parameter for start/end of event notification.</li>
-    <li>Added info for profile parameter "Dark mode".</li>
-    <li>Added: "How to disable Wi-Fi scan throttling".</li>
-    <li>Added Auto start notification generation.</li>
-    <li>Added initial uri (path) for start gallery of custom icon, wallpaper image, wallpaper folder.</li>
-    <li>Added support for installation of Huawei AppGallery in non-Huawei devices.</li>
-    <li>Added open of web for installation of Amazon AppStore, APKPure and open PPP releases in web version of AppGallery, Amazon AppStore, APKPure in check releases dialogs.</li>
-    <li>Added note about USB debugging security into Important info and grant_g1_permission.md.</li>
-    <li>Changed One row widget parameter "Higher layout" to "Layout height".</li>
-    <li>Changed name of all "Disable ... scanning" profile parameters to "Enable ... scanning"</li>
-    <li>Change: Allowed change of profile parameters which requires root on non-rooted devices.</li>
-    <li>Change: Allow change of parameters even when are not inserted 2 SIM cards.</li>
-    <li>Change of "Help with GUI items" text. Is better readable.</li>
-    <li>Change: Remove of non-critical check releases notification, when is displayed critical release notification and do not display non-critical check releases notification when nis displayed critical release notification.</li>
-    <li>Changed intent for ignore battery optimization to Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. Only solution for OnePlus.</li>
-    <li>Chnage: Some GUI changes.</li>
-    <li>Change: New PPPExtender required version. In it is fixed outgoing call.</li>
-    <li>Change: Updated README.md</li>
-    <li>Changed privacy policy link in README.md to PhoneProfilesPlus/docs/privacy_policy.md</li>
-    <li>Change: Updated grant_g1_permission.md</li>
-    <li>Changed screenshots of PPP for applications stores.</li>
-    <li>Fixed "Mute sound" for non-audible "Sound profile" profile parameter.</li>
-    <li>Fixed display and check of required event parameters.</li>
-    <li>Fix: call root functionality when G1 functionality crashes.</li>
-    <li>Fixed bad working Silent ringer mode.</li>
-    <li>Fixed bad working check of PPPE accessibility service.</li>
-    <li>Fixed not called whole EventsHandler for manual restart of events, when all events are stopped.</li>
-    <li>Fixed notification channels from IMPORTANCE_LOW to IMPORTANCE_DEFAULT. Changed some channel parameters.</li>
-    <li>Fixed Autostart for OnePlus, Android 12.</li>
-    <li>Fixed bad displayed red text for event radio switch preference category.</li>
-    <li>Fixed play of ringing simulation.</li>
-    <li>Fixed cropped Quick guide when all sections in Important info are collapsed.</li>
-    <li>Fix: Removed force start of orientation sensor from start of event preferences. This fixes battery consumption when event preferences are displayed.</li>
-    <li>Fixed Airplane mode set to disabled when is not PPP as default assistant.</li>
+    <li>Added ringtone type icon into Ringtone preference dialog.</li>
+    <li>Added application settings into acra crash report.</li>
+    <li>Added grant Uri permission into for play notification sound.</li>
+    <li>Added into Editor menu/"Backup/restore"/"Restore settings" set parameters into "do not change"/"not configured" which requires grant Uri permission, when this grant now working.</li>
+    <li>Added monochrome launcher icon (Android 13). Not tested.</li>
+    <li>Added (but currently commented): Support for app multi-language settings. Requires AndroidX appcompat 1.6.0+ (Android 13).</li>
+    <li>Added Google Play restrictions information into README.md</li>
+    <li>Removed Amazon store due to store restrictions. Not allowed is change of device settings which requires superuser permission (root).</li>
+    <li>Changed "Actual version:" to "Installed version:" in check releases dialogs.</li>
+    <li>Change: small dialog layout changes.</li>
+    <li>Changes of "traffic light" in Activator and Editor.</li>
+    <li>Change: better Intent editor layout.</li>
+    <li>Changed display of event sensor names in Editor event list.</li>
+    <li>Change in Location editor: calc zoom, start of displaying map, layout without start/end margin in all device sizes.</li>
+    <li>Change in Location editor: start of displaying map.</li>
+    <li>Change: replaced bold preferences in Settings by arrows.</li>
+    <li>Change: converted png images to to webp.</li>
+    <li>Change: profile parameter "Disable events run" changed to "Enable events run".</li>
+    <li>Change: disable OK button in "Generate notification" dialog if notification title is not set.</li>
+    <li>Change: added "Unselect all" button into Profile multiselect dialog.</li>
+    <li>Change: display "None installed" in live wallpaper dialog, when live wallpapers was not installed.</li>
+    <li>Change: Location sensor and get provider for get last known location.</li>
+    <li>Change: generated notification when location provider is not returned.</li>
+    <li>Changed screenshots size for F-Droid. Maybe will be synchronized also in F-Droid application.</li>
+    <li>Fix: changed dialog buttons for custom color dialog from Yes/No to OK/Cancel.</li>
+    <li>Fixed display of custom color for profiles icon.</li>
+    <li>Fixed not allowed profile parameters change when old version of Extender is installed.</li>
+    <li>Fixed call of TopExceptionHandler. Maybe this fixes also ACRA notification after restart of PPP (for example package upgrade).</li>
+    <li>Fixed generated ACRA notification for exception android.os.DeadSystemException.</li>
+    <li>Fixed bad working "Lock screen" profile parameter.</li>
+    <li>Fixed set screen timeout.</li>
+    <li>Fixed not working title style in preferences.</li>
+    <li>Maybe fixed not displayed map in Location editor, when map is not cached.</li>
+    <li>Maybe fixed start of map display in Location editor. Will be displayed immediately at end of map load.</li>
 </ul>
 
 <ul>
@@ -56,7 +55,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.3">Kompletní seznam změn je v GitHub</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.3.1">Kompletní seznam změn je v GitHub</a>
 </p>
 
 </body>

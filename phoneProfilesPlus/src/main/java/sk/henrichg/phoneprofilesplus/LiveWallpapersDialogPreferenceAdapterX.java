@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,13 +65,22 @@ class LiveWallpapersDialogPreferenceAdapterX extends BaseAdapter
 
         holder.wallpaperName.setText(liveWallpaper.wallpaperName);
 
-        holder.radioButton.setTag(position);
-        holder.radioButton.setChecked(preference.value.equals(liveWallpaper.componentName.flattenToString()));
-        holder.radioButton.setOnClickListener(v -> {
-            RadioButton rb = (RadioButton) v;
-            preference.value = preference.liveWallpapersList.get((Integer)rb.getTag()).componentName.flattenToString();
-            notifyDataSetChanged();
-        });
+        if (liveWallpaper.componentName != null) {
+            holder.radioButton.setTag(position);
+            holder.radioButton.setVisibility(View.VISIBLE);
+            holder.radioButton.setChecked(preference.value.equals(liveWallpaper.componentName.flattenToString()));
+            holder.radioButton.setOnClickListener(v -> {
+                RadioButton rb = (RadioButton) v;
+                ComponentName componentName = preference.liveWallpapersList.get((Integer) rb.getTag()).componentName;
+                if (componentName != null) {
+                    preference.value = componentName.flattenToString();
+                    notifyDataSetChanged();
+                }
+            });
+        } else {
+            holder.radioButton.setTag(position);
+            holder.radioButton.setVisibility(View.GONE);
+        }
 
         return vi;
     }

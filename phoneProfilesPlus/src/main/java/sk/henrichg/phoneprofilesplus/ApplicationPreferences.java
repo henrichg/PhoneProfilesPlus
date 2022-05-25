@@ -14,7 +14,7 @@ class ApplicationPreferences {
     static int prefRingerMode;
     static int prefZenMode;
     static boolean prefLockScreenDisabled;
-    static int prefActivatedProfileScreenTimeout;
+    static int prefActivatedProfileScreenTimeoutWhenScreenOff;
     static boolean prefMergedRingNotificationVolumes;
     //static long prefActivatedProfileForDuration;
     static long prefActivatedProfileEndDurationTime;

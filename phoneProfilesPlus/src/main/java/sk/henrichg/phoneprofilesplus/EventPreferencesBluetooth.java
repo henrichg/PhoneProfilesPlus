@@ -116,11 +116,13 @@ class EventPreferencesBluetooth extends EventPreferences {
                     }
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
-                String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
                 String[] connectionListTypes = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeValues);
                 int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
-                descr = descr + ": <b>" + connectionListTypeNames[index] + "</b> • ";
+                if (index != -1) {
+                    descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
+                    String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
+                    descr = descr + ": <b>" + connectionListTypeNames[index] + "</b> • ";
+                }
 
                 /*
                 if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
@@ -183,7 +185,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
             }
         }
 
@@ -319,7 +321,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_BLUETOOTH_ADAPTER_NAME, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
         }
     }
 
@@ -378,7 +380,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }
@@ -622,6 +624,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                             i++;
                                         }
 
+                                        //noinspection ConstantConditions
                                         done = false;
                                         if (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY) {
                                             eventsHandler.bluetoothPassed = true;

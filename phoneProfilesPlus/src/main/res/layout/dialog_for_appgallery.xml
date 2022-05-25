@@ -20,6 +20,7 @@
         android:id="@+id/dialog_for_appgallery_linla0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <TextView
@@ -36,7 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_marginStart="22dp"
             android:layout_marginEnd="22dp"
             android:text="@string/empty_string"

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -38,6 +39,13 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
+        TextView text = view.findViewById(R.id.default_sim_voice_textView);
+        text.setText(getString(R.string.default_sim_pref_dlg_voice)+":");
+        text = view.findViewById(R.id.default_sim_sms_textView);
+        text.setText(getString(R.string.default_sim_pref_dlg_sms)+":");
+        text = view.findViewById(R.id.default_sim_data_textView);
+        text.setText(getString(R.string.default_sim_pref_dlg_data)+":");
+
         voiceSpinner = view.findViewById(R.id.default_sim_voice_spinner);
         smsSpinner = view.findViewById(R.id.default_sim_sms_spinner);
         dataSpinner = view.findViewById(R.id.default_sim_data_spinner);
@@ -61,7 +69,7 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
             }
         }*/
 
-        preference.dualSIMSupported = false;
+        //preference.dualSIMSupported = false;
 
         //if (transactionCodeVoice != -1) {
             preference.dualSIMSupported = true;
@@ -85,6 +93,8 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
+            if ((voiceSpinner.getAdapter() == null) || (voiceSpinner.getAdapter().getCount() <= preference.voiceValue))
+                preference.voiceValue = 0;
             voiceSpinner.setSelection(preference.voiceValue);
         /*}
         else {
@@ -115,6 +125,8 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
+            if ((smsSpinner.getAdapter() == null) || (smsSpinner.getAdapter().getCount() <= preference.smsValue))
+                preference.smsValue = 0;
             smsSpinner.setSelection(preference.smsValue);
         /*}
         else {
@@ -145,6 +157,8 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
+            if ((dataSpinner.getAdapter() == null) || (dataSpinner.getAdapter().getCount() <= preference.dataValue))
+                preference.dataValue = 0;
             dataSpinner.setSelection(preference.dataValue);
         /*}
         else {

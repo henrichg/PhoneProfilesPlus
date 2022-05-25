@@ -359,7 +359,7 @@ class EventPreferencesTime extends EventPreferences {
         if (key.equals(PREF_EVENT_TIME_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
             }
         }
 
@@ -448,7 +448,7 @@ class EventPreferencesTime extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_TIME_DAYS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_TIME_DAYS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
         }
         /*preference = prefMng.findPreference(PREF_EVENT_TIME_TYPE);
         if (preference != null) {
@@ -495,7 +495,7 @@ class EventPreferencesTime extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_TIME).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }
@@ -1007,7 +1007,8 @@ class EventPreferencesTime extends EventPreferences {
                                             //if (inOneHour)
                                             //    idx = daysIndex+1;
                                             //else
-                                                idx = daysIndex;
+                                            //noinspection ConstantConditions
+                                            idx = daysIndex;
 
                                             if (twilightDaysSunset[idx] != -1)
                                                 calEndTime.setTimeInMillis(twilightDaysSunset[idx]);

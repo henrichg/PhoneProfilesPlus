@@ -77,11 +77,13 @@ class EventPreferencesScreen extends EventPreferences {
                     descr = descr + "</b> ";
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_screen_event_type) + ": ";
-                String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
                 String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);
                 int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(this._eventType));
-                descr = descr + "<b>" + eventListTypeNames[index] + "</b>";
+                if (index != -1) {
+                    descr = descr + context.getString(R.string.event_preferences_screen_event_type) + ": ";
+                    String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
+                    descr = descr + "<b>" + eventListTypeNames[index] + "</b>";
+                }
 
                 if (this._whenUnlocked) {
                     if (this._eventType == EventPreferencesScreen.ETYPE_SCREENON)
@@ -104,7 +106,7 @@ class EventPreferencesScreen extends EventPreferences {
         if (key.equals(PREF_EVENT_SCREEN_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
             }
         }
 
@@ -124,7 +126,7 @@ class EventPreferencesScreen extends EventPreferences {
         if (key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
             }
         }
     }
@@ -163,7 +165,7 @@ class EventPreferencesScreen extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SCREEN).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }

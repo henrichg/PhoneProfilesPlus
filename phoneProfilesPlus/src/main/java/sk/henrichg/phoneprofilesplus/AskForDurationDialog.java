@@ -311,7 +311,10 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         }*/
         afterDoSpinner.setAdapter(spinnerAdapter);
         afterDoValues = mActivity.getResources().getStringArray(R.array.afterProfileDurationDoValues);
-        afterDoSpinner.setSelection(Arrays.asList(afterDoValues).indexOf(String.valueOf(mProfile._afterDurationDo)));
+        int position = Arrays.asList(afterDoValues).indexOf(String.valueOf(mProfile._afterDurationDo));
+        if (position == -1)
+            position = 0;
+        afterDoSpinner.setSelection(position);
         afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

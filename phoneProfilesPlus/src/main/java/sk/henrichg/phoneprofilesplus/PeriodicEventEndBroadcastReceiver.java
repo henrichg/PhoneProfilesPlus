@@ -11,7 +11,6 @@ public class PeriodicEventEndBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] PeriodicEventEndBroadcastReceiver.onReceive", "xxx");
-        //CallsCounter.logCounter(context, "PeriodicEventEndBroadcastReceiver.onReceive", "PeriodicEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {

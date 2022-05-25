@@ -8,7 +8,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Handler;
 import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
@@ -59,8 +58,6 @@ public class WifiScanWorker extends Worker {
 //            Set<String> tags = getTags();
 //            for (String tag : tags)
 //                PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "tag=" + tag);
-
-            //CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -172,8 +169,6 @@ public class WifiScanWorker extends Worker {
     public void onStopped () {
 //        PPApplication.logE("[IN_LISTENER] WifiScanWorker.onStopped", "xxx");
 
-        //CallsCounter.logCounter(context, "WifiScanWorker.onStopped", "WifiScanWorker_onStopped");
-
         setScanRequest(context, false);
         setWaitForResults(context, false);
         WifiScanner.setForceOneWifiScan(context, WifiScanner.FORCE_ONE_SCAN_DISABLED);
@@ -268,13 +263,18 @@ public class WifiScanWorker extends Worker {
         }
     }
 
+    // shortInterval = true is called only from PPService.scheduleWifoWorker
     static void scheduleWork(Context context, final boolean shortInterval) {
 //        PPApplication.logE("[SHEDULE_WORK] WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (shortInterval) {
-                final Context appContext = context.getApplicationContext();
+                _cancelWork(context, false);
+                //PPApplication.sleep(5000);
+                _scheduleWork(context, true);
+
+                /*final Context appContext = context.getApplicationContext();
                 PPApplication.startHandlerThreadPPScanners();
                 final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
@@ -287,7 +287,7 @@ public class WifiScanWorker extends Worker {
                         PPApplication.sleep(5000);
                         _scheduleWork(appContext, true);
                     //}
-                });
+                });*/
             }
             else
                 _scheduleWork(context, false);
@@ -296,7 +296,7 @@ public class WifiScanWorker extends Worker {
         //    PPApplication.logE("WifiScanWorker.scheduleWork","WifiHardware=false");
     }
 
-    private static void _cancelWork(final Context context) {
+    private static void _cancelWork(final Context context, final boolean useHandler) {
         if (isWorkScheduled(false) || isWorkScheduled(true)) {
             try {
                 waitForFinish(false);
@@ -306,8 +306,13 @@ public class WifiScanWorker extends Worker {
                 setWaitForResults(context, false);
                 WifiScanner.setForceOneWifiScan(context, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
-                PPApplication.cancelWork(WORK_TAG, false);
-                PPApplication.cancelWork(WORK_TAG_SHORT, false);
+                if (useHandler) {
+                    PPApplication.cancelWork(WORK_TAG, false);
+                    PPApplication.cancelWork(WORK_TAG_SHORT, false);
+                } else {
+                    PPApplication._cancelWork(WORK_TAG, false);
+                    PPApplication._cancelWork(WORK_TAG_SHORT, false);
+                }
 
 //                PPApplication.logE("[FIFO_TEST] WifiScanWorker._cancelWork", "CANCELED");
 
@@ -369,10 +374,12 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    static void cancelWork(Context context, final boolean useHandler/*, final Handler _handler*/) {
+    static void cancelWork(Context context, final boolean useHandler) {
 //        PPApplication.logE("[SHEDULE_WORK] WifiScanWorker.cancelWork", "xxx");
 
-        if (useHandler /*&& (_handler == null)*/) {
+        _cancelWork(context, useHandler);
+
+        /*if (useHandler) {
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadPPScanners();
             final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -388,7 +395,7 @@ public class WifiScanWorker extends Worker {
         }
         else {
             _cancelWork(context);
-        }
+        }*/
     }
 
     private static boolean isWorkRunning(boolean shortWork) {
@@ -658,7 +665,7 @@ public class WifiScanWorker extends Worker {
                 setScanRequest(context, true);
 
             WifiScanner wifiScanner = new WifiScanner(context);
-            wifiScanner.doScan();
+            wifiScanner.doScan(fromDialog);
         }
         //dataWrapper.invalidateDataWrapper();
     }

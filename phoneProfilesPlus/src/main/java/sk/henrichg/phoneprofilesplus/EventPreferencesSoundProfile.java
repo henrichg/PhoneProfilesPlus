@@ -158,7 +158,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
         if (key.equals(PREF_EVENT_SOUND_PROFILE_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
             }
         }
 
@@ -189,7 +189,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 }
             }
             boolean bold = values.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
         }
         preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_ZEN_MODES);
         if (preference != null) {
@@ -203,7 +203,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 }
             }
             boolean bold = values.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false);
         }
     }
 
@@ -223,9 +223,12 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 String[] sNames = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!values.isEmpty())
-                            values = values + ", ";
-                        values = values + sNames[Arrays.asList(sValues).indexOf(s)];
+                        int pos = Arrays.asList(sValues).indexOf(s);
+                        if (pos != -1) {
+                            if (!values.isEmpty())
+                                values = values + ", ";
+                            values = values + sNames[pos];
+                        }
                     }
                 }
                 if (values.isEmpty())
@@ -243,9 +246,12 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 String[] sNames = context.getResources().getStringArray(R.array.eventSoundProfileZenModeArray);
                 for (String s : set) {
                     if (!s.isEmpty()) {
-                        if (!values.isEmpty())
-                            values = values + ", ";
-                        values = values + sNames[Arrays.asList(sValues).indexOf(s)];
+                        int pos = Arrays.asList(sValues).indexOf(s);
+                        if (pos != -1) {
+                            if (!values.isEmpty())
+                                values = values + ", ";
+                            values = values + sNames[pos];
+                        }
                     }
                 }
                 if (values.isEmpty())
@@ -279,7 +285,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SOUND_PROFILE).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }
@@ -325,10 +331,13 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     String[] sValues = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
                     for (String s : set) {
                         if (!s.isEmpty()) {
-                            String value = sValues[Arrays.asList(sValues).indexOf(s)];
-                            if (value.equals(RINGER_MODE_DO_NOT_DISTURB_VALUE)) {
-                                // checked is "Do not disturb"
-                                checked = true;
+                            int pos = Arrays.asList(sValues).indexOf(s);
+                            if (pos != -1) {
+                                String value = sValues[pos];
+                                if (value.equals(RINGER_MODE_DO_NOT_DISTURB_VALUE)) {
+                                    // checked is "Do not disturb"
+                                    checked = true;
+                                }
                             }
                         }
                     }

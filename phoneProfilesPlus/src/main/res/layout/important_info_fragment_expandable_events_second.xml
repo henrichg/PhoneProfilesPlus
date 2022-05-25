@@ -117,7 +117,7 @@
             android:padding="5dp"
             android:adjustViewBounds="true"
             android:scaleType="fitEnd"
-            android:src="@drawable/ic_run_events_indicator_all_v"
+            android:src="@drawable/ic_traffic_light_all"
             android:contentDescription="@string/important_infor_traffic_light_icon" />
     </LinearLayout>
     <TextView

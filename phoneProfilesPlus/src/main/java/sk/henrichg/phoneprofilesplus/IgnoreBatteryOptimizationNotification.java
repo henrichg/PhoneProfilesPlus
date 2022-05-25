@@ -107,18 +107,14 @@ class IgnoreBatteryOptimizationNotification {
 
     @SuppressLint("BatteryLife")
     static private void showNotification(Context context, String title, String text) {
-        //noinspection UnnecessaryLocalVariable
-        String nTitle = title;
-        //noinspection UnnecessaryLocalVariable
-        String nText = text;
         PPApplication.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(nTitle) // title for notification
-                .setContentText(nText) // message for notification
+                .setContentTitle(title) // title for notification
+                .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
 
         Intent intent;
         //PowerManager pm = (PowerManager) context.getApplicationContext().getSystemService(Context.POWER_SERVICE);

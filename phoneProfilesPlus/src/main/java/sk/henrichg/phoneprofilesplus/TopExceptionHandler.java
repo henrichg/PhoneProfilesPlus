@@ -32,6 +32,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     @SuppressWarnings("StringConcatenationInLoop")
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
     {
+//        PPApplication.logE("TopExceptionHandler.uncaughtException", "xxxx");
+
         try {
             if (PPApplication.lockDeviceActivity != null) {
                 boolean canWriteSettings;// = true;
@@ -58,7 +60,9 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                             });
                         }
                     } else*/
-                        Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+                    if ((PPApplication.lockDeviceActivity != null) &&
+                            (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
+                        Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
                 }
             }
         } catch (Exception ee) {

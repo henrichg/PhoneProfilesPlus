@@ -3,7 +3,6 @@ package com.kunzisoft.androidclearchroma.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.os.Build;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.SpannableString;
@@ -21,7 +20,6 @@ import android.widget.RelativeLayout;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -74,7 +72,6 @@ public class ChromaColorView extends RelativeLayout {
     }
 
     @SuppressWarnings("unused")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ChromaColorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         this.context = context;

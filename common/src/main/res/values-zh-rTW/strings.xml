@@ -136,8 +136,6 @@
     <string name="profile_preferences_deviceAutoRotation">螢幕旋轉</string>
     <string name="title_activity_activator">啟用清單</string>
     <string name="title_activity_editor">編輯器</string>
-    <string name="menu_run_events">啟用執行事件</string>
-    <string name="menu_stop_events">停止事件</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -1081,17 +1079,11 @@
     <string name="intent_editor_title">意圖編輯器</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) 意圖</string>
     <string name="application_editor_intent_intent_name">意圖名稱:</string>
-    <string name="application_editor_intent_intent_name_hint">意圖名稱</string>
     <string name="application_editor_intent_package_name">套件名稱:</string>
-    <string name="application_editor_intent_package_name_hint">套件名稱</string>
     <string name="application_editor_intent_class_name">類別名稱:</string>
-    <string name="application_editor_intent_class_name_hint">類別名稱</string>
     <string name="application_editor_intent_action">動作:</string>
-    <string name="application_editor_intent_action_hint">動作</string>
     <string name="application_editor_intent_data">資料:</string>
-    <string name="application_editor_intent_data_hint">資料</string>
     <string name="application_editor_intent_mime_type">MIME 類型:</string>
-    <string name="application_editor_intent_mime_type_hint">MIME 類型</string>
     <string name="application_editor_intent_extras">參數:</string>
     <string name="application_editor_intent_categories">分類:</string>
     <string name="application_editor_intent_categories_dlg_title">分類</string>
@@ -1370,8 +1362,6 @@
     <string name="array_pref_locationModeArray_highAccuracy">高精確度</string>
     <string name="colorChooser_pref_dialog_customIconColor">自訂圖示色彩</string>
     <string name="colorChooser_pref_dialog_customColor">自訂色彩</string>
-    <string name="background_jobs_not_working_alert_title">PhoneProfilesPlus 啟動錯誤</string>
-    <string name="background_jobs_not_working_alert_message">背景工作未啟動。請重啟裝置。感謝您。</string>
     <string name="array_pref_wifiAPModeArray_on_keepWifi">關 (不停用 Wi-Fi)</string>
     <string name="array_pref_wifiAPModeArray_toggle_keepWifi">開關 (不停用 Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">忽略 Wi-Fi 熱點</string>
@@ -1418,7 +1408,6 @@
     <string name="profile_activation_activation_error_change_wifi">啟用設定檔發生錯誤。變更 Wi-Fi 狀態失敗。</string>
     <string name="profile_activation_activation_error_close_all_applications">啟用設定檔發生錯誤。關閉所有應用程式失敗。</string>
     <string name="menu_check_github_releases">檢查新版程式</string>
-    <string name="check_github_releases_actual_version">實際版本:</string>
     <string name="check_github_releases_go_to_github">移至 GitHub 發佈頁面</string>
     <string name="check_github_releases_install_info_1">從 GitHub 下載最新版的 PhoneProfilesPlus.apk。然後按有關下載 apk 的通知並安裝它。</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk 位於</string>
@@ -1504,7 +1493,6 @@
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">僅全天事件</string>
     <string name="altype_applicationSystemRestart">應用程式由系統重啟</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">未授予電話權限</string>
-    <string name="application_cannot_be_started_button_restart">重啟應用程式</string>
     <string name="contact_group_name_myContacts">我的聯絡人</string>
     <string name="contact_group_name_family">家族</string>
     <string name="contact_group_name_friends">朋友</string>
@@ -1625,9 +1613,6 @@
     <string name="profile_preferences_volumeMediaInfo_summary">如果媒體音量變更無作用，可能是由於啟用了\"安全音量旗標\"。如果要停用此旗標，請授予 (G1) 權限，因為停用此旗標需要此權限。</string>
     <string name="menu_check_releases_galaxy_store">在 Galaxy 商店檢查</string>
     <string name="check_releases_open_galaxy_store">開啟 Galaxy 商店</string>
-    <string name="menu_check_releases_amazon_appstore">在 Amazon 應用商店檢查</string>
-    <string name="check_releases_amazon_appstore_application">Amazon 應用商店程式安裝網站：</string>
-    <string name="check_releases_open_amazon_appstore">開啟 Amazon 應用商店</string>
     <string name="applicationApplicationInterfaceActivationNotification">設定檔啟用通知</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">增加\"重啟事件\"到設定檔清單</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">即時藍牙掃描</string>
@@ -1729,7 +1714,6 @@
     <string name="permissions_for_wallpaper_folder_text2">請在下個對話框中授予它們。您可以為隨機桌布選擇來源資料夾。</string>
     <string name="profile_preferences_deviceWallpaperFolder">影像資料夾</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] 啟用指定的設定檔，然後重啟事件</string>
-    <string name="profile_preferences_applicationDisableGlobalEventsRun">停用事件執行</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">事件執行已停用</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">事件執行已啟用</string>
     <string name="icon_widget_description">顯示啟用的設定檔圖示。</string>
@@ -1899,7 +1883,6 @@
     <string name="profile_preferences_endOfEventNotificationCategory">事件結束通知</string>
     <string name="profile_preferences_darkModeInfo_summary">注意：此參數將關閉所有執行中的應用程式。</string>
     <string name="check_releases_appgallery_application">Huawei AppGallery App 安裝網站：</string>
-    <string name="check_releases_go_to_amazon_appstore">移至 Amazon 應用商店</string>
     <string name="check_releases_apkpure_appstore_application">ApkPure 程式安裝網站：</string>
     <string name="check_releases_go_to_appgallery">移至 AppGallery</string>
     <string name="phone_profiles_pref_applicationWidgetLayoutHeight">版面高度</string>
@@ -1915,6 +1898,23 @@
     <string name="profile_preferences_applicationEnableMobileCellScanning">啟用基地台掃描</string>
     <string name="profile_preferences_applicationEnableOrientationScanning">啟用翻轉掃描</string>
     <string name="profile_preferences_applicationEnableNotificationScanning">啟用通知掃描</string>
+    <string name="check_github_releases_installed_version">已安裝的版本：</string>
+    <string name="accessibility_service_not_used">未使用</string>
+    <string name="preference_not_used_extender_reason">原因：</string>
+    <string name="location_editor_enable_location_summary">抱歉，無法取得位置。\n\n請在系統設定中啟用位置與 \"Wi-Fi 掃描\"。\n如果尚未連接，請同時將裝置連接到網路。</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">啟用事件執行</string>
+    <string name="menu_run_events">啟用事件執行</string>
+    <string name="menu_stop_events">停用事件執行</string>
+    <string name="application_editor_intent_hint_not_set">未設定</string>
+    <string name="application_editor_intent_hint_custom_not_set">未設自訂</string>
+    <string name="application_editor_intent_hint_not_selected">未選取</string>
+    <string name="application_editor_intent_action_none">[None]</string>
+    <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) 應用程式、(S) 捷徑、(I) 意圖。</string>
+    <string name="generated_notification_intent_hint_not_set">未設定</string>
+    <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">無安裝</string>
+    <string name="location_scanner_location_not_working_notification_title">位置不運作</string>
+    <string name="location_scanner_location_not_working_notification_text">抱歉，無法取得位置。請檢查裝置的位置設定。</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlus 的擴展器。它只能與 PhoneProfilesPlus 一起使用。</string>
     <string name="extender_about_application_version">版本:</string>
@@ -2020,4 +2020,12 @@
     <!--    <string name="check_releases_install_appgallery">Please install Huawei AppGallery application.</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>-->
     <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
+    <!--    <string name="check_github_releases_actual_version">Actual version:</string>-->
+    <!--    <string name="background_jobs_not_working_alert_title">Error on start of PhoneProfilesPlus</string>-->
+    <!--    <string name="background_jobs_not_working_alert_message">Background jobs was not started. Please do reboot of device. Thank you.</string>-->
+    <!--    <string name="application_cannot_be_started_button_restart">Restart application</string>-->
+    <!--    <string name="menu_check_releases_amazon_appstore">Check in Amazon Appstore</string>-->
+    <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
+    <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
+    <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
 </resources>

@@ -146,8 +146,6 @@ class EventsHandler {
 
     void handleEvents(String sensorType) {
         synchronized (PPApplication.eventsHandlerMutex) {
-            //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
-
 //            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "sensorType="+sensorType);
 
             boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
@@ -284,7 +282,6 @@ class EventsHandler {
 //            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (1)");
 
             //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
-            //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
             if ((DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) &&
                     (!manualRestart)){
@@ -1813,6 +1810,7 @@ class EventsHandler {
         if (!anySensorEnabled) {
             // force set event as paused
             allPassed = false;
+            //noinspection ConstantConditions
             someNotAllowed = false;
         }
 

@@ -1,13 +1,20 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.provider.Settings;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
@@ -79,8 +86,8 @@ class LocationScanner
                                     if (scanner != null) {
                                         scanner.clearAllEventGeofences();
                                         //PPApplication.logE("##### LocationScanner.onConnected", "updateTransitionsByLastKnownLocation");
-                                        scanner.startLocationUpdates();
-                                        scanner.updateTransitionsByLastKnownLocation();
+                                        String provider = scanner.startLocationUpdates();
+                                        scanner.updateTransitionsByLastKnownLocation(provider);
                                     }
                                 }
 
@@ -209,17 +216,80 @@ class LocationScanner
 
     //-------------------------------------------
 
+    String getProvider() {
+        String provider;
+
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+        if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
+//            PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER");
+            provider = LocationManager.NETWORK_PROVIDER;
+        } else {
+//            PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER");
+            provider = LocationManager.GPS_PROVIDER;
+        }
+
+        boolean gpsForced = false;
+        if (provider.equals(LocationManager.NETWORK_PROVIDER) &&
+                (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
+//            PPApplication.logE("##### LocationScanner.getProvider", "NOT ONLINE");
+            // device is not connected to network, force GPS_PROVIDER
+            provider = LocationManager.GPS_PROVIDER;
+            gpsForced = true;
+        }
+
+        boolean locationEnabled = false;
+        // check if GPS provider is enabled in system settings
+        if (provider.equals(LocationManager.GPS_PROVIDER)) {
+            try {
+                //noinspection ConstantConditions
+                locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//                PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER="+locationEnabled);
+                if ((!locationEnabled) && (!gpsForced))
+                    provider = LocationManager.NETWORK_PROVIDER;
+            } catch (Exception e) {
+                // we may get IllegalArgumentException if gps location provider
+                // does not exist or is not yet installed.
+                //locationEnabled = false;
+            }
+        }
+        if (!locationEnabled) {
+            // check if network provider is enabled in system settings
+            if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
+                try {
+                    //noinspection ConstantConditions
+                    locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+//                    PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER="+locationEnabled);
+                } catch (Exception e) {
+                    // we may get IllegalArgumentException if network location provider
+                    // does not exist or is not yet installed.
+                    //locationEnabled = false;
+                }
+            }
+        }
+
+        if (!locationEnabled) {
+            provider = "";
+            showNotification();
+        }
+
+//        PPApplication.logE("##### LocationScanner.getProvider","provider="+provider);
+
+        return provider;
+    }
+
     /**
      * Requests location updates from the FusedLocationApi.
      */
-    void startLocationUpdates() {
+    String startLocationUpdates() {
         if (!ApplicationPreferences.applicationEventLocationEnableScanning)
-            return;
+            return "";
 
 //        if (PPApplication.logEnabled()) {
 //            if (PPApplication.getInstance() != null)
 //                PPApplication.logE("##### LocationScanner.startLocationUpdates", "PhoneProfilesService.isLocationScannerStarted()=" + PhoneProfilesService.getInstance().isLocationScannerStarted());
 //        }
+
+        String provider = "";
 
         if ((!mUpdatesStarted) /*|| mUpdateTransitionsByLastKnownLocationIsRunning*/) {
             synchronized (PPApplication.locationScannerMutex) {
@@ -227,59 +297,13 @@ class LocationScanner
                     if (Permissions.checkLocation(context)) {
                         if (!mListenerEnabled) {
 
-                            String provider;
-                            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                            if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
-                                //PPApplication.logE("##### LocationScanner.startLocationUpdates","NETWORK_PROVIDER");
-                                provider = LocationManager.NETWORK_PROVIDER;
-                            } else {
-                                //PPApplication.logE("##### LocationScanner.startLocationUpdates","GPS_PROVIDER");
-                                provider = LocationManager.GPS_PROVIDER;
-                            }
+                            provider = getProvider();
 
-                            boolean gpsForced = false;
-                            if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
-//                                 PPApplication.logE("##### LocationScanner.startLocationUpdates", "NOT ONLINE");
-                                // device is not connected to network, force GPS_PROVIDER
-                                provider = LocationManager.GPS_PROVIDER;
-                                gpsForced = true;
-                            }
-
-                            boolean locationEnabled = false;
-                            // check if GPS provider is enabled in system settings
-                            if (provider.equals(LocationManager.GPS_PROVIDER)) {
-                                try {
-                                    //noinspection ConstantConditions
-                                    locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//                                    PPApplication.logE("##### LocationScanner.startLocationUpdates","GPS_PROVIDER="+locationEnabled);
-                                    if ((!locationEnabled) && (!gpsForced))
-                                        provider = LocationManager.NETWORK_PROVIDER;
-                                } catch (Exception e) {
-                                    // we may get IllegalArgumentException if gps location provider
-                                    // does not exist or is not yet installed.
-                                    //locationEnabled = false;
-                                }
-                            }
-                            if (!locationEnabled) {
-                                // check if network provider is enabled in system settings
-                                if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
-                                    try {
-                                        //noinspection ConstantConditions
-                                        locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-//                                        PPApplication.logE("##### LocationScanner.startLocationUpdates","NETWORK_PROVIDER="+locationEnabled);
-                                    } catch (Exception e) {
-                                        // we may get IllegalArgumentException if network location provider
-                                        // does not exist or is not yet installed.
-                                        //locationEnabled = false;
-                                    }
-                                }
-                            }
-
-                            if (locationEnabled) {
+                            if (!provider.isEmpty()) {
                                 try {
                                     // check power save mode
                                     String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
-                                    //boolean powerSaveMode = PPApplication.isPowerSaveMode;
+                                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
                                     boolean canScan = true;
                                     if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
                                         canScan = false;
@@ -326,13 +350,13 @@ class LocationScanner
                                     // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
                                     //PPApplication.logE("##### LocationScanner.startLocationUpdates", "mUpdatesStarted=false");
                                     mUpdatesStarted = false;
-                                    return;
+                                    return "";
                                 }
                             }
-                            else {
+                            //else {
 //                                PPApplication.logE("##### LocationScanner.startLocationUpdates", "location not allowed");
-                                mListenerEnabled = true;
-                            }
+                            //    mListenerEnabled = true;
+                            //}
                         }
                     }
                 } catch (Exception e) {
@@ -342,12 +366,18 @@ class LocationScanner
             }
         }
 
-        if (ApplicationPreferences.applicationEventLocationUseGPS && CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
+        if (!mListenerEnabled)
+            provider = "";
+
+        //if (ApplicationPreferences.applicationEventLocationUseGPS &&
+        //        CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
             // recursive call this for switch usage of GPS
             LocationScannerSwitchGPSBroadcastReceiver.setAlarm(context);
-        }
-        else
-            LocationScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+        //}
+        //else
+        //    LocationScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+
+        return provider;
     }
 
     /**
@@ -382,15 +412,19 @@ class LocationScanner
     }
 
     @SuppressLint("MissingPermission")
-    void updateTransitionsByLastKnownLocation() {
+    void updateTransitionsByLastKnownLocation(String provider) {
 //        PPApplication.logE("##### LocationScanner.updateTransitionsByLastKnownLocation","xxxx");
 
         try {
             Location location;
-            if (useGPS)
-                location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            else
-                location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (provider.isEmpty()) {
+                if (useGPS)
+                    location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                else
+                    location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            } else {
+                location = mLocationManager.getLastKnownLocation(provider);
+            }
 
             LocationSensorWorker.enqueueWork(true, context);
             doLocationChanged(location, true);
@@ -413,7 +447,6 @@ class LocationScanner
         if (location.getAccuracy() > 500)
             return;
 
-        //CallsCounter.logCounter(LocationScanner.this.context, "LocationScanner.doLocationChanged", "LocationScannerGMS_doLocationChanged");
         //PPApplication.logE("LocationScanner.doLocationChanged", "location="+location);
 
         synchronized (PPApplication.locationScannerLastLocationMutex) {
@@ -484,7 +517,8 @@ class LocationScanner
 
 //                    PPApplication.logE("LocationScanner.onlineStatusChanged", "xxx");
 
-                    if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
+                    if (ApplicationPreferences.applicationEventLocationUseGPS &&
+                            (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
                         // device is not online
 //                        PPApplication.logE("LocationScanner.onlineStatusChanged", "NOT ONLINE");
 
@@ -502,8 +536,8 @@ class LocationScanner
                         LocationScanner.useGPS = true;
 
                         // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
-                        scanner.startLocationUpdates();
-                        scanner.updateTransitionsByLastKnownLocation();
+                        String provider = scanner.startLocationUpdates();
+                        scanner.updateTransitionsByLastKnownLocation(provider);
 
                     } else {
                         // device is online
@@ -514,11 +548,46 @@ class LocationScanner
                         PPApplication.sleep(1000);
 
                         // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
-                        scanner.startLocationUpdates();
-                        scanner.updateTransitionsByLastKnownLocation();
+                        String provider = scanner.startLocationUpdates();
+                        scanner.updateTransitionsByLastKnownLocation(provider);
                     }
                 }
             }
+        }
+    }
+
+    private void showNotification() {
+        String nText = context.getString(R.string.location_scanner_location_not_working_notification_text);
+
+        PPApplication.createExclamationNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(context.getString(R.string.location_scanner_location_not_working_notification_title)) // title for notification
+                .setContentText(nText) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        @SuppressLint("UnspecifiedImmutableFlag")
+        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+
+        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+        try {
+            mNotificationManager.notify(
+                    PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_TAG,
+                    PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_ID, mBuilder.build());
+        } catch (Exception e) {
+            //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
         }
     }
 

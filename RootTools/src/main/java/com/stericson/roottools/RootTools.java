@@ -67,7 +67,7 @@ public final class RootTools {
     }
 
     @SuppressWarnings({"FinalPrivateMethod", "FinalStaticMethod"})
-    private static final RootToolsInternalMethods getInternals() {
+    private static RootToolsInternalMethods getInternals() {
         if (rim == null) {
             RootToolsInternalMethods.getInstance();
         //    return rim;

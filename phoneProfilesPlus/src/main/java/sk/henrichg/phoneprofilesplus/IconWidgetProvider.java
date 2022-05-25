@@ -157,6 +157,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 monochromeValue = 0xE0;
                 break;
             case "100":
+                //noinspection ConstantConditions
                 monochromeValue = 0xFF;
                 break;
         }
@@ -196,6 +197,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             } else {
                 switch (applicationWidgetIconLightnessB) {
                     case "0":
+                        //noinspection ConstantConditions
                         redBackground = 0x00;
                         break;
                     case "12":
@@ -237,6 +239,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     alphaBackground = 0x20;
                     break;
                 case "25":
+                    //noinspection ConstantConditions
                     alphaBackground = 0x40;
                     break;
                 case "37":
@@ -291,6 +294,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         redBorder = 0xE0;
                         break;
                     case "100":
+                        //noinspection ConstantConditions
                         redBorder = 0xFF;
                         break;
                 }
@@ -326,6 +330,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     redText = 0xE0;
                     break;
                 case "100":
+                    //noinspection ConstantConditions
                     redText = 0xFF;
                     break;
             }

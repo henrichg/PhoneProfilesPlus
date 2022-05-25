@@ -119,15 +119,17 @@ class GlobalGUIRoutines {
 
     public static void setTheme(Activity activity, boolean forPopup,
                                 boolean withToolbar/*, boolean withDrawerLayout*/,
-                                boolean forActivator, boolean forDialog)
+                                boolean forActivator, boolean forDialog,
+                                boolean forLocationEditor)
     {
-        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ forActivator, forDialog, activity);
+        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ forActivator, forDialog, forLocationEditor, activity);
         if (theme != 0)
             activity.setTheme(theme);
     }
 
     static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/
-                        boolean forActivator, boolean forDialog, Context context) {
+                        boolean forActivator, boolean forDialog,
+                        boolean forLocationEditor, Context context) {
         switch (ApplicationPreferences.applicationTheme(context, false)) {
             /*case "color":
                 if (forPopup) {
@@ -250,6 +252,10 @@ class GlobalGUIRoutines {
             return R.style.DialogTheme_dayNight;
         }
         else
+        if (forLocationEditor) {
+            return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
+        }
+        else
         if (forPopup) {
             if (withToolbar)
                 return R.style.PopupTheme_withToolbar_dayNight;
@@ -325,19 +331,21 @@ class GlobalGUIRoutines {
     }
 
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
-                                         boolean bold, //boolean addBullet,
+                                         boolean bold, boolean addArrows,
                                          boolean underline, boolean errorColor)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();
             if (title != null) {
-                //if (addBullet) {
-
                 // remove bullet
                 String s = title.toString();
                 title = s;
                 if (s.startsWith("• "))
                     title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
+
+                // remove arrows
+                if (s.startsWith("» "))
+                    title = TextUtils.replace(title, new String[]{"» "}, new CharSequence[]{""});
 
                 // remove underline
                 //s = title.toString();
@@ -349,6 +357,9 @@ class GlobalGUIRoutines {
                 //    title = TextUtils.concat("[!] ", title);
                 if (bold)
                     title = TextUtils.concat("• ", title);
+                else
+                if (addArrows)
+                    title = TextUtils.concat("» ", title);
 
                 //}
                 Spannable sbt = new SpannableString(title);
@@ -368,7 +379,7 @@ class GlobalGUIRoutines {
                     if (underline) {
                         //if (preference.getKey().equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_APPLICATIONS))
                         //    Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "(3)");
-                        if (bold) // && addBullet)
+                        if (bold)
                             sbt.setSpan(new UnderlineSpan(), 2, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         else
                             sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

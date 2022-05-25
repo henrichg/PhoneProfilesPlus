@@ -22,8 +22,6 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     public void onScanResult(int callbackType, ScanResult result) {
 //        PPApplication.logE("[IN_LISTENER] BluetoothLEScanCallback21.onScanResult", "xxx");
 
-        //CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onScanResult", "BluetoothLEScanCallback21.onScanResult");
-
         final BluetoothDevice device = result.getDevice();
 
         if (device == null)
@@ -80,8 +78,6 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
     public void onBatchScanResults(List<ScanResult> results) {
 //        PPApplication.logE("[IN_LISTENER] BluetoothLEScanCallback21.onBatchScanResults", "xxx");
-
-        //CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onBatchScanResults", "BluetoothLEScanCallback21.onBatchScanResults");
 
         if ((results == null) || (results.size() == 0))
             return;

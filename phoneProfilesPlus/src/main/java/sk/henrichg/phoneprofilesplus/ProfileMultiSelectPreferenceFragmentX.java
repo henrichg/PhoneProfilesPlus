@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -23,6 +24,8 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
 
     private Context prefContext;
     private ProfileMultiSelectPreferenceX preference;
+
+    private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -52,7 +55,13 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             viewHolder.checkBox.setChecked(profile._checked);
         });
 
-        new BindViewAsyncTask(preference, this, prefContext).execute();
+        final Button unselectAllButton = view.findViewById(R.id.profile_multiselect_pref_dlg_unselect_all);
+        unselectAllButton.setOnClickListener(v -> {
+            preference.value="";
+            refreshListView(false);
+        });
+
+        refreshListView(true);
     }
 
     @Override
@@ -62,6 +71,10 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
         }
         else {
             preference.resetSummary();
+        }
+
+        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            asyncTask.cancel(true);
         }
 
         preference.fragment = null;
@@ -77,7 +90,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
         }
     }
 
-    private void getValuePMSDP()
+    private void getValuePMSDP(boolean notForUnselect)
     {
         //PPApplication.logE("ProfileMultiSelectPreferenceX.getValueAMSDP","value="+preference.value);
 
@@ -85,12 +98,14 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             for (Profile profile : preference.dataWrapper.profileList)
                 profile._checked = false;
 
-            if (!preference.value.isEmpty()) {
-                String[] splits = preference.value.split("\\|");
-                for (String split : splits) {
-                    Profile profile = preference.dataWrapper.getProfileById(Long.parseLong(split), false, false, false);
-                    if (profile != null)
-                        profile._checked = true;
+            if (notForUnselect) {
+                if (!preference.value.isEmpty()) {
+                    String[] splits = preference.value.split("\\|");
+                    for (String split : splits) {
+                        Profile profile = preference.dataWrapper.getProfileById(Long.parseLong(split), false, false, false);
+                        if (profile != null)
+                            profile._checked = true;
+                    }
                 }
             }
 
@@ -109,15 +124,26 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
         }
     }
 
-    private static class BindViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+    @SuppressLint("StaticFieldLeak")
+    void refreshListView(final boolean notForUnselect) {
+        asyncTask = new RefreshListViewAsyncTask(notForUnselect,
+                preference, this, prefContext) ;
+        asyncTask.execute();
+    }
+
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final boolean notForUnselect;
 
         private final WeakReference<ProfileMultiSelectPreferenceX> preferenceWeakRef;
         private final WeakReference<ProfileMultiSelectPreferenceFragmentX> fragmentWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
 
-        public BindViewAsyncTask(ProfileMultiSelectPreferenceX preference,
-                                 ProfileMultiSelectPreferenceFragmentX fragment,
-                                 Context prefContext) {
+        public RefreshListViewAsyncTask(final boolean notForUnselect,
+                                        ProfileMultiSelectPreferenceX preference,
+                                        ProfileMultiSelectPreferenceFragmentX fragment,
+                                        Context prefContext) {
+            this.notForUnselect = notForUnselect;
             this.preferenceWeakRef = new WeakReference<>(preference);
             this.fragmentWeakRef = new WeakReference<>(fragment);
             this.prefContextWeakRef = new WeakReference<>(prefContext);
@@ -129,8 +155,10 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             super.onPreExecute();
             ProfileMultiSelectPreferenceFragmentX fragment = fragmentWeakRef.get();
             if (fragment != null) {
-                fragment.listViewRoot.setVisibility(View.GONE);
-                fragment.linlaProgress.setVisibility(View.VISIBLE);
+                if (notForUnselect) {
+                    fragment.listViewRoot.setVisibility(View.GONE);
+                    fragment.linlaProgress.setVisibility(View.VISIBLE);
+                }
             }
         }
 
@@ -145,7 +173,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
                     preference.dataWrapper.profileList.sort(new AlphabeticallyComparator());
                 }
 
-                fragment.getValuePMSDP();
+                fragment.getValuePMSDP(notForUnselect);
             }
 
             return null;
@@ -160,8 +188,10 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             ProfileMultiSelectPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                fragment.listViewRoot.setVisibility(View.VISIBLE);
-                fragment.linlaProgress.setVisibility(View.GONE);
+                if (notForUnselect) {
+                    fragment.listViewRoot.setVisibility(View.VISIBLE);
+                    fragment.linlaProgress.setVisibility(View.GONE);
+                }
 
                 fragment.profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapterX(prefContext, preference.dataWrapper.profileList);
                 fragment.listView.setAdapter(fragment.profilePreferenceAdapter);

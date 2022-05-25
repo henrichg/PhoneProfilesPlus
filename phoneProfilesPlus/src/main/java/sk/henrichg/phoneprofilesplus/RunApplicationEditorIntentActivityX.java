@@ -74,7 +74,7 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -457,6 +457,8 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
         actionsArray = getResources().getStringArray(R.array.runApplicationEditorIntentActionArray);
         if (ppIntent != null) {
             intentNameEditText.setText(ppIntent._name);
+            if ((intentIntentTypeSpinner.getAdapter() == null) || (intentIntentTypeSpinner.getAdapter().getCount() <= ppIntent._intentType))
+                ppIntent._intentType = 0;
             intentIntentTypeSpinner.setSelection(ppIntent._intentType);
             intentPackageName.setText(ppIntent._packageName);
             intentClassName.setText(ppIntent._className);
@@ -478,7 +480,10 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
                     intentActionSpinner.setSelection(1);
                     intentActionEdit.setText(ppIntent._action);
                 } else {
-                    intentActionSpinner.setSelection(Arrays.asList(actionsArray).indexOf(ppIntent._action));
+                    int position = Arrays.asList(actionsArray).indexOf(ppIntent._action);
+                    if (position == -1)
+                        position = 0;
+                    intentActionSpinner.setSelection(position);
                     intentActionEdit.setText(R.string.empty_string);
                 }
             }
@@ -512,26 +517,36 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
             if (ppIntent._extraKey1 != null) {
                 intentExtraKeyName1.setText(ppIntent._extraKey1);
                 intentExtraKeyValue1.setText(ppIntent._extraValue1);
+                if ((intentExtraSpinner1.getAdapter() == null) || (intentExtraSpinner1.getAdapter().getCount() <= ppIntent._extraType1))
+                    ppIntent._extraType1 = 0;
                 intentExtraSpinner1.setSelection(ppIntent._extraType1);
             }
             if (ppIntent._extraKey2 != null) {
                 intentExtraKeyName2.setText(ppIntent._extraKey2);
                 intentExtraKeyValue2.setText(ppIntent._extraValue2);
+                if ((intentExtraSpinner2.getAdapter() == null) || (intentExtraSpinner2.getAdapter().getCount() <= ppIntent._extraType2))
+                    ppIntent._extraType2 = 0;
                 intentExtraSpinner2.setSelection(ppIntent._extraType2);
             }
             if (ppIntent._extraKey3 != null) {
                 intentExtraKeyName3.setText(ppIntent._extraKey3);
                 intentExtraKeyValue3.setText(ppIntent._extraValue3);
+                if ((intentExtraSpinner3.getAdapter() == null) || (intentExtraSpinner3.getAdapter().getCount() <= ppIntent._extraType3))
+                    ppIntent._extraType3 = 0;
                 intentExtraSpinner3.setSelection(ppIntent._extraType3);
             }
             if (ppIntent._extraKey4 != null) {
                 intentExtraKeyName4.setText(ppIntent._extraKey4);
                 intentExtraKeyValue4.setText(ppIntent._extraValue4);
+                if ((intentExtraSpinner4.getAdapter() == null) || (intentExtraSpinner4.getAdapter().getCount() <= ppIntent._extraType4))
+                    ppIntent._extraType4 = 0;
                 intentExtraSpinner4.setSelection(ppIntent._extraType4);
             }
             if (ppIntent._extraKey5 != null) {
                 intentExtraKeyName5.setText(ppIntent._extraKey5);
                 intentExtraKeyValue5.setText(ppIntent._extraValue5);
+                if ((intentExtraSpinner5.getAdapter() == null) || (intentExtraSpinner5.getAdapter().getCount() <= ppIntent._extraType5))
+                    ppIntent._extraType5 = 0;
                 intentExtraSpinner5.setSelection(ppIntent._extraType5);
             }
 

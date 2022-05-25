@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.WallpaperInfo;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -55,8 +56,11 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
         listAdapter = new LiveWallpapersDialogPreferenceAdapterX(prefContext, preference);
 
         listView.setOnItemClickListener((parent, v, position, id) -> {
-            preference.value = preference.liveWallpapersList.get(position).componentName.flattenToString();
-            listAdapter.notifyDataSetChanged();
+            ComponentName componentName = preference.liveWallpapersList.get(position).componentName;
+            if (componentName != null) {
+                preference.value = componentName.flattenToString();
+                listAdapter.notifyDataSetChanged();
+            }
         });
 
         //if (Permissions.grantConnectToSSIDDialogPermissions(prefContext))
@@ -167,7 +171,10 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
                     }
                     //}
 
-                    _wallpapersList.sort(new SortList());
+                    if (_wallpapersList.size() > 0)
+                        _wallpapersList.sort(new SortList());
+                    else
+                        _wallpapersList.add(new LiveWallpapersData(prefContext.getString(R.string.profile_preferences_deviceLiveWallpaper_noneInstalled), null));
 
                 } catch (Exception e) {
                     PPApplication.recordException(e);

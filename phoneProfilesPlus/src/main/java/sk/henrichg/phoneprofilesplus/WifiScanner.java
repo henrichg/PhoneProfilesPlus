@@ -35,10 +35,8 @@ class WifiScanner {
         this.context = context.getApplicationContext();
     }
 
-    void doScan() {
+    void doScan(boolean fromDialog) {
         synchronized (PPApplication.wifiScannerMutex) {
-            //CallsCounter.logCounter(context, "WifiScanner.doScan", "Scanner_doScan");
-
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return;
@@ -130,7 +128,7 @@ class WifiScanner {
                         // wifi scan events not exists
                         //PPApplication.logE("$$$W WifiScanner.doScan", "worker removed");
                         //PPApplication.logE("[RJS] WifiScanner.doScan", "worker removed");
-                        WifiScanWorker.cancelWork(context, true/*, null*/);
+                        WifiScanWorker.cancelWork(context, fromDialog/*, null*/);
                     } else {
                         //PPApplication.logE("$$$W WifiScanner.doScan", "can scan");
                         if (ApplicationPreferences.prefEventWifiEnabledForScan) {
@@ -524,7 +522,7 @@ class WifiScanner {
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
 
                     if (getShowEnableLocationNotification(context, scanType)) {
-                        //Intent notificationIntent = new Intent(context, PhoneProfilesPreferencesActivity.class);
+                        //Intent notificationIntent = new Intent(context, PhoneProfilesPrefsActivity.class);
                         Intent notificationIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -550,9 +548,9 @@ class WifiScanner {
                         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
                         int requestCode;
-                        //notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "wifiScanningCategory");
+                        //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "wifiScanningCategory");
                         requestCode = 1;
-                        //notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                        //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
 
                         PendingIntent pi = PendingIntent.getActivity(context, requestCode, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         mBuilder.setContentIntent(pi);

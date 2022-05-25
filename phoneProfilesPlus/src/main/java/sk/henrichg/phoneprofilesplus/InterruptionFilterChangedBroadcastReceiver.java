@@ -14,8 +14,6 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] InterruptionFilterChangedBroadcastReceiver.onReceive","xxx");
 
-        //CallsCounter.logCounter(context, "InterruptionFilterChangedBroadcastReceiver.onReceive", "InterruptionFilterChangedBroadcastReceiver_onReceive");
-
         /*if (PPApplication.logEnabled()) {
             NotificationManager _mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (_mNotificationManager != null) {
@@ -148,6 +146,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                 int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
                 switch (zenMode) {
                     case ActivateProfileHelper.ZENMODE_ALL:
+                        //noinspection ConstantConditions
                         interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
                         break;
                     case ActivateProfileHelper.ZENMODE_PRIORITY:

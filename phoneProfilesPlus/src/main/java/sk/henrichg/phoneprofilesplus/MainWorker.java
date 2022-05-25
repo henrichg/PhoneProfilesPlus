@@ -340,6 +340,7 @@ public class MainWorker extends Worker {
             //__handler.post(new PPHandlerThreadRunnable(
             //        appContext, dataWrapper) {
             __handler.post(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (1)");
                 PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
                 //Context appContext= appContextWeakRef.get();
@@ -436,6 +437,7 @@ public class MainWorker extends Worker {
             //__handler.post(new PPHandlerThreadRunnable(
             //        appContext, dataWrapper) {
             __handler.post(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (2)");
                 PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
                 //Context appContext= appContextWeakRef.get();
@@ -487,12 +489,12 @@ public class MainWorker extends Worker {
         PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
         //}
 
-        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - START");
+//        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - START");
         // must be first
         PhoneProfilesService.createContactsCache(appContext, true);
         //must be seconds, this ads groups int contacts
         PhoneProfilesService.createContactGroupsCache(appContext, true);
-        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - END");
+//        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - END");
         EventsHandler eventsHandler = new EventsHandler(appContext);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
 

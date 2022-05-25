@@ -130,22 +130,14 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
     */
 
     private void showNotification(String title, String text) {
-        //noinspection UnnecessaryLocalVariable
-        String nTitle = title;
-        //noinspection UnnecessaryLocalVariable
-        String nText = text;
-//        if (android.os.Build.VERSION.SDK_INT < 24) {
-//            nTitle = getString(R.string.ppp_app_name);
-//            nText = title+": "+text;
-//        }
         PPApplication.createExclamationNotificationChannel(getApplicationContext());
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(this, R.color.notificationDecorationColor))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(nTitle) // title for notification
-                .setContentText(nText) // message for notification
+                .setContentTitle(title) // title for notification
+                .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
         /*Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

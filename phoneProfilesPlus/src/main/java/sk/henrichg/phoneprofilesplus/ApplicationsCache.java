@@ -63,9 +63,7 @@ class ApplicationsCache {
 
         Intent appsIntent = new Intent(Intent.ACTION_MAIN);
         appsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        int flags;// = 0;
-        //if (android.os.Build.VERSION.SDK_INT >= 23)
-            flags = PackageManager.MATCH_ALL;
+        int flags = PackageManager.MATCH_ALL;
         List<ResolveInfo> applications = packageManager.queryIntentActivities(appsIntent, flags);
         for (int i = 0; i < applications.size(); i++)
         {
@@ -128,9 +126,6 @@ class ApplicationsCache {
         }
 
         Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
-        //flags; = 0;
-        //if (android.os.Build.VERSION.SDK_INT >= 23)
-            flags = PackageManager.MATCH_ALL;
         List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, flags);
         //PPApplication.logE("ApplicationsCache.cacheApplicationsList", "shortcuts.size="+shortcuts.size());
         for (int i = 0; i < shortcuts.size(); i++)
