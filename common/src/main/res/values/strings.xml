@@ -1913,29 +1913,25 @@
     <string name="profile_preferences_applicationEnableMobileCellScanning">Enable mobile cell scanning</string>
     <string name="profile_preferences_applicationEnableOrientationScanning">Enable orientation scanning</string>
     <string name="profile_preferences_applicationEnableNotificationScanning">Enable notification scanning</string>
-
     <string name="check_github_releases_installed_version">Installed version:</string>
     <string name="accessibility_service_not_used">Not used</string>
     <string name="preference_not_used_extender_reason">Reason:</string>
-
     <string name="location_editor_enable_location_summary">Sorry, is not possible to get location.\n\nPlease enable Location and \"Wi-Fi scanning\" in System Settings.\nAlso connect device to network if is not already connected.</string>
-
     <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
     <string name="menu_run_events">Enable events run</string>
     <string name="menu_stop_events">Disable events run</string>
-
     <string name="application_editor_intent_hint_not_set">Not set</string>
     <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
     <string name="application_editor_intent_hint_not_selected">Not selected</string>
     <string name="application_editor_intent_action_none">[None]</string>
     <string name="application_editor_intent_action_custom">[Custom]</string>
-
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) application, (S) shortcut, (I) intent.</string>
     <string name="generated_notification_intent_hint_not_set">Not set</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">None installed</string>
-
     <string name="location_scanner_location_not_working_notification_title">Location not working</string>
     <string name="location_scanner_location_not_working_notification_text">Sorry, but is not possible to get location. Please check device Location settings.</string>
+
+    <string name="days_of_week_pref_dialog_button_all_nothing">All / Nothing</string>
 
     <!-- **************************************************************************************** -->
 

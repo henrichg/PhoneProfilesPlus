@@ -17,9 +17,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
 
     static final String allValue = "#ALL#";
 
-    private final Context context;
-
-    private String value = "";
+    String value = "";
     private String defaultValue;
     private boolean savedInstanceState;
 
@@ -28,24 +26,9 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
     public DaysOfWeekPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        this.context = context;
-
         daysOfWeekList = new ArrayList<>();
 
-        //CharSequence[] newEntries = new CharSequence[8];
-        //CharSequence[] newEntryValues = new CharSequence[8];
-
-        /*
-        String[] newEntries = _context.getResources().getStringArray(R.array.daysOfWeekArray);
-        String[] newEntryValues = _context.getResources().getStringArray(R.array.daysOfWeekValues);
-        */
-
-        //daysOfWeekList.clear();
-        DayOfWeek dayOfWeek = new DayOfWeek();
-        dayOfWeek.name = context.getString(R.string.array_pref_event_all);
-        dayOfWeek.value = allValue;
-        daysOfWeekList.add(dayOfWeek);
-
+        DayOfWeek dayOfWeek;
         String[] longNamesOfDay = DateFormatSymbols.getInstance().getWeekdays();
         int _dayOfWeek;
         for (int i = 1; i < 8; i++)
@@ -87,9 +70,8 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
                 if (split.equals(allValue)) {
                     //Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "allIsConfigured");
                     allIsConfigured = true;
-                    for (DayOfWeek dayOfWeek : daysOfWeekList) {
-                        dayOfWeek.checked = !dayOfWeek.value.equals(allValue);
-                    }
+                    for (DayOfWeek dayOfWeek : daysOfWeekList)
+                        dayOfWeek.checked = true;
                     break;
                 }
             }
@@ -117,6 +99,8 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         if (!value.isEmpty()) {
             for (String split : splits) {
                 if (split.equals(allValue)) {
+                    for (int i = 0; i < 7; i++)
+                        daySet[i] = true;
                     allIsConfigured = true;
                     break;
                 }
@@ -129,41 +113,23 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
                 allIsConfigured = allIsConfigured && daySet[i];
         }
         //Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "allIsConfigured");
-        if (allIsConfigured)
-            summary = summary + context.getString(R.string.array_pref_event_all) + " ";
-        else {
-            //PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "value="+value);
-            String[] shortNamesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
-            for ( int i = 1; i < 8; i++ ) {
-                int _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "_dayOfWeek=" + _dayOfWeek);
-                    PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "shortNamesOfDay[_dayOfWeek+1]=" + shortNamesOfDay[_dayOfWeek + 1]);
-                }*/
-                if (value.contains(String.valueOf(_dayOfWeek)))
-                    summary = summary + shortNamesOfDay[_dayOfWeek+1] + " ";
-            }
-            /*
-            for (String split : splits) {
-                PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "split="+split);
-                for ( int i = 1; i < 8; i++ ) {
-                    int _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
-                    if (split.equals(String.valueOf(_dayOfWeek))) {
-                        PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "_dayOfWeek="+_dayOfWeek);
-                        PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "shortNamesOfDay[_dayOfWeek+1]="+shortNamesOfDay[_dayOfWeek+1]);
-                        summary = summary + shortNamesOfDay[_dayOfWeek+1] + " ";
-                        break;
-                    }
-                }
-            }
-            */
+        //PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "value="+value);
+        String[] shortNamesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
+        for ( int i = 1; i < 8; i++ ) {
+            int _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "_dayOfWeek=" + _dayOfWeek);
+                PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "shortNamesOfDay[_dayOfWeek+1]=" + shortNamesOfDay[_dayOfWeek + 1]);
+            }*/
+            if (value.contains(String.valueOf(_dayOfWeek)))
+                summary = summary + shortNamesOfDay[_dayOfWeek+1] + " ";
         }
 
         setSummary(summary);
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    private void getValue() {
+    void getValue() {
         // fill with days of week separated with |
         value = "";
         if (daysOfWeekList != null)

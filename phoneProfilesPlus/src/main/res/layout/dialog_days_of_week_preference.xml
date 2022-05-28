@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/days_of_week_pref_dlg_listview"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:gravity="center"
-    android:clipToPadding="false"
-    android:scrollbarStyle="outsideOverlay"
-    android:divider="@android:color/transparent"
-    android:paddingTop="@dimen/alert_dialog_top_padding" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/days_of_week_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
+    <ListView
+        android:id="@+id/days_of_week_pref_dlg_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:gravity="center"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:divider="@android:color/transparent" />
+
+    <LinearLayout
+        android:id="@+id/days_of_week_pref_dlg_et_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/days_of_week_pref_dlg_listview_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="?attr/dialogDivider" />
+
+        <Button
+            android:id="@+id/days_of_week_pref_dlg_button_all_nothing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/days_of_week_pref_dialog_button_all_nothing"
+            android:minHeight="40dp"
+            android:textColor="@color/action_button_text_color"
+            android:textStyle="bold"
+            android:background="?attr/buttonBackground"
+            style="?android:attr/borderlessButtonStyle" />
+
+    </LinearLayout>
+
+</LinearLayout>

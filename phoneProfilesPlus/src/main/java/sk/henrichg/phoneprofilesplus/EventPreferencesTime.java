@@ -198,10 +198,11 @@ class EventPreferencesTime extends EventPreferences {
                     allDays = allDays && daySet[i];
 
                 descr = descr + context.getString(R.string.event_preferences_time_timeDays) + ": ";
-                if (allDays) {
-                    descr = descr + "<b>" + context.getString(R.string.array_pref_event_all) + "</b>";
-                    descr = descr + " ";
-                } else {
+                //if (allDays) {
+                //    descr = descr + "<b>" + context.getString(R.string.array_pref_event_all) + "</b>";
+                //    descr = descr + " ";
+                //} else
+                {
                     descr = descr + "<b>";
                     String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
 
