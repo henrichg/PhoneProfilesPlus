@@ -3,7 +3,10 @@
     android:id="@+id/days_of_week_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:padding="3dp" >
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp" >
 
     <CheckBox
         android:id="@+id/days_of_week_pref_dlg_item_checkbox"
