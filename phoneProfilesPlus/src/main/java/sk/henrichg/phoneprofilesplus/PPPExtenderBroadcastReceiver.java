@@ -703,13 +703,14 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static boolean isEnabled(Context context,
-                             @SuppressWarnings("SameParameterValue") int version) {
+    static boolean isEnabled(Context context/*, int version*/) {
         int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
-        if ((version == -1) || (extenderVersion >= version)) // -1 => do not check version
+        //if ((version == -1) || (extenderVersion >= version)) // -1 => do not check version
+        if (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER_LATEST)
             enabled = isAccessibilityServiceEnabled(context, true);
-        return  (extenderVersion >= version) && enabled;
+        //return  (extenderVersion >= version) && enabled;
+        return  (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER_LATEST) && enabled;
     }
 
     static void getApplicationInForeground(Context context)
