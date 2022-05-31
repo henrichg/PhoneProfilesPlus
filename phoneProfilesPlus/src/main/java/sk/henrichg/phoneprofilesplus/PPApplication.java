@@ -258,6 +258,10 @@ public class PPApplication extends Application
                                                 //+"|ScreenOnOffBroadcastReceiver.onReceive"
                                                 //+"|PhoneProfilesService.disableKeyguard"
                                                 //+"|PhoneProfilesService.reenableKeyguard"
+
+                                                //+"|DataWrapper.restartEventsWithDelay"
+                                                //+"|RestartEventsWithDelayBroadcastReceiver"
+                                                //+"|RestartEventsWithDelayWorker"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -793,6 +797,7 @@ public class PPApplication extends Application
     static CalendarEventExistsCheckBroadcastReceiver calendarEventExistsCheckBroadcastReceiver = null;
     static PeriodicEventEndBroadcastReceiver periodicEventEndBroadcastReceiver = null;
     static DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
+    static RestartEventsWithDelayBroadcastReceiver restartEventsWithDelayBroadcastReceiver = null;
 
     static SettingsContentObserver settingsContentObserver = null;
     static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
@@ -1414,7 +1419,8 @@ public class PPApplication extends Application
         _cancelWork(BluetoothScanWorker.WORK_TAG, false);
         _cancelWork(BluetoothScanWorker.WORK_TAG_SHORT, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, false);
-        _cancelWork(RestartEventsWithDelayWorker.WORK_TAG, false);
+        _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_1, false);
+        _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_2, false);
         _cancelWork(GeofenceScanWorker.WORK_TAG, false);
         _cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
         _cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);

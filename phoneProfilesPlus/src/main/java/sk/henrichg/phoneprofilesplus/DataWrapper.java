@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +18,7 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -2707,38 +2710,173 @@ public class DataWrapper {
     @SuppressLint("NewApi")
     // delay is in seconds, max 5
     void restartEventsWithDelay(int delay, boolean alsoRescan, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
-                                boolean replace, /*boolean clearOld,*/ final int logType)
+                                String tag, /*boolean clearOld,*/ final int logType)
     {
 //        PPApplication.logE("[FIFO_TEST] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
-        Data workData = new Data.Builder()
+
+        if (tag.equals(RestartEventsWithDelayWorker.WORK_TAG_1)) {
+
+//            PPApplication.logE("DataWrapper.restartEventsWithDelay","PPApplication.isIgnoreBatteryOptimizationEnabled(context)="+PPApplication.isIgnoreBatteryOptimizationEnabled(context));
+//            PPApplication.logE("DataWrapper.restartEventsWithDelay","ApplicationPreferences.applicationUseAlarmClock="+ApplicationPreferences.applicationUseAlarmClock);
+
+            if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock) {
+//                    PPApplication.logE("DataWrapper.restartEventsWithDelay","(1)");
+
+                    //Intent intent = new Intent(_context, RestartEventsWithDelayBroadcastReceiver.class);
+                    Intent intent = new Intent();
+                    intent.setAction(PhoneProfilesService.ACTION_RESTART_EVENTS_WITH_DELAY_BROADCAST_RECEIVER);
+                    //intent.setClass(context, RestartEventsWithDelayBroadcastReceiver.class);
+
+                    intent.putExtra(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan);
+                    intent.putExtra(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
+                    intent.putExtra(PhoneProfilesService.EXTRA_LOG_TYPE, logType);
+
+                    @SuppressLint("UnspecifiedImmutableFlag")
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                    if (alarmManager != null) {
+                        Calendar now = Calendar.getInstance();
+                        now.add(Calendar.SECOND, delay);
+                        long alarmTime = now.getTimeInMillis();
+
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String result = sdf.format(alarmTime);
+                            PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
+                        }*/
+
+                        Intent editorIntent = new Intent(context, EditorActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    }
+                } else {
+//                    PPApplication.logE("DataWrapper.restartEventsWithDelay","(2)");
+
+                    Data workData = new Data.Builder()
+                            .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
+                            .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
+                            .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
+                            .build();
+
+                    OneTimeWorkRequest restartEventsWithDelayWorker;
+                    restartEventsWithDelayWorker =
+                            new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
+                                    //.addTag(RestartEventsWithDelayWorker.WORK_TAG)
+                                    .addTag(tag)
+                                    .setInputData(workData)
+                                    .setInitialDelay(delay, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        if (PPApplication.getApplicationStarted(true)) {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            if (workManager != null) {
+
+//                              //if (PPApplication.logEnabled()) {
+//                              ListenableFuture<List<WorkInfo>> statuses;
+//                              statuses = workManager.getWorkInfosForUniqueWork(RestartEventsWithDelayWorker.WORK_TAG);
+//                              try {
+//                                  List<WorkInfo> workInfoList = statuses.get();
+//                                  PPApplication.logE("[TEST BATTERY] DataWrapper.restartEventsWithDelay", "for=" + RestartEventsWithDelayWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                              } catch (Exception ignored) {
+//                              }
+//                              //}
+
+//                              PPApplication.logE("[WORKER_CALL] DataWrapper.restartEventsWithDelay", "xxx");
+                                //workManager.enqueue(restartEventsWithDelayWorker);
+                                //if (replace)
+                                workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                                //else
+                                //    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_APPEND, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
+                            }
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            }
+            else {
+                //Intent intent = new Intent(_context, RestartEventsWithDelayBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_RESTART_EVENTS_WITH_DELAY_BROADCAST_RECEIVER);
+                //intent.setClass(context, RestartEventsWithDelayBroadcastReceiver.class);
+
+                intent.putExtra(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan);
+                intent.putExtra(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
+                intent.putExtra(PhoneProfilesService.EXTRA_LOG_TYPE, logType);
+
+                @SuppressLint("UnspecifiedImmutableFlag")
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    if (ApplicationPreferences.applicationUseAlarmClock) {
+//                        PPApplication.logE("DataWrapper.restartEventsWithDelay","(3)");
+
+                        Calendar now = Calendar.getInstance();
+                        now.add(Calendar.SECOND, delay);
+                        long alarmTime = now.getTimeInMillis();
+
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String result = sdf.format(alarmTime);
+                            PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
+                        }*/
+
+                        Intent editorIntent = new Intent(context, EditorActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    } else {
+//                        PPApplication.logE("DataWrapper.restartEventsWithDelay","(4)");
+
+                        long alarmTime = SystemClock.elapsedRealtime() + delay * 1000L;
+
+//                        if (PPApplication.logEnabled()) {
+//                            Calendar now = Calendar.getInstance();
+//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                            long _alarmTime = now.getTimeInMillis();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                            String result = sdf.format(_alarmTime);
+//                            PPApplication.logE("Event.setDelayStartAlarm", "alarmTime=" + result);
+//                        }
+
+                        //if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else
+                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else
+                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    }
+                }
+            }
+
+        } else {
+            Data workData = new Data.Builder()
                     .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
                     .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
                     .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
                     .build();
 
-        /*int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
-        if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
-        OneTimeWorkRequest restartEventsWithDelayWorker;
-        if (replace)
+            OneTimeWorkRequest restartEventsWithDelayWorker;
             restartEventsWithDelayWorker =
                     new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
-                            .addTag(RestartEventsWithDelayWorker.WORK_TAG)
+                            //.addTag(RestartEventsWithDelayWorker.WORK_TAG)
+                            .addTag(tag)
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();
-        else
-            restartEventsWithDelayWorker =
-                    new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
-                            .addTag(RestartEventsWithDelayWorker.WORK_TAG_APPEND)
-                            .setInputData(workData)
-                            .setInitialDelay(delay, TimeUnit.SECONDS)
-                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                            .build();
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
+            try {
+                if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null) {
 
 //                    //if (PPApplication.logEnabled()) {
 //                    ListenableFuture<List<WorkInfo>> statuses;
@@ -2751,15 +2889,16 @@ public class DataWrapper {
 //                    //}
 
 //                    PPApplication.logE("[WORKER_CALL] DataWrapper.restartEventsWithDelay", "xxx");
-                    //workManager.enqueue(restartEventsWithDelayWorker);
-                    if (replace)
-                        workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
-                    else
-                        workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_APPEND, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
+                        //workManager.enqueue(restartEventsWithDelayWorker);
+                        //if (replace)
+                        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                        //else
+                        //    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_APPEND, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
+                    }
                 }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
         }
     }
 

@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.PowerManager;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -10,8 +12,8 @@ public class RestartEventsWithDelayWorker extends Worker {
 
     private final Context context;
 
-    static final String WORK_TAG = "restartEventsWithDelayWork";
-    static final String WORK_TAG_APPEND = "restartEventsWithDelayAppendWork";
+    static final String WORK_TAG_1 = "restartEventsWithDelay1Work";
+    static final String WORK_TAG_2 = "restartEventsWithDelay2Work";
 
     public RestartEventsWithDelayWorker(
             @NonNull Context context,
@@ -46,14 +48,7 @@ public class RestartEventsWithDelayWorker extends Worker {
 
             //return Result.success(outputData);
 
-
-            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
-            if (logType != PPApplication.ALTYPE_UNDEFINED)
-                PPApplication.addActivityLog(context, logType, null, null, "");
-            //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
-//            PPApplication.logE("[APP_START] RestartEventsWithDelayWorker.doWork", "xxx");
-            dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);
-            //dataWrapper.invalidateDataWrapper();
+            doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;
@@ -71,6 +66,63 @@ public class RestartEventsWithDelayWorker extends Worker {
             _handler.postDelayed(r, 1000);*/
             return Result.failure();
         }
+    }
+
+    static void doWork(boolean useHandler, final boolean alsoRescan, final boolean unblockEventsRun, final int logType, Context context) {
+        if (!PPApplication.getApplicationStarted(true))
+            // application is not started
+            return;
+
+        final Context appContext = context.getApplicationContext();
+        if (useHandler) {
+            PPApplication.startHandlerThreadBroadcast(/*"RestartEventsWithDelayWorker.doWork"*/);
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+            //        context.getApplicationContext()) {
+            __handler.post(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RestartEventsWithDelayWorker.doWork (1)");
+
+                //Context appContext= appContextWeakRef.get();
+                //if (appContext != null) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":RestartEventsWithDelayWorker_doWork");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
+                    if (logType != PPApplication.ALTYPE_UNDEFINED)
+                        PPApplication.addActivityLog(context, logType, null, null, "");
+                    //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
+//                    PPApplication.logE("[APP_START] RestartEventsWithDelayWorker.doWork", "xxx");
+                    dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);
+                    //dataWrapper.invalidateDataWrapper();
+
+                } catch (Exception e) {
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+                //}
+            });
+        } else {
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+            if (logType != PPApplication.ALTYPE_UNDEFINED)
+                PPApplication.addActivityLog(appContext, logType, null, null, "");
+            //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
+//            PPApplication.logE("[APP_START] RestartEventsWithDelayWorker.doWork", "xxx");
+            dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);
+            //dataWrapper.invalidateDataWrapper();
+        }
+
     }
 
 }

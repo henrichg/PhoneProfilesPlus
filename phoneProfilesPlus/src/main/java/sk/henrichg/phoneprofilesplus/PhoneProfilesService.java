@@ -110,6 +110,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_DEVICE_BOOT_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DeviceBootEventEndBroadcastReceiver";
     static final String ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CalendarEventExistsCheckBroadcastReceiver";
     static final String ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".PeriodicEventEndBroadcastReceiver";
+    static final String ACTION_RESTART_EVENTS_WITH_DELAY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RestartEventsWithDelayBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -728,6 +729,15 @@ public class PhoneProfilesService extends Service
                     PPApplication.checkRequiredExtenderReleasesBroadcastReceiver = null;
                 }
             }
+            if (PPApplication.restartEventsWithDelayBroadcastReceiver != null) {
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER restartEventsWithDelayBroadcastReceiver");
+                try {
+                    appContext.unregisterReceiver(PPApplication.restartEventsWithDelayBroadcastReceiver);
+                    PPApplication.restartEventsWithDelayBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.restartEventsWithDelayBroadcastReceiver = null;
+                }
+            }
         }
         if (register) {
 
@@ -848,6 +858,13 @@ public class PhoneProfilesService extends Service
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES);
                 appContext.registerReceiver(PPApplication.checkRequiredExtenderReleasesBroadcastReceiver, intentFilter5);
+            }
+            if (PPApplication.restartEventsWithDelayBroadcastReceiver == null) {
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER restartEventsWithDelayBroadcastReceiver");
+
+                PPApplication.restartEventsWithDelayBroadcastReceiver = new RestartEventsWithDelayBroadcastReceiver();
+                IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_RESTART_EVENTS_WITH_DELAY_BROADCAST_RECEIVER);
+                appContext.registerReceiver(PPApplication.restartEventsWithDelayBroadcastReceiver, intentFilter14);
             }
         }
     }

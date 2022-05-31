@@ -124,7 +124,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
 //                                PPApplication.logE("[WORKER_CALL] ProfileDurationAlarmBroadcastReceiver.setAlarm", "xxx");
                                 //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                                // REPLACE is OK, because at top is called removeAlarm()
+                                workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id, ExistingWorkPolicy.REPLACE, worker);
                                 PPApplication.elapsedAlarmsProfileDurationWork.add(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id);
                             }
                         }
@@ -507,7 +508,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
                                 //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
-                                dataWrapper.restartEventsWithDelay(3, false, true, true, PPApplication.ALTYPE_UNDEFINED);
+                                dataWrapper.restartEventsWithDelay(3, false, true, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
                             } else {
                                 doActivateProfile = true;
 
@@ -547,7 +548,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
 //                                PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
-                                dataWrapper.restartEventsWithDelay(5, false, true, true, PPApplication.ALTYPE_UNDEFINED);
+                                dataWrapper.restartEventsWithDelay(5, false, true, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
                             }
                         }
 

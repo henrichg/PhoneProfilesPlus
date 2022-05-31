@@ -351,7 +351,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 }
 
                 DatabaseHandler.getInstance(activityDataWrapper.context).setEventStartOrder(activityDataWrapper.eventList);  // set events _startOrder and write it into db
-                activityDataWrapper.restartEventsWithDelay(15, true, false, false, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+                activityDataWrapper.restartEventsWithDelay(15, true, false, RestartEventsWithDelayWorker.WORK_TAG_2, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
             }
         }
         notifyItemMoved(fromPosition, toPosition);
