@@ -2541,6 +2541,9 @@ public class EditorActivity extends AppCompatActivity
                         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     }
+                    // not supported by ACTION_OPEN_DOCUMENT_TREE
+                    //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+
                     //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                     //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                     //noinspection deprecation
@@ -5542,6 +5545,9 @@ public class EditorActivity extends AppCompatActivity
                                     intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                                 }
+                                // not supported by ACTION_OPEN_DOCUMENT_TREE
+                                //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+
                                 //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                                 //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                                 //PPApplication.logE("--------- EditorActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());

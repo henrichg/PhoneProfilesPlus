@@ -156,6 +156,9 @@ public class WallpaperFolderPreferenceX extends Preference {
             else {
                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             }
+            // not supported by ACTION_OPEN_DOCUMENT_TREE
+            //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
