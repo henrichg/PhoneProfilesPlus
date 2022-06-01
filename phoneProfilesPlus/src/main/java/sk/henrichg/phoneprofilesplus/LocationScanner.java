@@ -228,9 +228,11 @@ class LocationScanner
             provider = LocationManager.GPS_PROVIDER;
         }
 
+        // do not force GPS when device is in power save mode
         boolean gpsForced = false;
         if (provider.equals(LocationManager.NETWORK_PROVIDER) &&
-                (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
+                (!CheckOnlineStatusBroadcastReceiver.isOnline(context)) &&
+                (!isPowerSaveMode)) {
 //            PPApplication.logE("##### LocationScanner.getProvider", "NOT ONLINE");
             // device is not connected to network, force GPS_PROVIDER
             provider = LocationManager.GPS_PROVIDER;
@@ -256,8 +258,10 @@ class LocationScanner
             // check if network provider is enabled in system settings
             if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
                 try {
+                    // if device is in power save mode, force NETWORK_PROVIDER
                     //noinspection ConstantConditions
-                    locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                    locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
+                                        (isPowerSaveMode);
 //                    PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER="+locationEnabled);
                 } catch (Exception e) {
                     // we may get IllegalArgumentException if network location provider
