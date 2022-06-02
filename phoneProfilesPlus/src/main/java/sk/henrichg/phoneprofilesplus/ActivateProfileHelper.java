@@ -5030,7 +5030,7 @@ class ActivateProfileHelper {
             }
         }
         if (profile._applicationDisablePeriodicScanning != 0) {
-            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisablePeriodicScanning");
+//            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisablePeriodicScanning");
             boolean oldApplicationEventPeriodicEnableScanning = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;
             boolean newApplicationEventPeriodicEnableScanning = profile._applicationDisablePeriodicScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
@@ -5040,7 +5040,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(appContext);
             ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(appContext);
             if (oldApplicationEventPeriodicEnableScanning != newApplicationEventPeriodicEnableScanning) {
-                PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisablePeriodicScanning");
+//                PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisablePeriodicScanning");
                 PPApplication.restartPeriodicScanningScanner(appContext);
             }
         }
