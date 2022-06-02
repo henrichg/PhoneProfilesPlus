@@ -1869,6 +1869,37 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // disable notification scanning
+            if (profile._applicationDisablePeriodicScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisablePeriodicScanning == 1) || (profile._applicationDisablePeriodicScanning == 3)) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnablePeriodicScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "pes:0";
+                        else {
+                            disabled[countDrawables] = true;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_periodic_off;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                    if (profile._applicationDisablePeriodicScanning == 2) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnablePeriodicScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "pes:1";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_periodic_off;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                }
+            }
 
         }
         else

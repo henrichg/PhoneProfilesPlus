@@ -3015,9 +3015,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL)) {
             //noinspection IfStatementWithIdenticalBranches
             if (!preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, false)) {
-                //if (ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile)
-                //    preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
-                //else
+                if (ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile)
+                    preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
+                else
                     preference.setSummary(R.string.empty_string);
             }
             else
@@ -3454,7 +3454,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals("periodicScanningCategoryRoot")) {
             ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(context);
-            //ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInterval(context);
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningEnableScanning) + ": ";
             if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
@@ -3466,7 +3466,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + "<br><br>";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
             } else {
-                summary = summary + "<b>" +getString(R.string.array_pref_applicationDisableScanning_disabled) + "</b>";
+                if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile)
+                    summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_disabled) + "</b>";
+                else
+                    summary = summary + "<b>" + getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "</b>";
             }
         }
         if (key.equals("locationScanningCategoryRoot")) {

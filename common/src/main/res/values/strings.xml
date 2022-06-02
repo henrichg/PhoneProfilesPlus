@@ -1933,6 +1933,8 @@
 
     <string name="days_of_week_pref_dialog_button_all_nothing">All / Nothing</string>
 
+    <string name="profile_preferences_applicationEnablePeriodicScanning">Enable periodic scanning</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

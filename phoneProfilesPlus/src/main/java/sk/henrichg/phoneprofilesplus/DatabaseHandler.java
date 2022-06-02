@@ -41,7 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2490;
+    private static final int DATABASE_VERSION = 2491;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -222,6 +222,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_VPN_SETTINGS_PREFS = "deviceVPNSettingsPrefs";
     private static final String KEY_END_OF_ACTIVATION_TYPE = "endOfActivationType";
     private static final String KEY_END_OF_ACTIVATION_TIME = "endOfActivationTime";
+    private static final String KEY_APPLICATION_DISABLE_PERIODIC_SCANNING = "applicationDisablePeriodicScanning";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -661,7 +662,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + " " + INTEGER_TYPE + ","
                 + KEY_DEVICE_VPN_SETTINGS_PREFS + " " + INTEGER_TYPE + ","
                 + KEY_END_OF_ACTIVATION_TYPE + " " + INTEGER_TYPE + ","
-                + KEY_END_OF_ACTIVATION_TIME + " " + INTEGER_TYPE
+                + KEY_END_OF_ACTIVATION_TIME + " " + INTEGER_TYPE + ","
+                + KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -1145,6 +1147,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_DEVICE_VPN_SETTINGS_PREFS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_END_OF_ACTIVATION_TYPE, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_END_OF_ACTIVATION_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -2898,6 +2901,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 0,
                                 0,
                                 0,
+                                0,
                                 0
                         );
 
@@ -2996,6 +3000,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
                             values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
                             values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
+                            values.put(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
 
                             // updating row
                             db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3614,6 +3619,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_VOLUMES_ACCESSIBILITY + "='0|0|0'");
         }
 
+        if (oldVersion < 2491)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + "=0");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + "=0");
+        }
+
     }
 
     private void afterUpdateDb(SQLiteDatabase db) {
@@ -4045,6 +4057,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
                 values.put(KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
                 values.put(KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
+                values.put(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
 
                 // Insert Row
                 if (!merged) {
@@ -4182,7 +4195,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
                                 KEY_DEVICE_VPN_SETTINGS_PREFS,
                                 KEY_END_OF_ACTIVATION_TYPE,
-                                KEY_END_OF_ACTIVATION_TIME
+                                KEY_END_OF_ACTIVATION_TIME,
+                                KEY_APPLICATION_DISABLE_PERIODIC_SCANNING
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -4292,7 +4306,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_VPN_SETTINGS_PREFS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TIME))
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TIME)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING))
                         );
                     }
 
@@ -4422,7 +4437,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + "," +
                         KEY_DEVICE_VPN_SETTINGS_PREFS + "," +
                         KEY_END_OF_ACTIVATION_TYPE + "," +
-                        KEY_END_OF_ACTIVATION_TIME +
+                        KEY_END_OF_ACTIVATION_TIME + "," +
+                        KEY_APPLICATION_DISABLE_PERIODIC_SCANNING +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -4536,6 +4552,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceVPNSettingsPrefs = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_VPN_SETTINGS_PREFS));
                         profile._endOfActivationType = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TYPE));
                         profile._endOfActivationTime = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TIME));
+                        profile._applicationDisablePeriodicScanning = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -4667,6 +4684,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
                 values.put(KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
                 values.put(KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
+                values.put(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -5055,7 +5073,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
                                 KEY_DEVICE_VPN_SETTINGS_PREFS,
                                 KEY_END_OF_ACTIVATION_TYPE,
-                                KEY_END_OF_ACTIVATION_TIME
+                                KEY_END_OF_ACTIVATION_TIME,
+                                KEY_APPLICATION_DISABLE_PERIODIC_SCANNING
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -5167,8 +5186,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_VPN_SETTINGS_PREFS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TIME))
-                        );
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TIME)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING))
+                                );
                     }
 
                     cursor.close();

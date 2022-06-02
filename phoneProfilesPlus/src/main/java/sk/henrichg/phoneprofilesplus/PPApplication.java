@@ -249,19 +249,7 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
 
-                                                //+"|LocationGeofenceEditorActivityOSM"
-                                                //+"|LocationScanner"
-                                                //+"|LocationScannerSwitchGPSBroadcastReceiver"
-
-                                                //+"|ActivateProfileHelper.execute"
-                                                //+"|PhoneProfilesService.doCommand"
-                                                //+"|ScreenOnOffBroadcastReceiver.onReceive"
-                                                //+"|PhoneProfilesService.disableKeyguard"
-                                                //+"|PhoneProfilesService.reenableKeyguard"
-
-                                                //+"|DataWrapper.restartEventsWithDelay"
-                                                //+"|RestartEventsWithDelayBroadcastReceiver"
-                                                //+"|RestartEventsWithDelayWorker"
+                                                +"|ActivateProfileHelper.execute"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -2171,6 +2159,8 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationShortcutIconColor(context);
             ApplicationPreferences.applicationShortcutIconLightness(context);
             ApplicationPreferences.applicationShortcutCustomIconLightness(context);
+            ApplicationPreferences.notificationShowRestartEventsAsButton(context);
+            ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);
@@ -2193,7 +2183,6 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiply(context);
-            ApplicationPreferences.notificationShowRestartEventsAsButton(context);
 
             ApplicationPreferences.deleteBadPreferences(context);
         }

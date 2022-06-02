@@ -4941,69 +4941,108 @@ class ActivateProfileHelper {
         // enable/disable scanners
         if (profile._applicationDisableWifiScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableWifiScanning");
+            boolean oldApplicationEventWifiEnableScanning = ApplicationPreferences.applicationEventWifiEnableScanning;
+            boolean newApplicationEventWifiEnableScanning = profile._applicationDisableWifiScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, profile._applicationDisableWifiScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableWifiScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventWifiEnableScanning(appContext);
             ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableWifiScanning");
-            PPApplication.restartWifiScanner(appContext);
+            if (oldApplicationEventWifiEnableScanning != newApplicationEventWifiEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableWifiScanning");
+                PPApplication.restartWifiScanner(appContext);
+            }
         }
         if (profile._applicationDisableBluetoothScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableBluetoothScanning");
+            boolean oldApplicationEventBluetoothEnableScanning = ApplicationPreferences.applicationEventBluetoothEnableScanning;
+            boolean newApplicationEventBluetoothEnableScanning = profile._applicationDisableBluetoothScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, profile._applicationDisableBluetoothScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableBluetoothScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext);
             ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableBluetoothScanning");
-            PPApplication.restartBluetoothScanner(appContext);
+            if (oldApplicationEventBluetoothEnableScanning != newApplicationEventBluetoothEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableBluetoothScanning");
+                PPApplication.restartBluetoothScanner(appContext);
+            }
         }
         if (profile._applicationDisableLocationScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
+            boolean oldApplicationEventLocationEnableScanning = ApplicationPreferences.applicationEventLocationEnableScanning;
+            boolean newApplicationEventLocationEnableScanning = profile._applicationDisableLocationScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, profile._applicationDisableLocationScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableLocationScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventLocationEnableScanning(appContext);
             ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
-            PPApplication.restartLocationScanner(appContext);
+            if (oldApplicationEventLocationEnableScanning != newApplicationEventLocationEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
+                PPApplication.restartLocationScanner(appContext);
+            }
         }
         if (profile._applicationDisableMobileCellScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");
+            boolean oldApplicationEventMobileCellEnableScanning = ApplicationPreferences.applicationEventMobileCellEnableScanning;
+            boolean newApplicationEventMobileCellEnableScanning = profile._applicationDisableMobileCellScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, profile._applicationDisableMobileCellScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableMobileCellScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
             ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");
-            PPApplication.restartMobileCellsScanner(appContext);
+            if (oldApplicationEventMobileCellEnableScanning != newApplicationEventMobileCellEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");
+                PPApplication.restartMobileCellsScanner(appContext);
+            }
         }
         if (profile._applicationDisableOrientationScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableOrientationScanning");
+            boolean oldApplicationEventOrientationEnableScanning = ApplicationPreferences.applicationEventOrientationEnableScanning;
+            boolean newApplicationEventOrientationEnableScanning = profile._applicationDisableOrientationScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationDisableOrientationScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableOrientationScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventOrientationEnableScanning(appContext);
             ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableOrientationScanning");
-            PPApplication.restartOrientationScanner(appContext);
+            if (oldApplicationEventOrientationEnableScanning != newApplicationEventOrientationEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableOrientationScanning");
+                PPApplication.restartOrientationScanner(appContext);
+            }
         }
         if (profile._applicationDisableNotificationScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableNotificationScanning");
+            boolean oldApplicationEventNotificationEnableScanning = ApplicationPreferences.applicationEventNotificationEnableScanning;
+            boolean newApplicationEventNotificationEnableScanning = profile._applicationDisableNotificationScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, profile._applicationDisableNotificationScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableNotificationScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventNotificationEnableScanning(appContext);
             ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableNotificationScanning");
-            PPApplication.restartNotificationScanner(appContext);
+            if (oldApplicationEventNotificationEnableScanning != newApplicationEventNotificationEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableNotificationScanning");
+                PPApplication.restartNotificationScanner(appContext);
+            }
+        }
+        if (profile._applicationDisablePeriodicScanning != 0) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisablePeriodicScanning");
+            boolean oldApplicationEventPeriodicEnableScanning = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;
+            boolean newApplicationEventPeriodicEnableScanning = profile._applicationDisablePeriodicScanning == 2;
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, profile._applicationDisablePeriodicScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisablePeriodicScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(appContext);
+            ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(appContext);
+            if (oldApplicationEventPeriodicEnableScanning != newApplicationEventPeriodicEnableScanning) {
+                PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisablePeriodicScanning");
+                PPApplication.restartPeriodicScanningScanner(appContext);
+            }
         }
 
         // set heads-up notifications

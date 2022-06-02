@@ -223,10 +223,10 @@ class ApplicationPreferences {
     static String notificationProfileIconColor;
     static String notificationProfileIconLightness;
     static boolean notificationCustomProfileIconLightness;
-
     static String applicationShortcutIconColor;
     static String applicationShortcutIconLightness;
     static boolean applicationShortcutCustomIconLightness;
+    static boolean applicationEventPeriodicScanningDisabledScannigByProfile;
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -316,6 +316,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE = "applicationEventMobileCellDisabledScannigByProfile";
     static final String PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE = "applicationEventOrientationDisabledScannigByProfile";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE = "applicationEventNotificationDisabledScannigByProfile";
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE = "applicationEventPeriodicScanningDisabledScannigByProfile";
 
     static final String PREF_APPLICATION_START_ON_BOOT = "applicationStartOnBoot";
     static final String PREF_APPLICATION_ACTIVATE = "applicationActivate";
@@ -1823,6 +1824,11 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE = false;
     static void applicationShortcutCustomIconLightness(Context context) {
         applicationShortcutCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE_DEFAULT_VALUE = false;
+    static void applicationEventPeriodicScanningDisabledScannigByProfile(Context context) {
+        applicationEventPeriodicScanningDisabledScannigByProfile = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE_DEFAULT_VALUE);
     }
 
     static void deleteBadPreferences(Context context) {

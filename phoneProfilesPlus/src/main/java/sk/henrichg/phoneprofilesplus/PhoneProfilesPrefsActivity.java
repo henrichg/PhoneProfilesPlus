@@ -392,8 +392,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-        //if (backgroundScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
-        //    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODICSCANNING_DISABLED_SCANNING_BY_PROFILE, false);
         if (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
         if (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning)
@@ -406,6 +404,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
         if (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, false);
+        if (periodicScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, false);
         editor.apply();
 
         PPApplication.loadApplicationPreferences(getApplicationContext());
@@ -505,7 +505,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged ||
                 (periodicScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) ||
                 periodicScanInterval != ApplicationPreferences.applicationEventPeriodicScanningScanInterval) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart orientation scanner");
+            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart periodic scanning scanner");
             PPApplication.restartPeriodicScanningScanner(appContext);
         }
 

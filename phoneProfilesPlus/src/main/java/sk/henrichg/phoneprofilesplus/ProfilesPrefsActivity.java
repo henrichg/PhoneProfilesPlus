@@ -382,7 +382,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._applicationDisableGloabalEventsRun,
                         origProfile._deviceVPNSettingsPrefs,
                         origProfile._endOfActivationType,
-                        origProfile._endOfActivationTime
+                        origProfile._endOfActivationTime,
+                        origProfile._applicationDisablePeriodicScanning
                 );
                 showSaveMenu = true;
             }
@@ -592,6 +593,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
             profile._applicationDisableGloabalEventsRun = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, ""));
             profile._deviceVPNSettingsPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, ""));
+            profile._applicationDisablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, ""));
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

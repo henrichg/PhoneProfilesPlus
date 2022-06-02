@@ -4270,6 +4270,7 @@ public class PhoneProfilesService extends Service
                     ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
                     ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
                     ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(appContext);
+                    ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(appContext);
                 }
 
                 //boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);
