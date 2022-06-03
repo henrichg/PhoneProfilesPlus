@@ -276,19 +276,23 @@ class LocationScanner
         }
 
         if (!locationEnabled) {
-            // get best provider
-            Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_FINE);
-            //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-            provider = mLocationManager.getBestProvider(criteria, false);
-            if (provider == null) {
-                provider = "";
-                showNotification();
-            } else {
-                if (isPowerSaveMode)
-                    // in powwr save mode force NETWORK_PROVIDER
-                    provider = LocationManager.NETWORK_PROVIDER;
+            if (isPowerSaveMode) {
+                // in power save mode force NETWORK_PROVIDER
+                provider = LocationManager.NETWORK_PROVIDER;
+                locationEnabled = true;
             }
+            else {
+                // get best provider
+                Criteria criteria = new Criteria();
+                criteria.setAccuracy(Criteria.ACCURACY_FINE);
+                //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+                provider = mLocationManager.getBestProvider(criteria, false);
+                locationEnabled = (provider != null) && (!provider.isEmpty());
+            }
+        }
+        if (!locationEnabled) {
+            provider = "";
+            showNotification();
         }
 
 //        PPApplication.logE("##### LocationScanner.getProvider","provider="+provider);

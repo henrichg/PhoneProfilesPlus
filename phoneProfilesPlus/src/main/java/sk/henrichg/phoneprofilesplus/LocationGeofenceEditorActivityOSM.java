@@ -801,7 +801,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
 
         provider = mLocationManager.getBestProvider(criteria, false);
-        if (provider != null)
+        if ((provider != null) && (!provider.isEmpty()))
             locationEnabled = true;
         else
             provider = "";
