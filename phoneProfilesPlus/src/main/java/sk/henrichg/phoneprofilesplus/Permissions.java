@@ -82,6 +82,7 @@ class Permissions {
     static final int GRANT_TYPE_CUSTOM_PROFILE_ICON = 4;
     static final int GRANT_TYPE_EXPORT = 5;
     static final int GRANT_TYPE_IMPORT = 6;
+    static final int GRANT_TYPE_SHARED_IMPORT = 7;
     static final int GRANT_TYPE_EVENT = 8;
     static final int GRANT_TYPE_WIFI_BT_SCAN_DIALOG = 9;
     static final int GRANT_TYPE_CALENDAR_DIALOG = 10;
@@ -1814,7 +1815,7 @@ class Permissions {
         return granted;
     }
 
-    static boolean grantImportPermissions(Context context, EditorActivity editor/*, String applicationDataPath*/) {
+    static boolean grantImportPermissions(final boolean share, Context context, EditorActivity editor/*, String applicationDataPath*/) {
         boolean granted = checkImport(context);
         if (!granted) {
             try {
@@ -1825,13 +1826,20 @@ class Permissions {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMPORT);
+                if (share)
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_SHARED_IMPORT);
+                else
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMPORT);
                 intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                 //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                 intent.putExtra(EXTRA_APPLICATION_DATA_PATH, PPApplication.EXPORT_PATH);
                 intent.putExtra(EXTRA_FORCE_GRANT, true);
-                //noinspection deprecation
-                editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMPORT);
+                if (share)
+                    //noinspection deprecation
+                    editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_SHARED_IMPORT);
+                else
+                    //noinspection deprecation
+                    editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMPORT);
                 //editorActivity = editor;
                 //context.startActivity(intent);
             } catch (Exception e) {

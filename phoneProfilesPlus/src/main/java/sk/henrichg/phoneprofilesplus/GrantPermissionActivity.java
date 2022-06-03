@@ -391,6 +391,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_IMPORT)
                 showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
+            else if (grantType == Permissions.GRANT_TYPE_SHARED_IMPORT)
+                showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
                 showRequestString = context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG)
@@ -554,6 +556,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
             else if (grantType == Permissions.GRANT_TYPE_IMPORT)
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
+            else if (grantType == Permissions.GRANT_TYPE_SHARED_IMPORT)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
             else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text2);
@@ -1669,7 +1673,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //    Permissions.editorActivity.doExportData();
         }
         else
-        if (grantType == Permissions.GRANT_TYPE_IMPORT) {
+        if ((grantType == Permissions.GRANT_TYPE_IMPORT) ||
+            (grantType == Permissions.GRANT_TYPE_SHARED_IMPORT)) {
             Intent returnIntent = new Intent();
             returnIntent.putExtra(Permissions.EXTRA_APPLICATION_DATA_PATH, applicationDataPath);
             setResult(Activity.RESULT_OK,returnIntent);

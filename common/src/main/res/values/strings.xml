@@ -1941,6 +1941,10 @@
     <string name="share_settings_alert_title">Share settings</string>
     <string name="share_settings_ok_shared">Settings shared</string>
     <string name="share_settings_error_on_share">Error on share settings</string>
+    <string name="open_document_activity_not_found_alert">Open document screen can not be displayed.</string>
+    <string name="restore_shared_settings_alert_title">Restore shared settings</string>
+    <string name="restore_shared_settings_error_on_backup">Error on copying shared file for restore</string>
+    <string name="restore_shared_settings_ok_backed_up">Shared file to restore copied</string>
 
     <!-- **************************************************************************************** -->
 

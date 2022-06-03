@@ -13,7 +13,7 @@ import android.util.Log;
 public class ZipManager {
 	private static final int BUFFER = 80000;
 
-	public void zip(String[] _files, String zipFileName) {
+	public boolean zip(String[] _files, String zipFileName) {
 		try {
 			BufferedInputStream origin;
 			FileOutputStream dest = new FileOutputStream(zipFileName);
@@ -38,13 +38,15 @@ public class ZipManager {
 			}
 
 			out.close();
+
+			return true;
 		} catch (Exception e) {
 			Log.e("ZipManager.zip", Log.getStackTraceString(e));
+			return false;
 		}
 	}
 
-	public void unzip(String _zipFile, String _targetLocation) {
-		
+	public boolean unzip(String _zipFile, String _targetLocation) {
 		//create target location folder if not exist
 		dirChecker(_targetLocation);
 		
@@ -69,8 +71,10 @@ public class ZipManager {
 
 			}
 			zin.close();
+			return true;
 		} catch (Exception e) {
 			Log.e("ZipManager.unzip", Log.getStackTraceString(e));
+			return false;
 		}
 	}
 
