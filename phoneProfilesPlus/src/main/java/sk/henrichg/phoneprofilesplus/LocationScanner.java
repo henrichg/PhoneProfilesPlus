@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -228,7 +229,9 @@ class LocationScanner
             provider = LocationManager.GPS_PROVIDER;
         }
 
+        /*
         // do not force GPS when device is in power save mode
+        // removed - consume battery
         boolean gpsForced = false;
         if (provider.equals(LocationManager.NETWORK_PROVIDER) &&
                 (!CheckOnlineStatusBroadcastReceiver.isOnline(context)) &&
@@ -238,6 +241,7 @@ class LocationScanner
             provider = LocationManager.GPS_PROVIDER;
             gpsForced = true;
         }
+        */
 
         boolean locationEnabled = false;
         // check if GPS provider is enabled in system settings
@@ -246,7 +250,7 @@ class LocationScanner
                 //noinspection ConstantConditions
                 locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 //                PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER="+locationEnabled);
-                if ((!locationEnabled) && (!gpsForced))
+                if ((!locationEnabled)/* && (!gpsForced)*/)
                     provider = LocationManager.NETWORK_PROVIDER;
             } catch (Exception e) {
                 // we may get IllegalArgumentException if gps location provider
@@ -272,8 +276,19 @@ class LocationScanner
         }
 
         if (!locationEnabled) {
-            provider = "";
-            showNotification();
+            // get best provider
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_FINE);
+            //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+            provider = mLocationManager.getBestProvider(criteria, false);
+            if (provider == null) {
+                provider = "";
+                showNotification();
+            } else {
+                if (isPowerSaveMode)
+                    // in powwr save mode force NETWORK_PROVIDER
+                    provider = LocationManager.NETWORK_PROVIDER;
+            }
         }
 
 //        PPApplication.logE("##### LocationScanner.getProvider","provider="+provider);
