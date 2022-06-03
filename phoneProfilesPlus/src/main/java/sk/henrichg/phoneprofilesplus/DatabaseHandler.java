@@ -13977,7 +13977,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                         File data = Environment.getDataDirectory();
 
-                        File dataDB = new File(data, GlobalGUIRoutines.DB_FILEPATH + "/" + DATABASE_NAME);
+                        File dataDB = new File(data, PPApplication.DB_FILEPATH + "/" + DATABASE_NAME);
                         //File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + EXPORT_DBFILENAME);
                         File exportedDB = new File(sd, EXPORT_DBFILENAME);
 

@@ -98,6 +98,14 @@ public class PPApplication extends Application
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
 
+    // import/export
+    static final String DB_FILEPATH = "/data/" + PPApplication.PACKAGE_NAME + "/databases";
+    //static final String REMOTE_EXPORT_PATH = "/PhoneProfiles";
+    static final String EXPORT_APP_PREF_FILENAME = "ApplicationPreferences.backup";
+    //static final String EXPORT_DEF_PROFILE_PREF_FILENAME = "DefaultProfilePreferences.backup";
+    static final String SHARED_EXPORT_FILENAME = "phoneProfilesPlus_backup";
+    static final String SHARED_EXPORT_FILEEXTENSION = ".zip";
+
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
 

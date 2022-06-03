@@ -52,22 +52,38 @@
         android:orderInCategory="230"
         app:showAsAction="never">
         <menu>
-            <item android:id="@+id/menu_export"
-                android:title="@string/menu_export"
-                android:orderInCategory="100"
-                app:showAsAction="never" />
-            <item android:id="@+id/menu_export_and_email"
-                android:title="@string/menu_export_and_email"
-                android:orderInCategory="101"
-                app:showAsAction="never" />
-            <item android:id="@+id/menu_import"
-                android:title="@string/menu_import"
-                android:orderInCategory="110"
-                app:showAsAction="never" />
-            <item android:id="@+id/menu_import_from_pp"
-                android:title="@string/menu_import_from_pp"
-                android:orderInCategory="120"
-                app:showAsAction="never" />
+            <group android:id="@+id/backup" >
+                <item android:id="@+id/menu_export"
+                    android:title="@string/menu_export"
+                    android:orderInCategory="100"
+                    app:showAsAction="never" />
+                <item android:id="@+id/menu_import"
+                    android:title="@string/menu_import"
+                    android:orderInCategory="101"
+                    app:showAsAction="never" />
+            </group>
+
+            <group android:id="@+id/share" >
+                <item android:id="@+id/menu_share_settings"
+                    android:title="@string/menu_share_settings"
+                    android:orderInCategory="105"
+                    app:showAsAction="never" />
+                <item android:id="@+id/menu_restore_shared_settings"
+                    android:title="@string/menu_restore_shared_settings"
+                    android:orderInCategory="106"
+                    app:showAsAction="never" />
+            </group>
+
+            <group android:id="@+id/other" >
+                <item android:id="@+id/menu_export_and_email"
+                    android:title="@string/menu_export_and_email"
+                    android:orderInCategory="110"
+                    app:showAsAction="never" />
+                <item android:id="@+id/menu_import_from_pp"
+                    android:title="@string/menu_import_from_pp"
+                    android:orderInCategory="120"
+                    app:showAsAction="never" />
+            </group>
         </menu>
     </item>
 

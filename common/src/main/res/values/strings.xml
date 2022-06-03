@@ -1935,6 +1935,13 @@
 
     <string name="profile_preferences_applicationEnablePeriodicScanning">Enable periodic scanning</string>
 
+    <string name="menu_share_settings">Share settings</string>
+    <string name="menu_restore_shared_settings">Restore shared settings</string>
+    <string name="share_settings_choose_bar">Share PhoneProfilesPlus settings</string>
+    <string name="share_settings_alert_title">Share settings</string>
+    <string name="share_settings_ok_shared">Settings shared</string>
+    <string name="share_settings_error_on_share">Error on share settings</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
