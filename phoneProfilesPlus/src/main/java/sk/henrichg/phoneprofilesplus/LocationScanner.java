@@ -274,7 +274,6 @@ class LocationScanner
                 }
             }
         }
-
         if (!locationEnabled) {
             if (isPowerSaveMode) {
                 // in power save mode force NETWORK_PROVIDER
@@ -290,6 +289,7 @@ class LocationScanner
                 locationEnabled = (provider != null) && (!provider.isEmpty());
             }
         }
+
         if (!locationEnabled) {
             provider = "";
             showNotification();
