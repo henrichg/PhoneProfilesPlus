@@ -2794,10 +2794,15 @@ public class EditorActivity extends AppCompatActivity
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(R.string.export_profiles_alert_title);
-        //File sd = Environment.getExternalStorageDirectory();
-        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        if (email || share)
+
+        if (email)
             dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message_note));
+        else
+        if (share) {
+            String message = getString(R.string.share_settings_alert_message) + "\n\n" +
+                    getString(R.string.export_profiles_alert_message_note);
+            dialogBuilder.setMessage(message);
+        }
         else
             dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + "\n\n" +
                                         getString(R.string.export_profiles_alert_message_note));

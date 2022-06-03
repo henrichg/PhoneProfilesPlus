@@ -1937,6 +1937,7 @@
 
     <string name="menu_share_settings">Share settings</string>
     <string name="menu_restore_shared_settings">Restore shared settings</string>
+    <string name="share_settings_alert_message">This is for sharing settings to cloud storage, such as Google Drive, OneDrive. To do this, select the appropriate cloud application in the share panel.</string>
     <string name="share_settings_choose_bar">Share PhoneProfilesPlus settings</string>
     <string name="share_settings_alert_title">Share settings</string>
     <string name="share_settings_ok_shared">Settings shared</string>
