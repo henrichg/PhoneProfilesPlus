@@ -26,7 +26,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,13 +66,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 
 import me.ibrahimsn.lib.SmoothBottomBar;
 import sk.henrichg.phoneprofiles.PPIntentForExport;
@@ -5457,8 +5453,6 @@ public class EditorActivity extends AppCompatActivity
                     if ((ret == 1) && (this.share)) {
                         //TODO zip file for share
 
-                        Log.e("#### EditorActivity.ExportAsyncTask", "zip file");
-
                         String[] filesToZip = new String[2];
 
                         try {
@@ -5474,19 +5468,10 @@ public class EditorActivity extends AppCompatActivity
                                 }
                             }
 
-                            Log.e("#### EditorActivity.ExportAsyncTask", "after delete");
-
-                            //Calendar now = Calendar.getInstance();
-                            //@SuppressLint("SimpleDateFormat")
-                            //SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                            //String dateTime = sdf.format(now.getTimeInMillis());
                             CharSequence dateTime = android.text.format.DateFormat.format("yyyyMMddHHmmss", new java.util.Date());
-
-                            Log.e("#### EditorActivity.ExportAsyncTask", "dateTime="+dateTime);
 
                             String fileName = PPApplication.SHARED_EXPORT_FILENAME + "_" + dateTime +
                                                 PPApplication.SHARED_EXPORT_FILEEXTENSION;
-                            Log.e("#### EditorActivity.ExportAsyncTask", "fileName="+fileName);
                             zipFile = new File(sd, fileName);
                             String zipFilePath = zipFile.getAbsolutePath();
 
@@ -5546,8 +5531,6 @@ public class EditorActivity extends AppCompatActivity
                         PPApplication.showToast(context, activity.getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
 
                     //dataWrapper.restartEventsWithRescan(false, false, true, false, false, false);
-
-                    Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "email="+email);
 
                     if (email) {
                         // email backup
