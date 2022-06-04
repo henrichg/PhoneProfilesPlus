@@ -37,7 +37,7 @@
     <content url="file://$MODULE_DIR$/../../../ToastCompat/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../../ToastCompat/src/main/java" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 32 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.3.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.4.0" level="project" />

@@ -24,7 +24,7 @@
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/ap_generated_sources/debugUnitTest/out" />
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/src/test" />
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/src/testDebug" />
-    <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 32 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.recyclerview-fastscroll.main" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation:1.3.0" level="project" />

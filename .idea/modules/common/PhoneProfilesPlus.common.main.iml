@@ -37,7 +37,7 @@
     <content url="file://$MODULE_DIR$/../../../common/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../../common/src/main/res" type="java-resource" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 32 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
