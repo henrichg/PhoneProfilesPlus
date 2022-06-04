@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_hours_label"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
                 <SeekBar
                     android:id="@+id/duration_pref_dlg_hours"
                     android:layout_width="match_parent"
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_minutes_label"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
                 <SeekBar
                     android:id="@+id/duration_pref_dlg_minutes"
                     android:layout_width="match_parent"
@@ -168,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_seconds_label"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
                 <SeekBar
                     android:id="@+id/duration_pref_dlg_seconds"
                     android:layout_width="match_parent"

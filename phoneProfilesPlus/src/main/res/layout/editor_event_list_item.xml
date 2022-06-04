@@ -81,7 +81,7 @@
             android:paddingEnd="11dp"
             android:paddingTop="3dp"
             android:text="@string/event_name_default"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:scrollHorizontally="true"
             android:ellipsize="end" />
 
@@ -94,7 +94,7 @@
             android:layout_marginTop="5dp"
             android:paddingStart="11dp"
             android:paddingEnd="11dp"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:scrollHorizontally="true"/>
 
         <RelativeLayout
@@ -132,7 +132,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/profile_preference_profile_not_set"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:ellipsize="end"
                     android:maxLines="1"/>
 
@@ -188,7 +188,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/profile_preference_profile_not_set"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:ellipsize="end"
                     android:maxLines="1"/>
 

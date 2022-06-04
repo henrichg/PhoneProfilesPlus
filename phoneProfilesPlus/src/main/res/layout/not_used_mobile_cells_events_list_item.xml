@@ -21,7 +21,7 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/not_used_mobile_cells_events_list_item_checkBox"
         android:text="@string/empty_string"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:ellipsize="end"
         android:maxLines="1"/>
 

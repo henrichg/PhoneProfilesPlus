@@ -242,7 +242,7 @@
                     android:paddingBottom="5dp"
                     android:textColor="?attr/colorAccent"
                     android:textStyle="bold"
-                    android:textSize="17sp" />
+                    android:textSize="16sp" />
 
             </RelativeLayout>
 
@@ -298,7 +298,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_sort"
-                    android:textSize="17sp"
+                    android:textSize="16sp"
                     android:textColor="?attr/colorAccent"
                     android:textStyle="bold"
                     android:background="?attr/buttonBackground"

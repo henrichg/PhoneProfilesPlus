@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:text="@string/profile_list_empty"
             android:gravity="center"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <!--<TextView
             android:id="@+id/widget_profiles_list_empty"

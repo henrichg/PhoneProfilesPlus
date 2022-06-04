@@ -72,7 +72,7 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/run_applications_pref_dlg_item_icon"
             android:text="@string/empty_string"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:ellipsize="end"
             android:maxLines="1"/>
@@ -97,7 +97,7 @@
             android:layout_toEndOf="@id/run_applications_pref_dlg_item_icon"
             android:layout_below="@id/run_applications_pref_dlg_item_app_name"
             android:text="Startup delay: 00:00:00"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:ellipsize="end"
             tools:ignore="HardcodedText"/>
 

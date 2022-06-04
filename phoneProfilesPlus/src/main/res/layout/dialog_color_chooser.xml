@@ -418,7 +418,7 @@
                         android:gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:text="@string/colorChooser_pref_dialog_customColor"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textColor="?attr/colorAccent"
                         android:textStyle="bold"
                         android:background="?attr/buttonBackground"

@@ -52,7 +52,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text="@string/empty_string"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -119,7 +119,7 @@
             android:layout_height="match_parent"
             android:text="@string/profile_list_empty"
             android:gravity="center"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:visibility="gone" />
 
         <LinearLayout

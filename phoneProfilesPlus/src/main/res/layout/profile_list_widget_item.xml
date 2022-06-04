@@ -35,7 +35,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:text="@string/profile_name_default"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="#ffffffff"/>
 
         <ImageView

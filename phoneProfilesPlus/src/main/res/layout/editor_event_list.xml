@@ -53,7 +53,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text="@string/empty_string"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -120,7 +120,7 @@
             android:layout_height="fill_parent"
             android:text="@string/event_list_empty"
             android:gravity="center"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:visibility="gone" />
 
         <LinearLayout
@@ -174,7 +174,7 @@
                 android:layout_marginTop="-5dp"
                 android:layout_marginStart="1dp"
                 android:ellipsize="end"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 android:clickable="true"
                 android:text="@string/editor_drawer_title_events_order"
                 android:maxLines="1"

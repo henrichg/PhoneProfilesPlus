@@ -37,7 +37,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:text="@string/profile_name_default"
-            android:textSize="15sp"/>
+            android:textSize="16sp"/>
 
         <ImageView
             android:id="@+id/act_prof_list_profile_pref_indicator"

@@ -75,7 +75,7 @@
             android:layout_height="fill_parent"
             android:text="@string/profile_list_empty"
             android:gravity="center"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:id="@+id/act_prof_list_linla_progress"
