@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/act_prof_list_item_root"
               android:layout_width="match_parent"
-              android:layout_height="85dp"
+              android:layout_height="90dp"
               android:paddingStart="5dp"
               android:paddingEnd="5dp"
               android:paddingTop="5dp"
