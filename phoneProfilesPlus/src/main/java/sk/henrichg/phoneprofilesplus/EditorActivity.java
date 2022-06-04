@@ -1071,29 +1071,29 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_export) {
-            exportData(false, false, false);
+            exportData(R.string.menu_export, false, false, false);
             return true;
         }
         else
         if (itemId == R.id.menu_import) {
-            importData(false);
+            importData(R.string.menu_import, false);
             return true;
         }
 
         else
         if (itemId == R.id.menu_share_settings) {
-            exportData(false, false, true);
+            exportData(R.string.menu_share_settings, false, false, true);
             return true;
         }
         else
         if (itemId == R.id.menu_restore_shared_settings) {
-            importData(true);
+            importData(R.string.menu_restore_shared_settings, true);
             return true;
         }
 
         else
         if (itemId == R.id.menu_export_and_email) {
-            exportData(true, false, false);
+            exportData(R.string.menu_export_and_email, true, false, false);
             return true;
         }
         else
@@ -1121,7 +1121,7 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_export_and_email_to_author) {
-            exportData(true, true, false);
+            exportData(R.string.menu_export_and_email_to_author, true, true, false);
             return true;
         }
         else
@@ -2532,13 +2532,10 @@ public class EditorActivity extends AppCompatActivity
         importAsyncTask = new ImportAsyncTask(this).execute();
     }
 
-    private void importData(final boolean share)
+    private void importData(final int titleRes, final boolean share)
     {
         AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(this);
-        if (share)
-            dialogBuilder2.setTitle(R.string.restore_shared_settings_alert_title);
-        else
-            dialogBuilder2.setTitle(R.string.import_profiles_alert_title);
+        dialogBuilder2.setTitle(titleRes);
         dialogBuilder2.setMessage(R.string.import_profiles_alert_message);
 
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
@@ -2790,10 +2787,10 @@ public class EditorActivity extends AppCompatActivity
         return res;
     }
 
-    private void exportData(final boolean email, final boolean toAuthor, final boolean share)
+    private void exportData(final int titleRes, final boolean email, final boolean toAuthor, final boolean share)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle(R.string.export_profiles_alert_title);
+        dialogBuilder.setTitle(titleRes);
 
         if (email)
             dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message_note));
