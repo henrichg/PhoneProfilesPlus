@@ -1242,6 +1242,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (assistantPreference != null) {
             if (PPApplication.isRooted(true)) {
                 assistantPreference.setEnabled(false);
+            } else
+            if ((!ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) &&
+                    (!Permissions.checkMicrophone(getActivity().getApplicationContext()))) {
+                // RECORD_AUDIO must be granted for set PPP as default assistant
+                // must be enabled when PPP is defult assistant
+                // because must be possible remove it
+                assistantPreference.setEnabled(false);
             } else {
                 assistantPreference.setEnabled(true);
                 //assistantPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -2309,6 +2316,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)),
                     R.array.hardwareModeValues, R.array.hardwareModeArray, context);
 
+            Profile profile = new Profile();
+            profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "0"));
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileMicrophone(context, profile, permissions);
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, R.string.profile_preferences_deviceAutosync, context);
@@ -4797,7 +4808,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         int index = listPreference.findIndexOfValue(sValue);
                         CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                         listPreference.setSummary(summary);
-                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+
+                        Profile profile = new Profile();
+                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "0"));
+                        Permissions.checkProfileMicrophone(context, profile, permissions);
+                        boolean _permissionGranted = permissions.size() == 0;
+
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, !_permissionGranted);
                     }
                 }
             }
@@ -5451,6 +5469,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
                 boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
                 Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
+                if (preference != null)
+                    preference.setEnabled(enabled);
+            }
+        }
+        if (Build.VERSION.SDK_INT <= 30) {
+            if (key.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS)) {
+                // RECORD_AUDIO must be granted for set PPP as default assistant
+                // must be enabled when PPP is defult assistant
+                // because must be possible remove it
+                boolean enabled = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context) ||
+                                    Permissions.checkMicrophone(context);
+                //Log.e("ProfilePrefsFragment.disableDependedPref", "enabled="+enabled);
+                Preference preference = prefMng.findPreference(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
                 if (preference != null)
                     preference.setEnabled(enabled);
             }

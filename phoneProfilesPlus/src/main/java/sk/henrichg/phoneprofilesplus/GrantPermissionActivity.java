@@ -65,6 +65,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private boolean showRequestAccessFineLocation = false;
     private boolean showRequestAccessBackgroundLocation = false;
     private boolean showRequestCamera = false;
+    private boolean showRequestMicrophone = false;
 
     private boolean[][] whyPermissionType = null;
     private boolean rationaleAlreadyShown = false;
@@ -286,6 +287,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         showRequestAccessFineLocation = false;
         showRequestAccessBackgroundLocation = false;
         showRequestCamera = false;
+        showRequestMicrophone = false;
 
         if (permissions != null) {
             whyPermissionType = new boolean[20][100];
@@ -344,6 +346,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     showRequestCamera = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
                     whyPermissionType[15][permissionType.type] = true;
                 }
+                if (permissionType.permission.equals(Manifest.permission.RECORD_AUDIO)) {
+                    showRequestMicrophone = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[16][permissionType.type] = true;
+                }
             }
         }
 
@@ -358,7 +364,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestAccessBackgroundLocation ||
                 //showRequestAccessNotificationPolicy ||
                 showRequestDrawOverlays||
-                showRequestCamera);
+                showRequestCamera ||
+                showRequestMicrophone);
     }
 
     private void showRationale(final Context context) {
@@ -532,6 +539,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_camera) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[15]);
+                //if (whyPermissionString != null)
+                whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
+            }
+            if (showRequestMicrophone) {
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_microphone) + "</b>";
+                String whyPermissionString = getWhyPermissionString(whyPermissionType[16]);
                 //if (whyPermissionString != null)
                 whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
@@ -795,6 +810,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         break;
                     case Permissions.PERMISSION_BACGROUND_LOCATION:
                         s = getString(R.string.permission_why_profile_background_location);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_MICROPHONE:
+                        s = getString(R.string.permission_why_profile_default_assistant);
                         break;
                 }
             }

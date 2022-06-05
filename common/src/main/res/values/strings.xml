@@ -1947,6 +1947,9 @@
     <string name="restore_shared_settings_error_on_backup">Error on copying shared file for restore</string>
     <string name="restore_shared_settings_ok_backed_up">Shared file to restore copied</string>
 
+    <string name="permission_why_profile_default_assistant">for set PhoneProfilesPlus as default Assistant</string>
+    <string name="permission_group_name_microphone">Record audio</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

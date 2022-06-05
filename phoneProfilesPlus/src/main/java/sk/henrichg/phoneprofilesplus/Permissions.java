@@ -75,6 +75,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS = 46;
     static final int PERMISSION_PROFILE_WALLPAPER_FOLDER = 47;
     static final int PERMISSION_WALLPAPER_FOLDER_PREFERENCE = 48;
+    static final int PERMISSION_PROFILE_MICROPHONE = 49;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -271,6 +272,7 @@ class Permissions {
         checkProfileScreenOnPermanent(context, profile, permissions);
         checkProfileCameraFlash(context, profile, permissions);
         //checkProfileBackgroundLocation(context, profile, permissions);
+        checkProfileMicrophone(context, profile, permissions);
 
         return permissions;
     }
@@ -979,6 +981,27 @@ class Permissions {
         }
     }
 
+    static boolean checkProfileMicrophone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return true;
+
+        if (Build.VERSION.SDK_INT <= 30) {
+            try {
+                if ((profile._deviceAirplaneMode != 0) &&
+                        (!PPApplication.isRooted(false))) {
+                    // if deice is not rooted, required is set PPP as default assistant
+                    boolean granted = ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+                    if ((permissions != null) && (!granted))
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_MICROPHONE, permission.RECORD_AUDIO));
+                    return granted;
+                } else
+                    return true;
+            } catch (Exception e) {
+                return false;
+            }
+        } else
+            return true;
+    }
+
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,
                                                            String sensorType) {
         ArrayList<PermissionType>  permissions = new ArrayList<>();
@@ -1545,17 +1568,20 @@ class Permissions {
         }
     }
 
-    static boolean checkCamera(@SuppressWarnings("unused") Context context) {
+    static boolean checkCamera(Context context) {
         try {
-            return true;
+            return (ContextCompat.checkSelfPermission(context, permission.CAMERA) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
     }
 
-    static boolean checkMicrophone(@SuppressWarnings("unused") Context context) {
+    static boolean checkMicrophone(Context context) {
         try {
-            return true;
+            if (Build.VERSION.SDK_INT <= 30)
+                return (ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED);
+            else
+                return true;
         } catch (Exception e) {
             return false;
         }

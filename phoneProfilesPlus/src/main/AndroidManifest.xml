@@ -72,7 +72,7 @@
          functionality and does not receive it from your assistant app, the requesting app will immediately crash.
          The Android RecognitionService functionality is a widely used service. To fix the issue as soon as
          possible, please review the below recommendation." -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" android:maxSdkVersion="30" />
 
     <uses-permission android:name="sk.henrichg.phoneprofiles.EXPORT_PP_DATA_PERMISSION" />
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
