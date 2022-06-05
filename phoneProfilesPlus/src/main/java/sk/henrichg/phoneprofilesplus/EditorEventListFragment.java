@@ -1840,8 +1840,9 @@ public class EditorEventListFragment extends Fragment
     }
 
     private void changeEventOrder(int position, boolean fromOnViewCreated) {
-        if ((orderSpinner.getAdapter() == null) || (orderSpinner.getAdapter().getCount() >= position))
+        if ((orderSpinner.getAdapter() == null) || (orderSpinner.getAdapter().getCount() <= position)) {
             orderSelectedItem = 0;
+        }
         else
             orderSelectedItem = position;
 
@@ -1858,11 +1859,11 @@ public class EditorEventListFragment extends Fragment
         int _eventsOrderType = getEventsOrderType();
         //setStatusBarTitle();
 
-        /*if (PPApplication.logEnabled()) {
-            //PPApplication.logE("EditorActivity.changeEventOrder", "filterSelectedItem="+filterSelectedItem);
-            PPApplication.logE("EditorActivity.changeEventOrder", "orderSelectedItem=" + orderSelectedItem);
-            PPApplication.logE("EditorActivity.changeEventOrder", "_eventsOrderType=" + _eventsOrderType);
-        }*/
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("EditorActivity.changeEventOrder", "filterType="+filterType);
+//            PPApplication.logE("EditorActivity.changeEventOrder", "orderSelectedItem=" + orderSelectedItem);
+//            PPApplication.logE("EditorActivity.changeEventOrder", "_eventsOrderType=" + _eventsOrderType);
+//        }
 
         changeListOrder(_eventsOrderType, fromOnViewCreated);
 
