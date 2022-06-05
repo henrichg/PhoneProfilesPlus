@@ -45,9 +45,10 @@
             android:layout_below="@id/icon_widget_icon"
             android:text="@string/profile_name_default"
             android:textColor="#ffffffff"
-            android:textSize="13sp"
+            android:textSize="14dp"
             android:gravity="center_horizontal"
-            android:maxLines="2"/>
+            android:maxLines="2"
+            tools:ignore="SpUsage" />
 
         <!--<TextView
             android:id="@+id/icon_widget_name"
