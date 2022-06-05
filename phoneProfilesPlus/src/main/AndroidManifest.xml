@@ -701,7 +701,7 @@
              to other applications on the same device as well. However, if another app requests the RecognitionService
              functionality and does not receive it from your assistant app, the requesting app will immediately crash.
              The Android RecognitionService functionality is a widely used service. To fix the issue as soon as
-             possible, please review the below recommendation." -->
+             possible, please review the below recommendation." --> xx
         <service android:name="sk.henrichg.phoneprofilesplus.PPRecognitionServiceTrampoline"
             android:label="RecognitionServiceTrampoline"
             android:exported="true"
