@@ -5970,8 +5970,8 @@ public class PhoneProfilesService extends Service
 
         // decorator colot change by iocn is removed, becouse this cause problems with
         // custom icons.
-        decoratorColor =
-        _addProfileIconToProfileNotification(forFirstStart,
+        NotificationIconData notificationIconData =
+            _addProfileIconToProfileNotification(forFirstStart,
                                                      contentView, contentViewLarge,
                                                      notificationBuilder,
                                                      notificationNotificationStyle, notificationStatusBarStyle,
@@ -5987,6 +5987,7 @@ public class PhoneProfilesService extends Service
                                                      useDecorator,
                                                      decoratorColor,
                                                      appContext);
+        decoratorColor = notificationIconData.decoratorColor;
 
 //        Log.e("PhoneProfilesService._showProfileNotification", "notificationProfileIconColor="+notificationProfileIconColor);
 //        Log.e("PhoneProfilesService._showProfileNotification", "decoratorColor="+decoratorColor);
@@ -6031,7 +6032,10 @@ public class PhoneProfilesService extends Service
                 if (notificationPrefIndicator) {
                     ProfilePreferencesIndicator _indicators = new ProfilePreferencesIndicator();
                     indicators = _indicators.getString(profile, 0, appContext);
-                    notificationBuilder.setContentText(indicators);
+
+                    // do not show indicators in collased notification ;-)
+                    //notificationBuilder.setContentText(indicators);
+
 //                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentText()="+indicators);
                 }
                 else {
@@ -6148,7 +6152,21 @@ public class PhoneProfilesService extends Service
 
         }
         else {
-            notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));
+            if (Build.VERSION.SDK_INT >= 31)
+                if (notificationShowProfileIcon)
+                    notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                            .setSummaryText(indicators)
+                            .bigLargeIcon(notificationIconData.imageBitmap)
+                            //.bigPicture(BitmapManipulator.getBitmapFromResource(R.drawable.ic_empty, false, dataWrapper.context))
+                    );
+                else
+                    notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                            .setSummaryText(indicators)
+                            .bigLargeIcon(null)
+                            //.bigPicture(BitmapManipulator.getBitmapFromResource(R.drawable.ic_empty, false, dataWrapper.context))
+                    );
+            else
+                notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));
             //notificationBuilder.setStyle(null);
         }
 
@@ -6349,7 +6367,12 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private int _addProfileIconToProfileNotification(boolean forFirstStart,
+    private static class NotificationIconData {
+        int decoratorColor;
+        Bitmap imageBitmap;
+    }
+
+    private NotificationIconData _addProfileIconToProfileNotification(boolean forFirstStart,
                                                      RemoteViews contentView, RemoteViews contentViewLarge,
                                                      NotificationCompat.Builder notificationBuilder,
                                                      String notificationNotificationStyle, String notificationStatusBarStyle,
@@ -6365,6 +6388,9 @@ public class PhoneProfilesService extends Service
                                                      boolean useDecorator,
                                                      int decoratorColor,
                                                      Context appContext) {
+
+        NotificationIconData notificationIconData = new NotificationIconData();
+
         if (!forFirstStart) {
             if (isIconResourceID) {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is internal resource");
@@ -6411,7 +6437,7 @@ public class PhoneProfilesService extends Service
                         }
                     }
                     else {
-                        if (notificationShowProfileIcon)
+                        if ((Build.VERSION.SDK_INT < 31) && notificationShowProfileIcon)
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 } else {
@@ -6465,7 +6491,7 @@ public class PhoneProfilesService extends Service
                         }
                     }
                     else {
-                        if (notificationShowProfileIcon)
+                        if ((Build.VERSION.SDK_INT < 31) && notificationShowProfileIcon)
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 }
@@ -6543,7 +6569,8 @@ public class PhoneProfilesService extends Service
                             iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_default);
                         if (notificationProfileIconColor.equals("1"))
                             iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
-                        notificationBuilder.setLargeIcon(iconBitmap);
+                        if (Build.VERSION.SDK_INT < 31)
+                            notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 }
 
@@ -6588,12 +6615,15 @@ public class PhoneProfilesService extends Service
             else {
                 if (notificationShowProfileIcon) {
                     iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_empty);
-                    notificationBuilder.setLargeIcon(iconBitmap);
+                    if (Build.VERSION.SDK_INT < 31)
+                        notificationBuilder.setLargeIcon(iconBitmap);
                 }
             }
         }
 
-        return decoratorColor;
+        notificationIconData.decoratorColor = decoratorColor;
+        notificationIconData.imageBitmap = iconBitmap;
+        return notificationIconData;
     }
 
     static void clearOldProfileNotification() {
