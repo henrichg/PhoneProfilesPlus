@@ -6031,7 +6031,7 @@ public class PhoneProfilesService extends Service
             else {
                 if (notificationPrefIndicator) {
                     ProfilePreferencesIndicator _indicators = new ProfilePreferencesIndicator();
-                    indicators = _indicators.getString(profile, 0, appContext);
+                    indicators = _indicators.getString(profile, /*0,*/ appContext);
 
                     // do not show indicators in collased notification ;-)
                     //notificationBuilder.setContentText(indicators);

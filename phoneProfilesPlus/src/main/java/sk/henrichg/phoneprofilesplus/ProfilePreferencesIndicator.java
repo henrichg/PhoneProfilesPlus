@@ -1940,11 +1940,11 @@ class ProfilePreferencesIndicator {
 
     }
 
-    private int maxLength;
-    private String addIntoIndicator(String indicator, String preference, int maxLineLength)
+    //private int maxLength;
+    private String addIntoIndicator(String indicator, String preference/*, int maxLineLength*/)
     {
         String ind = indicator;
-        if (maxLineLength > 0) {
+        /*if (maxLineLength > 0) {
             if (ind.length() > maxLength) {
                 ind = ind + '\n';
                 maxLength += maxLineLength;
@@ -1952,14 +1952,14 @@ class ProfilePreferencesIndicator {
             else
                 if (!ind.isEmpty()) ind = ind + "-";
         }
-        else
-            if (!ind.isEmpty()) ind = ind + "-";
+        else*/
+            if (!ind.isEmpty()) ind = ind + " • ";
 
         ind = ind + preference;
         return ind;
     }
 
-    String getString(Profile profile, int maxLineLength, Context context) {
+    String getString(Profile profile, /*int maxLineLength,*/ Context context) {
         // profile preferences indicator
 
         Context appContext = context.getApplicationContext();
@@ -1968,9 +1968,9 @@ class ProfilePreferencesIndicator {
 
         String indicator1 = "";
         if (countDrawables > 0) {
-            maxLength = maxLineLength;
+            //maxLength = maxLineLength;
             for (int i = 0; i < countDrawables; i++)
-                indicator1 = addIntoIndicator(indicator1, strings[i], maxLineLength);
+                indicator1 = addIntoIndicator(indicator1, strings[i]/*, maxLineLength*/);
         }
 
         return indicator1;
