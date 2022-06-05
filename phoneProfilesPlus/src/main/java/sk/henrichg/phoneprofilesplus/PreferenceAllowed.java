@@ -100,7 +100,7 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
             }
         } else {
-            // check if defailt Assistent is set to PPP
+            // check if default Assistent is set to PPP
             if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
