@@ -256,8 +256,6 @@ public class PPApplication extends Application
                                                 //+"|[DB_LOCK]"
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
-
-                                                +"|ProfilesPrefsFragment.setCategorySummary"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

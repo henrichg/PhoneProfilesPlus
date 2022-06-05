@@ -2314,10 +2314,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                              CattegorySummaryData cattegorySummaryData,
                                              TelephonyManager telephonyManager, int phoneCount) {
         String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, R.string.profile_preferences_deviceAirplaneMode, context);
-        PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "title="+title);
         if (!title.isEmpty()) {
-            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_AIRPLANE_MODE (2)");
-
             cattegorySummaryData.bold = true;
 
             String value = GlobalGUIRoutines.getListPreferenceString(
@@ -3625,12 +3622,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 return;
         }
 
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "key=" + key);
-            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "preferenceScreen=" + preferenceScreen);
-            //PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "_bold=" + _bold);
-            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "cattegorySummaryData.defaultAssistantSet="+cattegorySummaryData.defaultAssistantSet);
-        }
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "key=" + key);
+//            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "preferenceScreen=" + preferenceScreen);
+//            //PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "_bold=" + _bold);
+//            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "cattegorySummaryData.defaultAssistantSet="+cattegorySummaryData.defaultAssistantSet);
+//        }
 
         GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, false,
                 (!cattegorySummaryData.permissionGranted) ||

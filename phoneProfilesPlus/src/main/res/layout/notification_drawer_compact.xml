@@ -47,7 +47,7 @@
             android:layout_centerVertical="true"
             android:text="@string/profile_name_default"
             style="@style/TextAppearance.Compat.Notification.Title"
-            android:textSize="14dp"
+            android:textSize="16dp"
             android:ellipsize="end"
             android:maxLines="1"
             tools:ignore="SpUsage" />
