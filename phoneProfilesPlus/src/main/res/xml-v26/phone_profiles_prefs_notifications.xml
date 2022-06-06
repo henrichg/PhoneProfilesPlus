@@ -64,6 +64,13 @@
             app:entryValues="@array/notificationLayoutTypeValues"
             app:layout="@layout/mp_preference_material_widget" />
 
+        <Preference
+            app:key="notificationUseDecoratorInfo"
+            app:title="@string/phone_profiles_pref_notificationUseDecoration"
+            app:summary="@string/phone_profiles_pref_notificationUseDecorationInfo_summary"
+            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+
         <SwitchPreferenceCompat
             app:key="notificationUseDecoration"
             app:title="@string/phone_profiles_pref_notificationUseDecoration"

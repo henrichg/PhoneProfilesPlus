@@ -2811,6 +2811,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     //else
                     _preference.setEnabled(backgroundColor.equals("0"));
                 }
+                _preference = findPreference("notificationUseDecoratorInfo");
+                if (_preference != null) {
+                    //if (Build.VERSION.SDK_INT < 29)
+                    //    _preference.setEnabled(backgroundColor.equals("0") && (!nightMode));
+                    //else
+                    _preference.setEnabled(backgroundColor.equals("0"));
+                }
 
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
                 if (_preference != null) {
@@ -2892,6 +2899,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(false);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = findPreference("notificationUseDecoratorInfo");
                 if (_preference != null)
                     _preference.setEnabled(false);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
