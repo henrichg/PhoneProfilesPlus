@@ -817,7 +817,7 @@ class ApplicationPreferences {
     }
     */
 
-    static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_31P = false;
+    static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_SAMSUNG_31P = true; //false;
     static private final boolean PREF_NOTIFICATION_PREF_INDICATOR_DEFAULT_VALUE_OTHERS = true;
     static boolean notificationPrefIndicatorDefaultValue() {
         boolean defaultValue;
