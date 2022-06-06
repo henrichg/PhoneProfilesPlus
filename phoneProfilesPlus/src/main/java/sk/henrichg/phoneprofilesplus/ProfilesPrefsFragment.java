@@ -1652,7 +1652,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             } else if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)) {
                 title = context.getString(R.string.profile_preferences_exactTime);
             } else if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)) {
-                title = getString(preferenceTitleId);
+                String defaultValue = Profile.defaultValuesString.get(key);
+                if (!preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValue).equals(defaultValue))
+                    title = getString(preferenceTitleId);
             } else {
                 /*String defaultValue =
                         getResources().getString(
@@ -2330,7 +2332,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Permissions.checkProfileMicrophone(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
-            cattegorySummaryData.defaultAssistantSet = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context);
+            if (profile._deviceAirplaneMode != 0)
+                cattegorySummaryData.defaultAssistantSet = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context);
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, R.string.profile_preferences_deviceAutosync, context);
 //            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_AUTOSYNC - notGrantedG1Permission="+notGrantedG1Permission);
