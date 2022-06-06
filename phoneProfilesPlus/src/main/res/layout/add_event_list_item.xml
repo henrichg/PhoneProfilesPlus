@@ -75,7 +75,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/profile_preference_profile_not_set"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:ellipsize="end"
                     android:maxLines="1"/>
 
@@ -130,7 +130,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/profile_preference_profile_not_set"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:ellipsize="end"
                     android:maxLines="1"/>
 

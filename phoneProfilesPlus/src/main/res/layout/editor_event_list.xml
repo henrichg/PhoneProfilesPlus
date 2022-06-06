@@ -120,7 +120,7 @@
             android:layout_height="fill_parent"
             android:text="@string/event_list_empty"
             android:gravity="center"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:visibility="gone" />
 
         <LinearLayout
