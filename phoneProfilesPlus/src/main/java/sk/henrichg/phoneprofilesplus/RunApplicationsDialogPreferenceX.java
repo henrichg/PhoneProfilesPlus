@@ -627,7 +627,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
         final Application application = (Application) view.getTag();
         //PPApplication.logE("ApplicationsDialogPreference.showEditMenu", "application="+application);
 
-        new MenuInflater(_context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
+        new MenuInflater(_context).inflate(R.menu.run_applications_pref_dlg_item_edit, popup.getMenu());
 
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
@@ -687,12 +687,10 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
         }
     }
 
-    /*
     void updateGUI() {
         if (fragment != null)
             fragment.updateGUI();
     }
-    */
 
     private void deleteApplication(Application application) {
         if (application == null)

@@ -11736,7 +11736,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    /*
     // Deleting single intent
     void deleteIntent(long intentId) {
         importExportLock.lock();
@@ -11772,7 +11771,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
-    */
 
     /*
     void updatePPIntentUsageCount(final List<Application> oldApplicationsList,
