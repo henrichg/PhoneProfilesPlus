@@ -543,6 +543,15 @@ else
 Cize takto isto by som (do shared preferences) mohol zapisat, akou udalostou je profil aktivovany.
 Skus to spravit.
 
+!!!! Hm, hm, lenze spustit, zastavit sa moze viac eventov naraz.
+Takze ukladat inac. Ako pole, kde bude zoznam s event id, profile id.
+Toto naplnat a ked je treba taz zavolat EventsHandler, ktory to zmaze.
+Cele to zmutexovat, aby sa to nepobilo.
+Lenze ani toto nie je ok, lebo zmaze sa to a dalsi senzor na to uz nezareaguje.
+
+---
+
+Ina mozost:
 Manualna aktivacia profilu, restart udalosti manualne uzivatelom by tu nastavili event id = 0.
 To by signalizovalo, ze aktivaciu nerobila udalost.
 
@@ -565,7 +574,20 @@ DataWrapper.activateProfileFromEvent() vola
     DatabaseHandler.getInstance(context).activateProfile(_profile);
   ma parameter manualActivation, ktory vyuzijem
 
-No jednoduche to nie je ale hadam to pojde.
+---
+
+Mozno nakoniec to spravit cele okamzite. Nech aktivacia hned zavola
+EventsHandler a ako parameter bude event id, profile id.
+A nic sa nestrati.
+Cele to dat do APPEND worku s delayom 10 sekund, aby sme vyriesili restart udalosti,
+ktory je z delayom 5 sekund. Nech sa to pocas restartu nevola. Ale aj tak netusim,
+ci toto je dobre riesenie, ten delay
+
+-----
+
+Cele zle toto.
+
+Mozno nakoniec to teda nerobit vobec. Takyto senzor.
 
 --------------------
 
