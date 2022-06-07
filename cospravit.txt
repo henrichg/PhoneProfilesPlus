@@ -570,7 +570,7 @@ a ten senzor je passed/not passed, nezapisuj parameter do senzora a nevolaj Even
 To aby sa nevolal EventsHandler donekonecna z takeho profilu.
 
 Senzor type staci jeden. EventsHandler zavolaj tam, kde volam DatabaseHandler.activateProfile().
-Najprv vyhladaj udalosti a pozapisuj do senzora "Activated profile" interny parameter.
+Najprv vyhladaj udalosti a pozapisuj do ich senzora "Activated profile" interny parameter.
 A potom spracuj udalosti. Uz bude interny parameter zapisany, takze budem vediet nastavit
 passed/not passed pre senzor.
 
