@@ -565,16 +565,19 @@ A potom sa zavola EventsHandler pre senzor "Activate profile".
 Hladat musis VZDY vo vsetkch udalostiach a pre najdene zapisovat parameter senzora.
 EventsHandler pre senzor zavolaj len raz. Po prehladani vsetkych udalosti.
 
-Bacha!!!
+TOTO ZATIAL NERIES. SA MI ZDA, ZE K ZACYKLENIU DOJST NEMOZE
+/*Bacha!!!
 Ak ide o aktivaciu z udalosti a najdena udalost je ta, z ktorej je aktivacia profilu,
 nezapisuj parameter do senzora "Activate profile" tejto udalosti (nazyvam to "najdenie sam seba").
-Toto riesi zacyklenie startu/stopu udalosti.
+Toto riesi zacyklenie startu/stopu udalosti.*/
 
 Maj dva senzor typy.
 
-Jeden na vyhladavanie udalosti. Ten zavolaj tam, kde volam
-DatabaseHandler.activateProfile(). Na toto ale potrebujem eventId, pre ktory to volam,
-aby som vedel zistit ci nejde o zacyklenie. Toto musim dorobit ako parameter.
+Jeden na vyhladavanie udalosti. Ten zavolaj tam, kde volam DatabaseHandler.activateProfile().
+
+TOTO ZATIAL NERIES. SA MI ZDA, ZE K ZACYKLENIU DOJST NEMOZE
+/*Na toto ale potrebujem eventId, pre ktory to volam,
+aby som vedel zistit ci nejde o zacyklenie. Toto musim dorobit ako parameter.*/
 
 Druhy na samotne spustenie udalosti, cize volanie EventsHandlera. Ten sa spusti z toho prveho typu
 po vyhladani a zapise partametra pre senzor.
