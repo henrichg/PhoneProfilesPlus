@@ -589,6 +589,20 @@ Cele zle toto.
 
 Mozno nakoniec to teda nerobit vobec. Takyto senzor.
 
+A mozno to spravit len pre manualnu aktivaciu od uzivatela, Ignorovat aj tu od udalosti.
+Cisto na to, ze uizvatel manualne aktivuje profil a spusti to udalost
+ktora skonci, ked uizvatel aktivuje iny profil manualne.
+Musi to byt manualna aktivacia uzivatelom na ukoncenie, lebo samotna udalost aktivuje profily.
+
+Cize taka uzivatelom spustna udalost by to bola. Aktivaciou profilu.
+Ale taka by musela ignorovat manualnu aktivaciu. Cize ak by mala udalost taky senzor, defaultne by
+ignorovala manualnu aktivaciu. Uzivate by ani nemusel nastavovat ten event parameter.
+
+Aj to sa mi zda zlozite. Hlavne to ukoncenie. By som si musel pamatat, ktory profil
+sa posledne manualne aktivoval uzivatelom. Aby fungoval restart, aby sa udalost po nom spustila.
+Manualny restart udalosti od uzivatela by ale takuto udalost zastavil.
+Len ten od udalosti alebo interny restart nie.
+
 --------------------
 
 
