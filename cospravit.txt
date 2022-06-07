@@ -567,7 +567,7 @@ EventsHandler pre senzor zavolaj len raz. Po prehladani vsetkych udalosti.
 
 Bacha!!!
 Ak ide o aktivaciu z udalosti a najdena udalost je ta, z ktorej je aktivacia profilu,
-nezapisuj parameter do senzora "Activate profile" tejto udalosti.
+nezapisuj parameter do senzora "Activate profile" tejto udalosti (nazyvam to "najdenie sam seba").
 Toto riesi zacyklenie startu/stopu udalosti.
 
 --------------------
