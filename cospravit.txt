@@ -569,12 +569,10 @@ Ak najdena udalost ma v senzore "Activated profile" zapisane, ze sa ma spustat/z
 a ten senzor je passed/not passed, nezapisuj parameter do senzora a nevolaj EventsHandler.
 To aby sa nevolal EventsHandler donekonecna z takeho profilu.
 
-Maj dva senzor typy.
-
-Jeden na vyhladavanie udalosti. Ten zavolaj tam, kde volam DatabaseHandler.activateProfile().
-
-Druhy na samotne spustenie udalosti, cize volanie EventsHandlera. Ten sa spusti z toho prveho typu
-po vyhladani a zapise partametra pre senzor.
+Senzor type staci jeden. EventsHandler zavolaj tam, kde volam DatabaseHandler.activateProfile().
+Najprv vyhladaj udalosti a pozapisuj do senzora "Activated profile" interny parameter.
+A potom spracuj udalosti. Uz bude interny parameter zapisany, takze budem vediet nastavit
+passed/not passed pre senzor.
 
 Uvidime.
 
