@@ -542,8 +542,12 @@ else
 
 Asi najlepsi sposob, nemus byt profil aktivovany manualne:
 
-1. Profil: parameter "Start event". Spusti udalost so senzorom "Activated profile" v ktorej bude tento profil na starte.
-2. Profil: parameter "End event". Ukonci udalost so senzorom "Activated profile" v ktorej bude tento profil na konci.
+1. Profil: parameter "Start event" (true/false). Spusti udalost so senzorom "Activated profile" v
+   ktorej bude tento profil na starte.
+   Hladat sa bude "Start of event"/"Activate profile"
+2. Profil: parameter "End event" (true/false). Ukonci udalost so senzorom "Activated profile" v
+   ktorej bude tento profil na konci.
+   Hladat sa bude "End of event"/"Activate profile"
 
 Aktivuje sa profil 1. EventsHandler (zavolany na samotnu aktivaciu profilu) najde udalost a spusti ju.
 Ulozit si musi, ze ma bezat, do parametrov senzora. Take interne parametre uz mam, takze nic zaujimaveho
