@@ -549,16 +549,26 @@ Asi najlepsi sposob, nemus byt profil aktivovany manualne:
    ktorej bude tento profil na konci. Cize zavola EnentsHandler pre tento senzor.
    Hladat sa bude "End of event"/"Activate profile"
 
-Aktivuje sa profil 1. EventsHandler (zavolany na samotnu aktivaciu profilu) najde udalost a spusti ju.
-Ulozit si musi, ze ma bezat, do parametrov senzora. Take interne parametre uz mam, takze nic zaujimaveho
-to nie je. Restart udalosti taku udalost spusti, lebo v parametroch ma, ze ma bezat.
-Bacha!!! Profil, ak je v udalosti, nesmie volat EventsHandler na tento senzor. Kvoli zacykleniu.
-
-Aktivuje sa profil 2. EventsHandler (zavolany na samotnu aktivaciu profilu) najde udalost a zastavi ju.
-Ulozit si musi, ze nema bezat, do parametrov senzora. Restart udalost uz taku nespusti.
-Bacha!!! Profil, ak je v udalosti, nesmie volat EventsHandler na tento senzor. Kvoli zacykleniu.
-
 Podmienkou je, ze v profile sa nesmie naraz dat nastavit parameter "Start event" aj "End event".
+
+Aktivuje sa profil 1. Hlada sa udalost, v ktorej je tento profil v "Start of event"/"Activate profile".
+Ak ju najde, ulozit musi do nej, ze MA bezat, do parametrov senzora "Activate profile". Take interne
+parametre uz mam, takze nic zvlastneho to nie je.
+Restart udalosti taku udalost spusti, lebo v parametroch ma, ze ma bezat.
+A potom sa zavola EventsHandler pre senzor "Activate profile".
+
+Aktivuje sa profil 2. Hlada sa udalost, v ktorej je tento profil v "End of event"/"Activate profile".
+Ak ju najde, ulozit musi do nej, ze NEMA bezat, do parametrov senzora "Activate profile".
+Restart udalosti taku udalost nespusti, lebo v parametroch ma, ze nema bezat.
+A potom sa zavola EventsHandler pre senzor "Activate profile".
+
+Hladat musis VZDY vo vsetkch udalostiach a pre najdene zapisovat parameter senzora.
+EventsHandler pre senzor zavolaj len raz. Po prehladani vsetkych udalosti.
+
+Bacha!!!
+Ak ide o aktivaciu z udalosti a najdena udalost je ta, z ktorej je aktivacia profilu,
+nezapisuj parameter do senzora "Activate profile" tejto udalosti.
+Toto riesi zacyklenie startu/stopu udalosti.
 
 --------------------
 
