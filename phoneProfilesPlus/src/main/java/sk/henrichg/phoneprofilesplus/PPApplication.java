@@ -167,6 +167,10 @@ public class PPApplication extends Application
     static final String HELP_WIFI_SCAN_THROTTLING = "https://henrichg.github.io/PhoneProfilesPlus/wifi_scan_throttling.html";
     static final String HELP_WIFI_SCAN_THROTTLING_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/wifi_scan_throttling.md";
 
+    //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/airplane_mode_radios_config.md
+    static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG = "https://henrichg.github.io/PhoneProfilesPlus/airplane_mode_radios_config.html";
+    static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/airplane_mode_radios_config.md";
+
     //static final boolean gitHubRelease = true;
     //static boolean googlePlayInstaller = false;
 

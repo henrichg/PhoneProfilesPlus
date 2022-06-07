@@ -1952,6 +1952,12 @@
 
     <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Decoration for notification is enabled only when \"Background color\" is of type \"Native\". Decoration is always displayed, when \"Notification style\" is set to \"Native\".</string>
 
+    <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Airplane mode radios</string>
+    <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Click here to display how to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info1">Is possible to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info2">This help is better to open it in computer in his Internet browser. Help is in PhoneProfilesPlus GitHub README.md, marked as</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info3" translatable="false">\"(HELP) How to configure airplane mode radios\"</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

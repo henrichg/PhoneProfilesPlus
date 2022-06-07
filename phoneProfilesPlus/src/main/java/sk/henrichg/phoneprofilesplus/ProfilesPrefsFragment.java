@@ -1259,6 +1259,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        infoDialogPreference = prefMng.findPreference("prf_pref_deviceAirplaneModeRadiosInfo");
+        if (infoDialogPreference != null) {
+
+            String url;
+            if (DebugVersion.enabled)
+                url = PPApplication.HELP_AIRPLANE_MODE_RADIOS_CONFIG_DEVEL;
+            else
+                url = PPApplication.HELP_AIRPLANE_MODE_RADIOS_CONFIG;
+
+            String infoText =
+                    "<b>"+getString(R.string.profile_preferences_deviceAirplaneModeRadios_info1) + "</b><br><br>" +
+                            getString(R.string.profile_preferences_deviceAirplaneModeRadios_info2) + " " +
+                            getString(R.string.profile_preferences_deviceAirplaneModeRadios_info3) + ":<br>" +
+                            "<a href=" + url + ">" + url+ " &#8658;</a>";
+
+            infoDialogPreference.setInfoText(infoText);
+            infoDialogPreference.setIsHtml(true);
+        }
+
+
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 

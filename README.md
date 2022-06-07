@@ -58,6 +58,9 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ##### (HELP) How to disable Wi-Fi scan throttling - useful for Wi-Fi scanning
 - [Show it](docs/wifi_scan_throttling.md)
 
+##### (HELP) How to configure airplane mode radios - useful for profile parameter "Airplane mode"
+- [Show it](docs/airplane_mode_radios_config.md)
+
 ##### Features
 - [Show it](docs/ppp_features.md)
 
