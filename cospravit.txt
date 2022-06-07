@@ -570,6 +570,17 @@ Ak ide o aktivaciu z udalosti a najdena udalost je ta, z ktorej je aktivacia pro
 nezapisuj parameter do senzora "Activate profile" tejto udalosti (nazyvam to "najdenie sam seba").
 Toto riesi zacyklenie startu/stopu udalosti.
 
+Maj dva senzor typy.
+
+Jeden na vyhladavanie udalosti. Ten zavolaj tam, kde volam
+DatabaseHandler.activateProfile(). Na toto ale potrebujem eventId, pre ktory to volam,
+aby som vedel zistit ci nejde o zacyklenie. Toto musim dorobit ako parameter.
+
+Druhy na samotne spustenie udalosti, cize volanie EventsHandlera. Ten sa spusti z toho prveho typu
+po vyhladani a zapise partametra pre senzor.
+
+Uvidime.
+
 --------------------
 
 
