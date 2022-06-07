@@ -572,12 +572,19 @@ To aby sa nevolal EventsHandler donekonecna z takeho profilu.
 Maj pre ten interny parameter hodnoty:
 0 = not set -> nevolaj EventsHandler, spracuj ako not running, cize senzor bude not passed
 1 = running -> ak zmena z 0, 2, zavolaj EventsHandler, senzor bude passed
-2 = not runnind -> ak zmena z 0, 1, zavolaj EventsHandler, senzor bude not passed
+2 = not running -> ak zmena z 0, 1, zavolaj EventsHandler, senzor bude not passed
 
 Senzor type staci jeden. EventsHandler zavolaj tam, kde volam DatabaseHandler.activateProfile().
 Najprv vyhladaj udalosti a pozapisuj do ich senzora "Activated profile" interny parameter.
+Podobne ao pri inych typoch senzorov hore na zaciatku doHandleEvent().
 A potom spracuj udalosti. Uz bude interny parameter zapisany, takze budem vediet nastavit
 passed/not passed pre senzor.
+
+Co bude v samotnom senzore si urcim potom. Mozno zmena parametra "Start event"/"End event" profilov
+co su v udalosti.
+!!! Bacha, musi byt nastaveny profil na start aj end udalosti, cize toto by som minimalne mal uzivatelovi
+dat vediet, ci su nastavene. Ak nebudu oba, senzor bude pokladany za nenastaveny, cize ignorovany
+v EventsHandler. BUde natvrdo v senzore nastavovany interny parameter 0 (not set) pri vyhladavani udalosti.
 
 Uvidime.
 
