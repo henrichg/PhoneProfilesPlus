@@ -546,25 +546,33 @@ Skus to spravit.
 Manualna aktivacia profilu, restart udalosti manualne uzivatelom by tu nastavili event id = 0.
 To by signalizovalo, ze aktivaciu nerobila udalost.
 
-Pri aktivacii z profilu:
-Najprv by som zapisal event id a potom aktivoval, robil undo, restart udalosti.
-
 Potom senzor na aktivaciu profilu by ten shared preferences parameter cital.
 Ale tu je problem, ze potrebujem vediet konkretne profily, ktore sa udalostou aktivovali,
 lebo restart udalosti, merge profilov.
 
-No a co ak by som EventsHandler na senzor aktivacie profilu volal az po uplnom undo a
-restarte udalosti z konca udalosti?
+Takze zapisovat aj do parametrov profilov, ktore sa aktivuju.
+Tak ako to robi DatabaseHandler.activateProfile() s KEY_CHECKED.
+Tu treba riesit merge profilov (myslim, ze restart udalosti robi merge)
+a undo (neviem ci aj tu mergujem, pozri).
+Treba to zapisovat do kazdeho skutocneho profilu, nie zmergovaneho.
+Asi ze by mergeProfile() to zapisoval a tiez activateProfileFromEvent().
 
-Cize by som zavolal EventsHandler:
-1. Pri manualnej aktivacii, po aktivacii
-2. Pri manualnon restarte uzivatelom, po restarte udalosti. Tu musim zistit, kedy skonci restart udalosti
-3. Pri internom restarte udalosti, po restarte udalosti. Tu musim zistit, kedy skonci restart udalosti
-4. Pri aktivacii z udalosti, po aktivacii zmergovaneho profilu
-5. Pri undo z konca udalsoti po poslednom undo, ciz emusim zistit, kedy sa zavola posledne undo
-6. Pri restarte udalosti z konca udalosti, po restarte udalosti. Tu musim zistit, kedy skonci restart udalosti
+Profile,mergeProfile uz vola DatabaseHandler.activateProfile():
+  DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
+DataWrapper.activateProfileFromEvent() vola
+    _activateProfile(profile, merged, startupSource, forRestartEvents);
+  a ten:
+    DatabaseHandler.getInstance(context).activateProfile(_profile);
+  ma parameter manualActivation, ktory vyuzijem
 
-Nic moc teda.
+No jednoduche to nie je ale hadam to pojde.
+
+--------------------
+
+
+
+
+
 
 
 
