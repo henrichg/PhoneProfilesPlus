@@ -540,68 +540,19 @@ if (Event.getGlobalEventsRunning()) {
 else
     manualIndicators = "[M]"; // alebo ak nebezia udalosti
 
-Cize takto isto by som (do shared preferences) mohol zapisat, akou udalostou je profil aktivovany.
-Skus to spravit.
+Asi najlepsi sposob, nemus byt profil aktivovany manualne:
 
-!!!! Hm, hm, lenze spustit, zastavit sa moze viac eventov naraz.
-Takze ukladat inac. Ako pole, kde bude zoznam s event id, profile id.
-Toto naplnat a ked je treba taz zavolat EventsHandler, ktory to zmaze.
-Cele to zmutexovat, aby sa to nepobilo.
-Lenze ani toto nie je ok, lebo zmaze sa to a dalsi senzor na to uz nezareaguje.
+1. Profil: parameter "Start event". Spusti udalost so senzorom v ktorom bude tento profil na starte.
+2. Profil: parameter "End event". Ukonci udalost so senzorom v ktorom bude tento profil na konci.
 
----
+Aktivuje sa profil 1. EventsHandler (zavolany na samotnu aktivaciu profilu) najde udalost a spusti ju.
+Ulozit si musi, ze ma bezat, do parametrov senzora. Take interne parametre uz mam, takze nic zaujimaveho
+to nie je. Restart udalosti taku udalost spusti, lebo v parametroch ma, ze ma bezat.
 
-Ina mozost:
-Manualna aktivacia profilu, restart udalosti manualne uzivatelom by tu nastavili event id = 0.
-To by signalizovalo, ze aktivaciu nerobila udalost.
+Aktivuje sa profil 2. EventsHandler (zavolany na samotnu aktivaciu profilu) najde udalost a zastavi ju.
+Ulozit si musi, ze nema bezat, do parametrov senzora. Restart udalost uz taku nespusti.
 
-Potom senzor na aktivaciu profilu by ten shared preferences parameter cital.
-Ale tu je problem, ze potrebujem vediet konkretne profily, ktore sa udalostou aktivovali,
-lebo restart udalosti, merge profilov.
-
-Takze zapisovat aj do parametrov profilov, ktore sa aktivuju.
-Tak ako to robi DatabaseHandler.activateProfile() s KEY_CHECKED.
-Tu treba riesit merge profilov (myslim, ze restart udalosti robi merge)
-a undo (neviem ci aj tu mergujem, pozri).
-Treba to zapisovat do kazdeho skutocneho profilu, nie zmergovaneho.
-Asi ze by mergeProfile() to zapisoval a tiez activateProfileFromEvent().
-
-Profile,mergeProfile uz vola DatabaseHandler.activateProfile():
-  DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
-DataWrapper.activateProfileFromEvent() vola
-    _activateProfile(profile, merged, startupSource, forRestartEvents);
-  a ten:
-    DatabaseHandler.getInstance(context).activateProfile(_profile);
-  ma parameter manualActivation, ktory vyuzijem
-
----
-
-Mozno nakoniec to spravit cele okamzite. Nech aktivacia hned zavola
-EventsHandler a ako parameter bude event id, profile id.
-A nic sa nestrati.
-Cele to dat do APPEND worku s delayom 10 sekund, aby sme vyriesili restart udalosti,
-ktory je z delayom 5 sekund. Nech sa to pocas restartu nevola. Ale aj tak netusim,
-ci toto je dobre riesenie, ten delay
-
------
-
-Cele zle toto.
-
-Mozno nakoniec to teda nerobit vobec. Takyto senzor.
-
-A mozno to spravit len pre manualnu aktivaciu od uzivatela, Ignorovat aj tu od udalosti.
-Cisto na to, ze uizvatel manualne aktivuje profil a spusti to udalost
-ktora skonci, ked uizvatel aktivuje iny profil manualne.
-Musi to byt manualna aktivacia uzivatelom na ukoncenie, lebo samotna udalost aktivuje profily.
-
-Cize taka uzivatelom spustna udalost by to bola. Aktivaciou profilu.
-Ale taka by musela ignorovat manualnu aktivaciu. Cize ak by mala udalost taky senzor, defaultne by
-ignorovala manualnu aktivaciu. Uzivate by ani nemusel nastavovat ten event parameter.
-
-Aj to sa mi zda zlozite. Hlavne to ukoncenie. By som si musel pamatat, ktory profil
-sa posledne manualne aktivoval uzivatelom. Aby fungoval restart, aby sa udalost po nom spustila.
-Manualny restart udalosti od uzivatela by ale takuto udalost zastavil.
-Len ten od udalosti alebo interny restart nie.
+Podmienkou je, ze v profile sa nesmie naraz dat nastavit parameter "Start event" aj "End event".
 
 --------------------
 
