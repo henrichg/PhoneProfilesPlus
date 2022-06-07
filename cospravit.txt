@@ -523,3 +523,22 @@ vela prerabky celej sychronizacie kontaktov aj grup.
 https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
 
 --------------------
+
+Ako zistujem, ci je profil aktivovany manualne:
+
+if (Event.getGlobalEventsRunning()) {
+    if (Event.getEventsBlocked(dataWrapper.context)) { // manualna aktivacia je, ked su blokovane udalosti
+                                                       // je to v shared preferences PREF_EVENTS_BLOCKED
+        if (Event.getForceRunEventRunning(dataWrapper.context))
+            manualIndicators = "[»]"; // moze byt, ze sa profil aktivuje, ak ma udalost nastaveme,
+                                      // ze sa ma spustit aj ked je manualne aktivovany.
+                                      // je to v shared preferences PREF_FORCE_RUN_EVENT_RUNNING
+        else
+            manualIndicators = "[M]";
+    }
+}
+else
+    manualIndicators = "[M]"; // alebo ak nebezia udalosti
+
+Cize takto isto by som (do shared preferences) mohol zapisat, akou udalostou je profil aktivovany.
+Skus to spravit.
