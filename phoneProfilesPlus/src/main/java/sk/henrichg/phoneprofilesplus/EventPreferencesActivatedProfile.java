@@ -84,13 +84,17 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
                 Profile profile = dataWrapper.getProfileById(this._startProfile, true, true, false);
                 if (profile != null) {
-
+                    descr = descr + "<b>" + profile._name + "</b>";
+                } else {
+                    descr = descr + "<b>" + context.getString(R.string.profile_preference_profile_not_set) + "</b>";
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_activated_profile_endProfile) + ": ";
+                descr = descr + " • " + context.getString(R.string.event_preferences_activated_profile_endProfile) + ": ";
                 profile = dataWrapper.getProfileById(this._endProfile, true, true, false);
                 if (profile != null) {
-
+                    descr = descr + "<b>" + profile._name + "</b>";
+                } else {
+                    descr = descr + "<b>" + context.getString(R.string.profile_preference_profile_not_set) + "</b>";
                 }
             }
         }
