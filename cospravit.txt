@@ -542,23 +542,36 @@ else
 
 Asi najlepsi sposob, nemus byt profil aktivovany manualne:
 
-1. Profil: parameter "Start event" (true/false). Spusti udalost so senzorom "Activated profile" v
+
+Aktivácia profilu by volala broadcast a až ten by vyvolal Events handler.
+
+A profil by nemusel mat tie 2 parametre.
+
+Ostatné s vyhľadávaním udalostí zostava. Az na to, že vyhľadávanie v udalostiach by robil broadcast
+aby sa Events handler volal len ak je to povolené. Čiže len na zmenu interneho parametra "running".
+
+
+TOTO NETREBA:
+/*1. Profil: parameter "Start event" (true/false). Spusti udalost so senzorom "Activated profile" v
    ktorej bude tento profil na starte. Cize zavola EnentsHandler pre tento senzor.
    Hladat sa bude "Start of event"/"Activate profile"
 2. Profil: parameter "End event" (true/false). Ukonci udalost so senzorom "Activated profile" v
    ktorej bude tento profil na konci. Cize zavola EnentsHandler pre tento senzor.
    Hladat sa bude "End of event"/"Activate profile"
 
-Podmienkou je, ze v profile sa nesmie naraz dat nastavit parameter "Start event" aj "End event".
+Podmienkou je, ze v profile sa nesmie naraz dat nastavit parameter "Start event" aj "End event".*/
 
-Aktivuje sa profil 1. Hlada sa udalost, v ktorej je tento profil v "Start of event"/"Activate profile".
-Ak ju najde, ulozit musi do nej, ze MA bezat, do parametrov senzora "Activated profile". Take interne
-parametre uz mam, takze nic zvlastneho to nie je.
+Aktivuje sa profil 1. Hlada sa udalost, v ktorej je tento profil v senzore "Activate profile"
+v "Start profile".
+Ak ju najde, ulozit musi do nej, ze MA bezat, do parametrov senzora "Activated profile",
+do interneho parametra "running".
 Restart udalosti taku udalost spusti, lebo v parametroch ma, ze ma bezat.
 A potom sa zavola EventsHandler pre senzor "Activated profile".
 
-Aktivuje sa profil 2. Hlada sa udalost, v ktorej je tento profil v "End of event"/"Activate profile".
-Ak ju najde, ulozit musi do nej, ze NEMA bezat, do parametrov senzora "Activated profile".
+Aktivuje sa profil 2. Hlada sa udalost, v ktorej je tento profil v senzore "Activate profile"
+v "End profile".
+Ak ju najde, ulozit musi do nej, ze NEMA bezat, do parametrov senzora "Activated profile",
+do interneho parametra "running".
 Restart udalosti taku udalost nespusti, lebo v parametroch ma, ze nema bezat.
 A potom sa zavola EventsHandler pre senzor "Activated profile".
 
@@ -574,19 +587,19 @@ Maj pre ten interny parameter hodnoty:
 1 = running -> ak zmena z 0, 2, zavolaj EventsHandler, senzor bude passed
 2 = not running -> ak zmena z 0, 1, zavolaj EventsHandler, senzor bude not passed
 
-Senzor type staci jeden. EventsHandler zavolaj tam, kde volam DatabaseHandler.activateProfile().
-Najprv vyhladaj udalosti a pozapisuj do ich senzora "Activated profile" interny parameter.
-Podobne ao pri inych typoch senzorov hore na zaciatku doHandleEvent().
-A potom spracuj udalosti. Uz bude interny parameter zapisany, takze budem vediet nastavit
-passed/not passed pre senzor.
+Senzor type staci len jeden.
 
-Co bude v samotnom senzore si urcim potom. Mozno zmena parametra "Start event"/"End event" profilov
-co su v udalosti.
-!!! Bacha, musi byt nastaveny profil na start aj end udalosti, a profil na start udalosti musi mat
-v sebe nastaveny "Start event" a profil na end udalosti zasa "End event".
-Cize toto by som minimalne mal uzivatelovi dat vediet, ci su nastavene. Ak nebudu oba, senzor bude
-pokladany za nenastaveny, cize ignorovany v EventsHandler. Bude natvrdo v senzore nastavovany
-interny parameter 0 (not set) pri vyhladavani udalosti.
+Tam, kde volam DatabaseHandler.activateProfile() zavlaj broadcast na vyhladanie udalosti podla
+senzore "Activated profile".
+Vyhladaj udalosti a pozapisuj do ich senzora "Activated profile" interny parameter "running".
+
+A potom spracuj udalosti, zavolanim EventsHandlera. Uz bude interny parameter zapisany, takze budem
+vediet nastavit passed/not passed pre senzor.
+
+!!! Bacha, musi byt nastaveny profil v senzore "Activated profile" v "Start profile", "End profile".
+Cize oba parametre musia byt vyzadovane a profily musia byt rozne.
+Ak nebudu oba profily nastavene, senzor bude pokladany za nenastaveny, cize ignorovany v EventsHandler.
+Bude natvrdo v senzore nastavovany interny parameter 0 (not set) pri vyhladavani udalosti.
 
 Uvidime.
 
