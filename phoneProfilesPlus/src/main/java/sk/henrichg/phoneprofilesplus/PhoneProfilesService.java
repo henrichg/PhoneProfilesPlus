@@ -111,6 +111,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CalendarEventExistsCheckBroadcastReceiver";
     static final String ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".PeriodicEventEndBroadcastReceiver";
     static final String ACTION_RESTART_EVENTS_WITH_DELAY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RestartEventsWithDelayBroadcastReceiver";
+    static final String ACTION_ACTIVATED_PROFILE_EVENT_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ActivatedProfileEventBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -2139,6 +2140,45 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    private void registerReceiverForActivatedProfileSensor(boolean register, DataWrapper dataWrapper) {
+        Context appContext = getApplicationContext();
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForActivatedProfileSensor", "xxx");
+        if (!register) {
+            if (PPApplication.activatedProfileEventBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.activatedProfileEventBroadcastReceiver);
+                    PPApplication.activatedProfileEventBroadcastReceiver = null;
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForActivatedProfileSensor", "UNREGISTER calendarEventExistsCheckBroadcastReceiver");
+                } catch (Exception e) {
+                    PPApplication.activatedProfileEventBroadcastReceiver = null;
+                }
+            }
+            //else
+            //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForActivatedProfileSensor", "not registered calendarEventExistsCheckBroadcastReceiver");
+        }
+        if (register) {
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForActivatedProfileSensor", "REGISTER");
+            dataWrapper.fillEventList();
+            boolean allowed = false;
+            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ACTIVATED_PROFILE/*, false*/);
+            if (eventsExists)
+                allowed = Event.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                if (PPApplication.activatedProfileEventBroadcastReceiver == null) {
+                    PPApplication.activatedProfileEventBroadcastReceiver = new ActivatedProfileEventBroadcastReceiver();
+                    IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_ACTIVATED_PROFILE_EVENT_BROADCAST_RECEIVER);
+                    appContext.registerReceiver(PPApplication.activatedProfileEventBroadcastReceiver, intentFilter23);
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForActivatedProfileSensor", "REGISTER calendarEventExistsCheckBroadcastReceiver");
+                }
+                //else
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForActivatedProfileSensor", "registered calendarEventExistsCheckBroadcastReceiver");
+            }
+            else
+                registerReceiverForActivatedProfileSensor(false, dataWrapper);
+        }
+    }
+
     private void unregisterPPPPExtenderReceiver(int type) {
         //PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER");
         Context appContext = getApplicationContext();
@@ -3732,6 +3772,9 @@ public class PhoneProfilesService extends Service
         // required for orientation event
         //registerReceiverForOrientationSensor(true, dataWrapper);
 
+        // required for calendar event
+        registerReceiverForActivatedProfileSensor(true, dataWrapper);
+
         //Log.e("------ PhoneProfilesService.registerReceiversAndWorkers", "fromCommand="+fromCommand);
         WifiScanWorker.initialize(appContext, !fromCommand);
         BluetoothScanWorker.initialize(appContext, !fromCommand);
@@ -3792,6 +3835,8 @@ public class PhoneProfilesService extends Service
         //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
+        registerReceiverForActivatedProfileSensor(false, null);
+
         startLocationScanner(false, true, null, false);
         startMobileCellsScanner(false, true, null, false, false);
         startOrientationScanner(false, true, null/*, false*/);
@@ -3844,6 +3889,7 @@ public class PhoneProfilesService extends Service
         registerLocationScannerReceiver(true, dataWrapper);
         //registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper);
+        registerReceiverForActivatedProfileSensor(true, dataWrapper);
 
         schedulePeriodicScanningWorker(/*dataWrapper, true*/);
         scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);

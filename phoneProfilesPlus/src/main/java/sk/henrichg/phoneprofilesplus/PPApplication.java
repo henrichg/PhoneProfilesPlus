@@ -796,6 +796,7 @@ public class PPApplication extends Application
     static PeriodicEventEndBroadcastReceiver periodicEventEndBroadcastReceiver = null;
     static DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
     static RestartEventsWithDelayBroadcastReceiver restartEventsWithDelayBroadcastReceiver = null;
+    static ActivatedProfileEventBroadcastReceiver activatedProfileEventBroadcastReceiver = null;
 
     static SettingsContentObserver settingsContentObserver = null;
     static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
