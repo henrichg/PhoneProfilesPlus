@@ -1958,6 +1958,12 @@
     <string name="profile_preferences_deviceAirplaneModeRadios_info2">This help is better to open it in computer in his Internet browser. Help is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info3" translatable="false">\"(HELP) How to configure airplane mode radios\"</string>
 
+    <string name="event_preference_sensor_activated_profile_summary">This sensor will start and end an event by profile activation. Parameters: Start profile (profile which starts event), End profile (profile which ends event).</string>
+    <string name="event_type_activated_profile">Activated profile</string>
+    <string name="event_preferences_activated_profile_startProfile">Start profile</string>
+    <string name="event_preferences_activated_profile_endProfile">End profile</string>
+    <string name="event_preferences_category_eventActivatedProfileParameters">Activated profile sensor</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

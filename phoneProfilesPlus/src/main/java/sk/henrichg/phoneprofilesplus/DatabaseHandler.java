@@ -41,7 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2491;
+    private static final int DATABASE_VERSION = 2493;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -117,6 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = 39;
     static final int ETYPE_RADIO_SWITCH_SIM_ON_OFF = 40;
     static final int ETYPE_VOLUMES = 41;
+    static final int ETYPE_ACTIVATED_PROFILE = 42;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -413,6 +414,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_VOLUMES_VOICE = "volumesVoice";
     private static final String KEY_E_VOLUMES_BLUETOOTHSCO = "volumesBluetoothSCO";
     private static final String KEY_E_VOLUMES_ACCESSIBILITY = "volumesAccessibility";
+    private static final String KEY_E_ACTIVATED_PROFILE_ENABLED = "activatedProfileEnabled";
+    private static final String KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED = "activatedProfileSensorPassed";
+    private static final String KEY_E_ACTIVATED_PROFILE_START_PROFILE = "activatedProfileStartProfile";
+    private static final String KEY_E_ACTIVATED_PROFILE_END_PROFILE = "activatedProfileEndProfile";
+    private static final String KEY_E_ACTIVATED_PROFILE_RUNNING = "activatedProfileRunning";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -860,7 +866,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_VOLUMES_SYSTEM + " " + TEXT_TYPE + ","
                 + KEY_E_VOLUMES_VOICE + " " + TEXT_TYPE + ","
                 + KEY_E_VOLUMES_BLUETOOTHSCO + " " + TEXT_TYPE + ","
-                + KEY_E_VOLUMES_ACCESSIBILITY + " " + TEXT_TYPE
+                + KEY_E_VOLUMES_ACCESSIBILITY + " " + TEXT_TYPE + ","
+                + KEY_E_ACTIVATED_PROFILE_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_ACTIVATED_PROFILE_START_PROFILE + " " + INTEGER_TYPE + ","
+                + KEY_E_ACTIVATED_PROFILE_END_PROFILE + " " + INTEGER_TYPE + ","
+                + KEY_E_ACTIVATED_PROFILE_RUNNING + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1009,6 +1020,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SOUND_PROFILE_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SOUND_PROFILE_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIODIC_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_PERIODIC_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__VOLUMES_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_VOLUMES_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ACTIVATED_PROFILE_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_ACTIVATED_PROFILE_ENABLED + ")");
 
         //db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
 
@@ -1333,6 +1345,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_VOLUMES_VOICE, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_VOLUMES_BLUETOOTHSCO, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_VOLUMES_ACCESSIBILITY, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ACTIVATED_PROFILE_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ACTIVATED_PROFILE_START_PROFILE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ACTIVATED_PROFILE_END_PROFILE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ACTIVATED_PROFILE_RUNNING, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3624,6 +3641,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + "=0");
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + "=0");
+        }
+
+        if (oldVersion < 2492)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACTIVATED_PROFILE_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED + "=0");
+        }
+
+        if (oldVersion < 2493)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACTIVATED_PROFILE_START_PROFILE + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACTIVATED_PROFILE_END_PROFILE + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACTIVATED_PROFILE_RUNNING + "=0");
         }
 
     }
@@ -6379,32 +6409,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    // this is called only from getEvent and getAllEvents
-    // for this is not needed to calling importExportLock.lock();
-    private void getEventPreferences(Event event, SQLiteDatabase db) {
-        getEventPreferencesTime(event, db);
-        getEventPreferencesBattery(event, db);
-        getEventPreferencesCall(event, db);
-        getEventPreferencesAccessory(event, db);
-        getEventPreferencesCalendar(event, db);
-        getEventPreferencesWifi(event, db);
-        getEventPreferencesScreen(event, db);
-        getEventPreferencesBluetooth(event, db);
-        getEventPreferencesSMS(event, db);
-        getEventPreferencesNotification(event, db);
-        getEventPreferencesApplication(event, db);
-        getEventPreferencesLocation(event, db);
-        getEventPreferencesOrientation(event, db);
-        getEventPreferencesMobileCells(event, db);
-        getEventPreferencesNFC(event, db);
-        getEventPreferencesRadioSwitch(event, db);
-        getEventPreferencesAlarmClock(event, db);
-        getEventPreferencesDeviceBoot(event, db);
-        getEventPreferencesSoundProfile(event, db);
-        getEventPreferencesPeriodic(event, db);
-        getEventPreferencesVolumes(event, db);
-    }
-
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_TIME_ENABLED,
@@ -7128,30 +7132,59 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    // this is called only from addEvent and updateEvent.
+    private void getEventPreferencesActivatedProfile(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_ACTIVATED_PROFILE_ENABLED,
+                        KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED,
+                        KEY_E_ACTIVATED_PROFILE_START_PROFILE,
+                        KEY_E_ACTIVATED_PROFILE_END_PROFILE,
+                        KEY_E_ACTIVATED_PROFILE_RUNNING
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesActivatedProfile eventPreferences = event._eventPreferencesActivatedProfile;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_ACTIVATED_PROFILE_ENABLED)) == 1);
+                eventPreferences._startProfile = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_ACTIVATED_PROFILE_START_PROFILE));
+                eventPreferences._endProfile = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_ACTIVATED_PROFILE_END_PROFILE));
+                eventPreferences._running = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_ACTIVATED_PROFILE_RUNNING));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
+
+    // this is called only from getEvent and getAllEvents
     // for this is not needed to calling importExportLock.lock();
-    private void updateEventPreferences(Event event, SQLiteDatabase db) {
-        updateEventPreferencesTime(event, db);
-        updateEventPreferencesBattery(event, db);
-        updateEventPreferencesCall(event, db);
-        updateEventPreferencesAccessory(event, db);
-        updateEventPreferencesCalendar(event, db);
-        updateEventPreferencesWifi(event, db);
-        updateEventPreferencesScreen(event, db);
-        updateEventPreferencesBluetooth(event, db);
-        updateEventPreferencesSMS(event, db);
-        updateEventPreferencesNotification(event, db);
-        updateEventPreferencesApplication(event, db);
-        updateEventPreferencesLocation(event, db);
-        updateEventPreferencesOrientation(event, db);
-        updateEventPreferencesMobileCells(event, db);
-        updateEventPreferencesNFC(event, db);
-        updateEventPreferencesRadioSwitch(event, db);
-        updateEventPreferencesAlarmClock(event, db);
-        updateEventPreferencesDeviceBoot(event, db);
-        updateEventPreferencesSoundProfile(event, db);
-        updateEventPreferencesPeriodic(event, db);
-        updateEventPreferencesVolumes(event, db);
+    private void getEventPreferences(Event event, SQLiteDatabase db) {
+        getEventPreferencesTime(event, db);
+        getEventPreferencesBattery(event, db);
+        getEventPreferencesCall(event, db);
+        getEventPreferencesAccessory(event, db);
+        getEventPreferencesCalendar(event, db);
+        getEventPreferencesWifi(event, db);
+        getEventPreferencesScreen(event, db);
+        getEventPreferencesBluetooth(event, db);
+        getEventPreferencesSMS(event, db);
+        getEventPreferencesNotification(event, db);
+        getEventPreferencesApplication(event, db);
+        getEventPreferencesLocation(event, db);
+        getEventPreferencesOrientation(event, db);
+        getEventPreferencesMobileCells(event, db);
+        getEventPreferencesNFC(event, db);
+        getEventPreferencesRadioSwitch(event, db);
+        getEventPreferencesAlarmClock(event, db);
+        getEventPreferencesDeviceBoot(event, db);
+        getEventPreferencesSoundProfile(event, db);
+        getEventPreferencesPeriodic(event, db);
+        getEventPreferencesVolumes(event, db);
+        getEventPreferencesActivatedProfile(event, db);
     }
 
     private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -7549,6 +7582,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(event._id) });
     }
 
+    private void updateEventPreferencesActivatedProfile(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesActivatedProfile eventPreferences = event._eventPreferencesActivatedProfile;
+
+        values.put(KEY_E_ACTIVATED_PROFILE_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_ACTIVATED_PROFILE_START_PROFILE, eventPreferences._startProfile);
+        values.put(KEY_E_ACTIVATED_PROFILE_END_PROFILE, eventPreferences._endProfile);
+        values.put(KEY_E_ACTIVATED_PROFILE_RUNNING, eventPreferences._running);
+        values.put(KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
+    // this is called only from addEvent and updateEvent.
+    // for this is not needed to calling importExportLock.lock();
+    private void updateEventPreferences(Event event, SQLiteDatabase db) {
+        updateEventPreferencesTime(event, db);
+        updateEventPreferencesBattery(event, db);
+        updateEventPreferencesCall(event, db);
+        updateEventPreferencesAccessory(event, db);
+        updateEventPreferencesCalendar(event, db);
+        updateEventPreferencesWifi(event, db);
+        updateEventPreferencesScreen(event, db);
+        updateEventPreferencesBluetooth(event, db);
+        updateEventPreferencesSMS(event, db);
+        updateEventPreferencesNotification(event, db);
+        updateEventPreferencesApplication(event, db);
+        updateEventPreferencesLocation(event, db);
+        updateEventPreferencesOrientation(event, db);
+        updateEventPreferencesMobileCells(event, db);
+        updateEventPreferencesNFC(event, db);
+        updateEventPreferencesRadioSwitch(event, db);
+        updateEventPreferencesAlarmClock(event, db);
+        updateEventPreferencesDeviceBoot(event, db);
+        updateEventPreferencesSoundProfile(event, db);
+        updateEventPreferencesPeriodic(event, db);
+        updateEventPreferencesVolumes(event, db);
+        updateEventPreferencesActivatedProfile(event, db);
+    }
+
+
     int getEventStatus(Event event)
     {
         importExportLock.lock();
@@ -7860,6 +7937,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         case ETYPE_VOLUMES:
                             sensorPassedField = KEY_E_VOLUMES_SENSOR_PASSED;
                             break;
+                        case ETYPE_ACTIVATED_PROFILE:
+                            sensorPassedField = KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(TABLE_EVENTS,
@@ -7989,6 +8069,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     case ETYPE_VOLUMES:
                         sensorPassed = event._eventPreferencesVolumes.getSensorPassed();
                         sensorPassedField = KEY_E_VOLUMES_SENSOR_PASSED;
+                        break;
+                    case ETYPE_ACTIVATED_PROFILE:
+                        sensorPassed = event._eventPreferencesActivatedProfile.getSensorPassed();
+                        sensorPassedField = KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED;
                         break;
                 }
                 ContentValues values = new ContentValues();
@@ -8236,6 +8320,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         eventTypeChecked = eventTypeChecked + KEY_E_PERIODIC_ENABLED + "=1";
                     else if (eventType == ETYPE_VOLUMES)
                         eventTypeChecked = eventTypeChecked + KEY_E_VOLUMES_ENABLED + "=1";
+                    else if (eventType == ETYPE_ACTIVATED_PROFILE)
+                        eventTypeChecked = eventTypeChecked + KEY_E_ACTIVATED_PROFILE_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +

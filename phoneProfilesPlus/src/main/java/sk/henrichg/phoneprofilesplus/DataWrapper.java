@@ -3663,6 +3663,9 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_VOLUMES:
                             sensorEnabled = _event._eventPreferencesVolumes._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_ACTIVATED_PROFILE:
+                            sensorEnabled = _event._eventPreferencesActivatedProfile._enabled;
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;

@@ -66,6 +66,7 @@ class EventsHandler {
     boolean notAllowedSoundProfile;
     boolean notAllowedPeriodic;
     boolean notAllowedVolumes;
+    boolean notAllowedActivatedProfile;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -88,6 +89,7 @@ class EventsHandler {
     boolean soundProfilePassed;
     boolean periodicPassed;
     boolean volumesPassed;
+    boolean activatedProfilePassed;
 
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
@@ -138,6 +140,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_PERIODIC = "periodic";
     static final String SENSOR_TYPE_PERIODIC_EVENT_END = "periodicEventEnd";
     static final String SENSOR_TYPE_VOLUMES = "volumes";
+    static final String SENSOR_TYPE_ACTIVATED_PROFILE = "activatedProfile";
     static final String SENSOR_TYPE_ALL = "ALL";
 
     public EventsHandler(Context context) {
@@ -1260,6 +1263,8 @@ class EventsHandler {
             case SENSOR_TYPE_DEVICE_BOOT:
             case SENSOR_TYPE_DEVICE_BOOT_EVENT_END:
                 return DatabaseHandler.ETYPE_DEVICE_BOOT;
+            case SENSOR_TYPE_ACTIVATED_PROFILE:
+                return DatabaseHandler.ETYPE_ACTIVATED_PROFILE;
             default:
                 return DatabaseHandler.ETYPE_ALL;
         }
@@ -1648,6 +1653,7 @@ class EventsHandler {
         event._eventPreferencesSoundProfile.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesPeriodic.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesVolumes.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesActivatedProfile.doHandleEvent(this/*, forRestartEvents*/);
 
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
@@ -1803,6 +1809,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedVolumes)
                 allPassed &= volumesPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesActivatedProfile._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedActivatedProfile)
+                allPassed &= activatedProfilePassed;
             else
                 someNotAllowed = true;
         }

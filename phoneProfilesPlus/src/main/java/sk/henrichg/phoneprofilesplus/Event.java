@@ -88,6 +88,7 @@ class Event {
     EventPreferencesSoundProfile _eventPreferencesSoundProfile;
     EventPreferencesPeriodic _eventPreferencesPeriodic;
     EventPreferencesVolumes _eventPreferencesVolumes;
+    EventPreferencesActivatedProfile _eventPreferencesActivatedProfile;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -437,6 +438,11 @@ class Event {
         );
     }
 
+    private void createEventPreferencesActivatedProfile()
+    {
+        this._eventPreferencesActivatedProfile = new EventPreferencesActivatedProfile(this, false, 0, 0);
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -460,6 +466,7 @@ class Event {
         createEventPreferencesSoundProfile();
         createEventPreferencesPeriodic();
         createEventPreferencesVolumes();
+        createEventPreferencesActivatedProfile();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -506,6 +513,8 @@ class Event {
             createEventPreferencesPeriodic();
         if (this._eventPreferencesVolumes == null)
             createEventPreferencesVolumes();
+        if (this._eventPreferencesActivatedProfile == null)
+            createEventPreferencesActivatedProfile();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -527,6 +536,7 @@ class Event {
         this._eventPreferencesSoundProfile.copyPreferences(fromEvent);
         this._eventPreferencesPeriodic.copyPreferences(fromEvent);
         this._eventPreferencesVolumes.copyPreferences(fromEvent);
+        this._eventPreferencesActivatedProfile.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -572,7 +582,9 @@ class Event {
                 (this._eventPreferencesPeriodic._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesVolumes._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesActivatedProfile._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -626,6 +638,8 @@ class Event {
             runnable = runnable && this._eventPreferencesPeriodic.isRunnable(appContext);
         if (this._eventPreferencesVolumes._enabled)
             runnable = runnable && this._eventPreferencesVolumes.isRunnable(appContext);
+        if (this._eventPreferencesActivatedProfile._enabled)
+            runnable = runnable && this._eventPreferencesActivatedProfile.isRunnable(appContext);
 
         return runnable;
     }
@@ -655,7 +669,8 @@ class Event {
                             this._eventPreferencesDeviceBoot._enabled ||
                             this._eventPreferencesSoundProfile._enabled ||
                             this._eventPreferencesPeriodic._enabled ||
-                            this._eventPreferencesVolumes._enabled;
+                            this._eventPreferencesVolumes._enabled ||
+                            this._eventPreferencesActivatedProfile._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -700,6 +715,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesPeriodic.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesVolumes._enabled)
                 accessibilityEnabled = this._eventPreferencesVolumes.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesActivatedProfile._enabled)
+                accessibilityEnabled = this._eventPreferencesActivatedProfile.isAccessibilityServiceEnabled(context);
         }
 
         return accessibilityEnabled;
@@ -759,6 +776,7 @@ class Event {
         this._eventPreferencesSoundProfile.loadSharedPreferences(preferences);
         this._eventPreferencesPeriodic.loadSharedPreferences(preferences);
         this._eventPreferencesVolumes.loadSharedPreferences(preferences);
+        this._eventPreferencesActivatedProfile.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -820,6 +838,7 @@ class Event {
         this._eventPreferencesSoundProfile.saveSharedPreferences(preferences);
         this._eventPreferencesPeriodic.saveSharedPreferences(preferences);
         this._eventPreferencesVolumes.saveSharedPreferences(preferences);
+        this._eventPreferencesActivatedProfile.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -1274,6 +1293,8 @@ class Event {
         _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesVolumes.setSummary(prefMng, key, preferences, context);
         _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesActivatedProfile.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -1351,6 +1372,8 @@ class Event {
         _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesVolumes.setAllSummary(prefMng, preferences, context);
         _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesActivatedProfile.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context, boolean addPassStatus)
@@ -1485,6 +1508,12 @@ class Event {
                 description = description + "<li>" + desc + "</li>";
         }
 
+        if (_eventPreferencesActivatedProfile._enabled) {
+            String desc = _eventPreferencesActivatedProfile.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
         if (!description.isEmpty())
             description = "<ul>" + description + "</ul>";
 
@@ -1513,6 +1542,7 @@ class Event {
         _eventPreferencesSoundProfile.checkPreferences(prefMng, context);
         _eventPreferencesPeriodic.checkPreferences(prefMng, context);
         _eventPreferencesVolumes.checkPreferences(prefMng, context);
+        _eventPreferencesActivatedProfile.checkPreferences(prefMng, context);
     }
 
     /*
@@ -2369,6 +2399,11 @@ class Event {
         //else
         //    _eventPreferencesPeriodic.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
 
+        //if (_eventPreferencesActivatedProfile._enabled)
+        _eventPreferencesActivatedProfile.setSensorPassed(_eventPreferencesActivatedProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        //else
+        //    _eventPreferencesActivatedProfile.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2398,6 +2433,7 @@ class Event {
             _eventPreferencesSoundProfile.setSystemEventForStart(context);
             _eventPreferencesPeriodic.setSystemEventForStart(context);
             _eventPreferencesVolumes.setSystemEventForStart(context);
+            _eventPreferencesActivatedProfile.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2425,6 +2461,7 @@ class Event {
             _eventPreferencesSoundProfile.setSystemEventForPause(context);
             _eventPreferencesPeriodic.setSystemEventForPause(context);
             _eventPreferencesVolumes.setSystemEventForPause(context);
+            _eventPreferencesActivatedProfile.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2452,6 +2489,7 @@ class Event {
             _eventPreferencesSoundProfile.removeSystemEvent(context);
             _eventPreferencesPeriodic.removeSystemEvent(context);
             _eventPreferencesVolumes.removeSystemEvent(context);
+            _eventPreferencesActivatedProfile.removeSystemEvent(context);
         }
     }
 

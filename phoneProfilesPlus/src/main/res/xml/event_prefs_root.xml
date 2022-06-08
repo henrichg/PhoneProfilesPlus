@@ -285,6 +285,14 @@
             app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsDeviceBootParameters" />
 
+        <Preference
+            app:key="eventActivatedProfileCategoryRoot"
+            app:title="@string/event_preferences_category_eventActivatedProfileParameters"
+            app:summary="@string/event_preference_sensor_activated_profile_summary"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsActivatedProfileParameters" />
+
     </PreferenceCategory>
     
 </androidx.preference.PreferenceScreen>
