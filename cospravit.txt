@@ -578,7 +578,8 @@ A potom sa zavola EventsHandler pre senzor "Activated profile".
 Hladat musis VZDY vo vsetkch udalostiach a pre najdene zapisovat parameter senzora.
 EventsHandler pre senzor zavolaj len raz. Po prehladani vsetkych udalosti.
 
-Ak najdena udalost ma v senzore "Activated profile" zapisane, ze sa ma spustat/zastavit
+!!! DOLEZITE:
+Ak najdena udalost ma v senzore "Activated profile" zapisane, ze sa ma spustat/zastavit v "running"
 a ten senzor je passed/not passed, nezapisuj parameter do senzora a nevolaj EventsHandler.
 To aby sa nevolal EventsHandler donekonecna z takeho profilu.
 
@@ -589,11 +590,12 @@ Maj pre ten interny parameter hodnoty:
 
 Senzor type staci len jeden.
 
-Tam, kde volam DatabaseHandler.activateProfile() zavlaj broadcast na vyhladanie udalosti podla
-senzore "Activated profile".
+Tam, kde volam DatabaseHandler.activateProfile() zavolaj broadcast na vyhladanie udalosti podla
+profilov senzora "Activated profile". Musi to byt broadcast, aby sa pridavali nove a nove jeho sendy,
+vzdy ked sa aktivuje profil.
 Vyhladaj udalosti a pozapisuj do ich senzora "Activated profile" interny parameter "running".
 
-A potom spracuj udalosti, zavolanim EventsHandlera. Uz bude interny parameter zapisany, takze budem
+A potom spracuj udalosti, zavolanim EventsHandlera. Uz bude "running" zapisany, takze budem
 vediet nastavit passed/not passed pre senzor.
 
 !!! Bacha, musi byt nastaveny profil v senzore "Activated profile" v "Start profile", "End profile".
