@@ -582,9 +582,11 @@ passed/not passed pre senzor.
 
 Co bude v samotnom senzore si urcim potom. Mozno zmena parametra "Start event"/"End event" profilov
 co su v udalosti.
-!!! Bacha, musi byt nastaveny profil na start aj end udalosti, cize toto by som minimalne mal uzivatelovi
-dat vediet, ci su nastavene. Ak nebudu oba, senzor bude pokladany za nenastaveny, cize ignorovany
-v EventsHandler. BUde natvrdo v senzore nastavovany interny parameter 0 (not set) pri vyhladavani udalosti.
+!!! Bacha, musi byt nastaveny profil na start aj end udalosti, a profil na start udalosti musi mat
+v sebe nastaveny "Start event" a profil na end udalosti zasa "End event".
+Cize toto by som minimalne mal uzivatelovi dat vediet, ci su nastavene. Ak nebudu oba, senzor bude
+pokladany za nenastaveny, cize ignorovany v EventsHandler. Bude natvrdo v senzore nastavovany
+interny parameter 0 (not set) pri vyhladavani udalosti.
 
 Uvidime.
 
