@@ -8,6 +8,8 @@ import android.os.PowerManager;
 
 public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
 
+    static final String EXTRA_ACTIVATED_PROFILE = "activated_profile";
+
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST]  ActivatedProfileEventBroadcastReceiver.onReceive", "xxx");
@@ -15,11 +17,14 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action != null) {
             //PPApplication.logE("ActivatedProfileEventBroadcastReceiver.onReceive", "action=" + action);
-            doWork(/*true,*/ context);
+
+            long profileId = intent.getLongExtra(EXTRA_ACTIVATED_PROFILE, 0);
+            if (profileId != 0)
+                doWork(profileId, context);
         }
     }
 
-    private void doWork(/*boolean useHandler,*/ Context context) {
+    private void doWork(long _profileId, Context context) {
         //PPApplication.logE("[HANDLER] ActivatedProfileEventBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         if (!PPApplication.getApplicationStarted(true))
@@ -28,6 +33,8 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
+            final long profileId = _profileId;
+
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -46,21 +53,43 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-
-//                    PPApplication.logE("[EVENTS_HANDLER_CALL] ActivatedProfileEventBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
-
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                         dataWrapper.fillEventList();
+                        //dataWrapper.fillProfileList(false, false);
 
+                        Profile activatedProfile = dataWrapper.getProfileById(profileId, false, false, false);
+
+                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                         for (Event _event : dataWrapper.eventList) {
-                            if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-//                            PPApplication.logE("[CALENDAR] ActivatedProfileEventBroadcastReceiver.doWork", "setAlarm() - event._id=" + _event._id);
-                                _event._eventPreferencesCalendar.setAlarm(/*true,*/ 0, appContext, true);
+                            if ((_event._eventPreferencesActivatedProfile._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
+                                if (_event._eventPreferencesActivatedProfile.isRunnable(context)) {
+                                    int oldRunning = _event._eventPreferencesActivatedProfile._running;
+
+                                    long startProfile = _event._eventPreferencesActivatedProfile._startProfile;
+                                    if (activatedProfile._id == startProfile) {
+                                        _event._eventPreferencesActivatedProfile._running =
+                                                EventPreferencesActivatedProfile.RUNNING_RUNNING;
+                                        // save running to database
+                                        databaseHandler.
+                                                updateActivatedProfileSensorRunningParameter(_event);
+                                    }
+                                    long endProfile = _event._eventPreferencesActivatedProfile._startProfile;
+                                    if (activatedProfile._id == endProfile) {
+                                        _event._eventPreferencesActivatedProfile._running =
+                                                EventPreferencesActivatedProfile.RUNNING_NOTRUNNING;
+                                        // save running to database
+                                        databaseHandler.
+                                                updateActivatedProfileSensorRunningParameter(_event);
+                                    }
+
+                                    if (oldRunning != _event._eventPreferencesActivatedProfile._running) {
+                                        // running was changed, call EventsHandler
+                                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ACTIVATED_PROFILE);
+                                    }
+                                }
                             }
                         }
-
 
 //                    PPApplication.logE("[EVENTS_HANDLER_CALL] ActivatedProfileEventBroadcastReceiver.doWork", "END run");
                     } catch (Exception e) {
@@ -76,14 +105,6 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             });
-            /*}
-            else {
-                if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.logE("ActivatedProfileEventBroadcastReceiver.doWork", "handle events");
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
-                }
-            }*/
         }
     }
 

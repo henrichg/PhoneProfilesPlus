@@ -4982,6 +4982,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void activateProfile(Profile profile)
     {
         doActivateProfile(profile, true);
+
+        Intent sendIntent = new Intent(PhoneProfilesService.ACTION_ACTIVATED_PROFILE_EVENT_BROADCAST_RECEIVER);
+        sendIntent.putExtra(ActivatedProfileEventBroadcastReceiver.EXTRA_ACTIVATED_PROFILE, profile._id);
+        context.sendBroadcast(sendIntent);
     }
 
     void deactivateProfile()
@@ -9433,6 +9437,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 PPApplication.recordException(e);
             }
             return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateActivatedProfileSensorRunningParameter(Event event) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_E_ACTIVATED_PROFILE_RUNNING, event._eventPreferencesActivatedProfile._running);
+
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
         } finally {
             stopRunningCommand();
         }

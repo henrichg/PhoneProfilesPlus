@@ -22,9 +22,9 @@ class EventPreferencesActivatedProfile extends EventPreferences {
 
     private static final String PREF_EVENT_ACTIVATED_PROFILE_CATEGORY = "eventActivatedProfileCategoryRoot";
 
-    private static final int RUNNING_NOTSET = 0;
-    private static final int RUNNING_RUNNING = 1;
-    private static final int RUNNING_NOTRUNNING = 2;
+    static final int RUNNING_NOTSET = 0;
+    static final int RUNNING_RUNNING = 1;
+    static final int RUNNING_NOTRUNNING = 2;
 
     EventPreferencesActivatedProfile(Event event,
                                      boolean enabled,
@@ -63,6 +63,9 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         this._enabled = preferences.getBoolean(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false);
         this._startProfile = Long.parseLong(preferences.getString(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE, "0"));
         this._endProfile = Long.parseLong(preferences.getString(PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE, "0"));
+
+        // set it to NOSET when parameters are changed
+        this._running = RUNNING_NOTSET;
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
@@ -200,7 +203,8 @@ class EventPreferencesActivatedProfile extends EventPreferences {
     {
         boolean runnable = super.isRunnable(context);
 
-        runnable = runnable && (this._startProfile != 0) && (this._endProfile != 0);
+        runnable = runnable && (this._startProfile != 0) && (this._endProfile != 0)
+                      && (this._startProfile != this._endProfile);
 
         return runnable;
     }
@@ -236,9 +240,11 @@ class EventPreferencesActivatedProfile extends EventPreferences {
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if ((this._startProfile != 0) && (this._endProfile != 0)) {
+                    eventsHandler.activatedProfilePassed =
+                            this._running == RUNNING_RUNNING;
                 }
                 else
-                    eventsHandler.activatedProfilePassed = false;
+                    eventsHandler.notAllowedActivatedProfile = true;
 
                 if (!eventsHandler.notAllowedActivatedProfile) {
                     if (eventsHandler.activatedProfilePassed)
