@@ -631,7 +631,26 @@ if (isActive) {
     }
 }
 
+fun Context.writeSecure(key: String?, value: Any?): Boolean {
+    if (key.isNullOrBlank()) return false
+    return try {
+        Settings.Secure.putString(contentResolver, key, value?.toString())
+        true
+    } catch (e: SecurityException) {
+        Log.e("SystemUI Tuner", "Failed to write to Secure", e)
+        false
+    }
+}
+
 Zdroj: https://github.com/zacharee/Tweaker/blob/master/app/src/main/java/com/zacharee1/systemuituner/services/tiles/NightModeTile.kt
+
+Asi to bude potrebovat root alebo WRITE_SECURE_SETTINGS.
+
+A toto je, ked to hore nepojde. cize zavolanie Settings. Take uz mam pri nejakych parametroch profilu:
+
+ACTION_NIGHT_DISPLAY_SETTINGS
+
+Zdroj: https://developer.android.com/reference/android/provider/Settings#ACTION_NIGHT_DISPLAY_SETTINGS
 
 
 
