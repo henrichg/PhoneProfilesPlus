@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -4983,6 +4984,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     {
         doActivateProfile(profile, true);
 
+        Log.e("DatabaseHandler.activateProfile", "sendBroadcast");
         Intent sendIntent = new Intent(PhoneProfilesService.ACTION_ACTIVATED_PROFILE_EVENT_BROADCAST_RECEIVER);
         sendIntent.putExtra(ActivatedProfileEventBroadcastReceiver.EXTRA_ACTIVATED_PROFILE, profile._id);
         context.sendBroadcast(sendIntent);
