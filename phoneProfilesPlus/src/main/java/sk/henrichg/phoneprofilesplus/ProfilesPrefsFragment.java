@@ -1648,92 +1648,97 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 _notGrantedG1Permission ||
                 _notRootedOrGrantedRoot ||
                 _notDefaultAssistant) {
-            if (//key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
-                key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
-                key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND)) {
-                /*boolean defaultValue =
-                        getResources().getBoolean(
-                                GlobalGUIRoutines.getResourceId(key, "bool", context));*/
+            switch (key) {
+                case Profile.PREF_PROFILE_ASK_FOR_DURATION:
+                case Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE:
+                case Profile.PREF_PROFILE_VOLUME_MUTE_SOUND:
+                //case Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR:
+                    /*boolean defaultValue =
+                            getResources().getBoolean(
+                                    GlobalGUIRoutines.getResourceId(key, "bool", context));*/
 
-                boolean hasVibrator = true;
-                if (key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE)) {
-                    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                    hasVibrator = (vibrator != null) && vibrator.hasVibrator();
-                }
-
-                //noinspection ConstantConditions
-                boolean defaultValue = Profile.defaultValuesBoolean.get(key);
-                if (hasVibrator && preferences.getBoolean(key, defaultValue) != defaultValue) {
-                    title = getString(preferenceTitleId);
-                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                }
-            } else if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)) {
-                title = context.getString(R.string.profile_preferences_exactTime);
-            } else if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)) {
-                String defaultValue = Profile.defaultValuesString.get(key);
-                if (!preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValue).equals(defaultValue))
-                    title = getString(preferenceTitleId);
-            } else {
-                /*String defaultValue =
-                        getResources().getString(
-                                GlobalGUIRoutines.getResourceId(key, "string", context));*/
-                String defaultValue = Profile.defaultValuesString.get(key);
-                String value = preferences.getString(key, defaultValue);
-                if (value != null) {
-                    switch (key) {
-                        case Profile.PREF_PROFILE_VOLUME_RINGTONE:
-                        case Profile.PREF_PROFILE_VOLUME_NOTIFICATION:
-                        case Profile.PREF_PROFILE_VOLUME_MEDIA:
-                        case Profile.PREF_PROFILE_VOLUME_ALARM:
-                        case Profile.PREF_PROFILE_VOLUME_SYSTEM:
-                        case Profile.PREF_PROFILE_VOLUME_VOICE:
-                        case Profile.PREF_PROFILE_VOLUME_DTMF:
-                        case Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY:
-                        case Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO:
-                            if (VolumeDialogPreferenceX.changeEnabled(value)) {
-                                title = getString(preferenceTitleId);
-                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            }
-                            break;
-                        case Profile.PREF_PROFILE_DEVICE_BRIGHTNESS:
-                            if (BrightnessDialogPreferenceX.changeEnabled(value)) {
-                                title = getString(preferenceTitleId);
-                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            }
-                            break;
-                        case Profile.PREF_PROFILE_VOLUME_ZEN_MODE:
-                            title = getString(preferenceTitleId);
-                            notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                            notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            break;
-                        case Profile.PREF_PROFILE_GENERATE_NOTIFICATION:
-                            if (GenerateNotificationDialogPreferenceX.changeEnabled(value)) {
-                                title = getString(preferenceTitleId);
-                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            }
-                            break;
-                        default:
-                            if (!value.equals(defaultValue)) {
-                                if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
-                                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
-                                    title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
-                                else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS))
-                                    title = "(R) " + getString(R.string.profile_preferences_vibrateNotifications);
-                                else if (key.equals(Profile.PREF_PROFILE_DURATION))
-                                    title = context.getString(R.string.profile_preferences_duration);
-                                else
-                                    title = getString(preferenceTitleId);
-                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            }
-                            break;
+                    boolean hasVibrator = true;
+                    if (key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE)) {
+                        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                        hasVibrator = (vibrator != null) && vibrator.hasVibrator();
                     }
-                }
+
+                    //noinspection ConstantConditions
+                    boolean defaultValue = Profile.defaultValuesBoolean.get(key);
+                    if (hasVibrator && preferences.getBoolean(key, defaultValue) != defaultValue) {
+                        title = getString(preferenceTitleId);
+                        notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                        notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                    }
+                    break;
+                case Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME:
+                    title = context.getString(R.string.profile_preferences_exactTime);
+                    break;
+                case Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE:
+                    String defaultValueS = Profile.defaultValuesString.get(key);
+                    if (!preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValueS).equals(defaultValueS))
+                        title = getString(preferenceTitleId);
+                    break;
+                default:
+                    /*String defaultValue =
+                            getResources().getString(
+                                    GlobalGUIRoutines.getResourceId(key, "string", context));*/
+                    defaultValueS = Profile.defaultValuesString.get(key);
+                    String value = preferences.getString(key, defaultValueS);
+                    if (value != null) {
+                        switch (key) {
+                            case Profile.PREF_PROFILE_VOLUME_RINGTONE:
+                            case Profile.PREF_PROFILE_VOLUME_NOTIFICATION:
+                            case Profile.PREF_PROFILE_VOLUME_MEDIA:
+                            case Profile.PREF_PROFILE_VOLUME_ALARM:
+                            case Profile.PREF_PROFILE_VOLUME_SYSTEM:
+                            case Profile.PREF_PROFILE_VOLUME_VOICE:
+                            case Profile.PREF_PROFILE_VOLUME_DTMF:
+                            case Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY:
+                            case Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO:
+                                if (VolumeDialogPreferenceX.changeEnabled(value)) {
+                                    title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
+                            case Profile.PREF_PROFILE_DEVICE_BRIGHTNESS:
+                                if (BrightnessDialogPreferenceX.changeEnabled(value)) {
+                                    title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
+                            case Profile.PREF_PROFILE_VOLUME_ZEN_MODE:
+                                title = getString(preferenceTitleId);
+                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                break;
+                            case Profile.PREF_PROFILE_GENERATE_NOTIFICATION:
+                                if (GenerateNotificationDialogPreferenceX.changeEnabled(value)) {
+                                    title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
+                            default:
+                                if (!value.equals(defaultValueS)) {
+                                    if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
+                                            (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
+                                        title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
+                                    else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS))
+                                        title = "(R) " + getString(R.string.profile_preferences_vibrateNotifications);
+                                    else if (key.equals(Profile.PREF_PROFILE_DURATION))
+                                        title = context.getString(R.string.profile_preferences_duration);
+                                    else
+                                        title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
+                        }
+                    }
+                    break;
             }
         }
         return title;

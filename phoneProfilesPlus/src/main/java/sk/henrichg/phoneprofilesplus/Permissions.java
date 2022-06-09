@@ -981,8 +981,8 @@ class Permissions {
         }
     }
 
-    static boolean checkProfileMicrophone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
-        if (profile == null) return true;
+    static void checkProfileMicrophone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
 
         if (Build.VERSION.SDK_INT <= 30) {
             try {
@@ -992,14 +992,14 @@ class Permissions {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
                         permissions.add(new PermissionType(PERMISSION_PROFILE_MICROPHONE, permission.RECORD_AUDIO));
-                    return granted;
-                } else
-                    return true;
+                //    return /*granted*/;
+                } //else
+                    //return /*true*/;
             } catch (Exception e) {
-                return false;
+                //return /*false*/;
             }
-        } else
-            return true;
+        } //else
+            //return /*true*/;
     }
 
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,

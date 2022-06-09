@@ -1963,6 +1963,8 @@
     <string name="event_preferences_activated_profile_startProfile">Start profile</string>
     <string name="event_preferences_activated_profile_endProfile">End profile</string>
     <string name="event_preferences_category_eventActivatedProfileParameters">Activated profile sensor</string>
+    <string name="event_preferences_activated_profile_info">Configured profiles</string>
+    <string name="event_preferences_activated_profile_info_summary">Profiles must not be the same. If profiles are the same, both parameters will be marked as error in configuration.</string>
 
     <!-- **************************************************************************************** -->
 
