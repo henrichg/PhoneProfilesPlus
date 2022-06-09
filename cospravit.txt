@@ -642,9 +642,27 @@ fun Context.writeSecure(key: String?, value: Any?): Boolean {
     }
 }
 
+const val TWILIGHT_MODE = "twilight_mode"
+const val NIGHT_DISPLAY_ACTIVATED = "night_display_activated"
+const val NIGHT_DISPLAY_AUTO_MODE = "night_display_auto_mode"
+const val NIGHT_DISPLAY_COLOR_TEMPERATURE = "night_display_color_temperature"
+// tiet dve este musim zistit, ci vobec vie nastavit.
+// v aplikacii to nie je
+const val NIGHT_DISPLAY_CUSTOM_START_TIME = "night_display_custom_start_time"
+const val NIGHT_DISPLAY_CUSTOM_END_TIME = "night_display_custom_end_time"
+
+// pre API 24
+writeSecure(NightModeView.TWILIGHT_MODE, info.twilightMode)
+
+// pre API 25+
+writeSecure(NightModeView.NIGHT_DISPLAY_ACTIVATED, info.nightModeActivated)
+writeSecure(NightModeView.NIGHT_DISPLAY_AUTO_MODE, info.nightModeAuto)
+writeSecure(NightModeView.NIGHT_DISPLAY_COLOR_TEMPERATURE, info.nightModeTemp)
+
 Zdroj: https://github.com/zacharee/Tweaker/blob/master/app/src/main/java/com/zacharee1/systemuituner/services/tiles/NightModeTile.kt
 
-Asi to bude potrebovat root alebo WRITE_SECURE_SETTINGS.
+Bude potrebovat WRITE_SECURE_SETTINGS.
+Testovane cez System UI Tuner s grantnutym WRITE_SECURE_SETTINGS.
 
 A toto je, ked to hore nepojde. cize zavolanie Settings. Take uz mam pri nejakych parametroch profilu:
 
