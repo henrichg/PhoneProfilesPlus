@@ -669,6 +669,15 @@ a pomoze len restart mobilu. Len neviem ci to bolo pri tomto.
 !!! Hm, tak ako som pisal. Na Samsungu to zhaslo obrazuvku.
 !!! Takze toto urcite nemozem spravit
 
+Mozno maximalne taky test tam dat, ze nech si uzivatel skusi a za par sekund vrati, teda ak to pojde.
+Vyskusaj aj to. Testuje na Galaxy S10.
+Ak to vrati, tak potom to sprav tak, ze uzivatel musi cez to dako prejst. A len ak potvrdi
+(najlepsie 2x) ze to nezhaslo obrazovku, tak to nastav ako povolene.
+Cize sprav na to dialog s tymi 3 parametrami:
+1. zapnut/vypnut
+2. automaticke zapinanie
+3. teplota farby
+
 ---
 
 Toto je, ked to hore nepojde. Cize zavolanie Settings. Take uz mam pri nejakych parametroch profilu:
