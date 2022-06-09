@@ -670,6 +670,8 @@ a pomoze len restart mobilu. Len neviem ci to bolo pri tomto.
 !!! Hm, tak ako som pisal. Na Samsungu to zhaslo obrazovku.
 !!! Aj ked zmenim len automaticke zapinanie.
 !!! Takze toto urcite nemozem spravit.
+!!! Ale? Mozno System UI tuner zapise len pri zmene automatiky aj to zapnutie. A to je mozno problem.
+!!! Testni, testni testni.
 
 Mozno taky test tam dat, ze nech si uzivatel skusi a za par sekund vrati, teda ak to pojde.
 Vyskusaj aj to. Testuj na Galaxy S10.
