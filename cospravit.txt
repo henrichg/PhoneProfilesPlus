@@ -664,20 +664,25 @@ Zdroj: https://github.com/zacharee/Tweaker/blob/master/app/src/main/java/com/zac
 Bude potrebovat WRITE_SECURE_SETTINGS.
 Testovane cez System UI Tuner s grantnutym WRITE_SECURE_SETTINGS na Pixel 3a.
 
+---
 Testni to potom este na Samsungu, ci to ide. Neviem, niekde som cital, ze to zhasne obrazovku
 a pomoze len restart mobilu. Len neviem ci to bolo pri tomto.
-!!! Hm, tak ako som pisal. Na Samsungu to zhaslo obrazuvku.
-!!! Takze toto urcite nemozem spravit
+!!! Hm, tak ako som pisal. Na Samsungu to zhaslo obrazovku.
+!!! Aj ked zmenim len automaticke zapinanie.
+!!! Takze toto urcite nemozem spravit.
 
-Mozno maximalne taky test tam dat, ze nech si uzivatel skusi a za par sekund vrati, teda ak to pojde.
-Vyskusaj aj to. Testuje na Galaxy S10.
-Ak to vrati, tak potom to sprav tak, ze uzivatel musi cez to dako prejst. A len ak potvrdi
+Mozno taky test tam dat, ze nech si uzivatel skusi a za par sekund vrati, teda ak to pojde.
+Vyskusaj aj to. Testuj na Galaxy S10.
+Ak to vrati, tak potom to sprav tak, ze uzivatel musi cez test dako prejst. A len ak potvrdi
 (najlepsie 2x) ze to nezhaslo obrazovku, tak to nastav ako povolene.
+
 Cize sprav na to dialog s tymi 3 parametrami:
-1. zapnut/vypnut
+1. nemenit/zapnut/vypnut
 2. automaticke zapinanie
 3. teplota farby
-
+4. Test tlacitko a len ak ho potvrdi, tak povolit OK.
+   To s tym OK, to treba ten preference spravit dako inac nez obycajne.
+   S pouiztim public Dialog onCreateDialog(Bundle savedInstanceState)
 ---
 
 Toto je, ked to hore nepojde. Cize zavolanie Settings. Take uz mam pri nejakych parametroch profilu:
