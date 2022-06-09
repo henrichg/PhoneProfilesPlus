@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:text="00:00:00 - 00:05:00"
             tools:ignore="HardcodedText"/>
 
