@@ -662,13 +662,24 @@ writeSecure(NightModeView.NIGHT_DISPLAY_COLOR_TEMPERATURE, info.nightModeTemp)
 Zdroj: https://github.com/zacharee/Tweaker/blob/master/app/src/main/java/com/zacharee1/systemuituner/services/tiles/NightModeTile.kt
 
 Bude potrebovat WRITE_SECURE_SETTINGS.
-Testovane cez System UI Tuner s grantnutym WRITE_SECURE_SETTINGS.
+Testovane cez System UI Tuner s grantnutym WRITE_SECURE_SETTINGS na Pixel 3a.
 
-A toto je, ked to hore nepojde. cize zavolanie Settings. Take uz mam pri nejakych parametroch profilu:
+Testni to potom este na Samsungu, ci to ide. Neviem, niekde som cital, ze to zhasne obrazovku
+a pomoze len restart mobilu. Len neviem ci to bolo pri tomto.
+!!! Hm, tak ako som pisal. Na Samsungu to zhaslo obrazuvku.
+!!! Takze toto urcite nemozem spravit
+
+---
+
+Toto je, ked to hore nepojde. Cize zavolanie Settings. Take uz mam pri nejakych parametroch profilu:
 
 ACTION_NIGHT_DISPLAY_SETTINGS
 
 Zdroj: https://developer.android.com/reference/android/provider/Settings#ACTION_NIGHT_DISPLAY_SETTINGS
+
+Sprav aspon toto, lebo na Galaxy mi to hore vyplo obrazovku. :-(
+
+------------------
 
 
 
