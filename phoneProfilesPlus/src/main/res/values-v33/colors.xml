@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="launcher_background_color">#7cc4d9</color>
+    <color name="launcher_icon_color">@android:color/system_accent1_100</color>
+    <color name="launcher_background_color">@android:color/system_neutral1_800</color>
+    <!--    <color name="launcher_icon_background">#7cc4d9</color>-->
+    <!--    <color name="launcher_icon">#000000</color>-->
 
 
     <color name="notificationDarkBackgroundColor">#FF202020</color>

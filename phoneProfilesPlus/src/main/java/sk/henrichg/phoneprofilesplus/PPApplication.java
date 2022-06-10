@@ -1007,6 +1007,7 @@ public class PPApplication extends Application
 
             PPApplication.logE("##### PPApplication.onCreate", "modVersion=" + getReadableModVersion());
             PPApplication.logE("##### PPApplication.onCreate", "osVersion=" + System.getProperty("os.version"));
+            PPApplication.logE("##### PPApplication.onCreate", "api level=" + Build.VERSION.SDK_INT);
 
             PPApplication.logE("##### PPApplication.onCreate", "deviceName="+ Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME));
             PPApplication.logE("##### PPApplication.onCreate", "release="+ Build.VERSION.RELEASE);
