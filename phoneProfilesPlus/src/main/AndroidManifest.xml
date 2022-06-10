@@ -147,13 +147,13 @@
     <application
         android:name=".PPApplication"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/ppp_app_name"
         android:supportsRtl="true"
         android:resizeableActivity="true"
         android:allowBackup="false"
         android:persistent="true"
         tools:ignore="UnusedAttribute" >
+<!--        android:roundIcon="@mipmap/ic_launcher_round"-->
 
 <!--        android:largeHeap="true"-->
 
