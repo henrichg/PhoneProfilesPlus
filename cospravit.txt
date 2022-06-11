@@ -697,7 +697,10 @@ Sprav aspon toto, lebo na Galaxy mi to hore vyplo obrazovku. :-(
 
 ------------------
 
-
+ic_dashclock
+ic_profile_default
+ic_profile_default_notify
+ic_profile_default_notify_color
 
 
 
