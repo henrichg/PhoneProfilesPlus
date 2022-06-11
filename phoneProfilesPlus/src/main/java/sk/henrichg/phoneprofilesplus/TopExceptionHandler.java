@@ -32,7 +32,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     @SuppressWarnings("StringConcatenationInLoop")
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
     {
-        PPApplication.logE("TopExceptionHandler.uncaughtException", "defaultUEH="+defaultUEH);
+//        PPApplication.logE("TopExceptionHandler.uncaughtException", "defaultUEH="+defaultUEH);
 
         try {
             if (PPApplication.lockDeviceActivity != null) {
