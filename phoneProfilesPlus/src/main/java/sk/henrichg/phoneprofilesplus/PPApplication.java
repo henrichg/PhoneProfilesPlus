@@ -1219,11 +1219,6 @@ public class PPApplication extends Application
             actualVersionCode = PPApplication.getVersionCode(pInfo);
         } catch (Exception ignored) {}
 
-        // this must be before ACRA init, ACRA must ignore some exceptions
-        // Look at TopExceptionHandler.uncaughtException() for ignored exceptions
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
-        //}
-
 //        PPApplication.logE("################# PPApplication.attachBaseContext", "actualVersionCode="+actualVersionCode);
 
 //        PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
@@ -1310,6 +1305,12 @@ public class PPApplication extends Application
         //ACRA.DEV_LOGGING = true;
 
         ACRA.init(this, builder);
+
+        // this must be before ACRA init, ACRA must ignore some exceptions
+        // Look at TopExceptionHandler.uncaughtException() for ignored exceptions
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
+        //}
+
     }
 
 //    @NonNull

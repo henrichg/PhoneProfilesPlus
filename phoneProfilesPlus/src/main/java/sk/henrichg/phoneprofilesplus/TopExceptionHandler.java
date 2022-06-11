@@ -32,7 +32,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     @SuppressWarnings("StringConcatenationInLoop")
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
     {
-//        PPApplication.logE("TopExceptionHandler.uncaughtException", "xxxx");
+        PPApplication.logE("TopExceptionHandler.uncaughtException", "defaultUEH="+defaultUEH);
 
         try {
             if (PPApplication.lockDeviceActivity != null) {
@@ -126,10 +126,20 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 }
             //}
 
+            // this is only for debuging, how is handled ignored exceptions
+            //if (e instanceof java.lang.RuntimeException) {
+            //    if ((e.getMessage() != null) && (e.getMessage().equals("Test Crash"))) {
+            //        PPApplication.logE("TopExceptionHandler.uncaughtException", "it is 'Test Crash'");
+            //        ignore = true;
+            //    }
+            //}
+
             if (!ignore) {
                 //Delegates to Android's error handling
                 defaultUEH.uncaughtException(t, e);
-            }
+            } else
+                //Prevents the service/app from freezing
+                System.exit(2);
         }
         else
             //Prevents the service/app from freezing
