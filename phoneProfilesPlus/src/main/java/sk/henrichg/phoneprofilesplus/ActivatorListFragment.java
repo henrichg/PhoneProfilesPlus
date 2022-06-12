@@ -303,7 +303,7 @@ public class ActivatorListFragment extends Fragment {
 //            if (!someErrorProfiles) {
             if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
                 if (Event.getGlobalEventsRunning()) {
-                    Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+                    Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
                     restartEvents._showInActivator = true;
                     restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
                     dataWrapper.profileList.add(0, restartEvents);

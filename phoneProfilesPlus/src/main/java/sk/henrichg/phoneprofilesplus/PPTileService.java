@@ -171,7 +171,7 @@ public class PPTileService extends TileService {
                         if (Build.VERSION.SDK_INT >= 29) {
                             tile.setSubtitle(null);
                         }
-                        tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_list_item_events_restart_color_filled));
+                        tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_restart_events));
                         tile.setState(Tile.STATE_INACTIVE);
                     }
                     else {

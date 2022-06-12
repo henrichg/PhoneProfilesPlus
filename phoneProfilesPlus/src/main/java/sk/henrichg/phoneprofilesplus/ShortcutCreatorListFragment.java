@@ -157,7 +157,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             this.dataWrapper.profileList.sort(new ProfileComparator());
 
             // add restart events
-            Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+            Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             this.dataWrapper.profileList.add(0, profile);
 
             return null;
