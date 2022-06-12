@@ -697,6 +697,42 @@ Sprav aspon toto, lebo na Galaxy mi to hore vyplo obrazovku. :-(
 
 ------------------
 
+Widget v dynamickych farbach:
+
+https://developer.android.com/guide/topics/appwidgets/enhance
+
+Cize od api level 31 sa toto da spravit.
+
+Sprav to len ak ma uzivatel nastavene: "Change color by night mode". Tento parameter je v PPP od
+api 31, taze super.
+
+Sprav teda styl, a vytvor v31 verzie layoutov a do nich uplne v hornom layoute daj:
+android:theme="@style/xxx" - kde xxx je ta dynamicka tema.
+Vypada to, ze mozes pouizt uz Theme.Material3.DynamicColors.DayNight, material library mas v 1.6.1. ;-)
+
+Dalej, normalne nastavujes farby pozadia, textu a ikony restartu udalosti natvrdo aj pre
+"Change color by night mode". Tak toto uz nerob pre API 31 ale pouzi nirmalne atributy:
+
+- ?android:attr/colorAccent
+- ?android:attr/colorBackground
+- ?android:attr/textColorPrimary
+- ?android:attr/textColorSecondary
+
+Ikone restartu udalost daj tint takto:
+
+ <ImageView
+    ...
+    android:tint="?android:attr/colorAccent"
+    android:src="@drawable/ic_partly_cloudy" />
+
+A pouzi (asi, testni) bielu alebo ciernu verziu ikony. Ak nemas, vytvor samozrejme.
+
+No uvidime. :-)
+
+-----------------------
+
+
+
 
 
 
