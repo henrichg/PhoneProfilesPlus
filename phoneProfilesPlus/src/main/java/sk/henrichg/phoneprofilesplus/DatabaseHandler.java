@@ -5624,13 +5624,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     selectQuery = selectQuery +
                             " AND " + KEY_ACTIVATION_BY_USER_COUNT + "> 0" +
                             " ORDER BY " + KEY_ACTIVATION_BY_USER_COUNT + " DESC " +
-                            " LIMIT " + "4";//limit;
+                            " LIMIT " + "3"; // 3 shortcuts because first is restart events
                 }
                 else {
                     selectQuery = selectQuery +
                             " AND " + KEY_ACTIVATION_BY_USER_COUNT + "= 0" +
                             " ORDER BY " + KEY_PORDER +
-                            " LIMIT " + "4";//limit;
+                            " LIMIT " + "3"; // 3 shortcuts because first is restart events
                 }
 
                 //SQLiteDatabase db = this.getReadableDatabase();
