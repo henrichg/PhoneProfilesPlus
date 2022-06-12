@@ -364,30 +364,45 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         //if (largeLayout)
         //{
-            if (applicationWidgetListHeader)
-            {
-                if (!applicationWidgetListGridLayout)
-                {
+        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode)) {
+            if (applicationWidgetListHeader) {
+                if (!applicationWidgetListGridLayout) {
                     if (applicationWidgetListPrefIndicator)
-                        widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget);
                     else
-                        widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_indicator);
-                }
-                else
-                {
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_indicator);
+                } else {
                     if (applicationWidgetListPrefIndicator)
-                        widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget);
                     else
-                        widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator);
                 }
-            }
-            else
-            {
+            } else {
                 if (!applicationWidgetListGridLayout)
-                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_header);
+                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_header);
                 else
-                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header);
+                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header);
             }
+        } else {
+            if (applicationWidgetListHeader) {
+                if (!applicationWidgetListGridLayout) {
+                    if (applicationWidgetListPrefIndicator)
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_dn);
+                    else
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_indicator_dn);
+                } else {
+                    if (applicationWidgetListPrefIndicator)
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_dn);
+                    else
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator_dn);
+                }
+            } else {
+                if (!applicationWidgetListGridLayout)
+                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_header_dn);
+                else
+                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header_dn);
+            }
+        }
         /*}
         else
         {

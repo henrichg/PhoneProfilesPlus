@@ -110,10 +110,17 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             }
         }
 
-        if (!applicationWidgetListGridLayout)
-            row=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
-        else
-            row=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item);
+        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode)) {
+            if (!applicationWidgetListGridLayout)
+                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
+            else
+                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item);
+        } else {
+            if (!applicationWidgetListGridLayout)
+                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item_dn);
+            else
+                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item_dn);
+        }
     
         Profile profile = getItem(position);
 
