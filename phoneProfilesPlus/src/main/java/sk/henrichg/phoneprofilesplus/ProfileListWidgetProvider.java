@@ -73,6 +73,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
 
+            //TODO zaoblene rohy musia byt natvrdo, lebo neviem ziskat dynamicku farbu z tej Material3 temy :-(
+            if (!applicationWidgetListRoundedCorners) {
+                //applicationWidgetListRoundedCorners = true;
+                applicationWidgetListRoundedCornersRadius = 1;
+            }
+
             if (Build.VERSION.SDK_INT >= 31) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context)) {
@@ -87,7 +93,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
                     //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
-                    applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
+                    //applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
                     applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
@@ -476,7 +482,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         else
             widget.setImageViewResource(R.id.widget_profile_list_rounded_border, R.drawable.ic_empty);
 
-        if (applicationWidgetListRoundedCorners) {
+        //if (applicationWidgetListRoundedCorners) {
             widget.setViewVisibility(R.id.widget_profile_list_background, View.VISIBLE);
             widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
             if (applicationWidgetListShowBorder)
@@ -491,7 +497,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //    widget.setInt(R.id.widget_profile_list_background, "setAlpha", alpha);
             if (applicationWidgetListShowBorder)
                 widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-        }
+        /*}
         else {
             widget.setViewVisibility(R.id.widget_profile_list_background, View.GONE);
             widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.GONE);
@@ -500,14 +506,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             else
                 widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
-            /*widget.setInt(R.id.widget_profile_list_background, "setColorFilter", 0x00000000);
-            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", 0);
-            //else
-            //    widget.setInt(R.id.widget_profile_list_background, "setAlpha", 0);*/
             if (applicationWidgetListShowBorder)
                 widget.setInt(R.id.widget_profile_list_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-        }
+        }*/
 
         // header
         if (applicationWidgetListHeader/* || (!largeLayout)*/)

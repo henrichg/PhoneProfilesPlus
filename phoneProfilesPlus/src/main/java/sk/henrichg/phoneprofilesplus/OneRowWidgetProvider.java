@@ -88,6 +88,15 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
             applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+
+            //TODO zaoblene rohy musia byt natvrdo, lebo neviem ziskat dynamicku farbu z tej Material3 temy :-(
+            PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCorners="+applicationWidgetOneRowRoundedCorners);
+            PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
+            if (!applicationWidgetOneRowRoundedCorners) {
+                //applicationWidgetOneRowRoundedCorners = true;
+                applicationWidgetOneRowRoundedCornersRadius = 1;
+            }
+
             applicationWidgetOneRowLayoutHeight = ApplicationPreferences.applicationWidgetOneRowLayoutHeight;
             //applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
             applicationWidgetOneRowChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
@@ -106,7 +115,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
                     //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
-                    applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+                    //applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
                     applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
@@ -421,36 +430,41 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 RemoteViews remoteViews;
 
-                if (applicationWidgetOneRowLayoutHeight.equals("0")) {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode)) {
+                    if (applicationWidgetOneRowLayoutHeight.equals("0")) {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
+                    } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
+                    } else {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_no_indicator);
+                    }
+                } else {
+                    if (applicationWidgetOneRowLayoutHeight.equals("0")) {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_dn);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator_dn);
+                    } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_dn);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator_dn);
+                    } else {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_dn);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_no_indicator_dn);
+                    }
                 }
-                else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
-                }
-                else {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_no_indicator);
-                }
-                /*if (applicationWidgetOneRowHigherLayout) {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
-                }
-                else {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
-                }*/
 
 //                PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
                 int roundedBackground = 0;
@@ -458,13 +472,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if (PPApplication.isPixelLauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
-                }
-                else
-                if (PPApplication.isOneUILauncherDefault(context)) {
+                } else if (PPApplication.isOneUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
-                }
-                else {
+                } else {
                     switch (applicationWidgetOneRowRoundedCornersRadius) {
                         case 1:
                             roundedBackground = R.drawable.rounded_widget_background_1;
@@ -537,8 +548,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 else
                     remoteViews.setImageViewResource(R.id.widget_one_row_rounded_border, R.drawable.ic_empty);
 
-                if (applicationWidgetOneRowRoundedCorners) {
-                    //PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
+                //if (applicationWidgetOneRowRoundedCorners) {
+//                    PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
                     remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
                     remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
                     if (applicationWidgetOneRowShowBorder) {
@@ -550,15 +561,18 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
                     }
                     remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
-                    remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
-                    //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode))
+                        remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
+
                     remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
-                    //else
-                    //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", alpha);
-                    if (applicationWidgetOneRowShowBorder)
-                        remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                } else {
-                    //PPApplication.logE("OneRowWidgetProvider.onUpdate", "NOT rounded corners");
+
+                    if (applicationWidgetOneRowShowBorder) {
+                        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode))
+                            remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                    }
+                /*} else {
+                    PPApplication.logE("OneRowWidgetProvider.onUpdate", "NOT rounded corners");
                     remoteViews.setViewVisibility(R.id.widget_one_row_background, View.GONE);
                     remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
                     if (applicationWidgetOneRowShowBorder) {
@@ -569,15 +583,20 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
                         remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
                     }
-                    remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
-                        /*remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", 0x00000000);
-                        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                        remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", 0);
-                        //else
-                        //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", 0);*/
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode))
+                        remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
+                    else {
+                        // THIS NOT WORKING, NOT ROUNDED CORNERS TYPE WILL BE REMOVED
+                        //int bgColor = ContextCompat.getColor(context, GlobalGUIRoutines.getThemeBackgroundColorForWidget(context));
+                        int bgColor = GlobalGUIRoutines.getThemeBackgroundColorForWidget(context);
+                        redBackground = Color.red(bgColor);
+                        greenBackground = Color.green(bgColor);
+                        blueBackground = Color.blue(bgColor);
+                        remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
+                    }
                     if (applicationWidgetOneRowShowBorder)
                         remoteViews.setInt(R.id.widget_one_row_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                }
+                }*/
 
                 if (isIconResourceID) {
                     if (profile._iconBitmap != null)
@@ -592,7 +611,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
                 }
 
-                remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode))
+                    remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
 
                 remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
                 if (applicationWidgetOneRowPrefIndicator) {
@@ -605,11 +625,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     }
                 }
 
-                //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
-                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
-                bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
-                remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
-                //}
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode)) {
+                    //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
+                    remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                    //}
+                }
 
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running=" + Event.getGlobalEventsRunning(context));

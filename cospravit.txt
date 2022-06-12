@@ -727,7 +727,13 @@ Ikone restartu udalost daj tint takto:
 
 A pouzi (asi, testni) bielu alebo ciernu verziu ikony. Ak nemas, vytvor samozrejme.
 
-No uvidime. :-)
+Ide to, aspon poadie slo, spravime ak ostatne.
+
+DOLEZITE:
+
+Musis vyhodit moznost nemat zaoblene rohy. Ono mi neeeeeeeeee dostat farbu pozadia pri nezaoblenych.
+Ak ma uzivatel nastavene, ze nechce zaoblene rozhy, nastav zaoblenost 1.
+Vyhod to aj z preferences.
 
 -----------------------
 
