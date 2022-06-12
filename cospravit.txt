@@ -729,6 +729,11 @@ A pouzi (asi, testni) bielu alebo ciernu verziu ikony. Ak nemas, vytvor samozrej
 
 Ide to, aspon poadie slo, spravime ak ostatne.
 
+List widget.
+Pouziva oddelovac ako RelatioveLayout. Nahrad ho ImageVew, ktory bude mat bitmapu amo ic_empty,
+len bude ciernej farby. A samozrejme pridaj tint.
+
+
 DOLEZITE:
 
 Musis vyhodit moznost nemat zaoblene rohy. Ono mi neeeeeeeeee dostat farbu pozadia pri nezaoblenych.
