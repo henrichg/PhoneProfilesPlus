@@ -2072,15 +2072,17 @@ class ActivateProfileHelper {
             if (profile._soundRingtoneChangeSIM1 == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
+                    //boolean sim0Exists;
                     boolean sim1Exists;
                     //boolean sim2Exists;
                     synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        sim1Exists = sim0Exists;
+                        PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
+
+                        //sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        //sim1Exists = sim0Exists;
                         //sim2Exists = sim0Exists;
                         //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                        sim1Exists = /*sim1Exists &&*/ PPApplication.simCardsMutext.sim1Exists;
                         //sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
                     }
                     if (sim1Exists) {
@@ -2206,16 +2208,18 @@ class ActivateProfileHelper {
             if (profile._soundRingtoneChangeSIM2 == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
+                    //boolean sim0Exists;
                     //boolean sim1Exists;
                     boolean sim2Exists;
                     synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
+
+                        //sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
                         //sim1Exists = sim0Exists;
-                        sim2Exists = sim0Exists;
+                        //sim2Exists = sim0Exists;
                         //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
                         //sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                        sim2Exists = /*sim2Exists &&*/ PPApplication.simCardsMutext.sim2Exists;
                     }
                     if (sim2Exists) {
 
@@ -2334,15 +2338,17 @@ class ActivateProfileHelper {
             if (profile._soundNotificationChangeSIM1 == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
+                    //boolean sim0Exists;
                     boolean sim1Exists;
                     //boolean sim2Exists;
                     synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        sim1Exists = sim0Exists;
+                        PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
+
+                        //sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        //sim1Exists = sim0Exists;
                         //sim2Exists = sim0Exists;
                         //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                        sim1Exists = /*sim1Exists &&*/ PPApplication.simCardsMutext.sim1Exists;
                         //sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
                     }
                     if (sim1Exists) {
@@ -2525,16 +2531,18 @@ class ActivateProfileHelper {
             if (profile._soundNotificationChangeSIM2 == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
+                    //boolean sim0Exists;
                     //boolean sim1Exists;
                     boolean sim2Exists;
                     synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
+
+                        //sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
                         //sim1Exists = sim0Exists;
-                        sim2Exists = sim0Exists;
+                        //sim2Exists = sim0Exists;
                         //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
                         //sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                        sim2Exists = /*sim2Exists &&*/ PPApplication.simCardsMutext.sim2Exists;
                     }
                     if (sim2Exists) {
 
@@ -2714,16 +2722,19 @@ class ActivateProfileHelper {
             if (profile._soundSameRingtoneForBothSIMCards != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
+                    //boolean sim0Exists;
                     boolean sim1Exists;
                     boolean sim2Exists;
                     synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        sim1Exists = sim0Exists;
-                        sim2Exists = sim0Exists;
+                        PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
+                        PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
+
+                        //sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        //sim1Exists = sim0Exists;
+                        //sim2Exists = sim0Exists;
                         //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                        sim1Exists = /*sim1Exists &&*/ PPApplication.simCardsMutext.sim1Exists;
+                        sim2Exists = /*sim2Exists &&*/ PPApplication.simCardsMutext.sim2Exists;
                     }
                     if (sim1Exists && sim2Exists) {
 
@@ -6083,13 +6094,18 @@ class ActivateProfileHelper {
 
         boolean simExists;
         synchronized (PPApplication.simCardsMutext) {
-            simExists = PPApplication.simCardsMutext.simCardsDetected &&
+            PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(context, 0);
+            simExists = //PPApplication.simCardsMutext.simCardsDetected &&
                     PPApplication.simCardsMutext.sim0Exists;
-            if (simCard == 1)
+            if (simCard == 1) {
+                PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
                 simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+            }
             else
-            if (simCard == 2)
+            if (simCard == 2) {
+                PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
                 simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+            }
         }
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             PPApplication.isRooted(false) &&
@@ -6287,13 +6303,18 @@ class ActivateProfileHelper {
 
         boolean simExists;
         synchronized (PPApplication.simCardsMutext) {
-            simExists = PPApplication.simCardsMutext.simCardsDetected &&
+            PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(context, 0);
+            simExists = //PPApplication.simCardsMutext.simCardsDetected &&
                     PPApplication.simCardsMutext.sim0Exists;
-            if (simCard == 1)
+            if (simCard == 1) {
+                PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
                 simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+            }
             else
-            if (simCard == 2)
+            if (simCard == 2) {
+                PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
                 simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+            }
         }
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -7098,12 +7119,18 @@ class ActivateProfileHelper {
 //                    if (simCard != -1) {
                         boolean simExists;
                         synchronized (PPApplication.simCardsMutext) {
-                            simExists = PPApplication.simCardsMutext.simCardsDetected;
-                            if (simCard == 1)
+                            PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(context, 0);
+                            simExists = PPApplication.simCardsMutext.sim0Exists;
+                            //simExists = PPApplication.simCardsMutext.simCardsDetected;
+                            if (simCard == 1) {
+                                PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
                                 simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+                            }
                             else
-                            if (simCard == 2)
+                            if (simCard == 2) {
+                                PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
                                 simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+                            }
                         }
 
                         if ((simCard == -1) || simExists) {
@@ -7259,13 +7286,18 @@ class ActivateProfileHelper {
 
         boolean simExists;
         synchronized (PPApplication.simCardsMutext) {
-            simExists = PPApplication.simCardsMutext.simCardsDetected &&
+            PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(context, 0);
+            simExists = //PPApplication.simCardsMutext.simCardsDetected &&
                     PPApplication.simCardsMutext.sim0Exists;
-            if (simCard == 1)
+            if (simCard == 1) {
+                PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
                 simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+            }
             else
-            if (simCard == 2)
+            if (simCard == 2) {
+                PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
                 simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+            }
         }
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&

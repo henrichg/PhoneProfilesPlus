@@ -367,10 +367,19 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         boolean sim1Exists;
         boolean sim2Exists;
         synchronized (PPApplication.simCardsMutext) {
-            sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
-            sim2Exists = sim1Exists;
-            sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-            sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+            if (getActivity() != null) {
+                Context appContext = getActivity().getApplicationContext();
+                PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(appContext, 1);
+                PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(appContext, 2);
+            } else {
+                PPApplication.simCardsMutext.sim1Exists = false;
+                PPApplication.simCardsMutext.sim2Exists = false;
+            }
+
+            //sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
+            //sim2Exists = sim1Exists;
+            sim1Exists = /*sim1Exists &&*/ PPApplication.simCardsMutext.sim1Exists;
+            sim2Exists = /*sim2Exists &&*/ PPApplication.simCardsMutext.sim2Exists;
         }
 
         RelativeLayout connectedCellRelLa;
@@ -748,10 +757,19 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             if (fragment != null) {
 
                 synchronized (PPApplication.simCardsMutext) {
-                    sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
-                    sim2Exists = sim1Exists;
-                    sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                    sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                    if (fragment.getActivity() != null) {
+                        Context appContext = fragment.getActivity().getApplicationContext();
+                        PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(appContext, 1);
+                        PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(appContext, 2);
+                    } else {
+                        PPApplication.simCardsMutext.sim1Exists = false;
+                        PPApplication.simCardsMutext.sim2Exists = false;
+                    }
+
+                    //sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
+                    //sim2Exists = sim1Exists;
+                    sim1Exists = /*sim1Exists &&*/ PPApplication.simCardsMutext.sim1Exists;
+                    sim2Exists = /*sim2Exists &&*/ PPApplication.simCardsMutext.sim2Exists;
                 }
 
                 _cellName = fragment.cellName.getText().toString();

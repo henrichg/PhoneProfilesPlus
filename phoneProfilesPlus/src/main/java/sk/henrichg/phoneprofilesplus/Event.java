@@ -3174,7 +3174,8 @@ class Event {
                     if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
                         boolean simExists;
                         synchronized (PPApplication.simCardsMutext) {
-                            simExists = PPApplication.simCardsMutext.simCardsDetected &&
+                            PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(context, 0);
+                            simExists = //PPApplication.simCardsMutext.simCardsDetected &&
                                     PPApplication.simCardsMutext.sim0Exists;
                         }
                         if (simExists)
@@ -3223,7 +3224,8 @@ class Event {
                     if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
                         boolean simExists;
                         synchronized (PPApplication.simCardsMutext) {
-                            simExists = PPApplication.simCardsMutext.simCardsDetected &&
+                            PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(context, 0);
+                            simExists = //PPApplication.simCardsMutext.simCardsDetected &&
                                     PPApplication.simCardsMutext.sim0Exists;
                         }
                         if (simExists)
@@ -3260,7 +3262,8 @@ class Event {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
                         boolean simExists;
                         synchronized (PPApplication.simCardsMutext) {
-                            simExists = PPApplication.simCardsMutext.simCardsDetected &&
+                            PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(context, 0);
+                            simExists = //PPApplication.simCardsMutext.simCardsDetected &&
                                     PPApplication.simCardsMutext.sim0Exists;
                         }
                         if (simExists)

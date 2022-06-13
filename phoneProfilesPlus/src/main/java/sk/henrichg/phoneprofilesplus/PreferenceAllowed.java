@@ -260,10 +260,12 @@ class PreferenceAllowed {
                 if (telephonyManager != null) {
                     boolean sim0Exists;
                     synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(appContext, 0);
+
+                        //sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
                         //if (!sim0Exists)
                         //    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA (1)", "sim0Exists="+sim0Exists);
-                        sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                        sim0Exists = /*sim0Exists &&*/ PPApplication.simCardsMutext.sim0Exists;
                         //if (!sim0Exists)
                         //    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA (2)", "sim0Exists="+sim0Exists);
                     }
@@ -1140,8 +1142,10 @@ class PreferenceAllowed {
 
                         boolean sim0Exists;
                         synchronized (PPApplication.simCardsMutext) {
-                            sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                            sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                            PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(appContext, 0);
+
+                            //sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                            sim0Exists = /*sim0Exists &&*/ PPApplication.simCardsMutext.sim0Exists;
                         }
                         if (!sim0Exists) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;

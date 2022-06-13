@@ -1133,9 +1133,20 @@ public class PPApplication extends Application
         initSIMCards();
         synchronized (PPApplication.simCardsMutext) {
             simCardsMutext.sim0Exists = PPApplication.hasSIMCard(getApplicationContext(), 0);
-            simCardsMutext.sim1Exists = PPApplication.hasSIMCard(getApplicationContext(), 1);
-            simCardsMutext.sim2Exists = PPApplication.hasSIMCard(getApplicationContext(), 2);
-            simCardsMutext.simCardsDetected = true;
+
+            int phoneCount = 1;
+            if (Build.VERSION.SDK_INT >= 26) {
+                TelephonyManager telephonyManager = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    phoneCount = telephonyManager.getPhoneCount();
+                }
+            }
+            if (phoneCount > 1) {
+                simCardsMutext.sim1Exists = PPApplication.hasSIMCard(getApplicationContext(), 1);
+                simCardsMutext.sim2Exists = PPApplication.hasSIMCard(getApplicationContext(), 2);
+            }
+
+            //simCardsMutext.simCardsDetected = true;
         }
 
         /*
@@ -3439,7 +3450,7 @@ public class PPApplication extends Application
     // dual SIM --------------------------------------------
     static synchronized void initSIMCards() {
         synchronized (PPApplication.simCardsMutext) {
-            simCardsMutext.simCardsDetected = false;
+            //simCardsMutext.simCardsDetected = false;
             simCardsMutext.sim0Exists = false;
             simCardsMutext.sim1Exists = false;
             simCardsMutext.sim2Exists = false;
@@ -3447,12 +3458,15 @@ public class PPApplication extends Application
     }
 
     @SuppressLint("NewApi")
-    static boolean hasSIMCard(Context appContext, int simCard/*, boolean testSim0*/) {
+    static boolean hasSIMCard(Context appContext, int simCard) {
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
-            if ((Build.VERSION.SDK_INT < 26) || ((simCard == 0)/* && (!testSim0)*/)) {
-                // sim card is ready
-                return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
+            if ((Build.VERSION.SDK_INT < 26) || (simCard == 0)) {
+                if (simCard > 0)
+                    return false;
+                else {
+                    return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
+                }
             } else {
                 boolean hasSIM = false;
                 if (Permissions.checkPhone(appContext)) {

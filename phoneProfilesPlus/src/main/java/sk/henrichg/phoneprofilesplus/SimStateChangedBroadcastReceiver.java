@@ -3,8 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.telephony.TelephonyManager;
 
 /**
  * Handles broadcasts related to SIM card state changes.
@@ -72,9 +74,20 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.initSIMCards();
                     synchronized (PPApplication.simCardsMutext) {
                         PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(appContext, 0);
-                        PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(appContext, 1);
-                        PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(appContext, 2);
-                        PPApplication.simCardsMutext.simCardsDetected = true;
+
+                        int phoneCount = 1;
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                            if (telephonyManager != null) {
+                                phoneCount = telephonyManager.getPhoneCount();
+                            }
+                        }
+                        if (phoneCount > 1) {
+                            PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(appContext, 1);
+                            PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(appContext, 2);
+                        }
+
+                        //PPApplication.simCardsMutext.simCardsDetected = true;
 //                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim0Exists="+PPApplication.simCardsMutext.sim0Exists);
 //                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim1Exists="+PPApplication.simCardsMutext.sim1Exists);
 //                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim2Exists="+PPApplication.simCardsMutext.sim2Exists);
