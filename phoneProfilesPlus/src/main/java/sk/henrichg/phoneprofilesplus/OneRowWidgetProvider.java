@@ -89,9 +89,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
 
-            //TODO zaoblene rohy musia byt natvrdo, lebo neviem ziskat dynamicku farbu z tej Material3 temy :-(
-            PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCorners="+applicationWidgetOneRowRoundedCorners);
-            PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
+            // "Rounded corners" parameter is removed, is forced to true
+//            PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCorners="+applicationWidgetOneRowRoundedCorners);
+//            PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
             if (!applicationWidgetOneRowRoundedCorners) {
                 //applicationWidgetOneRowRoundedCorners = true;
                 applicationWidgetOneRowRoundedCornersRadius = 1;

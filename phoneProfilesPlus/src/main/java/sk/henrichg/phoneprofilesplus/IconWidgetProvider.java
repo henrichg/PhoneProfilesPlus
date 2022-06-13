@@ -80,7 +80,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
             applicationWidgetIconChangeColorsByNightMode = ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode;
 
-            //TODO zaoblene rohy musia byt natvrdo, lebo neviem ziskat dynamicku farbu z tej Material3 temy :-(
+            // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetIconRoundedCorners) {
                 //applicationWidgetIconRoundedCorners = true;
                 applicationWidgetIconRoundedCornersRadius = 1;

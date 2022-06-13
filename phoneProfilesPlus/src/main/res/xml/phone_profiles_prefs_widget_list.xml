@@ -57,11 +57,11 @@
         app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
-        app:key="applicationWidgetListRoundedCorners"
-        app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
-        app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <SwitchPreferenceCompat-->
+<!--        app:key="applicationWidgetListRoundedCorners"-->
+<!--        app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"-->
+<!--        app:defaultValue="true"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationWidgetListRoundedCornersRadius"
         app:summary="@string/phone_profiles_pref_applicationWidgetCornerRadius"

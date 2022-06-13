@@ -73,7 +73,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
 
-            //TODO zaoblene rohy musia byt natvrdo, lebo neviem ziskat dynamicku farbu z tej Material3 temy :-(
+            // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetListRoundedCorners) {
                 //applicationWidgetListRoundedCorners = true;
                 applicationWidgetListRoundedCornersRadius = 1;

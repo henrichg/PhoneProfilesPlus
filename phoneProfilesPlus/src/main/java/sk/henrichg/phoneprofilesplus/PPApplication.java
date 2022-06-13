@@ -261,7 +261,7 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
 
-                                                +"|OneRowWidgetProvider"
+                                                //+"|OneRowWidgetProvider"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
