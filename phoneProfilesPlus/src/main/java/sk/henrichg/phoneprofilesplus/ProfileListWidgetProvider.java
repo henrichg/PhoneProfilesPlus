@@ -403,14 +403,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header_dn);
             }
         }
-        /*}
-        else
-        {
-            if (applicationWidgetListPrefIndicator)
-                widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_small);
-            else
-                widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_small_no_indicator);
-        }*/
 
 //        PPApplication.logE("ProfileListWidgetProvider.onUpdate", "applicationWidgetListRoundedCornersRadius="+applicationWidgetListRoundedCornersRadius);
         int roundedBackground = 0;
@@ -505,13 +497,16 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             else
                 widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.GONE);
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
-            widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
-            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alphaBackground);
-            //else
-            //    widget.setInt(R.id.widget_profile_list_background, "setAlpha", alpha);
-            if (applicationWidgetListShowBorder)
-                widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+
+            if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode))
+                widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
+
+            widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alphaBackground);
+
+            if (applicationWidgetListShowBorder) {
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode))
+                    widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+            }
         /*}
         else {
             widget.setViewVisibility(R.id.widget_profile_list_background, View.GONE);
@@ -591,7 +586,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
             }
 
-            widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
+            if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode))
+                widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
 
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
             if (applicationWidgetListPrefIndicator)
@@ -604,16 +600,15 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     widget.setViewVisibility(R.id.widget_profile_list_header_profile_pref_indicator, GONE);
                     //widget.setImageViewResource(R.id.widget_profile_list_header_profile_pref_indicator, R.drawable.ic_empty);
             }
-            //if (largeLayout)
-            //{
-                widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, separatorLightness, separatorLightness, separatorLightness));
-            //}
 
-            //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+            if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode))
+                widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, separatorLightness, separatorLightness, separatorLightness));
+
+            if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode)) {
                 Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
-            //}
+            }
 
         }
         ////////////////////////////////////////////////

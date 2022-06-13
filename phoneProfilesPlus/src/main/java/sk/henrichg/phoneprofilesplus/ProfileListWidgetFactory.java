@@ -175,20 +175,17 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 if (profile._checked) {
                     row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 16);
 
-                    //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
-                    //else
-                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.parseColor("#33b5e5"));
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode))
+                        row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
                 } else {
                     row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
 
-                    //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
-                    //else
-                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode))
+                        row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
                 }
             } else {
-                row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode))
+                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
             }
             if ((!applicationWidgetListHeader) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
