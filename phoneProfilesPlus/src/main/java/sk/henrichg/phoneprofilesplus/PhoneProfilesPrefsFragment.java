@@ -3735,8 +3735,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetShowBorder);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
+            //if (!summary.isEmpty()) summary = summary + " • ";
+            //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius);
             if (!summary.isEmpty()) summary = summary + " • ";
@@ -3758,8 +3758,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetShowBorder);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
+            //if (!summary.isEmpty()) summary = summary + " • ";
+            //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius);
             if (!summary.isEmpty()) summary = summary + " • ";
@@ -3779,8 +3779,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColorB);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconShowBorder);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconRoundedCorners);
+            //if (!summary.isEmpty()) summary = summary + " • ";
+            //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconRoundedCorners);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconCornerRadius);
             if (!summary.isEmpty()) summary = summary + " • ";

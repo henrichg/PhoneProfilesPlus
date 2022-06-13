@@ -847,8 +847,6 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Please do not configure interval to value less than</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minutes. This greatly increases the battery consumption.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconds. This greatly increases the battery consumption.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">not upgraded PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">Activated profile:</string>
     <string name="profile_activation_interactive_preference_notification_text">Click here to open:</string>
@@ -2084,6 +2082,9 @@
 <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
 <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
 <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
+
+<!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
+<!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
 
 </resources>
 
