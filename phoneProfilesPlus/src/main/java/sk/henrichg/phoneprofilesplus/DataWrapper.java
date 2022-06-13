@@ -2250,8 +2250,10 @@ public class DataWrapper {
         }
         else
         {
-            DatabaseHandler.getInstance(context).activateProfile(profile);
-            setProfileActive(profile);
+            if (profile != null) {
+                DatabaseHandler.getInstance(context).activateProfile(profile);
+                setProfileActive(profile);
+            }
 
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfile");
             PPApplication.updateGUI(false, false, context);
