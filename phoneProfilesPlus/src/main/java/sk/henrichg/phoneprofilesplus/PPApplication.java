@@ -3462,11 +3462,7 @@ public class PPApplication extends Application
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
             if ((Build.VERSION.SDK_INT < 26) || (simCard == 0)) {
-                if (simCard > 0)
-                    return false;
-                else {
-                    return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
-                }
+                return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
             } else {
                 boolean hasSIM = false;
                 if (Permissions.checkPhone(appContext)) {
@@ -3481,26 +3477,26 @@ public class PPApplication extends Application
                             PPApplication.recordException(e);
                         }
                         if (subscriptionList != null) {
-                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                            for (int i = 0; i < subscriptionList.size(); i++) {
                                 // Get the active subscription ID for a given SIM card.
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 if (subscriptionInfo != null) {
                                     int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    /*if (simCard == 0) {
+                                //if (simCard == 0) {
+                                //    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                //        // sim card is ready
+                                //        hasSIM = true;
+                                //        break;
+                                //    }
+                                //}
+                                //else {
+                                    if (simCard == (slotIndex + 1)) {
                                         if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
                                             // sim card is ready
                                             hasSIM = true;
                                             break;
                                         }
                                     }
-                                    else {*/
-                                        if (simCard == (slotIndex+1)) {
-                                            if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                                // sim card is ready
-                                                hasSIM = true;
-                                                break;
-                                            }
-                                        }
                                     //}
                                 }
                             }

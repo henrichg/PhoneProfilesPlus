@@ -140,7 +140,7 @@
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsCalendarParameters" />
-            
+
         <Preference
             app:title="@string/event_preferences_category_eventBatteryParameters"
             app:summary="@string/event_preference_sensor_battery_summary"
