@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -1178,7 +1179,11 @@ class Event {
         }
     }
 
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    public void setSummary(PreferenceManager prefMng,
+                           String key,
+                           SharedPreferences preferences,
+                           Context context,
+                           boolean alsoSensors)
     {
         if (key.equals(PREF_EVENT_NAME) ||
             key.equals(PREF_EVENT_PROFILE_START) ||
@@ -1249,52 +1254,54 @@ class Event {
                     preference.setEnabled(true);
             }
         }
-
         setCategorySummary(prefMng, key, preferences, context);
-        _eventPreferencesTime.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesBattery.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesBattery.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesCall.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesCall.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesAccessories.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesAccessories.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesCalendar.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesWifi.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesSMS.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesNotification.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesNotification.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesApplication.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesApplication.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesLocation.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesLocation.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesOrientation.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesOrientation.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesMobileCells.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesMobileCells.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesNFC.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesNFC.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesRadioSwitch.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesAlarmClock.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesSoundProfile.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesPeriodic.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesVolumes.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesActivatedProfile.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
+
+        if (alsoSensors) {
+            _eventPreferencesTime.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesBattery.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesBattery.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesCall.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesCall.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesAccessories.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesAccessories.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesCalendar.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesWifi.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesSMS.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesNotification.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesNotification.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesApplication.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesApplication.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesLocation.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesLocation.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesOrientation.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesOrientation.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesMobileCells.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesMobileCells.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesNFC.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesNFC.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesRadioSwitch.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesAlarmClock.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesSoundProfile.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesPeriodic.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesVolumes.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesActivatedProfile.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
+        }
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -1306,30 +1313,31 @@ class Event {
         if (preference != null)
             preference.setTitle("[»»] " + context.getString(R.string.event_preferences_noPauseByManualActivation));
 
-        setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NAME, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PROFILE_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PROFILE_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PRIORITY, preferences, context);
-        setSummary(prefMng, PREF_EVENT_DELAY_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_DELAY_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_AT_END_DO, preferences, context);
-        setSummary(prefMng, PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_IGNORE_MANUAL_ACTIVATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context);
-        //setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context);
-        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NAME, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_PROFILE_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_PROFILE_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_PRIORITY, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_DELAY_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_DELAY_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_AT_END_DO, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_IGNORE_MANUAL_ACTIVATION, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context, false);
+        //setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, preferences, context, false);
         setCategorySummary(prefMng, "", preferences, context);
+
         _eventPreferencesTime.setAllSummary(prefMng, preferences, context);
         _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesBattery.setAllSummary(prefMng, preferences, context);

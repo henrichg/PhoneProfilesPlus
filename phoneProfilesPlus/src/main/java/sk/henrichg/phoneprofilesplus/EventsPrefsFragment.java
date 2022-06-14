@@ -1140,7 +1140,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             return;
 
         event.checkPreferences(prefMng, getActivity());
-        event.setSummary(prefMng, key, sharedPreferences, getActivity());
+        event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
 
         setRedTextToPreferences();
 
@@ -1290,8 +1290,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
 
-            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context);
-            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context);
+            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context, false);
+            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context, false);
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE)) {
             RingtonePreferenceX preference = prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND_START);
