@@ -1424,7 +1424,6 @@ class ApplicationPreferences {
             defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P;
         }
         else
-            // default value for Pixel (Android 12) -> 0 (custom)
             defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
