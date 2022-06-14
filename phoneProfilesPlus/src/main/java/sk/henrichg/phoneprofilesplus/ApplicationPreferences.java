@@ -1417,8 +1417,9 @@ class ApplicationPreferences {
     static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS = "0"; // custom
     static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P = "1"; // native
     static String notificationNotificationStyleDefaultValue() {
+        // change: for all devices with Android 12 set "native"
         String defaultValue;
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
+        if (/*PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&*/ (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
             defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P;
         }
@@ -1428,7 +1429,8 @@ class ApplicationPreferences {
         return defaultValue;
     }
     static void notificationNotificationStyle(Context context) {
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
+        // change: for all devices with Android 12 set "native"
+        if (/*PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&*/ (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_NOTIFICATION_STYLE)) {
                 // not contains this preference set to 1
