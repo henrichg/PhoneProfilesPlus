@@ -73,9 +73,6 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
         //preference.dualSIMSupported = false;
 
         //if (transactionCodeVoice != -1) {
-            //preference.dualSIMSupported = true;
-            Log.e("DefaultSIMDialogPreferenceFragmentX.onBindDialogView", "voice dualSIMSupported = true");
-
             GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
                     R.layout.highlighted_spinner,
@@ -106,9 +103,6 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
         }*/
 
         //if (transactionCodeSMS != -1) {
-            //preference.dualSIMSupported = true;
-            Log.e("DefaultSIMDialogPreferenceFragmentX.onBindDialogView", "sms dualSIMSupported = true");
-
             GlobalGUIRoutines.HighlightedSpinnerAdapter smsSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
                     R.layout.highlighted_spinner,
@@ -139,9 +133,6 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
         }*/
 
         //if (transactionCodeData != -1) {
-            //preference.dualSIMSupported = true;
-            Log.e("DefaultSIMDialogPreferenceFragmentX.onBindDialogView", "data dualSIMSupported = true");
-
             GlobalGUIRoutines.HighlightedSpinnerAdapter dataSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
                     R.layout.highlighted_spinner,
