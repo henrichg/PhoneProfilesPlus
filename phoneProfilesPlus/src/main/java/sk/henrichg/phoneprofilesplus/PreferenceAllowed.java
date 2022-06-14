@@ -258,12 +258,15 @@ class PreferenceAllowed {
 
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
-                    boolean sim0Exists;
-                    sim0Exists = PPApplication.hasSIMCard(appContext, 0);
+                    if ((Build.VERSION.SDK_INT > 27) ||
+                        (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 0)) {
+                        // for Android 8-, airplane mode disables sim card completely
+                        boolean sim0Exists = PPApplication.hasSIMCard(appContext, 0);
 
-                    if (!sim0Exists) {
-                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        if (!sim0Exists) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
                     }
                 } else {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -1124,12 +1127,16 @@ class PreferenceAllowed {
                             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
                         }
 
-                        boolean sim0Exists;
-                        sim0Exists = PPApplication.hasSIMCard(appContext, 0);
+                        if ((Build.VERSION.SDK_INT > 27) ||
+                                (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 0)) {
+                            // for Android 8-, airplane mode disables sim card completely
+                            boolean sim0Exists;
+                            sim0Exists = PPApplication.hasSIMCard(appContext, 0);
 
-                        if (!sim0Exists) {
-                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            if (!sim0Exists) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
                         }
                     } else {
                         if ((profile != null) && (profile._deviceNetworkType != 0)) {
@@ -1221,14 +1228,6 @@ class PreferenceAllowed {
 
                             if (phoneCount > 1) {
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                                /*if (!sim1Exists) {
-                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }
-                                if (!sim2Exists) {
-                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }*/
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
