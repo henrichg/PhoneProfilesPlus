@@ -31,3 +31,7 @@ allprojects {
         options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
     }
 }
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
