@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.preference.DialogPreference;
 
@@ -17,7 +18,7 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
     private String defaultValue;
     private boolean savedInstanceState;
 
-    boolean dualSIMSupported = false;
+    //boolean dualSIMSupported = false;
 
     int voiceValue = 0;
     int smsValue = 0;
@@ -63,7 +64,9 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
 
     private void setSummaryDSDP()
     {
-        if (dualSIMSupported) {
+        Log.e("DefaultSIMDialogPreferenceX.setSummaryDSDP", "xxx");
+
+        //if (dualSIMSupported) {
             String prefVolumeDataSummary;
 
             prefVolumeDataSummary = _context.getString(R.string.default_sim_subscription_voice) + ": ";
@@ -92,7 +95,7 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
             }
 
             setSummary(prefVolumeDataSummary);
-        }
+        //}
     }
 
     String getSValue() {
