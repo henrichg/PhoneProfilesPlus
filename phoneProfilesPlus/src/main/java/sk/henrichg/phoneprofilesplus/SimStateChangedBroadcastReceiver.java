@@ -71,29 +71,6 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 //                        }
 //                    }
 
-                    PPApplication.initSIMCards();
-                    synchronized (PPApplication.simCardsMutext) {
-                        PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(appContext, 0);
-
-                        int phoneCount = 1;
-                        if (Build.VERSION.SDK_INT >= 26) {
-                            TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                            if (telephonyManager != null) {
-                                phoneCount = telephonyManager.getPhoneCount();
-                            }
-                        }
-                        if (phoneCount > 1) {
-                            PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(appContext, 1);
-                            PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(appContext, 2);
-                        }
-
-                        //PPApplication.simCardsMutext.simCardsDetected = true;
-//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim0Exists="+PPApplication.simCardsMutext.sim0Exists);
-//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim1Exists="+PPApplication.simCardsMutext.sim1Exists);
-//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim2Exists="+PPApplication.simCardsMutext.sim2Exists);
-//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.simCardsDetected="+PPApplication.simCardsMutext.simCardsDetected);
-                    }
-
                     PhoneProfilesService.registerPhoneCallsListener(false, appContext);
                     PPApplication.sleep(1000);
                     PhoneProfilesService.registerPhoneCallsListener(true, appContext);

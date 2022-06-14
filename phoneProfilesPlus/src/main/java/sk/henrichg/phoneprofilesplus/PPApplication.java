@@ -369,7 +369,6 @@ public class PPApplication extends Application
     static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();
     static final PhoneProfilesServiceMutex phoneProfilesServiceMutex = new PhoneProfilesServiceMutex();
     static final RootMutex rootMutex = new RootMutex();
-    static final SIMCardsMutex simCardsMutext = new SIMCardsMutex();
     static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     //static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     static final ShowPPPNotificationMutex showPPPNotificationMutex = new ShowPPPNotificationMutex();
@@ -1130,24 +1129,6 @@ public class PPApplication extends Application
         */
 
         initRoot();
-        initSIMCards();
-        synchronized (PPApplication.simCardsMutext) {
-            simCardsMutext.sim0Exists = PPApplication.hasSIMCard(getApplicationContext(), 0);
-
-            int phoneCount = 1;
-            if (Build.VERSION.SDK_INT >= 26) {
-                TelephonyManager telephonyManager = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    phoneCount = telephonyManager.getPhoneCount();
-                }
-            }
-            if (phoneCount > 1) {
-                simCardsMutext.sim1Exists = PPApplication.hasSIMCard(getApplicationContext(), 1);
-                simCardsMutext.sim2Exists = PPApplication.hasSIMCard(getApplicationContext(), 2);
-            }
-
-            //simCardsMutext.simCardsDetected = true;
-        }
 
         /*
         try {
@@ -3448,14 +3429,6 @@ public class PPApplication extends Application
     //------------------------------------------------------------
 
     // dual SIM --------------------------------------------
-    static synchronized void initSIMCards() {
-        synchronized (PPApplication.simCardsMutext) {
-            //simCardsMutext.simCardsDetected = false;
-            simCardsMutext.sim0Exists = false;
-            simCardsMutext.sim1Exists = false;
-            simCardsMutext.sim2Exists = false;
-        }
-    }
 
     @SuppressLint("NewApi")
     static boolean hasSIMCard(Context appContext, int simCard) {

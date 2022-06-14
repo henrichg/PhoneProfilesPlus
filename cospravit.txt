@@ -729,54 +729,6 @@ HOTOVO
 
 -----------------------
 
-Pravo READ_PHONE_STATE pytam:
-
-profile._deviceMobileData
-profile._deviceMobileDataSIM1
-profile._deviceMobileDataSIM2
-profile._deviceNetworkType
-profile._deviceNetworkTypeSIM1
-profile._deviceNetworkTypeSIM2
-profile._deviceDefaultSIMCards
-profile._deviceOnOffSIM1
-profile._deviceOnOffSIM2
-profile._volumeSpeakerPhone - ked ma nastaveny unlink
-event._eventPreferencesCall
-event._eventPreferencesMobileCells
-event._eventPreferencesSMS
-event._eventPreferencesRadioSwitch
-
-Ak nema ani jedno z tohoto nastavene, nevypyta si Phone permisison.
-Toto nie je velmi dobre, lebo potom detekcia ake mam sim karty nefunguje.
-Co kua s tym?
-
-V PPApplication,onCreate() sa nastavuju, ale potrebuju toto pravo pre dual sim:
-PPApplication.hasSIMCard() ho checkuje. Ak nema pravo, tak sa nastavia na false.
-Pre sim0 prave netestuje, takze aspon toto je OK.
-
-simCardsMutext.sim0Exists = PPApplication.hasSIMCard(getApplicationContext(), 0);
-simCardsMutext.sim1Exists = PPApplication.hasSIMCard(getApplicationContext(), 1);
-simCardsMutext.sim2Exists = PPApplication.hasSIMCard(getApplicationContext(), 2);
-simCardsMutext.simCardsDetected = true;
-
-Takze hadam, ak nema pravo, tak to aspon zdeteguje ci je default sim ready a da do sim0Exists true, ak je.
-
-Mozno by som to mohol na zaciatku v doForFirstStart() checknut, ci je pravo nastavene a ak nie je,
-zobrazil by som notifikaciu, ze ci chce pravo grantnut, ak uvazuje o vyuzivani funkcii dual sim.
-A ak grantne, nastavili by sa tie fieldy.
-
-!!!!
-Inac tie, fieldy by sa mohli nastavit vzdy, ak grantne toto pravo pre veci, co ho potrebuju.
-Sprav. HOTOVO
-
-Neda sa zdetegovat, ci sa READ_PHONE_STATE nastavi cez Settings. A to je problem. Vtedy sa tie
-fieldy neupdatnu. Hm, hm.
-
-???
-A co tak spravit to naplnenie aj v checku toho permission. Ze ak je grantnute, tak naplnit.
-Bez ohladu na to, ci uz je zdetegovane. Tak ako to robi SimStateChangedBroadcastReceiver.
-Hm, len aby to netrvalo prilis dlho. Cele spatne toto. :-(
-
 
 
 

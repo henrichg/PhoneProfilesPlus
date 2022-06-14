@@ -153,15 +153,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         phoneCount = telephonyManager.getPhoneCount();
                     }
                     boolean twoSimCards = false;
-                    synchronized (PPApplication.simCardsMutext) {
-                        if (phoneCount == 2) {
-                            PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
-                            PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
+                    if (phoneCount == 2) {
+                        boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
+                        boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
 
-                            twoSimCards = //PPApplication.simCardsMutext.simCardsDetected &&
-                                    PPApplication.simCardsMutext.sim1Exists &&
-                                    PPApplication.simCardsMutext.sim2Exists;
-                        }
+                        twoSimCards =
+                                sim1Exists &&
+                                sim2Exists;
                     }
 
                     if (phoneCount > 1) {
@@ -524,15 +522,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
                     boolean twoSimCards = false;
-                    synchronized (PPApplication.simCardsMutext) {
-                        if (phoneCount == 2) {
-                            PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
-                            PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
+                    if (phoneCount == 2) {
+                        boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
+                        boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
 
-                            twoSimCards = //PPApplication.simCardsMutext.simCardsDetected &&
-                                    PPApplication.simCardsMutext.sim1Exists &&
-                                    PPApplication.simCardsMutext.sim2Exists;
-                        }
+                        twoSimCards =
+                                sim1Exists &&
+                                sim2Exists;
                     }
                     if (twoSimCards)
                         runnable = runnable &&
@@ -576,18 +572,16 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     phoneCount = telephonyManager.getPhoneCount();
                 }
                 if (phoneCount > 1) {
-                    synchronized (PPApplication.simCardsMutext) {
-                        if (phoneCount == 2) {
-                            PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
-                            PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
+                    if (phoneCount == 2) {
+                        boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
+                        boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
 
-                            boolean twoSimCards = //PPApplication.simCardsMutext.simCardsDetected &&
-                                    PPApplication.simCardsMutext.sim1Exists &&
-                                    PPApplication.simCardsMutext.sim2Exists;
-                            preference.setVisible(twoSimCards);
-                            if (twoSimCards)
-                                preference.setEnabled(enabled);
-                        }
+                        boolean twoSimCards =
+                                sim1Exists &&
+                                sim2Exists;
+                        preference.setVisible(twoSimCards);
+                        if (twoSimCards)
+                            preference.setEnabled(enabled);
                     }
                 } else
                     preference.setVisible(false);
@@ -603,18 +597,16 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     phoneCount = telephonyManager.getPhoneCount();
                 }
                 if (phoneCount > 1) {
-                    synchronized (PPApplication.simCardsMutext) {
-                        if (phoneCount == 2) {
-                            PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
-                            PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
+                    if (phoneCount == 2) {
+                        boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
+                        boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
 
-                            boolean twoSimCards = //PPApplication.simCardsMutext.simCardsDetected &&
-                                    PPApplication.simCardsMutext.sim1Exists &&
-                                    PPApplication.simCardsMutext.sim2Exists;
-                            preference.setVisible(twoSimCards);
-                            if (twoSimCards)
-                                preference.setEnabled(enabled);
-                        }
+                        boolean twoSimCards =
+                                sim1Exists &&
+                                sim2Exists;
+                        preference.setVisible(twoSimCards);
+                        if (twoSimCards)
+                            preference.setEnabled(enabled);
                     }
                 } else
                     preference.setVisible(false);
@@ -870,14 +862,12 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 phoneCount = telephonyManager.getPhoneCount();
                             }
                             boolean twoSimCards = false;
-                            synchronized (PPApplication.simCardsMutext) {
-                                if (phoneCount == 2) {
-                                    PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(eventsHandler.context, 1);
-                                    PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(eventsHandler.context, 2);
+                            if (phoneCount == 2) {
+                                boolean sim1Exists = PPApplication.hasSIMCard(eventsHandler.context, 1);
+                                boolean sim2Exists = PPApplication.hasSIMCard(eventsHandler.context, 2);
 
-                                    twoSimCards = PPApplication.simCardsMutext.sim1Exists &&
-                                                    PPApplication.simCardsMutext.sim2Exists;
-                                }
+                                twoSimCards = sim1Exists &&
+                                                sim2Exists;
                             }
 
                             if (phoneCount > 1) {
@@ -959,14 +949,12 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             phoneCount = telephonyManager.getPhoneCount();
                         }
                         boolean twoSimCards = false;
-                        synchronized (PPApplication.simCardsMutext) {
-                            if (phoneCount == 2) {
-                                PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(eventsHandler.context, 1);
-                                PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(eventsHandler.context, 2);
+                        if (phoneCount == 2) {
+                            boolean sim1Exists = PPApplication.hasSIMCard(eventsHandler.context, 1);
+                            boolean sim2Exists = PPApplication.hasSIMCard(eventsHandler.context, 2);
 
-                                twoSimCards = PPApplication.simCardsMutext.sim1Exists &&
-                                        PPApplication.simCardsMutext.sim2Exists;
-                            }
+                            twoSimCards = sim1Exists &&
+                                    sim2Exists;
                         }
 
                         if ((phoneCount > 1) && twoSimCards) {
@@ -1000,41 +988,39 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (_simOnOff != 0) {
                     if (Build.VERSION.SDK_INT >= 26) {
                         tested = true;
-                        synchronized (PPApplication.simCardsMutext) {
-                            PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(eventsHandler.context, 0);
-                            PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(eventsHandler.context, 1);
-                            PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(eventsHandler.context, 2);
+                        boolean sim0Exists = PPApplication.hasSIMCard(eventsHandler.context, 0);
+                        boolean sim1Exists = PPApplication.hasSIMCard(eventsHandler.context, 1);
+                        boolean sim2Exists = PPApplication.hasSIMCard(eventsHandler.context, 2);
 
-                            switch (_simOnOff) {
-                                case 1:
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                            (PPApplication.simCardsMutext.sim0Exists ||
-                                             PPApplication.simCardsMutext.sim1Exists ||
-                                             PPApplication.simCardsMutext.sim2Exists);
-                                    break;
-                                case 2:
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                            ((!PPApplication.simCardsMutext.sim0Exists) ||
-                                             (!PPApplication.simCardsMutext.sim1Exists) ||
-                                             (!PPApplication.simCardsMutext.sim2Exists));
-                                    break;
-                                case 3:
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                                    (PPApplication.simCardsMutext.sim1Exists);
-                                    break;
-                                case 4:
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                            (!PPApplication.simCardsMutext.sim1Exists);
-                                    break;
-                                case 5:
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                            (PPApplication.simCardsMutext.sim2Exists);
-                                    break;
-                                case 6:
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                            (!PPApplication.simCardsMutext.sim2Exists);
-                                    break;
-                            }
+                        switch (_simOnOff) {
+                            case 1:
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                        (sim0Exists ||
+                                         sim1Exists ||
+                                         sim2Exists);
+                                break;
+                            case 2:
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                        ((!sim0Exists) ||
+                                         (!sim1Exists) ||
+                                         (!sim2Exists));
+                                break;
+                            case 3:
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                                (sim1Exists);
+                                break;
+                            case 4:
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                        (!sim1Exists);
+                                break;
+                            case 5:
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                        (sim2Exists);
+                                break;
+                            case 6:
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                        (!sim2Exists);
+                                break;
                         }
                     }
                 }

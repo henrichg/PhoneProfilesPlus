@@ -186,14 +186,11 @@ class EventPreferencesCall extends EventPreferences {
                             int phoneCount = telephonyManager.getPhoneCount();
                             if (phoneCount > 1) {
                                 boolean simExists;
-                                synchronized (PPApplication.simCardsMutext) {
-                                    PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
-                                    PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
+                                boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
+                                boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
 
-                                    //simExists = PPApplication.simCardsMutext.simCardsDetected;
-                                    simExists = /*simExists &&*/ PPApplication.simCardsMutext.sim1Exists;
-                                    simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
-                                }
+                                simExists = sim1Exists;
+                                simExists = simExists && sim2Exists;
                                 hasSIMCard = simExists;
                             }
                         }
@@ -302,14 +299,11 @@ class EventPreferencesCall extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
-                        synchronized (PPApplication.simCardsMutext) {
-                            PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
-                            PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
+                        boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
+                        boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
 
-                            //simExists = PPApplication.simCardsMutext.simCardsDetected;
-                            simExists = /*simExists &&*/ PPApplication.simCardsMutext.sim1Exists;
-                            simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
-                        }
+                        simExists = sim1Exists;
+                        simExists = simExists && sim2Exists;
                         hasSIMCard = simExists;
                         ListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
@@ -512,17 +506,8 @@ class EventPreferencesCall extends EventPreferences {
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
-                    boolean sim1Exists;
-                    boolean sim2Exists;
-                    synchronized (PPApplication.simCardsMutext) {
-                        PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(context, 1);
-                        PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(context, 2);
-
-                        //sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        //sim2Exists = sim1Exists;
-                        sim1Exists = /*sim1Exists &&*/ PPApplication.simCardsMutext.sim1Exists;
-                        sim2Exists = /*sim2Exists &&*/ PPApplication.simCardsMutext.sim2Exists;
-                    }
+                    boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
+                    boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
 
                     showPreferences = true;
                     //preference = prefMng.findPreference("eventCallDualSIMInfo");

@@ -366,20 +366,13 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
         boolean sim1Exists;
         boolean sim2Exists;
-        synchronized (PPApplication.simCardsMutext) {
-            if (getActivity() != null) {
-                Context appContext = getActivity().getApplicationContext();
-                PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(appContext, 1);
-                PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(appContext, 2);
-            } else {
-                PPApplication.simCardsMutext.sim1Exists = false;
-                PPApplication.simCardsMutext.sim2Exists = false;
-            }
-
-            //sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
-            //sim2Exists = sim1Exists;
-            sim1Exists = /*sim1Exists &&*/ PPApplication.simCardsMutext.sim1Exists;
-            sim2Exists = /*sim2Exists &&*/ PPApplication.simCardsMutext.sim2Exists;
+        if (getActivity() != null) {
+            Context appContext = getActivity().getApplicationContext();
+            sim1Exists = PPApplication.hasSIMCard(appContext, 1);
+            sim2Exists = PPApplication.hasSIMCard(appContext, 2);
+        } else {
+            sim1Exists = false;
+            sim2Exists = false;
         }
 
         RelativeLayout connectedCellRelLa;
@@ -756,20 +749,13 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             MobileCellsPreferenceFragmentX fragment = fragmentWeakRef.get();
             if (fragment != null) {
 
-                synchronized (PPApplication.simCardsMutext) {
-                    if (fragment.getActivity() != null) {
-                        Context appContext = fragment.getActivity().getApplicationContext();
-                        PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(appContext, 1);
-                        PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(appContext, 2);
-                    } else {
-                        PPApplication.simCardsMutext.sim1Exists = false;
-                        PPApplication.simCardsMutext.sim2Exists = false;
-                    }
-
-                    //sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
-                    //sim2Exists = sim1Exists;
-                    sim1Exists = /*sim1Exists &&*/ PPApplication.simCardsMutext.sim1Exists;
-                    sim2Exists = /*sim2Exists &&*/ PPApplication.simCardsMutext.sim2Exists;
+                if (fragment.getActivity() != null) {
+                    Context appContext = fragment.getActivity().getApplicationContext();
+                    sim1Exists = PPApplication.hasSIMCard(appContext, 1);
+                    sim2Exists = PPApplication.hasSIMCard(appContext, 2);
+                } else {
+                    sim1Exists = false;
+                    sim2Exists = false;
                 }
 
                 _cellName = fragment.cellName.getText().toString();
