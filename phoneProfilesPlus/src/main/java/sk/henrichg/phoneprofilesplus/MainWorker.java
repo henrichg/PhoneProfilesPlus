@@ -102,8 +102,8 @@ public class MainWorker extends Worker {
                     case HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG:
                     case HANDLE_EVENTS_PERIODIC_WORK_TAG:
-                        String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
-                        if (Event.getGlobalEventsRunning() && (sensorType != null)) {
+                        int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
+                        if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
                             //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
                             //PPApplication.logE("DelayedWorksWorker.doWork", "sensorType="+sensorType);
                             // start events handler
@@ -341,7 +341,7 @@ public class MainWorker extends Worker {
             //        appContext, dataWrapper) {
             __handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (1)");
-                PPApplication.logE("MainWorker.doAfterFirstStart", "START");
+                PPApplication.logE("MainWorker.doAfterFirstStart", "in handler - START");
 
                 //Context appContext= appContextWeakRef.get();
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();

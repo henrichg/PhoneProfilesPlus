@@ -428,7 +428,7 @@ class EventPreferencesPeriodic extends EventPreferences {
 
                     //enqueueWork();
                     Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PERIODIC)
+                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PERIODIC)
                             .build();
 
                     OneTimeWorkRequest worker =
@@ -523,10 +523,10 @@ class EventPreferencesPeriodic extends EventPreferences {
 //                        PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
 //                    }
 
-                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PERIODIC))
+                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PERIODIC)
                         eventsHandler.periodicPassed = true;
                     else {
-                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PERIODIC_EVENT_END))
+                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PERIODIC_EVENT_END)
                             eventsHandler.periodicPassed = false;
                         else
                             eventsHandler.periodicPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

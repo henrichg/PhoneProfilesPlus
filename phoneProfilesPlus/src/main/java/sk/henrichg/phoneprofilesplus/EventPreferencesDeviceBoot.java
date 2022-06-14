@@ -361,10 +361,10 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                         PPApplication.logE("[BOOT] EventPreferencesDeviceBoot.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                     }*/
 
-                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_DEVICE_BOOT))
+                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_DEVICE_BOOT)
                         eventsHandler.deviceBootPassed = true;
                     else if (!_permanentRun) {
-                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END))
+                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END)
                             eventsHandler.deviceBootPassed = false;
                         else
                             eventsHandler.deviceBootPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

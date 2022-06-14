@@ -39,7 +39,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
             if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
             {
                 Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
+                        .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
                         .build();
 
                 OneTimeWorkRequest worker =

@@ -518,7 +518,7 @@ class MobileCellsListener extends PhoneStateListener {
             //}*/
 
             Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_MOBILE_CELLS)
+                    .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_MOBILE_CELLS)
                     .build();
 
             OneTimeWorkRequest worker =

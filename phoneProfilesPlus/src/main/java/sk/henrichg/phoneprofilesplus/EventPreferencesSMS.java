@@ -854,11 +854,11 @@ class EventPreferencesSMS extends EventPreferences {
                             PPApplication.logE("EventPreferencesSMS.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                         }*/
 
-                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_SMS))
+                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_SMS)
                             eventsHandler.smsPassed = true;
                         else if (!_permanentRun) {
                             //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "sensorType=" + sensorType);
-                            if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_SMS_EVENT_END))
+                            if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_SMS_EVENT_END)
                                 eventsHandler.smsPassed = false;
                             else
                                 eventsHandler.smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

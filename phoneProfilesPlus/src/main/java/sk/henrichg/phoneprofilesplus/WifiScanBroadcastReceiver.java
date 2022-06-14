@@ -83,7 +83,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                             //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start work");
 
                             Data workData = new Data.Builder()
-                                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
+                                    .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
                                     .build();
 
                             OneTimeWorkRequest worker =

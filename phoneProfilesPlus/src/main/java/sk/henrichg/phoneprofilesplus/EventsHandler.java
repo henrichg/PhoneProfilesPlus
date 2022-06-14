@@ -19,7 +19,7 @@ class EventsHandler {
 
     final Context context;
 
-    String sensorType;
+    int sensorType;
 
     private int oldRingerMode;
     //private int oldSystemRingerMode;
@@ -91,7 +91,58 @@ class EventsHandler {
     boolean volumesPassed;
     boolean activatedProfilePassed;
 
+    static final int SENSOR_TYPE_RADIO_SWITCH = 1;
+    static final int SENSOR_TYPE_RESTART_EVENTS = 2;
+    static final int SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK = 3;
+    static final int SENSOR_TYPE_MANUAL_RESTART_EVENTS = 4;
+    static final int SENSOR_TYPE_PHONE_CALL = 5;
+    static final int SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED = 6;
+    static final int SENSOR_TYPE_SEARCH_CALENDAR_EVENTS = 7;
+    static final int SENSOR_TYPE_SMS = 8;
+    static final int SENSOR_TYPE_NOTIFICATION = 9;
+    static final int SENSOR_TYPE_NFC_TAG = 10;
+    static final int SENSOR_TYPE_EVENT_DELAY_START = 11;
+    static final int SENSOR_TYPE_EVENT_DELAY_END = 12;
+    static final int SENSOR_TYPE_BATTERY = 13;
+    static final int SENSOR_TYPE_BATTERY_WITH_LEVEL = 14;
+    static final int SENSOR_TYPE_BLUETOOTH_CONNECTION = 15;
+    static final int SENSOR_TYPE_BLUETOOTH_STATE = 16;
+    static final int SENSOR_TYPE_DOCK_CONNECTION = 17;
+    static final int SENSOR_TYPE_CALENDAR = 18;
+    static final int SENSOR_TYPE_TIME = 19;
+    static final int SENSOR_TYPE_APPLICATION = 20;
+    static final int SENSOR_TYPE_HEADSET_CONNECTION = 21;
+    //static final int SENSOR_TYPE_NOTIFICATION_EVENT_END = 22;
+    static final int SENSOR_TYPE_SMS_EVENT_END = 23;
+    static final int SENSOR_TYPE_WIFI_CONNECTION = 24;
+    static final int SENSOR_TYPE_WIFI_STATE = 25;
+    static final int SENSOR_TYPE_POWER_SAVE_MODE = 26;
+    static final int SENSOR_TYPE_LOCATION_SCANNER = 27;
+    static final int SENSOR_TYPE_LOCATION_MODE = 28;
+    static final int SENSOR_TYPE_DEVICE_ORIENTATION = 29;
+    static final int SENSOR_TYPE_MOBILE_CELLS = 30;
+    static final int SENSOR_TYPE_NFC_EVENT_END = 31;
+    static final int SENSOR_TYPE_WIFI_SCANNER = 32;
+    static final int SENSOR_TYPE_BLUETOOTH_SCANNER = 33;
+    static final int SENSOR_TYPE_SCREEN = 34;
+    static final int SENSOR_TYPE_DEVICE_IDLE_MODE = 35;
+    static final int SENSOR_TYPE_PHONE_CALL_EVENT_END = 36;
+    static final int SENSOR_TYPE_ALARM_CLOCK = 37;
+    static final int SENSOR_TYPE_ALARM_CLOCK_EVENT_END = 38;
+    static final int SENSOR_TYPE_DEVICE_BOOT = 39;
+    static final int SENSOR_TYPE_DEVICE_BOOT_EVENT_END = 40;
+    static final int SENSOR_TYPE_PERIODIC_EVENTS_HANDLER = 41;
+    static final int SENSOR_TYPE_ACCESSORIES = 42;
+    static final int SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK = 43;
+    static final int SENSOR_TYPE_CONTACTS_CACHE_CHANGED = 44;
+    static final int SENSOR_TYPE_SOUND_PROFILE = 45;
+    static final int SENSOR_TYPE_PERIODIC = 46;
+    static final int SENSOR_TYPE_PERIODIC_EVENT_END = 47;
+    static final int SENSOR_TYPE_VOLUMES = 48;
+    static final int SENSOR_TYPE_ACTIVATED_PROFILE = 49;
+    static final int SENSOR_TYPE_ALL = 999;
 
+    /*
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
     static final String SENSOR_TYPE_RESTART_EVENTS = "restartEvents";
     static final String SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK = "restartEventsNotUnblock";
@@ -142,17 +193,18 @@ class EventsHandler {
     static final String SENSOR_TYPE_VOLUMES = "volumes";
     static final String SENSOR_TYPE_ACTIVATED_PROFILE = "activatedProfile";
     static final String SENSOR_TYPE_ALL = "ALL";
+    */
 
     public EventsHandler(Context context) {
         this.context = context.getApplicationContext();
     }
 
-    void handleEvents(String sensorType) {
+    void handleEvents(int sensorType) {
         synchronized (PPApplication.eventsHandlerMutex) {
 //            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "sensorType="+sensorType);
 
-            boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
-            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
+            boolean manualRestart = sensorType == SENSOR_TYPE_MANUAL_RESTART_EVENTS;
+            boolean isRestart = (sensorType == SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
 //            if (isRestart)
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "-- start --------------------------------");
@@ -380,11 +432,11 @@ class EventsHandler {
                         saveCalendarStartEndTime = true;
                 }
             }
-            if (sensorType.equals(SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
-                    sensorType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS) ||
-                    sensorType.equals(SENSOR_TYPE_CALENDAR) ||
-                    sensorType.equals(SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK) ||
-                    sensorType.equals(SENSOR_TYPE_SCREEN) || // also for screen on/off compute calendar alarms
+            if ((sensorType == SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
+                    (sensorType == SENSOR_TYPE_SEARCH_CALENDAR_EVENTS) ||
+                    (sensorType == SENSOR_TYPE_CALENDAR) ||
+                    (sensorType == SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK) ||
+                    (sensorType == SENSOR_TYPE_SCREEN) || // also for screen on/off compute calendar alarms
                     saveCalendarStartEndTime) {
                 // search for calendar events
                 //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "search for calendar events");
@@ -416,7 +468,7 @@ class EventsHandler {
                 // for restart events, set startTime to 0
                 dataWrapper.clearSensorsStartTime();
             } else {
-                if (sensorType.equals(SENSOR_TYPE_SMS) || sensorType.equals(SENSOR_TYPE_CONTACTS_CACHE_CHANGED)) {
+                if ((sensorType == SENSOR_TYPE_SMS) || (sensorType == SENSOR_TYPE_CONTACTS_CACHE_CHANGED)) {
                     // search for sms events, save start time
                     //PPApplication.logE("EventsHandler.handleEvents", "search for sms events");
                     for (Event _event : dataWrapper.eventList) {
@@ -428,7 +480,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType.equals(SENSOR_TYPE_NFC_TAG)) {
+                if (sensorType == SENSOR_TYPE_NFC_TAG) {
                     // search for nfc events, save start time
                     //PPApplication.logE("EventsHandler.handleEvents", "search for nfc events");
                     for (Event _event : dataWrapper.eventList) {
@@ -440,7 +492,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType.equals(SENSOR_TYPE_PHONE_CALL) || sensorType.equals(SENSOR_TYPE_CONTACTS_CACHE_CHANGED)) {
+                if ((sensorType == SENSOR_TYPE_PHONE_CALL) || (sensorType == SENSOR_TYPE_CONTACTS_CACHE_CHANGED)) {
                     // search for call events, save start time
                     //PPApplication.logE("[CALL] EventsHandler.handleEvents", "search for call events");
                     for (Event _event : dataWrapper.eventList) {
@@ -455,7 +507,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType.equals(SENSOR_TYPE_ALARM_CLOCK)) {
+                if (sensorType == SENSOR_TYPE_ALARM_CLOCK) {
                     // search for alarm clock events, save start time
                     //PPApplication.logE("EventsHandler.handleEvents", "search for alarm clock events");
                     for (Event _event : dataWrapper.eventList) {
@@ -467,7 +519,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType.equals(SENSOR_TYPE_DEVICE_BOOT)) {
+                if (sensorType == SENSOR_TYPE_DEVICE_BOOT) {
                     // search for device boot events, save start time
                     //PPApplication.logE("EventsHandler.handleEvents", "search for device boot events");
                     for (Event _event : dataWrapper.eventList) {
@@ -480,7 +532,7 @@ class EventsHandler {
                     }
                 }
 
-                if (sensorType.equals(SENSOR_TYPE_PERIODIC_EVENTS_HANDLER)) {
+                if (sensorType == SENSOR_TYPE_PERIODIC_EVENTS_HANDLER) {
                     // search for periodic events, save start time
                     //PPApplication.logE("EventsHandler.handleEvents", "search for periodic events");
                     for (Event _event : dataWrapper.eventList) {
@@ -492,7 +544,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType.equals(SENSOR_TYPE_PERIODIC)) {
+                if (sensorType == SENSOR_TYPE_PERIODIC) {
                     // search for periodic events, save start time
                     //PPApplication.logE("EventsHandler.handleEvents", "search for periodic events");
                     for (Event _event : dataWrapper.eventList) {
@@ -506,8 +558,8 @@ class EventsHandler {
                 }
             }
 
-            boolean forDelayStartAlarm = sensorType.equals(SENSOR_TYPE_EVENT_DELAY_START);
-            boolean forDelayEndAlarm = sensorType.equals(SENSOR_TYPE_EVENT_DELAY_END);
+            boolean forDelayStartAlarm = (sensorType == SENSOR_TYPE_EVENT_DELAY_START);
+            boolean forDelayEndAlarm = (sensorType == SENSOR_TYPE_EVENT_DELAY_END);
 
             /*if (PPApplication.logEnabled()) {
                 //PPApplication.logE("@@@ EventsHandler.handleEvents","isRestart="+isRestart);
@@ -1189,7 +1241,7 @@ class EventsHandler {
         }
     }
 
-    private boolean alwaysEnabledSensors (String sensorType) {
+    private boolean alwaysEnabledSensors (int sensorType) {
         switch (sensorType) {
             case SENSOR_TYPE_SCREEN:
                 // call doHandleEvents for all screen on/off changes
@@ -1206,7 +1258,7 @@ class EventsHandler {
         return false;
     }
 
-    private int getEventTypeForSensor(String sensorType) {
+    private int getEventTypeForSensor(int sensorType) {
         switch (sensorType) {
             case SENSOR_TYPE_BATTERY:
             case SENSOR_TYPE_POWER_SAVE_MODE:
@@ -1406,7 +1458,7 @@ class EventsHandler {
 //        PPApplication.logE("EventsHandler.doEndHandler","sensorType="+sensorType);
         //PPApplication.logE("EventsHandler.doEndHandler","callEventType="+callEventType);
 
-        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL) && (dataWrapper != null)) {
+        if ((sensorType == SENSOR_TYPE_PHONE_CALL) && (dataWrapper != null)) {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
 //            PPApplication.logE("EventsHandler.doEndHandler", "SENSOR_TYPE_PHONE_CALL - running event exists");
@@ -1529,7 +1581,7 @@ class EventsHandler {
                 setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0, 0);
         }
         else
-        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL_EVENT_END)) {
+        if (sensorType == SENSOR_TYPE_PHONE_CALL_EVENT_END) {
             setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0, 0);
         }
 

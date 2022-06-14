@@ -443,10 +443,10 @@ class EventPreferencesNFC extends EventPreferences {
                         PPApplication.logE("EventPreferencesNFC.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                     }*/
 
-                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_NFC_TAG))
+                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_NFC_TAG)
                         eventsHandler.nfcPassed = true;
                     else if (!_permanentRun) {
-                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_NFC_EVENT_END))
+                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_NFC_EVENT_END)
                             eventsHandler.nfcPassed = false;
                         else
                             eventsHandler.nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

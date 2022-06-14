@@ -190,7 +190,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             */
 
             Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
+                    .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
                     .build();
 
             OneTimeWorkRequest worker =
@@ -314,7 +314,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         */
 
         Data workData = new Data.Builder()
-                .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
+                .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
                 .build();
 
         OneTimeWorkRequest worker =

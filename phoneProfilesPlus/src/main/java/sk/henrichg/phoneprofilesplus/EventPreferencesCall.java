@@ -1028,7 +1028,7 @@ class EventPreferencesCall extends EventPreferences {
                                     PPApplication.logE("EventPreferencesCall.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                                 }*/
 
-                                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
+                                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL) {
                                         //noinspection StatementWithEmptyBody
                                         if (((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) && (_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
                                                 ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED) && (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED)) ||
@@ -1037,7 +1037,7 @@ class EventPreferencesCall extends EventPreferences {
                                         else
                                             eventsHandler.callPassed = false;
                                     } else if (!_permanentRun) {
-                                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
+                                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END)
                                             eventsHandler.callPassed = false;
                                         else
                                             eventsHandler.callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
@@ -1099,7 +1099,7 @@ class EventPreferencesCall extends EventPreferences {
                             }*/
 
                             if (!_permanentRun) {
-                                if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
+                                if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END)
                                     eventsHandler.callPassed = false;
                                 else
                                     eventsHandler.callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

@@ -5172,7 +5172,7 @@ public class PhoneProfilesService extends Service
                                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                                     if (PPApplication.notificationScannerRunning) {
                                         Data workData = new Data.Builder()
-                                                .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
+                                                .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
                                                 .build();
 
                                         OneTimeWorkRequest worker =

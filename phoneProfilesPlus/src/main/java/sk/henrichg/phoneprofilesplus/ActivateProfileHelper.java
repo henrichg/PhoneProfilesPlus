@@ -7544,7 +7544,7 @@ class ActivateProfileHelper {
 
             if (savedMode != mode) {
                 Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
+                        .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
                         .build();
 
                 OneTimeWorkRequest worker =
@@ -7606,7 +7606,7 @@ class ActivateProfileHelper {
 
             if (savedMode != mode) {
                 Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
+                        .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
                         .build();
 
                 OneTimeWorkRequest worker =

@@ -469,10 +469,10 @@ class EventPreferencesAlarmClock extends EventPreferences {
                             PPApplication.logE("EventPreferencesAlarmClock.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                         }*/
 
-                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK))
+                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_ALARM_CLOCK)
                             eventsHandler.alarmClockPassed = true;
                         else if (!_permanentRun) {
-                            if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
+                            if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END)
                                 eventsHandler.alarmClockPassed = false;
                             else
                                 eventsHandler.alarmClockPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

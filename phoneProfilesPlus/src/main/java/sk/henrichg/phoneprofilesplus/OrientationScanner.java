@@ -274,7 +274,7 @@ class OrientationScanner implements SensorEventListener {
                     Context context = service.getApplicationContext();
 
                     Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION)
+                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION)
                             .build();
 
                     String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;

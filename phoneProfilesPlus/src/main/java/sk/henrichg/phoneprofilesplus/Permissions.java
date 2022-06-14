@@ -1003,7 +1003,7 @@ class Permissions {
     }
 
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,
-                                                           String sensorType) {
+                                                           int sensorType) {
         ArrayList<PermissionType>  permissions = new ArrayList<>();
         if ((event == null) && (preferences == null)) return permissions;
 
@@ -1027,12 +1027,13 @@ class Permissions {
     }
 
     @SuppressWarnings("DuplicateExpressions")
-    static private void checkEventCallContacts(Context context, Event event, SharedPreferences preferences, ArrayList<PermissionType>  permissions, String sensorType) {
+    static private void checkEventCallContacts(Context context, Event event, SharedPreferences preferences,
+                                               ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
             try {
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
                     if (event._eventPreferencesCall._enabled) {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
@@ -1043,7 +1044,7 @@ class Permissions {
             }
         }
         else {
-            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
+            if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
                 if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false)) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
@@ -1054,12 +1055,13 @@ class Permissions {
     }
 
     @SuppressWarnings("DuplicateExpressions")
-    static private void checkEventSMSContacts(Context context, Event event, SharedPreferences preferences, ArrayList<PermissionType>  permissions, String sensorType) {
+    static private void checkEventSMSContacts(Context context, Event event, SharedPreferences preferences,
+                                              ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
             try {
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_SMS)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_SMS)) {
                     if (event._eventPreferencesSMS._enabled) {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
@@ -1070,7 +1072,7 @@ class Permissions {
         }
         else {
             try {
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_SMS)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_SMS)) {
                     if (preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false)) {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
@@ -1090,12 +1092,13 @@ class Permissions {
     }
 
     @SuppressWarnings("DuplicateExpressions")
-    static private void checkEventCalendar(Context context, Event event, SharedPreferences preferences, ArrayList<PermissionType>  permissions, String sensorType) {
+    static private void checkEventCalendar(Context context, Event event, SharedPreferences preferences,
+                                           ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
             try {
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_CALENDAR)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALENDAR)) {
                     if (event._eventPreferencesCalendar._enabled) {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
@@ -1106,7 +1109,7 @@ class Permissions {
             }
         }
         else {
-            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_CALENDAR)) {
+            if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALENDAR)) {
                 if (preferences.getBoolean(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false)) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
@@ -1180,17 +1183,17 @@ class Permissions {
 
     @SuppressWarnings("DuplicateExpressions")
     static private void checkEventLocation(Context context, Event event, SharedPreferences preferences,
-                                           ArrayList<PermissionType>  permissions, String sensorType) {
+                                           ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
             try {
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) ||
-                        sensorType.equals(EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
-                        sensorType.equals(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
-                        sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
-                        sensorType.equals(EventsHandler.SENSOR_TYPE_TIME) ||
-                        sensorType.equals(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_TIME) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
 
                     boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
@@ -1198,7 +1201,7 @@ class Permissions {
                     if (Build.VERSION.SDK_INT >= 29)
                         grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_WIFI_SCANNER)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER)) {
                         if ((event._eventPreferencesWifi._enabled &&
                             ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
                              (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
@@ -1216,7 +1219,7 @@ class Permissions {
                         }
                     }
 
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
                         if (event._eventPreferencesBluetooth._enabled &&
                             ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
                              (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
@@ -1234,7 +1237,7 @@ class Permissions {
                         }
                     }
 
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                         if (event._eventPreferencesMobileCells._enabled) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
@@ -1250,7 +1253,7 @@ class Permissions {
                         }
                     }
 
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_TIME)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_TIME)) {
                         if (event._eventPreferencesTime._enabled &&
                             (event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT)) {
                             if (permissions != null) {
@@ -1267,7 +1270,7 @@ class Permissions {
                         }
                     }
 
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
                         if (event._eventPreferencesLocation._enabled) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
@@ -1386,12 +1389,12 @@ class Permissions {
             } catch (Exception ignored) {
             }
         } else {
-            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) ||
-                    sensorType.equals(EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
-                    sensorType.equals(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
-                    sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
-                    sensorType.equals(EventsHandler.SENSOR_TYPE_TIME) ||
-                    sensorType.equals(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
+            if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_TIME) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
 
                 boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
@@ -1399,7 +1402,7 @@ class Permissions {
                 if (Build.VERSION.SDK_INT >= 29)
                     grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_WIFI_SCANNER)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER)) {
                     if ((preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
                         ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NEARBY) ||
                          (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
@@ -1417,7 +1420,7 @@ class Permissions {
                     }
                 }
 
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
                     if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
                         ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
                          (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
@@ -1435,7 +1438,7 @@ class Permissions {
                     }
                 }
 
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                     if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                         if (permissions != null) {
                             if (!grantedAccessFineLocation)
@@ -1451,7 +1454,7 @@ class Permissions {
                     }
                 }
 
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_TIME)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_TIME)) {
                     if (preferences.getBoolean(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false) &&
                         (Integer.parseInt(preferences.getString(EventPreferencesTime.PREF_EVENT_TIME_TYPE, "0")) != EventPreferencesTime.TIME_TYPE_EXACT)) {
                         if (permissions != null) {
@@ -1468,7 +1471,7 @@ class Permissions {
                     }
                 }
 
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
                     if (preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false)) {
                         if (permissions != null) {
                             if (!grantedAccessFineLocation)
@@ -1588,12 +1591,13 @@ class Permissions {
     }
 
     @SuppressWarnings("DuplicateExpressions")
-    static private void checkEventBluetoothForEMUI(Context context, Event event, SharedPreferences preferences, ArrayList<PermissionType>  permissions, String sensorType) {
+    static private void checkEventBluetoothForEMUI(Context context, Event event, SharedPreferences preferences,
+                                                   ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
             try {
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
                     if (event._eventPreferencesBluetooth._enabled &&
                             ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
                                     (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
@@ -1607,7 +1611,7 @@ class Permissions {
             } catch (Exception ignored) {
             }
         } else {
-            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
+            if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
                 if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
                         ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
                          (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
@@ -1622,20 +1626,21 @@ class Permissions {
     }
 
     @SuppressWarnings("DuplicateExpressions")
-    private static void checkEventPhoneState(Context context, Event event, SharedPreferences preferences, ArrayList<PermissionType>  permissions, String sensorType) {
+    private static void checkEventPhoneState(Context context, Event event, SharedPreferences preferences,
+                                             ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
             try {
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) ||
-                        sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL) ||
-                        sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
-                        sensorType.equals(EventsHandler.SENSOR_TYPE_SMS) ||
-                        sensorType.equals(EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_SMS) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
 
                     boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
 
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
                         if (event._eventPreferencesCall._enabled) {
                             if (permissions != null) {
                                 if (!grantedPhoneState)
@@ -1645,7 +1650,7 @@ class Permissions {
                     }
 
                     if (Build.VERSION.SDK_INT >= 26) {
-                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
+                        if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                             if (event._eventPreferencesMobileCells._enabled) {
                                 if (permissions != null) {
                                     if (!grantedPhoneState)
@@ -1654,7 +1659,7 @@ class Permissions {
                             }
                         }
 
-                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_SMS)) {
+                        if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_SMS)) {
                             if (event._eventPreferencesSMS._enabled) {
                                 if (permissions != null) {
                                     if (!grantedPhoneState)
@@ -1663,7 +1668,7 @@ class Permissions {
                             }
                         }
 
-                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
+                        if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
                             if (event._eventPreferencesRadioSwitch._enabled) {
                                 if ((event._eventPreferencesRadioSwitch._mobileData != 0) ||
                                         (event._eventPreferencesRadioSwitch._defaultSIMForCalls != 0) ||
@@ -1739,15 +1744,15 @@ class Permissions {
             }
         }
         else {
-            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) ||
-                    sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL) ||
-                    sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
-                    sensorType.equals(EventsHandler.SENSOR_TYPE_SMS) ||
-                    sensorType.equals(EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
+            if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_SMS) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
 
                 boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
 
-                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
                     if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false)) {
                         if (permissions != null) {
                             if (!grantedPhoneState)
@@ -1757,7 +1762,7 @@ class Permissions {
                 }
 
                 if (Build.VERSION.SDK_INT >= 26) {
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                         if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                             if (permissions != null) {
                                 if (!grantedPhoneState)
@@ -1766,7 +1771,7 @@ class Permissions {
                         }
                     }
 
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_SMS)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_SMS)) {
                         if (preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false)) {
                             if (permissions != null) {
                                 if (!grantedPhoneState)
@@ -1775,7 +1780,7 @@ class Permissions {
                         }
                     }
 
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
                         if (preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false)) {
                             if ((!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, "0").equals("0")) ||
                                     (!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, "0").equals("0")) ||
