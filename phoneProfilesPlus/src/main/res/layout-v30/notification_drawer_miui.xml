@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:padding="2dp"
