@@ -6247,11 +6247,12 @@ public class PhoneProfilesService extends Service
             exitAppIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            int exitAppId = R.drawable.ic_action_exit_app;
+            //int exitAppId = R.drawable.ic_action_exit_app;
 
             NotificationCompat.Action.Builder actionBuilder;
             actionBuilder = new NotificationCompat.Action.Builder(
-                    exitAppId,
+                    R.drawable.ic_empty,
+                    //exitAppId,
                     appContext.getString(R.string.menu_exit),
                     pExitAppIntent);
             notificationBuilder.addAction(actionBuilder.build());
@@ -6327,6 +6328,7 @@ public class PhoneProfilesService extends Service
                         // native
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
                         if (Build.VERSION.SDK_INT >= 29) {
+                            // hm, dark mode is possible to change only from API 29 (from GUI)
                             if (useNightColor == 1) {
 //                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
                                 restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0xe0e0e0);
@@ -6376,6 +6378,7 @@ public class PhoneProfilesService extends Service
                         PPApplication.recordException(e);
                     }
 
+                    /*
                     Bitmap restartEventsBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, appContext);
                     if (Build.VERSION.SDK_INT >= 29) {
                         if (useNightColor == 1) {
@@ -6398,10 +6401,12 @@ public class PhoneProfilesService extends Service
                             restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0x202020);
                             //restartEventsId = R.drawable.ic_widget_restart_events;
                     }
+                    */
 
                     NotificationCompat.Action.Builder actionBuilder;
                     actionBuilder = new NotificationCompat.Action.Builder(
-                            IconCompat.createWithBitmap(restartEventsBitmap),
+                            //IconCompat.createWithBitmap(restartEventsBitmap),
+                            R.drawable.ic_empty,
                             //restartEventsId,
                             appContext.getString(R.string.menu_restart_events),
                             pIntentRE);
@@ -6410,6 +6415,7 @@ public class PhoneProfilesService extends Service
             } else {
                 NotificationCompat.Action.Builder actionBuilder;
 
+                /*
                 Bitmap restartEventsBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, appContext);
                 if (Build.VERSION.SDK_INT >= 29) {
                     if (useNightColor == 1) {
@@ -6432,9 +6438,11 @@ public class PhoneProfilesService extends Service
                         restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0x202020);
                         //restartEventsId = R.drawable.ic_widget_restart_events;
                 }
+                */
 
                 actionBuilder = new NotificationCompat.Action.Builder(
-                        IconCompat.createWithBitmap(restartEventsBitmap),
+                        //IconCompat.createWithBitmap(restartEventsBitmap),
+                        R.drawable.ic_empty,
                         //restartEventsId,
                         appContext.getString(R.string.menu_restart_events),
                         pIntentRE);

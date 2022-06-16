@@ -957,7 +957,8 @@ class MobileCellsListener extends PhoneStateListener {
                         @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent pDisableDetectionIntent = PendingIntent.getBroadcast(context, 0, disableDetectionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
-                                R.drawable.ic_action_exit_app,
+                                //R.drawable.ic_action_exit_app,
+                                R.drawable.ic_empty,
                                 context.getString(R.string.notification_not_used_mobile_cell_disable),
                                 pDisableDetectionIntent);
                         mBuilder.addAction(actionBuilder.build());
