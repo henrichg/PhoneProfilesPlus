@@ -496,6 +496,8 @@ public class EditorProfileListFragment extends Fragment
                 progressBarHandler.removeCallbacks(progressBarRunnable);
                 fragment.progressBar.setVisibility(GONE);
 
+                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+
                 // get local profileList
                 _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
                 // set local profile list into activity dataWrapper
@@ -516,8 +518,6 @@ public class EditorProfileListFragment extends Fragment
                 fragment.listView.setAdapter(fragment.profileListAdapter);
 
                 // update activity for activated profile
-                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
-
                 Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
                                 applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);

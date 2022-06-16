@@ -560,6 +560,8 @@ public class EditorEventListFragment extends Fragment
                 progressBarHandler.removeCallbacks(progressBarRunnable);
                 fragment.progressBar.setVisibility(View.GONE);
 
+                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+
                 // get local profileList
                 _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
                 // set local profile list into activity dataWrapper
@@ -592,7 +594,6 @@ public class EditorEventListFragment extends Fragment
                 Profile profile = _dataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
 
-                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 fragment.eventListAdapter.notifyDataSetChanged(false);
 
                 if (defaultEventsGenerated)
@@ -1221,6 +1222,7 @@ public class EditorEventListFragment extends Fragment
                     this.asyncTaskContext = new WeakReference<>(asyncTask);
                     asyncTask.execute();
                 } else {
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     if (eventListAdapter != null) {
                         sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
                         listView.setAdapter(eventListAdapter);
@@ -1250,7 +1252,6 @@ public class EditorEventListFragment extends Fragment
 
                         listView.setAdapter(eventListAdapter);
                     }
-                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     eventListAdapter.notifyDataSetChanged();
                 }
             }
@@ -1258,6 +1259,8 @@ public class EditorEventListFragment extends Fragment
         else {
             //PPApplication.logE("[OPT] EditorEventListFragment.changeListOrder", "xxx");
             synchronized (activityDataWrapper.eventList) {
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+
                 if (filterType == FILTER_TYPE_START_ORDER)
                     EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
                 else
@@ -1282,7 +1285,6 @@ public class EditorEventListFragment extends Fragment
                     scrollToEvent = null;
                 }
 
-                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 eventListAdapter.notifyDataSetChanged();
 
                 if (eventPos != ListView.INVALID_POSITION) {
@@ -1964,7 +1966,6 @@ public class EditorEventListFragment extends Fragment
                 if (itemId == R.id.event_list_item_not_ignore_manual_activation) {
                     event._ignoreManualActivation = false;
                     DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                    //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
                     ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
@@ -1979,7 +1980,6 @@ public class EditorEventListFragment extends Fragment
                     event._ignoreManualActivation = true;
                     event._noPauseByManualActivation = false;
                     DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                    //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
                     ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
@@ -1994,7 +1994,6 @@ public class EditorEventListFragment extends Fragment
                     event._ignoreManualActivation = true;
                     event._noPauseByManualActivation = true;
                     DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                    //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
                     ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
