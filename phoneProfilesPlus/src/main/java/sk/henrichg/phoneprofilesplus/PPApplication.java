@@ -1204,13 +1204,6 @@ public class PPApplication extends Application
         collator = getCollator();
         //MultiDex.install(this);
 
-        //if (DebugVersion.enabled) {
-        int actualVersionCode = 0;
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            actualVersionCode = PPApplication.getVersionCode(pInfo);
-        } catch (Exception ignored) {}
-
 //        PPApplication.logE("################# PPApplication.attachBaseContext", "actualVersionCode="+actualVersionCode);
 
 //        PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
@@ -1298,7 +1291,12 @@ public class PPApplication extends Application
 
         ACRA.init(this, builder);
 
-        // this must be before ACRA init, ACRA must ignore some exceptions
+        int actualVersionCode = 0;
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            actualVersionCode = PPApplication.getVersionCode(pInfo);
+        } catch (Exception ignored) {}
+
         // Look at TopExceptionHandler.uncaughtException() for ignored exceptions
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
