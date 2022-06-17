@@ -1149,6 +1149,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        // TODO tu zobrazujem PPP notification settigs.
+        //  lenze volam to cez startActivity(). Tak skus, ked budem pytat zapnutie (Android 13)
+        //  to vola cez startActivityForResult(). Nenastavujem ten flad na new task, tak by to
+        //  mohlo fungovat. No a v resulte sprav to, co robim ked zatvaram PPP Settings aktivitu.
+        //  Asi staci len zobrazit profile notifikaciu, cize clear, sleep a show. To tusim robim.
+        //  Je to v PhoneProfilesPrefsActivity.doPrefernceChanges().
         preference = findPreference(PREF_ALL_NOTIFICATIONS_SYSTEM_SETTINGS);
         if (preference != null) {
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);

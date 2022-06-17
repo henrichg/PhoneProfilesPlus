@@ -431,6 +431,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             // PPApplication.recordException(e);
         //}
 
+        // TODO zmazanie a znovuzobrazenie notifikacie, toto sprav po tom povoleni notifikacii
         if (PhoneProfilesService.getInstance() != null) {
             synchronized (PPApplication.applicationPreferencesMutex) {
                 PPApplication.doNotShowProfileNotification = true;
