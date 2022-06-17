@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/restart_events_notification_compat_icon_size"
+        android:layout_height="@dimen/restart_events_notification_compat_icon_size"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:padding="2dp"
@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/notification_activated_profile_icon"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
+            android:layout_width="@dimen/profile_icon_notification_compat_no_decoration_icon_size"
+            android:layout_height="@dimen/profile_icon_notification_compat_no_decoration_icon_size"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
@@ -48,10 +48,10 @@
             android:layout_marginStart="5dp"
             android:text="@string/profile_name_default"
             style="@style/TextAppearance.Compat.Notification.Title"
-            android:textSize="14dp"
             android:ellipsize="end"
             android:maxLines="1"
             tools:ignore="SpUsage" />
+<!--        android:textSize="14dp"-->
 
     </RelativeLayout>
 

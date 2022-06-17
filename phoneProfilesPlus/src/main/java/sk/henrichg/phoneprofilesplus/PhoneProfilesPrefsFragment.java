@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -1016,23 +1017,26 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
-//            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "(1)");
+//            PPApplication.logE("****** PhoneProfilesPrefsFragment.onActivityCreated", "(1)");
             final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
-//            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "(2)");
+//            PPApplication.logE("****** PhoneProfilesPrefsFragment.onActivityCreated", "(2)");
             if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getActivity().getApplicationContext())) {
-//                PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "available");
+//                PPApplication.logE("****** PhoneProfilesPrefsFragment.onActivityCreated", "available");
                 preference.setOnPreferenceClickListener(preference119 -> {
                     boolean success;
                     try {
                         success = autoStartPermissionHelper.getAutoStartPermission(getActivity());
-//                            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "success="+success);
+//                        PPApplication.logE("****** PhoneProfilesPrefsFragment.onActivityCreated", "success="+success);
                     }catch (Exception e) {
+                        Log.e("****** PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
                         success = false;
                     }
                     if (!success) {
-                        //PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert);
+                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                            dialogBuilder.setMessage(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert);
+                        else
+                            dialogBuilder.setMessage(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
@@ -1059,7 +1063,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }*/
                 PreferenceScreen preferenceScreen = findPreference("categoryApplicationStart");
                 if (preferenceScreen != null) {
-                    preference = findPreference("applicationAutoStartManager");
+                    preference = findPreference(PREF_AUTOSTART_MANAGER);
                     if (preference != null)
                         preferenceScreen.removePreference(preference);
                 }

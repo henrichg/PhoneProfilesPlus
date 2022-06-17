@@ -6151,7 +6151,6 @@ public class PhoneProfilesService extends Service
                     break;
             }
 
-            //TODO
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "set text color");
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
             if (notificationTextColor.equals("1")) {
@@ -6160,28 +6159,26 @@ public class PhoneProfilesService extends Service
                 if (contentView != null)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
             } else if (notificationTextColor.equals("2")) {
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "before set text color");
                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
                 //noinspection ConstantConditions
                 if (contentView != null)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
             } else {
                 if (Build.VERSION.SDK_INT == 28) {
-                    // In 28 (Android 9) it is Dark theme, but not working in emulator,
+                    // In 28 (Android 9) exists Dark theme, but not working in emulator,
                     // must be tested in device (for example Nexus 5x).
 
                     // In Android 9 is exception from normal functionality.
-                    // Dark theme do not change text color
+                    // Device theme do not change text color
                     // For this, must be changed programmatically
                     if (useNightColor == 1) {
-//                      PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark text");
+//                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark text");
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                         //noinspection ConstantConditions
                         if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                     } else {
-//                      PPApplication.logE("PhoneProfilesService._showProfileNotification", "light text");
+//                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "light text");
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
                         //noinspection ConstantConditions
@@ -6351,10 +6348,10 @@ public class PhoneProfilesService extends Service
                     } else {
                         // native
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
-                        if (Build.VERSION.SDK_INT >= 28) {
+                        //if (Build.VERSION.SDK_INT >= 28) {
                             // Hm, dark mode is possible to change only from API 28 (from GUI).
                             //
-                            // In 28 (Android 9) it is Dark theme, but not working in emulator,
+                            // In 28 (Android 9) it is Device theme, but not working in emulator,
                             // must be tested in device (for example Nexus 5x).
                             if (useNightColor == 1) {
 //                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
@@ -6365,7 +6362,7 @@ public class PhoneProfilesService extends Service
                                 restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0x202020);
                                 //restartEventsId = R.drawable.ic_widget_restart_events;
                             }
-                        } else {
+                        /*} else {
                             if (notificationTextColor.equals("1"))
                                 restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0x202020);
                                 //restartEventsId = R.drawable.ic_widget_restart_events;
@@ -6375,7 +6372,7 @@ public class PhoneProfilesService extends Service
                             else
                                 restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0x202020);
                                 //restartEventsId = R.drawable.ic_widget_restart_events;
-                        }
+                        }*/
                     }
 
                     try {

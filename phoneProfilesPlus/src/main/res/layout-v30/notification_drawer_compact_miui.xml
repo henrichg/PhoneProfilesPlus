@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/restart_events_notification_compat_icon_size"
+        android:layout_height="@dimen/restart_events_notification_compat_icon_size"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:padding="2dp"
@@ -46,10 +46,10 @@
             android:layout_centerVertical="true"
             android:text="@string/profile_name_default"
             style="@style/TextAppearance.Compat.Notification.Title"
-            android:textSize="16dp"
             android:ellipsize="end"
             android:maxLines="1"
             tools:ignore="SpUsage" />
+<!--        android:textSize="16dp"-->
 <!--    android:layout_toEndOf="@id/notification_activated_profile_icon"-->
 
     </RelativeLayout>

@@ -63,7 +63,10 @@ public class AutostartPermissionActivity extends AppCompatActivity
                 if (!success) {
                     final AppCompatActivity activity = this;
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    dialogBuilder.setMessage(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert);
+                    if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                        dialogBuilder.setMessage(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert);
+                    else
+                        dialogBuilder.setMessage(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert);
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(android.R.string.cancel, (dialog, which) -> activity.finish());
                     dialogBuilder.setCancelable(false);

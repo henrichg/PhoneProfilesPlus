@@ -80,6 +80,8 @@
     <!-- for Samsung SLook -->
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
 
+<!--    <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>-->
+
 <!--    https://developer.android.com/guide/topics/manifest/uses-feature-element-->
 <!--    <uses-feature-->
 <!--        android:name="android.software.leanback"-->

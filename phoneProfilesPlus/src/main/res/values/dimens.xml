@@ -67,4 +67,9 @@
     <dimen name="popup_widow_dialog_help_width">300dp</dimen>
     <dimen name="popup_window_run_stop_indicator_width">300dp</dimen>
 
+    <dimen name="restart_events_notification_icon_size">27dp</dimen>
+    <dimen name="restart_events_notification_compat_icon_size">25dp</dimen>
+    <dimen name="profile_icon_notification_icon_size">35dp</dimen>
+    <dimen name="profile_icon_notification_compat_no_decoration_icon_size">21dp</dimen>
+
 </resources>
