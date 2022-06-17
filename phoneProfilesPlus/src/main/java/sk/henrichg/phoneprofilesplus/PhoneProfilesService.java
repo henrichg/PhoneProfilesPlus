@@ -6151,6 +6151,7 @@ public class PhoneProfilesService extends Service
                     break;
             }
 
+            //TODO
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "set text color");
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
             if (notificationTextColor.equals("1")) {
@@ -6165,6 +6166,29 @@ public class PhoneProfilesService extends Service
                 //noinspection ConstantConditions
                 if (contentView != null)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+            } else {
+                if (Build.VERSION.SDK_INT == 28) {
+                    // In 28 (Android 9) it is Dark theme, but not working in emulator,
+                    // must be tested in device (for example Nexus 5x).
+
+                    // In Android 9 is exception from normal functionality.
+                    // Dark theme do not change text color
+                    // For this, must be changed programmatically
+                    if (useNightColor == 1) {
+//                      PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark text");
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                        //noinspection ConstantConditions
+                        if (contentView != null)
+                            contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                    } else {
+//                      PPApplication.logE("PhoneProfilesService._showProfileNotification", "light text");
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
+                        //noinspection ConstantConditions
+                        if (contentView != null)
+                            contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                    }
+                }
             }
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
         }
@@ -6327,8 +6351,11 @@ public class PhoneProfilesService extends Service
                     } else {
                         // native
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
-                        if (Build.VERSION.SDK_INT >= 29) {
-                            // hm, dark mode is possible to change only from API 29 (from GUI)
+                        if (Build.VERSION.SDK_INT >= 28) {
+                            // Hm, dark mode is possible to change only from API 28 (from GUI).
+                            //
+                            // In 28 (Android 9) it is Dark theme, but not working in emulator,
+                            // must be tested in device (for example Nexus 5x).
                             if (useNightColor == 1) {
 //                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
                                 restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0xe0e0e0);
