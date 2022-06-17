@@ -290,7 +290,7 @@ public class MainWorker extends Worker {
         //boolean fromDoFirstStart = getInputData().getBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true);
 
         //if (fromDoFirstStart) {
-        PPApplication.createNotificationChannels(appContext);
+        //PPApplication.createNotificationChannels(appContext);
 
         // activate profile immediately after start of PPP
         // this is required for some users, for example: francescocaldelli@gmail.com

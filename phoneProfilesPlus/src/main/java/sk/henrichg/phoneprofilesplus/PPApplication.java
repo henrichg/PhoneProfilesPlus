@@ -933,6 +933,8 @@ public class PPApplication extends Application
 
         PPApplication.logE("##### PPApplication.onCreate", "end of get features");
 
+        PPApplication.createNotificationChannels(getApplicationContext());
+
         loadGlobalApplicationData(getApplicationContext());
         loadApplicationPreferences(getApplicationContext());
         loadProfileActivationData(getApplicationContext());

@@ -6025,7 +6025,7 @@ public class PhoneProfilesService extends Service
                                                notificationBuilder,
                                                notificationNotificationStyle, notificationShowRestartEventsAsButton,
                                                notificationBackgroundColor, notificationBackgroundCustomColor,
-                                               notificationTextColor,
+                                               //notificationTextColor,
                                                useDecorator, useNightColor,
                                                appContext);
 
@@ -6318,7 +6318,7 @@ public class PhoneProfilesService extends Service
                                                         NotificationCompat.Builder notificationBuilder,
                                                         String notificationNotificationStyle, boolean notificationShowRestartEventsAsButton,
                                                         String notificationBackgroundColor, int notificationBackgroundCustomColor,
-                                                        String notificationTextColor,
+                                                        //String notificationTextColor,
                                                         boolean useDecorator, int useNightColor,
                                                         Context appContext) {
         if (!forFirstStart) {
