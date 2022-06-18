@@ -240,6 +240,8 @@ public class ActivatorActivity extends AppCompatActivity {
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver"));
 
             refreshGUI(/*true,*/ false);
+
+            Permissions.grantNotificationsPermission(this);
         }
         else {
             if (!isFinishing())
@@ -248,6 +250,18 @@ public class ActivatorActivity extends AppCompatActivity {
 
         //-----------------------------------------------------------------------------------------
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
+        {
+            PhoneProfilesService.drawProfileNotification(true, getApplicationContext());
+            DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+            IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+        }
     }
 
     @SuppressWarnings("SameReturnValue")

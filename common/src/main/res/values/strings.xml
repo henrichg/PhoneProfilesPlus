@@ -1967,6 +1967,10 @@
 
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Setting screen not found.\n\nPlease go into device settings: \"Settings / Apps / App launch\" and set \"Manage manually\" for PhoneProfilesPlus.</string>
 
+    <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
+    <string name="enable_notificaitons_button">Enable</string>
+    <!--    <string name="dont_enable_notificaitons_button">Do not enable</string> -->
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -2012,6 +2016,10 @@
     <string name="extender_notification_permission_title">Permission not granted</string>
     <string name="extender_notification_sms_mms_permission_text">Permission for event parameter \"SMS/MMS sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
     <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
+
+    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
+    <string name="extender_enable_notificaitons_button">Enable</string>
+    <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
 
 <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
 <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->

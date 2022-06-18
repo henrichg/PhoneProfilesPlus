@@ -656,6 +656,8 @@ public class EditorActivity extends AppCompatActivity
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
 
             refreshGUI(/*true,*/ false, true, 0, 0);
+
+            Permissions.grantNotificationsPermission(this);
         }
         else {
             if (!isFinishing())
@@ -2254,6 +2256,14 @@ public class EditorActivity extends AppCompatActivity
                 }
             }
         }
+        else
+        if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
+        {
+            PhoneProfilesService.drawProfileNotification(true, getApplicationContext());
+            DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+            IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+        }
+
     }
 
     /*

@@ -82,6 +82,8 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                     dataWrapper.activateProfile(profile_id, startupSource, this, true);
                 }
             }
+
+            Permissions.grantNotificationsPermission(this);
         }
         else {
             if (!isFinishing())
