@@ -1969,7 +1969,6 @@
 
     <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
     <string name="enable_notificaitons_button">Enable</string>
-    <!--    <string name="dont_enable_notificaitons_button">Do not enable</string> -->
 
     <!-- **************************************************************************************** -->
 
