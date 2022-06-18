@@ -1,3 +1,6 @@
+Ked nejde push, skus v terminaly AS:
+git config credential.helper store
+
 Preco uz noe je PPP v GPlay:
 
 Google restrictions:
