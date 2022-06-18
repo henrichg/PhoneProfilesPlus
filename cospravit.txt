@@ -729,8 +729,47 @@ HOTOVO
 
 ------------------------
 
+Notifications permission:
+
+Android 13 a notification permission.
+Ak som dobre rozumel, upgrade mobilu na Android 13 automaticky pregrantne pravo/nevypne notifikacie,
+takze by nemal byt problem, notifikacie by mali fungovat.
+Upgrade PPP nevypne notifikacie, co je super (testol som) ;-)
+
+Len ak PPP odinstaluju a znova nainstaluju. To potom budu musiet zapnut notifikacie.
+
+Len som dako nepochopil. Po instalacii release PPP si to pravo nepyta. Preco? Channel vytvaram, priamo
+v onCreate PPApplication. Tak fakt nechapem. Ze by bug v bete Android 13? To pravo nemozem dat do manifestu.
+Je len pre API 33. Hm, hm.
+Z widgetu sa volá LaucherActivity.
+Proste sa mi zdá, že táto aktivita robí problém. Že sa nestihne zobraziť ten dialóg na post_notifications.
+Ináč tomu nerozumiem.
+Mozno je to tymto:
+android:excludeFromRecents="true"
+android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+Tazko povedat.
+
+
+Pre PPPE to pytalo, ale az po druhom spusteni jeho aktivity. Zajimave. A notifikacie sa tym povolia.
+Tak preco kua nie pre PPP? Ze by to bolo tou LancherActivity? Ta fakt je zobrazena len chvilku. Nechapem.
+Mozno to este opravia.
+
+Zdroj: https://developer.android.com/about/versions/13/changes/notification-permission
+
+---
+
+To právo Notifications tam fakt je, ako dangerous, cize v zozname notifikacii aplikacie.
+1. Odinstaloval som PPP.
+2. Po znovu-naistalovani, pravo "Notifications" nie je povolene.
+3. Po povoleni notifikacii v "Notifications" sa pravo automaticky grantne.
+Takze moj postup, ze staci povolit notifikacie je spravny. Plati aj pre PPPE aj v pripade, ze v dialogu,
+co sa zobrazi dam "Deny". Staci povolit notifikacie, pravo sa samo grantne.
+A sranda je, ze ked notifikacie vypnem, pravo sa revokne. A ked kliknem na to pravo, otvori to screen
+"Notifications".
+Cize to pravo "Notifications" je len taka habadura (aj pre target 33), uplne zbytocna vec, klik na neho
+otvori screen "Notifications". Mozno ze toto este zmenia, kym vyjde ostry Android 13.
 
 
 
-
+---------------------------
 
