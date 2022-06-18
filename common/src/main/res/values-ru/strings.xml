@@ -174,7 +174,7 @@
     <string name="pref_event_battery_charging">Зарядка</string>
     <string name="event_preferences_category_eventTimeParameters">Датчик времени</string>
     <string name="event_preferences_category_eventBatteryParameters">Датчик батареи</string>
-    <string name="contacts_multiselect_summary_text_selected">Выбранные</string>
+    <string name="contacts_multiselect_summary_text_selected">Выбрано</string>
     <string name="contacts_multiselect_summary_text_not_selected">Не выбраны</string>
     <string name="event_preferences_category_eventCallParameters">Датчик вызовов</string>
     <string name="event_preferences_call_contacts">Контакты</string>
@@ -218,7 +218,7 @@
     <string name="default_event_name_overnight">Ночью</string>
     <string name="default_event_name_low_battery">Низкий заряд батареи</string>
     <string name="default_profile_name_battery_low">Низкий заряд батареи</string>
-    <string name="calendars_multiselect_summary_text_selected">Выбранные</string>
+    <string name="calendars_multiselect_summary_text_selected">Выбрано</string>
     <string name="calendars_multiselect_summary_text_not_selected">Не выбрано</string>
     <string name="event_preferences_category_eventCalendarParameters">Датчик календаря</string>
     <string name="event_preferences_calendar_calendars">Календари</string>
@@ -360,7 +360,7 @@
     <string name="phone_profiles_pref_applicationShortcutEmblem">Добавить иконку на ярлык</string>
     <string name="permission_group_name_write_settings">Изменение настроек системы</string>
     <string name="permission_group_name_storage">Хранилище</string>
-    <string name="permission_group_name_phone">Номер телефона</string>
+    <string name="permission_group_name_phone">Телефон</string>
     <string name="permissions_alert_title">Запрос разрешений</string>
     <string name="permissions_for_profile_text1">Для активации профиля</string>
     <string name="permissions_for_profile_text1m">Другие профили</string>
@@ -746,7 +746,7 @@
     <string name="array_pref_applicationDisableScanning_enabled">Сканирование включено</string>
     <string name="duration_pref_dlg_duration_label">Продолжительность:</string>
     <string name="duration_pref_dlg_activation_end_label">Окончание активации:</string>
-    <string name="setting_screen_not_found_alert">Настройки экрана не найдены.</string>
+    <string name="setting_screen_not_found_alert">Экран настройки не найден.</string>
     <string name="action_for_external_application_notification_no_profile_text">Параметр profile_name отсутствует или является пустым.</string>
     <string name="action_for_external_application_notification_no_event_text">Параметр event_name отсутствует или является пустым.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Включить (игнорировать точку доступа)</string>
@@ -841,8 +841,6 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Не устанавливайте, пожалуйста, интервал менее</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">минут. Это значительно увеличивает расход батареи.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">секунд. Это значительно увеличивает расход батареи.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Скруглённые углы</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Скруглённые углы</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender не обновлён</string>
     <string name="profile_activation_interactive_preference_notification_title">Активированный профиль:</string>
     <string name="profile_activation_interactive_preference_notification_text">Нажмите сюда, чтобы открыть:</string>
@@ -1586,7 +1584,6 @@
     <string name="ignore_manual_activation_ignore_toast">Событие будет запущено, но будет приостановлено при ручной активации какого-либо профиля</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Событие будет запущено и не будет приостановлено при ручной активации какого-либо профиля</string>
     <string name="github_assets_screenshot_text">Раздел Assets находится под списком изменений. При просмотре мобильной версии страницы на него нужно нажать.</string>
-    <string name="quick_tile_icon_label">Выберите профиль</string>
     <string name="title_activity_tile_chooser">Выбор профиля для быстрых настроек</string>
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Яркость индикатора настроек</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Оформление уведомлений (если оно включено) будет применено, только если цветом фона выбран \"Родной (Android)\".</string>
@@ -1714,8 +1711,8 @@
     <string name="permissions_for_wallpaper_folder_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. Затем вы сможете выбрать папку со случайным изображением для обоев.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Папка с изображениями</string>
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Активировать конкретный профиль, затем перезапустить события</string>
-    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Запуск событий отключён</string>
-    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Запуск событий включён</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Запуск событий запрещён</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Запуск событий разрешён</string>
     <string name="icon_widget_description">Показывает иконку активированного профиля.</string>
     <string name="one_row_widget_description">Показывает активированный профиль и кнопку \"Перезапустить события\".</string>
     <string name="profile_list_widget_description">Показывает активированный профиль, кнопку \"Перезапустить события\" и список настроенных профилей, как в Активаторе.</string>
@@ -1864,7 +1861,7 @@
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info5">Как отключить ограничение поиска сетей Wi-Fi:</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info6">Перейдите в \"Настройки\" &gt; \"Для разработчиков\" &gt; найдите “Ограничивать поиск сетей Wi-Fi” &gt; отключите его (или в \"Настройки\" &gt; \"Система\" &gt; \"Дополнительно\" &gt; \"Для разработчиков\").</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info7">В некоторых устройствах параметр \"Ограничивать поиск сетей Wi-Fi\" в настройках \"Для разработчиков\" отсутствует. Однако его можно отключить через ПК с помощью установленного adb.</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info8">Эту инструкцию лучше открыть в браузере на компьютере. Она находится в файле README.md на GitHub PhoneProfilesPlus и отмечена</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info8">Эту инструкцию лучше открыть в браузере на компьютере. Она находится в файле README.md на GitHub PhoneProfilesPlus и озаглавлена</string>
     <string name="event_preference_sensor_volumes_summary">Этот датчик предназначен для изменения уровней громкости. Параметры: \"Громкость звонка\", \"Громкость уведомлений\", \"Громкость медиа\", \"Громкость будильника и напоминаний\", \"Громкость системных звуков\", \"Громкость голосового вызова\", \"Громкость вызова через Bluetooth\".</string>
     <string name="event_type_volumes">Уровни громкости</string>
     <string name="array_pref_volumesSensorOperator_doNotTestIt">Не проверять</string>
@@ -1906,7 +1903,7 @@
     <string name="menu_run_events">Разрешить запуск событий</string>
     <string name="menu_stop_events">Запретить запуск событий</string>
     <string name="application_editor_intent_hint_not_set">Не задано</string>
-    <string name="application_editor_intent_hint_custom_not_set">Пользовательские не заданы</string>
+    <string name="application_editor_intent_hint_custom_not_set">Пользовательское действие не задано</string>
     <string name="application_editor_intent_hint_not_selected">Не выбрано</string>
     <string name="application_editor_intent_action_none">[Нет]</string>
     <string name="application_editor_intent_action_custom">[Пользовательское]</string>
@@ -1915,6 +1912,37 @@
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Не установлены</string>
     <string name="location_scanner_location_not_working_notification_title">Местоположение не определяется</string>
     <string name="location_scanner_location_not_working_notification_text">Невозможно определить местоположение. Проверьте, пожалуйста, настройки местоположения устройства.</string>
+    <string name="days_of_week_pref_dialog_button_all_nothing">Все / Ни одного</string>
+    <string name="profile_preferences_applicationEnablePeriodicScanning">Включить периодическое сканирование</string>
+    <string name="menu_share_settings">Отправить настройки</string>
+    <string name="menu_restore_shared_settings">Восстановить отправленные настройки</string>
+    <string name="share_settings_alert_message">Эта функция позволяет отправить настройки в облачное хранилище (например, Google Drive, OneDrive). Для этого выберите на панели соответствующее приложение.</string>
+    <string name="share_settings_choose_bar">Отправить настройки PhoneProfilesPlus</string>
+    <string name="share_settings_alert_title">Отправить настройки</string>
+    <string name="share_settings_ok_shared">Настройки отправлены</string>
+    <string name="share_settings_error_on_share">Ошибка при отправке настроек</string>
+    <string name="open_document_activity_not_found_alert">Невозможно отобразить экран открытия документа.</string>
+    <string name="restore_shared_settings_alert_title">Восстановить отправленные настройки</string>
+    <string name="restore_shared_settings_error_on_backup">Ошибка при копировании файла для восстановления</string>
+    <string name="restore_shared_settings_ok_backed_up">Файл для восстановления скопирован</string>
+    <string name="permission_why_profile_default_assistant">для назначения PhoneProfilesPlus Помощником по умолчанию</string>
+    <string name="permission_group_name_microphone">Микрофон</string>
+    <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Оформление уведомлений доступно только при \"Родном\" цвете фона. При \"Родном\" стиле уведомлений оформление отображается всегда.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Радиомодули в режиме полёта</string>
+    <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Нажмите сюда, чтобы узнать, как выбрать, какие радиомодули будут выключаться при включении режима полёта.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info1">Можно выбрать, какие радиомодули будут выключаться при включении режима полёта.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info2">Эту инструкцию лучше открыть в браузере на компьютере. Она находится в файле README.md на GitHub PhoneProfilesPlus и озаглавлена</string>
+    <string name="event_preference_sensor_activated_profile_summary">Этот датчик запускает и останавливает событие по активации профиля. Параметры: \"Запускающий профиль\" (профиль, который запускает событие), \"Останавливающий профиль\" (профиль, который останавливает событие).</string>
+    <string name="event_type_activated_profile">активация профиля</string>
+    <string name="event_preferences_activated_profile_startProfile">Запускающий профиль</string>
+    <string name="event_preferences_activated_profile_endProfile">Останавливающий профиль</string>
+    <string name="event_preferences_category_eventActivatedProfileParameters">Датчик активации профиля</string>
+    <string name="event_preferences_activated_profile_info">Настроенные профили</string>
+    <string name="event_preferences_activated_profile_info_summary">Профили не должны быть одинаковыми. В противном случае оба параметра будут помечены ошибочными.</string>
+    <string name="quick_tile_icon_label">Активировать профиль</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Экран настройки не найден.\n\nПерейдите, пожалуйста, в настройки устройства: \"Настройки\" / \"Приложения\" / \"Запуск приложений\" и задайте для PhoneProfilesPlus \"Управление вручную\".</string>
+    <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
+    <string name="enable_notificaitons_button">Enable</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender для PhoneProfilesPlus. Он работает только вместе с PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Версия:</string>
@@ -1923,7 +1951,7 @@
     <string name="extender_accessibility_service_enabled">Включена</string>
     <string name="extender_accessibility_service_disabled">Отключена</string>
     <string name="extender_accessibility_service_button">Включить/Отключить\nслужбу спец. возможностей</string>
-    <string name="extender_setting_screen_not_found_alert">Настройки экрана не найдены.</string>
+    <string name="extender_setting_screen_not_found_alert">Экран настройки не найден.</string>
     <string name="extender_accessibility_service_permission">Служба спец. возможностей PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_event_sensor_sms_mms">• Служба спец. возможностей для параметра события \"Датчик SMS/MMS\". Функция спец. возможностей не используется; для получения SMS и MMS нужна запущенная служба.</string>
     <string name="extender_permissions_event_sensor_sms_mms">• Разрешения для параметра события \"Датчик SMS/MMS\" - разрешение SMS</string>
@@ -1956,6 +1984,9 @@
     <string name="extender_notification_permission_title">Разрешение не предоставлено</string>
     <string name="extender_notification_sms_mms_permission_text">Разрешение для параметра \"Датчик SMS/MMS\" не предоставлено. Нажмите на это уведомление, чтобы открыть Extender, и предоставьте разрешение, нажав на соответствующую кнопку.</string>
     <string name="extender_notification_call_permission_text">Разрешение для параметра \"Датчик вызовов\" не предоставлено. Нажмите на это уведомление, чтобы открыть Extender, и предоставьте разрешение, нажав на соответствующую кнопку.</string>
+    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
+    <string name="extender_enable_notificaitons_button">Enable</string>
+    <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -2028,4 +2059,6 @@
     <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
     <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
 </resources>

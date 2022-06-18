@@ -841,8 +841,6 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Будь ласка, не встановлюйте інтервал для значення менше, ніж</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">хвилин. Це значно збільшує витрату заряду батареї.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">секунд. Це значно збільшить витрату заряду батареї.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Заокруглені кути</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Заокруглені кути</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender не оновлено</string>
     <string name="profile_activation_interactive_preference_notification_title">Активований профіль:</string>
     <string name="profile_activation_interactive_preference_notification_text">Натисніть тут, щоб відкрити:</string>
@@ -1586,7 +1584,6 @@
     <string name="ignore_manual_activation_ignore_toast">Подію буде запущено, але призупинено, коли профіль активовано вручну</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Подія буде запущена, а також не призупинена, коли будь-який профіль активовано вручну</string>
     <string name="github_assets_screenshot_text">\"Assets\" нижче приміток релізу. При перегляді мобільної версії на \"Assets\" слід натиснути.</string>
-    <string name="quick_tile_icon_label">Оберіть профіль</string>
     <string name="title_activity_tile_chooser">Вибір профілю для швидкого налаштування</string>
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Яскравість індикатора налаштувань</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Оформлення сповіщення (якщо увімкнено) буде відображатися тільки коли колір тла має тип \"Рідний\".</string>
@@ -1915,6 +1912,37 @@
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Не встановлено</string>
     <string name="location_scanner_location_not_working_notification_title">Розташування не визначено</string>
     <string name="location_scanner_location_not_working_notification_text">Вибачте, але неможливо визначити розташування. Будь ласка, перевірте налаштування пристрою.</string>
+    <string name="days_of_week_pref_dialog_button_all_nothing">Все / Нічого</string>
+    <string name="profile_preferences_applicationEnablePeriodicScanning">Увімкнути періодичне сканування</string>
+    <string name="menu_share_settings">Поширити налаштування</string>
+    <string name="menu_restore_shared_settings">Відновити поширені налаштування</string>
+    <string name="share_settings_alert_message">Для поширення налаштувань у хмарні сховища, такі як Google Drive, OneDrive. Оберіть відповідний хмарний застосунок на панелі спільного користування.</string>
+    <string name="share_settings_choose_bar">Поширити налаштування PhoneProfilesPlus</string>
+    <string name="share_settings_alert_title">Поширити налаштування</string>
+    <string name="share_settings_ok_shared">Налаштування поширені</string>
+    <string name="share_settings_error_on_share">Помилка при поширенні налаштувань</string>
+    <string name="open_document_activity_not_found_alert">Неможливо показати екран відкриття документу.</string>
+    <string name="restore_shared_settings_alert_title">Відновити поширені налаштування</string>
+    <string name="restore_shared_settings_error_on_backup">Помилка копіювання файлу для відновлення</string>
+    <string name="restore_shared_settings_ok_backed_up">Поширений файл для відновлення скопійовано</string>
+    <string name="permission_why_profile_default_assistant">для встановлення PhoneProfilesPlus як помічника за замовчуванням</string>
+    <string name="permission_group_name_microphone">Записувати звук</string>
+    <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Decoration for notification is enabled only when \"Background color\" is of type \"Native\". Decoration is always displayed, when \"Notification style\" is set to \"Native\".</string>
+    <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Режим \"У літаку\"</string>
+    <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Натисніть тут, аби вибрати, які модулі будуть вимкнуті в режимі \"У літаку\".</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info1">Є можливість обрати які модулі вимкнути, якщо обрано режим \"У літаку\".</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info2">This help is better to open it in computer in his Internet browser. Help is in PhoneProfilesPlus GitHub README.md, marked as</string>
+    <string name="event_preference_sensor_activated_profile_summary">This sensor will start and end an event by profile activation. Parameters: Start profile (profile which starts event), End profile (profile which ends event).</string>
+    <string name="event_type_activated_profile">Активований профіль</string>
+    <string name="event_preferences_activated_profile_startProfile">Запустити профіль</string>
+    <string name="event_preferences_activated_profile_endProfile">Зупинити профіль</string>
+    <string name="event_preferences_category_eventActivatedProfileParameters">Датчик активованого профілю</string>
+    <string name="event_preferences_activated_profile_info">Налаштовані профілі</string>
+    <string name="event_preferences_activated_profile_info_summary">Профілі не мають збігатися. Якщо профілі однакові, то обидва параметри будуть позначені помилковими в конфігурації.</string>
+    <string name="quick_tile_icon_label">Активувати профіль</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Екран налаштування не знайдено. \n\nОдже, йдемо в налаштування пристрою: \"Налаштування / Застосунки / Запуск застосунків\" та встановлюємо \"Керувати вручну\" для PhoneProfilesPlus.</string>
+    <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
+    <string name="enable_notificaitons_button">Enable</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender для PhoneProfilesPlus. Працює лише у поєднанні з PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Версія:</string>
@@ -1956,6 +1984,9 @@
     <string name="extender_notification_permission_title">Дозвіл не надано</string>
     <string name="extender_notification_sms_mms_permission_text">Дозвіл на параметр подій \"Датчик SMS/MMS\" не надано. Натисніть це сповіщення, щоб відкрити Extender. У ньому натисніть на кнопку для надання цього дозволу.</string>
     <string name="extender_notification_call_permission_text">Дозвіл на параметр подій \"Датчик викликів\" не надано. Натисніть це сповіщення, щоб відкрити Extender. У ньому натисніть кнопку для надання цього дозволу.</string>
+    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
+    <string name="extender_enable_notificaitons_button">Enable</string>
+    <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -2028,4 +2059,6 @@
     <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
     <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
 </resources>

@@ -841,8 +841,6 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Prosím nenastavujte interval na menší hodnotu než</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minut. Výrazně to zvyšuje spotřebu baterie.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">vteřin. Výrazně to zvyšuje spotřebu baterie.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Zaoblené rohy</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Zaoblené rohy</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">není aktualizován PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">Aktivovaný profil:</string>
     <string name="profile_activation_interactive_preference_notification_text">Klikněte zde pro otevření:</string>
@@ -1586,7 +1584,6 @@
     <string name="ignore_manual_activation_ignore_toast">Událost se bude spouštět, ale zastavovat, pokud se některý profil aktivuje manuálně</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Událost se bude spouštět a i nezastavovat, pokud se některý profil aktivuje manuálně</string>
     <string name="github_assets_screenshot_text">\"Assets\" se nachází pod poznámkami k vydání. Na \"Assets\" v mobilním zobrazení je třeba kliknout.</string>
-    <string name="quick_tile_icon_label">Vybrat profil</string>
     <string name="title_activity_tile_chooser">Výběr profilu pro rychlou dlaždici</string>
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Světlost indikátoru parametrů</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Dekorace pro notifikaci (pokud je povolena) bude zobrazena pouze pokud Barva pozadí je typu \"Nativní\".</string>
@@ -1915,6 +1912,37 @@
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Žádné nainstalované</string>
     <string name="location_scanner_location_not_working_notification_title">Poloha nefunguje</string>
     <string name="location_scanner_location_not_working_notification_text">Promiňte, ale není možné zjistit polohu. Zkontrolujte Nastavení Polohy v zařízení.</string>
+    <string name="days_of_week_pref_dialog_button_all_nothing">Vše / Nic</string>
+    <string name="profile_preferences_applicationEnablePeriodicScanning">Povolit periodické skenování</string>
+    <string name="menu_share_settings">Sdílení nastavení</string>
+    <string name="menu_restore_shared_settings">Obnova sdílených nastavení</string>
+    <string name="share_settings_alert_message">Slouží ke sdílení nastavení do cloudového úložiště, jako je Disk Google, OneDrive. Chcete-li to provést, vyberte příslušnou cloudovou aplikaci na panelu sdílení.</string>
+    <string name="share_settings_choose_bar">Sdílení nastavení PhoneProfilesPlus</string>
+    <string name="share_settings_alert_title">Sdílení nastavení</string>
+    <string name="share_settings_ok_shared">Nastavení jsou sdílena</string>
+    <string name="share_settings_error_on_share">Chyba při sdílení nastavení</string>
+    <string name="open_document_activity_not_found_alert">Obrazovku pro otevření dokumentu nelze zobrazit.</string>
+    <string name="restore_shared_settings_alert_title">Obnovení sdílených nastavení</string>
+    <string name="restore_shared_settings_error_on_backup">Chyba při kopírování sdíleného souboru k obnovení</string>
+    <string name="restore_shared_settings_ok_backed_up">Sdílený soubor pro obnovení zkopírován</string>
+    <string name="permission_why_profile_default_assistant">pro nastavení PhoneProfilesPlus, jako výchozího Asistenta</string>
+    <string name="permission_group_name_microphone">Nahrávat zvuk</string>
+    <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Dekorace pro notifikaci je povolena jen tehdy, když je \"Barva pozadí\" typu \"Nativní\". Dekorace se zobrazuje vždy, když je \"Styl notifikace\" nastaven na \"Nativní\".</string>
+    <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Rádia režimu letadlo</string>
+    <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Klepnutím sem zobrazíte, jak nakonfigurovat, která rádia se mají vypnout, když je povolen režim letadlo v zařízení.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info1">Je možné nakonfigurovat, která rádia se mají vypnout, když je povolen režim letadlo v zařízení.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info2">Tuto nápovědu je lepší otevřít v počítači ve svém internetovém prohlížeči. Pomoc je v PhoneProfilesPlus GitHub README.md, označena jako</string>
+    <string name="event_preference_sensor_activated_profile_summary">Tento senzor spustí a ukončí událost aktivací profilu. Parametry: Startovací profil (profil, který spouští událost), Ukončovací profil (profil, kterým událost končí).</string>
+    <string name="event_type_activated_profile">Aktivovaný profil</string>
+    <string name="event_preferences_activated_profile_startProfile">Startovací profil</string>
+    <string name="event_preferences_activated_profile_endProfile">Ukončovací profil</string>
+    <string name="event_preferences_category_eventActivatedProfileParameters">Senzor Aktivovaného profilu</string>
+    <string name="event_preferences_activated_profile_info">Nakonfigurované profily</string>
+    <string name="event_preferences_activated_profile_info_summary">Profily nesmí být stejné. Pokud jsou profily stejné, oba parametry budou označeny jako chyba v konfiguraci.</string>
+    <string name="quick_tile_icon_label">Aktivovat profil</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Obrazovka nastavení nebyla nalezena.\n\nPřejděte do nastavení zařízení: „Nastavení / Aplikace / Spuštění aplikace“ a nastavte „Spravovat manuálně“ pro PhoneProfilesPlus.</string>
+    <string name="notifications_permission_text">Povolení k oznámení není uděleno.\n\nPovolte upozornění pro PhoneProfilesPlus. Bez tohoto povolení se upozornění z PhoneProfilesPlus nebudou zobrazovat.</string>
+    <string name="enable_notificaitons_button">Povolit</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pro PhoneProfilesPlus. Funguje pouze ve spojení s PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verze:</string>
@@ -1956,6 +1984,9 @@
     <string name="extender_notification_permission_title">Povolení není udělěno</string>
     <string name="extender_notification_sms_mms_permission_text">Oprávnění pro parametr události \"Senzor SMS/MMS\" není uděleno. Klepnutím na toto oznámení otevřete Extender. V něm se použije tlačítko pro udělení tohoto oprávnění.</string>
     <string name="extender_notification_call_permission_text">Oprávnění pro parametr události \"Senzor hovoru\" není uděleno. Klepnutím na toto oznámení otevřete Extender. V něm použijte tlačítko pro udělení tohoto oprávnění.</string>
+    <string name="extender_notifications_permission_text">Povolení k oznámení není uděleno.\n\nPovolte upozornění pro PhoneProfilesPlusExtender. Bez tohoto povolení se upozornění z PhoneProfilesPlusExtender nebudou zobrazovat.</string>
+    <string name="extender_enable_notificaitons_button">Povolit</string>
+    <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -2028,4 +2059,6 @@
     <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
     <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
 </resources>

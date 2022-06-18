@@ -841,8 +841,6 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">請不要將間隔設置小於</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">分鐘。這會大量增加耗電。</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">秒。這會大量增加耗電。</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">圓角</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">圓角</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">未升級的 PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">啟用設定檔:</string>
     <string name="profile_activation_interactive_preference_notification_text">按此開啟:</string>
@@ -1586,7 +1584,6 @@
     <string name="ignore_manual_activation_ignore_toast">當手動啟用任何設定檔時，事件將會啟動，但會暫停</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">當手動啟用任何設定檔時，事件將會啟動且不暫停</string>
     <string name="github_assets_screenshot_text">\"Assets\" 位於發佈設下方。點擊手機檢視中的 \"Assets\"。</string>
-    <string name="quick_tile_icon_label">選擇設定檔</string>
     <string name="title_activity_tile_chooser">快速開關設定檔選擇器</string>
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">設置呼吸燈亮度</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">僅在背景顏色為\"原生\"類型時，才會顯示通知圖示(如果已啟用)</string>
@@ -1915,6 +1912,37 @@
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">無安裝</string>
     <string name="location_scanner_location_not_working_notification_title">位置不運作</string>
     <string name="location_scanner_location_not_working_notification_text">抱歉，無法取得位置。請檢查裝置的位置設定。</string>
+    <string name="days_of_week_pref_dialog_button_all_nothing">全部 / 無</string>
+    <string name="profile_preferences_applicationEnablePeriodicScanning">啟用定期掃描</string>
+    <string name="menu_share_settings">分享設定</string>
+    <string name="menu_restore_shared_settings">還原分享設定</string>
+    <string name="share_settings_alert_message">這用於將設定分享到雲端空間，例如 Google Drive、OneDrive。為此，請在分享面板中選擇當的雲端應用程式。</string>
+    <string name="share_settings_choose_bar">分享 PhoneProfilesPlus 設定</string>
+    <string name="share_settings_alert_title">分享設定</string>
+    <string name="share_settings_ok_shared">設定已分享</string>
+    <string name="share_settings_error_on_share">分享設定錯誤</string>
+    <string name="open_document_activity_not_found_alert">無法顯示開啟的文件畫面。</string>
+    <string name="restore_shared_settings_alert_title">Restore shared settings</string>
+    <string name="restore_shared_settings_error_on_backup">Error on copying shared file for restore</string>
+    <string name="restore_shared_settings_ok_backed_up">Shared file to restore copied</string>
+    <string name="permission_why_profile_default_assistant">for set PhoneProfilesPlus as default Assistant</string>
+    <string name="permission_group_name_microphone">Record audio</string>
+    <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Decoration for notification is enabled only when \"Background color\" is of type \"Native\". Decoration is always displayed, when \"Notification style\" is set to \"Native\".</string>
+    <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Airplane mode radios</string>
+    <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Click here to display how to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info1">Is possible to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info2">This help is better to open it in computer in his Internet browser. Help is in PhoneProfilesPlus GitHub README.md, marked as</string>
+    <string name="event_preference_sensor_activated_profile_summary">This sensor will start and end an event by profile activation. Parameters: Start profile (profile which starts event), End profile (profile which ends event).</string>
+    <string name="event_type_activated_profile">Activated profile</string>
+    <string name="event_preferences_activated_profile_startProfile">Start profile</string>
+    <string name="event_preferences_activated_profile_endProfile">End profile</string>
+    <string name="event_preferences_category_eventActivatedProfileParameters">Activated profile sensor</string>
+    <string name="event_preferences_activated_profile_info">Configured profiles</string>
+    <string name="event_preferences_activated_profile_info_summary">Profiles must not be the same. If profiles are the same, both parameters will be marked as error in configuration.</string>
+    <string name="quick_tile_icon_label">Activate profile</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Setting screen not found.\n\nPlease go into device settings: \"Settings / Apps / App launch\" and set \"Manage manually\" for PhoneProfilesPlus.</string>
+    <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
+    <string name="enable_notificaitons_button">Enable</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlus 的擴展器。它只能與 PhoneProfilesPlus 一起使用。</string>
     <string name="extender_about_application_version">版本:</string>
@@ -1956,6 +1984,9 @@
     <string name="extender_notification_permission_title">未授予權限</string>
     <string name="extender_notification_sms_mms_permission_text">未授予事件參數 \"簡訊/MMS 感測器\" 的權限。按此通知開啟擴展器。按其中的按鍵授予權限。</string>
     <string name="extender_notification_call_permission_text">未授予事件參數 \"來電感測器\" 的權限。按此通知開啟擴展器。按其中的按鍵授予權限。</string>
+    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
+    <string name="extender_enable_notificaitons_button">Enable</string>
+    <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -2028,4 +2059,6 @@
     <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
     <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
 </resources>

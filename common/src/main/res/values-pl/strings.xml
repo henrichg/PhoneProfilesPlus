@@ -841,8 +841,6 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Proszę nie konfigurować interwału do wartości mniejszej, niż</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minut. To znacznie zwiększa zużycie baterii.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">sekund. To znacznie zwiększa zużycie baterii.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Zaokrąglone narożniki</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Zaokrąglone narożniki</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">niezaktualizowany PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">Aktywowany profil:</string>
     <string name="profile_activation_interactive_preference_notification_text">Kliknij tu, aby otworzyć:</string>
@@ -1586,7 +1584,6 @@
     <string name="ignore_manual_activation_ignore_toast">Zdarzenie zostanie uruchomione, ale wstrzymane, gdy dowolny profil jest aktywowany ręcznie</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Zdarzenie zostanie uruchomione oraz nie wstrzymane, gdy dowolny profil jest aktywowany ręcznie</string>
     <string name="github_assets_screenshot_text">\"Assets\" znajduje się poniżej informacji o wydaniu. Należy kliknąć \"Assets\" w widoku mobilnym.</string>
-    <string name="quick_tile_icon_label">Wybierz profil</string>
     <string name="title_activity_tile_chooser">Kafelek szybkiego wyboru profilu</string>
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Jasność wskaźnika preferencji</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Styl dla powiadomień (jeśli jest włączony) będzie wyświetlany tylko wtedy, gdy kolor tła jest typu \"Natywny\".</string>
@@ -1915,6 +1912,37 @@
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">None installed</string>
     <string name="location_scanner_location_not_working_notification_title">Location not working</string>
     <string name="location_scanner_location_not_working_notification_text">Sorry, but is not possible to get location. Please check device Location settings.</string>
+    <string name="days_of_week_pref_dialog_button_all_nothing">All / Nothing</string>
+    <string name="profile_preferences_applicationEnablePeriodicScanning">Enable periodic scanning</string>
+    <string name="menu_share_settings">Share settings</string>
+    <string name="menu_restore_shared_settings">Restore shared settings</string>
+    <string name="share_settings_alert_message">This is for sharing settings to cloud storage, such as Google Drive, OneDrive. To do this, select the appropriate cloud application in the share panel.</string>
+    <string name="share_settings_choose_bar">Share PhoneProfilesPlus settings</string>
+    <string name="share_settings_alert_title">Share settings</string>
+    <string name="share_settings_ok_shared">Settings shared</string>
+    <string name="share_settings_error_on_share">Error on share settings</string>
+    <string name="open_document_activity_not_found_alert">Open document screen can not be displayed.</string>
+    <string name="restore_shared_settings_alert_title">Restore shared settings</string>
+    <string name="restore_shared_settings_error_on_backup">Error on copying shared file for restore</string>
+    <string name="restore_shared_settings_ok_backed_up">Shared file to restore copied</string>
+    <string name="permission_why_profile_default_assistant">for set PhoneProfilesPlus as default Assistant</string>
+    <string name="permission_group_name_microphone">Record audio</string>
+    <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Decoration for notification is enabled only when \"Background color\" is of type \"Native\". Decoration is always displayed, when \"Notification style\" is set to \"Native\".</string>
+    <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Airplane mode radios</string>
+    <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Click here to display how to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info1">Is possible to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info2">This help is better to open it in computer in his Internet browser. Help is in PhoneProfilesPlus GitHub README.md, marked as</string>
+    <string name="event_preference_sensor_activated_profile_summary">This sensor will start and end an event by profile activation. Parameters: Start profile (profile which starts event), End profile (profile which ends event).</string>
+    <string name="event_type_activated_profile">Activated profile</string>
+    <string name="event_preferences_activated_profile_startProfile">Start profile</string>
+    <string name="event_preferences_activated_profile_endProfile">End profile</string>
+    <string name="event_preferences_category_eventActivatedProfileParameters">Activated profile sensor</string>
+    <string name="event_preferences_activated_profile_info">Configured profiles</string>
+    <string name="event_preferences_activated_profile_info_summary">Profiles must not be the same. If profiles are the same, both parameters will be marked as error in configuration.</string>
+    <string name="quick_tile_icon_label">Activate profile</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Setting screen not found.\n\nPlease go into device settings: \"Settings / Apps / App launch\" and set \"Manage manually\" for PhoneProfilesPlus.</string>
+    <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
+    <string name="enable_notificaitons_button">Enable</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender dla PhoneProfilesPlus. Działa tylko w połączeniu z PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Wersja:</string>
@@ -1956,6 +1984,9 @@
     <string name="extender_notification_permission_title">Nie przyznano uprawnień</string>
     <string name="extender_notification_sms_mms_permission_text">Nie przyznano uprawnień dla parametru zdarzenia \"Czujnik SMS/MMS\". Kliknij to powiadomienie, aby otworzyć Extender. Po uruchomieniu użyj przycisku przyznawania uprawnień.</string>
     <string name="extender_notification_call_permission_text">Nie przyznano uprawnień dla parametru zdarzenia \"Czujnik rozmowy tel\". Kliknij to powiadomienie, aby otworzyć Extender. Po uruchomieniu użyj przycisku przyznawania uprawnień.</string>
+    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
+    <string name="extender_enable_notificaitons_button">Enable</string>
+    <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -2028,4 +2059,6 @@
     <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
     <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
 </resources>

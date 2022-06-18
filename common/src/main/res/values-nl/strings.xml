@@ -841,8 +841,6 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Configureer de interval waarde niet minder dan</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minuten. Dit vergroot het batterijverbruik aanzienlijk.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconden. Dit vergroot het batterijverbruik aanzienlijk.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Afgeronde hoeken</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Afgeronde hoeken</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender is niet bijgewerkt</string>
     <string name="profile_activation_interactive_preference_notification_title">Actief profiel:</string>
     <string name="profile_activation_interactive_preference_notification_text">Klik hier om te openen:</string>
@@ -1586,7 +1584,6 @@
     <string name="ignore_manual_activation_ignore_toast">Evenement zal worden gestart, maar gepauzeerd wanneer een profiel handmatig wordt geactiveerd</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Evenement zal worden gestart en niet gepauzeerd wanneer een profiel handmatig wordt geactiveerd</string>
     <string name="github_assets_screenshot_text">\"Assets\" staat onder de release notes. \"Assets\" in de mobiele weergave moetbje aangeklikken.</string>
-    <string name="quick_tile_icon_label">Kies profiel</string>
     <string name="title_activity_tile_chooser">Snelle tegel profiel kiezer</string>
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Voorkeuren licht indicator</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoratie voor melding (indien ingeschakeld), wordt alleen weergegeven als de achtergrondkleur van het type \"Native\" is.</string>
@@ -1915,6 +1912,37 @@
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Geen geïnstalleerd</string>
     <string name="location_scanner_location_not_working_notification_title">Locatie werkt niet</string>
     <string name="location_scanner_location_not_working_notification_text">Sorry, maar het is niet mogelijk om locatiegegevens te krijgen. Controleer de locatie-instellingen.</string>
+    <string name="days_of_week_pref_dialog_button_all_nothing">Alle / Geen</string>
+    <string name="profile_preferences_applicationEnablePeriodicScanning">Periodiek scannen inschakelen</string>
+    <string name="menu_share_settings">Instellingen delen</string>
+    <string name="menu_restore_shared_settings">Gedeelde instellingen herstellen</string>
+    <string name="share_settings_alert_message">Dit is voor het delen van instellingen naar cloud opslagruimte, zoals Google Drive, OneDrive. Om dit te doen, selecteert u de juiste cloud applicatie in het deelvenster.</string>
+    <string name="share_settings_choose_bar">PhoneProfilesPlus instellingen delen</string>
+    <string name="share_settings_alert_title">Instellingen delen</string>
+    <string name="share_settings_ok_shared">Instellingen gedeeld</string>
+    <string name="share_settings_error_on_share">Fout bij instellingen delen</string>
+    <string name="open_document_activity_not_found_alert">Kan open document scherm niet weergeven.</string>
+    <string name="restore_shared_settings_alert_title">Gedeelde instellingen herstellen</string>
+    <string name="restore_shared_settings_error_on_backup">Fout bij kopiëren van gedeeld bestand voor herstellen</string>
+    <string name="restore_shared_settings_ok_backed_up">Gedeeld bestand om te herstellen gekopieerd</string>
+    <string name="permission_why_profile_default_assistant">voor instellen van PhoneProfilesPlus als standaard Assistent</string>
+    <string name="permission_group_name_microphone">Audio opnemen</string>
+    <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Notificatie aanpassing alleen ingeschakeld als \"Achtergrondkleur\" van het type \"Standaard\" is. Aanpassing wordt weergegeven, wanneer meldingsstijl is ingesteld op \"Standaard\".</string>
+    <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Vliegtuigmodus radio\'s</string>
+    <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Klik hier om te zien hoe je kunt instellen welke radio\'s moeten worden uitgeschakeld wanneer de vliegtuigmodus van het toestel is ingeschakeld.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info1">Het is mogelijk om in te stellen welke radio\'s uit moeten bij aanzetten van vliegtuigmode.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info2">Deze help kun je beter openen op een computer met een browser. Het is in PhoneProfilesPlus GitHub README.md, gemarkeerd als</string>
+    <string name="event_preference_sensor_activated_profile_summary">Deze sensor start en stopt een event door profiel activatie. Parameters: Start profiel (profiel dat event start) en Eind profiel (profiel dat event eindigt).</string>
+    <string name="event_type_activated_profile">Actief profiel</string>
+    <string name="event_preferences_activated_profile_startProfile">Profiel starten</string>
+    <string name="event_preferences_activated_profile_endProfile">Einde profiel</string>
+    <string name="event_preferences_category_eventActivatedProfileParameters">Geactiveerde profiel sensor</string>
+    <string name="event_preferences_activated_profile_info">Geconfigureerde profielen</string>
+    <string name="event_preferences_activated_profile_info_summary">Profielen mogen niet hetzelfde zijn. Als profielen hetzelfde zijn, worden beide parameters gemarkeerd als een fout in de configuratie.</string>
+    <string name="quick_tile_icon_label">Activeer profiel</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Instellingen scherm niet gevonden.\n\nGa naar apparaatinstellingen: \"Instellingen / Apps / App launch\" en stel \"Handmatig\" in voor PhoneProfilesPlus.</string>
+    <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
+    <string name="enable_notificaitons_button">Enable</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender voor PhoneProfilesPlus. Deze werkt alleen in combinatie met PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Versie:</string>
@@ -1956,6 +1984,9 @@
     <string name="extender_notification_permission_title">Geen toestemming verleend</string>
     <string name="extender_notification_sms_mms_permission_text">Toestemming voor event parameter \"SMS/MMS sensor\" is niet gegeven. Klik op deze notificatie om de extensie te openen. Binnen deze optie kun je de knop gebruiken om deze machtiging te verlenen.</string>
     <string name="extender_notification_call_permission_text">Er is geen toestemming gegeven voor de event parameter \"Oproep sensor\". Klik op deze melding om de Extender te openen. Daarbinnen gebruik je de knop om de toestemming te verlenen.</string>
+    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
+    <string name="extender_enable_notificaitons_button">Enable</string>
+    <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -2028,4 +2059,6 @@
     <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
     <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
 </resources>

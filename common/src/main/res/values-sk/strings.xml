@@ -422,7 +422,7 @@
     <string name="event_type_applications">Aplikácie</string>
     <string name="event_preferences_category_eventApplicationsParameters">Senzor aplikácií</string>
     <string name="event_preferences_applications_applications">Aplikácie</string>
-    <string name="event_preferences_applications_AccessibilitySettings_title">Dostupnosť</string>
+    <string name="event_preferences_applications_AccessibilitySettings_title">Nastavenia dostupnosti</string>
     <string name="brightness_pref_dialog_adaptive_level_root_required">Zmena úrovne adaptívneho jasu vyžaduje ROOT.</string>
     <string name="important_info_profile_activation_text1">Profil je možné aktivovať v dvoch režimoch:</string>
     <string name="important_info_profile_activation_text2">Manuálna aktivácia - aktivované v Aktivátore, Editore, cez notifikáciu, miniaplikáciu, odkaz na profil. Manuálna aktivácia profilu je indikovaná \"[M]\" pred názvom profilu.</string>
@@ -841,8 +841,6 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Prosím nenastavujte interval na menšiu hodnotu ako</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minút. Výrazne to zvyšuje spotrebu batérie.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">sekúnd. Výrazne to zvyšuje spotrebu batérie.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Zaoblené rohy</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Zaoblené rohy</string>
     <string name="preference_not_allowed_reason_extender_not_upgraded">nie je aktualizovaný PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">Aktivovaný profil:</string>
     <string name="profile_activation_interactive_preference_notification_text">Kliknite tu pre otvorenie:</string>
@@ -888,7 +886,7 @@
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplikácie, ktorým vynútiť zastavenie</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Pre povolenie parametra \"Vynútiť zastavenie aplikácií\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">Je potrebná nová verzia PhoneProfilesPlusExtender. Kliknutím sem ho môžete aktualizovať.</string>
-    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Dostupnosť</string>
+    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Nastavenia dostupnosti</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Vynútiť zastavenie aplikácií\".</string>
     <string name="shortcut_activate_profile">Aktivácia profilu:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Pracuje len ak je obrazovka zapnutá a odomknutá.</string>
@@ -1103,7 +1101,7 @@
     <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustiť aplikácie, odkazy, intenty</string>
     <string name="applications_editor_dialog_title">Vyber aplikáciu, odkaz, intent</string>
     <string name="profile_preferences_lockDevice_PPPExtender_install_summary">Pre typ zamknutia \"Použi PhoneProfilesPlusExtender\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Dostupnosť</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Nastavenia dostupnosti</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Povoľte PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre typ zamknutia \"Použi PhoneProfilesPlusExtender\".</string>
     <string name="array_pref_lockDevice_extender">Použi PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">V Android 9+, aby fungovalo skenovanie mobilných buniek, musíte povoliť Polohu v systémových nastaveniach.</string>
@@ -1586,7 +1584,6 @@
     <string name="ignore_manual_activation_ignore_toast">Udalosť sa bude spúšťať, ale zastavovať, ak sa niektorý profil aktivuje manuálne</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Udalosť sa bude spúšťať a aj nezastavovať, ak sa niektorý profil aktivuje manuálne</string>
     <string name="github_assets_screenshot_text">„Assets“ sa nachádza pod poznámkami k vydaniu. Na „Assets“ v mobilnom zobrazení je potrebné kliknúť.</string>
-    <string name="quick_tile_icon_label">Vybrať profil</string>
     <string name="title_activity_tile_chooser">Výber profilu pre rýchlu dlaždicu</string>
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Svetlosť indikátora parametrov</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Dekorácia pre notifikáciu (ak je povolená) bude zobrazená len ak Farba pozadia je typu \"Natívna\".</string>
@@ -1915,6 +1912,37 @@
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Žiadne nainštalované</string>
     <string name="location_scanner_location_not_working_notification_title">Poloha nefunguje</string>
     <string name="location_scanner_location_not_working_notification_text">Prepáčte, ale nie je možné zistiť polohu. Skontrolujte Nastavenia Polohy v zariadení.</string>
+    <string name="days_of_week_pref_dialog_button_all_nothing">Všetko / Nič</string>
+    <string name="profile_preferences_applicationEnablePeriodicScanning">Povoliť periodické skenovanie</string>
+    <string name="menu_share_settings">Zdieľanie nastavení</string>
+    <string name="menu_restore_shared_settings">Obnova zdieľaných nastavení</string>
+    <string name="share_settings_alert_message">Slúži na zdieľanie nastavení do cloudového úložiska, ako je Disk Google, OneDrive. Ak to chcete urobiť, vyberte príslušnú cloudovú aplikáciu na paneli zdieľania.</string>
+    <string name="share_settings_choose_bar">Zdieľanie nastavení PhoneProfilesPlus</string>
+    <string name="share_settings_alert_title">Zdieľanie nastavení</string>
+    <string name="share_settings_ok_shared">Nastavenia sú zdieľané</string>
+    <string name="share_settings_error_on_share">Chyba pri zdieľaní nastavení</string>
+    <string name="open_document_activity_not_found_alert">Obrazovka na otvorenie dokumentu sa nedá zobraziť.</string>
+    <string name="restore_shared_settings_alert_title">Obnovenie zdieľaných nastavení</string>
+    <string name="restore_shared_settings_error_on_backup">Chyba pri kopírovaní zdieľaného súboru na obnovenie</string>
+    <string name="restore_shared_settings_ok_backed_up">Zdieľaný súbor pre obnovenie skopírovaný</string>
+    <string name="permission_why_profile_default_assistant">pre nastavenie PhoneProfilesPlus, ako predvoleného Asistenta</string>
+    <string name="permission_group_name_microphone">Nahrávať zvuk</string>
+    <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Dekorácia pre notifikáciu je povolená len vtedy, keď je \"Farba pozadia\" typu \"Natívna\". Dekorácia sa zobrazuje vždy, keď je \"Štýl notifikácie\" nastavený na \"Natívny\".</string>
+    <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Rádia režimu lietadlo</string>
+    <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Kliknutím sem zobrazíte, ako nakonfigurovať, ktoré rádiá sa majú vypnúť, keď je povolený režim lietadlo v zariadení.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info1">Je možné nakonfigurovať, ktoré rádiá sa majú vypnúť, keď je povolený režim lietadlo v zariadení.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info2">Túto nápovedu je lepšie otvoriť v počítači vo svojom internetovom prehliadači. Pomoc je v PhoneProfilesPlus GitHub README.md, označená ako</string>
+    <string name="event_preference_sensor_activated_profile_summary">Tento senzor spustí a ukončí udalosť aktiváciou profilu. Parametre: Štartovací profil (profil, ktorý spúšťa udalosť), Ukončovací profil (profil, ktorým sa udalosť končí).</string>
+    <string name="event_type_activated_profile">Aktivovaný profil</string>
+    <string name="event_preferences_activated_profile_startProfile">Štartovací profil</string>
+    <string name="event_preferences_activated_profile_endProfile">Ukončovací profil</string>
+    <string name="event_preferences_category_eventActivatedProfileParameters">Senzor Aktivovaného profilu</string>
+    <string name="event_preferences_activated_profile_info">Nakonfigurované profily</string>
+    <string name="event_preferences_activated_profile_info_summary">Profily nesmú byť rovnaké. Ak sú profily rovnaké, oba parametre budú označené ako chyba v konfigurácii.</string>
+    <string name="quick_tile_icon_label">Aktivovať profil</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Obrazovka nastavenia sa nenašla.\n\nPrejdite do nastavení zariadenia: „Nastavenia / Aplikácie / Spustenie aplikácie“ a nastavte „Spravovať manuálne“ pre PhoneProfilesPlus.</string>
+    <string name="notifications_permission_text">Povolenie na notifikácie nie je udelené.\n\nPovoľte upozornenia pre PhoneProfilesPlus. Bez tohto povolenia sa upozornenia z PhoneProfilesPlus nebudú zobrazovať.</string>
+    <string name="enable_notificaitons_button">Povoliť</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pre PhoneProfilesPlus. Funguje iba v spojení s PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verzia:</string>
@@ -1956,6 +1984,9 @@
     <string name="extender_notification_permission_title">Povolenie nebolo udelené</string>
     <string name="extender_notification_sms_mms_permission_text">Povolenie pre parameter udalosti \"Senzor SMS/MMS\" nie je udelené. Kliknutím na toto upozornenie otvoríte Extender. V ňom použite tlačidlo na udelenie tohto povolenia.</string>
     <string name="extender_notification_call_permission_text">Povolenie pre parameter udalosti \"Senzor hovoru\" nie je udelené. Kliknutím na toto upozornenie otvoríte Extender. V ňom použite tlačidlo na udelenie tohto povolenia.</string>
+    <string name="extender_notifications_permission_text">Povolenie na notifikácie nie je udelené.\n\nPovoľte upozornenia pre PhoneProfilesPlusExtender. Bez tohto povolenia sa upozornenia z PhoneProfilesPlusExtender nebudú zobrazovať.</string>
+    <string name="extender_enable_notificaitons_button">Povoliť</string>
+    <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -2028,4 +2059,6 @@
     <!--    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>-->
     <!--    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>-->
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
 </resources>
