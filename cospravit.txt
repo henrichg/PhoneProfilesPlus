@@ -748,7 +748,6 @@ Mozno je to tymto:
 android:excludeFromRecents="true"
 android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
 Tazko povedat.
-x
 
 Pre PPPE to pytalo, ale az po druhom spusteni jeho aktivity. Zajimave. A notifikacie sa tym povolia.
 Tak preco kua nie pre PPP? Ze by to bolo tou LancherActivity? Ta fakt je zobrazena len chvilku. Nechapem.
