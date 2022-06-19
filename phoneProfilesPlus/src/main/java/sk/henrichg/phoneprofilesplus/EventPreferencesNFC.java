@@ -160,6 +160,13 @@ class EventPreferencesNFC extends EventPreferences {
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_NFC_ENABLED) ||
             key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);

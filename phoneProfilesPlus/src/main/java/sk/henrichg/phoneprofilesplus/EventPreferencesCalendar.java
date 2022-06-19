@@ -407,6 +407,13 @@ class EventPreferencesCalendar extends EventPreferences {
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_CALENDAR_ENABLED) ||
             key.equals(PREF_EVENT_CALENDAR_ALL_EVENTS)/* ||
             key.equals(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS)*/) {

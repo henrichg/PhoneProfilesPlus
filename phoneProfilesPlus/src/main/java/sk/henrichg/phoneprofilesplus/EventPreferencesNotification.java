@@ -392,6 +392,13 @@ class EventPreferencesNotification extends EventPreferences {
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED) ||
             key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
             key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL) ||

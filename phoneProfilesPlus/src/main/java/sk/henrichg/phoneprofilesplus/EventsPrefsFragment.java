@@ -288,7 +288,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //PPApplication.logE("EventsPrefsFragment.onActivityCreated", "xxx");
+        PPApplication.logE("EventsPrefsFragment.onActivityCreated", "xxx");
 
         if (getActivity() == null)
             return;
@@ -320,6 +320,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         setRedTextToPreferences();
 
+        // update preference summary and also category summary
         event.checkPreferences(prefMng, context);
 
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);

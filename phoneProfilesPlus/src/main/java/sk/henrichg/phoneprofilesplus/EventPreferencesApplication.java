@@ -206,9 +206,15 @@ class EventPreferencesApplication extends EventPreferences {
         }
     }
 
-    void setSummary(PreferenceManager prefMng, String key,
-                    @SuppressWarnings("unused") SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_APPLICATION_ENABLED)) {
             //boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, /*value ? "true" : "false",*/ context);
