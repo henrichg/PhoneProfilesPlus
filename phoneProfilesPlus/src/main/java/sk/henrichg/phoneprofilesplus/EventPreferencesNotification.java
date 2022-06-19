@@ -496,8 +496,9 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (!onlyCategory) {
             boolean enabled = ApplicationPreferences.applicationEventNotificationEnableScanning &&
                     PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
             Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
@@ -551,17 +552,10 @@ class EventPreferencesNotification extends EventPreferences {
                 maximumDuration.setEnabled(enabled);
             }
 
-            SharedPreferences preferences = prefMng.getSharedPreferences();
             setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
             setSummary(prefMng, PREF_EVENT_NOTIFICATION_APP_SETTINGS, preferences, context);
-            setCategorySummary(prefMng, preferences, context);
-        /*}
-        else {
-            PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
-            PreferenceScreen preferenceCategory = (PreferenceScreen) prefMng.findPreference("eventNotificationCategory");
-            if ((preferenceCategory != null) && (preferenceScreen != null))
-                preferenceScreen.removePreference(preferenceCategory);
-        }*/
+        }
+        setCategorySummary(prefMng, preferences, context);
     }
 
     private long computeAlarm(Context context)

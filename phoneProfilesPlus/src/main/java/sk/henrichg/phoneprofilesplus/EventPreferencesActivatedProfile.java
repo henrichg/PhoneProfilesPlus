@@ -219,10 +219,12 @@ class EventPreferencesActivatedProfile extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE, preferences, context);
+        if (!onlyCategory) {
+            setSummary(prefMng, PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE, preferences, context);
+            setSummary(prefMng, PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE, preferences, context);
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 

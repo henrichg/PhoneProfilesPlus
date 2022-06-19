@@ -284,17 +284,19 @@ class EventPreferencesLocation extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
-        final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext())/* &&
-                                ApplicationPreferences.applicationEventLocationEnableScanning(context.getApplicationContext())*/;
-        Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
-        if (preference != null) preference.setEnabled(enabled);
-        preference = prefMng.findPreference(PREF_EVENT_LOCATION_WHEN_OUTSIDE);
-        if (preference != null) preference.setEnabled(enabled);
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
-        setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS, preferences, context);
+        if (!onlyCategory) {
+            final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext())/* &&
+                                ApplicationPreferences.applicationEventLocationEnableScanning(context.getApplicationContext())*/;
+            Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
+            if (preference != null) preference.setEnabled(enabled);
+            preference = prefMng.findPreference(PREF_EVENT_LOCATION_WHEN_OUTSIDE);
+            if (preference != null) preference.setEnabled(enabled);
+            setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
+            setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
+            setSummary(prefMng, PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS, preferences, context);
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 

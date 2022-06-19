@@ -285,10 +285,12 @@ class EventPreferencesPeriodic extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_PERIODIC_APP_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PERIODIC_RESULTING_INTERVAL, preferences, context);
+        if (!onlyCategory) {
+            setSummary(prefMng, PREF_EVENT_PERIODIC_APP_SETTINGS, preferences, context);
+            setSummary(prefMng, PREF_EVENT_PERIODIC_RESULTING_INTERVAL, preferences, context);
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 

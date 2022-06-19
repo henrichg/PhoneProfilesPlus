@@ -1526,29 +1526,29 @@ class Event {
         return description;
     }
 
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
-        _eventPreferencesTime.checkPreferences(prefMng, context);
-        _eventPreferencesBattery.checkPreferences(prefMng, context);
-        _eventPreferencesCall.checkPreferences(prefMng, context);
-        _eventPreferencesAccessories.checkPreferences(prefMng, context);
-        _eventPreferencesCalendar.checkPreferences(prefMng, context);
-        _eventPreferencesWifi.checkPreferences(prefMng, context);
-        _eventPreferencesScreen.checkPreferences(prefMng, context);
-        _eventPreferencesBluetooth.checkPreferences(prefMng, context);
-        _eventPreferencesSMS.checkPreferences(prefMng, context);
-        _eventPreferencesNotification.checkPreferences(prefMng, context);
-        _eventPreferencesApplication.checkPreferences(prefMng, context);
-        _eventPreferencesLocation.checkPreferences(prefMng, context);
-        _eventPreferencesOrientation.checkPreferences(prefMng, context);
-        _eventPreferencesMobileCells.checkPreferences(prefMng, context);
-        _eventPreferencesNFC.checkPreferences(prefMng, context);
-        _eventPreferencesRadioSwitch.checkPreferences(prefMng, context);
-        _eventPreferencesAlarmClock.checkPreferences(prefMng, context);
-        _eventPreferencesDeviceBoot.checkPreferences(prefMng, context);
-        _eventPreferencesSoundProfile.checkPreferences(prefMng, context);
-        _eventPreferencesPeriodic.checkPreferences(prefMng, context);
-        _eventPreferencesVolumes.checkPreferences(prefMng, context);
-        _eventPreferencesActivatedProfile.checkPreferences(prefMng, context);
+    public void checkSensorsPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        _eventPreferencesTime.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesBattery.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesCall.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesAccessories.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesCalendar.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesWifi.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesScreen.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesBluetooth.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesSMS.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesNotification.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesApplication.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesLocation.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesOrientation.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesMobileCells.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesNFC.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesRadioSwitch.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesAlarmClock.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesDeviceBoot.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesSoundProfile.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesPeriodic.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesVolumes.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesActivatedProfile.checkPreferences(prefMng, onlyCategory, context);
     }
 
     /*

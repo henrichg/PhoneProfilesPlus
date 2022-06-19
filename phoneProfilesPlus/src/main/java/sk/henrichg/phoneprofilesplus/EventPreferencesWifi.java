@@ -341,15 +341,14 @@ class EventPreferencesWifi extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
-        /*final boolean enabled = ApplicationPreferences.applicationEventWifiEnableScanning(context.getApplicationContext());
-        Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
-        if (preference != null) preference.setEnabled(enabled);*/
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        //setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
-        setSummary(prefMng, PREF_EVENT_WIFI_APP_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS, preferences, context);
+        if (!onlyCategory) {
+            //setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
+            setSummary(prefMng, PREF_EVENT_WIFI_APP_SETTINGS, preferences, context);
+            setSummary(prefMng, PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS, preferences, context);
+            setSummary(prefMng, PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS, preferences, context);
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 

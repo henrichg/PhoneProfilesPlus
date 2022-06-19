@@ -321,7 +321,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         setRedTextToPreferences();
 
         // update preference summary and also category summary
-        event.checkPreferences(prefMng, context);
+        event.checkSensorsPreferences(prefMng, !nestedFragment, context);
 
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
@@ -1079,11 +1079,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             final Context context = getActivity().getBaseContext();
 
-            event._eventPreferencesApplication.checkPreferences(prefMng, context);
-            event._eventPreferencesOrientation.checkPreferences(prefMng, context);
-            event._eventPreferencesSMS.checkPreferences(prefMng, context);
-            event._eventPreferencesCall.checkPreferences(prefMng, context);
-            event._eventPreferencesNotification.checkPreferences(prefMng, context);
+            event._eventPreferencesApplication.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesSMS.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.onResume");
             PPApplication.updateGUI(true, false, context);
@@ -1140,7 +1140,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        event.checkPreferences(prefMng, getActivity());
+        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity());
         event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
 
         setRedTextToPreferences();
@@ -1170,13 +1170,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             PPApplication.restartNotificationScanner(context);
 
-            event._eventPreferencesNotification.checkPreferences(prefMng, context);
+            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
-            event._eventPreferencesApplication.checkPreferences(prefMng, context);
-            event._eventPreferencesOrientation.checkPreferences(prefMng, context);
-            event._eventPreferencesSMS.checkPreferences(prefMng, context);
-            event._eventPreferencesCall.checkPreferences(prefMng, context);
+            event._eventPreferencesApplication.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesSMS.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
 
             event._eventPreferencesApplication.setSummary(prefMng,
                     EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, preferences, context);
@@ -1192,25 +1192,25 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesTime.checkPreferences(prefMng, context);
+            event._eventPreferencesTime.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_CALENDAR_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesCalendar.checkPreferences(prefMng, context);
+            event._eventPreferencesCalendar.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+            event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS) {
-            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+            event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_BLUETOOTH_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
+            event._eventPreferencesBluetooth.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_LOCATION_APP_SETTINGS) {
-            event._eventPreferencesLocation.checkPreferences(prefMng, context);
+            event._eventPreferencesLocation.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_PERIODIC_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesPeriodic.checkPreferences(prefMng, context);
+            event._eventPreferencesPeriodic.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
@@ -1229,13 +1229,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }*/
         }
         if (requestCode == RESULT_ORIENTATION_SCANNING_SETTINGS) {
-            event._eventPreferencesOrientation.checkPreferences(prefMng, context);
+            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) {
-            event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
+            event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_NOTIFICATION_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesNotification.checkPreferences(prefMng, context);
+            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_WIFI_LOCATION_SYSTEM_SETTINGS) {
             WifiSSIDPreferenceX preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);
@@ -1243,7 +1243,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setLocationEnableStatus();
             }
 
-            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+            event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (2)");
             PPApplication.updateGUI(true, false, context);
@@ -1254,7 +1254,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setLocationEnableStatus();
             }
 
-            event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
+            event._eventPreferencesBluetooth.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (3)");
             PPApplication.updateGUI(true, false, context);
@@ -1265,7 +1265,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setLocationEnableStatus();
             }
 
-            event._eventPreferencesLocation.checkPreferences(prefMng, context);
+            event._eventPreferencesLocation.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (4)");
             PPApplication.updateGUI(true, false, context);
@@ -1276,7 +1276,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setLocationEnableStatus();
             }
 
-            event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
+            event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (5)");
             PPApplication.updateGUI(true, false, context);
@@ -1284,7 +1284,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
             PPApplication.restartTwilightScanner(context);
 
-            event._eventPreferencesTime.checkPreferences(prefMng, context);
+            event._eventPreferencesTime.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (6)");
             PPApplication.updateGUI(true, false, context);

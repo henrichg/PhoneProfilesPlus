@@ -288,23 +288,24 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
-        final boolean accessibilityEnabled =
-                PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/);
-        ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
-        if (applicationsPreference != null) {
-            applicationsPreference.setEnabled(accessibilityEnabled);
-            applicationsPreference.setSummaryAMSDP();
-        }
-
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (!onlyCategory) {
+            final boolean accessibilityEnabled =
+                    PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/);
+            ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
+            if (applicationsPreference != null) {
+                applicationsPreference.setEnabled(accessibilityEnabled);
+                applicationsPreference.setSummaryAMSDP();
+            }
 
-        boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
-        Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled);
+            boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
+            Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
+            if (preference != null)
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled);
 
-        setSummary(prefMng, PREF_EVENT_APPLICATION_ENABLED, preferences, context);
+            setSummary(prefMng, PREF_EVENT_APPLICATION_ENABLED, preferences, context);
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 
