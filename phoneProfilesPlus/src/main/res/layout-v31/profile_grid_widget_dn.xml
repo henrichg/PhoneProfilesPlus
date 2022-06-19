@@ -111,9 +111,11 @@
                         android:contentDescription="@string/profile_preferences_indicator_image"
                         android:scaleType="@integer/profilePrefIndicatorScaleType"
                         android:src="@drawable/ic_empty"
+                        android:tint="?android:attr/colorPrimaryDark"
                         android:visibility="gone"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp" />
+                        android:paddingEnd="10dp"
+                        tools:ignore="UseAppTint" />
 
                 </LinearLayout>
 

@@ -82,10 +82,26 @@ class ProfilePreferencesIndicator {
         if (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) {
             Paint paint = new Paint();
 
-            if (disabled)
-                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
-            else
-                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+            if (disabled) {
+                if (Build.VERSION.SDK_INT >= 31) {
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+                    if (color != 0)
+                        paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
+                    else
+                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
+                } else
+                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
+            }
+            else {
+                if (Build.VERSION.SDK_INT >= 31) {
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
+                    if (color != 0)
+                        paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
+                    else
+                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                } else
+                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+            }
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
@@ -121,6 +137,23 @@ class ProfilePreferencesIndicator {
                 bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
             }
 
+
+            if (bitmapResult != null)
+                canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+        }
+        else
+        if (indicatorsType == DataWrapper.IT_FOR_WIDGET_MONOCHROME_INDICATORS) {
+            Paint paint = new Paint();
+
+            if (disabled)
+                paint.setAlpha(128);
+
+            Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas _canvas = new Canvas(bitmapResult);
+            _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
+
+            // change brightness of indicator
+            bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
 
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);

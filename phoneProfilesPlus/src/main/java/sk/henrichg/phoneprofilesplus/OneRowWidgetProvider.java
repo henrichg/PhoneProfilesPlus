@@ -229,13 +229,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         }
 //        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
 
-        //DataWrapper dataWrapper = _dataWrapper;
-        //Profile profile = _profile;
-        //if (dataWrapper == null) {
+        int indicatorType = DataWrapper.IT_FOR_WIDGET;
+        if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode)
+            indicatorType = DataWrapper.IT_FOR_WIDGET_MONOCHROME_INDICATORS;
+
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                     applicationWidgetOneRowCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
+                    indicatorType, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;
