@@ -72,6 +72,7 @@ public class DataWrapper {
     static final int IT_FOR_NOTIFICATION = 2;
     static final int IT_FOR_WIDGET = 3;
     static final int IT_FOR_WIDGET_MONOCHROME_INDICATORS = 4;
+    static final int IT_FOR_NOTIFICATION_MONOCHROME_INDICATORS = 5;
 
     DataWrapper(Context _context,
                         //boolean fgui,

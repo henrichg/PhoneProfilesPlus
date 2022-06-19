@@ -80,6 +80,7 @@ class ProfilePreferencesIndicator {
         }
         else
         if (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) {
+//            Log.e("ProfilePreferencesIndicator.addIndicator", "IT_FOR_NOTIFICATION");
             Paint paint = new Paint();
 
             if (disabled) {
@@ -102,6 +103,30 @@ class ProfilePreferencesIndicator {
                 } else
                     paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
             }
+
+            Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas _canvas = new Canvas(bitmapResult);
+            _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
+
+            // change brightness of indicator
+            bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
+
+            if (bitmapResult != null)
+                canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+        }
+        else
+        if (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_MONOCHROME_INDICATORS) {
+//            Log.e("ProfilePreferencesIndicator.addIndicator", "IT_FOR_NOTIFICATION_MONOCHROME_INDICATORS");
+            Paint paint = new Paint();
+
+            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
+            if (color != 0)
+                paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
+            else
+                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+
+            if (disabled)
+                paint.setAlpha(128);
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
@@ -1275,8 +1300,6 @@ class ProfilePreferencesIndicator {
                             disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_autobrightness;
                         }
-                        if (fillPreferences)
-                            countItems[countPreferences++] = 1;
                     }
                     else {
                         if (fillPreferences)
@@ -1288,9 +1311,9 @@ class ProfilePreferencesIndicator {
                             disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_brightness;
                         }
-                        if (fillPreferences)
-                            countItems[countPreferences++] = 1;
                     }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
                 }
             }
             // auto-rotate

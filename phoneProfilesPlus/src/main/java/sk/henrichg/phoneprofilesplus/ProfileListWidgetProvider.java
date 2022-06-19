@@ -543,11 +543,16 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetListIconColor.equals("1"),
                         monochromeValue,
                         applicationWidgetListCustomIconLightness);
-                if (applicationWidgetListPrefIndicator)
+                if (applicationWidgetListPrefIndicator) {
+                    int indicatorType = DataWrapper.IT_FOR_WIDGET;
+                    if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode)
+                        indicatorType = DataWrapper.IT_FOR_WIDGET_MONOCHROME_INDICATORS;
+
                     profile.generatePreferencesIndicator(context.getApplicationContext(),
                             applicationWidgetListIconColor.equals("1"),
                             prefIndicatorMonochromeValue,
-                            DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
+                            indicatorType, prefIndicatorLightnessValue);
+                }
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);

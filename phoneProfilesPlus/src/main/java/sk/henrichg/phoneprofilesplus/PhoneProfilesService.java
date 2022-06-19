@@ -22,7 +22,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -72,7 +71,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.android.internal.telephony.TelephonyIntents;
-import com.google.android.material.color.DynamicColors;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -5929,9 +5927,14 @@ public class PhoneProfilesService extends Service
                             prefIndicatorMonochromeValue = 0xFF;
                             break;
                     }
+
+                    int indicatorType = DataWrapper.IT_FOR_NOTIFICATION;
+                    if ((Build.VERSION.SDK_INT >= 31) && notificationBackgroundColor.equals("0"))
+                        indicatorType = DataWrapper.IT_FOR_NOTIFICATION_MONOCHROME_INDICATORS;
+
                     profile.generatePreferencesIndicator(appContext, notificationProfileIconColor.equals("1"),
                             prefIndicatorMonochromeValue,
-                            DataWrapper.IT_FOR_NOTIFICATION,
+                            indicatorType,
                             prefIndicatorLightnessValue);
 
                     preferencesIndicatorBitmap = profile._preferencesIndicator;
