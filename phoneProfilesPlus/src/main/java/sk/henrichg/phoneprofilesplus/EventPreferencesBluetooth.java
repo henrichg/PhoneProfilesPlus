@@ -414,9 +414,11 @@ class EventPreferencesBluetooth extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            //setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, preferences, context);
-            setSummary(prefMng, PREF_EVENT_BLUETOOTH_APP_SETTINGS, preferences, context);
-            setSummary(prefMng, PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS, preferences, context);
+            if (prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED) != null) {
+                //setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, preferences, context);
+                setSummary(prefMng, PREF_EVENT_BLUETOOTH_APP_SETTINGS, preferences, context);
+                setSummary(prefMng, PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS, preferences, context);
+            }
         }
         setCategorySummary(prefMng, preferences, context);
     }

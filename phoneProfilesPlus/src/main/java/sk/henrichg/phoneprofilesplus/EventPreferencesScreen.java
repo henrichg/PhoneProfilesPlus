@@ -199,25 +199,27 @@ class EventPreferencesScreen extends EventPreferences {
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            final Preference eventTypePreference = prefMng.findPreference(PREF_EVENT_SCREEN_EVENT_TYPE);
-            final PreferenceManager _prefMng = prefMng;
+            if (prefMng.findPreference(PREF_EVENT_SCREEN_ENABLED) != null) {
+                final Preference eventTypePreference = prefMng.findPreference(PREF_EVENT_SCREEN_EVENT_TYPE);
+                final PreferenceManager _prefMng = prefMng;
 
-            if (eventTypePreference != null) {
-                eventTypePreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                    String sNewValue = (String) newValue;
-                    int iNewValue;
-                    if (sNewValue.isEmpty())
-                        iNewValue = 100;
-                    else
-                        iNewValue = Integer.parseInt(sNewValue);
+                if (eventTypePreference != null) {
+                    eventTypePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                        String sNewValue = (String) newValue;
+                        int iNewValue;
+                        if (sNewValue.isEmpty())
+                            iNewValue = 100;
+                        else
+                            iNewValue = Integer.parseInt(sNewValue);
 
-                    setWhenUnlockedTitle(_prefMng, iNewValue);
+                        setWhenUnlockedTitle(_prefMng, iNewValue);
 
-                    return true;
-                });
+                        return true;
+                    });
+                }
+
+                setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
             }
-
-            setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
         }
         setCategorySummary(prefMng, preferences, context);
     }

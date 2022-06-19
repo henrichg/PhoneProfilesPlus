@@ -246,7 +246,9 @@ class EventPreferencesAccessories extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            setSummary(prefMng, PREF_EVENT_ACCESSORIES_ENABLED, preferences, context);
+            if (prefMng.findPreference(PREF_EVENT_ACCESSORIES_ENABLED) != null) {
+                setSummary(prefMng, PREF_EVENT_ACCESSORIES_ENABLED, preferences, context);
+            }
         }
         setCategorySummary(prefMng, preferences, context);
     }

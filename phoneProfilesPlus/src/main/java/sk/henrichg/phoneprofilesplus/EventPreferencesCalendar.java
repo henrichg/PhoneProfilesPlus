@@ -506,7 +506,9 @@ class EventPreferencesCalendar extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            setSummary(prefMng, PREF_EVENT_CALENDAR_APP_SETTINGS, preferences, context);
+            if (prefMng.findPreference(PREF_EVENT_CALENDAR_ENABLED) != null) {
+                setSummary(prefMng, PREF_EVENT_CALENDAR_APP_SETTINGS, preferences, context);
+            }
         }
         setCategorySummary(prefMng, preferences, context);
     }

@@ -287,15 +287,17 @@ class EventPreferencesLocation extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext())/* &&
+            if (prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED) != null) {
+                final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext())/* &&
                                 ApplicationPreferences.applicationEventLocationEnableScanning(context.getApplicationContext())*/;
-            Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
-            if (preference != null) preference.setEnabled(enabled);
-            preference = prefMng.findPreference(PREF_EVENT_LOCATION_WHEN_OUTSIDE);
-            if (preference != null) preference.setEnabled(enabled);
-            setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
-            setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
-            setSummary(prefMng, PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS, preferences, context);
+                Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
+                if (preference != null) preference.setEnabled(enabled);
+                preference = prefMng.findPreference(PREF_EVENT_LOCATION_WHEN_OUTSIDE);
+                if (preference != null) preference.setEnabled(enabled);
+                setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
+                setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
+                setSummary(prefMng, PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS, preferences, context);
+            }
         }
         setCategorySummary(prefMng, preferences, context);
     }

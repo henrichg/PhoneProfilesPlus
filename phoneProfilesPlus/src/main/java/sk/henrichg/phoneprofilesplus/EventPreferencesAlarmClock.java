@@ -274,7 +274,9 @@ class EventPreferencesAlarmClock extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_ENABLED, preferences, context);
+            if (prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_ENABLED) != null) {
+                setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_ENABLED, preferences, context);
+            }
         }
         setCategorySummary(prefMng, preferences, context);
     }
