@@ -1027,7 +1027,6 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("DuplicateExpressions")
     static private void checkEventCallContacts(Context context, Event event, SharedPreferences preferences,
                                                ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
@@ -1055,7 +1054,6 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("DuplicateExpressions")
     static private void checkEventSMSContacts(Context context, Event event, SharedPreferences preferences,
                                               ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
@@ -1092,7 +1090,6 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("DuplicateExpressions")
     static private void checkEventCalendar(Context context, Event event, SharedPreferences preferences,
                                            ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
@@ -1591,7 +1588,6 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("DuplicateExpressions")
     static private void checkEventBluetoothForEMUI(Context context, Event event, SharedPreferences preferences,
                                                    ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;

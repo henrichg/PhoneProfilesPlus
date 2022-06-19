@@ -1232,7 +1232,6 @@ class ProfilePreferencesIndicator {
             // brightness/auto-brightness
             if (profile.getDeviceBrightnessChange()) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    //noinspection IfStatementWithIdenticalBranches
                     if (profile.getDeviceBrightnessAutomatic()) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBrightness) + ": " +

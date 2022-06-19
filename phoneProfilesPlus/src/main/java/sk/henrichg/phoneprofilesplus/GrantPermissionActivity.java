@@ -1004,7 +1004,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
 //        PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "requestCode=" + requestCode);
 
-        //noinspection SwitchStatementWithTooFewBranches
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CODE:
             case BACKGROUND_LOCATION_PERMISSIONS_REQUEST_CODE: {

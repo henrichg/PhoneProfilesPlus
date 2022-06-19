@@ -151,7 +151,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 //                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- STOPPED ---");
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
-                //noinspection ConstantConditions
                 eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(context));
                 //eventName.setTextColor(ContextCompat.getColor(context, R.color.eventStopTextColor));
             }
@@ -351,10 +350,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
                 profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true,
                         applicationEditorPrefIndicator, false);
-                //noinspection IfStatementWithIdenticalBranches
                 if (profile != null) {
                     String profileName;
-                    //noinspection IfStatementWithIdenticalBranches
                     //if (event._atEndHowUndo == 0) {
                         if (event._manualProfileActivationAtEnd)
                             profileName = "[M] " +profile._name;

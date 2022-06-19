@@ -376,7 +376,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         }
 
         RelativeLayout connectedCellRelLa;
-        //noinspection IfStatementWithIdenticalBranches
         if ((Build.VERSION.SDK_INT >= 26) && (phoneCount > 1)) {
             if (!sim1Exists) {
                 connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim1);

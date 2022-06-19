@@ -381,7 +381,6 @@ public class PhoneProfilesService extends Service
         //if (PPApplication.keyguardManager == null)
         //    PPApplication.keyguardManager = (KeyguardManager)appContext.getSystemService(Context.KEYGUARD_SERVICE);
         //if (PPApplication.keyguardManager != null)
-            //noinspection deprecation
         //    PPApplication.keyguardLock = PPApplication.keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
 
         ringingMediaPlayer = null;
@@ -1084,7 +1083,6 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "REGISTER checkOnlineStatusBroadcastReceiver");
                 PPApplication.checkOnlineStatusBroadcastReceiver = new CheckOnlineStatusBroadcastReceiver();
                 IntentFilter intentFilter10 = new IntentFilter();
-                //noinspection deprecation
                 intentFilter10.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
                 appContext.registerReceiver(PPApplication.checkOnlineStatusBroadcastReceiver, intentFilter10);
             }
@@ -1160,7 +1158,6 @@ public class PhoneProfilesService extends Service
                                     if (subscriptionInfo.getSimSlotIndex() == 0) {
                                         if (PPApplication.telephonyManagerSIM1 == null) {
 //                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
-                                            //noinspection ConstantConditions
                                             PPApplication.telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
                                             PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(subscriptionInfo, context);
                                             PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1, PhoneStateListener.LISTEN_CALL_STATE);
@@ -1169,7 +1166,6 @@ public class PhoneProfilesService extends Service
                                     if ((subscriptionInfo.getSimSlotIndex() == 1)) {
                                         if (PPApplication.telephonyManagerSIM2 == null) {
 //                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
-                                            //noinspection ConstantConditions
                                             PPApplication.telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
                                             PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(subscriptionInfo, context);
                                             PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2, PhoneStateListener.LISTEN_CALL_STATE);
@@ -4200,7 +4196,6 @@ public class PhoneProfilesService extends Service
                     //Event.setEventsBlocked(appContext, false);
                     //dataWrapper.fillEventList();
                     //synchronized (dataWrapper.eventList) {
-                    //noinspection ForLoopReplaceableByForEach
                     //    for (Iterator<Event> it = dataWrapper.eventList.iterator(); it.hasNext(); ) {
                     //        Event event = it.next();
                     //        if (event != null)
@@ -5877,7 +5872,6 @@ public class PhoneProfilesService extends Service
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "pName=" + pName);
 //            }
 
-            //noinspection ConstantConditions
             if (!forFirstStart) {
                 if (notificationProfileIconColor.equals("0"))
                     profile.generateIconBitmap(appContext, false, 0, false);
@@ -6064,7 +6058,6 @@ public class PhoneProfilesService extends Service
         if (notificationNotificationStyle.equals("0")) {
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "set notification title - style=0");
             contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
-            //noinspection ConstantConditions
             if (contentView != null)
                 contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
         }
@@ -6123,7 +6116,6 @@ public class PhoneProfilesService extends Service
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     int color = ContextCompat.getColor(this, R.color.notificationBlackBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                    //noinspection ConstantConditions
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
@@ -6131,21 +6123,18 @@ public class PhoneProfilesService extends Service
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                    //noinspection ConstantConditions
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
                 case "5":
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
-                    //noinspection ConstantConditions
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                     break;
                 default:
                     //int color = getResources().getColor(R.color.notificationBackground);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
-                    //noinspection ConstantConditions
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
                     break;
@@ -6155,12 +6144,10 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
             if (notificationTextColor.equals("1")) {
                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-                //noinspection ConstantConditions
                 if (contentView != null)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
             } else if (notificationTextColor.equals("2")) {
                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                //noinspection ConstantConditions
                 if (contentView != null)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
             } else {
@@ -6174,14 +6161,12 @@ public class PhoneProfilesService extends Service
                     if (useNightColor == 1) {
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark text");
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                        //noinspection ConstantConditions
                         if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                     } else {
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "light text");
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
-                        //noinspection ConstantConditions
                         if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
                     }
@@ -6381,7 +6366,6 @@ public class PhoneProfilesService extends Service
                         //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
                         contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
-                        //noinspection ConstantConditions
                         if (contentView != null) {
                             contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
                             contentView.setImageViewBitmap(R.id.notification_activated_profile_restart_events, restartEventsBitmap);
@@ -6545,7 +6529,6 @@ public class PhoneProfilesService extends Service
                             if ((!notificationShowProfileIcon) && useDecorator)
                                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                             //if (profileIconExists) {
-                                //noinspection ConstantConditions
                                 if (contentView != null) {
                                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                                     if ((!notificationShowProfileIcon) && useDecorator)
@@ -6721,7 +6704,6 @@ public class PhoneProfilesService extends Service
                     if ((!notificationShowProfileIcon) && useDecorator)
                         contentViewLarge.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                     //if (profileIconExists) {
-                        //noinspection ConstantConditions
                         if (contentView != null) {
                             contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
                             if ((!notificationShowProfileIcon) && useDecorator)
@@ -6989,7 +6971,6 @@ public class PhoneProfilesService extends Service
 
     // switch keyguard ------------------------------------
 
-    @SuppressWarnings("deprecation")
     private void disableKeyguard()
     {
 //        PPApplication.logE("$$$ PhoneProfilesService.disableKeyguard","keyguardLock="+PPApplication.keyguardLock);
@@ -7004,7 +6985,6 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    @SuppressWarnings("deprecation")
     private void reenableKeyguard()
     {
 //        PPApplication.logE("$$$ PhoneProfilesService.reenableKeyguard","keyguardLock="+PPApplication.keyguardLock);
@@ -7035,7 +7015,6 @@ public class PhoneProfilesService extends Service
         else {
             int locationMode = 0;
             try {
-                //noinspection deprecation
                 locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
             } catch (Settings.SettingNotFoundException e) {
                 PPApplication.recordException(e);
@@ -7806,7 +7785,6 @@ public class PhoneProfilesService extends Service
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         ringingMediaPlayer = new MediaPlayer();
 
-                    //noinspection IfStatementWithIdenticalBranches
                         /*if (stream == AudioManager.STREAM_RING) {
                             AudioAttributes attrs = new AudioAttributes.Builder()
                                     .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)

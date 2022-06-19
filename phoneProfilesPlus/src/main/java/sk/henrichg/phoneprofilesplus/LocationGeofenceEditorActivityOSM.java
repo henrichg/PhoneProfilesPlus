@@ -700,7 +700,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                     try {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        //noinspection deprecation
                         LocationGeofenceEditorActivityOSM.this.startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
                         ok = true;
                     } catch (Exception e) {

@@ -561,7 +561,6 @@ class MobileCellsListener extends PhoneStateListener {
         */
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void doAutoRegistration(final int _registeredCell) {
         if (!PPApplication.getApplicationStarted(true))
             // application is not started

@@ -147,7 +147,6 @@ class WifiScanner {
                                     //else
                                     if (WifiScanWorker.wifi != null) {
 //                                        PPApplication.logE("[WIFI_ENABLED] WifiScanner.doScan", "false (1)");
-                                        //noinspection deprecation
                                         WifiScanWorker.wifi.setWifiEnabled(false);
                                     }
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
@@ -294,7 +293,6 @@ class WifiScanner {
                                 //else
                                 if (WifiScanWorker.wifi != null) {
 //                                    PPApplication.logE("[WIFI_ENABLED] WifiScanner.doScan", "false (2)");
-                                    //noinspection deprecation
                                     WifiScanWorker.wifi.setWifiEnabled(false);
                                 }
                             } catch (Exception e) {
@@ -391,7 +389,6 @@ class WifiScanner {
                 // this must be disabled because scanning not working, when wifi is disabled after disabled WiFi AP
                 // Tested and scanning working ;-)
                 //if (android.os.Build.VERSION.SDK_INT >= 18)
-                    //noinspection deprecation
                     isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
             }
             //PPApplication.logE("@@@ WifiScanner.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
@@ -424,7 +421,6 @@ class WifiScanner {
                             //    CmdWifi.setWifi(true);
                             //else
 //                                PPApplication.logE("[WIFI_ENABLED] WifiScanner.enableWifi", "true");
-                                //noinspection deprecation
                                 _wifi.setWifiEnabled(true);
 
                             /*if (PPApplication.logEnabled()) {

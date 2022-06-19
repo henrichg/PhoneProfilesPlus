@@ -80,7 +80,6 @@ class MobileCellsScanner {
                                 if (subscriptionInfo.getSimSlotIndex() == 0) {
                                     if (telephonyManagerSIM1 == null) {
 //                                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionId=" + subscriptionId);
-                                        //noinspection ConstantConditions
                                         telephonyManagerSIM1 = telephonyManager.createForSubscriptionId(subscriptionId);
                                         mobileCellsListenerSIM1 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM1);
                                     }
@@ -88,7 +87,6 @@ class MobileCellsScanner {
                                 if (subscriptionInfo.getSimSlotIndex() == 1) {
                                     if (telephonyManagerSIM2 == null) {
 //                                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionId=" + subscriptionId);
-                                        //noinspection ConstantConditions
                                         telephonyManagerSIM2 = telephonyManager.createForSubscriptionId(subscriptionId);
                                         mobileCellsListenerSIM2 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM2);
                                     }

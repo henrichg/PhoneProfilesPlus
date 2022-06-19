@@ -187,7 +187,6 @@ public class WallpaperFolderPreferenceX extends Preference {
                 }
             }
 
-            //noinspection deprecation
             ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
         } catch (Exception e) {
             PPApplication.recordException(e);

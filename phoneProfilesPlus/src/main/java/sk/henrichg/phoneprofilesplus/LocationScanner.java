@@ -247,7 +247,6 @@ class LocationScanner
         // check if GPS provider is enabled in system settings
         if (provider.equals(LocationManager.GPS_PROVIDER)) {
             try {
-                //noinspection ConstantConditions
                 locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 //                PPApplication.logE("##### LocationScanner.getProvider","GPS_PROVIDER="+locationEnabled);
                 if ((!locationEnabled)/* && (!gpsForced)*/)
@@ -263,7 +262,6 @@ class LocationScanner
             if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
                 try {
                     // if device is in power save mode, force NETWORK_PROVIDER
-                    //noinspection ConstantConditions
                     locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
                                         (isPowerSaveMode);
 //                    PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER="+locationEnabled);

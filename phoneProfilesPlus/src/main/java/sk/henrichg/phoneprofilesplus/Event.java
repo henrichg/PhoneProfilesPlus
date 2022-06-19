@@ -992,7 +992,6 @@ class Event {
                 hasVibrator = (vibrator != null) && vibrator.hasVibrator();
             }
 
-            //noinspection IfStatementWithIdenticalBranches
             if (hasVibrator) {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null)

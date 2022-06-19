@@ -958,7 +958,6 @@ class EventPreferencesCalendar extends EventPreferences {
         long endMillis;
         Calendar calendar = Calendar.getInstance();
         long now = calendar.getTimeInMillis();
-        //noinspection IfStatementWithIdenticalBranches
         //if (_dayContainsEvent == 0) {
             // search now - 1 day .. now + 31 days
             calendar.add(Calendar.DAY_OF_YEAR, -1);

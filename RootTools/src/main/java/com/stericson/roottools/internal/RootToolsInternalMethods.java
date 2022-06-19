@@ -1023,7 +1023,6 @@ public final class RootToolsInternalMethods {
             return false;
         }
         if (Build.VERSION.SDK_INT < 29) {
-            //noinspection deprecation
             File path = Environment.getExternalStorageDirectory();
 
             StatFs stat = new StatFs(path.getPath());

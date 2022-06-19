@@ -59,7 +59,6 @@ class RunApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder impl
         }
         textViewAppName.setText(application.appLabel);
 
-        //noinspection RedundantIfStatement
         radioBtn.setChecked(dialog.selectedPosition == position);
         radioBtn.setTag(position);
 

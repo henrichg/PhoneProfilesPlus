@@ -281,7 +281,6 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
-                //noinspection IfStatementWithIdenticalBranches
                 if (profile != null) {
                     String profileName;
                     //if (event._atEndHowUndo == 0) {

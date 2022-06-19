@@ -938,7 +938,6 @@ public class DataWrapper {
         //PPApplication.logE("DataWrapper.setDynamicLauncherShortcutsFromMainThread", "start");
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        //noinspection UnnecessaryLocalVariable
         final Context appContext = context;
         PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
         final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -1105,7 +1104,6 @@ public class DataWrapper {
                                             @SuppressWarnings("SameParameterValue") final boolean alsoUnlink) {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        //noinspection UnnecessaryLocalVariable
         final Context appContext = context;
         PPApplication.startHandlerThread(/*"DataWrapper.stopEventsForProfileFromMainThread"*/);
         final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -1194,7 +1192,6 @@ public class DataWrapper {
     private void pauseAllEventsForGlobalStopEvents() {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        //noinspection UnnecessaryLocalVariable
         final Context appContext = context;
         PPApplication.startHandlerThread(/*"DataWrapper.pauseAllEventsForGlobalStopEvents"*/);
         final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -1263,7 +1260,6 @@ public class DataWrapper {
                                      final boolean alsoDelete) {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        //noinspection UnnecessaryLocalVariable
         final Context appContext = context;
         PPApplication.startHandlerThread(/*"DataWrapper.stopAllEventsFromMainThread"*/);
         final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -1887,7 +1883,6 @@ public class DataWrapper {
         //PPApplication.logE("$$$$$ DataWrapper.activateProfileFromMainThread", "start");
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        //noinspection UnnecessaryLocalVariable
         final Context appContext = context;
         PPApplication.startHandlerThread(/*"DataWrapper.activateProfileFromMainThread"*/);
         final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -2489,7 +2484,6 @@ public class DataWrapper {
         if (useHandler) {
             final DataWrapper dataWrapper = copyDataWrapper();
 
-            //noinspection UnnecessaryLocalVariable
             final Context appContext = context;
             PPApplication.startHandlerThread(/*"DataWrapper.restartEventsWithRescan"*/);
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());

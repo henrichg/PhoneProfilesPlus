@@ -39,7 +39,6 @@ final class WifiApManager {
         }
         else {
             if (mWifiManager != null) {
-                //noinspection deprecation
                 wifiControlMethod = mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
                 wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration"/*,null*/);
                 //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
@@ -51,7 +50,6 @@ final class WifiApManager {
         }
     }
 
-    @SuppressWarnings("deprecation")
     private void setWifiApState(WifiConfiguration config, boolean enabled, boolean doNotChangeWifi) {
         try {
             /*if (PPApplication.logEnabled()) {
@@ -71,7 +69,6 @@ final class WifiApManager {
                             //    CmdWifi.setWifi(false);
                             //else
 //                            PPApplication.logE("[WIFI_ENABLED] WifiApManager.setWifiApState", "false");
-                            //noinspection deprecation
                             mWifiManager.setWifiEnabled(false);
                         }
                     }
@@ -86,7 +83,6 @@ final class WifiApManager {
         }
     }
 
-    @SuppressWarnings("deprecation")
     void setWifiApState(boolean enabled, boolean doNotChangeWifi) {
         WifiConfiguration wifiConfiguration = getWifiApConfiguration();
         /*return*/ setWifiApState(wifiConfiguration, enabled, doNotChangeWifi);
@@ -94,7 +90,6 @@ final class WifiApManager {
 
     // not working in Android 8+ :-/
     // https://stackoverflow.com/questions/46392277/changing-android-hotspot-settings
-    @SuppressWarnings("deprecation")
     private WifiConfiguration getWifiApConfiguration()
     {
         try{
@@ -192,7 +187,6 @@ final class WifiApManager {
                     //    CmdWifi.setWifi(false);
                     //else
 //                        PPApplication.logE("[WIFI_ENABLED] WifiApManager.startTethering", "false");
-                        //noinspection deprecation
                         mWifiManager.setWifiEnabled(false);
                 }
             }
@@ -371,7 +365,6 @@ final class WifiApManager {
                     //    CmdWifi.setWifi(false);
                     //else
 //                        PPApplication.logE("[WIFI_ENABLED] WifiApManager.startTethering", "false");
-                    //noinspection deprecation
                     wifiManager.setWifiEnabled(false);
                 }
             }

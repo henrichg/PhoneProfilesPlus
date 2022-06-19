@@ -1997,7 +1997,6 @@ class EventsHandler {
 //                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "start - continueHandle="+continueHandle);
 
                     if (!continueHandle) {
-                        //noinspection ConstantConditions
 //                        if (forRestartEvents)
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents","--- end --------------------------");
                         return;

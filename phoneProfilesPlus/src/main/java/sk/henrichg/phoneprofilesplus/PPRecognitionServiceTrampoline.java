@@ -12,7 +12,6 @@ import android.util.Log;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-@SuppressWarnings("unchecked")
 public class PPRecognitionServiceTrampoline extends RecognitionService {
     //private static final String TAG = "RSTrampoline";
 

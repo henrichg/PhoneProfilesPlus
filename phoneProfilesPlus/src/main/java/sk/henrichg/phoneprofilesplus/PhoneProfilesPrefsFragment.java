@@ -3033,7 +3033,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING) ||
                 key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL)) {
-            //noinspection IfStatementWithIdenticalBranches
             if (!preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, false)) {
                 if (ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);

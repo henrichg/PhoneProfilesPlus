@@ -341,7 +341,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //noinspection IfStatementWithIdenticalBranches
         if (useHandler) {
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadBroadcast(/*"ProfileDurationAlarmBroadcastReceiver.onReceive"*/);

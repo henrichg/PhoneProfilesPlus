@@ -153,7 +153,6 @@ class ActivateProfileHelper {
                                     break;
                                 case 2:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 2");
-                                    //noinspection DuplicateBranchesInSwitch
                                     _setSIM1OnOff = true;
                                     _setOn = false;
                                     break;
@@ -162,7 +161,6 @@ class ActivateProfileHelper {
                             }
                             if (_setSIM1OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
-                                //noinspection ConstantConditions
                                 setSIMOnOff(appContext, _setOn, 1);
                                 PPApplication.sleep(200);
                             }
@@ -185,7 +183,6 @@ class ActivateProfileHelper {
                                     break;
                                 case 2:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 2");
-                                    //noinspection DuplicateBranchesInSwitch
                                     _setSIM2OnOff = true;
                                     _setOn = false;
                                     break;
@@ -194,7 +191,6 @@ class ActivateProfileHelper {
                             }
                             if (_setSIM2OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
-                                //noinspection ConstantConditions
                                 setSIMOnOff(appContext, _setOn, 2);
                                 PPApplication.sleep(200);
                             }
@@ -566,7 +562,6 @@ class ActivateProfileHelper {
                                     //    CmdWifi.setWifi(isWifiEnabled);
                                     //else
 //                                        PPApplication.logE("[WIFI_ENABLED] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabled="+isWifiEnabled);
-                                        //noinspection deprecation
                                         wifiManager.setWifiEnabled(isWifiEnabled);
                                         //CmdWifi.setWifiEnabled(isWifiAPEnabled);
                                 } catch (Exception e) {
@@ -631,14 +626,11 @@ class ActivateProfileHelper {
                                     if (wifiConnected)
                                         wifiInfo = wifiManager.getConnectionInfo();
 
-                                    //noinspection deprecation
                                     List<WifiConfiguration> list = null;
 
                                     if (Permissions.hasPermission(appContext, Manifest.permission.ACCESS_FINE_LOCATION))
-                                        //noinspection deprecation
                                         list = wifiManager.getConfiguredNetworks();
                                     if (list != null) {
-                                        //noinspection deprecation
                                         for (WifiConfiguration i : list) {
                                             if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
                                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID wifiConnected="+wifiConnected);
@@ -649,15 +641,11 @@ class ActivateProfileHelper {
                                                             PhoneProfilesService.getInstance().connectToSSIDStarted = true;
 
                                                         // connected to another SSID
-                                                        //noinspection deprecation
                                                         wifiManager.disconnect();
-                                                        //noinspection deprecation
                                                         wifiManager.enableNetwork(i.networkId, true);
-                                                        //noinspection deprecation
                                                         wifiManager.reconnect();
                                                     }
                                                 } else
-                                                    //noinspection deprecation
                                                     wifiManager.enableNetwork(i.networkId, true);
                                                 break;
                                             }
@@ -753,17 +741,14 @@ class ActivateProfileHelper {
                         break;
                     case 2:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 2");
-                        //noinspection deprecation
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
                         break;
                     case 3:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 3");
-                        //noinspection deprecation
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
                         break;
                     case 4:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 4");
-                        //noinspection deprecation
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
                         break;
                 }
@@ -5908,7 +5893,6 @@ class ActivateProfileHelper {
                         //SubscriptionManager.from(appContext);
                         if (mSubscriptionManager != null) {
                             int defaultDataId;// = 0;
-                            //noinspection ConstantConditions
                             defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
 //                            PPApplication.logE("ActivateProfileHelper.isMobileData", "defaultDataId=" + defaultDataId);
 
@@ -6391,7 +6375,6 @@ class ActivateProfileHelper {
                                 if (isWifiEnabled) {
                                     //PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.setWifiAP");
 //                                    PPApplication.logE("[WIFI_ENABLED] ActivateProfileHelper.setWifiAP", "false");
-                                    //noinspection deprecation
                                     wifiManager.setWifiEnabled(false);
                                     PPApplication.sleep(1000);
                                 }
@@ -6653,7 +6636,6 @@ class ActivateProfileHelper {
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
             try {
-                //noinspection deprecation
                 Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
                 //G1OK = true;
             } catch (Exception ee) {
@@ -7632,7 +7614,6 @@ class ActivateProfileHelper {
         String text;
         int notificationId;
         String notificationTag;
-        //noinspection SwitchStatementWithTooFewBranches
         switch (parameterType) {
             case Profile.PARAMETER_TYPE_WIFI:
                 text = appContext.getString(R.string.profile_activation_activation_error_change_wifi);
