@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -58,6 +59,8 @@ import java.util.TimeZone;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 
 import static android.os.Looper.getMainLooper;
+
+import com.google.android.material.color.DynamicColors;
 
 class GlobalGUIRoutines {
 
@@ -1233,6 +1236,32 @@ class GlobalGUIRoutines {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    static int getDynamicColor(int colorAttr, Context context) {
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (DynamicColors.isDynamicColorAvailable()) {
+                Context dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.ThemeOverlay_Material3_DynamicColors_DayNight);
+                /*int[] attrsToResolve = {
+                        R.attr.colorPrimary,    // 0
+                        R.attr.colorOnPrimary,  // 1
+                        R.attr.colorSecondary,  // 2
+                        R.attr.colorAccent,      // 3
+                };*/
+                int[] attrsToResolve = { colorAttr };
+                // now resolve them
+                TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
+                /*int color = ta.getColor(0, 0);
+                int onPrimary = ta.getColor(1, 0);
+                int secondary = ta.getColor(2, 0);
+                int accent = ta.getColor(3, 0);*/
+                int color = ta.getColor(0, 0);
+                ta.recycle();   // recycle TypedArray
+
+                return color;
+            }
+        }
+        return 0;
     }
 
     static boolean activityIntentExists(Intent intent, Context context) {

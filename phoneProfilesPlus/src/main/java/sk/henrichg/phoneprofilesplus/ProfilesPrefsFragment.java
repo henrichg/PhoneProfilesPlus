@@ -292,7 +292,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "xxx");
+//        PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "xxx");
 
         if (getActivity() == null)
             return;

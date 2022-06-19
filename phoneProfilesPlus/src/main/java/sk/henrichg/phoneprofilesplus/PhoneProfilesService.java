@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -71,6 +72,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.android.internal.telephony.TelephonyIntents;
+import com.google.android.material.color.DynamicColors;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -6170,6 +6172,15 @@ public class PhoneProfilesService extends Service
                         if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
                     }
+                } else {
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
+//                    Log.e("PhoneProfilesService._showProfileNotification", "color="+color);
+                    if (color != 0) {
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, color);
+                        if (contentView != null)
+                            contentView.setTextColor(R.id.notification_activated_profile_name, color);
+
+                    }
                 }
             }
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
@@ -6333,7 +6344,13 @@ public class PhoneProfilesService extends Service
                     } else {
                         // native
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
-                        //if (Build.VERSION.SDK_INT >= 28) {
+                        if (Build.VERSION.SDK_INT >= 31) {
+                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
+//                            Log.e("PhoneProfilesService._addRestartEventsToProfileNotification", "color="+color);
+                            if (color != 0) {
+                                restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, color);
+                            }
+                        } else {
                             // Hm, dark mode is possible to change only from API 28 (from GUI).
                             //
                             // In 28 (Android 9) it is Device theme, but not working in emulator,
@@ -6347,17 +6364,7 @@ public class PhoneProfilesService extends Service
                                 restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0x202020);
                                 //restartEventsId = R.drawable.ic_widget_restart_events;
                             }
-                        /*} else {
-                            if (notificationTextColor.equals("1"))
-                                restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0x202020);
-                                //restartEventsId = R.drawable.ic_widget_restart_events;
-                            else if (notificationTextColor.equals("2"))
-                                restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0xe0e0e0);
-                                //restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                            else
-                                restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0x202020);
-                                //restartEventsId = R.drawable.ic_widget_restart_events;
-                        }*/
+                        }
                     }
 
                     try {

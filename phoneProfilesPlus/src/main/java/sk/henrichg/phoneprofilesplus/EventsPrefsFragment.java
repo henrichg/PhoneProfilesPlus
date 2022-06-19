@@ -288,7 +288,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        PPApplication.logE("EventsPrefsFragment.onActivityCreated", "xxx");
+//        PPApplication.logE("EventsPrefsFragment.onActivityCreated", "xxx");
 
         if (getActivity() == null)
             return;
