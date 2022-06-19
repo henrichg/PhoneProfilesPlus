@@ -230,7 +230,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
 
         int indicatorType = DataWrapper.IT_FOR_WIDGET;
-        if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode)
+        if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+            applicationWidgetOneRowIconColor.equals("0"))
             indicatorType = DataWrapper.IT_FOR_WIDGET_MONOCHROME_INDICATORS;
 
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
@@ -431,7 +432,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 RemoteViews remoteViews;
 
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode)) {
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                        applicationWidgetOneRowIconColor.equals("0"))) {
                     if (applicationWidgetOneRowLayoutHeight.equals("0")) {
                         if (applicationWidgetOneRowPrefIndicator)
                             remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
@@ -563,13 +565,15 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     }
                     remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
 
-                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode))
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                            applicationWidgetOneRowIconColor.equals("0")))
                         remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
 
                     remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
 
                     if (applicationWidgetOneRowShowBorder) {
-                        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode))
+                        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode) &&
+                                applicationWidgetOneRowIconColor.equals("0"))
                             remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                     }
                 /*} else {
@@ -612,7 +616,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
                 }
 
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode))
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                        applicationWidgetOneRowIconColor.equals("0")))
                     remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
 
                 remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
@@ -626,7 +631,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     }
                 }
 
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode)) {
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                        applicationWidgetOneRowIconColor.equals("0"))) {
                     //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                     Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);

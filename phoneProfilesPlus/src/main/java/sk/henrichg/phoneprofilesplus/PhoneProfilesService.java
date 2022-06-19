@@ -5929,7 +5929,8 @@ public class PhoneProfilesService extends Service
                     }
 
                     int indicatorType = DataWrapper.IT_FOR_NOTIFICATION;
-                    if ((Build.VERSION.SDK_INT >= 31) && notificationBackgroundColor.equals("0"))
+                    if ((Build.VERSION.SDK_INT >= 31) && notificationBackgroundColor.equals("0") &&
+                            notificationProfileIconColor.equals("0"))
                         indicatorType = DataWrapper.IT_FOR_NOTIFICATION_MONOCHROME_INDICATORS;
 
                     profile.generatePreferencesIndicator(appContext, notificationProfileIconColor.equals("1"),
@@ -6024,7 +6025,7 @@ public class PhoneProfilesService extends Service
                                                notificationBuilder,
                                                notificationNotificationStyle, notificationShowRestartEventsAsButton,
                                                notificationBackgroundColor, notificationBackgroundCustomColor,
-                                               //notificationTextColor,
+                                               notificationProfileIconColor,
                                                useDecorator, useNightColor,
                                                appContext);
 
@@ -6176,13 +6177,15 @@ public class PhoneProfilesService extends Service
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
                     }
                 } else {
-                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
+                    if (notificationProfileIconColor.equals("0")) {
+                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
 //                    Log.e("PhoneProfilesService._showProfileNotification", "color="+color);
-                    if (color != 0) {
-                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, color);
-                        if (contentView != null)
-                            contentView.setTextColor(R.id.notification_activated_profile_name, color);
+                        if (color != 0) {
+                            contentViewLarge.setTextColor(R.id.notification_activated_profile_name, color);
+                            if (contentView != null)
+                                contentView.setTextColor(R.id.notification_activated_profile_name, color);
 
+                        }
                     }
                 }
             }
@@ -6317,7 +6320,7 @@ public class PhoneProfilesService extends Service
                                                         NotificationCompat.Builder notificationBuilder,
                                                         String notificationNotificationStyle, boolean notificationShowRestartEventsAsButton,
                                                         String notificationBackgroundColor, int notificationBackgroundCustomColor,
-                                                        //String notificationTextColor,
+                                                        String notificationProfileIconColor,
                                                         boolean useDecorator, int useNightColor,
                                                         Context appContext) {
         if (!forFirstStart) {
@@ -6347,7 +6350,7 @@ public class PhoneProfilesService extends Service
                     } else {
                         // native
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
-                        if (Build.VERSION.SDK_INT >= 31) {
+                        if ((Build.VERSION.SDK_INT >= 31) && notificationProfileIconColor.equals("0")) {
                             int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
 //                            Log.e("PhoneProfilesService._addRestartEventsToProfileNotification", "color="+color);
                             if (color != 0) {
