@@ -2288,6 +2288,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS);
 
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO);

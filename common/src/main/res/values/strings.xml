@@ -1970,6 +1970,8 @@
     <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
     <string name="enable_notificaitons_button">Enable</string>
 
+    <string name="phone_profiles_pref_applicationWidgetUseDynamicColors">Use dynamic colors</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

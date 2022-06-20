@@ -62,6 +62,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetIconShowProfileDuration;
         int applicationWidgetIconRoundedCornersRadius;
         boolean applicationWidgetIconChangeColorsByNightMode;
+        boolean applicationWidgetIconUseDynamicColors;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
@@ -79,6 +80,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
             applicationWidgetIconChangeColorsByNightMode = ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode;
+            applicationWidgetIconUseDynamicColors = ApplicationPreferences.applicationWidgetIconUseDynamicColors;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetIconRoundedCorners) {
@@ -383,7 +385,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 RemoteViews remoteViews;
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
-                        applicationWidgetIconColor.equals("0"))) {
+                        applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors)) {
                     if (applicationWidgetIconHideProfileName) {
                         //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_no_profile_name);
@@ -520,14 +522,14 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", 0x00000000);
 
                     if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
-                            applicationWidgetIconColor.equals("0")))
+                            applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors))
                         remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
 
                     remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", alphaBackground);
 
                     if (applicationWidgetIconShowBorder) {
                         if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
-                                applicationWidgetIconColor.equals("0")))
+                                applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors))
                             remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                     }
                 /*} else {
@@ -555,7 +557,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 }
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
-                        applicationWidgetIconColor.equals("0")))
+                        applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors))
                     remoteViews.setTextColor(R.id.icon_widget_name, Color.argb(0xFF, redText, greenText, blueText));
 
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);

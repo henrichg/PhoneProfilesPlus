@@ -18,6 +18,13 @@
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetIconUseDynamicColors"
+        app:title="@string/phone_profiles_pref_applicationWidgetUseDynamicColors"
+        app:defaultValue="true"
+        app:dependency="applicationWidgetIconChangeColorsByNightMode"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetIconBackground"
         app:summary="0%%"

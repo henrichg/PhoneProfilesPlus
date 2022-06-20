@@ -54,6 +54,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         String applicationWidgetListLightnessT;
         int applicationWidgetListRoundedCornersRadius;
         boolean applicationWidgetListChangeColorsByNightMode;
+        boolean applicationWidgetListUseDynamicColors;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
@@ -73,6 +74,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
             applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
+            applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetListRoundedCorners) {
@@ -366,7 +368,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //if (largeLayout)
         //{
         if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                applicationWidgetListIconColor.equals("0"))) {
+                applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
 //            Log.e("ProfileListWidgetProvider.buildLayout", "old layout");
             if (applicationWidgetListHeader) {
                 if (!applicationWidgetListGridLayout) {
@@ -503,14 +505,14 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                    applicationWidgetListIconColor.equals("0")))
+                    applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                 widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
 
             widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alphaBackground);
 
             if (applicationWidgetListShowBorder) {
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                        applicationWidgetListIconColor.equals("0")))
+                        applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                     widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
             }
         /*}
@@ -552,7 +554,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (applicationWidgetListPrefIndicator) {
                     int indicatorType = DataWrapper.IT_FOR_WIDGET;
                     if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                            applicationWidgetListIconColor.equals("0"))
+                            applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)
                         indicatorType = DataWrapper.IT_FOR_WIDGET_MONOCHROME_INDICATORS;
 
                     profile.generatePreferencesIndicator(context.getApplicationContext(),
@@ -599,7 +601,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                    applicationWidgetListIconColor.equals("0")))
+                    applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                 widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
 
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
@@ -615,11 +617,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                    applicationWidgetListIconColor.equals("0")))
+                    applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, separatorLightness, separatorLightness, separatorLightness));
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                    applicationWidgetListIconColor.equals("0"))) {
+                    applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
                 Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);

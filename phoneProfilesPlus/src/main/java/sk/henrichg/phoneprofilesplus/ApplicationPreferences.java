@@ -227,6 +227,9 @@ class ApplicationPreferences {
     static String applicationShortcutIconLightness;
     static boolean applicationShortcutCustomIconLightness;
     static boolean applicationEventPeriodicScanningDisabledScannigByProfile;
+    static boolean applicationWidgetIconUseDynamicColors;
+    static boolean applicationWidgetOneRowUseDynamicColors;
+    static boolean applicationWidgetListUseDynamicColors;
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -480,6 +483,9 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR = "notificationProfileIconColor";
     static final String PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS = "notificationProfileIconLightness";
     static final String PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS = "notificationCustomProfileIconLightness";
+    static final String PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS = "applicationWidgetIconUseDynamicColors";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS = "applicationWidgetOneRowUseDynamicColors";
+    static final String PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS = "applicationWidgetListUseDynamicColors";
 
     static final String PREF_APPLICATION_SHORTCUT_ICON_COLOR = "applicationShortcutIconColor";
     static final String PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS = "applicationShortcutIconLightness";
@@ -1830,6 +1836,21 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE_DEFAULT_VALUE = false;
     static void applicationEventPeriodicScanningDisabledScannigByProfile(Context context) {
         applicationEventPeriodicScanningDisabledScannigByProfile = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static void applicationWidgetIconUseDynamicColors(Context context) {
+        applicationWidgetIconUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static void applicationWidgetOneRowUseDynamicColors(Context context) {
+        applicationWidgetOneRowUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static void applicationWidgetListUseDynamicColors(Context context) {
+        applicationWidgetListUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
 
     static void deleteBadPreferences(Context context) {

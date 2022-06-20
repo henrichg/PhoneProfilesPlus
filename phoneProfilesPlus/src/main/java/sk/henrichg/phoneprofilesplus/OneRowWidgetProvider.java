@@ -72,6 +72,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowLayoutHeight;
         //boolean applicationWidgetOneRowHigherLayout;
         boolean applicationWidgetOneRowChangeColorsByNightMode;
+        boolean applicationWidgetOneRowUseDynamicColors;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
@@ -100,6 +101,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowLayoutHeight = ApplicationPreferences.applicationWidgetOneRowLayoutHeight;
             //applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
             applicationWidgetOneRowChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
+            applicationWidgetOneRowUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowUseDynamicColors;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
@@ -231,7 +233,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         int indicatorType = DataWrapper.IT_FOR_WIDGET;
         if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-            applicationWidgetOneRowIconColor.equals("0"))
+            applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)
             indicatorType = DataWrapper.IT_FOR_WIDGET_MONOCHROME_INDICATORS;
 
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
@@ -433,7 +435,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 RemoteViews remoteViews;
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0"))) {
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
                     if (applicationWidgetOneRowLayoutHeight.equals("0")) {
                         if (applicationWidgetOneRowPrefIndicator)
                             remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
@@ -551,57 +553,30 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 else
                     remoteViews.setImageViewResource(R.id.widget_one_row_rounded_border, R.drawable.ic_empty);
 
-                //if (applicationWidgetOneRowRoundedCorners) {
 //                    PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
-                    remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
-                    remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
-                    if (applicationWidgetOneRowShowBorder) {
-                        //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
-                        remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
-                    }
-                    else {
-                        //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
-                        remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
-                    }
-                    remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
-
-                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                            applicationWidgetOneRowIconColor.equals("0")))
-                        remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
-
-                    remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
-
-                    if (applicationWidgetOneRowShowBorder) {
-                        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode) &&
-                                applicationWidgetOneRowIconColor.equals("0"))
-                            remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                    }
-                /*} else {
-                    PPApplication.logE("OneRowWidgetProvider.onUpdate", "NOT rounded corners");
-                    remoteViews.setViewVisibility(R.id.widget_one_row_background, View.GONE);
+                remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
+                remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
+                if (applicationWidgetOneRowShowBorder) {
+                    //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
+                    remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
+                }
+                else {
+                    //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
                     remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
-                    if (applicationWidgetOneRowShowBorder) {
-                        //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
-                        remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, VISIBLE);
-                    }
-                    else {
-                        //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
-                        remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
-                    }
-                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode))
-                        remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
-                    else {
-                        // THIS NOT WORKING, NOT ROUNDED CORNERS TYPE WILL BE REMOVED
-                        //int bgColor = ContextCompat.getColor(context, GlobalGUIRoutines.getThemeBackgroundColorForWidget(context));
-                        int bgColor = GlobalGUIRoutines.getThemeBackgroundColorForWidget(context);
-                        redBackground = Color.red(bgColor);
-                        greenBackground = Color.green(bgColor);
-                        blueBackground = Color.blue(bgColor);
-                        remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
-                    }
-                    if (applicationWidgetOneRowShowBorder)
-                        remoteViews.setInt(R.id.widget_one_row_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                }*/
+                }
+                remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
+
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
+                    remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
+
+                remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
+
+                if (applicationWidgetOneRowShowBorder) {
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                            applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
+                        remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                }
 
                 if (isIconResourceID) {
                     if (profile._iconBitmap != null)
@@ -617,7 +592,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 }
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0")))
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
                     remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
 
                 remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
@@ -632,7 +607,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 }
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0"))) {
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
                     //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                     Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
