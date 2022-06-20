@@ -97,10 +97,10 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             }
 
             if (configuredPreferences.preferenceIconDisabled) {
-                //paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
                 ColorMatrix saturationCM = new ColorMatrix();
                 saturationCM.setSaturation(0);
                 paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
+                paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
             }
 
             Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), configuredPreferences.preferenceIcon);
@@ -147,8 +147,12 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
             }
 
-            if (configuredPreferences.preferenceIcon2Disabled)
+            if (configuredPreferences.preferenceIcon2Disabled) {
+                ColorMatrix saturationCM = new ColorMatrix();
+                saturationCM.setSaturation(0);
+                paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
                 paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
+            }
 
             Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), configuredPreferences.preferenceIcon2);
 
