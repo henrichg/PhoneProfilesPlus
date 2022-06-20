@@ -26,7 +26,7 @@ class ProfilePreferencesIndicator {
     final int[] countItems = new int[60];
     int countPreferences = 0;
 
-    static final int DISABLED_ALPHA = 200;
+    static final int DISABLED_ALPHA = 128;
 
     private Bitmap createIndicatorBitmap(/*Context context,*/ int countDrawables)
     {
@@ -79,12 +79,15 @@ class ProfilePreferencesIndicator {
                 ColorMatrix saturationCM = new ColorMatrix();
                 saturationCM.setSaturation(0);
                 paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                paint.setAlpha(DISABLED_ALPHA);
+                //paint.setAlpha(DISABLED_ALPHA);
             }
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
+
+            if (disabled)
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, 64f);
 
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
@@ -116,10 +119,12 @@ class ProfilePreferencesIndicator {
             //}
 
             if (disabled) {
-                ColorMatrix saturationCM = new ColorMatrix();
-                saturationCM.setSaturation(0);
-                paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                paint.setAlpha(DISABLED_ALPHA);
+                if (!monochrome) {
+                    ColorMatrix saturationCM = new ColorMatrix();
+                    saturationCM.setSaturation(0);
+                    paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
+                } else
+                    paint.setAlpha(DISABLED_ALPHA);
             }
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -127,7 +132,10 @@ class ProfilePreferencesIndicator {
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
             // change brightness of indicator
-            bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
+            if (disabled && (!monochrome))
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue + 64f);
+            else
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
 
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
@@ -144,10 +152,12 @@ class ProfilePreferencesIndicator {
                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
 
             if (disabled) {
-                ColorMatrix saturationCM = new ColorMatrix();
-                saturationCM.setSaturation(0);
-                paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                paint.setAlpha(DISABLED_ALPHA);
+                if (!monochrome) {
+                    ColorMatrix saturationCM = new ColorMatrix();
+                    saturationCM.setSaturation(0);
+                    paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
+                } else
+                    paint.setAlpha(DISABLED_ALPHA);
             }
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -155,7 +165,10 @@ class ProfilePreferencesIndicator {
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
             // change brightness of indicator
-            bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
+            if (disabled && (!monochrome))
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue + 64f);
+            else
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
 
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
@@ -176,10 +189,12 @@ class ProfilePreferencesIndicator {
             //}
 
             if (disabled) {
-                ColorMatrix saturationCM = new ColorMatrix();
-                saturationCM.setSaturation(0);
-                paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                paint.setAlpha(DISABLED_ALPHA);
+                if (!monochrome) {
+                    ColorMatrix saturationCM = new ColorMatrix();
+                    saturationCM.setSaturation(0);
+                    paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
+                } else
+                    paint.setAlpha(DISABLED_ALPHA);
             }
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -188,7 +203,10 @@ class ProfilePreferencesIndicator {
 
             if (!monochrome) {
                 // change brightness of indicator
-                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
+                if (disabled)
+                    bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue + 64f);
+                else
+                    bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
             }
 
 
@@ -208,10 +226,12 @@ class ProfilePreferencesIndicator {
             }
 
             if (disabled) {
-                ColorMatrix saturationCM = new ColorMatrix();
-                saturationCM.setSaturation(0);
-                paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                paint.setAlpha(DISABLED_ALPHA);
+                if (!monochrome) {
+                    ColorMatrix saturationCM = new ColorMatrix();
+                    saturationCM.setSaturation(0);
+                    paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
+                } else
+                    paint.setAlpha(DISABLED_ALPHA);
             }
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -219,7 +239,10 @@ class ProfilePreferencesIndicator {
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
             // change brightness of indicator
-            bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
+            if (disabled)
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue + 64f);
+            else
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
 
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);

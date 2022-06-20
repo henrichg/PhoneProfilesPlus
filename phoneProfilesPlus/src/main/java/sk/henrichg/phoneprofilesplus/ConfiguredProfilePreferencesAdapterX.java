@@ -100,7 +100,7 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
                 ColorMatrix saturationCM = new ColorMatrix();
                 saturationCM.setSaturation(0);
                 paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
+                //paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
             }
 
             Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), configuredPreferences.preferenceIcon);
@@ -108,6 +108,10 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
+
+            if (configuredPreferences.preferenceIconDisabled) {
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, 64f);
+            }
 
             holder.preferenceIcon.setImageBitmap(bitmapResult);
 
@@ -151,7 +155,7 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
                 ColorMatrix saturationCM = new ColorMatrix();
                 saturationCM.setSaturation(0);
                 paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
+                //paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
             }
 
             Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), configuredPreferences.preferenceIcon2);
@@ -159,6 +163,10 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
+
+            if (configuredPreferences.preferenceIcon2Disabled) {
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, 64f);
+            }
 
             holder.preferenceIcon2.setImageBitmap(bitmapResult);
 
