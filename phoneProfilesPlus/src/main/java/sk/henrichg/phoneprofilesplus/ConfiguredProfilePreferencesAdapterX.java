@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -94,8 +96,12 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
             }
 
-            if (configuredPreferences.preferenceIconDisabled)
-                paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
+            if (configuredPreferences.preferenceIconDisabled) {
+                //paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
+                ColorMatrix saturationCM = new ColorMatrix();
+                saturationCM.setSaturation(0);
+                paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
+            }
 
             Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), configuredPreferences.preferenceIcon);
 
