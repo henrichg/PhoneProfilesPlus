@@ -84,16 +84,19 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
         else {
             Paint paint = new Paint();
 
+            float brightness;
             if (applicationTheme.equals("dark")) {
                 //if (disabled)
                 //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
                 //else
                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                brightness = 64f;
             } else {
                 //if (disabled)
                 //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
                 //else
                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                brightness = 50f;
             }
 
             if (configuredPreferences.preferenceIconDisabled) {
@@ -110,7 +113,7 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
             if (configuredPreferences.preferenceIconDisabled) {
-                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, 64f);
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, brightness);
             }
 
             holder.preferenceIcon.setImageBitmap(bitmapResult);
@@ -139,16 +142,19 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
         else {
             Paint paint = new Paint();
 
+            float brightness;
             if (applicationTheme.equals("dark")) {
                 //if (disabled)
                 //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
                 //else
                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                brightness = 64f;
             } else {
                 //if (disabled)
                 //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
                 //else
                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                brightness = 40f;
             }
 
             if (configuredPreferences.preferenceIcon2Disabled) {
@@ -165,7 +171,7 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
             if (configuredPreferences.preferenceIcon2Disabled) {
-                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, 64f);
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, brightness);
             }
 
             holder.preferenceIcon2.setImageBitmap(bitmapResult);

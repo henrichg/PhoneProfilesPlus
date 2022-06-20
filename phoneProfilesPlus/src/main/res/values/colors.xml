@@ -18,7 +18,8 @@
 <!--    <color name="profileindicatorColor_light">#718d99</color>-->
 <!--    <color name="profileindicatorColor_dark">#85a6b4</color>-->
 
-    <color name="profileindicatorColor_light">#568dc8</color>
+<!--    <color name="profileindicatorColor_light">#568dc8</color>-->
+    <color name="profileindicatorColor_light">#4289d8</color>
     <color name="profileindicatorColor_dark">#7ba7d8</color>
 
 </resources>
