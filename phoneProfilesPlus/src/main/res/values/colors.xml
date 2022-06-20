@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="launcher_background_color">#7cc4d9</color>
+<!--    <color name="launcher_background_color">#7cc4d9</color>-->
 
 
     <color name="notificationDarkBackgroundColor">#FF202020</color>
@@ -12,9 +12,13 @@
 
     <color name="error_in_preferences">#FFFF0000</color>
 
-    <color name="profileindicatorColor_light">#00a7d8</color>
-    <color name="profileindicatorColorDisabled_light">#A0A0A0</color>
-    <color name="profileindicatorColor_dark">#3dbade</color>
-    <color name="profileindicatorColorDisabled_dark">#b5b5b5</color>
+<!--    <color name="profileindicatorColor_light">#00a7d8</color>-->
+<!--    <color name="profileindicatorColor_dark">#3dbade</color>-->
+
+    <color name="profileindicatorColor_light">#657e89</color>
+    <color name="profileindicatorColor_dark">#7d9ba9</color>
+
+<!--    <color name="profileindicatorColor_light">#348ca6</color>-->
+<!--    <color name="profileindicatorColor_dark">#3998b4</color>-->
 
 </resources>

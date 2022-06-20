@@ -24,6 +24,8 @@ class ProfilePreferencesIndicator {
     final int[] countItems = new int[60];
     int countPreferences = 0;
 
+    static final int DISABLED_ALPHA = 100;
+
     private Bitmap createIndicatorBitmap(/*Context context,*/ int countDrawables)
     {
         // bitmap to get size
@@ -60,16 +62,19 @@ class ProfilePreferencesIndicator {
 
             String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
             if (applicationTheme.equals("dark")) {
-                if (disabled)
-                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
-                else
+                //if (disabled)
+                //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
+                //else
                     paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
             } else {
-                if (disabled)
-                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
-                else
+                //if (disabled)
+                //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
+                //else
                     paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
             }
+
+            if (disabled)
+                paint.setAlpha(DISABLED_ALPHA);
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
@@ -83,17 +88,17 @@ class ProfilePreferencesIndicator {
 //            Log.e("ProfilePreferencesIndicator.addIndicator", "IT_FOR_NOTIFICATION");
             Paint paint = new Paint();
 
-            if (disabled) {
-                if (Build.VERSION.SDK_INT >= 31) {
-                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-                    if (color != 0)
-                        paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
-                    else
-                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
-                } else
-                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
-            }
-            else {
+            //if (disabled) {
+            //    if (Build.VERSION.SDK_INT >= 31) {
+            //        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+            //        if (color != 0)
+            //            paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
+            //        else
+            //            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
+            //    } else
+            //        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
+            //}
+            //else {
                 if (Build.VERSION.SDK_INT >= 31) {
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                     if (color != 0)
@@ -102,7 +107,10 @@ class ProfilePreferencesIndicator {
                         paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                 } else
                     paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
-            }
+            //}
+
+            if (disabled)
+                paint.setAlpha(DISABLED_ALPHA);
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
@@ -126,7 +134,7 @@ class ProfilePreferencesIndicator {
                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
 
             if (disabled)
-                paint.setAlpha(128);
+                paint.setAlpha(DISABLED_ALPHA);
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
@@ -143,15 +151,18 @@ class ProfilePreferencesIndicator {
             Paint paint = new Paint();
 
             if (!monochrome) {
-                if (disabled)
-                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
-                else
+                //if (disabled)
+                //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
+                //else
                     paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
             }
-            else {
-                if (disabled)
-                    paint.setAlpha(128);
-            }
+            //else {
+            //    if (disabled)
+            //        paint.setAlpha(128);
+            //}
+
+            if (disabled)
+                paint.setAlpha(DISABLED_ALPHA);
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
@@ -171,7 +182,7 @@ class ProfilePreferencesIndicator {
             Paint paint = new Paint();
 
             if (disabled)
-                paint.setAlpha(128);
+                paint.setAlpha(DISABLED_ALPHA);
 
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
