@@ -406,6 +406,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "activatedProfile._name" + activatedProfile._name);
                     }*/
 
+                    removeAlarm(profile, appContext);
+                    PPApplication.updateGUI(true, false, appContext);
+
                     if ((activatedProfile != null) &&
                             (activatedProfile._id == profile._id) &&
                             (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
