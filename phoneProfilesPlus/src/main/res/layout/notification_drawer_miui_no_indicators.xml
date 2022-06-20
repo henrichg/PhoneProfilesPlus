@@ -60,16 +60,6 @@
                 android:maxLines="1"
                 tools:ignore="SpUsage" />
 
-<!--            <ImageView-->
-<!--                android:id="@+id/notification_activated_profile_pref_indicator"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="14dp"-->
-<!--                android:layout_marginTop="2dp"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:contentDescription="@string/profile_preferences_indicator_image"-->
-<!--                android:scaleType="@integer/profilePrefIndicatorScaleType"-->
-<!--                android:src="@drawable/ic_empty" />-->
-
         </LinearLayout>
 
     </RelativeLayout>
