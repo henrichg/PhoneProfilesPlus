@@ -775,3 +775,14 @@ otvori screen "Notifications". Mozno ze toto este zmenia, kym vyjde ostry Androi
 
 ---------------------------
 
+indicator color and its complementary color:
+dark tema: indicator:62a9f8 -> accent:f8b162 -> event delay:#F862F4
+light tema: indicator:4289d8 -> accent:d89142 -> event delay:#D842D4
+
+Vypada, ze komplentarna farba je oranzova, aj ked trosicku ina.
+Zatial necham tak. Podobaju sa.
+Problem je s 12 drawables, ktore su starou oranzovou.
+
+https://www.canva.com/colors/color-wheel/
+
+------------------------

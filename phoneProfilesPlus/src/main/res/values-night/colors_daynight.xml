@@ -2,7 +2,8 @@
 <resources>
     <color name="primary">#202020</color>
     <color name="primaryDark">#202020</color>
-    <color name="accent">#E99B7F</color>
+<!--    <color name="accent">#E99B7F</color>-->
+    <color name="accent">#f8b162</color>
 <!--    <color name="accent_disabled">#70E99B7F</color>-->
     <color name="navigationBar">#000000</color>
 
@@ -16,7 +17,8 @@
     <color name="activityCommandBackgroundColor">#1FFFFFFF</color>
     <color name="activityPopupMenuBackgroundColor">#FF1C1C1C</color>
 
-    <color name="notificationDecorationColor">#DC8160</color>
+<!--    <color name="notificationDecorationColor">#DC8160</color>-->
+    <color name="notificationDecorationColor">#d89142</color>
 
 <!--    <color name="activityPopupBackground">#FF2A2A2A</color>-->
     <!--<color name="navigationDrawerTextColor">#ffe5e5e5</color>-->
@@ -38,8 +40,10 @@
 
     <color name="fastScrollTrackPP">#FF4F4F4F</color>
     <color name="fastScrollThumbInactivePP">#FF8F8F8F</color>
-    <color name="fastScrollThumbPP">#FFE99B7F</color>
-    <color name="fastScrollPopupBackgroundPP">#FFE99B7F</color>
+<!--    <color name="fastScrollThumbPP">#FFE99B7F</color>-->
+    <color name="fastScrollThumbPP">#fff8b162</color>
+<!--    <color name="fastScrollPopupBackgroundPP">#FFE99B7F</color>-->
+    <color name="fastScrollPopupBackgroundPP">#fff8b162</color>
     <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
 
 <!--    <color name="eventPauseTextColor">#FF00a7d8</color>-->
@@ -51,8 +55,10 @@
     <color name="sensor_pass_status_not_passed">#FFffb000</color>
     <color name="sensor_pass_status_waiting">#FF0060FF</color>
 
-    <color name="map_edited_location_marker_stroke">#FFE99B7F</color>
-    <color name="map_edited_location_marker_fill">#77E99B7F</color>
+<!--    <color name="map_edited_location_marker_stroke">#FFE99B7F</color>-->
+    <color name="map_edited_location_marker_stroke">#fff8b162</color>
+<!--    <color name="map_edited_location_marker_fill">#77E99B7F</color>-->
+    <color name="map_edited_location_marker_fill">#77f8b162</color>
     <color name="map_last_location_marker_stroke">#FF84d2ef</color>
     <color name="map_last_location_marker_fill">#7784d2ef</color>
 
