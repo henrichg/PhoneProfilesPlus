@@ -84,7 +84,7 @@ abstract class EventPreferences {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_PASSED, context);
 //                Log.e("EventPreferences.getPassStatusString", "passed labelColor="+Integer.toHexString(labelColor));
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ "+sensorTitle+" ]");
+                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ » "+sensorTitle+" ]");
             }
             else {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_NOT_PASSED, context);
