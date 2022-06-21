@@ -28,7 +28,7 @@
 // 6700 = separated shortcut parameters from widhet icon parameters
 // 6730 = changed one row widget "Higher layout" parameter to "Layout height"
 // 6730 = changed one row widget "Higher layout" parameter to "Layout height"
-// 6800 = removed widgets parameter "Rounded corners", Force set roundd corners = true, radius = 1.
+// 6800 = removed widgets parameter "Rounded corners", Force set rounded corners = true, radius = 1.
 
 ext.ppVersions = [
     publishVersion: '6.0b',
