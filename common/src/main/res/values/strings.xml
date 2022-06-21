@@ -1365,7 +1365,7 @@
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
     <string name="profile_preferences_volumeMuteSound">Mute sound</string>
     <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
-    x    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
     <string name="array_pref_locationModeArray_off">Location Off</string>
     <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
     <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
