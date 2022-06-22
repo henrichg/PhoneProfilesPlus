@@ -77,7 +77,7 @@
 <!--    <color name="profileIconBorderColor">#FFCCCCCC</color>-->
 <!--    <color name="cardViewBorderColor">#FFFFFFFF</color>-->
 
-    <color name="altype_profile">#FF42D846</color>
+    <color name="altype_profile">#FF00A000</color>
     <color name="altype_eventStart">#FFcc893e</color>
     <color name="altype_eventEnd">#FF4289d8</color>
     <color name="altype_eventDelayStartEnd">#FFD842D4</color>
