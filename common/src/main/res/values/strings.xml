@@ -1973,6 +1973,15 @@
     <string name="important_info_event_event_sensors_passed">Green with double arrow: sensor is \"passed\".</string>
     <string name="important_info_event_event_sensors_not_pased">Blue: sensor is not \"passed\".</string>
 
+    <string name="activity_log_help_message_colors">Used colors</string>
+    <string name="activity_log_help_message_colors_profile_activation">Profile activation</string>
+    <string name="activity_log_help_message_colors_event_start">Event start</string>
+    <string name="activity_log_help_message_colors_event_end">Event end</string>
+    <string name="activity_log_help_message_colors_restart_events">Restart events</string>
+    <string name="activity_log_help_message_colors_event_delay_start_end">Event in delay start/end</string>
+    <string name="activity_log_help_message_colors_error">Error</string>
+    <string name="activity_log_help_message_colors_others">Other situations</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
