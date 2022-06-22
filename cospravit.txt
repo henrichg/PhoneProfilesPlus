@@ -1,7 +1,7 @@
 Ked nejde push, skus v terminaly AS:
 git config credential.helper store
 
-Preco uz noe je PPP v GPlay:
+Preco uz nie je PPP v GPlay:
 
 Google restrictions:
 1. Android - All Wi-Fi related functions not working since Android 10.
@@ -10,6 +10,18 @@ Google restrictions:
   and in PPP must be target sdk = 28. Android 10 is 29.
 
 In stores, in which is currently deployed PPP, restriction about target sdk not exists.
+
+----------------------------------------
+
+indicator color and its complementary color:
+dark tema: indicator:62a9f8 -> accent:f8b162 -> event delay:#F862F4
+light tema: indicator:4289d8 -> accent:d89142 -> event delay:#D842D4
+
+Vypada, ze komplentarna farba je oranzova, aj ked trosicku ina.
+Zatial necham tak. Podobaju sa.
+Problem je s 12 drawables, ktore su starou oranzovou.
+
+https://www.canva.com/colors/color-wheel/
 
 ------------------------
 funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
@@ -99,15 +111,6 @@ Ako disablovat lockscreen, 2 kroky:
 2. nastavit lockscreen timeout 
   Settings.Secure - lock_screen_lock_after_timeout (milisekundy)
 
---------
-
-4. sprav notifikaciu ako dasboard, kde budu ikony profilov, klikom na ikonu sa profil aktivuje.
-   poradie bude take iste ako pro aktivatore. Ak sa nezmestia na jednu notifikaciu, spravit dalsiu.
-   Notifikacia bude mat prioritu nastavitelnu, default bude Minimal. Uzivatel si bude moct zmenit, aby sa
-   takat notifikacia zobrazila aj v lockscreene. ;-)
-
---------
-
 ---------- PIN/password
 
 1. ako zrusim pin/heslo
@@ -141,6 +144,8 @@ DevicePolicyManager.PASSWORD_QUALITY_COMPLEX - heslo?
 --------------------------------
 
 NFC tag senzor - NEFUNGUJE PRI CITANI TAGU NA POZADI!
+
+ZE BY UZ OPRAVENE? DLHO SA NIKTO NESTAZOVAL.
 
 Tu mas ako sa to id cita: https://gist.github.com/luixal/5768921.
 
@@ -185,22 +190,6 @@ Direct boot:
   Alebo, ze by pomohlo toto?
     https://stackoverflow.com/questions/51377089/android-crashlytics-fails-on-direct-boot-due-to-disk-encryption
 
-----------------------------------------
-
-Extender:
-- Vypada to, ze parametrov, ktore pouzivaju Extender je stale viac.
-- Co tak spravit daky dialog, z ktoreho sa bude dat Extender managovat?
-- Aby nemuseli byt pri kazdom profil/event parametri 3 dalsie kvoli Extenderu.
-- Pridaj dakde v Editore daku indikaciu, ze je Extender vyzadovany v novej verzii.
-  Nieco uz o tom mas v Important info, notifikacia o tom sa zobrazi po upgrade PPP.
-
-----------------------------------------
-
-EventsHandler.handleEvents()
-- volane strasne vela krat zaujima ma restart udalosti a samotny orientacny senzor
-- SENSOR_TYPE_DEVICE_ORIENTATION
-  - z OrientationScanner.runEventsHandlerForOrientationChange() - zisti, aky thread to pouziva
-  - z PPPExtenderBroadcastRecveiver.onReceive() - je to volane v HandlerThread - vroadcast treba, lebo senzor sleduje aplikacie na popredi
 
 --------------
 
@@ -225,50 +214,7 @@ Battery historian:
 
 ------------------
 
-Toto daj do Important info. Je to ako nastavit PPP pre znizenie spotreby baterie:
-
-1. Battery optimization, must by dislabled - it is PPP Settings/System/Ignore battery optimization
-2. Scanning intervals, set it >= recommended
-    - Background scanning = 15 minutes
-    - Location scanning = 15 minutes
-    - Wi-Fi scanning = 15 minutes
-    - Bluetooth scanning = 15 minutes
-    - Orientation scanning = 10 seconds
-3. For location scanning disable "Use GPS when not in Power Save mode". This is required only when another location sources are not available.
-    Location sources used by Android:
-    - Wi-Fi
-    - Bluetooth
-    - network
-    - mobile cells
-    - GPS
-4. For increasing location accuracy, you can force usage of Wi-Fi and BLuetooth as source. For this, enable it in Location system setting "Wi-Fi and Bluetooth scanning"
-5. Battery sensor: do not use battery levels when are not needed. Set levels: 0%-100%
-
----------------------
-
-Orientation sensor:
-Light senzor sa generuje hrozne casto. Na Samsungu donekonecna a par krat za sekundu.
-Spravil som sice:
-- ze sa neregistruje, ak ziadna udalost ho nepouziva
-- ze sa ma handler volat az o polovicu intervalu
-Ale aj tak to musi zrat vela. Kazdych 5 sekund volat eventsHandler je proste vela.
-Zatial mam nenapadlo, co s tym. Do nastaveni senzora daj aspon info preference o tom ze check light zerie bateriu.
-
------------------------
-
-Co je toto? Nastavenie tonu pri aktivacii profilu? Prehratie tonu na notifikacu?
-Zistujem, ktory ton je nastaveny (najdi kde), preco by som ho mal aj prehravat? Nemam to nastavene.
-2020-09-07 00:05:35.217 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:05:55.189 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:26:45.609 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:26:46.097 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:26:52.669 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:28:43.189 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:29:03.187 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-
-------------------------
-
-am mám funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
+mám funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
 
 nastavení-aplikace- aplikace-PPP-podrobnosti o spotřebě energie-spouštění aplikací:
 Spravovat automaticky - ne
@@ -338,46 +284,7 @@ Takto sa nastavuje tiemout pri aktivacii profilu:
   cize len sa hodnota ulozi do ApplicationPreferences.prefActivatedProfileScreenTimeout.
 Toto cele chapem.
 
------
-
-Extender v obchode:
-
-*** IMPORTANT ***
-- It is "plugin", so does NOT work standalone!
-- Designed for co-working with 'PhoneProfilesPlus' application. Without it, this application do nothing.
-
 -----------------------
-
-Ako stiahnut najnovsiu verziu:
-
-https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk
-https://github.com/henrichg/PhoneProfilesPlusExtender/releases/latest/download/PhoneProfilesPlusExtender.apk
-
------------------------
-
-Airplane mod bez rootu:
-
-Hladaj v:
-/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid
-pripona suboru: xml
-retazec: BIND_VOICE_INTERACTION
-
-volaj toto:
-Intent intent = new Intent(PPPVoiceService.ACTION_ASSISTANT);
-intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
-intent.putExtra("airplane_mode_enabled", z3);
-mo15668c0().sendBroadcast(intent);
-
-Ako zistit default asistenta:
-https://stackoverflow.com/questions/40500143/how-to-get-default-device-assistance-app-in-android-by-code
-Alebo asi lepsie: Macrodroid class: common/C5258c1.java
-
-Ako nastavit default asistenta:
-activity.startActivity(new Intent("android.settings.VOICE_INPUT_SETTINGS"));
-- Settings.ACTION_VOICE_INPUT_SETTINGS
-Alebo Macrodroid class: permissions/PermissionRequestActivity.java
-
---------------------------
 
 Zmena hlasitosti profilom:
 
@@ -468,35 +375,6 @@ Ale ako pozeram, tak sa to ignoruje, tie zmeny v observeri, lebo prave aktivujem
 To je to, co to ma aj robit.
 Tak preco kua to na tej Xperii robi inac? Jedine mi zostava to testnut u Marta. Logovat si to.
 
---------
-
-root:
-Moze sa stat, ze bootnem do nie-root particie (S10ka).
-No a vtedy pre kazdy parameter mi to pise, ze nie je grantnuty root.
-No nemoze byt, ked nie je rootnuty.
-Vsade testujem premennu ApplicationPreferences.applicationNeverAskForGrantRoot.
-A v red error text mam checkbox, ktory tu premenu anstavuje.
-
-No a teraz co spravit s tym? Ta premenna by mala mat funkcionalitu aku ma.
-Lebo iny uzivatel chcel, ze sice ma rottnuty mobil, ale nechce grantovat root.
-Nema pre PPP nastaveny permanentny grant. Nechce to.
-
-Podla mna by som asi mal spravit to, ze ak nie je mobil rootnuty, malo by to proste len zakazat
-premenne a nezobrazovat red text. Pozri to.
-
-Zatial tu premennu sprav tak, ze je to spriahnute s tym, ci je root. Nie ci je grantnuty.
-Cize v PPService.doForFirsStart() ju nastav na false, ak je mobil rootnuty.
-
----------
-
-Ako zdetegovat, ci servis bezi:
-  boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
-
-Ako si pytat nastavenie Atutostart:
-Podobne ako:
-  IgnoreBatteryOptimizationNotification.showNotification(context, false);
-Volat vsade tam, kde je volane aj to.
-
 ------------------
 
 Night mode - cize zlty film:
@@ -510,105 +388,10 @@ Je to aplikacia SysteUI Tunner. Mas ho v S10.
 --------------
 
 Vyskusaj nahodit mobilne data s WRITE_SECURE_SETTINGS:
-Nefunguje :-(
+NEFUNGUJE :-(
 boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data", r4) // r4 = 1 - zapnut, 0 - vypnut
 boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data1", r5)  // r5 = 1 - zapnut, 0 - vypnut
 boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data2", r5)  // r5 = 1 - zapnut, 0 - vypnut
-
--------------------
-
-Vraj synchronizacia kontaktov. Testuje sa tam ContactsContract.Contacts.CONTACT_LAST_UPDATED_TIMESTAMP
-A len novsie ako posledna synchronizacia (zapisat si treba cas poslednej do sharend preferences),
-sa synchronizuju.
-Ono to urychli synchronizaciu, to je pravda. Mozno by bolo super to takto spravit, len je to
-vela prerabky celej sychronizacie kontaktov aj grup.
-
-https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
-
---------------------
-
-Ako zistujem, ci je profil aktivovany manualne:
-
-if (Event.getGlobalEventsRunning()) {
-    if (Event.getEventsBlocked(dataWrapper.context)) { // manualna aktivacia je, ked su blokovane udalosti
-                                                       // je to v shared preferences PREF_EVENTS_BLOCKED
-        if (Event.getForceRunEventRunning(dataWrapper.context))
-            manualIndicators = "[»]"; // moze byt, ze sa profil aktivuje, ak ma udalost nastaveme,
-                                      // ze sa ma spustit aj ked je manualne aktivovany.
-                                      // je to v shared preferences PREF_FORCE_RUN_EVENT_RUNNING
-        else
-            manualIndicators = "[M]";
-    }
-}
-else
-    manualIndicators = "[M]"; // alebo ak nebezia udalosti
-
-Asi najlepsi sposob, nemus byt profil aktivovany manualne:
-
-
-Aktivácia profilu by volala broadcast a až ten by vyvolal Events handler.
-
-A profil by nemusel mat tie 2 parametre.
-
-Ostatné s vyhľadávaním udalostí zostava. Az na to, že vyhľadávanie v udalostiach by robil broadcast
-aby sa Events handler volal len ak je to povolené. Čiže len na zmenu interneho parametra "running".
-
-
-TOTO NETREBA:
-/*1. Profil: parameter "Start event" (true/false). Spusti udalost so senzorom "Activated profile" v
-   ktorej bude tento profil na starte. Cize zavola EnentsHandler pre tento senzor.
-   Hladat sa bude "Start of event"/"Activate profile"
-2. Profil: parameter "End event" (true/false). Ukonci udalost so senzorom "Activated profile" v
-   ktorej bude tento profil na konci. Cize zavola EnentsHandler pre tento senzor.
-   Hladat sa bude "End of event"/"Activate profile"
-
-Podmienkou je, ze v profile sa nesmie naraz dat nastavit parameter "Start event" aj "End event".*/
-
-Aktivuje sa profil 1. Hlada sa udalost, v ktorej je tento profil v senzore "Activate profile"
-v "Start profile".
-Ak ju najde, ulozit musi do nej, ze MA bezat, do parametrov senzora "Activated profile",
-do interneho parametra "running".
-Restart udalosti taku udalost spusti, lebo v parametroch ma, ze ma bezat.
-A potom sa zavola EventsHandler pre senzor "Activated profile".
-
-Aktivuje sa profil 2. Hlada sa udalost, v ktorej je tento profil v senzore "Activate profile"
-v "End profile".
-Ak ju najde, ulozit musi do nej, ze NEMA bezat, do parametrov senzora "Activated profile",
-do interneho parametra "running".
-Restart udalosti taku udalost nespusti, lebo v parametroch ma, ze nema bezat.
-A potom sa zavola EventsHandler pre senzor "Activated profile".
-
-Hladat musis VZDY vo vsetkch udalostiach a pre najdene zapisovat parameter senzora.
-EventsHandler pre senzor zavolaj len raz. Po prehladani vsetkych udalosti.
-
-!!! DOLEZITE:
-Ak najdena udalost ma v senzore "Activated profile" zapisane, ze sa ma spustat/zastavit v "running"
-a ten senzor je passed/not passed, nezapisuj parameter do senzora a nevolaj EventsHandler.
-Cize ber len zmeny z jedneho stavu do druheho.
-To aby sa nevolal EventsHandler donekonecna z takeho profilu.
-
-Maj pre ten interny parameter hodnoty:
-0 = not set -> nevolaj EventsHandler, spracuj ako not running, cize senzor bude not passed
-1 = running -> ak zmena z 0, 2, zavolaj EventsHandler, senzor bude passed
-2 = not running -> ak zmena z 0, 1, zavolaj EventsHandler, senzor bude not passed
-
-Senzor type staci len jeden.
-
-Tam, kde volam DatabaseHandler.activateProfile() (aby som zareagoval na vsetky aktivacie profilov,
-cize na kazdy aj pri merge) zavolaj broadcast na vyhladanie udalosti podla
-profilov senzora "Activated profile". Musi to byt broadcast, aby sa pridavali nove a nove jeho sendy,
-vzdy ked sa aktivuje profil.
-Vyhladaj udalosti a pozapisuj do ich senzora "Activated profile" interny parameter "running".
-
-A potom spracuj udalosti, zavolanim EventsHandlera (tiez z broadcastu). Uz bude "running" zapisany,
-takze budem vediet nastavit passed/not passed pre senzor.
-
-!!! Bacha, musi byt nastaveny profil v senzore "Activated profile" v "Start profile", "End profile".
-Cize oba parametre musia byt vyzadovane a profily musia byt rozne.
-Ak nebudu oba profily nastavene, senzor bude pokladany za nenastaveny, cize ignorovany v EventsHandler.
-Bude natvrdo v senzore nastavovany interny parameter 0 (not set) pri vyhladavani udalosti.
-
-Uvidime.
 
 --------------------
 
@@ -700,89 +483,37 @@ Sprav aspon toto, lebo na Galaxy mi to hore vyplo obrazovku. :-(
 
 ------------------
 
-Widget v dynamickych farbach:
-
-https://developer.android.com/guide/topics/appwidgets/enhance
-
-Cize od api level 31 sa toto da spravit.
-
-Sprav to len ak ma uzivatel nastavene: "Change color by night mode". Tento parameter je v PPP od
-api 31, taze super.
-
-Sprav teda styl, a vytvor v31 verzie layoutov a do nich uplne v hornom layoute daj:
-android:theme="@style/xxx" - kde xxx je ta dynamicka tema.
-Vypada to, ze mozes pouizt uz Theme.Material3.DynamicColors.DayNight, material library mas v 1.6.1. ;-)
-
-Dalej, normalne nastavujes farby pozadia, textu a ikony restartu udalosti natvrdo aj pre
-"Change color by night mode". Tak toto uz nerob pre API 31 ale pouzi nirmalne atributy:
-
-- ?android:attr/colorAccent
-- ?android:attr/colorBackground
-- ?android:attr/textColorPrimary
-- ?android:attr/textColorSecondary
-
-Ikone restartu udalost daj tint takto:
-
- <ImageView
-    ...
-    android:tint="?android:attr/colorAccent"
-    android:src="@drawable/ic_partly_cloudy" />
-
-HOTOVO
+EventsHandler.handleEvents()
+- volane strasne vela krat zaujima ma restart udalosti a samotny orientacny senzor
+- SENSOR_TYPE_DEVICE_ORIENTATION
+  - z OrientationScanner.runEventsHandlerForOrientationChange() - zisti, aky thread to pouziva
+  - z PPPExtenderBroadcastRecveiver.onReceive() - je to volane v HandlerThread - vroadcast treba, lebo senzor sleduje aplikacie na popredi
 
 ------------------------
 
-Notifications permission:
+sprav notifikaciu ako dasboard, kde budu ikony profilov, klikom na ikonu sa profil aktivuje.
+   poradie bude take iste ako pro aktivatore. Ak sa nezmestia na jednu notifikaciu, spravit dalsiu.
+   Notifikacia bude mat prioritu nastavitelnu, default bude Minimal. Uzivatel si bude moct zmenit, aby sa
+   takat notifikacia zobrazila aj v lockscreene. ;-)
 
-Android 13 a notification permission.
-Ak som dobre rozumel, upgrade mobilu na Android 13 automaticky pregrantne pravo/nevypne notifikacie,
-takze by nemal byt problem, notifikacie by mali fungovat.
-Upgrade PPP nevypne notifikacie, co je super (testol som) ;-)
+--------
 
-Len ak PPP odinstaluju a znova nainstaluju. To potom budu musiet zapnut notifikacie.
+Orientation sensor:
+Light senzor sa generuje hrozne casto. Na Samsungu donekonecna a par krat za sekundu.
+Spravil som sice:
+- ze sa neregistruje, ak ziadna udalost ho nepouziva
+- ze sa ma handler volat az o polovicu intervalu
+Ale aj tak to musi zrat vela. Kazdych 5 sekund volat eventsHandler je proste vela.
+Zatial mam nenapadlo, co s tym. Do nastaveni senzora daj aspon info preference o tom ze check light zerie bateriu.
 
-Len som dako nepochopil. Po instalacii release PPP si to pravo nepyta. Preco? Channel vytvaram, priamo
-v onCreate PPApplication. Tak fakt nechapem. Ze by bug v bete Android 13? To pravo nemozem dat do manifestu.
-Je len pre API 33. Hm, hm.
-Z widgetu sa volá LaucherActivity.
-Proste sa mi zdá, že táto aktivita robí problém. Že sa nestihne zobraziť ten dialóg na post_notifications.
-Ináč tomu nerozumiem.
-Mozno je to tymto:
-android:excludeFromRecents="true"
-android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-Tazko povedat.
+-----------------------
 
-Pre PPPE to pytalo, ale az po druhom spusteni jeho aktivity. Zajimave. A notifikacie sa tym povolia.
-Tak preco kua nie pre PPP? Ze by to bolo tou LancherActivity? Ta fakt je zobrazena len chvilku. Nechapem.
-Mozno to este opravia.
+Vraj synchronizacia kontaktov. Testuje sa tam ContactsContract.Contacts.CONTACT_LAST_UPDATED_TIMESTAMP
+A len novsie ako posledna synchronizacia (zapisat si treba cas poslednej do sharend preferences),
+sa synchronizuju.
+Ono to urychli synchronizaciu, to je pravda. Mozno by bolo super to takto spravit, len je to
+vela prerabky celej sychronizacie kontaktov aj grup.
 
-Zdroj: https://developer.android.com/about/versions/13/changes/notification-permission
+https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
 
----
-
-To právo Notifications tam fakt je, ako dangerous, cize v zozname notifikacii aplikacie.
-1. Odinstaloval som PPP.
-2. Po znovu-naistalovani, pravo "Notifications" nie je povolene.
-3. Po povoleni notifikacii v "Notifications" sa pravo automaticky grantne.
-Takze moj postup, ze staci povolit notifikacie je spravny. Plati aj pre PPPE aj v pripade, ze v dialogu,
-co sa zobrazi dam "Deny". Staci povolit notifikacie, pravo sa samo grantne.
-A sranda je, ze ked notifikacie vypnem, pravo sa revokne. A ked kliknem na to pravo, otvori to screen
-"Notifications".
-Cize to pravo "Notifications" je len taka habadura (aj pre target 33), uplne zbytocna vec, klik na neho
-otvori screen "Notifications". Mozno ze toto este zmenia, kym vyjde ostry Android 13.
-
-
-
----------------------------
-
-indicator color and its complementary color:
-dark tema: indicator:62a9f8 -> accent:f8b162 -> event delay:#F862F4
-light tema: indicator:4289d8 -> accent:d89142 -> event delay:#D842D4
-
-Vypada, ze komplentarna farba je oranzova, aj ked trosicku ina.
-Zatial necham tak. Podobaju sa.
-Problem je s 12 drawables, ktore su starou oranzovou.
-
-https://www.canva.com/colors/color-wheel/
-
-------------------------
+--------------------
