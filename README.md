@@ -65,19 +65,19 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - [Show it](docs/ppp_features.md)
 
 ##### Screenshots
-- [[1]](art/_base/phoneScreenshots/01.png),
-[[2]](art/_base/phoneScreenshots/02.png),
-[[3]](art/_base/phoneScreenshots/03.png),
-[[4]](art/_base/phoneScreenshots/04.png),
-[[5]](art/_base/phoneScreenshots/05.png),
-[[6]](art/_base/phoneScreenshots/06.png),
-[[7]](art/_base/phoneScreenshots/07.png),
-[[8]](art/_base/phoneScreenshots/08.png),
-[[9]](art/_base/phoneScreenshots/09.png),
-[[10]](art/_base/phoneScreenshots/10.png),
-[[11]](art/_base/phoneScreenshots/11.png),
-[[12]](art/_base/phoneScreenshots/12.png),
-[[13]](art/_base/phoneScreenshots/13.png)
+- [[1]](art/phoneScreenshots/01.png),
+[[2]](art/phoneScreenshots/02.png),
+[[3]](art/phoneScreenshots/03.png),
+[[4]](art/phoneScreenshots/04.png),
+[[5]](art/phoneScreenshots/05.png),
+[[6]](art/phoneScreenshots/06.png),
+[[7]](art/phoneScreenshots/07.png),
+[[8]](art/phoneScreenshots/08.png),
+[[9]](art/phoneScreenshots/09.png),
+[[10]](art/phoneScreenshots/10.png),
+[[11]](art/phoneScreenshots/11.png),
+[[12]](art/phoneScreenshots/12.png),
+[[13]](art/phoneScreenshots/13.png)
 
 ##### Supported Android versions
 

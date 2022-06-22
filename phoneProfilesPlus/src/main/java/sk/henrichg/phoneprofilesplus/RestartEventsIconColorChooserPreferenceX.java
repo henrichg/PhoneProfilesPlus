@@ -1,31 +1,27 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
-import com.kunzisoft.androidclearchroma.ChromaUtil;
-
 public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
 
     RestartEventsIconColorChooserPreferenceFragmentX fragment;
 
-    private FrameLayout widgetLayout;
+    private ImageView imageView;
 
     String value;
 
@@ -48,7 +44,7 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
 
         this.defaultColor = 0xff1ea0df;
 
-        setWidgetLayoutResource(R.layout.preference_widget_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_restart_events_icon_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
 
         setPositiveButtonText(null);
     }
@@ -58,7 +54,7 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
     {
         super.onBindViewHolder(holder);
 
-        widgetLayout = (FrameLayout)holder.findViewById(R.id.dialog_color_chooser_pref_color);
+        imageView = (ImageView)holder.findViewById(R.id.restart_events_icon_pref_imageview);
 
         setColorInWidget();
     }
@@ -71,6 +67,15 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
 
         int color = Integer.parseInt(value);
 
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
+        Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
+                "ic_profile_restart_events|1|1|"+color, 0);
+        restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
+
+        imageView.setImageBitmap(restartEvents._iconBitmap);
+
+
+/*
         Drawable selector = createSelector(color);
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int[][] states = new int[][]{
@@ -94,6 +99,7 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
 //                setSummary(R.string.empty_string);
 //            }
 //        }, 200);
+ */
     }
 
     @Override
@@ -106,7 +112,7 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
     @Override
     protected void onSetInitialValue(Object defaultValue) {
         value = getPersistedString((String) defaultValue);
-        setSummaryCCHP(value);
+        //setSummaryCCHP(value);
     }
 
     void persistValue() {
@@ -114,15 +120,17 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
         {
             persistString(value);
             setColorInWidget();
-            setSummaryCCHP(value);
+            //setSummaryCCHP(value);
         }
     }
 
+    /*
     private void setSummaryCCHP(String value)
     {
         int color = Integer.parseInt(value);
         setSummary(ChromaUtil.getFormattedColorString(color, false));
     }
+    */
 
     int shiftColor(int color) {
         float[] hsv = new float[3];
@@ -219,7 +227,7 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
         RestartEventsIconColorChooserPreferenceX.SavedState myState = (RestartEventsIconColorChooserPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
-        setSummaryCCHP(value);
+        //setSummaryCCHP(value);
     }
 
     // SavedState class
