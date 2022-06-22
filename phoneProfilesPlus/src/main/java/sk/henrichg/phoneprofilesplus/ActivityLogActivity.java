@@ -178,9 +178,9 @@ public class ActivityLogActivity extends AppCompatActivity {
 
             TextView infoTextView = layout.findViewById(R.id.info_pref_dialog_info_text);
 
-            String message = "<br>";
+            String message = "";
 
-            message = message + "<b>" + getString(R.string.activity_log_help_message_colors) + ":</b><br><br>";
+            message = message + "<b>" + getString(R.string.activity_log_help_message_colors) + ":</b><br>";
 
             message = message + getString(R.string.activity_log_help_message_colors_profile_activation) + ": ";
             int color = ContextCompat.getColor(this, R.color.altype_profile);
