@@ -15,7 +15,7 @@ In stores, in which is currently deployed PPP, restriction about target sdk not 
 
 indicator color and its complementary color:
 dark tema: indicator:62a9f8 -> accent:f8b162 -> event delay:#F862F4
-light tema: indicator:4289d8 -> accent:d89142 -> event delay:#D842D4
+light tema: indicator:4289d8 -> accent:cc893e -> event delay:#D842D4
 
 Vypada, ze komplentarna farba je oranzova, aj ked trosicku ina.
 Zatial necham tak. Podobaju sa.
