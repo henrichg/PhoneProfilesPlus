@@ -3,7 +3,7 @@
     <color name="primary">#FFFFFF</color>
     <color name="primaryDark">#FFFFFF</color>
 <!--    <color name="accent">#DC8160</color>-->
-    <color name="accent">#d89142</color>
+    <color name="accent">#cc893e</color>
 <!--    <color name="accent_disabled">#70DC8160</color>-->
     <color name="navigationBar">#000000</color>
 
@@ -17,7 +17,7 @@
     <color name="activityPopupMenuBackgroundColor">#FFF7F7F7</color>
 
 <!--    <color name="notificationDecorationColor">#DC8160</color>-->
-    <color name="notificationDecorationColor">#d89142</color>
+    <color name="notificationDecorationColor">#cc893e</color>
 
     <!--<color name="activityPopupBackground">#FFd0d0d0</color>-->
     <!--<color name="navigationDrawerTextColor">#ff000000</color>-->
@@ -40,9 +40,9 @@
     <color name="fastScrollTrackPP">#FFEFEFEF</color>
     <color name="fastScrollThumbInactivePP">#FFAFAFAF</color>
 <!--    <color name="fastScrollThumbPP">#FFDC8160</color>-->
-    <color name="fastScrollThumbPP">#FFd89142</color>
+    <color name="fastScrollThumbPP">#FFcc893e</color>
 <!--    <color name="fastScrollPopupBackgroundPP">#FFDC8160</color>-->
-    <color name="fastScrollPopupBackgroundPP">#FFd89142</color>
+    <color name="fastScrollPopupBackgroundPP">#FFcc893e</color>
     <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
 
 <!--    <color name="eventPauseTextColor">#FF00a7d8</color>-->
@@ -58,9 +58,9 @@
     <color name="sensor_pass_status_waiting">#FFD842D4</color>
 
 <!--    <color name="map_edited_location_marker_stroke">#FFDC8160</color>-->
-    <color name="map_edited_location_marker_stroke">#FFd89142</color>
+    <color name="map_edited_location_marker_stroke">#FFcc893e</color>
 <!--    <color name="map_edited_location_marker_fill">#77DC8160</color>-->
-    <color name="map_edited_location_marker_fill">#77d89142</color>
+    <color name="map_edited_location_marker_fill">#77cc893e</color>
     <color name="map_last_location_marker_stroke">#FF76b8d1</color>
     <color name="map_last_location_marker_fill">#7776b8d1</color>
 
