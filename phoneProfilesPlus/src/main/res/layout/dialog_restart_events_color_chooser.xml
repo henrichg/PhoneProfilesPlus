@@ -31,13 +31,43 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:id="@+id/restart_events_icon_color_chooser_liLa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <FrameLayout
+                        android:id="@+id/dialog_color_chooser_default_color"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:padding="10dp"
+                        android:layout_marginStart="14dp">
+                        <ImageView
+                            android:id="@+id/restart_events_icon_color_chooser_imageView0"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_check"
+                            tools:ignore="ContentDescription"/>
+                    </FrameLayout>
+                    <TextView
+                        android:id="@+id/dialog_color_chooser_default_color_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/colorChooser_pref_dialog_defaultIconColor"
+                        android:textSize="16sp"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </LinearLayout>
+
                 <androidx.gridlayout.widget.GridLayout
                     android:id="@+id/dialog_color_chooser_grid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="10dp"
+                    android:padding="10dp"
                     app:columnCount="4"
                     app:rowCount="5"
                     app:orientation="vertical"

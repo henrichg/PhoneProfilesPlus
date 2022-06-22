@@ -1982,6 +1982,8 @@
     <string name="activity_log_help_message_colors_error">Error</string>
     <string name="activity_log_help_message_colors_others">Other situations</string>
 
+    <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Restart events\" icon color</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

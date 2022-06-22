@@ -2170,6 +2170,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationWidgetIconUseDynamicColors(context);
             ApplicationPreferences.applicationWidgetOneRowUseDynamicColors(context);
             ApplicationPreferences.applicationWidgetListUseDynamicColors(context);
+            ApplicationPreferences.applicationRestartEventsIconColor(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

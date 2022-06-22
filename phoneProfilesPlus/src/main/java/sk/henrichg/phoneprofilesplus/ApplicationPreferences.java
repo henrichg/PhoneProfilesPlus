@@ -230,6 +230,8 @@ class ApplicationPreferences {
     static boolean applicationWidgetIconUseDynamicColors;
     static boolean applicationWidgetOneRowUseDynamicColors;
     static boolean applicationWidgetListUseDynamicColors;
+    static String applicationRestartEventsIconColor;
+
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -486,10 +488,10 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS = "applicationWidgetIconUseDynamicColors";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS = "applicationWidgetOneRowUseDynamicColors";
     static final String PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS = "applicationWidgetListUseDynamicColors";
-
     static final String PREF_APPLICATION_SHORTCUT_ICON_COLOR = "applicationShortcutIconColor";
     static final String PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS = "applicationShortcutIconLightness";
     static final String PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS = "applicationShortcutCustomIconLightness";
+    static final String PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR = "applicationRestartEventsIconColor";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -1851,6 +1853,11 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
     static void applicationWidgetListUseDynamicColors(Context context) {
         applicationWidgetListUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR_DEFAULT_VALUE = String.valueOf(0xff1ea0df);
+    static void applicationRestartEventsIconColor(Context context) {
+        applicationRestartEventsIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR_DEFAULT_VALUE);
     }
 
     static void deleteBadPreferences(Context context) {

@@ -431,7 +431,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             // PPApplication.recordException(e);
         //}
 
-        // TODO zmazanie a znovuzobrazenie notifikacie, toto sprav po tom povoleni notifikacii
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+        dataWrapper.setDynamicLauncherShortcuts();
+
         if (PhoneProfilesService.getInstance() != null) {
             synchronized (PPApplication.applicationPreferencesMutex) {
                 PPApplication.doNotShowProfileNotification = true;
@@ -690,6 +692,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR_DEFAULT_VALUE));
         }
 
     }

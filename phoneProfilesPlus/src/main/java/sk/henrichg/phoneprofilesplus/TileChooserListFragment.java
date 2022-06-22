@@ -150,7 +150,10 @@ public class TileChooserListFragment extends Fragment {
             this.dataWrapper.profileList.sort(new ProfileComparator());
 
             // add restart events
-            Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+            //Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+            Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
+                    "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+            profile.generateIconBitmap(dataWrapper.context, false, 0, false);
             this.dataWrapper.profileList.add(0, profile);
 
             return null;

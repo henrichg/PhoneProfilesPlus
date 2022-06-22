@@ -208,6 +208,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof RestartEventsIconColorChooserPreferenceX)
+        {
+            ((RestartEventsIconColorChooserPreferenceX)preference).fragment = new RestartEventsIconColorChooserPreferenceFragmentX();
+            dialogFragment = ((RestartEventsIconColorChooserPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -1149,12 +1157,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        // TODO tu zobrazujem PPP notification settigs.
-        //  lenze volam to cez startActivity(). Tak skus, ked budem pytat zapnutie (Android 13)
-        //  to vola cez startActivityForResult(). Nenastavujem ten flad na new task, tak by to
-        //  mohlo fungovat. No a v resulte sprav to, co robim ked zatvaram PPP Settings aktivitu.
-        //  Asi staci len zobrazit profile notifikaciu, cize clear, sleep a show. To tusim robim.
-        //  Je to v PhoneProfilesPrefsActivity.doPrefernceChanges().
         preference = findPreference(PREF_ALL_NOTIFICATIONS_SYSTEM_SETTINGS);
         if (preference != null) {
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -2291,6 +2293,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR);
 
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO);
@@ -3337,6 +3340,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         else
         //noinspection StatementWithEmptyBody
         if (preference instanceof ColorChooserPreferenceX) {
+            // keep summary from preference
+        }
+        else
+        //noinspection StatementWithEmptyBody
+        if (preference instanceof RestartEventsIconColorChooserPreferenceX) {
             // keep summary from preference
         }
         else {

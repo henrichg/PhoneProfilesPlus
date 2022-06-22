@@ -171,11 +171,6 @@ class EventPreferencesScreen extends EventPreferences {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_SCREEN_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    //TODO tuto zbytocne prezeram vsetky permisisons, ale ma to podla senzorType,
-                    // tak sprav hlavne to, ze najprv testnes senzor type a az potom z preferences,
-                    // to to urychli
-                    // Velmi to nepomohlo. Asi by som mal mat moznost zavolat fakt len konkretne
-                    // permission pre senzor.
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SCREEN).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
