@@ -554,8 +554,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (applicationWidgetListPrefIndicator) {
                     int indicatorType = DataWrapper.IT_FOR_WIDGET;
                     if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                            applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)
-                        indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
+                            applicationWidgetListIconColor.equals("0")) {
+                        if (applicationWidgetListUseDynamicColors)
+                            indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
+                        else
+                            indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;
+                    }
                     else
                     if (applicationWidgetListBackgroundType) {
                         if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)

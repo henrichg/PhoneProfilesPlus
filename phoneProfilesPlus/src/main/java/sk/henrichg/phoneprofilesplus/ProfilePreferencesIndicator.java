@@ -13,7 +13,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -128,12 +127,14 @@ class ProfilePreferencesIndicator {
                         break;
                     case DataWrapper.IT_FOR_NOTIFICATION_DARK_BACKGROUND:
                         paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                        nightModeOn = true;
                         brightness = 64f;
                         break;
                     //case DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND:
                     //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                     //    break;
                     default:
+                        nightModeOn = false;
                         paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                 }
             }
@@ -221,17 +222,39 @@ class ProfilePreferencesIndicator {
         }
         else
         if ((indicatorsType == DataWrapper.IT_FOR_WIDGET) ||
+            (indicatorsType == DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND) ||
             (indicatorsType == DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND) ||
             (indicatorsType == DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND)) {
             Paint paint = new Paint();
 
             float brightness = 50f;
 
+            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                                    == Configuration.UI_MODE_NIGHT_YES;
+
             if (!monochrome) {
-                if (indicatorsType == DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND)
-                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
-                else
-                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                switch (indicatorsType) {
+                    case DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND:
+                        if (nightModeOn) {
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                            brightness = 64f;
+                        } else {
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                            //brightness = 50f;
+                        }
+                        break;
+                    case DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND:
+                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                        nightModeOn = true;
+                        brightness = 64f;
+                        break;
+                    //case DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND:
+                    //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                    //    break;
+                    default:
+                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                        nightModeOn = false;
+                }
             }
 
             if (disabled) {
@@ -239,9 +262,10 @@ class ProfilePreferencesIndicator {
                     ColorMatrix saturationCM = new ColorMatrix();
                     saturationCM.setSaturation(0);
                     paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                    //if (brightness == 0f) {// dynamic color
-                    //    paint.setAlpha(DISABLED_ALPHA_DYNAMIC);
-                    //}
+                    if (nightModeOn)
+                        paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
+                    else
+                        paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
                 } else
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }

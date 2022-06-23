@@ -234,8 +234,12 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         int indicatorType = DataWrapper.IT_FOR_WIDGET;
         if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-            applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)
-            indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
+            applicationWidgetOneRowIconColor.equals("0")) {
+            if (applicationWidgetOneRowUseDynamicColors)
+                indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
+            else
+                indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;
+        }
         else
         if (applicationWidgetOneRowBackgroundType) {
             if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowBackgroundColor)) < 0.23)
