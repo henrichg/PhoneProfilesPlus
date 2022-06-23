@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
-    android:layout_width="100dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
@@ -32,8 +32,8 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
