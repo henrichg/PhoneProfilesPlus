@@ -234,7 +234,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         int indicatorType = DataWrapper.IT_FOR_WIDGET;
         if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
             applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)
-            indicatorType = DataWrapper.IT_FOR_WIDGET_MONOCHROME_INDICATORS;
+            indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
 
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,

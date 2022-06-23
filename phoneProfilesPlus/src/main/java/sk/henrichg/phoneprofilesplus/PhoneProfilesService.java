@@ -5931,7 +5931,11 @@ public class PhoneProfilesService extends Service
                     int indicatorType = DataWrapper.IT_FOR_NOTIFICATION;
                     if ((Build.VERSION.SDK_INT >= 31) && notificationBackgroundColor.equals("0") &&
                             notificationProfileIconColor.equals("0"))
-                        indicatorType = DataWrapper.IT_FOR_NOTIFICATION_MONOCHROME_INDICATORS;
+                        indicatorType = DataWrapper.IT_FOR_NOTIFICATION_DYNAMIC_COLORS;
+                    else
+                    if ((Build.VERSION.SDK_INT < 31) && notificationBackgroundColor.equals("0") &&
+                            notificationProfileIconColor.equals("0"))
+                        indicatorType = DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND;
 
                     profile.generatePreferencesIndicator(appContext, notificationProfileIconColor.equals("1"),
                             prefIndicatorMonochromeValue,

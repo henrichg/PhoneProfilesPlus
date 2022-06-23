@@ -338,7 +338,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         int indicatorType = DataWrapper.IT_FOR_WIDGET;
         if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                 applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)
-            indicatorType = DataWrapper.IT_FOR_WIDGET_MONOCHROME_INDICATORS;
+            indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
 
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
