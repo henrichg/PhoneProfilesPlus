@@ -171,12 +171,14 @@ public class PPTileService extends TileService {
                         if (Build.VERSION.SDK_INT >= 29) {
                             tile.setSubtitle(null);
                         }
+                        /*
                         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
                         Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
                                 "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
                         restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
                         tile.setIcon(Icon.createWithBitmap(restartEvents._iconBitmap));
-                        //tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_restart_events));
+                        */
+                        tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_restart_events));
                         tile.setState(Tile.STATE_INACTIVE);
                     }
                     else {
