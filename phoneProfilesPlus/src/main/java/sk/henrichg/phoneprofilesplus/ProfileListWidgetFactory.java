@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import androidx.core.graphics.ColorUtils;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -259,7 +261,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                                   boolean applicationWidgetListCustomIconLightness,
                                                   String applicationWidgetListPrefIndicatorLightness,
                                                   boolean applicationWidgetListChangeColorsByNightMode,
-                                                  boolean applicationWidgetListUseDynamicColors)
+                                                  boolean applicationWidgetListUseDynamicColors,
+                                                  boolean applicationWidgetListBackgroundType,
+                                                  String applicationWidgetListBackgroundColor)
     {
         int monochromeValue = 0xFF;
         switch (applicationWidgetListIconLightness) {
@@ -339,6 +343,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                 applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)
             indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
+        else
+        if (applicationWidgetListBackgroundType) {
+            if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)
+                indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
+            else
+                indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
+        }
 
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
@@ -375,6 +386,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListChangeColorsByNightMode;
         boolean applicationWidgetListUseDynamicColors;
+        boolean applicationWidgetListBackgroundType;
+        String applicationWidgetListBackgroundColor;
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
@@ -384,6 +397,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
             applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
+            applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
+            applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (applicationWidgetListChangeColorsByNightMode) {
@@ -412,7 +427,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                                 applicationWidgetListCustomIconLightness,
                                                 applicationWidgetListPrefIndicatorLightness,
                                                 applicationWidgetListChangeColorsByNightMode,
-                                                applicationWidgetListUseDynamicColors);
+                                                applicationWidgetListUseDynamicColors,
+                                                applicationWidgetListBackgroundType,
+                                                applicationWidgetListBackgroundColor);
 
         List<Profile> newProfileList = _dataWrapper.getNewProfileList(true,
                                                         applicationWidgetListPrefIndicator);
@@ -446,7 +463,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                     applicationWidgetListCustomIconLightness,
                                     applicationWidgetListPrefIndicatorLightness,
                                     applicationWidgetListChangeColorsByNightMode,
-                                    applicationWidgetListUseDynamicColors);
+                                    applicationWidgetListUseDynamicColors,
+                                    applicationWidgetListBackgroundType,
+                                    applicationWidgetListBackgroundColor);
         //if (dataWrapper != null) {
             //dataWrapper.invalidateProfileList();
             if (restartEvents != null)

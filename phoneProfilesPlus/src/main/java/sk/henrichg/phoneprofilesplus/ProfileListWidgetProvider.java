@@ -21,6 +21,7 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static android.view.View.GONE;
@@ -555,6 +556,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)
                         indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
+                    else
+                    if (applicationWidgetListBackgroundType) {
+                        if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)
+                            indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
+                        else
+                            indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
+                    }
 
                     profile.generatePreferencesIndicator(context.getApplicationContext(),
                             applicationWidgetListIconColor.equals("1"),

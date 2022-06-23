@@ -13,6 +13,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -182,18 +183,12 @@ class ProfilePreferencesIndicator {
                 brightness = 0f;
             }
             else {
-                int nightModeFlags =
-                        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                switch (nightModeFlags) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
-                        brightness = 64f;
-                        break;
-                    case Configuration.UI_MODE_NIGHT_NO:
-                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
-                        //brightness = 50f;
-                        break;
+                if (nightModeOn) {
+                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                    brightness = 64f;
+                } else {
+                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                    //brightness = 50f;
                 }
             }
 
@@ -225,13 +220,18 @@ class ProfilePreferencesIndicator {
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }
         else
-        if (indicatorsType == DataWrapper.IT_FOR_WIDGET) {
+        if ((indicatorsType == DataWrapper.IT_FOR_WIDGET) ||
+            (indicatorsType == DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND) ||
+            (indicatorsType == DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND)) {
             Paint paint = new Paint();
 
             float brightness = 50f;
 
             if (!monochrome) {
-                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                if (indicatorsType == DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND)
+                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                else
+                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
             }
 
             if (disabled) {

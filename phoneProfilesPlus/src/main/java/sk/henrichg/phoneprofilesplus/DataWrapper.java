@@ -76,6 +76,8 @@ public class DataWrapper {
     static final int IT_FOR_NOTIFICATION_NATIVE_BACKGROUND = 6;
     static final int IT_FOR_NOTIFICATION_DARK_BACKGROUND = 7;
     static final int IT_FOR_NOTIFICATION_LIGHT_BACKGROUND = 8;
+    static final int IT_FOR_WIDGET_DARK_BACKGROUND = 9;
+    static final int IT_FOR_WIDGET_LIGHT_BACKGROUND = 10;
 
     DataWrapper(Context _context,
                         //boolean fgui,

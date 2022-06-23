@@ -18,6 +18,7 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static android.view.View.GONE;
@@ -235,6 +236,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
             applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)
             indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
+        else
+        if (applicationWidgetOneRowBackgroundType) {
+            if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowBackgroundColor)) < 0.23)
+                indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
+            else
+                indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
+        }
 
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
