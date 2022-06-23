@@ -1,5 +1,7 @@
-Ked nejde push, skus v terminaly AS:
+Ked nejde git push, skus v terminaly AS:
 git config credential.helper store
+
+--------------------------------
 
 Preco uz nie je PPP v GPlay:
 
@@ -17,11 +19,12 @@ indicator color and its complementary color:
 dark tema: indicator:62a9f8 -> accent:f8b162 -> event delay:#F862F4
 light tema: indicator:4289d8 -> accent:cc893e -> event delay:#D842D4
 
-Vypada, ze komplentarna farba je oranzova, aj ked trosicku ina.
-Zatial necham tak. Podobaju sa.
-Problem je s 12 drawables, ktore su starou oranzovou.
-
 https://www.canva.com/colors/color-wheel/
+
+------------------------
+
+Widget Preview Builder:
+https://play.google.com/store/apps/details?id=lav.widgetpreviewbuilder.free&hl=en_US&gl=US
 
 ------------------------
 funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
