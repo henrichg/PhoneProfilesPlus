@@ -5936,6 +5936,18 @@ public class PhoneProfilesService extends Service
                     if ((Build.VERSION.SDK_INT < 31) && notificationBackgroundColor.equals("0") &&
                             notificationProfileIconColor.equals("0"))
                         indicatorType = DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND;
+                    else
+                    if ((!notificationBackgroundColor.equals("5")) &&
+                            notificationProfileIconColor.equals("0"))
+                        indicatorType = DataWrapper.IT_FOR_NOTIFICATION_DARK_BACKGROUND;
+                    else
+                    if (notificationBackgroundColor.equals("5") &&
+                            notificationProfileIconColor.equals("0")) {
+                        if (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)
+                            indicatorType = DataWrapper.IT_FOR_NOTIFICATION_DARK_BACKGROUND;
+                        else
+                            indicatorType = DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND;
+                    }
 
                     profile.generatePreferencesIndicator(appContext, notificationProfileIconColor.equals("1"),
                             prefIndicatorMonochromeValue,
