@@ -566,6 +566,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
                         else
                             indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
+                    } else {
+                        if (Integer.parseInt(applicationWidgetListBackground) <= 37)
+                            indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
+                        else
+                            indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
                     }
 
                     profile.generatePreferencesIndicator(context.getApplicationContext(),
