@@ -105,6 +105,8 @@ class ProfilePreferencesIndicator {
             boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                                         == Configuration.UI_MODE_NIGHT_YES;
 
+            boolean setAlpha = true;
+
             if ((Build.VERSION.SDK_INT >= 31) &&
                     (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND)) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
@@ -124,17 +126,21 @@ class ProfilePreferencesIndicator {
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                             //brightness = 50f;
                         }
+                        setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_NOTIFICATION_DARK_BACKGROUND:
                         paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
-                        nightModeOn = true;
+                        //nightModeOn = true;
                         brightness = 64f;
+                        setAlpha = false;
                         break;
-                    //case DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND:
-                    //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
-                    //    break;
+                    case DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND:
+                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                        //nightModeOn = false;
+                        setAlpha = false;
+                        break;
                     default:
-                        nightModeOn = false;
+                        //nightModeOn = false;
                         paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                 }
             }
@@ -144,10 +150,12 @@ class ProfilePreferencesIndicator {
                     ColorMatrix saturationCM = new ColorMatrix();
                     saturationCM.setSaturation(0);
                     paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                    if (nightModeOn)
-                        paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
-                    else
-                        paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
+                    if (setAlpha) {
+                        if (nightModeOn)
+                            paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
+                        else
+                            paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
+                    }
                 } else
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
@@ -232,6 +240,8 @@ class ProfilePreferencesIndicator {
             boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                                     == Configuration.UI_MODE_NIGHT_YES;
 
+            boolean setAlpha = true;
+
             if (!monochrome) {
                 switch (indicatorsType) {
                     case DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND:
@@ -242,18 +252,22 @@ class ProfilePreferencesIndicator {
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                             //brightness = 50f;
                         }
+                        setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND:
                         paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
-                        nightModeOn = true;
+                        //nightModeOn = true;
                         brightness = 64f;
+                        setAlpha = false;
                         break;
-                    //case DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND:
-                    //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
-                    //    break;
+                    case DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND:
+                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                        //nightModeOn = false;
+                        setAlpha = false;
+                        break;
                     default:
                         paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
-                        nightModeOn = false;
+                        //nightModeOn = false;
                 }
             }
 
@@ -262,10 +276,7 @@ class ProfilePreferencesIndicator {
                     ColorMatrix saturationCM = new ColorMatrix();
                     saturationCM.setSaturation(0);
                     paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                    if (indicatorsType != DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND) {
-                        // for IT_FOR_WIDGET_NATIVE_BACKGROUND is forced background color
-                        // set alpha is not needed
-
+                    if (setAlpha) {
                         if (nightModeOn)
                             paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
                         else
