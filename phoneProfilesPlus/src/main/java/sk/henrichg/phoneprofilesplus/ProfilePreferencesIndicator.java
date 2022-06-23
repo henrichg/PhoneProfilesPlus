@@ -262,10 +262,15 @@ class ProfilePreferencesIndicator {
                     ColorMatrix saturationCM = new ColorMatrix();
                     saturationCM.setSaturation(0);
                     paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
-                    if (nightModeOn)
-                        paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
-                    else
-                        paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
+                    if (indicatorsType != DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND) {
+                        // for IT_FOR_WIDGET_NATIVE_BACKGROUND is forced background color
+                        // set alpha is not needed
+
+                        if (nightModeOn)
+                            paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
+                        else
+                            paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
+                    }
                 } else
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
