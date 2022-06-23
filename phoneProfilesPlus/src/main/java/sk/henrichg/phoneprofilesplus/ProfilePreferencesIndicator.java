@@ -27,7 +27,7 @@ class ProfilePreferencesIndicator {
     final int[] countItems = new int[60];
     int countPreferences = 0;
 
-    static final int DISABLED_ALPHA_DYNAMIC_LIGHT = 200;
+    static final int DISABLED_ALPHA_DYNAMIC_LIGHT = 255;
     static final int DISABLED_ALPHA_DYNAMIC_DARK = 150;
     static final int DISABLED_ALPHA_MONOCHROME = 128;
 
