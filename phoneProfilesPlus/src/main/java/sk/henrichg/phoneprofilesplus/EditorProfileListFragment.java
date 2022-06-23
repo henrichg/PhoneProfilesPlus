@@ -938,7 +938,7 @@ public class EditorProfileListFragment extends Fragment
                     profileListAdapter.activateProfile(profile);
                 updateHeader(profile);
 
-                activityDataWrapper.setDynamicLauncherShortcuts();
+                activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
              }
              //if (resultCode == Activity.RESULT_CANCELED)

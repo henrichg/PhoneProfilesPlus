@@ -149,9 +149,9 @@ public class PPTileService extends TileService {
         if (tile == null)
             return;
 
-//        PPApplication.logE("PPTileService.updateTile", "profileId="+profileId);
-
         int tileId = getTileId();
+//        PPApplication.logE("PPTileService.updateTile", "tileId="+tileId);
+
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
             PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());

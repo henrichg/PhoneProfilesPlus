@@ -432,7 +432,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         //}
 
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-        dataWrapper.setDynamicLauncherShortcuts();
+        dataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
         if (PhoneProfilesService.getInstance() != null) {
             synchronized (PPApplication.applicationPreferencesMutex) {
