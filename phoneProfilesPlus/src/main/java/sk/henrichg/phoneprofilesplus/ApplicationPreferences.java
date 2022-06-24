@@ -1423,7 +1423,7 @@ class ApplicationPreferences {
     }
 
     static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS = "0"; // custom
-    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P = "1"; // native
+    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P = "0"; //"1"; // native
     static String notificationNotificationStyleDefaultValue() {
         // change: for all devices with Android 12 set "native"
         String defaultValue;
@@ -1451,7 +1451,7 @@ class ApplicationPreferences {
         notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, notificationNotificationStyleDefaultValue());
     }
 
-    static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P = false;
+    static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P = true; //false;
     static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_OTHERS = true;
     static boolean notificationShowProfileIconDefaultValue() {
         boolean defaultValue;
