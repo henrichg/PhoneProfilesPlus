@@ -151,9 +151,12 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setVisibility(View.GONE);
         }
 
+        TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
         if (!news) {
-            TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
             infoTextNews.setVisibility(View.GONE);
+        } else {
+            infoTextNews.setVisibility(View.VISIBLE);
+            infoTextNews.setText("*** " + getString(R.string.important_info_news) + " ***");
         }
 
     }
