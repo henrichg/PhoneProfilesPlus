@@ -226,6 +226,8 @@ public class MobileCellsRegistrationService extends Service {
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
 
+        mBuilder.setGroup(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_GROUP);
+
         Notification notification = mBuilder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
         notification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
@@ -281,6 +283,8 @@ public class MobileCellsRegistrationService extends Service {
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_GROUP);
 
         Notification notification = mBuilder.build();
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);

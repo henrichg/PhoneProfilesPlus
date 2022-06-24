@@ -601,6 +601,9 @@ class LocationScanner
         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.SYTEM_CONFIGURATION_ERRORS_NOTIFICATION_GROUP);
+
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
             mNotificationManager.notify(

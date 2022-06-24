@@ -148,6 +148,9 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_GROUP);
+
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(getApplicationContext());
         try {
             mNotificationManager.notify(

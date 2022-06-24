@@ -116,6 +116,8 @@ class AutostartPermissionNotification {
 
         mBuilder.setWhen(0);
 
+        mBuilder.setGroup(PPApplication.SYTEM_CONFIGURATION_ERRORS_NOTIFICATION_GROUP);
+
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
             mNotificationManager.notify(

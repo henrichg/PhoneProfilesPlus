@@ -976,6 +976,8 @@ class MobileCellsListener extends PhoneStateListener {
                         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
+                        mBuilder.setGroup(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_GROUP);
+
                         NotificationManagerCompat _mNotificationManager = NotificationManagerCompat.from(context);
                         try {
                             //_mNotificationManager.cancel(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID);

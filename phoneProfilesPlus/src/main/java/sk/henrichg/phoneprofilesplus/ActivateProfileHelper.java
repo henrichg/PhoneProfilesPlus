@@ -4494,6 +4494,8 @@ class ActivateProfileHelper {
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
 
+        mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
+
         Notification notification = mBuilder.build();
         notification.vibrate = null;
         notification.defaults &= ~DEFAULT_VIBRATE;
@@ -5128,6 +5130,8 @@ class ActivateProfileHelper {
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             //}
 
+            mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
+
             Notification notification = mBuilder.build();
             notification.vibrate = null;
             notification.defaults &= ~DEFAULT_VIBRATE;
@@ -5683,6 +5687,8 @@ class ActivateProfileHelper {
                 mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                 mBuilder.setOngoing(true);
+
+                mBuilder.setGroup(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_GROUP);
 
                 Notification notification = mBuilder.build();
                 notification.vibrate = null;
@@ -7653,6 +7659,8 @@ class ActivateProfileHelper {
         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
 
         Notification notification = mBuilder.build();
 

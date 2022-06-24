@@ -190,6 +190,8 @@ public class MainWorker extends Worker {
                                     mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                                     mBuilder.setOnlyAlertOnce(true);
 
+                                    mBuilder.setGroup(PPApplication.ERRORS_NOTIFICATION_GROUP);
+
                                     NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(getApplicationContext());
                                     try {
                                         mNotificationManager.notify(

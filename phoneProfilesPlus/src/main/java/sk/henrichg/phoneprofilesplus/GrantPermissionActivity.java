@@ -983,6 +983,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             //}
+
+            mBuilder.setGroup(PPApplication.GRANT_PERMISSIONS_NOTIFICATION_GROUP);
+
             NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
             try {
                 // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working

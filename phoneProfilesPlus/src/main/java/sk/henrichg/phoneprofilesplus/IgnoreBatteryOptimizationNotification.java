@@ -155,6 +155,8 @@ class IgnoreBatteryOptimizationNotification {
 
         mBuilder.setWhen(0);
 
+        mBuilder.setGroup(PPApplication.ERRORS_NOTIFICATION_GROUP);
+
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
             mNotificationManager.notify(

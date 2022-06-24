@@ -3414,6 +3414,8 @@ class Event {
                 PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, (int) _id, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setDeleteIntent(deletePendingIntent);
 
+                mBuilder.setGroup(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_GROUP);
+
                 Notification notification = mBuilder.build();
                 if (Build.VERSION.SDK_INT < 26) {
                     notification.sound = null;

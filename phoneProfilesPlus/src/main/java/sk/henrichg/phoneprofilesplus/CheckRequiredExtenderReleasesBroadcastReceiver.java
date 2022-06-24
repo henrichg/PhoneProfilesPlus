@@ -228,6 +228,8 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             //}
 
+            mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
+
             Notification notification = mBuilder.build();
             if (Build.VERSION.SDK_INT < 26) {
                 notification.vibrate = null;

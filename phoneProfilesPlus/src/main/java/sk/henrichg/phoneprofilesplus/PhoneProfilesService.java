@@ -6306,6 +6306,8 @@ public class PhoneProfilesService extends Service
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "setOnlyAlertOnce=true");
         notificationBuilder.setOnlyAlertOnce(true);
 
+        notificationBuilder.setGroup(PPApplication.PROFILE_NOTIFICATION_GROUP);
+
         Notification phoneProfilesNotification;
         try {
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "before build");
@@ -8522,6 +8524,8 @@ public class PhoneProfilesService extends Service
         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         mBuilder.setOnlyAlertOnce(true);
+
+        mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
