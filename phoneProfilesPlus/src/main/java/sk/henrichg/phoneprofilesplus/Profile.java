@@ -4268,7 +4268,7 @@ public class Profile {
             }
             if (accessibilityEnabled == -98) {
                 // Extender is in right version
-                Log.e("Profile.isAccessibilityServiceEnabled", "profile="+_name);
+//                Log.e("Profile.isAccessibilityServiceEnabled", "profile="+_name);
                 if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true))
                     // accessibility enabled
                     accessibilityEnabled = 1;

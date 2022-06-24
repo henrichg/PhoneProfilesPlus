@@ -492,9 +492,9 @@ class EventPreferencesCall extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
             return -1;
-        Log.e("EventPreferencesCall.isAccessibilityServiceEnabled", "_event._name="+_event._name);
-        Log.e("EventPreferencesCall.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
-        Log.e("EventPreferencesCall.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
+//        Log.e("EventPreferencesCall.isAccessibilityServiceEnabled", "_event._name="+_event._name);
+//        Log.e("EventPreferencesCall.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
+//        Log.e("EventPreferencesCall.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
         if (this._enabled && isRunnable(context) &&
                 (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true)))
             return 1;

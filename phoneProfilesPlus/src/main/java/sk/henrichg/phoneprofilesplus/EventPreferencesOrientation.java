@@ -661,9 +661,9 @@ class EventPreferencesOrientation extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
             return -1;
-        Log.e("EventPreferencesOrientation.isAccessibilityServiceEnabled", "_event._name="+_event._name);
-        Log.e("EventPreferencesOrientation.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
-        Log.e("EventPreferencesOrientation.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
+//        Log.e("EventPreferencesOrientation.isAccessibilityServiceEnabled", "_event._name="+_event._name);
+//        Log.e("EventPreferencesOrientation.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
+//        Log.e("EventPreferencesOrientation.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
         if (isRunnable(context) && (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true)))
             return 1;
         return 0;
