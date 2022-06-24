@@ -552,7 +552,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         monochromeValue,
                         applicationWidgetListCustomIconLightness);
                 if (applicationWidgetListPrefIndicator) {
-                    int indicatorType = DataWrapper.IT_FOR_WIDGET;
+                    int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
                     if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0")) {
                         if (applicationWidgetListUseDynamicColors)

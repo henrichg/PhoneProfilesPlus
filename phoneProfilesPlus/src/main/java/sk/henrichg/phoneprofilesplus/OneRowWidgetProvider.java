@@ -232,7 +232,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         }
 //        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
 
-        int indicatorType = DataWrapper.IT_FOR_WIDGET;
+        int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
         if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
             applicationWidgetOneRowIconColor.equals("0")) {
             if (applicationWidgetOneRowUseDynamicColors)
