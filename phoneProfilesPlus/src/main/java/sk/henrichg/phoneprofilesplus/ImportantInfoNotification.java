@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 class ImportantInfoNotification {
 
     // this version code must by <= version code in dependencies.gradle
-    static final int VERSION_CODE_FOR_NEWS = 4651;
+    static final int VERSION_CODE_FOR_NEWS = 6752;
 
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
@@ -28,6 +28,8 @@ class ImportantInfoNotification {
             int show = 0;
             int packageVersionCode = PPApplication.getVersionCode(pInfo);
             int savedVersionCode = getShowInfoNotificationOnStartVersion(context);
+//            PPApplication.logE("ImportantInfoNotification.showInfoNotification", "packageVersionCode="+packageVersionCode);
+//            PPApplication.logE("ImportantInfoNotification.showInfoNotification", "savedVersionCode="+savedVersionCode);
 
             // do not show notification, version code is not saved
             // typically it is for new users
@@ -38,7 +40,7 @@ class ImportantInfoNotification {
 
             if (packageVersionCode > savedVersionCode) {
                 show = canShowNotification(packageVersionCode, savedVersionCode, context);
-                //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
+//                PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
             }
             else {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -95,7 +97,7 @@ class ImportantInfoNotification {
         if (newsLatest) {
             // change to false for not show notification
             //noinspection ConstantConditions
-            news = false;
+            news = true;
         }
 
         /*if (news4550) {

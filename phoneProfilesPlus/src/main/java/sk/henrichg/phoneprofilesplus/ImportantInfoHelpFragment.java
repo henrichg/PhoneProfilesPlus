@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -95,7 +98,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         boolean news = false;
         boolean newsLatest = (!firstInstallation) && (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
-        //PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
 
         /*
         boolean news4550 = (!firstInstallation) && (versionCode >= 4550) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
@@ -122,8 +125,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (newsLatest) {
             // move this to newXXX, for switch off news
 
-            //news = news ||
-            //        news_extender;
+            news = true; // news is enabled, news must be also in layout
+
         }
         else {
             // move this to newXXX, for switch off news
@@ -733,6 +736,50 @@ public class ImportantInfoHelpFragment extends Fragment {
                 AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
                 true, activity);*/
         }
+
+        TextView configureNotificationInfoText = view.findViewById(R.id.important_info_notification_settings_configure);
+        if (configureNotificationInfoText != null) {
+            configureNotificationInfoText.setText(context.getString(R.string.important_info_notification_settings_configure) +  " \u21D2");
+            configureNotificationInfoText.setOnClickListener(v -> {
+
+                synchronized (PPApplication.applicationPreferencesMutex) {
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
+                    ApplicationPreferences.notificationNotificationStyle = "0";
+                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                    ApplicationPreferences.notificationUseDecoration = false;
+                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                    ApplicationPreferences.notificationShowProfileIcon = true;
+                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR, true);
+                    ApplicationPreferences.notificationPrefIndicator = true;
+                    editor.apply();
+                }
+
+                if (PhoneProfilesService.getInstance() != null) {
+                    synchronized (PPApplication.applicationPreferencesMutex) {
+                        PPApplication.doNotShowProfileNotification = true;
+                    }
+                    PhoneProfilesService.getInstance().clearProfileNotification();
+                }
+
+                Handler handler = new Handler(activity.getMainLooper());
+                handler.postDelayed(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+                    if (PhoneProfilesService.getInstance() != null) {
+                        synchronized (PPApplication.applicationPreferencesMutex) {
+                            PPApplication.doNotShowProfileNotification = false;
+                        }
+                        // forServiceStart must be true because of call of clearProfileNotification()
+                        PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
+                    }
+                }, 1000);
+
+                PPApplication.showToast(context,
+                        context.getString(R.string.important_info_notification_settings_toast),
+                        Toast.LENGTH_SHORT);
+            });
+        }
+
     }
 
     @SuppressLint("SetTextI18n")

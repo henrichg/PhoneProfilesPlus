@@ -1984,6 +1984,13 @@
 
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Restart events\" icon color</string>
 
+    <string name="important_info_notification_settings_text1">Recommendation for configuration of parameters \"Settings\"/\"Application notification\":</string>
+    <string name="important_info_notification_settings_text2">Configure parameter \"Notification style\" to \"Custom\", \"Use decoration\" switched off, \"Show profile icon\" switched on, \"Show preferences indicator\" switched on.</string>
+    <string name="important_info_notification_settings_text3">With this configuration, notification will be displayed with profile icon, preferences indicator with icons (as in Editor) and notification will be smaller.</string>
+    <string name="important_info_notification_settings_text4">Is possible to expand the notification, which is without decoration, with a gesture: swipe down with two fingers.</string>
+    <string name="important_info_notification_settings_configure">Click here to configure \"Application notification\" with these parameters.</string>
+    <string name="important_info_notification_settings_toast">Configured</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

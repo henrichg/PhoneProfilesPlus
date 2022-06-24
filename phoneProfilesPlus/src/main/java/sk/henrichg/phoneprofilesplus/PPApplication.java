@@ -225,11 +225,11 @@ public class PPApplication extends Application
                                                 //+"|IgnoreBatteryOptimizationNotification"
                                                 //+"|LauncherActivity.startPPServiceWhenNotStarted"
                                                 //+"|PPApplication.updateGUI"
-
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
-
                                                 //+"|TopExceptionHandler.uncaughtException"
+                                                //+"|ImportantInfoNotification"
+                                                //+"|ImportantInfoHelpFragment"
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
