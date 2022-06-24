@@ -4098,7 +4098,7 @@ public class PhoneProfilesService extends Service
                     }
                 }*/
 
-                PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true);
+                PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true, false);
 
                 //GlobalGUIRoutines.setLanguage(appContext);
                 GlobalGUIRoutines.switchNightMode(appContext, true);
@@ -7493,7 +7493,7 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newZenMode="+newZenMode);
 
             String phoneNumber = "";
-            if (PPPExtenderBroadcastReceiver.isEnabled(context/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/))
+            if (PPPExtenderBroadcastReceiver.isEnabled(context/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "phoneNumber="+phoneNumber);
 

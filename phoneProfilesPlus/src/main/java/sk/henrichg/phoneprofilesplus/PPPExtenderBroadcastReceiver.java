@@ -16,6 +16,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.text.TextUtils;
 
+import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -37,6 +38,9 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     private static final String EXTRA_PHONE_NUMBER = PPApplication.PACKAGE_NAME_EXTENDER + ".phone_number";
     private static final String EXTRA_EVENT_TIME = PPApplication.PACKAGE_NAME_EXTENDER + ".event_time";
     private static final String EXTRA_SIM_SLOT = PPApplication.PACKAGE_NAME_EXTENDER + ".sim_slot";
+
+    static final String EXTRA_DISPLAY_NOTIFICATION = "EXTRA_DISPLAY_NOTIFICATION";
+
 
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
 
@@ -443,7 +447,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     }
 
 
-    static boolean isAccessibilityServiceEnabled(Context context, boolean checkFlag) {
+    static boolean isAccessibilityServiceEnabled(Context context, boolean checkFlag, boolean displayNotification) {
         boolean enabled = false;
 
         //int accessibilityEnabled = 0;
@@ -499,11 +503,16 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     //Intent _intent = new Intent(PPApplication.ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED);
                     //context.sendBroadcast(_intent, PPApplication.PPP_EXTENDER_PERMISSION);
 
+                    Data workData = new Data.Builder()
+                            .putBoolean(EXTRA_DISPLAY_NOTIFICATION, displayNotification)
+                            .build();
+
                     boolean enqueuedWork = false;
                     // work for check accessibility, when Extender do not send ACTION_ACCESSIBILITY_SERVICE_CONNECTED
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
                                     .addTag(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG)
+                                    .setInputData(workData)
                                     .setInitialDelay(ACCESSIBILITY_SERVICE_CONNECTED_DELAY, TimeUnit.MINUTES)
                                     .build();
                     try {
@@ -703,12 +712,13 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static boolean isEnabled(Context context/*, int version*/) {
+    //TODO
+    static boolean isEnabled(Context context/*, int version*/, boolean displayNotification) {
         int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
         //if ((version == -1) || (extenderVersion >= version)) // -1 => do not check version
         if (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER_LATEST)
-            enabled = isAccessibilityServiceEnabled(context, true);
+            enabled = isAccessibilityServiceEnabled(context, true, displayNotification);
         //return  (extenderVersion >= version) && enabled;
         return  (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER_LATEST) && enabled;
     }

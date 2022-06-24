@@ -158,7 +158,7 @@ class EventPreferencesCall extends EventPreferences {
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), true)) {
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), true, true)) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
@@ -491,7 +491,7 @@ class EventPreferencesCall extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
             return -1;
-        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true))
+        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true))
             return 1;
         return 0;
     }
@@ -502,7 +502,7 @@ class EventPreferencesCall extends EventPreferences {
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_CALL_ENABLED) != null) {
                 final boolean accessibilityEnabled =
-                        PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/);
+                        PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true);
 
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
                 Preference preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
