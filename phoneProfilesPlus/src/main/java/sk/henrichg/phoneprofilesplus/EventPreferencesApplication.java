@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -282,7 +283,11 @@ class EventPreferencesApplication extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
             return -1;
-        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true))
+        Log.e("EventPreferencesApplication.isAccessibilityServiceEnabled", "_event._name="+_event._name);
+        Log.e("EventPreferencesApplication.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
+        Log.e("EventPreferencesApplication.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
+        if (this._enabled && isRunnable(context) &&
+                (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true)))
             return 1;
         return 0;
     }

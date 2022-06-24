@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -456,7 +457,11 @@ class EventPreferencesSMS extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
             return -1;
-        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true))
+        Log.e("EventPreferencesSMS.isAccessibilityServiceEnabled", "_event._name="+_event._name);
+        Log.e("EventPreferencesSMS.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
+        Log.e("EventPreferencesSMS.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
+        if (this._enabled && isRunnable(context) &&
+                (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true)))
             return 1;
         return 0;
     }

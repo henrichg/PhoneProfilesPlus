@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -4267,6 +4268,7 @@ public class Profile {
             }
             if (accessibilityEnabled == -98) {
                 // Extender is in right version
+                Log.e("Profile.isAccessibilityServiceEnabled", "profile="+_name);
                 if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true))
                     // accessibility enabled
                     accessibilityEnabled = 1;

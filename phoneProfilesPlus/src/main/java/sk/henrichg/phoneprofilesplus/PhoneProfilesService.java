@@ -4098,12 +4098,18 @@ public class PhoneProfilesService extends Service
                     }
                 }*/
 
-                PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true, false);
+                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+
+                dataWrapper.fillProfileList(false, false);
+                for (Profile profile : dataWrapper.profileList)
+                    profile.isAccessibilityServiceEnabled(appContext);
+                dataWrapper.fillEventList();
+                for (Event event : dataWrapper.eventList)
+                    event.isAccessibilityServiceEnabled(appContext, true);
+                //PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true, false);
 
                 //GlobalGUIRoutines.setLanguage(appContext);
                 GlobalGUIRoutines.switchNightMode(appContext, true);
-
-                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
                 dataWrapper.setDynamicLauncherShortcuts();
 
