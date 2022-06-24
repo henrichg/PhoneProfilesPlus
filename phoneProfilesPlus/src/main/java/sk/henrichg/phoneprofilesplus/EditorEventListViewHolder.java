@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -303,7 +304,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else
             {
-                if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE) {
+//                Log.e("EditorEventListViewHolder.bindEvent", "event._fkProfileStart="+event._fkProfileStart);
+                //if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE) {
                     profileStartName.setText(R.string.profile_preference_profile_end_no_activate);
                     profileStartIcon.setImageResource(R.drawable.ic_empty);
                     if (applicationEditorPrefIndicator) {
@@ -314,8 +316,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             //profileStartIndicator.setImageResource(R.drawable.ic_empty);
                             profileStartIndicator.setVisibility(View.GONE);
                     }
-                }
-                else {
+                //}
+                /*else {
                     profileStartName.setText(R.string.profile_preference_profile_not_set);
                     profileStartIcon.setImageResource(R.drawable.ic_profile_default);
                     if (applicationEditorPrefIndicator)
@@ -326,7 +328,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         if (profileStartIndicator != null)
                             profileStartIndicator.setImageResource(R.drawable.ic_empty);
                     }
-                }
+                }*/
             }
 
             // profile end
@@ -411,10 +413,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         profileName = profileName + context.getString(R.string.event_preference_profile_restartEvents);
                     else {
                         //if (event._atEndHowUndo == 0) {
-                            if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
+                            //if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
                                 profileName = profileName + context.getString(R.string.profile_preference_profile_end_no_activate);
-                            else
-                                profileName = profileName + context.getString(R.string.profile_preference_profile_not_set);
+                            //else
+                            //    profileName = profileName + context.getString(R.string.profile_preference_profile_not_set);
                         //}
                     }
                     profileEndName.setText(profileName);

@@ -72,7 +72,7 @@
     <dimen name="profile_icon_notification_icon_size">35dp</dimen>
     <dimen name="profile_icon_notification_compat_no_decoration_icon_size">21dp</dimen>
 
-    <dimen name="profile_preferences_indicator_height">15dp</dimen>
+    <dimen name="profile_preferences_indicator_height">14dp</dimen>
     <dimen name="profile_preferences_indicator_in_event_height">13dp</dimen>
 
 </resources>
