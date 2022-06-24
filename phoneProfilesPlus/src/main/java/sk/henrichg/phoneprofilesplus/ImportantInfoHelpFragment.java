@@ -752,6 +752,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                     ApplicationPreferences.notificationShowProfileIcon = true;
                     editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR, true);
                     ApplicationPreferences.notificationPrefIndicator = true;
+                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, "0");
+                    ApplicationPreferences.notificationLayoutType = "0";
                     editor.apply();
                 }
 
