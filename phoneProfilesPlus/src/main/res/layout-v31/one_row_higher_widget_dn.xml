@@ -89,7 +89,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text="@string/profile_name_default"
-                    android:textSize="18dp"
+                    android:textSize="19dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     tools:ignore="SpUsage"/>
