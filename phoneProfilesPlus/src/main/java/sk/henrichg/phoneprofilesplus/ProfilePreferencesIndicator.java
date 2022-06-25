@@ -60,7 +60,7 @@ class ProfilePreferencesIndicator {
                               int indicatorsType, float indicatorsLightnessValue,
                               Context context, Canvas canvas)
     {
-        Log.e("ProfilePreferencesIndicator.addIndicator", "indicatorsType="+indicatorsType);
+//        Log.e("ProfilePreferencesIndicator.addIndicator", "indicatorsType="+indicatorsType);
 
         Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
 
@@ -330,7 +330,7 @@ class ProfilePreferencesIndicator {
 
             if (!monochrome) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
-                Log.e("ProfilePreferencesIndicator.addIndicator", "dynamicColor="+String.format("#%06X", 0xFFFFFF & dynamicColor));
+//                Log.e("ProfilePreferencesIndicator.addIndicator", "dynamicColor="+String.format("#%06X", 0xFFFFFF & dynamicColor));
                 if ((dynamicColor != 0) && (!disabled)/* && (!monochrome)*/) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 }

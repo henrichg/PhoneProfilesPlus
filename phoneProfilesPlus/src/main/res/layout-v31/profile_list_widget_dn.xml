@@ -96,11 +96,11 @@
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
                         android:text="@string/profile_name_default"
-                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="17dp"
                         android:ellipsize="end"
                         android:maxLines="1"
                         tools:ignore="SpUsage"/>
+<!--                    android:textColor="?android:attr/textColorPrimary"-->
 
                     <ImageView
                         android:id="@+id/widget_profile_list_header_profile_pref_indicator"

@@ -186,17 +186,42 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                         row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                    else {
+                        // must be removed android:textColor in layout
+                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                        if (color != 0) {
+                            row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
+                        }
+                    }
                 } else {
                     row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
 
                     if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                         row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
+                    else {
+                        // must be removed android:textColor in layout
+                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                        if (color != 0) {
+                            row.setTextColor(R.id.widget_profile_list_item_profile_name,
+                                    Color.argb(0xCC, Color.red(color), Color.green(color), Color.blue(color)));
+                        }
+                    }
                 }
             } else {
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                         applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                     row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                else {
+                    // must be removed android:textColor in layout
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                    if (color != 0) {
+                        row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
+                    }
+                }
             }
             if ((!applicationWidgetListHeader) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)

@@ -39,8 +39,8 @@
         android:maxLines = "2"
         android:text="@string/profile_name_default"
         android:textSize="14dp"
-        android:textColor="?android:attr/textColorPrimary"
         tools:ignore="SpUsage" />
+<!--    android:textColor="?android:attr/textColorPrimary"-->
 
 </LinearLayout>
 

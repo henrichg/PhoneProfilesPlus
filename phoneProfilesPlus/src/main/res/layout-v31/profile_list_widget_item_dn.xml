@@ -39,8 +39,8 @@
             android:paddingEnd="12dp"
             android:text="@string/profile_name_default"
             android:textSize="17dp"
-            android:textColor="?android:attr/textColorPrimary"
             tools:ignore="SpUsage"/>
+<!--        android:textColor="?android:attr/textColorPrimary"-->
 
         <ImageView
             android:id="@+id/widget_profile_list_profile_pref_indicator"

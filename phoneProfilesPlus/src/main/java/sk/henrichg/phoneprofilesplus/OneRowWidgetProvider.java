@@ -613,6 +613,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
                         applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
                     remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
+                else {
+                    // must be removed android:textColor in layout
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                    if (color != 0) {
+                        remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, color);
+                    }
+                }
 
                 remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
                 if (applicationWidgetOneRowPrefIndicator) {

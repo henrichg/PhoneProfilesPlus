@@ -621,6 +621,14 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                     applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                 widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
+            else {
+                // must be removed android:textColor in layout
+                int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                if (color != 0) {
+                    widget.setTextColor(R.id.widget_profile_list_header_profile_name, color);
+                }
+            }
 
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
             if (applicationWidgetListPrefIndicator)
