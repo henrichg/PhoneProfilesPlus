@@ -105,8 +105,21 @@ class ProfilePreferencesIndicator {
                 if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 }
-                else
-                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                else {
+                    if (!monochrome) {
+                        if (nightModeOn) {
+                            if (disabled)
+                                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabledDynamic_dark), PorterDuff.Mode.SRC_ATOP));
+                            else
+                                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                        } else {
+                            if (disabled)
+                                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabledDynamic_light), PorterDuff.Mode.SRC_ATOP));
+                            else
+                                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                        }
+                    }
+                }
             } else {
                 switch (indicatorsType) {
                     case DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND:
@@ -187,16 +200,18 @@ class ProfilePreferencesIndicator {
                 paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
             }
             else {
-                if (nightModeOn) {
-                    if (disabled)
-                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
-                    else
-                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
-                } else {
-                    if (disabled)
-                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
-                    else
-                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                if (!monochrome) {
+                    if (nightModeOn) {
+                        if (disabled)
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabledDynamic_dark), PorterDuff.Mode.SRC_ATOP));
+                        else
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                    } else {
+                        if (disabled)
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabledDynamic_light), PorterDuff.Mode.SRC_ATOP));
+                        else
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                    }
                 }
             }
 
@@ -314,10 +329,17 @@ class ProfilePreferencesIndicator {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 }
                 else {
-                    if (disabled)
-                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
-                    else
-                        paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                    if (nightModeOn) {
+                        if (disabled)
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabledDynamic_dark), PorterDuff.Mode.SRC_ATOP));
+                        else
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                    } else {
+                        if (disabled)
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabledDynamic_light), PorterDuff.Mode.SRC_ATOP));
+                        else
+                            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                    }
                 }
             }
 
