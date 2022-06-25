@@ -132,8 +132,8 @@
             android:layout_marginTop="0dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_black"
-            android:tint="?android:attr/textColorSecondary"
             tools:ignore="ContentDescription,UseAppTint" />
+<!--        android:tint="?android:attr/textColorSecondary"-->
 
 <!--        <RelativeLayout-->
 <!--            android:id="@+id/widget_profile_list_header_separator"-->
@@ -181,7 +181,7 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
-        android:tint="?android:attr/textColorSecondary"
+        android:tint="?android:attr/textColorPrimary"
         android:visibility="gone"
         tools:ignore="ContentDescription,UseAppTint" />
 

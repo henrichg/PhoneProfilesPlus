@@ -516,6 +516,15 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                         applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                     widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                /*else {
+                    // but must be removed android:tint in layout
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOutline, context);
+                    Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
+                    Log.e("ProfileListWidgetProvider.buildLayout", "roundedBorder="+roundedBorder);
+                    if (color != 0) {
+                        widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", color);
+                    }
+                }*/
             }
         /*}
         else {
@@ -645,6 +654,16 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                     applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, separatorLightness, separatorLightness, separatorLightness));
+            else {
+                // but must be removed android:tint in layout
+                int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOutline, context);
+    //                Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
+                if (color != 0) {
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_black, false, context);
+                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, color);
+                    widget.setImageViewBitmap(R.id.widget_profile_list_header_separator, bitmap);
+                }
+            }
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                     applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {

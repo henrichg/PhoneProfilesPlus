@@ -59,7 +59,7 @@
         android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
-        android:tint="?android:attr/textColorSecondary"
+        android:tint="?android:attr/textColorPrimary"
         android:visibility="gone"
         tools:ignore="ContentDescription,UseAppTint" />
 
