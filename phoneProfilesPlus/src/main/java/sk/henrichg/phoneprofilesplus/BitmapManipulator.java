@@ -19,6 +19,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.exifinterface.media.ExifInterface;
 
 import java.io.InputStream;
@@ -385,19 +386,19 @@ class BitmapManipulator {
         return recolorBitmap(bitmap, color/*, context*/);
     }
 
-    /*
+    /* these are for recolor vector drawables
     static Drawable tintDrawableByColor(Drawable drawable, int color) {
-        Drawable wrapDrawable = DrawableCompat.wrap(drawable);
-        //DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
+        Drawable wrapDrawable = drawable.mutate();
+        wrapDrawable = DrawableCompat.wrap(wrapDrawable);
+        DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
         DrawableCompat.setTint(wrapDrawable, color);
-        wrapDrawable.mutate();
         return wrapDrawable;
     }
 
     static Drawable tintDrawableByValue(Drawable drawable, int value) {
         int color  = Color.argb(0xFF, value, value, value);
         Drawable tintedDrawable = tintDrawableByColor(drawable, color);
-        tintedDrawable.mutate();
+        //tintedDrawable.mutate();
         return tintedDrawable;
     }
     */
