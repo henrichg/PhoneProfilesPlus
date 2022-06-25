@@ -12,15 +12,9 @@
 
     <color name="error_in_preferences">#FFFF0000</color>
 
-<!--    <color name="profileindicatorColor_light">#00a7d8</color>-->
-<!--    <color name="profileindicatorColor_dark">#3dbade</color>-->
-
-<!--    <color name="profileindicatorColor_light">#718d99</color>-->
-<!--    <color name="profileindicatorColor_dark">#85a6b4</color>-->
-
-<!--    <color name="profileindicatorColor_light">#568dc8</color>-->
     <color name="profileindicatorColor_light">#4289d8</color>
-<!--    <color name="profileindicatorColor_dark">#7ba7d8</color>-->
+    <color name="profileindicatorColorDisabled_light">#a5a5a5</color>
     <color name="profileindicatorColor_dark">#62a9f8</color>
+    <color name="profileindicatorColorDisabled_dark">#efefef</color>
 
 </resources>
