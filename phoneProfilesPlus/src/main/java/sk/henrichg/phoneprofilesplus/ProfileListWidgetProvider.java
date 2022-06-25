@@ -654,7 +654,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                     applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, separatorLightness, separatorLightness, separatorLightness));
-            else {
+            /*else {
                 // but must be removed android:tint in layout
                 int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOutline, context);
     //                Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
@@ -663,7 +663,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, color);
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_separator, bitmap);
                 }
-            }
+            }*/
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                     applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {

@@ -132,7 +132,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
         android:visibility="gone"
-        android:tint="?android:attr/textColorPrimary"
+        android:tint="?android:attr/textColorSecondary"
         tools:ignore="ContentDescription,UseAppTint" />
 
 </FrameLayout>
