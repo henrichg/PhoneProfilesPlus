@@ -6375,7 +6375,7 @@ public class PhoneProfilesService extends Service
                         // native
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
                         if ((Build.VERSION.SDK_INT >= 31) && notificationProfileIconColor.equals("0")) {
-                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, appContext);
+                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorTertiary, appContext);
 //                            Log.e("PhoneProfilesService._addRestartEventsToProfileNotification", "color="+color);
                             if (color != 0) {
                                 restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, color);

@@ -102,20 +102,21 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetListChangeColorsByNightMode) {
+                        (applicationWidgetListChangeColorsByNightMode &&
+                        (!applicationWidgetListUseDynamicColors))) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetListBackground = "100"; // fully opaque
                             applicationWidgetListBackgroundType = true; // background type = color
-                            applicationWidgetListBackgroundColor = String.valueOf(0x2f2f2f); // color of background
+                            applicationWidgetListBackgroundColor = String.valueOf(0x272727); // color of background
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = "100";
-                            applicationWidgetListLightnessT = "100"; // lightness of text = white
+                            applicationWidgetListLightnessT = "88"; // lightness of text = white
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = "75";
-                            applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
+                            //applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -124,10 +125,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             applicationWidgetListBackgroundColor = String.valueOf(0xf0f0f0); // color of background
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = "0";
-                            applicationWidgetListLightnessT = "0"; // lightness of text = black
+                            applicationWidgetListLightnessT = "13"; // lightness of text = black
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = "62";
-                            applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
+                            //applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }
                 }
@@ -645,7 +646,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             } else {
                 // good, color of this is as in notification ;-)
                 // but must be removed android:tint in layout
-                int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+                int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorTertiary, context);
 //                Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
                 if (color != 0) {
                     Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);

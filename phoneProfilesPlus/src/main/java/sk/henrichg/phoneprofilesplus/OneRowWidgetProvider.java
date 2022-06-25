@@ -123,20 +123,21 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetOneRowChangeColorsByNightMode) {
+                        (applicationWidgetOneRowChangeColorsByNightMode &&
+                         (!applicationWidgetOneRowUseDynamicColors))) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetOneRowBackground = "100"; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(0x2f2f2f); // color of background
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(0x272727); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "100";
-                            applicationWidgetOneRowLightnessT = "100"; // lightness of text = white
+                            applicationWidgetOneRowLightnessT = "88"; // lightness of text = white
                             //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                             applicationWidgetOneRowIconLightness = "75";
-                            applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
+                            //applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -145,10 +146,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             applicationWidgetOneRowBackgroundColor = String.valueOf(0xf0f0f0); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "0";
-                            applicationWidgetOneRowLightnessT = "0"; // lightness of text = black
+                            applicationWidgetOneRowLightnessT = "13"; // lightness of text = black
                             //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                             applicationWidgetOneRowIconLightness = "62";
-                            applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
+                            //applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }
                 }
@@ -634,7 +635,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 } else {
                     // good, color of this is as in notification ;-)
                     // but must be removed android:tint in layout
-                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorTertiary, context);
 //                    Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
                     if (color != 0) {
                         Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);

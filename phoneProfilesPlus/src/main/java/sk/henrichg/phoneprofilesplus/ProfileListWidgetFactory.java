@@ -100,16 +100,17 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetListChangeColorsByNightMode) {
+                        (applicationWidgetListChangeColorsByNightMode &&
+                        (!applicationWidgetListUseDynamicColors))) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationWidgetListLightnessT = "100"; // lightness of text = white
+                            applicationWidgetListLightnessT = "88"; // lightness of text = white
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationWidgetListLightnessT = "0"; // lightness of text = black
+                            applicationWidgetListLightnessT = "13"; // lightness of text = black
                             break;
                     }
                 }
@@ -413,20 +414,21 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground;
 
             if (Build.VERSION.SDK_INT >= 31) {
-                if (applicationWidgetListChangeColorsByNightMode) {
+                if (applicationWidgetListChangeColorsByNightMode &&
+                        (!applicationWidgetListUseDynamicColors)) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = "75";
-                            applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
+                            //applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = "62";
-                            applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
+                            //applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }
                 }
