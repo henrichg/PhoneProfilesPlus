@@ -77,10 +77,12 @@ class ProfilePreferencesIndicator {
                     paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
             }
 
+            // draw one indicator icon
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
+            // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }
@@ -158,6 +160,7 @@ class ProfilePreferencesIndicator {
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
+            // draw one indicator icon
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
@@ -165,6 +168,7 @@ class ProfilePreferencesIndicator {
             // change brightness of indicator
             bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
 
+            // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }
@@ -206,6 +210,7 @@ class ProfilePreferencesIndicator {
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
+            // draw one indicator icon
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
@@ -213,6 +218,7 @@ class ProfilePreferencesIndicator {
             // change brightness of indicator
             bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
 
+            // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }
@@ -281,6 +287,7 @@ class ProfilePreferencesIndicator {
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
+            // draw one indicator icon
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
@@ -288,6 +295,7 @@ class ProfilePreferencesIndicator {
             // change brightness of indicator
             bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
 
+            // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }
@@ -323,6 +331,7 @@ class ProfilePreferencesIndicator {
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
+            // draw one indicator icon
             Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
@@ -330,6 +339,7 @@ class ProfilePreferencesIndicator {
             // change brightness of indicator
             bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
 
+            // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }
