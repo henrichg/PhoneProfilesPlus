@@ -46,8 +46,8 @@
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/menu_restart_events"
                 android:src="@drawable/ic_widget_restart_events"
-                android:tint="?android:attr/textColorSecondary"
                 tools:ignore="UseAppTint" />
+<!--            android:tint="?android:attr/textColorSecondary"-->
 
         </RelativeLayout>
 

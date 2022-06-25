@@ -324,7 +324,7 @@ class ProfilePreferencesIndicator {
                                         == Configuration.UI_MODE_NIGHT_YES;
 
             if (!monochrome) {
-                int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
+                int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorTertiary, context);
                 if ((dynamicColor != 0) && (!disabled)/* && (!monochrome)*/) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 }

@@ -631,6 +631,16 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                     //}
+                } else {
+                    // good, color of this is as in notification ;-)
+                    // but must be removed android:tint in layout
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+//                    Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
+                    if (color != 0) {
+                        Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                        bitmap = BitmapManipulator.monochromeBitmap(bitmap, color);
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                    }
                 }
 
                     /*if (PPApplication.logEnabled()) {

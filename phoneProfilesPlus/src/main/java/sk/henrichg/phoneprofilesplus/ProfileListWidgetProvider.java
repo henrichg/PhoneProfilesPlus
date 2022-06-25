@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -641,6 +642,16 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
+            } else {
+                // good, color of this is as in notification ;-)
+                // but must be removed android:tint in layout
+                int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+//                Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
+                if (color != 0) {
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, color);
+                    widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
+                }
             }
 
         }
