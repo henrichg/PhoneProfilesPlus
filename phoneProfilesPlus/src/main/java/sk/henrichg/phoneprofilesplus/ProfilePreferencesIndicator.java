@@ -13,6 +13,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -59,6 +60,8 @@ class ProfilePreferencesIndicator {
                               int indicatorsType, float indicatorsLightnessValue,
                               Context context, Canvas canvas)
     {
+        Log.e("ProfilePreferencesIndicator.addIndicator", "indicatorsType="+indicatorsType);
+
         Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
 
         if (indicatorsType == DataWrapper.IT_FOR_EDITOR) {
@@ -102,6 +105,7 @@ class ProfilePreferencesIndicator {
             if ((Build.VERSION.SDK_INT >= 31) &&
                     (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND)) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
+//            Log.e("ProfilePreferencesIndicator.addIndicator", "dynamicColor="+String.format("#%06X", 0xFFFFFF & dynamicColor));
                 if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 }
@@ -196,6 +200,7 @@ class ProfilePreferencesIndicator {
                                         == Configuration.UI_MODE_NIGHT_YES;
 
             int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
+//            Log.e("ProfilePreferencesIndicator.addIndicator", "dynamicColor="+String.format("#%06X", 0xFFFFFF & dynamicColor));
             if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
                 paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
             }
@@ -324,7 +329,8 @@ class ProfilePreferencesIndicator {
                                         == Configuration.UI_MODE_NIGHT_YES;
 
             if (!monochrome) {
-                int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorTertiary, context);
+                int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
+//                Log.e("ProfilePreferencesIndicator.addIndicator", "dynamicColor="+String.format("#%06X", 0xFFFFFF & dynamicColor));
                 if ((dynamicColor != 0) && (!disabled)/* && (!monochrome)*/) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 }
