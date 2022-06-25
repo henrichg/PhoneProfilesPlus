@@ -10,7 +10,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.os.Handler;
 import android.text.Spannable;
@@ -643,11 +647,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 } else {
                     // good, color of this is as in notification ;-)
                     // but must be removed android:tint in layout
-                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorTertiary, context);
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
 //                    Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
                     if (color != 0) {
                         Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
-                        bitmap = BitmapManipulator.monochromeBitmap(bitmap, color);
+                        bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                     }
                 }

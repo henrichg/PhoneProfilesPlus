@@ -25,7 +25,11 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
 import android.media.AudioAttributes;
@@ -6375,10 +6379,20 @@ public class PhoneProfilesService extends Service
                         // native
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
                         if ((Build.VERSION.SDK_INT >= 31) && notificationProfileIconColor.equals("0")) {
-                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorTertiary, appContext);
-//                            Log.e("PhoneProfilesService._addRestartEventsToProfileNotification", "color="+color);
+                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, appContext);
+//                            Log.e("PhoneProfilesService._addRestartEventsToProfileNotification", "color="+String.format("#%06X", 0xFFFFFF & color));
                             if (color != 0) {
-                                restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, color);
+                                restartEventsBitmap = BitmapManipulator.recolorBitmap(restartEventsBitmap, color);
+                            } else {
+                                if (useNightColor == 1) {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
+                                    restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0xe0e0e0);
+                                    //restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                                } else {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "light icon");
+                                    restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0x202020);
+                                    //restartEventsId = R.drawable.ic_widget_restart_events;
+                                }
                             }
                         } else {
                             // Hm, dark mode is possible to change only from API 28 (from GUI).
