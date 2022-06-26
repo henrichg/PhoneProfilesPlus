@@ -164,7 +164,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         //mMap.setTilesScaledToDpi(true);
         //mMap.getTileProvider().clearTileCache();
 
-        boolean isNightMode;
+        boolean nightModeOn = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                                    == Configuration.UI_MODE_NIGHT_YES;
+
+        /*boolean isNightMode;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
         switch (applicationThene) {
             case "white":
@@ -202,8 +205,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 break;
             default:
                 isNightMode = false;
-        }
-        if (isNightMode)
+        }*/
+        if (/*isNightMode*/nightModeOn)
             mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
         else
             mMap.getOverlayManager().getTilesOverlay().setColorFilter(null);
@@ -301,7 +304,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         numberPicker.setDecimalVisibility(View.INVISIBLE);
         //mNumberPicker.setLabelText(getContext().getString(R.string.minutes_label_description));
         numberPicker.setNumber(Math.round(geofence._radius), null, null);
-        if (ApplicationPreferences.applicationTheme(this, true).equals("dark"))
+
+        if (/*ApplicationPreferences.applicationTheme(this, true).equals("dark")*/nightModeOn)
             numberPicker.setTheme(R.style.BetterPickersDialogFragment);
         else
             numberPicker.setTheme(R.style.BetterPickersDialogFragment_Light);

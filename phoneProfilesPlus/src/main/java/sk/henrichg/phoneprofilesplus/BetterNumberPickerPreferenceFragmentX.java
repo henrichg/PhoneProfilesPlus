@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -43,7 +45,12 @@ public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragm
         mNumberPicker.setDecimalVisibility(View.INVISIBLE);
         //mNumberPicker.setLabelText(getContext().getString(R.string.minutes_label_description));
         mNumberPicker.setNumber(Integer.valueOf(preference.value), null, null);
-        if (ApplicationPreferences.applicationTheme(context, true).equals("dark"))
+
+        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                                == Configuration.UI_MODE_NIGHT_YES;
+//        Log.e("BetterNumberPickerPreferenceFragmentX", "nightModeOn="+nightModeOn);
+
+        if (/*ApplicationPreferences.applicationTheme(context, true).equals("dark")*/nightModeOn)
             mNumberPicker.setTheme(R.style.BetterPickersDialogFragment);
         else
             mNumberPicker.setTheme(R.style.BetterPickersDialogFragment_Light);

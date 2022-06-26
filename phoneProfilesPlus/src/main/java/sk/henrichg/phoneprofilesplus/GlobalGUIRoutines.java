@@ -1195,7 +1195,10 @@ class GlobalGUIRoutines {
     }
 
     static void setThemeTimeDurationPickerDisplay(TimeDurationPicker timeDurationPicker, final Activity activity) {
-        if (ApplicationPreferences.applicationTheme(activity, true).equals("white")) {
+        boolean nightModeOn = (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                                    == Configuration.UI_MODE_NIGHT_YES;
+
+        if (/*ApplicationPreferences.applicationTheme(activity, true).equals("white")*/!nightModeOn) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
             timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace_light));

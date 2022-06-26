@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -76,7 +77,9 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        String applicationTheme = ApplicationPreferences.applicationTheme(context.getApplicationContext(), true);
+        //String applicationTheme = ApplicationPreferences.applicationTheme(context.getApplicationContext(), true);
+        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                                    == Configuration.UI_MODE_NIGHT_YES;
 
         if (configuredPreferences.preferenceIcon == 0) {
             holder.preferenceIcon.setVisibility(View.GONE);
@@ -85,7 +88,7 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             Paint paint = new Paint();
 
             float brightness;
-            if (applicationTheme.equals("dark")) {
+            if (/*applicationTheme.equals("dark")*/nightModeOn) {
                 //if (disabled)
                 //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
                 //else
@@ -143,7 +146,7 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             Paint paint = new Paint();
 
             float brightness;
-            if (applicationTheme.equals("dark")) {
+            if (/*applicationTheme.equals("dark")*/nightModeOn) {
                 //if (disabled)
                 //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
                 //else

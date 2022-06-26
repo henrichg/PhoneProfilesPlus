@@ -67,6 +67,7 @@ class ProfilePreferencesIndicator {
         if (indicatorsType == DataWrapper.IT_FOR_EDITOR) {
             Paint paint = new Paint();
 
+            // must be used check for theme, because context is application context, not activity context
             String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
             if (applicationTheme.equals("dark")) {
                 if (disabled)
