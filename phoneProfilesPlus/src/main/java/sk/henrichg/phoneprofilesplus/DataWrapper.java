@@ -791,10 +791,18 @@ public class DataWrapper {
             if (profile._iconBitmap != null)
                 profileBitmap = profile._iconBitmap;
             else {
-                //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                int iconResource = Profile.getIconResource(iconIdentifier);
-                //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
-                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
+                Bitmap bitmap = null;
+                if (ApplicationPreferences.applicationShortcutIconColor.equals("0")) {
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context);
+                }
+                if (bitmap != null) {
+                    profileBitmap = bitmap;
+                } else {
+                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                    int iconResource = Profile.getIconResource(iconIdentifier);
+                    //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
+                    profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
+                }
             }
         } else {
             int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);

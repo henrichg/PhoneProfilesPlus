@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,15 @@ class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {
 
     private final List<Profile> profileList;
 
+    private final ProfileMultiSelectPreferenceFragmentX preferenceFragment;
     private final Context context;
 
     //private final LayoutInflater inflater;
 
-    ProfileMultiSelectPreferenceAdapterX(Context c, List<Profile> profileList)
+    ProfileMultiSelectPreferenceAdapterX(ProfileMultiSelectPreferenceFragmentX preferenceFragment, Context c, List<Profile> profileList)
     {
         context = c;
+        this.preferenceFragment = preferenceFragment;
 
         this.profileList = profileList;
 
@@ -92,11 +95,16 @@ class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {
                 if (profile._iconBitmap != null)
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);
                 else {
-                    //holder.profileIcon.setImageBitmap(null);
-                    //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                    //        vi.getContext().PPApplication.PACKAGE_NAME);
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    holder.profileIcon.setImageResource(res); // icon resource
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(preferenceFragment.getActivity());
+                    if (bitmap != null) {
+                        holder.profileIcon.setImageBitmap(bitmap);
+                    } else {
+                        //holder.profileIcon.setImageBitmap(null);
+                        //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                        //        vi.getContext().PPApplication.PACKAGE_NAME);
+                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                        holder.profileIcon.setImageResource(res); // icon resource
+                    }
                 }
             }
             else

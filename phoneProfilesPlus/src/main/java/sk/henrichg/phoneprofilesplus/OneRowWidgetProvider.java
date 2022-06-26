@@ -605,10 +605,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     if (profile._iconBitmap != null)
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
                     else {
-                        //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                        int iconResource = Profile.getIconResource(iconIdentifier);
-                        remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
+                        Bitmap bitmap = null;
+                        if (applicationWidgetOneRowIconColor.equals("0"))
+                            bitmap = profile.increaseProfileIconBrightnessForContext(context);
+                        if (bitmap != null) {
+                            remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
+                        } else {
+                            //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
+                            //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                            int iconResource = Profile.getIconResource(iconIdentifier);
+                            remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
+                        }
                     }
                 } else {
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);

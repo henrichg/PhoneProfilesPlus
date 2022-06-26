@@ -20,7 +20,7 @@ class AskForDurationActivateProfileDialog
     private final DataWrapper dataWrapper;
 
     private final AlertDialog mDialog;
-    private final Activity activity;
+    final Activity activity;
 
     private final LinearLayout linlaProgress;
     private final ListView listView;

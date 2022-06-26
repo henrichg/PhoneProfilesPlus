@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -483,8 +484,13 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         if (afterDoProfile._iconBitmap != null)
                             profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
                         else {
-                            int res = Profile.getIconResource(afterDoProfile.getIconIdentifier());
-                            profileIcon.setImageResource(res); // icon resource
+                            Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity);
+                            if (bitmap != null) {
+                                profileIcon.setImageBitmap(bitmap);
+                            } else {
+                                int res = Profile.getIconResource(afterDoProfile.getIconIdentifier());
+                                profileIcon.setImageResource(res); // icon resource
+                            }
                         }
                     } else {
                         profileIcon.setImageBitmap(afterDoProfile._iconBitmap);

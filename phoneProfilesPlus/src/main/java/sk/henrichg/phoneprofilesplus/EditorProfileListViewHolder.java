@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Spannable;
@@ -104,11 +105,16 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             if (profile._iconBitmap != null)
                 profileIcon.setImageBitmap(profile._iconBitmap);
             else {
-                //holder.profileIcon.setImageBitmap(null);
-                //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                //        context.PPApplication.PACKAGE_NAME);
-                int res = Profile.getIconResource(profile.getIconIdentifier());
-                profileIcon.setImageResource(res); // icon resource
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity());
+                if (bitmap != null) {
+                    profileIcon.setImageBitmap(bitmap);
+                } else {
+                    //holder.profileIcon.setImageBitmap(null);
+                    //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                    //        context.PPApplication.PACKAGE_NAME);
+                    int res = Profile.getIconResource(profile.getIconIdentifier());
+                    profileIcon.setImageResource(res); // icon resource
+                }
             }
         }
         else

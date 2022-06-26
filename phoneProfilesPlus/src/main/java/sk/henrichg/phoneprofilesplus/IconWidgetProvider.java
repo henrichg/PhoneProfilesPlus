@@ -551,9 +551,16 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     if (profile._iconBitmap != null)
                         remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
                     else {
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                        int iconResource = Profile.getIconResource(iconIdentifier);
-                        remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
+                        Bitmap bitmap = null;
+                        if (applicationWidgetIconColor.equals("0"))
+                            bitmap = profile.increaseProfileIconBrightnessForContext(context);
+                        if (bitmap != null) {
+                            remoteViews.setImageViewBitmap(R.id.icon_widget_icon, bitmap);
+                        } else {
+                            //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                            int iconResource = Profile.getIconResource(iconIdentifier);
+                            remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
+                        }
                     }
                 } else {
                     remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);

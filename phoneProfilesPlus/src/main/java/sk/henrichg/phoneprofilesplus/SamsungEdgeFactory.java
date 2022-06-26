@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -140,7 +141,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         RemoteViews row;
         //if (!applicationSamsungEdgeGridLayout)
-        //    row=new RemoteViews(context.PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
+        //    row=new RemoteViews(context.PPApplication.PACKAGE_NAME, R.layout.samsung_edge_widget_item);
         //else
             row=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_item);
 
@@ -150,11 +151,13 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             String applicationSamsungEdgeLightnessT;
             boolean applicationSamsungEdgeHeader;
             boolean applicationSamsungEdgeChangeColorsByNightMode;
+            String applicationSamsungEdgeIconColor;
 
             synchronized (PPApplication.applicationPreferencesMutex) {
                 applicationSamsungEdgeLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
                 applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
                 applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+                applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
 
                 if (Build.VERSION.SDK_INT >= 30) {
                     if (applicationSamsungEdgeChangeColorsByNightMode) {
@@ -175,14 +178,21 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
             if (profile.getIsIconResourceID()) {
                 if (profile._iconBitmap != null)
-                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                    row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, profile._iconBitmap);
                 else {
-                    row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
-                            /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME));*/
-                            Profile.getIconResource(profile.getIconIdentifier()));
+                    Bitmap bitmap = null;
+                    if (applicationSamsungEdgeIconColor.equals("0"))
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context);
+                    if (bitmap != null) {
+                        row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, bitmap);
+                    } else {
+                        row.setImageViewResource(R.id.widget_samsung_edge_item_profile_icon,
+                                /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME));*/
+                                Profile.getIconResource(profile.getIconIdentifier()));
+                    }
                 }
             } else {
-                row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, profile._iconBitmap);
             }
             int red = 0xFF;
             int green;
@@ -200,44 +210,44 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             blue = red;
             if (!applicationSamsungEdgeHeader) {
                 if (profile._checked) {
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
+                    row.setTextViewTextSize(R.id.widget_samsung_edge_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
 
                     //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                    row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.argb(0xFF, red, green, blue));
                     //else
-                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.parseColor("#33b5e5"));
+                    //	row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.parseColor("#33b5e5"));
                 } else {
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
+                    row.setTextViewTextSize(R.id.widget_samsung_edge_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
 
                     //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
+                    row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.argb(0xCC, red, green, blue));
                     //else
-                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                    //	row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.argb(0xFF, red, green, blue));
                 }
             } else {
-                row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
+                row.setTextViewTextSize(R.id.widget_samsung_edge_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
 
-                row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.argb(0xFF, red, green, blue));
             }
             if ((!applicationSamsungEdgeHeader) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
                 Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper);
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
+                row.setTextViewText(R.id.widget_samsung_edge_item_profile_name, sb);
             } else {
                 Spannable profileName = profile.getProfileNameWithDuration("", "", true, false, context.getApplicationContext());
-                row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
+                row.setTextViewText(R.id.widget_samsung_edge_item_profile_name, profileName);
             }
             /*if (!applicationSamsungEdgeGridLayout) {
                 if (applicationSamsungEdgePrefIndicator) {
                     if (profile._preferencesIndicator != null)
-                        row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
+                        row.setImageViewBitmap(R.id.widget_samsung_edge_profile_pref_indicator, profile._preferencesIndicator);
                     else
-                        row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                        row.setImageViewResource(R.id.widget_samsung_edge_profile_pref_indicator, R.drawable.ic_empty);
                 }
                 else
-                    row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                    row.setImageViewResource(R.id.widget_samsung_edge_profile_pref_indicator, R.drawable.ic_empty);
             }*/
 
             Intent i = new Intent();
@@ -249,7 +259,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                 extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
             extras.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
             i.putExtras(extras);
-            row.setOnClickFillInIntent(R.id.widget_profile_list_item, i);
+            row.setOnClickFillInIntent(R.id.widget_samsung_edge_item, i);
 
         }
 

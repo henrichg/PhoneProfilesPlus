@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -72,11 +73,16 @@ public class ProfilePreferenceX extends DialogPreference {
                     if (profile._iconBitmap != null)
                         profileIcon.setImageBitmap(profile._iconBitmap);
                     else {
-                        //profileIcon.setImageBitmap(null);
-                        //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                        //        prefContext.PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
-                        profileIcon.setImageResource(res); // icon resource
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext);
+                        if (bitmap != null) {
+                            profileIcon.setImageBitmap(bitmap);
+                        } else {
+                            //profileIcon.setImageBitmap(null);
+                            //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            //        prefContext.PPApplication.PACKAGE_NAME);
+                            int res = Profile.getIconResource(profile.getIconIdentifier());
+                            profileIcon.setImageResource(res); // icon resource
+                        }
                     }
                 }
                 else

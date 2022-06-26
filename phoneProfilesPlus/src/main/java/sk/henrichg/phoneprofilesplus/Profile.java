@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.Settings;
@@ -3442,6 +3444,40 @@ public class Profile {
             if (monochrome)
                 _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, indicatorMonochromeValue/*, context*/);
         }
+    }
+
+    //todo
+    Bitmap increaseProfileIconBrightnessForContext(Context context) {
+        if (getIsIconResourceID() && (!getUseCustomColorForIcon())) {
+            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                    == Configuration.UI_MODE_NIGHT_YES;
+
+            if (nightModeOn) {
+                releaseIconBitmap();
+                int iconResource = getIconResource(getIconIdentifier());
+                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
+                bitmap = BitmapManipulator.setBitmapBrightness(bitmap, 30);
+
+                return bitmap;
+            }
+        }
+        return null;
+    }
+    Bitmap increaseProfileIconBrightnessForActivity(Activity activity) {
+        if (getIsIconResourceID() && (!getUseCustomColorForIcon())) {
+            boolean nightModeOn = (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                    == Configuration.UI_MODE_NIGHT_YES;
+
+            if (nightModeOn) {
+                releaseIconBitmap();
+                int iconResource = getIconResource(getIconIdentifier());
+                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, activity);
+                bitmap = BitmapManipulator.setBitmapBrightness(bitmap, 30);
+
+                return bitmap;
+            }
+        }
+        return null;
     }
 
     private void releaseIconBitmap()

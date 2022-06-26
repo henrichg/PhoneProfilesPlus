@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,11 +100,16 @@ class AddProfileAdapter extends BaseAdapter {
                 if (profile._iconBitmap != null)
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);
                 else {
-                    //holder.profileIcon.setImageBitmap(null);
-                    //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                    //        vi.getContext().PPApplication.PACKAGE_NAME);
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    holder.profileIcon.setImageResource(res); // icon resource
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity);
+                    if (bitmap != null) {
+                        holder.profileIcon.setImageBitmap(bitmap);
+                    } else {
+                        //holder.profileIcon.setImageBitmap(null);
+                        //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                        //        vi.getContext().PPApplication.PACKAGE_NAME);
+                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                        holder.profileIcon.setImageResource(res); // icon resource
+                    }
                 }
             }
             else

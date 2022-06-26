@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -211,16 +212,23 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if (isIconResourceID)
             {
                 if (profile._iconBitmap != null)
-                    widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
+                    widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, profile._iconBitmap);
                 else {
-                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                    int iconResource = Profile.getIconResource(iconIdentifier);
-                    widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
+                    Bitmap bitmap = null;
+                    if (applicationSamsungEdgeIconColor.equals("0"))
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context);
+                    if (bitmap != null) {
+                        widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, bitmap);
+                    } else {
+                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                        int iconResource = Profile.getIconResource(iconIdentifier);
+                        widget.setImageViewResource(R.id.widget_samsung_edge_header_profile_icon, iconResource);
+                    }
                 }
             }
             else
             {
-                widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
+                widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, profile._iconBitmap);
             }
 
             red = 0xFF;
@@ -234,15 +242,15 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if (applicationSamsungEdgeLightnessT.equals("87")) red = 0xE0;
             //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red; blue = red;
-            widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, red, green, blue));
-            widget.setTextViewTextSize(R.id.widget_profile_list_header_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
-            widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
+            widget.setTextColor(R.id.widget_samsung_edge_header_profile_name, Color.argb(0xFF, red, green, blue));
+            widget.setTextViewTextSize(R.id.widget_samsung_edge_header_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
+            widget.setTextViewText(R.id.widget_samsung_edge_header_profile_name, profileName);
             /*if (applicationSamsungEdgePrefIndicator)
             {
                 if (profile._preferencesIndicator != null)
-                    widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_pref_indicator, profile._preferencesIndicator);
+                    widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_pref_indicator, profile._preferencesIndicator);
                 else
-                    widget.setImageViewResource(R.id.widget_profile_list_header_profile_pref_indicator, R.drawable.ic_empty);
+                    widget.setImageViewResource(R.id.widget_samsung_edge_header_profile_pref_indicator, R.drawable.ic_empty);
             }*/
 
             red = 0xFF;
@@ -259,7 +267,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             green = red;
             //noinspection ConstantConditions
             blue = red;
-            widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, red, green, blue));
+            widget.setInt(R.id.widget_samsung_edge_header_separator, "setBackgroundColor", Color.argb(0xFF, red, green, blue));
 
             /*
             if (Event.getGlobalEventsRunning(context)) {
@@ -273,10 +281,10 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_widget_restart_events);
                     Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-                    widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
+                    widget.setImageViewBitmap(R.id.widget_samsung_edge_header_restart_events, bitmap);
                 }
                 else
-                    widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, R.drawable.ic_widget_restart_events);
+                    widget.setImageViewResource(R.id.widget_samsung_edge_header_restart_events, R.drawable.ic_widget_restart_events);
             }
             */
 
@@ -289,31 +297,31 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
+        widget.setOnClickPendingIntent(R.id.widget_samsung_edge_header, pendingIntent);
 
         /*
         if (Event.getGlobalEventsRunning(context)) {
-            widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
+            widget.setViewVisibility(R.id.widget_samsung_edge_header_restart_events, View.VISIBLE);
             Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
             PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
-            widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
+            widget.setOnClickPendingIntent(R.id.widget_samsung_edge_header_restart_events, pIntentRE);
         }
         else
-            widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
+            widget.setViewVisibility(R.id.widget_samsung_edge_header_restart_events, View.GONE);
         */
 
         /*if (!applicationSamsungEdgeGridLayout)
-            widget.setRemoteAdapter(R.id.widget_profile_list, svcIntent);
+            widget.setRemoteAdapter(R.id.widget_samsung_edge, svcIntent);
         else*/
-            widget.setRemoteAdapter(R.id.widget_profile_grid, svcIntent);
+            widget.setRemoteAdapter(R.id.widget_samsung_edge_grid, svcIntent);
 
         // The empty view is displayed when the collection has no items.
         // It should be in the same layout used to instantiate the RemoteViews
         // object above.
         /*if (!applicationSamsungEdgeGridLayout)
-            widget.setEmptyView(R.id.widget_profile_list, R.id.widget_profiles_list_empty);
+            widget.setEmptyView(R.id.widget_samsung_edge, R.id.widget_samsung_edge_empty);
         else*/
-            widget.setEmptyView(R.id.widget_profile_grid, R.id.widget_profiles_list_empty);
+            widget.setEmptyView(R.id.widget_samsung_edge_grid, R.id.widget_samsung_edge_empty);
 
         Intent clickIntent=new Intent(context, BackgroundActivateProfileActivity.class);
         clickIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
@@ -323,9 +331,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         /*if (!applicationSamsungEdgeGridLayout)
-            widget.setPendingIntentTemplate(R.id.widget_profile_list, clickPI);
+            widget.setPendingIntentTemplate(R.id.widget_samsung_edge, clickPI);
         else*/
-            widget.setPendingIntentTemplate(R.id.widget_profile_grid, clickPI);
+            widget.setPendingIntentTemplate(R.id.widget_samsung_edge_grid, clickPI);
 
         return widget;
     }
@@ -350,9 +358,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         }
         if (!fromOnUpdate) {
             /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
-                cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_list);
+                cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge);
             else*/
-            cocktailBarManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_grid);
+            cocktailBarManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge_grid);
         }
     }
 

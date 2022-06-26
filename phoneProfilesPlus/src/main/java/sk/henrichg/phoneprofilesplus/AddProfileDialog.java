@@ -20,7 +20,7 @@ class AddProfileDialog
     private final EditorProfileListFragment profileListFragment;
 
     final AlertDialog mDialog;
-    private final Activity activity;
+    final Activity activity;
 
     private final LinearLayout linlaProgress;
     private final ListView listView;

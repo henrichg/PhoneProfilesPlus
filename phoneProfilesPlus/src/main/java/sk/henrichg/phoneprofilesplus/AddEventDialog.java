@@ -21,7 +21,7 @@ class AddEventDialog
     final EditorEventListFragment eventListFragment;
 
     final AlertDialog mDialog;
-    private final Activity activity;
+    final Activity activity;
 
     final LinearLayout linlaProgress;
     final LinearLayout rellaData;

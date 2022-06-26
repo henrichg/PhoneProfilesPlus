@@ -193,7 +193,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
                     fragment.linlaProgress.setVisibility(View.GONE);
                 }
 
-                fragment.profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapterX(prefContext, preference.dataWrapper.profileList);
+                fragment.profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapterX(fragment, prefContext, preference.dataWrapper.profileList);
                 fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
             }
         }

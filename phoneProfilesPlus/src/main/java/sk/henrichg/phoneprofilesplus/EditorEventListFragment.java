@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -1107,8 +1108,13 @@ public class EditorEventListFragment extends Fragment
                 if (profile._iconBitmap != null)
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);
                 else {
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    activeProfileIcon.setImageResource(res); // icon resource
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity());
+                    if (bitmap != null) {
+                        activeProfileIcon.setImageBitmap(bitmap);
+                    } else {
+                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                        activeProfileIcon.setImageResource(res); // icon resource
+                    }
                 }
             }
             else

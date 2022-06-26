@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
@@ -210,11 +211,16 @@ class AddEventAdapter extends BaseAdapter {
                     if (profile._iconBitmap != null)
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                     else {
-                        //holder.profileStartIcon.setImageBitmap(null);
-                        //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                        //        vi.getContext().PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
-                        holder.profileStartIcon.setImageResource(res); // icon resource
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity);
+                        if (bitmap != null) {
+                            holder.profileStartIcon.setImageBitmap(bitmap);
+                        } else {
+                            //holder.profileStartIcon.setImageBitmap(null);
+                            //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            //        vi.getContext().PPApplication.PACKAGE_NAME);
+                            int res = Profile.getIconResource(profile.getIconIdentifier());
+                            holder.profileStartIcon.setImageResource(res); // icon resource
+                        }
                     }
                 }
                 else
@@ -305,11 +311,16 @@ class AddEventAdapter extends BaseAdapter {
                         if (profile._iconBitmap != null)
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                         else {
-                            //holder.profileEndIcon.setImageBitmap(null);
-                            //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            //        vi.getContext().PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(profile.getIconIdentifier());
-                            holder.profileEndIcon.setImageResource(res); // icon resource
+                            Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity);
+                            if (bitmap != null) {
+                                holder.profileStartIcon.setImageBitmap(bitmap);
+                            } else {
+                                //holder.profileEndIcon.setImageBitmap(null);
+                                //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                //        vi.getContext().PPApplication.PACKAGE_NAME);
+                                int res = Profile.getIconResource(profile.getIconIdentifier());
+                                holder.profileEndIcon.setImageResource(res); // icon resource
+                            }
                         }
                     } else {
                         holder.profileEndIcon.setImageBitmap(profile._iconBitmap);

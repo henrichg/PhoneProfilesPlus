@@ -621,9 +621,16 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (profile._iconBitmap != null)
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
                 else {
-                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                    int iconResource = Profile.getIconResource(iconIdentifier);
-                    widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
+                    Bitmap bitmap = null;
+                    if (applicationWidgetListIconColor.equals("0"))
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context);
+                    if (bitmap != null) {
+                        widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, bitmap);
+                    } else {
+                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                        int iconResource = Profile.getIconResource(iconIdentifier);
+                        widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
+                    }
                 }
             }
             else

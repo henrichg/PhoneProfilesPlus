@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -137,9 +138,16 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 if (profile._iconBitmap != null)
                     row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
                 else {
-                    row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
-                            /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
-                            Profile.getIconResource(profile.getIconIdentifier()));
+                    Bitmap bitmap = null;
+                    if (applicationWidgetListIconColor.equals("0"))
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context);
+                    if (bitmap != null) {
+                        row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
+                    } else {
+                        row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
+                                /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
+                                Profile.getIconResource(profile.getIconIdentifier()));
+                    }
                 }
             } else {
                 row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);

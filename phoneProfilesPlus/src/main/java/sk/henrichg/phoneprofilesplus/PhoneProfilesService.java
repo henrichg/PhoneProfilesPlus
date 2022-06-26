@@ -5883,8 +5883,9 @@ public class PhoneProfilesService extends Service
 //            }
 
             if (!forFirstStart) {
-                if (notificationProfileIconColor.equals("0"))
+                if (notificationProfileIconColor.equals("0")) {
                     profile.generateIconBitmap(appContext, false, 0, false);
+                }
                 else {
                     profile.generateIconBitmap(appContext, true, monochromeValue, notificationCustomProfileIconLightness);
                 }
@@ -6628,6 +6629,11 @@ public class PhoneProfilesService extends Service
                     iconBitmap = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
                     if (notificationProfileIconColor.equals("1"))
                         iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
+                    else {
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext);
+                        if (bitmap != null)
+                            iconBitmap = bitmap;
+                    }
                     if (notificationNotificationStyle.equals("0")) {
                         try {
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
