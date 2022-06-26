@@ -16,7 +16,7 @@
     <color name="profileindicatorColorDisabled_light">#a5a5a5</color>
     <color name="profileindicatorColorDisabledDynamic_light">#c5c5c5</color>
     <color name="profileindicatorColor_dark">#62a9f8</color>
-    <color name="profileindicatorColorDisabled_dark">#e4e4e4</color>
+    <color name="profileindicatorColorDisabled_dark">#c4c4c4</color>
     <color name="profileindicatorColorDisabledDynamic_dark">#c5c5c5</color>
 
 </resources>
