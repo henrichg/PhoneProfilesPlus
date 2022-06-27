@@ -689,7 +689,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON_DEFAULT_VALUE));
+            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON_DEFAULT_VALUE));
         }
 
     }

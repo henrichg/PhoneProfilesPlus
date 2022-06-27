@@ -231,7 +231,7 @@ class ApplicationPreferences {
     static boolean applicationWidgetOneRowUseDynamicColors;
     static boolean applicationWidgetListUseDynamicColors;
     static String applicationRestartEventsIconColor;
-    static boolean applicationIncreaseBrightnessForProfileIcon;
+    //static boolean applicationIncreaseBrightnessForProfileIcon;
 
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
@@ -493,7 +493,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS = "applicationShortcutIconLightness";
     static final String PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS = "applicationShortcutCustomIconLightness";
     static final String PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR = "applicationRestartEventsIconColor";
-    static final String PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON = "applicationIncreaseBrightnessForProfileIcon";
+    //static final String PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON = "applicationIncreaseBrightnessForProfileIcon";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -1862,10 +1862,12 @@ class ApplicationPreferences {
         applicationRestartEventsIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR_DEFAULT_VALUE);
     }
 
+    /*
     static final boolean PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON_DEFAULT_VALUE = false;
     static void applicationIncreaseBrightnessForProfileIcon(Context context) {
         applicationIncreaseBrightnessForProfileIcon = getSharedPreferences(context).getBoolean(PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON_DEFAULT_VALUE);
     }
+    */
 
     static void deleteBadPreferences(Context context) {
         SharedPreferences mySPrefs = getSharedPreferences(context);

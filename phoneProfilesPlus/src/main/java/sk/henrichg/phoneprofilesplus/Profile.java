@@ -3453,7 +3453,7 @@ public class Profile {
 
     //todo
     Bitmap increaseProfileIconBrightnessForContext(Context context, Bitmap iconBitmap) {
-        if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
+        //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
             boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                     == Configuration.UI_MODE_NIGHT_YES;
 
@@ -3477,11 +3477,11 @@ public class Profile {
                     }
                 }
             }
-        }
+        //}
         return null;
     }
     Bitmap increaseProfileIconBrightnessForActivity(Activity activity, Bitmap iconBitmap) {
-        if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
+        //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
             if (activity != null) {
                 boolean nightModeOn = (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                         == Configuration.UI_MODE_NIGHT_YES;
@@ -3507,7 +3507,7 @@ public class Profile {
                     }
                 }
             }
-        }
+        //}
         return null;
     }
 

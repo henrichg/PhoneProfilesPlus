@@ -1991,8 +1991,6 @@
     <string name="important_info_notification_settings_configure">Click here to configure \"Application notification\" with these parameters.</string>
     <string name="important_info_notification_settings_toast">Configured</string>
 
-    <string name="phone_profiles_pref_applicationIncreaseBrightnessForProfileIcon">Increase brightness of profile icon in dark mode</string>
-
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -2118,6 +2116,8 @@
 
 <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
 <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
+
+<!--    <string name="phone_profiles_pref_applicationIncreaseBrightnessForProfileIcon">Increase brightness of profile icon in dark mode</string>-->
 
 </resources>
 
