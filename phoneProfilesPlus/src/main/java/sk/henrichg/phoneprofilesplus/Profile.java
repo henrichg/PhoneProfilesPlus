@@ -3538,9 +3538,9 @@ public class Profile {
             }
             if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
                 float[] hsv = new float[3];
-                Color.colorToHSV(iconColor, hsv); // farba do hsv
-                hsv[2] = BRIGHTNESS_VALUE_FOR_DARK_MODE / 255f; // value component --> jas
-                return Color.HSVToColor(hsv); // hsv do farby
+                Color.colorToHSV(iconColor, hsv); // color to hsv
+                hsv[2] = BRIGHTNESS_VALUE_FOR_DARK_MODE / 255f; // value component --> brightness
+                return Color.HSVToColor(hsv); // hsv to color
             }
         }
         return 0;
