@@ -2176,6 +2176,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationWidgetOneRowUseDynamicColors(context);
             ApplicationPreferences.applicationWidgetListUseDynamicColors(context);
             ApplicationPreferences.applicationRestartEventsIconColor(context);
+            ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

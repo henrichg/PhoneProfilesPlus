@@ -3448,23 +3448,8 @@ public class Profile {
 
     //todo
     Bitmap increaseProfileIconBrightnessForContext(Context context, Bitmap iconBitmap) {
-        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                == Configuration.UI_MODE_NIGHT_YES;
-
-        if (nightModeOn) {
-            if (iconBitmap != null) {
-                return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
-            } else {
-                int iconResource = getIconResource(getIconIdentifier());
-                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
-                return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
-            }
-        }
-        return null;
-    }
-    Bitmap increaseProfileIconBrightnessForActivity(Activity activity, Bitmap iconBitmap) {
-        if (activity != null) {
-            boolean nightModeOn = (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+        if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
+            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                     == Configuration.UI_MODE_NIGHT_YES;
 
             if (nightModeOn) {
@@ -3472,8 +3457,27 @@ public class Profile {
                     return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
                 } else {
                     int iconResource = getIconResource(getIconIdentifier());
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, activity);
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                     return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                }
+            }
+        }
+        return null;
+    }
+    Bitmap increaseProfileIconBrightnessForActivity(Activity activity, Bitmap iconBitmap) {
+        if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
+            if (activity != null) {
+                boolean nightModeOn = (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                        == Configuration.UI_MODE_NIGHT_YES;
+
+                if (nightModeOn) {
+                    if (iconBitmap != null) {
+                        return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                    } else {
+                        int iconResource = getIconResource(getIconIdentifier());
+                        Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, activity);
+                        return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                    }
                 }
             }
         }
