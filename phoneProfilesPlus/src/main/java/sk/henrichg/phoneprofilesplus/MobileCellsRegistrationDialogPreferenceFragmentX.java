@@ -171,7 +171,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
             mSeekBarMinutes.setProgress(minutes1);
             mSeekBarSeconds.setProgress(seconds1);
         }, iValue * 1000L, TimeDurationPicker.HH_MM_SS);
-        GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), getActivity());
+        GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), prefContext);
         mValue.setOnClickListener(view -> {
             int hours12 = mSeekBarHours.getProgress();
             int minutes12 = mSeekBarMinutes.getProgress();

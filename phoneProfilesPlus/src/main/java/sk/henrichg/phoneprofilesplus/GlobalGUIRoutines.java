@@ -1194,24 +1194,24 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
-    static void setThemeTimeDurationPickerDisplay(TimeDurationPicker timeDurationPicker, final Activity activity) {
-        boolean nightModeOn = (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+    static void setThemeTimeDurationPickerDisplay(TimeDurationPicker timeDurationPicker, final Context context) {
+        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                                     == Configuration.UI_MODE_NIGHT_YES;
 
         if (/*ApplicationPreferences.applicationTheme(activity, true).equals("white")*/!nightModeOn) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace_light));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(activity, R.drawable.ic_clear_light));
+            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace_light));
+            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear_light));
         }
         else {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display_Dark);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit_Dark);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(activity, R.drawable.ic_clear));
+            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace));
+            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear));
         }
-        timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(activity));
-        timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(activity));
+        timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
+        timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
     }
 
     static int getThemeSecondaryTextColor(final Context context) {

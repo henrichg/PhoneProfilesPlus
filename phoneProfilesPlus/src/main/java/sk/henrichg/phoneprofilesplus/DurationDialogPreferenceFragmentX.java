@@ -23,14 +23,14 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
     private SeekBar mSeekBarSeconds;
     private TimeDurationPickerDialog mValueDialog;
 
-    private Context context;
+    private Context prefContext;
     private DurationDialogPreferenceX preference;
 
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(@NonNull Context context)
     {
-        this.context = context;
+        this.prefContext = context;
         preference = (DurationDialogPreferenceX) getPreference();
         preference.fragment = this;
 
@@ -85,7 +85,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
 
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
-        mValueDialog = new TimeDurationPickerDialog(context, (view1, duration) -> {
+        mValueDialog = new TimeDurationPickerDialog(prefContext, (view1, duration) -> {
             int iValue1 = (int) duration / 1000;
 
             if (iValue1 < preference.mMin)
@@ -105,7 +105,8 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
             mSeekBarMinutes.setProgress(minutes1);
             mSeekBarSeconds.setProgress(seconds1);
         }, iValue * 1000L, TimeDurationPicker.HH_MM_SS);
-        GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), getActivity());
+        //noinspection ConstantConditions
+        GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), prefContext);
         mValue.setOnClickListener(view12 -> {
                 int hours12 = mSeekBarHours.getProgress();
                 int minutes12 = mSeekBarMinutes.getProgress();

@@ -10,7 +10,6 @@ import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
