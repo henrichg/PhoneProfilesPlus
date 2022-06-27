@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -419,17 +420,27 @@ public class ProfileIconPreferenceX extends DialogPreference {
             if ((preference != null) && (prefContext != null)) {
                 if (preference.isImageResourceID) {
                     // je to resource id
+
+                    int res = Profile.getIconResource(preference.imageIdentifier);
+                    //bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
+                    bitmap = BitmapManipulator.getBitmapFromResource(res, true, prefContext);
+
                     if (preference.useCustomColor) {
                         //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(preference.imageIdentifier);
-                        //bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
-                        bitmap = BitmapManipulator.getBitmapFromResource(res, true, prefContext);
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, prefContext*/);
                     }
                 } else {
                     // je to file
                     bitmap = preference.getBitmap();
                 }
+
+                if (!inDialog) {
+                    boolean nightModeOn = (prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                            == Configuration.UI_MODE_NIGHT_YES;
+                    if (nightModeOn)
+                        bitmap = BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                }
+
             }
             return null;
         }
@@ -443,7 +454,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
             Context prefContext = prefContextWeakRef.get();
             if ((preference != null) && (prefContext != null)) {
                 if (_imageView != null) {
-                    if (preference.isImageResourceID) {
+                    /*if (preference.isImageResourceID) {
                         // je to resource id
                         if (preference.useCustomColor)
                             _imageView.setImageBitmap(bitmap);
@@ -458,6 +469,11 @@ public class ProfileIconPreferenceX extends DialogPreference {
                             _imageView.setImageBitmap(bitmap);
                         else
                             _imageView.setImageResource(R.drawable.ic_profile_default);
+                    }*/
+                    if (bitmap != null)
+                        _imageView.setImageBitmap(bitmap);
+                    else {
+                        _imageView.setImageResource(R.drawable.ic_profile_default);
                     }
                 }
             }

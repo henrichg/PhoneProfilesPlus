@@ -379,6 +379,7 @@ public class Profile {
     //static final int SHARED_PROFILE_VALUE = 99;
     static final String NO_CHANGE_VALUE_STR = "0";
     //static final String SHARED_PROFILE_VALUE_STR = "99";
+    static final int BRIGHTNESS_VALUE_FOR_DARK_MODE = 30;
 
     //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
@@ -3454,11 +3455,11 @@ public class Profile {
         if (nightModeOn) {
             releaseIconBitmap();
             if (iconBitmap != null) {
-                return BitmapManipulator.setBitmapBrightness(iconBitmap, 30);
+                return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
             } else {
                 int iconResource = getIconResource(getIconIdentifier());
                 Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
-                return BitmapManipulator.setBitmapBrightness(bitmap, 30);
+                return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
             }
         }
         return null;
@@ -3471,11 +3472,11 @@ public class Profile {
             if (nightModeOn) {
                 releaseIconBitmap();
                 if (iconBitmap != null) {
-                    return BitmapManipulator.setBitmapBrightness(iconBitmap, 30);
+                    return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
                 } else {
                     int iconResource = getIconResource(getIconIdentifier());
                     Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, activity);
-                    return BitmapManipulator.setBitmapBrightness(bitmap, 30);
+                    return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
                 }
             }
         }
