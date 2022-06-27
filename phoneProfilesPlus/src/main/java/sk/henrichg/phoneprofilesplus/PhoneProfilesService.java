@@ -6575,6 +6575,12 @@ public class PhoneProfilesService extends Service
                         notificationBuilder.setSmallIcon(iconSmallResource);
                     }
 
+                    if (notificationProfileIconColor.equals("0")) {
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                        if (bitmap != null)
+                            iconBitmap = bitmap;
+                    }
+
                     if (notificationNotificationStyle.equals("0")) {
                         try {
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
@@ -6630,7 +6636,7 @@ public class PhoneProfilesService extends Service
                     if (notificationProfileIconColor.equals("1"))
                         iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
                     else {
-                        Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext);
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
                         if (bitmap != null)
                             iconBitmap = bitmap;
                     }

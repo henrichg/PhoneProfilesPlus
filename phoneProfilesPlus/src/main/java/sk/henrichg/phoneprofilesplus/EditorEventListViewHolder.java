@@ -275,24 +275,24 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 profileStartName.setText(profileName);
                 if (profile.getIsIconResourceID())
                 {
-                    if (profile._iconBitmap != null)
-                        profileStartIcon.setImageBitmap(profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+                    if (bitmap != null)
+                        profileStartIcon.setImageBitmap(bitmap);
                     else {
-                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity());
-                        if (bitmap != null) {
-                            profileStartIcon.setImageBitmap(bitmap);
-                        } else {
-                            //holder.profileStartIcon.setImageBitmap(null);
-                            //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            //        context.PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(profile.getIconIdentifier());
-                            profileStartIcon.setImageResource(res); // icon resource
-                        }
+                        //holder.profileStartIcon.setImageBitmap(null);
+                        //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                        //        context.PPApplication.PACKAGE_NAME);
+                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                        profileStartIcon.setImageResource(res); // icon resource
                     }
                 }
                 else
                 {
-                    profileStartIcon.setImageBitmap(profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+                    if (bitmap != null)
+                        profileStartIcon.setImageBitmap(bitmap);
+                    else
+                        profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
                 if (applicationEditorPrefIndicator)
@@ -382,22 +382,22 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //}
                     profileEndName.setText(profileName);
                     if (profile.getIsIconResourceID()) {
-                        if (profile._iconBitmap != null)
-                            profileEndIcon.setImageBitmap(profile._iconBitmap);
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+                        if (bitmap != null)
+                            profileEndIcon.setImageBitmap(bitmap);
                         else {
-                            Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity());
-                            if (bitmap != null) {
-                                profileEndIcon.setImageBitmap(bitmap);
-                            } else {
-                                //holder.profileEndIcon.setImageBitmap(null);
-                                //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                                //        context.PPApplication.PACKAGE_NAME);
-                                int res = Profile.getIconResource(profile.getIconIdentifier());
-                                profileEndIcon.setImageResource(res); // icon resource
-                            }
+                            //holder.profileEndIcon.setImageBitmap(null);
+                            //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            //        context.PPApplication.PACKAGE_NAME);
+                            int res = Profile.getIconResource(profile.getIconIdentifier());
+                            profileEndIcon.setImageResource(res); // icon resource
                         }
                     } else {
-                        profileEndIcon.setImageBitmap(profile._iconBitmap);
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+                        if (bitmap != null)
+                            profileEndIcon.setImageBitmap(bitmap);
+                        else
+                            profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
                     if (applicationEditorPrefIndicator) {

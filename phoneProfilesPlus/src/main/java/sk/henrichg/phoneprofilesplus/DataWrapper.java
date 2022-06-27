@@ -788,28 +788,24 @@ public class DataWrapper {
         useCustomColor = profile.getUseCustomColorForIcon();
 
         if (isIconResourceID) {
-            if (profile._iconBitmap != null)
-                profileBitmap = profile._iconBitmap;
+            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            if (bitmap != null)
+                profileBitmap = bitmap;
             else {
-                Bitmap bitmap = null;
-                if (ApplicationPreferences.applicationShortcutIconColor.equals("0")) {
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context);
-                }
-                if (bitmap != null) {
-                    profileBitmap = bitmap;
-                } else {
-                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                    int iconResource = Profile.getIconResource(iconIdentifier);
-                    //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
-                    profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
-                }
+                //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                int iconResource = Profile.getIconResource(iconIdentifier);
+                //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
+                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
             }
         } else {
             int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
-            profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context.getApplicationContext());
-            if (profileBitmap == null) {
+            Bitmap bitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context.getApplicationContext());
+            bitmap = profile.increaseProfileIconBrightnessForContext(context, bitmap);
+            if (bitmap != null)
+                profileBitmap = bitmap;
+            else {
                 int iconResource = R.drawable.ic_profile_default;
                 //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
                 profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);

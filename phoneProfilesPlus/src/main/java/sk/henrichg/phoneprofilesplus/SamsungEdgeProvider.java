@@ -211,24 +211,26 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }
             if (isIconResourceID)
             {
-                if (profile._iconBitmap != null)
-                    widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, profile._iconBitmap);
+                Bitmap bitmap = null;
+                if (applicationSamsungEdgeIconColor.equals("0"))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                if (bitmap != null)
+                    widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, bitmap);
                 else {
-                    Bitmap bitmap = null;
-                    if (applicationSamsungEdgeIconColor.equals("0"))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context);
-                    if (bitmap != null) {
-                        widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, bitmap);
-                    } else {
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                        int iconResource = Profile.getIconResource(iconIdentifier);
-                        widget.setImageViewResource(R.id.widget_samsung_edge_header_profile_icon, iconResource);
-                    }
+                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                    int iconResource = Profile.getIconResource(iconIdentifier);
+                    widget.setImageViewResource(R.id.widget_samsung_edge_header_profile_icon, iconResource);
                 }
             }
             else
             {
-                widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, profile._iconBitmap);
+                Bitmap bitmap = null;
+                if (applicationSamsungEdgeIconColor.equals("0"))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                if (bitmap != null)
+                    widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, bitmap);
+                else
+                    widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, profile._iconBitmap);
             }
 
             red = 0xFF;

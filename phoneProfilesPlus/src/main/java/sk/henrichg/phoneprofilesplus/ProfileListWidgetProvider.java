@@ -618,24 +618,27 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
             if (isIconResourceID)
             {
-                if (profile._iconBitmap != null)
-                    widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
+                Bitmap bitmap = null;
+                if (applicationWidgetListIconColor.equals("0"))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                if (bitmap != null)
+                    widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, bitmap);
                 else {
-                    Bitmap bitmap = null;
-                    if (applicationWidgetListIconColor.equals("0"))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context);
-                    if (bitmap != null) {
-                        widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, bitmap);
-                    } else {
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                        int iconResource = Profile.getIconResource(iconIdentifier);
-                        widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
-                    }
+                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                    int iconResource = Profile.getIconResource(iconIdentifier);
+                    widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
                 }
             }
             else
             {
-                widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
+                Bitmap bitmap = null;
+                if (applicationWidgetListIconColor.equals("0"))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                if (bitmap != null)
+                    widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, bitmap);
+                else {
+                    widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
+                }
             }
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&

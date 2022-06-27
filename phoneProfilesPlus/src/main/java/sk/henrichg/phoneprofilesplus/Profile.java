@@ -3447,34 +3447,36 @@ public class Profile {
     }
 
     //todo
-    Bitmap increaseProfileIconBrightnessForContext(Context context) {
-        if (getIsIconResourceID() && (!getUseCustomColorForIcon())) {
-            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                    == Configuration.UI_MODE_NIGHT_YES;
+    Bitmap increaseProfileIconBrightnessForContext(Context context, Bitmap iconBitmap) {
+        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                                == Configuration.UI_MODE_NIGHT_YES;
 
-            if (nightModeOn) {
-                releaseIconBitmap();
+        if (nightModeOn) {
+            releaseIconBitmap();
+            if (iconBitmap != null) {
+                return BitmapManipulator.setBitmapBrightness(iconBitmap, 30);
+            } else {
                 int iconResource = getIconResource(getIconIdentifier());
                 Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
-                bitmap = BitmapManipulator.setBitmapBrightness(bitmap, 30);
-
-                return bitmap;
+                return BitmapManipulator.setBitmapBrightness(bitmap, 30);
             }
         }
         return null;
     }
-    Bitmap increaseProfileIconBrightnessForActivity(Activity activity) {
-        if (getIsIconResourceID() && (!getUseCustomColorForIcon())) {
+    Bitmap increaseProfileIconBrightnessForActivity(Activity activity, Bitmap iconBitmap) {
+        if (activity != null) {
             boolean nightModeOn = (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                     == Configuration.UI_MODE_NIGHT_YES;
 
             if (nightModeOn) {
                 releaseIconBitmap();
-                int iconResource = getIconResource(getIconIdentifier());
-                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, activity);
-                bitmap = BitmapManipulator.setBitmapBrightness(bitmap, 30);
-
-                return bitmap;
+                if (iconBitmap != null) {
+                    return BitmapManipulator.setBitmapBrightness(iconBitmap, 30);
+                } else {
+                    int iconResource = getIconResource(getIconIdentifier());
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, activity);
+                    return BitmapManipulator.setBitmapBrightness(bitmap, 30);
+                }
             }
         }
         return null;

@@ -892,21 +892,21 @@ public class EditorProfileListFragment extends Fragment
             activeProfileName.setText(profileName);
             if (profile.getIsIconResourceID())
             {
-                if (profile._iconBitmap != null)
-                    activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                if (bitmap != null)
+                    activeProfileIcon.setImageBitmap(bitmap);
                 else {
-                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity());
-                    if (bitmap != null) {
-                        activeProfileIcon.setImageBitmap(bitmap);
-                    } else {
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
-                        activeProfileIcon.setImageResource(res); // icon resource
-                    }
+                    int res = Profile.getIconResource(profile.getIconIdentifier());
+                    activeProfileIcon.setImageResource(res); // icon resource
                 }
             }
             else
             {
-                activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                if (bitmap != null)
+                    activeProfileIcon.setImageBitmap(bitmap);
+                else
+                    activeProfileIcon.setImageBitmap(profile._iconBitmap);
             }
         }
 

@@ -602,23 +602,26 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 }
 
                 if (isIconResourceID) {
-                    if (profile._iconBitmap != null)
-                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
+                    Bitmap bitmap = null;
+                    if (applicationWidgetOneRowIconColor.equals("0"))
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                    if (bitmap != null)
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
                     else {
-                        Bitmap bitmap = null;
-                        if (applicationWidgetOneRowIconColor.equals("0"))
-                            bitmap = profile.increaseProfileIconBrightnessForContext(context);
-                        if (bitmap != null) {
-                            remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
-                        } else {
-                            //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
-                            //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                            int iconResource = Profile.getIconResource(iconIdentifier);
-                            remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
-                        }
+                        //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
+                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                        int iconResource = Profile.getIconResource(iconIdentifier);
+                        remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
                     }
                 } else {
-                    remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
+                    Bitmap bitmap = null;
+                    if (applicationWidgetOneRowIconColor.equals("0"))
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                    if (bitmap != null)
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
+                    else {
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
+                    }
                 }
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&

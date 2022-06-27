@@ -70,24 +70,24 @@ public class ProfilePreferenceX extends DialogPreference {
             {
                 if (profile.getIsIconResourceID())
                 {
-                    if (profile._iconBitmap != null)
-                        profileIcon.setImageBitmap(profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
+                    if (bitmap != null)
+                        profileIcon.setImageBitmap(bitmap);
                     else {
-                        Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext);
-                        if (bitmap != null) {
-                            profileIcon.setImageBitmap(bitmap);
-                        } else {
-                            //profileIcon.setImageBitmap(null);
-                            //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            //        prefContext.PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(profile.getIconIdentifier());
-                            profileIcon.setImageResource(res); // icon resource
-                        }
+                        //profileIcon.setImageBitmap(null);
+                        //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                        //        prefContext.PPApplication.PACKAGE_NAME);
+                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                        profileIcon.setImageResource(res); // icon resource
                     }
                 }
                 else
                 {
-                    profileIcon.setImageBitmap(profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
+                    if (bitmap != null)
+                        profileIcon.setImageBitmap(bitmap);
+                    else
+                        profileIcon.setImageBitmap(profile._iconBitmap);
                 }
             }
             else

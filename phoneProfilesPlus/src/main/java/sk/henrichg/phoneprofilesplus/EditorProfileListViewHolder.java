@@ -102,24 +102,24 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
         if (profile.getIsIconResourceID())
         {
-            if (profile._iconBitmap != null)
-                profileIcon.setImageBitmap(profile._iconBitmap);
+            Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+            if (bitmap != null)
+                profileIcon.setImageBitmap(bitmap);
             else {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity());
-                if (bitmap != null) {
-                    profileIcon.setImageBitmap(bitmap);
-                } else {
-                    //holder.profileIcon.setImageBitmap(null);
-                    //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                    //        context.PPApplication.PACKAGE_NAME);
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    profileIcon.setImageResource(res); // icon resource
-                }
+                //holder.profileIcon.setImageBitmap(null);
+                //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                //        context.PPApplication.PACKAGE_NAME);
+                int res = Profile.getIconResource(profile.getIconIdentifier());
+                profileIcon.setImageResource(res); // icon resource
             }
         }
         else
         {
-            profileIcon.setImageBitmap(profile._iconBitmap);
+            Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+            if (bitmap != null)
+                profileIcon.setImageBitmap(bitmap);
+            else
+                profileIcon.setImageBitmap(profile._iconBitmap);
         }
 
         if (ApplicationPreferences.applicationEditorPrefIndicator)

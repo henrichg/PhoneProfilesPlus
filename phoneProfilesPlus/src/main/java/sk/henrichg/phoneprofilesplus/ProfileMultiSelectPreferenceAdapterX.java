@@ -92,23 +92,24 @@ class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {
             holder.profileIcon.setVisibility(View.VISIBLE);
             if (profile.getIsIconResourceID())
             {
-                if (profile._iconBitmap != null)
-                    holder.profileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(preferenceFragment.getActivity(), profile._iconBitmap);
+                if (bitmap != null)
+                    holder.profileIcon.setImageBitmap(bitmap);
                 else {
-                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(preferenceFragment.getActivity());
-                    if (bitmap != null) {
-                        holder.profileIcon.setImageBitmap(bitmap);
-                    } else {
-                        //holder.profileIcon.setImageBitmap(null);
-                        //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                        //        vi.getContext().PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
-                        holder.profileIcon.setImageResource(res); // icon resource
-                    }
+                    //holder.profileIcon.setImageBitmap(null);
+                    //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                    //        vi.getContext().PPApplication.PACKAGE_NAME);
+                    int res = Profile.getIconResource(profile.getIconIdentifier());
+                    holder.profileIcon.setImageResource(res); // icon resource
                 }
             }
-            else
-                holder.profileIcon.setImageBitmap(profile._iconBitmap);
+            else {
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(preferenceFragment.getActivity(), profile._iconBitmap);
+                if (bitmap != null)
+                    holder.profileIcon.setImageBitmap(bitmap);
+                else
+                    holder.profileIcon.setImageBitmap(profile._iconBitmap);
+            }
             if (applicationEditorPrefIndicator) {
                 if (holder.preferencesIndicator != null) {
                     holder.preferencesIndicator.setVisibility(View.VISIBLE);

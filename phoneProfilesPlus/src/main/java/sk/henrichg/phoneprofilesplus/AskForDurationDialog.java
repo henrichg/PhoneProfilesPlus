@@ -478,22 +478,22 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
                 Profile afterDoProfile = mDataWrapper.getProfileById(mAfterDoProfile, true, showIndicators, false);
                 if (afterDoProfile != null) {
-
                     profileName.setText(afterDoProfile._name);
+
                     if (afterDoProfile.getIsIconResourceID()) {
-                        if (afterDoProfile._iconBitmap != null)
-                            profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
+                        Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity, afterDoProfile._iconBitmap);
+                        if (bitmap != null)
+                            profileIcon.setImageBitmap(bitmap);
                         else {
-                            Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity);
-                            if (bitmap != null) {
-                                profileIcon.setImageBitmap(bitmap);
-                            } else {
-                                int res = Profile.getIconResource(afterDoProfile.getIconIdentifier());
-                                profileIcon.setImageResource(res); // icon resource
-                            }
+                            int res = Profile.getIconResource(afterDoProfile.getIconIdentifier());
+                            profileIcon.setImageResource(res); // icon resource
                         }
                     } else {
-                        profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
+                        Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity, afterDoProfile._iconBitmap);
+                        if (bitmap != null)
+                            profileIcon.setImageBitmap(bitmap);
+                        else
+                            profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
                     }
 
                     if (showIndicators) {

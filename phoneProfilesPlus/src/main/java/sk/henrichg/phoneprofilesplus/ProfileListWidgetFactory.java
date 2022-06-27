@@ -135,22 +135,24 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         if (profile != null) {
             if (profile.getIsIconResourceID()) {
-                if (profile._iconBitmap != null)
-                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                Bitmap bitmap = null;
+                if (applicationWidgetListIconColor.equals("0"))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                if (bitmap != null)
+                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
                 else {
-                    Bitmap bitmap = null;
-                    if (applicationWidgetListIconColor.equals("0"))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context);
-                    if (bitmap != null) {
-                        row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
-                    } else {
-                        row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
-                                /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
-                                Profile.getIconResource(profile.getIconIdentifier()));
-                    }
+                    row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
+                            /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
+                            Profile.getIconResource(profile.getIconIdentifier()));
                 }
             } else {
-                row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                Bitmap bitmap = null;
+                if (applicationWidgetListIconColor.equals("0"))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                if (bitmap != null)
+                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
+                else
+                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
             }
             int red = 0xFF;
             int green;
