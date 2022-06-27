@@ -132,8 +132,9 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
                     }
                     else
                     {
+                        int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
-                        if (bitmap != null)
+                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                             profileIcon.setImageBitmap(bitmap);
                         else
                             profileIcon.setImageBitmap(profile._iconBitmap);
@@ -180,8 +181,9 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
                             }
                             else
                             {
+                                int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                                 Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
-                                if (bitmap != null)
+                                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                                     profIcon.setImageBitmap(bitmap);
                                 else
                                     profIcon.setImageBitmap(profile._iconBitmap);

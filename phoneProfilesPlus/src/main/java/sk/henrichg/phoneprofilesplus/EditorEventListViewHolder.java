@@ -297,8 +297,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
                 else
                 {
+                    int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                    if (bitmap != null)
+                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                         profileStartIcon.setImageBitmap(bitmap);
                     else
                         profileStartIcon.setImageBitmap(profile._iconBitmap);
@@ -411,8 +412,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             }
                         }
                     } else {
+                        int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                        if (bitmap != null)
+                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                             profileEndIcon.setImageBitmap(bitmap);
                         else
                             profileEndIcon.setImageBitmap(profile._iconBitmap);

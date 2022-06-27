@@ -125,8 +125,9 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         }
         else
         {
+            int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
             Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-            if (bitmap != null)
+            if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                 profileIcon.setImageBitmap(bitmap);
             else
                 profileIcon.setImageBitmap(profile._iconBitmap);

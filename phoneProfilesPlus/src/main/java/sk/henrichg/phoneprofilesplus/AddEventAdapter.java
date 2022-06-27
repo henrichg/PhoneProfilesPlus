@@ -232,8 +232,9 @@ class AddEventAdapter extends BaseAdapter {
                 }
                 else
                 {
+                    int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                    if (bitmap != null)
+                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                         holder.profileStartIcon.setImageBitmap(bitmap);
                     else
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
@@ -339,8 +340,9 @@ class AddEventAdapter extends BaseAdapter {
                             }
                         }
                     } else {
+                        int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                        if (bitmap != null)
+                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                             holder.profileEndIcon.setImageBitmap(bitmap);
                         else
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);

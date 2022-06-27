@@ -499,8 +499,9 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                             }
                         }
                     } else {
+                        int iconColor = BitmapManipulator.getDominantColor(afterDoProfile._iconBitmap);
                         Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity, afterDoProfile._iconBitmap);
-                        if (bitmap != null)
+                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                             profileIcon.setImageBitmap(bitmap);
                         else
                             profileIcon.setImageBitmap(afterDoProfile._iconBitmap);

@@ -812,8 +812,9 @@ public class DataWrapper {
             int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
             Bitmap oringBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context.getApplicationContext());
+            int iconColor = BitmapManipulator.getDominantColor(oringBitmap);
             Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, oringBitmap);
-            if (bitmap != null)
+            if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                 profileBitmap = bitmap;
             else {
                 if (oringBitmap != null)

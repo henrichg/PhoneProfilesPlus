@@ -115,8 +115,9 @@ class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {
                 }
             }
             else {
+                int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(preferenceFragment.getActivity(), profile._iconBitmap);
-                if (bitmap != null)
+                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                     holder.profileIcon.setImageBitmap(bitmap);
                 else
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);

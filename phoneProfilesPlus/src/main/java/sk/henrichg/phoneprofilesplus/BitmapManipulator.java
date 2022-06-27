@@ -226,6 +226,13 @@ class BitmapManipulator {
         return false;
     }
 
+    static int getDominantColor(Bitmap bitmap) {
+        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true);
+        final int color = newBitmap.getPixel(0, 0);
+        newBitmap.recycle();
+        return color;
+    }
+
     /*
     static Bitmap resampleBitmapFile(String bitmapFile, int width, int height, Context context)
     {

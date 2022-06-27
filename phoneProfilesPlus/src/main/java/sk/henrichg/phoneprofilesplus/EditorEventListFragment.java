@@ -1125,8 +1125,9 @@ public class EditorEventListFragment extends Fragment
             }
             else
             {
+                int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
-                if (bitmap != null)
+                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                     activeProfileIcon.setImageBitmap(bitmap);
                 else
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);

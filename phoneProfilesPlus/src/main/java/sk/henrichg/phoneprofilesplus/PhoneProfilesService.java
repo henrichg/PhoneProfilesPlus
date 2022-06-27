@@ -6706,14 +6706,9 @@ public class PhoneProfilesService extends Service
                     notificationBuilder.setSmallIcon(iconSmallResource);
                 }
 
-                /* is not icon resource
-                int iconColor;
-                if (profile.getUseCustomColorForIcon())
-                    iconColor = profile.getIconCustomColor();
-                else
-                    iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());*/
+                int iconColor = BitmapManipulator.getDominantColor(iconBitmap);
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                if (bitmap != null)
+                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                     iconBitmap = bitmap;
 
                 if (notificationNotificationStyle.equals("0")) {

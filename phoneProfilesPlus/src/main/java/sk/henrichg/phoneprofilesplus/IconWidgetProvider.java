@@ -574,7 +574,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         }
                     }
                 } else {
-                    if (bitmap != null)
+                    int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
+                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                         remoteViews.setImageViewBitmap(R.id.icon_widget_icon, bitmap);
                     else {
                         remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);

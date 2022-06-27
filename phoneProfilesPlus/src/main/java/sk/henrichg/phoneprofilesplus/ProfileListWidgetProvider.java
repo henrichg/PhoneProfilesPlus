@@ -642,7 +642,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
             else
             {
-                if (bitmap != null)
+                int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
+                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, bitmap);
                 else {
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);

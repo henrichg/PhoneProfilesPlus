@@ -214,7 +214,8 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                             Profile.getIconResource(profile.getIconIdentifier()));
                 }
             } else {
-                if (bitmap != null)
+                int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
+                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                     row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, bitmap);
                 else
                     row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, profile._iconBitmap);
