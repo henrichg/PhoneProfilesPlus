@@ -422,13 +422,10 @@ public class ProfileIconPreferenceX extends DialogPreference {
                     // je to resource id
 
                     int res = Profile.getIconResource(preference.imageIdentifier);
-                    //bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
                     bitmap = BitmapManipulator.getBitmapFromResource(res, true, prefContext);
 
-                    if (preference.useCustomColor) {
-                        //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.PPApplication.PACKAGE_NAME);
+                    if (preference.useCustomColor)
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, prefContext*/);
-                    }
                 } else {
                     // je to file
                     bitmap = preference.getBitmap();
@@ -454,22 +451,6 @@ public class ProfileIconPreferenceX extends DialogPreference {
             Context prefContext = prefContextWeakRef.get();
             if ((preference != null) && (prefContext != null)) {
                 if (_imageView != null) {
-                    /*if (preference.isImageResourceID) {
-                        // je to resource id
-                        if (preference.useCustomColor)
-                            _imageView.setImageBitmap(bitmap);
-                        else {
-                            //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(preference.imageIdentifier);
-                            _imageView.setImageResource(res); // icon resource
-                        }
-                    } else {
-                        // je to file
-                        if (bitmap != null)
-                            _imageView.setImageBitmap(bitmap);
-                        else
-                            _imageView.setImageResource(R.drawable.ic_profile_default);
-                    }*/
                     if (bitmap != null)
                         _imageView.setImageBitmap(bitmap);
                     else {

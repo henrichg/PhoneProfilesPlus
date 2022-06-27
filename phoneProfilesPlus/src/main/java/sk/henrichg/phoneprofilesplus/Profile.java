@@ -3453,7 +3453,6 @@ public class Profile {
                                 == Configuration.UI_MODE_NIGHT_YES;
 
         if (nightModeOn) {
-            releaseIconBitmap();
             if (iconBitmap != null) {
                 return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
             } else {
@@ -3470,7 +3469,6 @@ public class Profile {
                     == Configuration.UI_MODE_NIGHT_YES;
 
             if (nightModeOn) {
-                releaseIconBitmap();
                 if (iconBitmap != null) {
                     return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
                 } else {
