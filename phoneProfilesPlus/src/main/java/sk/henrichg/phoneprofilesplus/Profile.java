@@ -3540,6 +3540,8 @@ public class Profile {
                 float[] hsv = new float[3];
                 Color.colorToHSV(iconColor, hsv); // color to hsv
                 hsv[2] = BRIGHTNESS_VALUE_FOR_DARK_MODE / 255f; // value component --> brightness
+                //if (hsv[2] > 1.0f)
+                //    hsv[2] = 1.0f;
                 return Color.HSVToColor(hsv); // hsv to color
             }
         }
