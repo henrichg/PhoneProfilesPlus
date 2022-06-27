@@ -482,13 +482,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                     profileName.setText(afterDoProfile._name);
 
                     if (afterDoProfile.getIsIconResourceID()) {
-                        int iconColor;
-                        if (afterDoProfile.getUseCustomColorForIcon())
-                            iconColor = afterDoProfile.getIconCustomColor();
-                        else
-                            iconColor = Profile.getIconDefaultColor(afterDoProfile.getIconIdentifier());
                         Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity, afterDoProfile._iconBitmap);
-                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                        if (bitmap != null)
                             profileIcon.setImageBitmap(bitmap);
                         else {
                             if (afterDoProfile._iconBitmap != null)
@@ -499,9 +494,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                             }
                         }
                     } else {
-                        int iconColor = BitmapManipulator.getDominantColor(afterDoProfile._iconBitmap);
                         Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity, afterDoProfile._iconBitmap);
-                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                        if (bitmap != null)
                             profileIcon.setImageBitmap(bitmap);
                         else
                             profileIcon.setImageBitmap(afterDoProfile._iconBitmap);

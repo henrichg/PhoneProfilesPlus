@@ -789,13 +789,8 @@ public class DataWrapper {
         useCustomColor = profile.getUseCustomColorForIcon();
 
         if (isIconResourceID) {
-            int iconColor;
-            if (profile.getUseCustomColorForIcon())
-                iconColor = profile.getIconCustomColor();
-            else
-                iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
             Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
-            if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+            if (bitmap != null)
                 profileBitmap = bitmap;
             else {
                 if (profile._iconBitmap != null)
@@ -812,9 +807,8 @@ public class DataWrapper {
             int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
             Bitmap oringBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context.getApplicationContext());
-            int iconColor = BitmapManipulator.getDominantColor(oringBitmap);
             Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, oringBitmap);
-            if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+            if (bitmap != null)
                 profileBitmap = bitmap;
             else {
                 if (oringBitmap != null)

@@ -97,13 +97,8 @@ class TileChooserListAdapter extends BaseAdapter {
             holder.profileName.setText(profileName);
 
             if (profile.getIsIconResourceID()) {
-                int iconColor;
-                if (profile.getUseCustomColorForIcon())
-                    iconColor = profile.getIconCustomColor();
-                else
-                    iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
-                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                if (bitmap != null)
                     holder.profileIcon.setImageBitmap(bitmap);
                 else {
                     if (profile._iconBitmap != null)
@@ -117,9 +112,8 @@ class TileChooserListAdapter extends BaseAdapter {
                     }
                 }
             } else {
-                int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
-                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                if (bitmap != null)
                     holder.profileIcon.setImageBitmap(bitmap);
                 else
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);

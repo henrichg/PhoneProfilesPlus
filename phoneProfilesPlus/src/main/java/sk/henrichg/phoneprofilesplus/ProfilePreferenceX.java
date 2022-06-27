@@ -71,13 +71,8 @@ public class ProfilePreferenceX extends DialogPreference {
             {
                 if (profile.getIsIconResourceID())
                 {
-                    int iconColor;
-                    if (profile.getUseCustomColorForIcon())
-                        iconColor = profile.getIconCustomColor();
-                    else
-                        iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
-                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                    if (bitmap != null)
                         profileIcon.setImageBitmap(bitmap);
                     else {
                         if (profile._iconBitmap != null)
@@ -93,9 +88,8 @@ public class ProfilePreferenceX extends DialogPreference {
                 }
                 else
                 {
-                    int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
-                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                    if (bitmap != null)
                         profileIcon.setImageBitmap(bitmap);
                     else
                         profileIcon.setImageBitmap(profile._iconBitmap);

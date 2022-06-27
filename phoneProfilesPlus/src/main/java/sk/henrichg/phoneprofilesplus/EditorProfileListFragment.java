@@ -893,13 +893,8 @@ public class EditorProfileListFragment extends Fragment
             activeProfileName.setText(profileName);
             if (profile.getIsIconResourceID())
             {
-                int iconColor;
-                if (profile.getUseCustomColorForIcon())
-                    iconColor = profile.getIconCustomColor();
-                else
-                    iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
-                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                if (bitmap != null)
                     activeProfileIcon.setImageBitmap(bitmap);
                 else {
                     if (profile._iconBitmap != null)
@@ -912,9 +907,8 @@ public class EditorProfileListFragment extends Fragment
             }
             else
             {
-                int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
-                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                if (bitmap != null)
                     activeProfileIcon.setImageBitmap(bitmap);
                 else
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);

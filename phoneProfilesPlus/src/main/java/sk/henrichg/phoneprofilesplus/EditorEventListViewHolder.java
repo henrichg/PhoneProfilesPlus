@@ -275,13 +275,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 profileStartName.setText(profileName);
                 if (profile.getIsIconResourceID())
                 {
-                    int iconColor;
-                    if (profile.getUseCustomColorForIcon())
-                        iconColor = profile.getIconCustomColor();
-                    else
-                        iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                    if (bitmap != null)
                         profileStartIcon.setImageBitmap(bitmap);
                     else {
                         if (profile._iconBitmap != null)
@@ -297,9 +292,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
                 else
                 {
-                    int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                    if (bitmap != null)
                         profileStartIcon.setImageBitmap(bitmap);
                     else
                         profileStartIcon.setImageBitmap(profile._iconBitmap);
@@ -392,13 +386,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //}
                     profileEndName.setText(profileName);
                     if (profile.getIsIconResourceID()) {
-                        int iconColor;
-                        if (profile.getUseCustomColorForIcon())
-                            iconColor = profile.getIconCustomColor();
-                        else
-                            iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                        if (bitmap != null)
                             profileEndIcon.setImageBitmap(bitmap);
                         else {
                             if (profile._iconBitmap != null)
@@ -412,9 +401,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             }
                         }
                     } else {
-                        int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                        if (bitmap != null)
                             profileEndIcon.setImageBitmap(bitmap);
                         else
                             profileEndIcon.setImageBitmap(profile._iconBitmap);

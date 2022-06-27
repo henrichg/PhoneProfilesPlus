@@ -210,13 +210,8 @@ class AddEventAdapter extends BaseAdapter {
                 holder.profileStartName.setTextColor(defaultColor);
                 if (profile.getIsIconResourceID())
                 {
-                    int iconColor;
-                    if (profile.getUseCustomColorForIcon())
-                        iconColor = profile.getIconCustomColor();
-                    else
-                        iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                    if (bitmap != null)
                         holder.profileStartIcon.setImageBitmap(bitmap);
                     else {
                         if (profile._iconBitmap != null)
@@ -232,9 +227,8 @@ class AddEventAdapter extends BaseAdapter {
                 }
                 else
                 {
-                    int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                    if (bitmap != null)
                         holder.profileStartIcon.setImageBitmap(bitmap);
                     else
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
@@ -320,13 +314,8 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileEndName.setText(profileName);
                     holder.profileEndName.setTextColor(defaultColor);
                     if (profile.getIsIconResourceID()) {
-                        int iconColor;
-                        if (profile.getUseCustomColorForIcon())
-                            iconColor = profile.getIconCustomColor();
-                        else
-                            iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                        if (bitmap != null)
                             holder.profileEndIcon.setImageBitmap(bitmap);
                         else {
                             if (profile._iconBitmap != null)
@@ -340,9 +329,8 @@ class AddEventAdapter extends BaseAdapter {
                             }
                         }
                     } else {
-                        int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                        if (bitmap != null)
                             holder.profileEndIcon.setImageBitmap(bitmap);
                         else
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);

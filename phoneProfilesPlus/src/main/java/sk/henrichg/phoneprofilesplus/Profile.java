@@ -12,6 +12,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 
+import androidx.core.graphics.ColorUtils;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -3456,12 +3458,23 @@ public class Profile {
                     == Configuration.UI_MODE_NIGHT_YES;
 
             if (nightModeOn) {
-                if (iconBitmap != null) {
-                    return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
-                } else {
-                    int iconResource = getIconResource(getIconIdentifier());
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
-                    return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                int iconColor;
+                if (getIsIconResourceID())
+                {
+                    if (getUseCustomColorForIcon())
+                        iconColor = getIconCustomColor();
+                    else
+                        iconColor = Profile.getIconDefaultColor(getIconIdentifier());
+                } else
+                    iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
+                    if (iconBitmap != null) {
+                        return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                    } else {
+                        int iconResource = getIconResource(getIconIdentifier());
+                        Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
+                        return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                    }
                 }
             }
         }
@@ -3474,12 +3487,23 @@ public class Profile {
                         == Configuration.UI_MODE_NIGHT_YES;
 
                 if (nightModeOn) {
-                    if (iconBitmap != null) {
-                        return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
-                    } else {
-                        int iconResource = getIconResource(getIconIdentifier());
-                        Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, activity);
-                        return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                    int iconColor;
+                    if (getIsIconResourceID())
+                    {
+                        if (getUseCustomColorForIcon())
+                            iconColor = getIconCustomColor();
+                        else
+                            iconColor = Profile.getIconDefaultColor(getIconIdentifier());
+                    } else
+                        iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                    if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
+                        if (iconBitmap != null) {
+                            return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                        } else {
+                            int iconResource = getIconResource(getIconIdentifier());
+                            Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, activity);
+                            return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                        }
                     }
                 }
             }

@@ -607,12 +607,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 }
                 if (isIconResourceID) {
-                    int iconColor;
-                    if (profile.getUseCustomColorForIcon())
-                        iconColor = profile.getIconCustomColor();
-                    else
-                        iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
-                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                    if (bitmap != null)
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
                     else {
                         if (profile._iconBitmap != null)
@@ -625,8 +620,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         }
                     }
                 } else {
-                    int iconColor = BitmapManipulator.getDominantColor(profile._iconBitmap);
-                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
+                    if (bitmap != null)
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
                     else {
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
