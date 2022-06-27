@@ -538,7 +538,7 @@ public class WifiScanWorker extends Worker {
             wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
 
         try {
-            if (!wifiLock.isHeld())
+            if ((wifiLock != null) && (!wifiLock.isHeld()))
                 wifiLock.acquire();
             //PPApplication.logE("$$$ WifiScanWorker.lock","xxx");
         } catch (Exception e) {
