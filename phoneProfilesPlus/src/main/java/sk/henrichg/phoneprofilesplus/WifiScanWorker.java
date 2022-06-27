@@ -550,8 +550,10 @@ public class WifiScanWorker extends Worker {
     public static void unlock()
     {
         try {
-            if ((wifiLock != null) && (wifiLock.isHeld()))
+            if ((wifiLock != null) && (wifiLock.isHeld())) {
                 wifiLock.release();
+                wifiLock = null;
+            }
             //PPApplication.logE("$$$ WifiScanWorker.unlock", "xxx");
         } catch (Exception e) {
             //Log.e("WifiScanWorker.unlock", Log.getStackTraceString(e));
