@@ -6,13 +6,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.palette.graphics.Palette;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -3465,8 +3468,11 @@ public class Profile {
                         iconColor = getIconCustomColor();
                     else
                         iconColor = Profile.getIconDefaultColor(getIconIdentifier());
-                } else
-                    iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                } else {
+                    //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                    Palette palette = Palette.from(_iconBitmap).generate();
+                    iconColor = palette.getDominantColor(0xff1c9cd7);
+                }
                 if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
                     if (iconBitmap != null) {
                         return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
@@ -3494,8 +3500,11 @@ public class Profile {
                             iconColor = getIconCustomColor();
                         else
                             iconColor = Profile.getIconDefaultColor(getIconIdentifier());
-                    } else
-                        iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                    } else {
+                        //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                        Palette palette = Palette.from(_iconBitmap).generate();
+                        iconColor = palette.getDominantColor(0xff1c9cd7);
+                    }
                     if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
                         if (iconBitmap != null) {
                             return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
@@ -3509,6 +3518,32 @@ public class Profile {
             }
         //}
         return null;
+    }
+    int increaseNotificationDecorationBrightness(Context context) {
+        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                == Configuration.UI_MODE_NIGHT_YES;
+
+        if (nightModeOn) {
+            int iconColor;
+            if (getIsIconResourceID())
+            {
+                if (getUseCustomColorForIcon())
+                    iconColor = getIconCustomColor();
+                else
+                    iconColor = Profile.getIconDefaultColor(getIconIdentifier());
+            } else {
+                //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                Palette palette = Palette.from(_iconBitmap).generate();
+                iconColor = palette.getDominantColor(0xff1c9cd7);
+            }
+            if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
+                float[] hsv = new float[3];
+                Color.colorToHSV(iconColor, hsv); // farba do hsv
+                hsv[2] = BRIGHTNESS_VALUE_FOR_DARK_MODE / 255f; // value component --> jas
+                return Color.HSVToColor(hsv); // hsv do farby
+            }
+        }
+        return 0;
     }
 
     static int getImageResourcePosition(String imageIdentifier/*, Context context*/) {

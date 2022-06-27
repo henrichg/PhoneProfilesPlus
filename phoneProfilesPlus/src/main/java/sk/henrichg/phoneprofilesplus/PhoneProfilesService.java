@@ -6665,11 +6665,19 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if ((profile != null) && (profile.getUseCustomColorForIcon()))
-                    decoratorColor = profile.getIconCustomColor();
+
+                int color = 0;
+                if (profile != null)
+                    color = profile.increaseNotificationDecorationBrightness(appContext);
+                if (color != 0)
+                    decoratorColor = color;
                 else {
-                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                        decoratorColor = Profile.getIconDefaultColor(iconIdentifier);
+                    if ((profile != null) && (profile.getUseCustomColorForIcon()))
+                        decoratorColor = profile.getIconCustomColor();
+                    else {
+                        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                            decoratorColor = Profile.getIconDefaultColor(iconIdentifier);
+                        }
                     }
                 }
 
@@ -6751,9 +6759,14 @@ public class PhoneProfilesService extends Service
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap="+iconBitmap);
                 if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
                     if (iconBitmap != null) {
-                        Palette palette = Palette.from(iconBitmap).generate();
-                        decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+                        int color = profile.increaseNotificationDecorationBrightness(appContext);
+                        if (color != 0)
+                            decoratorColor = color;
+                        else {
+                            Palette palette = Palette.from(iconBitmap).generate();
+                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "decoratorColor="+Integer.toHexString(decoratorColor));
+                        }
                     }
                 }
 
