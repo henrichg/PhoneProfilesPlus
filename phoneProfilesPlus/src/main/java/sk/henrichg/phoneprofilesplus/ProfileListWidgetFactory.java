@@ -89,6 +89,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         boolean applicationWidgetListChangeColorsByNightMode;
         String applicationWidgetListIconColor;
         boolean applicationWidgetListUseDynamicColors;
+        boolean applicationWidgetListBackgroundType;
+        String applicationWidgetListLightnessB;
+        String applicationWidgetListBackgroundColor;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
@@ -98,6 +101,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
             applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
+            applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
+            applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB;
+            applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (//PPApplication.isPixelLauncherDefault(context) ||
@@ -108,10 +114,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
                             applicationWidgetListLightnessT = "88"; // lightness of text = white
+                            applicationWidgetListBackgroundType = true; // background type = color
+                            applicationWidgetListBackgroundColor = String.valueOf(0x272727); // color of background
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             applicationWidgetListLightnessT = "13"; // lightness of text = black
+                            applicationWidgetListBackgroundType = true; // background type = color
+                            applicationWidgetListBackgroundColor = String.valueOf(0xf0f0f0); // color of background
                             break;
                     }
                 }
@@ -134,21 +144,27 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         Profile profile = getItem(position);
 
         if (profile != null) {
-            if (profile.getIsIconResourceID()) {
-                Bitmap bitmap = null;
-                if (applicationWidgetListIconColor.equals("0"))
+            Bitmap bitmap = null;
+            if (applicationWidgetListIconColor.equals("0")) {
+                if (applicationWidgetListChangeColorsByNightMode ||
+                    ((!applicationWidgetListBackgroundType) &&
+                        (Integer.parseInt(applicationWidgetListLightnessB) <= 25)) ||
+                    (applicationWidgetListBackgroundType &&
+                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)))
                     bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            }
+            if (profile.getIsIconResourceID()) {
                 if (bitmap != null)
                     row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
                 else {
-                    row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
+                    if (profile._iconBitmap != null)
+                        row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                    else
+                        row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
                             /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
                             Profile.getIconResource(profile.getIconIdentifier()));
                 }
             } else {
-                Bitmap bitmap = null;
-                if (applicationWidgetListIconColor.equals("0"))
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 if (bitmap != null)
                     row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
                 else

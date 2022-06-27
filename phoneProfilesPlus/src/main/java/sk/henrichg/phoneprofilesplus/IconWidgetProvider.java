@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class IconWidgetProvider extends AppWidgetProvider {
@@ -547,21 +548,28 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         remoteViews.setInt(R.id.widget_icon_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                 }*/
 
+                Bitmap bitmap = null;
+                if (applicationWidgetIconColor.equals("0")) {
+                    if (applicationWidgetIconChangeColorsByNightMode ||
+                        ((!applicationWidgetIconBackgroundType) &&
+                             (Integer.parseInt(applicationWidgetIconLightnessB) <= 25)) ||
+                         (applicationWidgetIconBackgroundType &&
+                             (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetIconBackgroundColor)) < 0.23)))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                }
                 if (isIconResourceID) {
-                    Bitmap bitmap = null;
-                    if (applicationWidgetIconColor.equals("0"))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                     if (bitmap != null)
                         remoteViews.setImageViewBitmap(R.id.icon_widget_icon, bitmap);
                     else {
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                        int iconResource = Profile.getIconResource(iconIdentifier);
-                        remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
+                        if (profile._iconBitmap != null)
+                            remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
+                        else {
+                            //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                            int iconResource = Profile.getIconResource(iconIdentifier);
+                            remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
+                        }
                     }
                 } else {
-                    Bitmap bitmap = null;
-                    if (applicationWidgetIconColor.equals("0"))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                     if (bitmap != null)
                         remoteViews.setImageViewBitmap(R.id.icon_widget_icon, bitmap);
                     else {

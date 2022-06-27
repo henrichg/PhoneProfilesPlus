@@ -279,11 +279,15 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     if (bitmap != null)
                         profileStartIcon.setImageBitmap(bitmap);
                     else {
-                        //holder.profileStartIcon.setImageBitmap(null);
-                        //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                        //        context.PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
-                        profileStartIcon.setImageResource(res); // icon resource
+                        if (profile._iconBitmap != null)
+                            profileStartIcon.setImageBitmap(profile._iconBitmap);
+                        else {
+                            //holder.profileStartIcon.setImageBitmap(null);
+                            //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            //        context.PPApplication.PACKAGE_NAME);
+                            int res = Profile.getIconResource(profile.getIconIdentifier());
+                            profileStartIcon.setImageResource(res); // icon resource
+                        }
                     }
                 }
                 else
@@ -386,11 +390,15 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         if (bitmap != null)
                             profileEndIcon.setImageBitmap(bitmap);
                         else {
-                            //holder.profileEndIcon.setImageBitmap(null);
-                            //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            //        context.PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(profile.getIconIdentifier());
-                            profileEndIcon.setImageResource(res); // icon resource
+                            if (profile._iconBitmap != null)
+                                profileEndIcon.setImageBitmap(profile._iconBitmap);
+                            else {
+                                //holder.profileEndIcon.setImageBitmap(null);
+                                //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                //        context.PPApplication.PACKAGE_NAME);
+                                int res = Profile.getIconResource(profile.getIconIdentifier());
+                                profileEndIcon.setImageResource(res); // icon resource
+                            }
                         }
                     } else {
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);

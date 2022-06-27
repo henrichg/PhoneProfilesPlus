@@ -896,8 +896,12 @@ public class EditorProfileListFragment extends Fragment
                 if (bitmap != null)
                     activeProfileIcon.setImageBitmap(bitmap);
                 else {
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    activeProfileIcon.setImageResource(res); // icon resource
+                    if (profile._iconBitmap != null)
+                        activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                    else {
+                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                        activeProfileIcon.setImageResource(res); // icon resource
+                    }
                 }
             }
             else

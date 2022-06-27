@@ -6069,10 +6069,12 @@ public class PhoneProfilesService extends Service
                                                      notificationBuilder,
                                                      notificationNotificationStyle, notificationStatusBarStyle,
 
+                                                     notificationBackgroundColor,
+                                                     notificationBackgroundCustomColor,
+
                                                      notificationShowProfileIcon,
                                                      notificationProfileIconColor,
                                                      monochromeValue,
-
                                                      profile,
                                                      isIconResourceID, iconBitmap,
                                                      iconIdentifier,
@@ -6533,14 +6535,15 @@ public class PhoneProfilesService extends Service
                                                      NotificationCompat.Builder notificationBuilder,
                                                      String notificationNotificationStyle, String notificationStatusBarStyle,
 
+                                                     String notificationBackgroundColor,
+                                                     int notificationBackgroundCustomColor,
+
                                                      boolean notificationShowProfileIcon,
                                                      String notificationProfileIconColor,
                                                      int notificationProfileIconMonochromeValue,
-
                                                      Profile profile,
                                                      boolean isIconResourceID, Bitmap iconBitmap,
                                                      String iconIdentifier,
-                                                     //boolean profileIconExists,
                                                      boolean useDecorator,
                                                      int decoratorColor,
                                                      Context appContext) {
@@ -6576,9 +6579,12 @@ public class PhoneProfilesService extends Service
                     }
 
                     if (notificationProfileIconColor.equals("0")) {
-                        Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                        if (bitmap != null)
-                            iconBitmap = bitmap;
+                        if ((!notificationBackgroundColor.equals("5")) ||
+                            (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)) {
+                            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                            if (bitmap != null)
+                                iconBitmap = bitmap;
+                        }
                     }
 
                     if (notificationNotificationStyle.equals("0")) {
@@ -6640,6 +6646,7 @@ public class PhoneProfilesService extends Service
                         if (bitmap != null)
                             iconBitmap = bitmap;
                     }
+
                     if (notificationNotificationStyle.equals("0")) {
                         try {
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
@@ -6692,6 +6699,10 @@ public class PhoneProfilesService extends Service
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                     notificationBuilder.setSmallIcon(iconSmallResource);
                 }
+
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                if (bitmap != null)
+                    iconBitmap = bitmap;
 
                 if (notificationNotificationStyle.equals("0")) {
                     try {

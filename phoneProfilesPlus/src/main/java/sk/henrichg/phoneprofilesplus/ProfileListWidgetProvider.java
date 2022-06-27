@@ -616,24 +616,32 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = new SpannableString(profile._name);
             }
+
+            Bitmap bitmap = null;
+            if (applicationWidgetListIconColor.equals("0")) {
+                if (applicationWidgetListChangeColorsByNightMode ||
+                        ((!applicationWidgetListBackgroundType) &&
+                    (Integer.parseInt(applicationWidgetListLightnessB) <= 25)) ||
+                    (applicationWidgetListBackgroundType &&
+                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            }
             if (isIconResourceID)
             {
-                Bitmap bitmap = null;
-                if (applicationWidgetListIconColor.equals("0"))
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 if (bitmap != null)
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, bitmap);
                 else {
-                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                    int iconResource = Profile.getIconResource(iconIdentifier);
-                    widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
+                    if (profile._iconBitmap != null)
+                        widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
+                    else {
+                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                        int iconResource = Profile.getIconResource(iconIdentifier);
+                        widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
+                    }
                 }
             }
             else
             {
-                Bitmap bitmap = null;
-                if (applicationWidgetListIconColor.equals("0"))
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 if (bitmap != null)
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, bitmap);
                 else {
@@ -681,7 +689,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                     applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
-                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
             } else {
@@ -690,7 +698,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
 //                Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
                 if (color != 0) {
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                     bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
                 }

@@ -16,6 +16,7 @@ import android.text.SpannableString;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
+import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
@@ -209,24 +210,32 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = new SpannableString(profile._name);
             }
+
+            Bitmap bitmap = null;
+            if (applicationSamsungEdgeIconColor.equals("0")) {
+                if (applicationSamsungEdgeChangeColorsByNightMode ||
+                    ((!applicationSamsungEdgeBackgroundType) &&
+                        (Integer.parseInt(applicationSamsungEdgeLightnessB) <= 25)) ||
+                    (applicationSamsungEdgeBackgroundType &&
+                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationSamsungEdgeBackgroundColor)) < 0.23)))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            }
             if (isIconResourceID)
             {
-                Bitmap bitmap = null;
-                if (applicationSamsungEdgeIconColor.equals("0"))
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 if (bitmap != null)
                     widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, bitmap);
                 else {
-                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                    int iconResource = Profile.getIconResource(iconIdentifier);
-                    widget.setImageViewResource(R.id.widget_samsung_edge_header_profile_icon, iconResource);
+                    if (profile._iconBitmap != null)
+                        widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, profile._iconBitmap);
+                    else {
+                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                        int iconResource = Profile.getIconResource(iconIdentifier);
+                        widget.setImageViewResource(R.id.widget_samsung_edge_header_profile_icon, iconResource);
+                    }
                 }
             }
             else
             {
-                Bitmap bitmap = null;
-                if (applicationSamsungEdgeIconColor.equals("0"))
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 if (bitmap != null)
                     widget.setImageViewBitmap(R.id.widget_samsung_edge_header_profile_icon, bitmap);
                 else

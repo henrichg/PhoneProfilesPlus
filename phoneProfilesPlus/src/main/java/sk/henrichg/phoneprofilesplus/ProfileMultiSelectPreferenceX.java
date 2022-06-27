@@ -113,11 +113,15 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
                         if (bitmap != null)
                             profileIcon.setImageBitmap(bitmap);
                         else {
-                            //profileIcon.setImageBitmap(null);
-                            //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            //        prefContext.PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(profile.getIconIdentifier());
-                            profileIcon.setImageResource(res); // icon resource
+                            if (profile._iconBitmap != null)
+                                profileIcon.setImageBitmap(profile._iconBitmap);
+                            else {
+                                //profileIcon.setImageBitmap(null);
+                                //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                //        prefContext.PPApplication.PACKAGE_NAME);
+                                int res = Profile.getIconResource(profile.getIconIdentifier());
+                                profileIcon.setImageResource(res); // icon resource
+                            }
                         }
                     }
                     else
@@ -152,11 +156,15 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
                                 if (bitmap != null)
                                     profileIcon.setImageBitmap(bitmap);
                                 else {
-                                    //profileIcon.setImageBitmap(null);
-                                    //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                                    //        prefContext.PPApplication.PACKAGE_NAME);
-                                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                                    profIcon.setImageResource(res); // icon resource
+                                    if (profile._iconBitmap != null)
+                                        profIcon.setImageBitmap(profile._iconBitmap);
+                                    else {
+                                        //profileIcon.setImageBitmap(null);
+                                        //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                        //        prefContext.PPApplication.PACKAGE_NAME);
+                                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                                        profIcon.setImageResource(res); // icon resource
+                                    }
                                 }
                             }
                             else

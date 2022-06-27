@@ -601,22 +601,29 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                 }
 
-                if (isIconResourceID) {
-                    Bitmap bitmap = null;
-                    if (applicationWidgetOneRowIconColor.equals("0"))
+                Bitmap bitmap = null;
+                if (applicationWidgetOneRowIconColor.equals("0")) {
+                    if (applicationWidgetOneRowChangeColorsByNightMode ||
+                       ((!applicationWidgetOneRowBackgroundType) &&
+                           (Integer.parseInt(applicationWidgetOneRowLightnessB) <= 25)) ||
+                       (applicationWidgetOneRowBackgroundType &&
+                           (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowBackgroundColor)) < 0.23)))
                         bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                }
+                if (isIconResourceID) {
                     if (bitmap != null)
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
                     else {
-                        //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                        int iconResource = Profile.getIconResource(iconIdentifier);
-                        remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
+                        if (profile._iconBitmap != null)
+                            remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
+                        else {
+                            //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
+                            //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                            int iconResource = Profile.getIconResource(iconIdentifier);
+                            remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
+                        }
                     }
                 } else {
-                    Bitmap bitmap = null;
-                    if (applicationWidgetOneRowIconColor.equals("0"))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                     if (bitmap != null)
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
                     else {
@@ -650,7 +657,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
                         applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
                     //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                     //}
@@ -660,7 +667,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
 //                    Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
                     if (color != 0) {
-                        Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                     }

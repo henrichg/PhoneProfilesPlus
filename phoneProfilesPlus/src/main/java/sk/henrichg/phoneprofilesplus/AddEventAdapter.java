@@ -212,11 +212,15 @@ class AddEventAdapter extends BaseAdapter {
                     if (bitmap != null)
                         holder.profileStartIcon.setImageBitmap(bitmap);
                     else {
-                        //holder.profileStartIcon.setImageBitmap(null);
-                        //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                        //        vi.getContext().PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
-                        holder.profileStartIcon.setImageResource(res); // icon resource
+                        if (profile._iconBitmap != null)
+                            holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
+                        else {
+                            //holder.profileStartIcon.setImageBitmap(null);
+                            //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            //        vi.getContext().PPApplication.PACKAGE_NAME);
+                            int res = Profile.getIconResource(profile.getIconIdentifier());
+                            holder.profileStartIcon.setImageResource(res); // icon resource
+                        }
                     }
                 }
                 else
@@ -312,11 +316,15 @@ class AddEventAdapter extends BaseAdapter {
                         if (bitmap != null)
                             holder.profileEndIcon.setImageBitmap(bitmap);
                         else {
-                            //holder.profileEndIcon.setImageBitmap(null);
-                            //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            //        vi.getContext().PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(profile.getIconIdentifier());
-                            holder.profileEndIcon.setImageResource(res); // icon resource
+                            if (profile._iconBitmap != null)
+                                holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
+                            else {
+                                //holder.profileEndIcon.setImageBitmap(null);
+                                //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                //        vi.getContext().PPApplication.PACKAGE_NAME);
+                                int res = Profile.getIconResource(profile.getIconIdentifier());
+                                holder.profileEndIcon.setImageResource(res); // icon resource
+                            }
                         }
                     } else {
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
