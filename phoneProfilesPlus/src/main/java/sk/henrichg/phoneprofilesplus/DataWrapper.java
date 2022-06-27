@@ -28,6 +28,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -788,8 +789,13 @@ public class DataWrapper {
         useCustomColor = profile.getUseCustomColorForIcon();
 
         if (isIconResourceID) {
+            int iconColor;
+            if (profile.getUseCustomColorForIcon())
+                iconColor = profile.getIconCustomColor();
+            else
+                iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
             Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
-            if (bitmap != null)
+            if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                 profileBitmap = bitmap;
             else {
                 if (profile._iconBitmap != null)

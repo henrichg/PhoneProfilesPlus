@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -892,8 +893,13 @@ public class EditorProfileListFragment extends Fragment
             activeProfileName.setText(profileName);
             if (profile.getIsIconResourceID())
             {
+                int iconColor;
+                if (profile.getUseCustomColorForIcon())
+                    iconColor = profile.getIconCustomColor();
+                else
+                    iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
-                if (bitmap != null)
+                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                     activeProfileIcon.setImageBitmap(bitmap);
                 else {
                     if (profile._iconBitmap != null)

@@ -65,7 +65,7 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
         }
 
         //String iconResName = context.getResources().getResourceEntryName(Profile.profileIconId[position]);
-        String iconResName = getImageResourceName(position);
+        String iconResName = Profile.getImageResourceName(position);
         if (iconResName.equals(preference.imageIdentifier) && preference.isImageResourceID) {
             //if (Build.VERSION.SDK_INT >= 21)
                 //holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
@@ -103,41 +103,10 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    static int getImageResourcePosition(String imageIdentifier/*, Context context*/) {
-        /*for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
-            String resName = context.getResources().getResourceEntryName(Profile.profileIconId[pos]);
-            if (resName.equals(imageIdentifier))
-                return pos;
-        }*/
-        if (Profile.profileIconIdMap.get(imageIdentifier) != null) {
-            int iconResource = Profile.getIconResource(imageIdentifier);
-            for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
-                if (Profile.profileIconId[pos] == iconResource)
-                    return pos;
-            }
-        }
-        return 0;
-    }
-
-    static String getImageResourceName(int position) {
-        int iconResource = Profile.profileIconId[position];
-        //noinspection rawtypes
-        for(Map.Entry entry: Profile.profileIconIdMap.entrySet()){
-            if (entry.getValue().equals(iconResource)) {
-                return entry.getKey().toString();
-            }
-        }
-        return "ic_profile_default";
-    }
-
     void setCustomColor(/*boolean newUseCustomColor, int newCustomColor*/) {
         //preference.useCustomColor = newUseCustomColor;
         //preference.customColor = newCustomColor;
         notifyDataSetChanged();
-    }
-
-    static int getIconColor(String imageIdentifier/*, Context context*/) {
-        return Profile.profileIconColor[getImageResourcePosition(imageIdentifier/*, context*/)];
     }
 
 }

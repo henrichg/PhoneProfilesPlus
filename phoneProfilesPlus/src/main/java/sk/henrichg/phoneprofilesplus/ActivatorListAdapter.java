@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.text.Spannable;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.graphics.ColorUtils;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -229,8 +232,15 @@ class ActivatorListAdapter extends BaseAdapter
 
 
             if (profile.getIsIconResourceID()) {
+                int iconColor;
+                if (profile.getUseCustomColorForIcon())
+                    iconColor = profile.getIconCustomColor();
+                else
+                    iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
-                if (bitmap != null)
+                //double luminance = ColorUtils.calculateLuminance(iconColor);
+                //Log.e("ActivatorListAdapter.getView", "profile="+profile._name+" - luminance="+luminance);
+                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                     holder.profileIcon.setImageBitmap(bitmap);
                 else {
                     if (profile._iconBitmap != null)

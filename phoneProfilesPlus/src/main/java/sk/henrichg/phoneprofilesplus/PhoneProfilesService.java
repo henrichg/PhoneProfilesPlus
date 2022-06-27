@@ -6577,8 +6577,13 @@ public class PhoneProfilesService extends Service
                     if (notificationProfileIconColor.equals("0")) {
                         if ((!notificationBackgroundColor.equals("5")) ||
                             (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)) {
+                            int iconColor;
+                            if (profile.getUseCustomColorForIcon())
+                                iconColor = profile.getIconCustomColor();
+                            else
+                                iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                             Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                            if (bitmap != null)
+                            if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                                 iconBitmap = bitmap;
                         }
                     }
@@ -6638,8 +6643,13 @@ public class PhoneProfilesService extends Service
                     if (notificationProfileIconColor.equals("1"))
                         iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
                     else {
+                        int iconColor;
+                        if (profile.getUseCustomColorForIcon())
+                            iconColor = profile.getIconCustomColor();
+                        else
+                            iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                        if (bitmap != null)
+                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                             iconBitmap = bitmap;
                     }
 
@@ -6669,7 +6679,7 @@ public class PhoneProfilesService extends Service
                     decoratorColor = profile.getIconCustomColor();
                 else {
                     if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                        decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier);
+                        decoratorColor = Profile.getIconDefaultColor(iconIdentifier);
                     }
                 }
 
@@ -6696,6 +6706,12 @@ public class PhoneProfilesService extends Service
                     notificationBuilder.setSmallIcon(iconSmallResource);
                 }
 
+                /* is not icon resource
+                int iconColor;
+                if (profile.getUseCustomColorForIcon())
+                    iconColor = profile.getIconCustomColor();
+                else
+                    iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());*/
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
                 if (bitmap != null)
                     iconBitmap = bitmap;

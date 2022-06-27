@@ -45,10 +45,10 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
                             preference.useCustomColor,
                             preference.customColor*/);
         gridView.setAdapter(adapter);
-        gridView.setSelection(ProfileIconPreferenceAdapterX.getImageResourcePosition(preference.imageIdentifier/*, prefContext*/));
+        gridView.setSelection(Profile.getImageResourcePosition(preference.imageIdentifier/*, prefContext*/));
 
         gridView.setOnItemClickListener((parent, v, position, id) -> {
-            preference.setImageIdentifierAndType(ProfileIconPreferenceAdapterX.getImageResourceName(position),true);
+            preference.setImageIdentifierAndType(Profile.getImageResourceName(position),true);
             adapter.imageIdentifierAndTypeChanged(/*preference.imageIdentifier, preference.isImageResourceID*/);
             preference.updateIcon(true);
             colorChooserButton.setEnabled(preference.isImageResourceID);

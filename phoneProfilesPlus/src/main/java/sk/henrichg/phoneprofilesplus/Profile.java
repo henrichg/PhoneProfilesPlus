@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Profile {
 
@@ -383,6 +384,8 @@ public class Profile {
     //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
     //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
+
+    static final double MIN_PROFILE_ICON_LUMINANCE = 0.3d;
 
     static final int[] profileIconId = {
             R.drawable.ic_profile_default,
@@ -3482,6 +3485,37 @@ public class Profile {
             }
         }
         return null;
+    }
+
+    static int getImageResourcePosition(String imageIdentifier/*, Context context*/) {
+        /*for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
+            String resName = context.getResources().getResourceEntryName(Profile.profileIconId[pos]);
+            if (resName.equals(imageIdentifier))
+                return pos;
+        }*/
+        if (Profile.profileIconIdMap.get(imageIdentifier) != null) {
+            int iconResource = Profile.getIconResource(imageIdentifier);
+            for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
+                if (Profile.profileIconId[pos] == iconResource)
+                    return pos;
+            }
+        }
+        return 0;
+    }
+
+    static String getImageResourceName(int position) {
+        int iconResource = Profile.profileIconId[position];
+        //noinspection rawtypes
+        for(Map.Entry entry: Profile.profileIconIdMap.entrySet()){
+            if (entry.getValue().equals(iconResource)) {
+                return entry.getKey().toString();
+            }
+        }
+        return "ic_profile_default";
+    }
+
+    static int getIconDefaultColor(String imageIdentifier/*, Context context*/) {
+        return Profile.profileIconColor[getImageResourcePosition(imageIdentifier/*, context*/)];
     }
 
     private void releaseIconBitmap()

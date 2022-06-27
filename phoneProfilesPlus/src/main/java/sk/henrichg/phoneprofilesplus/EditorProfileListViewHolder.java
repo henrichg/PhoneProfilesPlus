@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 class EditorProfileListViewHolder extends RecyclerView.ViewHolder
@@ -102,8 +103,13 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
         if (profile.getIsIconResourceID())
         {
+            int iconColor;
+            if (profile.getUseCustomColorForIcon())
+                iconColor = profile.getIconCustomColor();
+            else
+                iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
             Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-            if (bitmap != null)
+            if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                 profileIcon.setImageBitmap(bitmap);
             else {
                 if (profile._iconBitmap != null)

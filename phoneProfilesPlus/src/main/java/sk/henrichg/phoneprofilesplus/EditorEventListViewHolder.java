@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 class EditorEventListViewHolder extends RecyclerView.ViewHolder
@@ -274,8 +275,13 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 profileStartName.setText(profileName);
                 if (profile.getIsIconResourceID())
                 {
+                    int iconColor;
+                    if (profile.getUseCustomColorForIcon())
+                        iconColor = profile.getIconCustomColor();
+                    else
+                        iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                    if (bitmap != null)
+                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                         profileStartIcon.setImageBitmap(bitmap);
                     else {
                         if (profile._iconBitmap != null)
@@ -385,8 +391,13 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //}
                     profileEndName.setText(profileName);
                     if (profile.getIsIconResourceID()) {
+                        int iconColor;
+                        if (profile.getUseCustomColorForIcon())
+                            iconColor = profile.getIconCustomColor();
+                        else
+                            iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                        if (bitmap != null)
+                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                             profileEndIcon.setImageBitmap(bitmap);
                         else {
                             if (profile._iconBitmap != null)

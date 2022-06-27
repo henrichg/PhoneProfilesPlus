@@ -557,7 +557,12 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 }
                 if (isIconResourceID) {
-                    if (bitmap != null)
+                    int iconColor;
+                    if (profile.getUseCustomColorForIcon())
+                        iconColor = profile.getIconCustomColor();
+                    else
+                        iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
+                    if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                         remoteViews.setImageViewBitmap(R.id.icon_widget_icon, bitmap);
                     else {
                         if (profile._iconBitmap != null)

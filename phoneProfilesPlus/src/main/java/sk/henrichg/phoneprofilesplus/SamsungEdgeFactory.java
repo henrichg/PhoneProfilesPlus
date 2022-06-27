@@ -198,7 +198,12 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                     bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
             }
             if (profile.getIsIconResourceID()) {
-                if (bitmap != null)
+                int iconColor;
+                if (profile.getUseCustomColorForIcon())
+                    iconColor = profile.getIconCustomColor();
+                else
+                    iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
+                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                     row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, bitmap);
                 else {
                     if (profile._iconBitmap != null)

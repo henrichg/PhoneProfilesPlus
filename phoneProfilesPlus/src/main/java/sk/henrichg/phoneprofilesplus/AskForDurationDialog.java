@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 
 import java.util.Arrays;
 import java.util.Timer;
@@ -481,8 +482,13 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                     profileName.setText(afterDoProfile._name);
 
                     if (afterDoProfile.getIsIconResourceID()) {
+                        int iconColor;
+                        if (afterDoProfile.getUseCustomColorForIcon())
+                            iconColor = afterDoProfile.getIconCustomColor();
+                        else
+                            iconColor = Profile.getIconDefaultColor(afterDoProfile.getIconIdentifier());
                         Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity, afterDoProfile._iconBitmap);
-                        if (bitmap != null)
+                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                             profileIcon.setImageBitmap(bitmap);
                         else {
                             if (afterDoProfile._iconBitmap != null)

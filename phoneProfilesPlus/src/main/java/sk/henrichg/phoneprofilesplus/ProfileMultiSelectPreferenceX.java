@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.ColorUtils;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -109,8 +110,13 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
                 {
                     if (profile.getIsIconResourceID())
                     {
+                        int iconColor;
+                        if (profile.getUseCustomColorForIcon())
+                            iconColor = profile.getIconCustomColor();
+                        else
+                            iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                         Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
-                        if (bitmap != null)
+                        if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                             profileIcon.setImageBitmap(bitmap);
                         else {
                             if (profile._iconBitmap != null)
@@ -152,8 +158,13 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
                         {
                             if (profile.getIsIconResourceID())
                             {
+                                int iconColor;
+                                if (profile.getUseCustomColorForIcon())
+                                    iconColor = profile.getIconCustomColor();
+                                else
+                                    iconColor = Profile.getIconDefaultColor(profile.getIconIdentifier());
                                 Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
-                                if (bitmap != null)
+                                if ((bitmap != null) && (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE))
                                     profileIcon.setImageBitmap(bitmap);
                                 else {
                                     if (profile._iconBitmap != null)
