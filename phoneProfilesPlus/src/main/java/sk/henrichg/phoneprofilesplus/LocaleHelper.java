@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.util.Log;
 
 import androidx.core.os.ConfigurationCompat;
 import androidx.core.os.LocaleListCompat;
@@ -61,7 +60,7 @@ public class LocaleHelper {
 
         String languageToStore = language;
         String countryToStore = country;
-        String scriptToStore = country;
+        String scriptToStore = script;
 
 //        Log.e("LocaleHelper.setLocale", "languageToStore="+languageToStore);
 //        Log.e("LocaleHelper.setLocale", "countryToStore="+countryToStore);
