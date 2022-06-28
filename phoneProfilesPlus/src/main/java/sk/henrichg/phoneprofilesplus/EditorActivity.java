@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,6 +69,7 @@ import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -186,6 +188,11 @@ public class EditorActivity extends AppCompatActivity
 
     //private boolean startTargetHelps;
     //public boolean targetHelpsSequenceStarted;
+
+    int selectedLanguage = 0;
+    String defaultLanguage = "";
+    String defaultCountry = "";
+    String defaultScript = "";
 
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
@@ -1334,7 +1341,6 @@ public class EditorActivity extends AppCompatActivity
             return true;
         }
         else
-
         if ((itemId == R.id.menu_check_in_github) ||
                 (itemId == R.id.menu_check_in_fdroid) ||
                 (itemId == R.id.menu_check_in_galaxy_store) ||
@@ -1352,7 +1358,6 @@ public class EditorActivity extends AppCompatActivity
 
             return true;
         }
-
         else
         if (itemId == R.id.menu_test_crash) {
             throw new RuntimeException("Test Crash");
@@ -1375,12 +1380,139 @@ public class EditorActivity extends AppCompatActivity
             }
             return true;
         }
-
+        else
         if (itemId == R.id.menu_donation) {
             intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
             startActivity(intent);
             return true;
         }
+        else
+        if (itemId == R.id.menu_choose_language) {
+            String storedLanguage = LocaleHelper.getLanguage(getApplicationContext());
+            String storedCountry = LocaleHelper.getCountry(getApplicationContext());
+            String storedScript = LocaleHelper.getScript(getApplicationContext());
+            Log.e("EditorActivity.onOptionsItemSelected", "storedLanguage="+storedLanguage);
+            Log.e("EditorActivity.onOptionsItemSelected", "storedCountry="+storedCountry);
+            Log.e("EditorActivity.onOptionsItemSelected", "storedScript="+storedScript);
+
+            final String[] languageValues = getResources().getStringArray(R.array.chooseLanguageValues);
+            ArrayList<String> languageNames = new ArrayList<>();
+            for (String languageValue : languageValues) {
+                if (languageValue.equals("[sys]")) {
+                    languageNames.add(getString(R.string.extender_menu_choose_language_system_language));
+                } else {
+                    String[] splits = languageValue.split("-");
+                    String language = splits[0];
+                    String country = "";
+                    if (splits.length >= 2)
+                        country = splits[1];
+                    String script = "";
+                    if (splits.length >= 3)
+                        script = splits[2];
+
+                    Locale loc = null;
+                    if (country.isEmpty() && script.isEmpty())
+                        loc = new Locale.Builder().setLanguage(language).build();
+                    if (!country.isEmpty() && script.isEmpty())
+                        loc = new Locale.Builder().setLanguage(language).setRegion(country).build();
+                    if (country.isEmpty() && !script.isEmpty())
+                        loc = new Locale.Builder().setLanguage(language).setScript(script).build();
+                    if (!country.isEmpty() && !script.isEmpty())
+                        loc = new Locale.Builder().setLanguage(language).setRegion(country).setScript(script).build();
+
+                    String name = loc.getDisplayName(loc);
+                    languageNames.add(name.substring(0, 1).toUpperCase(loc) + name.substring(1));
+                }
+            }
+            final String[] languageNameChoices = new String[languageNames.size()];
+            for(int i = 0; i < languageNames.size(); i++) languageNameChoices[i] = languageNames.get(i);
+
+            for (int i = 0; i < languageValues.length; i++) {
+                String[] splits = languageValues[i].split("-");
+                String language = splits[0];
+                String country = "";
+                if (splits.length >= 2)
+                    country = splits[1];
+                String script = "";
+                if (splits.length >= 3)
+                    script = splits[2];
+
+                if (language.equals(storedLanguage) &&
+                        storedCountry.isEmpty() &&
+                        storedScript.isEmpty()) {
+                    selectedLanguage = i;
+                    break;
+                }
+                if (language.equals(storedLanguage) &&
+                        country.equals(storedCountry) &&
+                        storedScript.isEmpty()) {
+                    selectedLanguage = i;
+                    break;
+                }
+                if (language.equals(storedLanguage) &&
+                        storedCountry.isEmpty() &&
+                        script.equals(storedScript)) {
+                    selectedLanguage = i;
+                    break;
+                }
+                if (language.equals(storedLanguage) &&
+                        country.equals(storedCountry) &&
+                        script.equals(storedScript)) {
+                    selectedLanguage = i;
+                    break;
+                }
+            }
+
+            //Log.e("MainActivity.onOptionsItemSelected", "defualt language="+Locale.getDefault().getDisplayLanguage());
+            // this is list of locales by order in system settings. Index 0 = default locale in system
+            //LocaleListCompat locales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
+            //for (int i = 0; i < locales.size(); i++) {
+            //    Log.e("MainActivity.onOptionsItemSelected", "language="+locales.get(i).getDisplayLanguage());
+            //}
+
+            AlertDialog chooseLanguageDialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.extender_menu_choose_language)
+                    .setCancelable(true)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setSingleChoiceItems(languageNameChoices, selectedLanguage, (dialog, which) -> {
+                        selectedLanguage = which;
+
+                        String[] splits = languageValues[selectedLanguage].split("-");
+                        defaultLanguage = splits[0];
+                        defaultCountry = "";
+                        if (splits.length >= 2)
+                            defaultCountry = splits[1];
+                        defaultScript = "";
+                        if (splits.length >= 3)
+                            defaultScript = splits[2];
+
+                        Log.e("EditorActivity.onOptionsItemSelected", "defaultLanguage="+defaultLanguage);
+                        Log.e("EditorActivity.onOptionsItemSelected", "defaultCountry="+defaultCountry);
+                        Log.e("EditorActivity.onOptionsItemSelected", "defaultScript="+defaultScript);
+
+                        LocaleHelper.setLocale(getApplicationContext(),
+                                defaultLanguage, defaultCountry, defaultScript, true);
+
+                        GlobalGUIRoutines.reloadActivity(this, false);
+                        dialog.dismiss();
+                    })
+                    .create();
+
+//                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
+
+            chooseLanguageDialog.show();
+
+            return true;
+        }
+
 
         else {
             return super.onOptionsItemSelected(item);

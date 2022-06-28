@@ -1991,6 +1991,9 @@
     <string name="important_info_notification_settings_configure">Click here to configure \"Application notification\" with these parameters.</string>
     <string name="important_info_notification_settings_toast">Configured</string>
 
+    <string name="menu_choose_language">Choose language</string>
+    <string name="menu_choose_language_system_language">[System]</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -2039,7 +2042,12 @@
 
     <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
     <string name="extender_enable_notificaitons_button">Enable</string>
-    <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
+
+    <string name="extender_menu_choose_language">Choose language</string>
+    <string name="extender_menu_choose_language_system_language">[System]</string>
+
+
+<!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
 
 <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
 <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->

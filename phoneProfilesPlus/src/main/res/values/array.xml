@@ -1434,4 +1434,56 @@
         <item>2</item>
     </string-array>
 
+    <string-array name="chooseLanguageValues">
+        <item>[sys]</item>
+        <item>en</item>
+        <item>ar</item>
+        <item>bn-IN</item>
+        <item>bg</item>
+        <item>ca</item>
+        <item>cs</item>
+        <item>da</item>
+        <item>de</item>
+        <item>el</item>
+        <item>es</item>
+        <item>et</item>
+        <item>fa</item>
+        <item>fi</item>
+        <item>fr</item>
+        <item>ga-IN</item>
+        <item>hi</item>
+        <item>hr</item>
+        <item>hu</item>
+        <item>in</item>
+        <item>is</item>
+        <item>it</item>
+        <item>iw</item>
+        <item>ja</item>
+        <item>ko</item>
+        <item>ku</item>
+        <item>lb</item>
+        <item>lv</item>
+        <item>ms</item>
+        <item>nl</item>
+        <item>no</item>
+        <item>pl</item>
+        <item>pt-BR</item>
+        <item>pt-PT</item>
+        <item>ro</item>
+        <item>ru</item>
+        <item>sk</item>
+        <item>sl</item>
+        <item>sr</item>
+        <item tools:ignore="TypographyDashes">sr--Latn</item>
+        <item>sv</item>
+        <item>te</item>
+        <item>th</item>
+        <item>tr</item>
+        <item>uk</item>
+        <item>vi</item>
+        <item>zh-CN</item>
+        <item>zh-TW</item>
+    </string-array>
+
+
 </resources>

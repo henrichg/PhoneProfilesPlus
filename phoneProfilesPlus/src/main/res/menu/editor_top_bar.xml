@@ -38,6 +38,11 @@
 
     </item>
 
+    <item android:id="@+id/menu_choose_language"
+        android:title="@string/menu_choose_language"
+        android:orderInCategory="150"
+        app:showAsAction="never"
+        tools:ignore="AlwaysShowAction"/>
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:orderInCategory="210"
