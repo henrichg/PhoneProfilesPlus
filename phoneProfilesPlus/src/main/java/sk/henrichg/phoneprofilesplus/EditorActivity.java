@@ -1391,9 +1391,9 @@ public class EditorActivity extends AppCompatActivity
             String storedLanguage = LocaleHelper.getLanguage(getApplicationContext());
             String storedCountry = LocaleHelper.getCountry(getApplicationContext());
             String storedScript = LocaleHelper.getScript(getApplicationContext());
-            Log.e("EditorActivity.onOptionsItemSelected", "storedLanguage="+storedLanguage);
-            Log.e("EditorActivity.onOptionsItemSelected", "storedCountry="+storedCountry);
-            Log.e("EditorActivity.onOptionsItemSelected", "storedScript="+storedScript);
+//            Log.e("EditorActivity.onOptionsItemSelected", "storedLanguage="+storedLanguage);
+//            Log.e("EditorActivity.onOptionsItemSelected", "storedCountry="+storedCountry);
+//            Log.e("EditorActivity.onOptionsItemSelected", "storedScript="+storedScript);
 
             final String[] languageValues = getResources().getStringArray(R.array.chooseLanguageValues);
             ArrayList<String> languageNames = new ArrayList<>();
@@ -1486,9 +1486,9 @@ public class EditorActivity extends AppCompatActivity
                         if (splits.length >= 3)
                             defaultScript = splits[2];
 
-                        Log.e("EditorActivity.onOptionsItemSelected", "defaultLanguage="+defaultLanguage);
-                        Log.e("EditorActivity.onOptionsItemSelected", "defaultCountry="+defaultCountry);
-                        Log.e("EditorActivity.onOptionsItemSelected", "defaultScript="+defaultScript);
+//                        Log.e("EditorActivity.onOptionsItemSelected", "defaultLanguage="+defaultLanguage);
+//                        Log.e("EditorActivity.onOptionsItemSelected", "defaultCountry="+defaultCountry);
+//                        Log.e("EditorActivity.onOptionsItemSelected", "defaultScript="+defaultScript);
 
                         LocaleHelper.setLocale(getApplicationContext(),
                                 defaultLanguage, defaultCountry, defaultScript, true);
