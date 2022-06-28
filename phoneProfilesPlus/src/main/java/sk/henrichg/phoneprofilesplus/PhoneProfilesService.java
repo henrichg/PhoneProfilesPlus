@@ -6671,12 +6671,12 @@ public class PhoneProfilesService extends Service
                 }
 
 
-                int color = 0;
+               /* int color = 0;
                 if (profile != null)
                     color = profile.increaseNotificationDecorationBrightness(appContext);
                 if (color != 0)
                     decoratorColor = color;
-                else {
+                else*/ {
                     if ((profile != null) && (profile.getUseCustomColorForIcon()))
                         decoratorColor = profile.getIconCustomColor();
                     else {
@@ -6764,10 +6764,10 @@ public class PhoneProfilesService extends Service
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap="+iconBitmap);
                 if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
                     if (iconBitmap != null) {
-                        int color = profile.increaseNotificationDecorationBrightness(appContext);
+                        /*int color = profile.increaseNotificationDecorationBrightness(appContext);
                         if (color != 0)
                             decoratorColor = color;
-                        else {
+                        else*/ {
                             Palette palette = Palette.from(iconBitmap).generate();
                             decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "decoratorColor="+Integer.toHexString(decoratorColor));
