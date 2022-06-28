@@ -26,7 +26,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -195,7 +194,7 @@ public class EditorActivity extends AppCompatActivity
     String defaultLanguage = "";
     String defaultCountry = "";
     String defaultScript = "";
-    final Collator collator = Collator.getInstance();
+    final Collator languagesCollator = Collator.getInstance();
 
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
@@ -1441,7 +1440,7 @@ public class EditorActivity extends AppCompatActivity
                 languages.add(language);
             }
 
-            languages.sort(new AlphabeticallyComparator());
+            languages.sort(new LanguagesComparator());
 
             final String[] languageNameChoices = new String[languages.size()];
             for(int i = 0; i < languages.size(); i++) languageNameChoices[i] = languages.get(i).name;
@@ -5995,10 +5994,10 @@ public class EditorActivity extends AppCompatActivity
         String name;
     }
 
-    private class AlphabeticallyComparator implements Comparator<Language> {
+    private class LanguagesComparator implements Comparator<Language> {
 
         public int compare(Language lhs, Language rhs) {
-            return collator.compare(lhs.name, rhs.name);
+            return languagesCollator.compare(lhs.name, rhs.name);
         }
     }
 
