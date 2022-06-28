@@ -6671,7 +6671,9 @@ public class PhoneProfilesService extends Service
                 }
 
 
-               /* int color = 0;
+                // do not use increaseNotificationDecorationBrightness(),
+                // because icon will not be visible in AOD
+                /* int color = 0;
                 if (profile != null)
                     color = profile.increaseNotificationDecorationBrightness(appContext);
                 if (color != 0)
@@ -6764,6 +6766,8 @@ public class PhoneProfilesService extends Service
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap="+iconBitmap);
                 if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
                     if (iconBitmap != null) {
+                        // do not use increaseNotificationDecorationBrightness(),
+                        // because icon will not be visible in AOD
                         /*int color = profile.increaseNotificationDecorationBrightness(appContext);
                         if (color != 0)
                             decoratorColor = color;
