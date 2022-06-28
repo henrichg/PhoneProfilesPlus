@@ -37,6 +37,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
+import androidx.core.os.ConfigurationCompat;
+import androidx.core.os.LocaleListCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 //import androidx.multidex.MultiDex;
 import androidx.work.WorkInfo;
@@ -1201,7 +1203,8 @@ public class PPApplication extends Application
 
     @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
+        //super.attachBaseContext(base);
+        super.attachBaseContext(LocaleHelper.onAttach(base));
 
         // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
         if (ACRA.isACRASenderServiceProcess()) {

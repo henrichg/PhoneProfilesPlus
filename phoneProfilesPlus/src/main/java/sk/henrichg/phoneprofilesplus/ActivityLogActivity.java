@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -81,6 +82,10 @@ public class ActivityLogActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {

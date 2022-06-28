@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -93,6 +94,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

@@ -110,6 +110,11 @@ public class LockDeviceActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
 

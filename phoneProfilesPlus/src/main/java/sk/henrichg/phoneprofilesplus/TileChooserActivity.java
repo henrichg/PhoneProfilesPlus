@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -116,6 +117,11 @@ public class TileChooserActivity extends AppCompatActivity {
             Log.e("TileChooserActivity.onCreate", "null");*/
 
         setTitle(R.string.title_activity_tile_chooser);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

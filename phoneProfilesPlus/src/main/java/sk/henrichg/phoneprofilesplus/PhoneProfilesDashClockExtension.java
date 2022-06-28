@@ -23,6 +23,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onInitialize(boolean isReconnect) {
         super.onInitialize(isReconnect);
 

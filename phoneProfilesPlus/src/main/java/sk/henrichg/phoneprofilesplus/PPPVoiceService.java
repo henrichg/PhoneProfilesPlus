@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.IntentFilter;
 import android.service.voice.VoiceInteractionService;
 //import kotlin.Metadata;
@@ -29,6 +30,11 @@ public final class PPPVoiceService extends VoiceInteractionService {
         public /* synthetic */ PPPVoiceServiceInternal(Class fVar) {
             this();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     public void onReady() {

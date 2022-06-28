@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -45,6 +46,11 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
                 //Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "profile_id="+profile_id);
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

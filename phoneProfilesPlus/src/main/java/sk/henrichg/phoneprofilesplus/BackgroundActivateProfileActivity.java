@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -44,6 +45,11 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
             dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

@@ -473,6 +473,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             mapController.setCenter(new GeoPoint(geofence._latitude, geofence._longitude));
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
     @SuppressLint("MissingPermission")
     @Override
     protected void onStart() {

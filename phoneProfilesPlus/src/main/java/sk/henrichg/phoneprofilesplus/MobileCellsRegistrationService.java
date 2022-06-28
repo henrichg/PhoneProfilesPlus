@@ -62,6 +62,11 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);

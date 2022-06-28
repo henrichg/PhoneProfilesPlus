@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -39,6 +40,11 @@ public class LauncherActivity extends AppCompatActivity {
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
         //PPApplication.logE("LauncherActivity.onCreate", "startupSource="+startupSource);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

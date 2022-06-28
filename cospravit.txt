@@ -521,14 +521,3 @@ https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
 
 --------------------
 
-   int shiftColor(int color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv); --> farba do hsv
-        hsv[2] *= 0.9f; // value component --> jas
-        return Color.HSVToColor(hsv); -> hsv do farby
-    }
-
-https://developer.android.com/reference/android/graphics/Color#colorToHSV(int,%20float[])
-index 2 (jas) je 0..1
-ale BitmapManipulator.setBitmapBrightness(), tam je jas v 0.255.
-To sa lahko skonvertuje ;-)

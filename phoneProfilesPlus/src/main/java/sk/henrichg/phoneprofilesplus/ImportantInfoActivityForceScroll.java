@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -51,6 +52,11 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
                 .replace(R.id.activity_important_info_force_scroll_container, fragment, "ImportantInfoActivityForceScrollFragment")
                 .commitAllowingStateLoss();
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

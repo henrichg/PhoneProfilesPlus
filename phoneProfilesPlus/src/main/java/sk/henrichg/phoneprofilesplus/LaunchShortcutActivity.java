@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -29,6 +30,11 @@ public class LaunchShortcutActivity extends AppCompatActivity {
         activityName = getIntent().getStringExtra(EXTRA_ACTIVITY_NAME);
         dialogPreferencePosition = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_POSITION, -1);
         startApplicationDelay = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

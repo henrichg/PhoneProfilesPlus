@@ -51,6 +51,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
 

@@ -120,6 +120,11 @@ public class NFCTagReadActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         nfcManager.onActivityResume();

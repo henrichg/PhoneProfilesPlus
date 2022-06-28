@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -55,6 +56,11 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
 //        else {
 //            PPApplication.logE("LongClickTileChooserActivity.onCreate", "qsTile is null");
 //        }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

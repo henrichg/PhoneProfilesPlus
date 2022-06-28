@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Icon;
@@ -9,6 +10,11 @@ import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 public class PPTileService extends TileService {
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
 
     @Override
     public void onClick () {
