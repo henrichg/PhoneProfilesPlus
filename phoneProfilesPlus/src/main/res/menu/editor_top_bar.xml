@@ -43,10 +43,18 @@
         android:orderInCategory="210"
         app:showAsAction="never" >
     </item>
+
     <item android:id="@+id/menu_dark_theme"
           android:title="@string/menu_dark_theme_on"
           android:orderInCategory="212"
           app:showAsAction="never" />
+
+    <item android:id="@+id/menu_choose_language"
+        android:title="@string/menu_choose_language"
+        android:orderInCategory="220"
+        app:showAsAction="never"
+        tools:ignore="AlwaysShowAction"/>
+
     <item android:id="@+id/menu_import_export"
         android:title="@string/menu_import_export"
         android:orderInCategory="230"
@@ -86,12 +94,6 @@
             </group>
         </menu>
     </item>
-
-    <item android:id="@+id/menu_choose_language"
-        android:title="@string/menu_choose_language"
-        android:orderInCategory="235"
-        app:showAsAction="never"
-        tools:ignore="AlwaysShowAction"/>
 
     <item android:id="@+id/menu_support"
         android:title="@string/menu_support"
