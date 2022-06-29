@@ -1994,7 +1994,7 @@
     <string name="menu_choose_language">Choose language</string>
     <string name="menu_choose_language_system_language">[System]</string>
     <string name="important_info_choose_language_text1">Choose language:</string>
-    <string name="important_info_choose_language_text2">In Editor menu is added \"Choose language\" option. With this option, you can change application language.</string>
+    <string name="important_info_choose_language_text2">In Editor menu is added \"Choose language\" option. With this option, you can change application language.\nMenu for this is added also in PhoneProfilesPlusExtender (version 8.0).</string>
 
     <!-- **************************************************************************************** -->
 
