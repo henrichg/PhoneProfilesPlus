@@ -35,6 +35,7 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../common/src/debug" />
     <content url="file://$MODULE_DIR$/../../../common/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../common/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../common/src/main/res" type="java-resource" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 32 Platform" jdkType="Android SDK" />
