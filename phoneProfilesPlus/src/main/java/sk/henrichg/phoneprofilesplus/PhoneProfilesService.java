@@ -815,6 +815,7 @@ public class PhoneProfilesService extends Service
 
                 PPApplication.pppExtenderBroadcastReceiver = new PPPExtenderBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter();
+                intentFilter14.addAction(PPApplication.ACTION_PPPEXTENDER_STARTED);
                 intentFilter14.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
                 intentFilter14.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                 appContext.registerReceiver(PPApplication.pppExtenderBroadcastReceiver, intentFilter14,

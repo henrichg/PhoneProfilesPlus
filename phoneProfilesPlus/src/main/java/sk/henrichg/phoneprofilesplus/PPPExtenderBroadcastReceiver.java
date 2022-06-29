@@ -62,6 +62,10 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         final Context appContext = context.getApplicationContext();
 
         switch (intent.getAction()) {
+            case PPApplication.ACTION_PPPEXTENDER_STARTED:
+                isAccessibilityServiceEnabled(appContext, true, true
+                        /*, "PPPExtenderBroadcastReceiver.onReceive (ACTION_PPPEXTENDER_STARTED)"*/);
+                break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
