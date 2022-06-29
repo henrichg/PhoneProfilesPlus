@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
-import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 class EditorProfileListViewHolder extends RecyclerView.ViewHolder
@@ -79,7 +78,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             ((profile._volumeRingerMode != 0) && (!ActivateProfileHelper.canChangeZenMode(context, false))) ||
             (profile.isAccessibilityServiceEnabled(context) != 1)
            )*/
-        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context)){
+        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, context)){
             profileName.setTypeface(null, Typeface.NORMAL);
             //profileName.setTextSize(15);
             profileName.setTextColor(Color.RED);

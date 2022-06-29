@@ -17,7 +17,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.ColorUtils;
 
 import java.util.Arrays;
 import java.util.Timer;
@@ -115,7 +114,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
                 //        /*true, mMonochrome, mMonochromeValue,*/
                 //        mStartupSource, true, true, false))
-                if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
+                if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, false, mActivity.getApplicationContext())) {
                     //PPApplication.logE("&&&&&&& AskForDurationDialog.onClick", "(1) called is DataWrapper.activateProfileFromMainThread");
 
                     if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
@@ -155,7 +154,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
             //        /*true, mMonochrome, mMonochromeValue,*/
             //        mStartupSource, true, true, false))
-            if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
+            if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, false, mActivity.getApplicationContext())) {
                 //PPApplication.logE("&&&&&&& AskForDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
 
                 if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||

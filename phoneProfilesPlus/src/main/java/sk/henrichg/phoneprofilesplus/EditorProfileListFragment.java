@@ -33,7 +33,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -961,7 +960,7 @@ public class EditorProfileListFragment extends Fragment
 
     public void activateProfile(Profile profile/*, boolean interactive*/)
     {
-        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
+        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
             PPApplication.showToastForProfileActivation = true;
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         }
@@ -1253,7 +1252,7 @@ public class EditorProfileListFragment extends Fragment
     {
         final Profile profile = (Profile) view.getTag();
 
-        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
+        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
 
             //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
             Context _context = view.getContext();
@@ -1764,7 +1763,7 @@ public class EditorProfileListFragment extends Fragment
                     _dataWrapper.copyProfileList(fragment.activityDataWrapper);
 
                     for (Profile profile : _dataWrapper.profileList) {
-                        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, _dataWrapper.context))
+                        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, _dataWrapper.context))
                             redTextVisible = true;
                     }
                 }

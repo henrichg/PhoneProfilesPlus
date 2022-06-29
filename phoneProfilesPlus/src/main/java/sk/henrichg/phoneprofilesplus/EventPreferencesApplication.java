@@ -95,7 +95,8 @@ class EventPreferencesApplication extends EventPreferences {
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), true, true)) {
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
+                        /*, "EventPreferencesApplication.getPreferencesDescription"*/)) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 } if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
@@ -182,7 +183,7 @@ class EventPreferencesApplication extends EventPreferences {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_APPLICATION_APPLICATIONS, "").isEmpty();
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
         }
-        int _isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context);
+        int _isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context, false);
         boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
         preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
@@ -243,7 +244,7 @@ class EventPreferencesApplication extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
-                boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
+                boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context, false) == 1);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_APPLICATION).size() == 0;
@@ -275,7 +276,7 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    int isAccessibilityServiceEnabled(Context context)
+    int isAccessibilityServiceEnabled(Context context, boolean checkFlag)
     {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
@@ -285,8 +286,11 @@ class EventPreferencesApplication extends EventPreferences {
 //        Log.e("EventPreferencesApplication.isAccessibilityServiceEnabled", "_event._name="+_event._name);
 //        Log.e("EventPreferencesApplication.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
 //        Log.e("EventPreferencesApplication.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
-        if (this._enabled && isRunnable(context) &&
-                (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true)))
+        if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
+            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, checkFlag, true
+                        /*, "EventPreferencesApplication.isAccessibilityServiceEnabled"*/))
+                return 1;
+        } else
             return 1;
         return 0;
     }
@@ -297,7 +301,8 @@ class EventPreferencesApplication extends EventPreferences {
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED) != null) {
                 final boolean accessibilityEnabled =
-                        PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true);
+                        PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+                                /*, "EventPreferencesApplication.checkPreferences"*/);
                 ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
                 if (applicationsPreference != null) {
                     applicationsPreference.setEnabled(accessibilityEnabled);
@@ -338,7 +343,8 @@ class EventPreferencesApplication extends EventPreferences {
             if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.applicationPassed = false;
 
-                if (PPPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true)) {
+                if (PPPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
+                        /*, "EventPreferencesApplication.doHandleEvent"*/)) {
                     String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
 
                     if (!foregroundApplication.isEmpty()) {

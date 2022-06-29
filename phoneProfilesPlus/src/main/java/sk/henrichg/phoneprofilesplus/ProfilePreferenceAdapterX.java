@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.core.graphics.ColorUtils;
-
 import java.util.List;
 
 class ProfilePreferenceAdapterX extends BaseAdapter {

@@ -158,10 +158,14 @@ public class MainWorker extends Worker {
                     case ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG:
 //                        PPApplication.logE("MainWorker.doWork", "ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
                         int oldAccessibilityServiceForPPPExtenderConnected = PPApplication.accessibilityServiceForPPPExtenderConnected;
-                        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, false, false))
+                        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, false, false
+                                /*, "MainWorker.doWork (ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG)"*/)) {
                             PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
+//                            PPApplication.logE("MainWorker.doWork", "ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG PPApplication.accessibilityServiceForPPPExtenderConnected=" + PPApplication.accessibilityServiceForPPPExtenderConnected);
+                        }
                         else {
                             PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
+//                            PPApplication.logE("MainWorker.doWork", "ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG PPApplication.accessibilityServiceForPPPExtenderConnected=" + PPApplication.accessibilityServiceForPPPExtenderConnected);
 
                             boolean displayNotification = getInputData().getBoolean(PPPExtenderBroadcastReceiver.EXTRA_DISPLAY_NOTIFICATION, true);
                             if (displayNotification) {

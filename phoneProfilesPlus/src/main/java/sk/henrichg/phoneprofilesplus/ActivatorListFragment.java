@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 
 import java.lang.ref.WeakReference;
@@ -563,7 +562,7 @@ public class ActivatorListFragment extends Fragment {
                 activityDataWrapper.restartEventsWithAlert(getActivity());
             }
             else
-            if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
+            if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
             }

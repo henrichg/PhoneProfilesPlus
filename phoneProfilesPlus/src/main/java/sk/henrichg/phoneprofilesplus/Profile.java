@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.Spannable;
@@ -3453,7 +3452,6 @@ public class Profile {
         }
     }
 
-    //todo
     Bitmap increaseProfileIconBrightnessForContext(Context context, Bitmap iconBitmap) {
         //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
             boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
@@ -3518,7 +3516,7 @@ public class Profile {
         //}
         return null;
     }
-    int increaseNotificationDecorationBrightness(Context context) {
+/*    int increaseNotificationDecorationBrightness(Context context) {
         boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 == Configuration.UI_MODE_NIGHT_YES;
 
@@ -3545,7 +3543,7 @@ public class Profile {
             }
         }
         return 0;
-    }
+    }*/
 
     static int getImageResourcePosition(String imageIdentifier/*, Context context*/) {
         /*for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
@@ -4368,7 +4366,7 @@ public class Profile {
         }
     }
 
-    public int isAccessibilityServiceEnabled(Context context) {
+    public int isAccessibilityServiceEnabled(Context context, boolean checkFlag) {
         int accessibilityEnabled = -99;
 
         if ((this._deviceForceStopApplicationChange != 0) ||
@@ -4403,7 +4401,8 @@ public class Profile {
             if (accessibilityEnabled == -98) {
                 // Extender is in right version
 //                Log.e("Profile.isAccessibilityServiceEnabled", "profile="+_name);
-                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true))
+                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, checkFlag, true
+                        /*, "Profile.isAccessibilityServiceEnabled (profile=" + _name + ")"*/))
                     // accessibility enabled
                     accessibilityEnabled = 1;
                 else

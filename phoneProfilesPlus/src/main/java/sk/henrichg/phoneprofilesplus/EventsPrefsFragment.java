@@ -1412,7 +1412,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
     */
 
-    static boolean isRedTextNotificationRequired(Event event, Context context) {
+    static boolean isRedTextNotificationRequired(Event event, boolean checkFlag, Context context) {
         Context appContext = context.getApplicationContext();
         boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
         boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0;
@@ -1420,7 +1420,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;
         }*/
-        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false) == 1;
+        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, checkFlag) == 1;
+//        if (/*(event != null) &&*/ event._name.equals("Nočný hovor")) {
+//            PPApplication.logE("EventsPrefsFragment.isRedTextNotificationRequired", "isAccessibilityEnabled=" + event.isAccessibilityServiceEnabled(appContext, false, false));
+//        }
+
         boolean eventIsRunnable = event.isRunnable(appContext, false);
 
 //        if (event._name.equals("At home")) {
@@ -1542,7 +1546,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
 
             // not enabled accessibility service
-            int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false);
+            int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false, false);
             if (accessibilityEnabled == 1) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion != 0) {

@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.core.graphics.ColorUtils;
-
 class ShortcutCreatorListAdapter extends BaseAdapter {
 
     private ShortcutCreatorListFragment fragment;

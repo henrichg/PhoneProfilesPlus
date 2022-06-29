@@ -364,9 +364,6 @@ if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (r
         }
     }
     static boolean getMergedRingNotificationVolumes() {
-        //PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "force set="+ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context));
-        //PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "merged="+ApplicationPreferences.preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true));
-
         if (ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes > 0)
             return ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes == 1;
         else
@@ -426,8 +423,7 @@ fun Context.writeSecure(key: String?, value: Any?): Boolean {
         Settings.Secure.putString(contentResolver, key, value?.toString())
         true
     } catch (e: SecurityException) {
-        Log.e("SystemUI Tuner", "Failed to write to Secure", e)
-        false
+        false;
     }
 }
 

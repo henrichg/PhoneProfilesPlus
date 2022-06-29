@@ -4107,10 +4107,10 @@ public class PhoneProfilesService extends Service
 
                 dataWrapper.fillProfileList(false, false);
                 for (Profile profile : dataWrapper.profileList)
-                    profile.isAccessibilityServiceEnabled(appContext);
+                    profile.isAccessibilityServiceEnabled(appContext, true);
                 dataWrapper.fillEventList();
                 for (Event event : dataWrapper.eventList)
-                    event.isAccessibilityServiceEnabled(appContext, true);
+                    event.isAccessibilityServiceEnabled(appContext, true, true);
                 //PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true, false);
 
                 //GlobalGUIRoutines.setLanguage(appContext);
@@ -7556,7 +7556,8 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newZenMode="+newZenMode);
 
             String phoneNumber = "";
-            if (PPPExtenderBroadcastReceiver.isEnabled(context/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true))
+            if (PPPExtenderBroadcastReceiver.isEnabled(context/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
+                    /*, "PhoneProfilesService.doSimulatingRingingCall"*/))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "phoneNumber="+phoneNumber);
 
@@ -8462,14 +8463,14 @@ public class PhoneProfilesService extends Service
 
     static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
 
-    static boolean displayPreferencesErrorNotification(Profile profile, Event event, Context context) {
+    static boolean displayPreferencesErrorNotification(Profile profile, Event event, boolean checkFlag, Context context) {
         if ((profile == null) && (event == null))
             return false;
 
         if (!PPApplication.getApplicationStarted(true))
             return false;
 
-        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context))) {
+        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, checkFlag, context))) {
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
@@ -8482,7 +8483,7 @@ public class PhoneProfilesService extends Service
 
             return false;
         }
-        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, context))) {
+        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, checkFlag, context))) {
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {

@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
-import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 class EditorEventListViewHolder extends RecyclerView.ViewHolder
@@ -127,7 +126,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //TypedArray themeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorSecondary});
             //ColorStateList textColorSecondary = themeArray.getColorStateList(0);
 
-            if (EventsPrefsFragment.isRedTextNotificationRequired(event, context)) {
+            if (EventsPrefsFragment.isRedTextNotificationRequired(event, false, context)) {
 //                if (event._name.equals("Nočný hovor"))
 //                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- RED TEXT ---");
                 //if (!isRunnable)

@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 
-import androidx.core.graphics.ColorUtils;
-
 import java.util.List;
 
 class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {

@@ -150,7 +150,8 @@ class EventPreferencesSMS extends EventPreferences {
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), true, true)) {
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
+                        /*, "EventPreferencesSMS.getPreferencesDescription"*/)) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 } if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
@@ -341,7 +342,7 @@ class EventPreferencesSMS extends EventPreferences {
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !isRunnable);
 
-        int _isAccessibilityEnabled = event._eventPreferencesSMS.isAccessibilityServiceEnabled(context);
+        int _isAccessibilityEnabled = event._eventPreferencesSMS.isAccessibilityServiceEnabled(context, false);
         boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
         preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
@@ -415,7 +416,7 @@ class EventPreferencesSMS extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
-                boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
+                boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context, false) == 1);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SMS).size() == 0;
@@ -449,7 +450,7 @@ class EventPreferencesSMS extends EventPreferences {
     }
 
     @Override
-    int isAccessibilityServiceEnabled(Context context)
+    int isAccessibilityServiceEnabled(Context context, boolean checkFlag)
     {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
@@ -459,8 +460,11 @@ class EventPreferencesSMS extends EventPreferences {
 //        Log.e("EventPreferencesSMS.isAccessibilityServiceEnabled", "_event._name="+_event._name);
 //        Log.e("EventPreferencesSMS.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
 //        Log.e("EventPreferencesSMS.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
-        if (this._enabled && isRunnable(context) &&
-                (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true, true)))
+        if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
+            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, checkFlag, true
+                        /*, "EventPreferencesSMS.isAccessibilityServiceEnabled"*/))
+                return 1;
+        } else
             return 1;
         return 0;
     }
@@ -471,7 +475,8 @@ class EventPreferencesSMS extends EventPreferences {
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_SMS_ENABLED) != null) {
                 final boolean accessibilityEnabled =
-                        PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true);
+                        PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+                                /*, "EventPreferencesSMS.checkPreferences"*/);
 
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
                 Preference preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);

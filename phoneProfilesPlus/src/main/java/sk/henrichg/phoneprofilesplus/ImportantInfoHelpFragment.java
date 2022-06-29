@@ -98,7 +98,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         boolean news = false;
         boolean newsLatest = (!firstInstallation) && (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
-        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
+//        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
 
         /*
         boolean news4550 = (!firstInstallation) && (versionCode >= 4550) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);

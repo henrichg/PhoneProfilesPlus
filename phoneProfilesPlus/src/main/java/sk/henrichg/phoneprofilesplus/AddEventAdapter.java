@@ -17,8 +17,6 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.core.graphics.ColorUtils;
-
 import java.util.List;
 
 class AddEventAdapter extends BaseAdapter {

@@ -447,12 +447,15 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     }
 
 
-    static boolean isAccessibilityServiceEnabled(Context context, boolean checkFlag, boolean displayNotification) {
+    static boolean isAccessibilityServiceEnabled(Context context, boolean checkFlag, boolean displayNotification
+                                                 /*, String calledFrom*/) {
+//        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "calledFrom=" + calledFrom);
+
         boolean enabled = false;
 
         //int accessibilityEnabled = 0;
         final String service = PPApplication.EXTENDER_ACCESSIBILITY_PACKAGE_NAME + "/" + PPApplication.EXTENDER_ACCESSIBILITY_PACKAGE_NAME + ".PPPEAccessibilityService";
-//        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "service = " + service);
+        //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "service = " + service);
 
         // Do not use: it returns always 0 :-(
         /*try {
@@ -488,53 +491,60 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         //    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "***ACCESSIBILITY IS DISABLED***");
         //}
 
-//        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
+        // ------ not enabled --------------------
+
+//        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled=false");
 //        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "checkFlag="+checkFlag);
 
+        if (PPApplication.accessibilityServiceForPPPExtenderConnected != 0) {
+            // not started delayed check
+            PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
+        }
+
         if (checkFlag) {
-            //if (!enabled) {
-//                PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
 
-                if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2) {
-                    PPApplication.accessibilityServiceForPPPExtenderConnected = 0;
+            if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2) {
+                // not started delayed check, start it
 
-//                    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "send broadcast to Extender");
-                    // send broadcast to Extender to get if Extender is connected
-                    //Intent _intent = new Intent(PPApplication.ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED);
-                    //context.sendBroadcast(_intent, PPApplication.PPP_EXTENDER_PERMISSION);
+                PPApplication.accessibilityServiceForPPPExtenderConnected = 0;
 
-                    Data workData = new Data.Builder()
-                            .putBoolean(EXTRA_DISPLAY_NOTIFICATION, displayNotification)
-                            .build();
+//                PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "send broadcast to Extender");
+                // send broadcast to Extender to get if Extender is connected
+                //Intent _intent = new Intent(PPApplication.ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED);
+                //context.sendBroadcast(_intent, PPApplication.PPP_EXTENDER_PERMISSION);
 
-                    boolean enqueuedWork = false;
-                    // work for check accessibility, when Extender do not send ACTION_ACCESSIBILITY_SERVICE_CONNECTED
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG)
-                                    .setInputData(workData)
-                                    .setInitialDelay(ACCESSIBILITY_SERVICE_CONNECTED_DELAY, TimeUnit.MINUTES)
-                                    .build();
-                    try {
-                        if (PPApplication.getApplicationStarted(true)) {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance();
-                            //PPApplication.logE("PhoneProfilesService.onCreate", "workManager="+workManager);
-                            if (workManager != null) {
+                Data workData = new Data.Builder()
+                        .putBoolean(EXTRA_DISPLAY_NOTIFICATION, displayNotification)
+                        .build();
+
+                boolean enqueuedWork = false;
+                // work for check accessibility, when Extender do not send ACTION_ACCESSIBILITY_SERVICE_CONNECTED
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG)
+                                .setInputData(workData)
+                                .setInitialDelay(ACCESSIBILITY_SERVICE_CONNECTED_DELAY, TimeUnit.MINUTES)
+                                .build();
+                try {
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        //PPApplication.logE("PhoneProfilesService.onCreate", "workManager="+workManager);
+                        if (workManager != null) {
 //                                PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enqueue ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG");
-                                workManager.enqueueUniqueWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                                enqueuedWork = true;
-                            }
+                            workManager.enqueueUniqueWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                            enqueuedWork = true;
                         }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
                     }
-
-//                    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enqueuedWork="+enqueuedWork);
-                    if (!enqueuedWork)
-                        PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
                 }
 
-                enabled = PPApplication.accessibilityServiceForPPPExtenderConnected == 0;
+//                    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enqueuedWork="+enqueuedWork);
+                if (!enqueuedWork)
+                    PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
+            }
+
+            enabled = PPApplication.accessibilityServiceForPPPExtenderConnected == 0;
 
 /*
 //            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
@@ -543,7 +553,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 else
                     enabled = true;
  */
-            //}
         }
 
 //        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
@@ -712,13 +721,17 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    //TODO
-    static boolean isEnabled(Context context/*, int version*/, boolean displayNotification) {
+    static boolean isEnabled(Context context/*, int version*/, boolean displayNotification, boolean checkFlag
+                             /*, String calledFrom*/) {
+
+//        PPApplication.logE("PPPExtenderBroadcastReceiver.isEnabled", "calledFrom=" + calledFrom);
+
         int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
         //if ((version == -1) || (extenderVersion >= version)) // -1 => do not check version
         if (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER_LATEST)
-            enabled = isAccessibilityServiceEnabled(context, true, displayNotification);
+            enabled = isAccessibilityServiceEnabled(context, checkFlag, displayNotification
+                    /*, "PPPExtenderBroadcastReceiver.isEnabled"*/);
         //return  (extenderVersion >= version) && enabled;
         return  (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER_LATEST) && enabled;
     }

@@ -37,7 +37,6 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -698,7 +697,7 @@ public class EditorEventListFragment extends Fragment
 
             activityDataWrapper.getEventTimelineList(true);
             if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
-                if (!EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context)) {
+                if (!EventsPrefsFragment.isRedTextNotificationRequired(event, false, activityDataWrapper.context)) {
                     // pause event
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
@@ -2215,7 +2214,7 @@ public class EditorEventListFragment extends Fragment
                     _dataWrapper.copyEventList(fragment.activityDataWrapper);
 
                     for (Event event : _dataWrapper.eventList) {
-                        if (EventsPrefsFragment.isRedTextNotificationRequired(event, _dataWrapper.context))
+                        if (EventsPrefsFragment.isRedTextNotificationRequired(event, false, _dataWrapper.context))
                             redTextVisible = true;
                     }
                 }

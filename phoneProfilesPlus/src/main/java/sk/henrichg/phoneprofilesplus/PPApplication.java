@@ -37,8 +37,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
-import androidx.core.os.ConfigurationCompat;
-import androidx.core.os.LocaleListCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 //import androidx.multidex.MultiDex;
 import androidx.work.WorkInfo;
@@ -263,6 +261,11 @@ public class PPApplication extends Application
                                                 //+"|[DB_LOCK]"
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
+
+                                                //+"|PPPExtenderBroadcastReceiver"
+                                                //+"|MainWorker"
+                                                //+"|ProfilePrefsFragment"
+                                                //+"|EventsPrefsFragment"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

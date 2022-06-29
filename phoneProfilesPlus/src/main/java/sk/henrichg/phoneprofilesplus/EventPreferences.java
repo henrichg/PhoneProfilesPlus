@@ -36,7 +36,7 @@ abstract class EventPreferences {
         return true;
     }
 
-    int isAccessibilityServiceEnabled(Context context)
+    int isAccessibilityServiceEnabled(Context context, boolean checkFlag)
     {
         return 1;
     }
