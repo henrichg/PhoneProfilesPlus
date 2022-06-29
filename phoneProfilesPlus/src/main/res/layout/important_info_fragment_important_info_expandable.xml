@@ -90,6 +90,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
+            android:text="@string/important_info_choose_language_text1"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/important_info_choose_language_text1"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+             android:text="@string/important_info_choose_language_text2"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/important_info_choose_language_text2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:text="@string/important_info_notification_settings_text1"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/important_info_notification_settings_text1"
