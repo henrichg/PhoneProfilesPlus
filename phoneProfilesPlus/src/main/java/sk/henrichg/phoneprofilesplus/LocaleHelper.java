@@ -77,7 +77,7 @@ public class LocaleHelper {
 //            Log.e("LocaleHelper.setLocale", "script="+script);
         }
 
-        Context localizedContext = updateResources(context, language, country, script);
+        Context localizedContext = updateResources(context, language, country, script, !persist);
 
         if ((localizedContext != null) && persist) {
             persist(context, SELECTED_LANGUAGE, languageToStore);
@@ -106,7 +106,8 @@ public class LocaleHelper {
     private static Context updateResources(Context context,
                                            String language,
                                            String country,
-                                           String script) {
+                                           String script,
+                                           boolean forAttach) {
         //Locale locale = new Locale(language);
         Locale locale = null;
 
@@ -124,9 +125,11 @@ public class LocaleHelper {
             configuration.setLocale(locale);
             configuration.setLayoutDirection(locale);
 
-            // !!! this must be, without this not working detection of night mode
-            configuration.uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED;
-            //??? configuration.uiMode ^= (~Configuration.UI_MODE_NIGHT_MASK) & Configuration.UI_MODE_NIGHT_UNDEFINED;
+            if (forAttach) {
+                // !!! this must be, without this not working detection of night mode
+                configuration.uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED;
+                //??? configuration.uiMode ^= (~Configuration.UI_MODE_NIGHT_MASK) & Configuration.UI_MODE_NIGHT_UNDEFINED;
+            }
 
             return context.createConfigurationContext(configuration);
         } else
