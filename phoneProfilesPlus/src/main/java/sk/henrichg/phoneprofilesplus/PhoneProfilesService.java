@@ -5489,11 +5489,23 @@ public class PhoneProfilesService extends Service
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 //        PPApplication.logE("[IN_LISTENER] PhoneProfilesService.onConfigurationChanged", "xxx");
 
-        super.onConfigurationChanged(newConfig);
-//        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesService.onConfigurationChanged");
         PPApplication.updateGUI(false, false, getApplicationContext());
+//
+//        int nightModeFlags =
+//                newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//        switch (nightModeFlags) {
+//            case Configuration.UI_MODE_NIGHT_YES:
+//                Log.e("PhoneProfilesService.onConfigurationChanged", "UI_MODE_NIGHT_YES");
+//                break;
+//            case Configuration.UI_MODE_NIGHT_NO:
+//            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+//                Log.e("PhoneProfilesService.onConfigurationChanged", "UI_MODE_NIGHT_NO");
+//                break;
+//        }
+
     }
 
     //------------------------

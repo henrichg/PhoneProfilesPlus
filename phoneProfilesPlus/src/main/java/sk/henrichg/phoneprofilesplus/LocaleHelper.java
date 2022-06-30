@@ -124,6 +124,8 @@ public class LocaleHelper {
             configuration.setLocale(locale);
             configuration.setLayoutDirection(locale);
 
+            configuration.uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED;
+
             return context.createConfigurationContext(configuration);
         } else
             return null;
