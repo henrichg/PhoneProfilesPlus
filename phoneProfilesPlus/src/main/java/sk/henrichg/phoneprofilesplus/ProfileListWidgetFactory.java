@@ -113,13 +113,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationWidgetListLightnessT = "88"; // lightness of text = white
+                            applicationWidgetListLightnessT = "87"; // lightness of text = white
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(0x272727); // color of background
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationWidgetListLightnessT = "13"; // lightness of text = black
+                            applicationWidgetListLightnessT = "12"; // lightness of text = black
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             break;

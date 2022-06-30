@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -134,7 +135,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             applicationWidgetOneRowBackgroundColor = String.valueOf(0x272727); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "100";
-                            applicationWidgetOneRowLightnessT = "88"; // lightness of text = white
+                            applicationWidgetOneRowLightnessT = "87"; // lightness of text = white
                             //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                             applicationWidgetOneRowIconLightness = "75";
                             //applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
@@ -146,7 +147,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             applicationWidgetOneRowBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "0";
-                            applicationWidgetOneRowLightnessT = "13"; // lightness of text = black
+                            applicationWidgetOneRowLightnessT = "12"; // lightness of text = black
                             //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                             applicationWidgetOneRowIconLightness = "62";
                             //applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
@@ -628,8 +629,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 }
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
                     remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
+                }
                 else {
                     // must be removed android:textColor in layout
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);

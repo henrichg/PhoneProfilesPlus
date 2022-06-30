@@ -70,7 +70,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                             applicationSamsungEdgeBackgroundType = true; // background type = not color
                             applicationSamsungEdgeBackgroundColor = String.valueOf(0x272727); // color of background
                             //applicationSamsungEdgeLightnessB = "12";  // lighting  of backgroud = 12%
-                            applicationSamsungEdgeLightnessT = "88"; // lightness of text = white
+                            applicationSamsungEdgeLightnessT = "87"; // lightness of text = white
                             //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
                             applicationSamsungEdgeIconLightness = "75";
                             break;
@@ -80,7 +80,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                             applicationSamsungEdgeBackgroundType = true; // background type = not color
                             applicationSamsungEdgeBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             //applicationSamsungEdgeLightnessB = "87"; // lighting  of backgroud = 87%
-                            applicationSamsungEdgeLightnessT = "13"; // lightness of text = black
+                            applicationSamsungEdgeLightnessT = "12"; // lightness of text = black
                             //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
                             applicationSamsungEdgeIconLightness = "62";
                             break;

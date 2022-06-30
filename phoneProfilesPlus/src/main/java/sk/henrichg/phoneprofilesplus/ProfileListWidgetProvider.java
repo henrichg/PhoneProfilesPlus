@@ -112,7 +112,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             applicationWidgetListBackgroundColor = String.valueOf(0x272727); // color of background
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = "100";
-                            applicationWidgetListLightnessT = "88"; // lightness of text = white
+                            applicationWidgetListLightnessT = "87"; // lightness of text = white
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = "75";
                             //applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
@@ -124,7 +124,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             applicationWidgetListBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = "0";
-                            applicationWidgetListLightnessT = "13"; // lightness of text = black
+                            applicationWidgetListLightnessT = "12"; // lightness of text = black
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = "62";
                             //applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators

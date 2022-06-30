@@ -120,7 +120,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             applicationWidgetIconBackgroundColor = String.valueOf(0x272727); // color of background
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "100";
-                            applicationWidgetIconLightnessT = "88"; // lightness of text = white
+                            applicationWidgetIconLightnessT = "87"; // lightness of text = white
                             //applicationWidgetIconColor = "0"; // icon type = colorful
                             applicationWidgetIconLightness = "75";
                             break;
@@ -131,7 +131,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             applicationWidgetIconBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "0";
-                            applicationWidgetIconLightnessT = "13"; // lightness of text = black
+                            applicationWidgetIconLightnessT = "12"; // lightness of text = black
                             //applicationWidgetIconColor = "0"; // icon type = colorful
                             applicationWidgetIconLightness = "62";
                             break;
