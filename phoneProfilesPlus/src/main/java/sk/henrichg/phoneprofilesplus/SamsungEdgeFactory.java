@@ -51,11 +51,11 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationSamsungEdgeIconLightness = "75";
+                            applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationSamsungEdgeIconLightness = "62";
+                            applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                             break;
                     }
                 }
@@ -63,15 +63,15 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         }
 
         int monochromeValue = 0xFF;
-        if (applicationSamsungEdgeIconLightness.equals("0")) monochromeValue = 0x00;
-        if (applicationSamsungEdgeIconLightness.equals("12")) monochromeValue = 0x20;
-        if (applicationSamsungEdgeIconLightness.equals("25")) monochromeValue = 0x40;
-        if (applicationSamsungEdgeIconLightness.equals("37")) monochromeValue = 0x60;
-        if (applicationSamsungEdgeIconLightness.equals("50")) monochromeValue = 0x80;
-        if (applicationSamsungEdgeIconLightness.equals("62")) monochromeValue = 0xA0;
-        if (applicationSamsungEdgeIconLightness.equals("75")) monochromeValue = 0xC0;
-        if (applicationSamsungEdgeIconLightness.equals("87")) monochromeValue = 0xE0;
-        //if (applicationSamsungEdgeIconLightness.equals("100")) monochromeValue = 0xFF;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) monochromeValue = 0x00;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) monochromeValue = 0x20;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) monochromeValue = 0x40;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) monochromeValue = 0x60;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) monochromeValue = 0x80;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) monochromeValue = 0xA0;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) monochromeValue = 0xC0;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) monochromeValue = 0xE0;
+        //if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 0xFF;
 
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),
@@ -173,17 +173,17 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                                 context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                         switch (nightModeFlags) {
                             case Configuration.UI_MODE_NIGHT_YES:
-                                applicationSamsungEdgeLightnessT = "87"; // lightness of text = white
+                                applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                                 applicationSamsungEdgeBackgroundType = true; // background type = not color
                                 applicationSamsungEdgeBackgroundColor = String.valueOf(0x272727); // color of background
-                                //applicationSamsungEdgeLightnessB = "12";  // lighting  of backgroud = 12%
+                                //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
                                 break;
                             case Configuration.UI_MODE_NIGHT_NO:
                             case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                                applicationSamsungEdgeLightnessT = "12"; // lightness of text = black
+                                applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                                 applicationSamsungEdgeBackgroundType = true; // background type = not color
                                 applicationSamsungEdgeBackgroundColor = String.valueOf(0xfcfcfc); // color of background
-                                //applicationSamsungEdgeLightnessB = "87"; // lighting  of backgroud = 87%
+                                //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
                                 break;
                         }
                     }
@@ -219,15 +219,15 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             int red = 0xFF;
             int green;
             int blue;
-            if (applicationSamsungEdgeLightnessT.equals("0")) red = 0x00;
-            if (applicationSamsungEdgeLightnessT.equals("12")) red = 0x20;
-            if (applicationSamsungEdgeLightnessT.equals("25")) red = 0x40;
-            if (applicationSamsungEdgeLightnessT.equals("37")) red = 0x60;
-            if (applicationSamsungEdgeLightnessT.equals("50")) red = 0x80;
-            if (applicationSamsungEdgeLightnessT.equals("62")) red = 0xA0;
-            if (applicationSamsungEdgeLightnessT.equals("75")) red = 0xC0;
-            if (applicationSamsungEdgeLightnessT.equals("87")) red = 0xE0;
-            //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) red = 0x00;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) red = 0x20;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) red = 0x40;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) red = 0x60;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) red = 0x80;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) red = 0xA0;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) red = 0xC0;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) red = 0xE0;
+            //if (applicationWidgetListLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) red = 0xFF;
             green = red;
             blue = red;
             if (!applicationSamsungEdgeHeader) {

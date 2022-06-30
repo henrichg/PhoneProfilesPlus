@@ -66,6 +66,16 @@ class GlobalGUIRoutines {
 
     static final int ICON_SIZE_DP = 50;
 
+    static final String OPAQUENESS_LIGHTNESS_0 = "0";
+    static final String OPAQUENESS_LIGHTNESS_12 = "12";
+    static final String OPAQUENESS_LIGHTNESS_25 = "25";
+    static final String OPAQUENESS_LIGHTNESS_37 = "37";
+    static final String OPAQUENESS_LIGHTNESS_50 = "50";
+    static final String OPAQUENESS_LIGHTNESS_62 = "62";
+    static final String OPAQUENESS_LIGHTNESS_75 = "75";
+    static final String OPAQUENESS_LIGHTNESS_87 = "87";
+    static final String OPAQUENESS_LIGHTNESS_100 = "100";
+
     /*
     // https://stackoverflow.com/questions/40221711/android-context-getresources-updateconfiguration-deprecated
     // but my solution working also in Android 8.1

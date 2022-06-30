@@ -21,7 +21,17 @@ public class OpaquenessLightingPreferenceX extends DialogPreference {
 
     private final Context prefContext;
 
-    final int[] opaquenessValues = { 0, 12, 25, 37, 50, 62, 75, 87, 100 };
+    final int[] opaquenessValues = {
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)
+    };
     final int[] opaquenessNames = {
             R.string.array_pref_0_percent,
             R.string.array_pref_12_percent,
@@ -45,7 +55,17 @@ public class OpaquenessLightingPreferenceX extends DialogPreference {
             R.drawable.ic_opaqueness_100
     };
 
-    final int[] lightingValues = { 0, 12, 25, 37, 50, 62, 75, 87, 100 };
+    final int[] lightingValues = {
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87),
+            Integer.parseInt(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)
+    };
     final int[] lightingNames = {
             R.string.array_pref_0_percent,
             R.string.array_pref_12_percent,
@@ -79,7 +99,7 @@ public class OpaquenessLightingPreferenceX extends DialogPreference {
 
         showLighting = typedArray.getBoolean(R.styleable.OpaquenessLightingPference_showLighting, false);
 
-        value = "0";
+        value = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
         prefContext = context;
         //preferenceTitle = getTitle();
 

@@ -377,28 +377,28 @@ public class ShortcutCreatorListFragment extends Fragment {
                             // icon is from resource or colored by custom color
                             int monochromeValue = 0xFF;
                             String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
-                            if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
-                            if (applicationWidgetIconLightness.equals("12")) monochromeValue = 0x20;
-                            if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
-                            if (applicationWidgetIconLightness.equals("37")) monochromeValue = 0x60;
-                            if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
-                            if (applicationWidgetIconLightness.equals("62")) monochromeValue = 0xA0;
-                            if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
-                            if (applicationWidgetIconLightness.equals("87")) monochromeValue = 0xE0;
-                            //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) monochromeValue = 0x00;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) monochromeValue = 0x20;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) monochromeValue = 0x40;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) monochromeValue = 0x60;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) monochromeValue = 0x80;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) monochromeValue = 0xA0;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) monochromeValue = 0xC0;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) monochromeValue = 0xE0;
+                            //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 0xFF;
                             profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, context*/);
                         } else {
                             float monochromeValue = 255f;
                             String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
-                            if (applicationWidgetIconLightness.equals("0")) monochromeValue = -255f;
-                            if (applicationWidgetIconLightness.equals("12")) monochromeValue = -192f;
-                            if (applicationWidgetIconLightness.equals("25")) monochromeValue = -128f;
-                            if (applicationWidgetIconLightness.equals("37")) monochromeValue = -64f;
-                            if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0f;
-                            if (applicationWidgetIconLightness.equals("62")) monochromeValue = 64f;
-                            if (applicationWidgetIconLightness.equals("75")) monochromeValue = 128f;
-                            if (applicationWidgetIconLightness.equals("87")) monochromeValue = 192f;
-                            //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 255f;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) monochromeValue = -255f;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) monochromeValue = -192f;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) monochromeValue = -128f;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) monochromeValue = -64f;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) monochromeValue = 0f;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) monochromeValue = 64f;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) monochromeValue = 128f;
+                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) monochromeValue = 192f;
+                            //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 255f;
                             profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
                             if (ApplicationPreferences.applicationShortcutCustomIconLightness)
                                 profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);

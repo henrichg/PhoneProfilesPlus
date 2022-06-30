@@ -2409,7 +2409,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean preferenceIndicatorsListEnabled =
                 preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, true);
         boolean monochromeIconList =
-                preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, "0").equals("1");
+                preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0).equals("1");
         //boolean roundedCornersOneRowEnabled =
         //        preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, true);
         boolean preferenceIndicatorsOneRowEnabled =

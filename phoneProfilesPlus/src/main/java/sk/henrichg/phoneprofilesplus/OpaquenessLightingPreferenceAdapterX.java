@@ -26,7 +26,7 @@ class OpaquenessLightingPreferenceAdapterX extends BaseAdapter {
         this.preferenceFragment = preferenceFragment;
 
         if (value.isEmpty())
-            this.value = "0";
+            this.value = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
         else
             this.value = value;
 

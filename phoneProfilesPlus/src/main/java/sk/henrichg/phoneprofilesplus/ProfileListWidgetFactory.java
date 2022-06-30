@@ -113,13 +113,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationWidgetListLightnessT = "87"; // lightness of text = white
+                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(0x272727); // color of background
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationWidgetListLightnessT = "12"; // lightness of text = black
+                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             break;
@@ -174,31 +174,31 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             int green;
             int blue;
             switch (applicationWidgetListLightnessT) {
-                case "0":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                     red = 0x00;
                     break;
-                case "12":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                     red = 0x20;
                     break;
-                case "25":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                     red = 0x40;
                     break;
-                case "37":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                     red = 0x60;
                     break;
-                case "50":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                     red = 0x80;
                     break;
-                case "62":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                     red = 0xA0;
                     break;
-                case "75":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                     red = 0xC0;
                     break;
-                case "87":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                     red = 0xE0;
                     break;
-                case "100":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                     //noinspection ConstantConditions
                     red = 0xFF;
                     break;
@@ -320,31 +320,31 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     {
         int monochromeValue = 0xFF;
         switch (applicationWidgetListIconLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 monochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 monochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 monochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 monochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 monochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 monochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 monochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 monochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 //noinspection ConstantConditions
                 monochromeValue = 0xFF;
                 break;
@@ -353,40 +353,40 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         float prefIndicatorLightnessValue = 0f;
         int prefIndicatorMonochromeValue = 0x00;
         switch (applicationWidgetListPrefIndicatorLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 prefIndicatorLightnessValue = -128f;
                 //noinspection ConstantConditions
                 prefIndicatorMonochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 prefIndicatorLightnessValue = -96f;
                 prefIndicatorMonochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 prefIndicatorLightnessValue = -64f;
                 prefIndicatorMonochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 prefIndicatorLightnessValue = -32f;
                 prefIndicatorMonochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 prefIndicatorLightnessValue = 0f;
                 prefIndicatorMonochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 prefIndicatorLightnessValue = 32f;
                 prefIndicatorMonochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 prefIndicatorLightnessValue = 64f;
                 prefIndicatorMonochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 prefIndicatorLightnessValue = 96f;
                 prefIndicatorMonochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 prefIndicatorLightnessValue = 128f;
                 prefIndicatorMonochromeValue = 0xFF;
                 break;
@@ -472,16 +472,16 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
-                            applicationWidgetListIconLightness = "75";
+                            applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                             applicationWidgetListBackgroundColor = String.valueOf(0x272727); // color of background
-                            //applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
+                            //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
-                            applicationWidgetListIconLightness = "62";
+                            applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                             applicationWidgetListBackgroundColor = String.valueOf(0xfcfcfc); // color of background
-                            //applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
+                            //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
                             break;
                     }
                 }

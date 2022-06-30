@@ -4796,7 +4796,7 @@ public class PhoneProfilesService extends Service
                     editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR,
                             preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, "0"));
                     editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS,
-                            preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, "100"));
+                            preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100));
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS,
                             preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, false));
                     editor.apply();
@@ -5621,11 +5621,11 @@ public class PhoneProfilesService extends Service
             }
             notificationShowProfileIcon = false; // for small notification at start
             notificationProfileIconColor = "0";
-            notificationProfileIconLightness = "100";
+            notificationProfileIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
             notificationCustomProfileIconLightness = false;
 
             notificationPrefIndicator = false;
-            notificationPrefIndicatorLightness = "50";
+            notificationPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
             notificationStatusBarStyle = "1";
 
             // default value for Pixel (Android 12) -> 0 (native)
@@ -5846,31 +5846,31 @@ public class PhoneProfilesService extends Service
 
         int monochromeValue = 0xFF;
         switch (notificationProfileIconLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 monochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 monochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 monochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 monochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 monochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 monochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 monochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 monochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 //noinspection ConstantConditions
                 monochromeValue = 0xFF;
                 break;
@@ -5914,40 +5914,40 @@ public class PhoneProfilesService extends Service
                     float prefIndicatorLightnessValue = 0f;
                     int prefIndicatorMonochromeValue = 0x00;
                     switch (notificationPrefIndicatorLightness) {
-                        case "0":
+                        case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                             prefIndicatorLightnessValue = -128f;
                             //noinspection ConstantConditions
                             prefIndicatorMonochromeValue = 0x00;
                             break;
-                        case "12":
+                        case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                             prefIndicatorLightnessValue = -96f;
                             prefIndicatorMonochromeValue = 0x20;
                             break;
-                        case "25":
+                        case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                             prefIndicatorLightnessValue = -64f;
                             prefIndicatorMonochromeValue = 0x40;
                             break;
-                        case "37":
+                        case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                             prefIndicatorLightnessValue = -32f;
                             prefIndicatorMonochromeValue = 0x60;
                             break;
-                        case "50":
+                        case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                             prefIndicatorLightnessValue = 0f;
                             prefIndicatorMonochromeValue = 0x80;
                             break;
-                        case "62":
+                        case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                             prefIndicatorLightnessValue = 32f;
                             prefIndicatorMonochromeValue = 0xA0;
                             break;
-                        case "75":
+                        case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                             prefIndicatorLightnessValue = 64f;
                             prefIndicatorMonochromeValue = 0xC0;
                             break;
-                        case "87":
+                        case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                             prefIndicatorLightnessValue = 96f;
                             prefIndicatorMonochromeValue = 0xE0;
                             break;
-                        case "100":
+                        case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                             prefIndicatorLightnessValue = 128f;
                             prefIndicatorMonochromeValue = 0xFF;
                             break;
