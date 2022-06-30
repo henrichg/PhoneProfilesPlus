@@ -124,6 +124,7 @@ public class LocaleHelper {
             configuration.setLocale(locale);
             configuration.setLayoutDirection(locale);
 
+            // !!! this must be, without this not working detection of night mode
             configuration.uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED;
             //??? configuration.uiMode ^= (~Configuration.UI_MODE_NIGHT_MASK) & Configuration.UI_MODE_NIGHT_UNDEFINED;
 
