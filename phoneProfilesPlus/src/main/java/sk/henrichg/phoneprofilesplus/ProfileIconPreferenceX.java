@@ -40,7 +40,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
 
     private ImageView imageView;
     ImageView dialogIcon;
-    private final Context prefContext;
+    final Context prefContext;
 
     static final int RESULT_LOAD_IMAGE = 1971;
 
@@ -88,7 +88,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
         return a.getString(index);  // icon is returned as string
     }
 
-    private Bitmap getBitmap() {
+    Bitmap getBitmap() {
         int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
         int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
         return BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, true, false, prefContext);
@@ -426,18 +426,15 @@ public class ProfileIconPreferenceX extends DialogPreference {
 
                     if (preference.useCustomColor)
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, prefContext*/);
+
                 } else {
                     // je to file
                     bitmap = preference.getBitmap();
                 }
 
-                //if (!inDialog) {
-                    boolean nightModeOn = (prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                            == Configuration.UI_MODE_NIGHT_YES;
-                    if (nightModeOn)
-                        bitmap = BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
-                //}
-
+                Bitmap _bitmap = Profile.increaseProfileIconBrightnessForPreference(bitmap, preference);
+                if (_bitmap != null)
+                    bitmap = _bitmap;
             }
             return null;
         }

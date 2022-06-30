@@ -3516,6 +3516,40 @@ public class Profile {
         //}
         return null;
     }
+    static Bitmap increaseProfileIconBrightnessForPreference(Bitmap iconBitmap, ProfileIconPreferenceX preference) {
+        //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
+        if (preference != null) {
+            boolean nightModeOn = (preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                    == Configuration.UI_MODE_NIGHT_YES;
+
+            if (nightModeOn) {
+                int iconColor;
+                if (preference.isImageResourceID)
+                {
+                    if (preference.useCustomColor)
+                        iconColor = preference.customColor;
+                    else
+                        iconColor = Profile.getIconDefaultColor(preference.imageIdentifier);
+                } else {
+                    //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                    Palette palette = Palette.from(iconBitmap).generate();
+                    iconColor = palette.getDominantColor(0xff1c9cd7);
+                }
+                if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
+                    if (iconBitmap != null) {
+                        return BitmapManipulator.setBitmapBrightness(iconBitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                    } else {
+                        int iconResource = getIconResource(preference.imageIdentifier);
+                        Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, preference.prefContext);
+                        return BitmapManipulator.setBitmapBrightness(bitmap, BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                    }
+                }
+            }
+        }
+        //}
+        return null;
+    }
+
 /*    int increaseNotificationDecorationBrightness(Context context) {
         boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 == Configuration.UI_MODE_NIGHT_YES;
