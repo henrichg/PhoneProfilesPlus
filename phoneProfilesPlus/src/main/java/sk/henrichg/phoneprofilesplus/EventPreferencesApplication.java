@@ -276,7 +276,7 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    int isAccessibilityServiceEnabled(Context context, boolean checkFlag)
+    int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay)
     {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
@@ -287,7 +287,7 @@ class EventPreferencesApplication extends EventPreferences {
 //        Log.e("EventPreferencesApplication.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
 //        Log.e("EventPreferencesApplication.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
         if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
-            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, checkFlag, true
+            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "EventPreferencesApplication.isAccessibilityServiceEnabled"*/))
                 return 1;
         } else

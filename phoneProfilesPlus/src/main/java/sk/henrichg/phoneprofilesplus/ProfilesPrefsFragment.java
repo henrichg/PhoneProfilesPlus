@@ -5537,7 +5537,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(key, value);
     }
 
-    static boolean isRedTextNotificationRequired(Profile profile, boolean checkFlag, Context context) {
+    static boolean isRedTextNotificationRequired(Profile profile, boolean againCheckAccessibilityInDelay, Context context) {
         boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
         /*if (Build.VERSION.SDK_INT >= 29) {
             if (!Settings.canDrawOverlays(context))
@@ -5577,7 +5577,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //            PPApplication.logE("ProfilePrefsFragment.isRedTextNotificationRequired", "accessibilityNotRequired=" + accessibilityNotRequired);
 //            PPApplication.logE("ProfilePrefsFragment.isRedTextNotificationRequired", "isAccessibilityEnabled=" + profile.isAccessibilityServiceEnabled(context.getApplicationContext(), checkFlag));
 //        }
-        boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext(), checkFlag) == 1);
+        boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext(), againCheckAccessibilityInDelay) == 1);
         //if (profile != null)
         //    PPApplication.logE("ProfilePrefsFragment.isRedTextNotificationRequired", "accessibilityEnabled="+accessibilityEnabled + " profile="+profile._name);
 

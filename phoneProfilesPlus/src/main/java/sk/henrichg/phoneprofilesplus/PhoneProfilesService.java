@@ -8464,14 +8464,14 @@ public class PhoneProfilesService extends Service
 
     static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
 
-    static boolean displayPreferencesErrorNotification(Profile profile, Event event, boolean checkFlag, Context context) {
+    static boolean displayPreferencesErrorNotification(Profile profile, Event event, boolean againCheckAccessibilityInDelay, Context context) {
         if ((profile == null) && (event == null))
             return false;
 
         if (!PPApplication.getApplicationStarted(true))
             return false;
 
-        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, checkFlag, context))) {
+        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, againCheckAccessibilityInDelay, context))) {
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
@@ -8484,7 +8484,7 @@ public class PhoneProfilesService extends Service
 
             return false;
         }
-        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, checkFlag, context))) {
+        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, againCheckAccessibilityInDelay, context))) {
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {

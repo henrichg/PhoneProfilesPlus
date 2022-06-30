@@ -1412,7 +1412,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
     */
 
-    static boolean isRedTextNotificationRequired(Event event, boolean checkFlag, Context context) {
+    static boolean isRedTextNotificationRequired(Event event, boolean againCheckInDelay, Context context) {
         Context appContext = context.getApplicationContext();
         boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
         boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0;
@@ -1420,7 +1420,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;
         }*/
-        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, checkFlag) == 1;
+        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
 //        if (/*(event != null) &&*/ event._name.equals("Nočný hovor")) {
 //            PPApplication.logE("EventsPrefsFragment.isRedTextNotificationRequired", "isAccessibilityEnabled=" + event.isAccessibilityServiceEnabled(appContext, false, false));
 //        }

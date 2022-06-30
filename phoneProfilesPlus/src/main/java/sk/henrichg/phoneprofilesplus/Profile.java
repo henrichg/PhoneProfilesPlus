@@ -4366,7 +4366,7 @@ public class Profile {
         }
     }
 
-    public int isAccessibilityServiceEnabled(Context context, boolean checkFlag) {
+    public int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay) {
         int accessibilityEnabled = -99;
 
         if ((this._deviceForceStopApplicationChange != 0) ||
@@ -4401,7 +4401,7 @@ public class Profile {
             if (accessibilityEnabled == -98) {
                 // Extender is in right version
 //                Log.e("Profile.isAccessibilityServiceEnabled", "profile="+_name);
-                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, checkFlag, true
+                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "Profile.isAccessibilityServiceEnabled (profile=" + _name + ")"*/))
                     // accessibility enabled
                     accessibilityEnabled = 1;

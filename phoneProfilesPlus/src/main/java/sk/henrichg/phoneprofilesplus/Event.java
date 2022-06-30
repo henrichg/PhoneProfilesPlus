@@ -644,7 +644,7 @@ class Event {
         return runnable;
     }
 
-    public int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled, boolean checkFlag) {
+    public int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled, boolean againCheckInDelay) {
         int accessibilityEnabled = 1;
         boolean someEnabled = true;
         if (checkSomeSensorEnabled) {
@@ -674,49 +674,49 @@ class Event {
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
-                accessibilityEnabled = this._eventPreferencesTime.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesTime.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesBattery._enabled)
-                accessibilityEnabled = this._eventPreferencesBattery.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesBattery.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesCall._enabled)
-                accessibilityEnabled = this._eventPreferencesCall.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesCall.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesAccessories._enabled)
-                accessibilityEnabled = this._eventPreferencesAccessories.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesAccessories.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesCalendar._enabled)
-                accessibilityEnabled = this._eventPreferencesCalendar.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesCalendar.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesWifi._enabled)
-                accessibilityEnabled = this._eventPreferencesWifi.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesWifi.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesScreen._enabled)
-                accessibilityEnabled = this._eventPreferencesScreen.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesScreen.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesBluetooth._enabled)
-                accessibilityEnabled = this._eventPreferencesBluetooth.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesBluetooth.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesSMS._enabled)
-                accessibilityEnabled = this._eventPreferencesSMS.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesSMS.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesNotification._enabled)
-                accessibilityEnabled = this._eventPreferencesNotification.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesNotification.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesApplication._enabled)
-                accessibilityEnabled = this._eventPreferencesApplication.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesApplication.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesLocation._enabled)
-                accessibilityEnabled = this._eventPreferencesLocation.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesLocation.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesOrientation._enabled)
-                accessibilityEnabled = this._eventPreferencesOrientation.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesOrientation.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesMobileCells._enabled)
-                accessibilityEnabled = this._eventPreferencesMobileCells.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesMobileCells.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesNFC._enabled)
-                accessibilityEnabled = this._eventPreferencesNFC.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesNFC.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesRadioSwitch._enabled)
-                accessibilityEnabled = this._eventPreferencesRadioSwitch.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesRadioSwitch.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesAlarmClock._enabled)
-                accessibilityEnabled = this._eventPreferencesAlarmClock.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesAlarmClock.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesDeviceBoot._enabled)
-                accessibilityEnabled = this._eventPreferencesDeviceBoot.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesDeviceBoot.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesSoundProfile._enabled)
-                accessibilityEnabled = this._eventPreferencesSoundProfile.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesSoundProfile.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesPeriodic._enabled)
-                accessibilityEnabled = this._eventPreferencesPeriodic.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesPeriodic.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesVolumes._enabled)
-                accessibilityEnabled = this._eventPreferencesVolumes.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesVolumes.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesActivatedProfile._enabled)
-                accessibilityEnabled = this._eventPreferencesActivatedProfile.isAccessibilityServiceEnabled(context, checkFlag);
+                accessibilityEnabled = this._eventPreferencesActivatedProfile.isAccessibilityServiceEnabled(context, againCheckInDelay);
         }
 
         return accessibilityEnabled;
