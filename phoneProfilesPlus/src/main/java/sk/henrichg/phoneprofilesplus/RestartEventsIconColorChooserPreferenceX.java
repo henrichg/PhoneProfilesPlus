@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -72,13 +73,12 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
                 "ic_profile_restart_events|1|1|"+color, 0);
         restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
 
-        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                    == Configuration.UI_MODE_NIGHT_YES;
-        if (nightModeOn)
-            restartEvents._iconBitmap = BitmapManipulator.setBitmapBrightness(restartEvents._iconBitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+        //todo - tu musis pouizit Profile.increaseProfileIconBrightnessForActivity()
+        Bitmap bitmap = restartEvents.increaseProfileIconBrightnessForContext(context, restartEvents._iconBitmap);
+        if (bitmap != null)
+            restartEvents._iconBitmap = bitmap;
 
         imageView.setImageBitmap(restartEvents._iconBitmap);
-
 
 /*
         Drawable selector = createSelector(color);
