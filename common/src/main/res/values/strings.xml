@@ -1996,6 +1996,10 @@
     <string name="important_info_choose_language_text1">Choose language:</string>
     <string name="important_info_choose_language_text2">In Editor menu is added \"Choose language\" option. With this option, you can change application language.\nMenu for this is added also in PhoneProfilesPlusExtender (version 8.0).</string>
 
+    <string name="profile_icon_preference_iconColor_help">Icon color</string>
+    <string name="profile_icon_preference_iconColor_help_info_1">In a dark application theme, the color of the preview icon may have increased brightness.</string>
+    <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

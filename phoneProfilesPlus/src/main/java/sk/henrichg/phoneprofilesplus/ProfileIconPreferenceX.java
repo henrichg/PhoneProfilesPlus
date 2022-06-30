@@ -431,12 +431,12 @@ public class ProfileIconPreferenceX extends DialogPreference {
                     bitmap = preference.getBitmap();
                 }
 
-                if (!inDialog) {
+                //if (!inDialog) {
                     boolean nightModeOn = (prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                             == Configuration.UI_MODE_NIGHT_YES;
                     if (nightModeOn)
                         bitmap = BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
-                }
+                //}
 
             }
             return null;

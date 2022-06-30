@@ -72,12 +72,12 @@
                         android:id="@+id/profileicon_pref_dlg_custom_icon_helpIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_button_help"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/profile_icon_preference_custumIconFromIconPack_help"/>
+                        android:contentDescription="@string/profile_icon_preference_custumIconFromIconPack_help"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_button_help" />
 
                     <Button
                         android:id="@+id/profileicon_pref_dlg_custom_icon"

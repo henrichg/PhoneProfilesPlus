@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <item android:id="@+id/menu_profile_icon_help_icon_color"
+        android:title="@string/profile_icon_preference_iconColor_help"
+        android:orderInCategory="150"
+        app:showAsAction="never|withText" />
+    <item android:id="@+id/menu_profile_icon_help_menu_custom_icon_pack"
+        android:title="@string/profile_icon_preference_custumIconFromIconPack_help"
+        android:orderInCategory="200"
+        app:showAsAction="never|withText" />
+</menu>
