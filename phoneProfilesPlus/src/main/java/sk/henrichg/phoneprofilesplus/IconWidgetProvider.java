@@ -128,7 +128,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetIconBackground = "100"; // fully opaque
                             applicationWidgetIconBackgroundType = true; // background type = color
-                            applicationWidgetIconBackgroundColor = String.valueOf(0xf0f0f0); // color of background
+                            applicationWidgetIconBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "0";
                             applicationWidgetIconLightnessT = "13"; // lightness of text = black

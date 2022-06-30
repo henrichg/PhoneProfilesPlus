@@ -143,7 +143,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetOneRowBackground = "100"; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(0xf0f0f0); // color of background
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "0";
                             applicationWidgetOneRowLightnessT = "13"; // lightness of text = black

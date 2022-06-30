@@ -121,7 +121,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             applicationWidgetListLightnessT = "13"; // lightness of text = black
                             applicationWidgetListBackgroundType = true; // background type = color
-                            applicationWidgetListBackgroundColor = String.valueOf(0xf0f0f0); // color of background
+                            applicationWidgetListBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             break;
                     }
                 }
@@ -473,12 +473,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = "75";
+                            applicationWidgetListBackgroundColor = String.valueOf(0x272727); // color of background
                             //applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = "62";
+                            applicationWidgetListBackgroundColor = String.valueOf(0xfcfcfc); // color of background
                             //applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }

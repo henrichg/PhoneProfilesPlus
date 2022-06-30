@@ -173,15 +173,17 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                                 context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                         switch (nightModeFlags) {
                             case Configuration.UI_MODE_NIGHT_YES:
-                                applicationSamsungEdgeLightnessT = "100"; // lightness of text = white
-                                applicationSamsungEdgeBackgroundType = false; // background type = not color
-                                applicationSamsungEdgeLightnessB = "12";  // lighting  of backgroud = 12%
+                                applicationSamsungEdgeLightnessT = "88"; // lightness of text = white
+                                applicationSamsungEdgeBackgroundType = true; // background type = not color
+                                applicationSamsungEdgeBackgroundColor = String.valueOf(0x272727); // color of background
+                                //applicationSamsungEdgeLightnessB = "12";  // lighting  of backgroud = 12%
                                 break;
                             case Configuration.UI_MODE_NIGHT_NO:
                             case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                                applicationSamsungEdgeLightnessT = "0"; // lightness of text = black
-                                applicationSamsungEdgeBackgroundType = false; // background type = not color
-                                applicationSamsungEdgeLightnessB = "87"; // lighting  of backgroud = 87%
+                                applicationSamsungEdgeLightnessT = "13"; // lightness of text = black
+                                applicationSamsungEdgeBackgroundType = true; // background type = not color
+                                applicationSamsungEdgeBackgroundColor = String.valueOf(0xfcfcfc); // color of background
+                                //applicationSamsungEdgeLightnessB = "87"; // lighting  of backgroud = 87%
                                 break;
                         }
                     }
