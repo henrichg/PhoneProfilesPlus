@@ -4325,29 +4325,29 @@ public class DatabaseHandlerEvents {
 // MOBILE_CELLS ----------------------------------------------------------------------
 
     // Adding new mobile cell
-    private void addMobileCell(MobileCell mobileCell) {
-        importExportLock.lock();
+    static private void addMobileCell(DatabaseHandler instance, MobileCell mobileCell) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_MC_CELL_ID, mobileCell._cellId);
-                values.put(KEY_MC_NAME, mobileCell._name);
-                values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
-                values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
-                values.put(KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
-                values.put(KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
-                values.put(KEY_MC_DO_NOT_DETECT, mobileCell._doNotDetect ? 1 : 0);
+                values.put(DatabaseHandler.KEY_MC_CELL_ID, mobileCell._cellId);
+                values.put(DatabaseHandler.KEY_MC_NAME, mobileCell._name);
+                values.put(DatabaseHandler.KEY_MC_NEW, mobileCell._new ? 1 : 0);
+                values.put(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
+                values.put(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
+                values.put(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
+                values.put(DatabaseHandler.KEY_MC_DO_NOT_DETECT, mobileCell._doNotDetect ? 1 : 0);
 
                 db.beginTransaction();
 
                 try {
                     // Inserting Row
-                    mobileCell._id = db.insert(TABLE_MOBILE_CELLS, null, values);
+                    mobileCell._id = db.insert(DatabaseHandler.TABLE_MOBILE_CELLS, null, values);
 
                     db.setTransactionSuccessful();
 
@@ -4362,34 +4362,34 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
     // Updating single mobile cell
-    private void updateMobileCell(MobileCell mobileCell) {
-        importExportLock.lock();
+    static private void updateMobileCell(DatabaseHandler instance, MobileCell mobileCell) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_MC_CELL_ID, mobileCell._cellId);
-                values.put(KEY_MC_NAME, mobileCell._name);
-                values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
-                values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
-                values.put(KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
-                values.put(KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
-                values.put(KEY_MC_DO_NOT_DETECT, mobileCell._doNotDetect ? 1 : 0);
+                values.put(DatabaseHandler.KEY_MC_CELL_ID, mobileCell._cellId);
+                values.put(DatabaseHandler.KEY_MC_NAME, mobileCell._name);
+                values.put(DatabaseHandler.KEY_MC_NEW, mobileCell._new ? 1 : 0);
+                values.put(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
+                values.put(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
+                values.put(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
+                values.put(DatabaseHandler.KEY_MC_DO_NOT_DETECT, mobileCell._doNotDetect ? 1 : 0);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_MOBILE_CELLS, values, KEY_MC_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_ID + " = ?",
                             new String[]{String.valueOf(mobileCell._id)});
 
                     db.setTransactionSuccessful();
@@ -4407,47 +4407,47 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
     // add mobile cells to list
-    void addMobileCellsToList(List<MobileCellsData> cellsList, int onlyCellId) {
-        importExportLock.lock();
+    static void addMobileCellsToList(DatabaseHandler instance, List<MobileCellsData> cellsList, int onlyCellId) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 // Select All Query
-                String selectQuery = "SELECT " + KEY_MC_CELL_ID + "," +
-                        KEY_MC_NAME + "," +
-                        KEY_MC_NEW + "," +
-                        KEY_MC_LAST_CONNECTED_TIME + "," +
-                        KEY_MC_LAST_RUNNING_EVENTS + "," +
-                        KEY_MC_LAST_PAUSED_EVENTS + "," +
-                        KEY_MC_DO_NOT_DETECT +
-                        " FROM " + TABLE_MOBILE_CELLS;
+                String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_CELL_ID + "," +
+                        DatabaseHandler.KEY_MC_NAME + "," +
+                        DatabaseHandler.KEY_MC_NEW + "," +
+                        DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + "," +
+                        DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "," +
+                        DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + "," +
+                        DatabaseHandler.KEY_MC_DO_NOT_DETECT +
+                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS;
 
                 if (onlyCellId != 0) {
                     selectQuery = selectQuery +
-                            " WHERE " + KEY_MC_CELL_ID + "=" + onlyCellId;
+                            " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + onlyCellId;
                 }
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
                 // looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
-                        int cellId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_MC_CELL_ID));
-                        String name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_MC_NAME));
-                        boolean _new = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_MC_NEW)) == 1;
-                        long lastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_MC_LAST_CONNECTED_TIME));
-                        String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(KEY_MC_LAST_RUNNING_EVENTS));
-                        String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(KEY_MC_LAST_PAUSED_EVENTS));
-                        boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_MC_DO_NOT_DETECT)) == 1;
+                        int cellId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
+                        String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                        boolean _new = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NEW)) == 1;
+                        long lastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
+                        String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
+                        String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
+                        boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
                         //Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
                         boolean found = false;
                         for (MobileCellsData cell : cellsList) {
@@ -4470,28 +4470,28 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new, boolean renameExistingCell) {
-        importExportLock.lock();
+    static void saveMobileCellsList(DatabaseHandler instance, List<MobileCellsData> cellsList, boolean _new, boolean renameExistingCell) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 // Select All Query
-                final String selectQuery = "SELECT " + KEY_MC_ID + "," +
-                        KEY_MC_CELL_ID + "," +
-                        KEY_MC_NAME + "," +
-                        KEY_MC_LAST_CONNECTED_TIME + "," +
-                        KEY_MC_LAST_RUNNING_EVENTS + "," +
-                        KEY_MC_LAST_PAUSED_EVENTS + "," +
-                        KEY_MC_DO_NOT_DETECT +
-                        " FROM " + TABLE_MOBILE_CELLS;
+                final String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_ID + "," +
+                        DatabaseHandler.KEY_MC_CELL_ID + "," +
+                        DatabaseHandler.KEY_MC_NAME + "," +
+                        DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + "," +
+                        DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "," +
+                        DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + "," +
+                        DatabaseHandler.KEY_MC_DO_NOT_DETECT +
+                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -4505,14 +4505,14 @@ public class DatabaseHandlerEvents {
                     //boolean doNotDetect = false;
                     if (cursor.moveToFirst()) {
                         do {
-                            String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(KEY_MC_CELL_ID)));
+                            String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID)));
                             if (dbCellId.equals(Integer.toString(cell.cellId))) {
-                                foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_MC_ID));
-                                foundedCellName = cursor.getString(cursor.getColumnIndexOrThrow(KEY_MC_NAME));
-                                foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_MC_LAST_CONNECTED_TIME));
-                                //foundedLastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(KEY_MC_LAST_RUNNING_EVENTS));
-                                //foundedLastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(KEY_MC_LAST_PAUSED_EVENTS));
-                                //doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_MC_DO_NOT_DETECT)) == 1;
+                                foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
+                                foundedCellName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                                foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
+                                //foundedLastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
+                                //foundedLastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
+                                //doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
                                 found = true;
                                 break;
                             }
@@ -4528,7 +4528,7 @@ public class DatabaseHandlerEvents {
                         mobileCell._lastRunningEvents = cell.lastRunningEvents;
                         mobileCell._lastPausedEvents = cell.lastPausedEvents;
                         mobileCell._doNotDetect = cell.doNotDetect;
-                        addMobileCell(mobileCell);
+                        addMobileCell(instance, mobileCell);
                     } else {
                         //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
                         mobileCell._id = foundedDbId;
@@ -4544,7 +4544,7 @@ public class DatabaseHandlerEvents {
                         mobileCell._lastRunningEvents = cell.lastRunningEvents;
                         mobileCell._lastPausedEvents = cell.lastPausedEvents;
                         mobileCell._doNotDetect = cell.doNotDetect;
-                        updateMobileCell(mobileCell);
+                        updateMobileCell(instance, mobileCell);
                     }
                 }
 
@@ -4554,23 +4554,23 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
-        importExportLock.lock();
+    static void renameMobileCellsList(DatabaseHandler instance, List<MobileCellsData> cellsList, String name, boolean _new, String value) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 // Select All Query
-                final String selectQuery = "SELECT " + KEY_MC_ID + "," +
-                        KEY_MC_CELL_ID +
-                        " FROM " + TABLE_MOBILE_CELLS;
+                final String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_ID + "," +
+                        DatabaseHandler.KEY_MC_CELL_ID +
+                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -4579,9 +4579,9 @@ public class DatabaseHandlerEvents {
                     long foundedDbId = 0;
                     if (cursor.moveToFirst()) {
                         do {
-                            String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(KEY_MC_CELL_ID)));
+                            String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID)));
                             if (dbCellId.equals(Integer.toString(cell.cellId))) {
-                                foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_MC_ID));
+                                foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
                                 found = true;
                                 break;
                             }
@@ -4647,24 +4647,24 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void deleteMobileCell(int mobileCell) {
-        importExportLock.lock();
+    static void deleteMobileCell(DatabaseHandler inctance, int mobileCell) {
+        inctance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                inctance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = inctance.getMyWritableDatabase();
 
                 db.beginTransaction();
 
                 try {
                     // delete geofence
-                    db.delete(TABLE_MOBILE_CELLS, KEY_MC_CELL_ID + " = ?",
+                    db.delete(DatabaseHandler.TABLE_MOBILE_CELLS, DatabaseHandler.KEY_MC_CELL_ID + " = ?",
                             new String[]{String.valueOf(mobileCell)});
 
                     db.setTransactionSuccessful();
@@ -4681,27 +4681,27 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            inctance.stopRunningCommand();
         }
     }
 
-    void updateMobileCellLastConnectedTime(int mobileCell, long lastConnectedTime) {
-        importExportLock.lock();
+    static void updateMobileCellLastConnectedTime(DatabaseHandler instance, int mobileCell, long lastConnectedTime) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_MC_LAST_CONNECTED_TIME, lastConnectedTime);
+                values.put(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME, lastConnectedTime);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_MOBILE_CELLS, values, KEY_MC_CELL_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_CELL_ID + " = ?",
                             new String[]{String.valueOf(mobileCell)});
 
                     db.setTransactionSuccessful();
@@ -4719,33 +4719,33 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void addMobileCellNamesToList(List<String> cellNamesList) {
-        importExportLock.lock();
+    static void addMobileCellNamesToList(DatabaseHandler instance, List<String> cellNamesList) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 // Select All Query
-                final String selectQuery = "SELECT " + KEY_MC_NAME +
-                        " FROM " + TABLE_MOBILE_CELLS +
-                        " WHERE " + KEY_MC_NAME + " IS NOT NULL" +
-                        " AND " + KEY_MC_NAME + " <> ''" +
-                        " GROUP BY " + KEY_MC_NAME +
-                        " ORDER BY " + KEY_MC_NAME;
+                final String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_NAME +
+                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
+                        " WHERE " + DatabaseHandler.KEY_MC_NAME + " IS NOT NULL" +
+                        " AND " + DatabaseHandler.KEY_MC_NAME + " <> ''" +
+                        " GROUP BY " + DatabaseHandler.KEY_MC_NAME +
+                        " ORDER BY " + DatabaseHandler.KEY_MC_NAME;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
                 // looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
-                        String name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_MC_NAME));
+                        String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
                         cellNamesList.add(name);
                     } while (cursor.moveToNext());
                 }
@@ -4756,24 +4756,24 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    int getNewMobileCellsCount() {
-        importExportLock.lock();
+    static int getNewMobileCellsCount(DatabaseHandler instance) {
+        instance.importExportLock.lock();
         try {
             int r = 0;
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 // Select All Query
                 final String selectQuery = "SELECT COUNT(*) " +
-                        " FROM " + TABLE_MOBILE_CELLS +
-                        " WHERE " + KEY_MC_NEW + "=1";
+                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
+                        " WHERE " + DatabaseHandler.KEY_MC_NEW + "=1";
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -4789,31 +4789,31 @@ public class DatabaseHandlerEvents {
             }
             return r;
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
     // Updating single event
-    void updateMobileCellsCells(long eventId, String cells) {
-        importExportLock.lock();
+    static void updateMobileCellsCells(DatabaseHandler instance, long eventId, String cells) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
 
                 //EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
                 //values.put(KEY_E_MOBILE_CELLS_CELLS, eventPreferences._cells);
-                values.put(KEY_E_MOBILE_CELLS_CELLS, cells);
+                values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, cells);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[] { String.valueOf(eventId) });
 
                     db.setTransactionSuccessful();
@@ -4831,25 +4831,25 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    boolean isMobileCellSaved(int mobileCell) {
-        importExportLock.lock();
+    static boolean isMobileCellSaved(DatabaseHandler instance, int mobileCell) {
+        instance.importExportLock.lock();
         try {
             int r = 0;
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 // Select All Query
                 final String selectQuery = "SELECT COUNT(*) " +
-                        " FROM " + TABLE_MOBILE_CELLS +
-                        " WHERE " + KEY_MC_CELL_ID + "=" + mobileCell;
+                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
+                        " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + mobileCell;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -4865,22 +4865,22 @@ public class DatabaseHandlerEvents {
             }
             return r > 0;
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void loadMobileCellsSensorRunningPausedEvents(List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
-        importExportLock.lock();
+    static void loadMobileCellsSensorRunningPausedEvents(DatabaseHandler instance, List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 eventList.clear();
 
                 final String countQuery;
                 String eventTypeChecked;
-                eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
-                eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1";
+                eventTypeChecked = DatabaseHandler.KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
+                eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED + "=1";
                 /*if (outsideParameter) {
                     eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
                     eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
@@ -4892,11 +4892,11 @@ public class DatabaseHandlerEvents {
                     //eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0";
                 }*/
 
-                countQuery = "SELECT " + KEY_E_ID + "," + KEY_E_MOBILE_CELLS_CELLS + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE +
-                        " FROM " + TABLE_EVENTS + " WHERE " + eventTypeChecked;
+                countQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS + " WHERE " + eventTypeChecked;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -4904,9 +4904,9 @@ public class DatabaseHandlerEvents {
                     if (cursor.moveToFirst()) {
                         do {
                             NotUsedMobileCells notUsedMobileCells = new NotUsedMobileCells();
-                            notUsedMobileCells.eventId = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_ID));
-                            notUsedMobileCells.cells = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_MOBILE_CELLS_CELLS));
-                            notUsedMobileCells.whenOutside = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
+                            notUsedMobileCells.eventId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+                            notUsedMobileCells.cells = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
+                            notUsedMobileCells.whenOutside = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
                             eventList.add(notUsedMobileCells);
                         } while (cursor.moveToNext());
                     }
@@ -4919,22 +4919,22 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    String getEventMobileCellsCells(long eventId) {
-        importExportLock.lock();
+    static String getEventMobileCellsCells(DatabaseHandler instance, long eventId) {
+        instance.importExportLock.lock();
         try {
             String cells = "";
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
-                        new String[]{KEY_E_MOBILE_CELLS_CELLS},
-                        KEY_E_ID + "=?",
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS},
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(eventId)}, null, null, null, null);
                 if (cursor != null)
                 {
@@ -4942,7 +4942,7 @@ public class DatabaseHandlerEvents {
 
                     if (cursor.getCount() > 0)
                     {
-                        cells = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_MOBILE_CELLS_CELLS));
+                        cells = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
                     }
                     cursor.close();
                 }
@@ -4955,7 +4955,7 @@ public class DatabaseHandlerEvents {
 
             return cells;
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
