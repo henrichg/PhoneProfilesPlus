@@ -11,7 +11,7 @@
         <item name="android:textSize">12sp</item>
     </style>
     <style name="TextAppearance.TimeDurationPicker.Button">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/dialpladTextSize</item>
     </style>
 
     <style name="TextAppearance.TimeDurationPicker.Display.Large">
