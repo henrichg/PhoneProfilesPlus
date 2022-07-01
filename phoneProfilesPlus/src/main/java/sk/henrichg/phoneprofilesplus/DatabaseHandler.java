@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static volatile DatabaseHandler instance;
     //private SQLiteDatabase writableDb;
 
-    private final Context context;
+    final Context context;
     
     // Database Version
     private static final int DATABASE_VERSION = 2493;
@@ -47,9 +47,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "phoneProfilesManager";
 
     // Table names
-    private static final String TABLE_PROFILES = "profiles";
-    private static final String TABLE_MERGED_PROFILE = "merged_profile";
-    private static final String TABLE_EVENTS = "events";
+    static final String TABLE_PROFILES = "profiles";
+    static final String TABLE_MERGED_PROFILE = "merged_profile";
+    static final String TABLE_EVENTS = "events";
     private static final String TABLE_EVENT_TIMELINE = "event_timeline";
     private static final String TABLE_ACTIVITY_LOG = "activity_log";
     private static final String TABLE_GEOFENCES = "geofences";
@@ -60,9 +60,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // import/export
     static final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
-    private final Lock importExportLock = new ReentrantLock();
-    private final Condition runningImportExportCondition  = importExportLock.newCondition();
-    private final Condition runningCommandCondition = importExportLock.newCondition();
+    final Lock importExportLock = new ReentrantLock();
+    final Condition runningImportExportCondition  = importExportLock.newCondition();
+    final Condition runningCommandCondition = importExportLock.newCondition();
     private boolean runningImportExport = false;
     private boolean runningCommand = false;
     static final int IMPORT_ERROR_BUG = 0;
@@ -120,305 +120,305 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_ACTIVATED_PROFILE = 42;
 
     // Profiles Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_ICON = "icon";
-    private static final String KEY_CHECKED = "checked";
-    private static final String KEY_PORDER = "porder";
-    private static final String KEY_VOLUME_RINGER_MODE = "volumeRingerMode";
-    private static final String KEY_VOLUME_ZEN_MODE = "volumeZenMode";
-    private static final String KEY_VOLUME_RINGTONE = "volumeRingtone";
-    private static final String KEY_VOLUME_NOTIFICATION = "volumeNotification";
-    private static final String KEY_VOLUME_MEDIA = "volumeMedia";
-    private static final String KEY_VOLUME_ALARM = "volumeAlarm";
-    private static final String KEY_VOLUME_SYSTEM = "volumeSystem";
-    private static final String KEY_VOLUME_VOICE = "volumeVoice";
-    private static final String KEY_SOUND_RINGTONE_CHANGE = "soundRingtoneChange";
-    private static final String KEY_SOUND_RINGTONE = "soundRingtone";
-    private static final String KEY_SOUND_NOTIFICATION_CHANGE = "soundNotificationChange";
-    private static final String KEY_SOUND_NOTIFICATION = "soundNotification";
-    private static final String KEY_SOUND_ALARM_CHANGE = "soundAlarmChange";
-    private static final String KEY_SOUND_ALARM = "soundAlarm";
-    private static final String KEY_DEVICE_AIRPLANE_MODE = "deviceAirplaneMode";
-    private static final String KEY_DEVICE_WIFI = "deviceWiFi";
-    private static final String KEY_DEVICE_BLUETOOTH = "deviceBluetooth";
-    private static final String KEY_DEVICE_SCREEN_TIMEOUT = "deviceScreenTimeout";
-    private static final String KEY_DEVICE_BRIGHTNESS = "deviceBrightness";
-    private static final String KEY_DEVICE_WALLPAPER_CHANGE = "deviceWallpaperChange";
-    private static final String KEY_DEVICE_WALLPAPER = "deviceWallpaper";
-    private static final String KEY_DEVICE_MOBILE_DATA = "deviceMobileData";
-    private static final String KEY_DEVICE_MOBILE_DATA_PREFS = "deviceMobileDataPrefs";
-    private static final String KEY_DEVICE_GPS = "deviceGPS";
-    private static final String KEY_DEVICE_RUN_APPLICATION_CHANGE = "deviceRunApplicationChange";
-    private static final String KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME = "deviceRunApplicationPackageName";
-    private static final String KEY_DEVICE_AUTOSYNC = "deviceAutosync";
-    private static final String KEY_SHOW_IN_ACTIVATOR = "showInActivator";
-    private static final String KEY_DEVICE_AUTOROTATE = "deviceAutoRotate";
-    private static final String KEY_DEVICE_LOCATION_SERVICE_PREFS = "deviceLocationServicePrefs";
-    private static final String KEY_VOLUME_SPEAKER_PHONE = "volumeSpeakerPhone";
-    private static final String KEY_DEVICE_NFC = "deviceNFC";
-    private static final String KEY_DURATION = "duration";
-    private static final String KEY_AFTER_DURATION_DO = "afterDurationDo";
-    private static final String KEY_ASK_FOR_DURATION = "askForDuration";
-    private static final String KEY_DURATION_NOTIFICATION_SOUND = "durationNotificationSound";
-    private static final String KEY_DURATION_NOTIFICATION_VIBRATE = "durationNotificationVibrate";
-    private static final String KEY_DEVICE_KEYGUARD = "deviceKeyguard";
-    private static final String KEY_VIBRATE_ON_TOUCH = "vibrateOnTouch";
-    private static final String KEY_DEVICE_WIFI_AP = "deviceWifiAP";
-    private static final String KEY_DEVICE_POWER_SAVE_MODE = "devicePowerSaveMode";
-    private static final String KEY_DEVICE_NETWORK_TYPE = "deviceNetworkType";
-    private static final String KEY_NOTIFICATION_LED = "notificationLed";
-    private static final String KEY_VIBRATE_WHEN_RINGING = "vibrateWhenRinging";
-    private static final String KEY_VIBRATE_NOTIFICATIONS = "vibrateNotifications";
-    private static final String KEY_DEVICE_WALLPAPER_FOR = "deviceWallpaperFor";
-    private static final String KEY_HIDE_STATUS_BAR_ICON = "hideStatusBarIcon";
-    private static final String KEY_LOCK_DEVICE = "lockDevice";
-    private static final String KEY_DEVICE_CONNECT_TO_SSID = "deviceConnectToSSID";
-    private static final String KEY_APPLICATION_DISABLE_WIFI_SCANNING = "applicationDisableWifiScanning";
-    private static final String KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING = "applicationDisableBluetoothScanning";
-    private static final String KEY_DEVICE_WIFI_AP_PREFS = "deviceWifiAPPrefs";
-    private static final String KEY_APPLICATION_DISABLE_LOCATION_SCANNING = "applicationDisableLocationScanning";
-    private static final String KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "applicationDisableMobileCellScanning";
-    private static final String KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING = "applicationDisableOrientationScanning";
-    private static final String KEY_HEADS_UP_NOTIFICATIONS = "headsUpNotifications";
-    private static final String KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE = "deviceForceStopApplicationChange";
-    private static final String KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "deviceForceStopApplicationPackageName";
-    private static final String KEY_ACTIVATION_BY_USER_COUNT = "activationByUserCount";
-    private static final String KEY_DEVICE_NETWORK_TYPE_PREFS = "deviceNetworkTypePrefs";
-    private static final String KEY_DEVICE_CLOSE_ALL_APPLICATIONS = "deviceCloseAllApplications";
-    private static final String KEY_SCREEN_DARK_MODE = "screenNightMode";
-    private static final String KEY_DTMF_TONE_WHEN_DIALING = "dtmfToneWhenDialing";
-    private static final String KEY_SOUND_ON_TOUCH = "soundOnTouch";
-    private static final String KEY_VOLUME_DTMF = "volumeDTMF";
-    private static final String KEY_VOLUME_ACCESSIBILITY = "volumeAccessibility";
-    private static final String KEY_VOLUME_BLUETOOTH_SCO = "volumeBluetoothSCO";
-    private static final String KEY_AFTER_DURATION_PROFILE = "afterDurationProfile";
-    private static final String KEY_ALWAYS_ON_DISPLAY = "alwaysOnDisplay";
-    private static final String KEY_SCREEN_ON_PERMANENT = "screenOnPermanent";
-    private static final String KEY_VOLUME_MUTE_SOUND = "volumeMuteSound";
-    private static final String KEY_DEVICE_LOCATION_MODE = "deviceLocationMode";
-    private static final String KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "applicationDisableNotificationScanning";
-    private static final String KEY_GENERATE_NOTIFICATION = "generateNotification";
-    private static final String KEY_CAMERA_FLASH = "cameraFlash";
-    private static final String KEY_DEVICE_NETWORK_TYPE_SIM1 = "deviceNetworkTypeSIM1";
-    private static final String KEY_DEVICE_NETWORK_TYPE_SIM2 = "deviceNetworkTypeSIM2";
-    private static final String KEY_DEVICE_MOBILE_DATA_SIM1 = "deviceMobileDataSIM1";
-    private static final String KEY_DEVICE_MOBILE_DATA_SIM2 = "deviceMobileDataSIM2";
-    private static final String KEY_DEVICE_DEFAULT_SIM_CARDS = "deviceDefaultSIMCards";
-    private static final String KEY_DEVICE_ONOFF_SIM1 = "deviceOnOffSIM1";
-    private static final String KEY_DEVICE_ONOFF_SIM2 = "deviceOnOffSIM2";
-    private static final String KEY_SOUND_RINGTONE_CHANGE_SIM1 = "soundRingtoneChangeSIM1";
-    private static final String KEY_SOUND_RINGTONE_SIM1 = "soundRingtoneSIM1";
-    private static final String KEY_SOUND_RINGTONE_CHANGE_SIM2 = "soundRingtoneChangeSIM2";
-    private static final String KEY_SOUND_RINGTONE_SIM2 = "soundRingtoneSIM2";
-    private static final String KEY_SOUND_NOTIFICATION_CHANGE_SIM1 = "soundNotificationChangeSIM1";
-    private static final String KEY_SOUND_NOTIFICATION_SIM1 = "soundNotificationSIM1";
-    private static final String KEY_SOUND_NOTIFICATION_CHANGE_SIM2 = "soundNotificationChangeSIM2";
-    private static final String KEY_SOUND_NOTIFICATION_SIM2 = "soundNotificationSIM2";
-    private static final String KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS = "soundSameRingtoneForBothSIMCards";
-    private static final String KEY_DEVICE_LIVE_WALLPAPER = "deviceLiveWallpaper";
-    private static final String KEY_CHANGE_WALLPAPER_TIME = "deviceChangeWallpapaerTime";
-    private static final String KEY_DEVICE_WALLPAPER_FOLDER = "deviceWallpaperFolder";
-    private static final String KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN = "applicationDisableGlobalEventsRun";
-    private static final String KEY_DEVICE_VPN_SETTINGS_PREFS = "deviceVPNSettingsPrefs";
-    private static final String KEY_END_OF_ACTIVATION_TYPE = "endOfActivationType";
-    private static final String KEY_END_OF_ACTIVATION_TIME = "endOfActivationTime";
-    private static final String KEY_APPLICATION_DISABLE_PERIODIC_SCANNING = "applicationDisablePeriodicScanning";
+    static final String KEY_ID = "id";
+    static final String KEY_NAME = "name";
+    static final String KEY_ICON = "icon";
+    static final String KEY_CHECKED = "checked";
+    static final String KEY_PORDER = "porder";
+    static final String KEY_VOLUME_RINGER_MODE = "volumeRingerMode";
+    static final String KEY_VOLUME_ZEN_MODE = "volumeZenMode";
+    static final String KEY_VOLUME_RINGTONE = "volumeRingtone";
+    static final String KEY_VOLUME_NOTIFICATION = "volumeNotification";
+    static final String KEY_VOLUME_MEDIA = "volumeMedia";
+    static final String KEY_VOLUME_ALARM = "volumeAlarm";
+    static final String KEY_VOLUME_SYSTEM = "volumeSystem";
+    static final String KEY_VOLUME_VOICE = "volumeVoice";
+    static final String KEY_SOUND_RINGTONE_CHANGE = "soundRingtoneChange";
+    static final String KEY_SOUND_RINGTONE = "soundRingtone";
+    static final String KEY_SOUND_NOTIFICATION_CHANGE = "soundNotificationChange";
+    static final String KEY_SOUND_NOTIFICATION = "soundNotification";
+    static final String KEY_SOUND_ALARM_CHANGE = "soundAlarmChange";
+    static final String KEY_SOUND_ALARM = "soundAlarm";
+    static final String KEY_DEVICE_AIRPLANE_MODE = "deviceAirplaneMode";
+    static final String KEY_DEVICE_WIFI = "deviceWiFi";
+    static final String KEY_DEVICE_BLUETOOTH = "deviceBluetooth";
+    static final String KEY_DEVICE_SCREEN_TIMEOUT = "deviceScreenTimeout";
+    static final String KEY_DEVICE_BRIGHTNESS = "deviceBrightness";
+    static final String KEY_DEVICE_WALLPAPER_CHANGE = "deviceWallpaperChange";
+    static final String KEY_DEVICE_WALLPAPER = "deviceWallpaper";
+    static final String KEY_DEVICE_MOBILE_DATA = "deviceMobileData";
+    static final String KEY_DEVICE_MOBILE_DATA_PREFS = "deviceMobileDataPrefs";
+    static final String KEY_DEVICE_GPS = "deviceGPS";
+    static final String KEY_DEVICE_RUN_APPLICATION_CHANGE = "deviceRunApplicationChange";
+    static final String KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME = "deviceRunApplicationPackageName";
+    static final String KEY_DEVICE_AUTOSYNC = "deviceAutosync";
+    static final String KEY_SHOW_IN_ACTIVATOR = "showInActivator";
+    static final String KEY_DEVICE_AUTOROTATE = "deviceAutoRotate";
+    static final String KEY_DEVICE_LOCATION_SERVICE_PREFS = "deviceLocationServicePrefs";
+    static final String KEY_VOLUME_SPEAKER_PHONE = "volumeSpeakerPhone";
+    static final String KEY_DEVICE_NFC = "deviceNFC";
+    static final String KEY_DURATION = "duration";
+    static final String KEY_AFTER_DURATION_DO = "afterDurationDo";
+    static final String KEY_ASK_FOR_DURATION = "askForDuration";
+    static final String KEY_DURATION_NOTIFICATION_SOUND = "durationNotificationSound";
+    static final String KEY_DURATION_NOTIFICATION_VIBRATE = "durationNotificationVibrate";
+    static final String KEY_DEVICE_KEYGUARD = "deviceKeyguard";
+    static final String KEY_VIBRATE_ON_TOUCH = "vibrateOnTouch";
+    static final String KEY_DEVICE_WIFI_AP = "deviceWifiAP";
+    static final String KEY_DEVICE_POWER_SAVE_MODE = "devicePowerSaveMode";
+    static final String KEY_DEVICE_NETWORK_TYPE = "deviceNetworkType";
+    static final String KEY_NOTIFICATION_LED = "notificationLed";
+    static final String KEY_VIBRATE_WHEN_RINGING = "vibrateWhenRinging";
+    static final String KEY_VIBRATE_NOTIFICATIONS = "vibrateNotifications";
+    static final String KEY_DEVICE_WALLPAPER_FOR = "deviceWallpaperFor";
+    static final String KEY_HIDE_STATUS_BAR_ICON = "hideStatusBarIcon";
+    static final String KEY_LOCK_DEVICE = "lockDevice";
+    static final String KEY_DEVICE_CONNECT_TO_SSID = "deviceConnectToSSID";
+    static final String KEY_APPLICATION_DISABLE_WIFI_SCANNING = "applicationDisableWifiScanning";
+    static final String KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING = "applicationDisableBluetoothScanning";
+    static final String KEY_DEVICE_WIFI_AP_PREFS = "deviceWifiAPPrefs";
+    static final String KEY_APPLICATION_DISABLE_LOCATION_SCANNING = "applicationDisableLocationScanning";
+    static final String KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "applicationDisableMobileCellScanning";
+    static final String KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING = "applicationDisableOrientationScanning";
+    static final String KEY_HEADS_UP_NOTIFICATIONS = "headsUpNotifications";
+    static final String KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE = "deviceForceStopApplicationChange";
+    static final String KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "deviceForceStopApplicationPackageName";
+    static final String KEY_ACTIVATION_BY_USER_COUNT = "activationByUserCount";
+    static final String KEY_DEVICE_NETWORK_TYPE_PREFS = "deviceNetworkTypePrefs";
+    static final String KEY_DEVICE_CLOSE_ALL_APPLICATIONS = "deviceCloseAllApplications";
+    static final String KEY_SCREEN_DARK_MODE = "screenNightMode";
+    static final String KEY_DTMF_TONE_WHEN_DIALING = "dtmfToneWhenDialing";
+    static final String KEY_SOUND_ON_TOUCH = "soundOnTouch";
+    static final String KEY_VOLUME_DTMF = "volumeDTMF";
+    static final String KEY_VOLUME_ACCESSIBILITY = "volumeAccessibility";
+    static final String KEY_VOLUME_BLUETOOTH_SCO = "volumeBluetoothSCO";
+    static final String KEY_AFTER_DURATION_PROFILE = "afterDurationProfile";
+    static final String KEY_ALWAYS_ON_DISPLAY = "alwaysOnDisplay";
+    static final String KEY_SCREEN_ON_PERMANENT = "screenOnPermanent";
+    static final String KEY_VOLUME_MUTE_SOUND = "volumeMuteSound";
+    static final String KEY_DEVICE_LOCATION_MODE = "deviceLocationMode";
+    static final String KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "applicationDisableNotificationScanning";
+    static final String KEY_GENERATE_NOTIFICATION = "generateNotification";
+    static final String KEY_CAMERA_FLASH = "cameraFlash";
+    static final String KEY_DEVICE_NETWORK_TYPE_SIM1 = "deviceNetworkTypeSIM1";
+    static final String KEY_DEVICE_NETWORK_TYPE_SIM2 = "deviceNetworkTypeSIM2";
+    static final String KEY_DEVICE_MOBILE_DATA_SIM1 = "deviceMobileDataSIM1";
+    static final String KEY_DEVICE_MOBILE_DATA_SIM2 = "deviceMobileDataSIM2";
+    static final String KEY_DEVICE_DEFAULT_SIM_CARDS = "deviceDefaultSIMCards";
+    static final String KEY_DEVICE_ONOFF_SIM1 = "deviceOnOffSIM1";
+    static final String KEY_DEVICE_ONOFF_SIM2 = "deviceOnOffSIM2";
+    static final String KEY_SOUND_RINGTONE_CHANGE_SIM1 = "soundRingtoneChangeSIM1";
+    static final String KEY_SOUND_RINGTONE_SIM1 = "soundRingtoneSIM1";
+    static final String KEY_SOUND_RINGTONE_CHANGE_SIM2 = "soundRingtoneChangeSIM2";
+    static final String KEY_SOUND_RINGTONE_SIM2 = "soundRingtoneSIM2";
+    static final String KEY_SOUND_NOTIFICATION_CHANGE_SIM1 = "soundNotificationChangeSIM1";
+    static final String KEY_SOUND_NOTIFICATION_SIM1 = "soundNotificationSIM1";
+    static final String KEY_SOUND_NOTIFICATION_CHANGE_SIM2 = "soundNotificationChangeSIM2";
+    static final String KEY_SOUND_NOTIFICATION_SIM2 = "soundNotificationSIM2";
+    static final String KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS = "soundSameRingtoneForBothSIMCards";
+    static final String KEY_DEVICE_LIVE_WALLPAPER = "deviceLiveWallpaper";
+    static final String KEY_CHANGE_WALLPAPER_TIME = "deviceChangeWallpapaerTime";
+    static final String KEY_DEVICE_WALLPAPER_FOLDER = "deviceWallpaperFolder";
+    static final String KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN = "applicationDisableGlobalEventsRun";
+    static final String KEY_DEVICE_VPN_SETTINGS_PREFS = "deviceVPNSettingsPrefs";
+    static final String KEY_END_OF_ACTIVATION_TYPE = "endOfActivationType";
+    static final String KEY_END_OF_ACTIVATION_TIME = "endOfActivationTime";
+    static final String KEY_APPLICATION_DISABLE_PERIODIC_SCANNING = "applicationDisablePeriodicScanning";
 
     // Events Table Columns names
-    private static final String KEY_E_ID = "id";
-    private static final String KEY_E_NAME = "name";
-    private static final String KEY_E_START_ORDER = "startOrder";
-    private static final String KEY_E_FK_PROFILE_START = "fkProfile";
-    private static final String KEY_E_STATUS = "status";
-    private static final String KEY_E_START_TIME = "startTime";
-    private static final String KEY_E_END_TIME = "endTime";
-    private static final String KEY_E_DAYS_OF_WEEK = "daysOfWeek";
-    private static final String KEY_E_USE_END_TIME = "useEndTime";
-    private static final String KEY_E_BATTERY_LEVEL = "batteryLevel";
-    private static final String KEY_E_NOTIFICATION_SOUND_START = "notificationSound";
-    private static final String KEY_E_BATTERY_LEVEL_LOW = "batteryLevelLow";
-    private static final String KEY_E_BATTERY_LEVEL_HIGHT = "batteryLevelHight";
-    private static final String KEY_E_BATTERY_CHARGING = "batteryCharging";
-    private static final String KEY_E_TIME_ENABLED = "timeEnabled";
-    private static final String KEY_E_BATTERY_ENABLED = "batteryEnabled";
-    private static final String KEY_E_CALL_ENABLED = "callEnabled";
-    private static final String KEY_E_CALL_EVENT = "callEvent";
-    private static final String KEY_E_CALL_CONTACTS = "callContacts";
-    private static final String KEY_E_CALL_CONTACT_LIST_TYPE = "contactListType";
-    private static final String KEY_E_FK_PROFILE_END = "fkProfileEnd";
-    private static final String KEY_E_FORCE_RUN = "forceRun";
-    private static final String KEY_E_BLOCKED = "blocked";
-    private static final String KEY_E_UNDONE_PROFILE = "undoneProfile";
-    private static final String KEY_E_PRIORITY = "priority";
-    private static final String KEY_E_ACCESSORY_ENABLED = "peripheralEnabled";
-    private static final String KEY_E_PERIPHERAL_TYPE = "peripheralType";
-    private static final String KEY_E_CALENDAR_ENABLED = "calendarEnabled";
-    private static final String KEY_E_CALENDAR_CALENDARS = "calendarCalendars";
-    private static final String KEY_E_CALENDAR_SEARCH_FIELD = "calendarSearchField";
-    private static final String KEY_E_CALENDAR_SEARCH_STRING = "calendarSearchString";
-    private static final String KEY_E_CALENDAR_EVENT_START_TIME = "calendarEventStartTime";
-    private static final String KEY_E_CALENDAR_EVENT_END_TIME = "calendarEventEndTime";
-    private static final String KEY_E_CALENDAR_EVENT_FOUND = "calendarEventFound";
-    private static final String KEY_E_WIFI_ENABLED = "wifiEnabled";
-    private static final String KEY_E_WIFI_SSID = "wifiSSID";
-    private static final String KEY_E_WIFI_CONNECTION_TYPE = "wifiConnectionType";
-    private static final String KEY_E_SCREEN_ENABLED = "screenEnabled";
-    //private static final String KEY_E_SCREEN_DELAY = "screenDelay";
-    private static final String KEY_E_SCREEN_EVENT_TYPE = "screenEventType";
-    private static final String KEY_E_DELAY_START = "delayStart";
-    private static final String KEY_E_IS_IN_DELAY_START = "isInDelay";
-    private static final String KEY_E_SCREEN_WHEN_UNLOCKED = "screenWhenUnlocked";
-    private static final String KEY_E_BLUETOOTH_ENABLED = "bluetoothEnabled";
-    private static final String KEY_E_BLUETOOTH_ADAPTER_NAME = "bluetoothAdapterName";
-    private static final String KEY_E_BLUETOOTH_CONNECTION_TYPE = "bluetoothConnectionType";
-    private static final String KEY_E_SMS_ENABLED = "smsEnabled";
-    //private static final String KEY_E_SMS_EVENT = "smsEvent";
-    private static final String KEY_E_SMS_CONTACTS = "smsContacts";
-    private static final String KEY_E_SMS_CONTACT_LIST_TYPE = "smsContactListType";
-    private static final String KEY_E_SMS_START_TIME = "smsStartTime";
-    private static final String KEY_E_CALL_CONTACT_GROUPS = "callContactGroups";
-    private static final String KEY_E_SMS_CONTACT_GROUPS = "smsContactGroups";
-    private static final String KEY_E_AT_END_DO = "atEndDo";
-    private static final String KEY_E_CALENDAR_AVAILABILITY = "calendarAvailability";
-    private static final String KEY_E_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
-    private static final String KEY_E_FK_PROFILE_START_WHEN_ACTIVATED = "fkProfileStartWhenActivated";
-    private static final String KEY_E_SMS_DURATION = "smsDuration";
-    private static final String KEY_E_NOTIFICATION_ENABLED = "notificationEnabled";
-    private static final String KEY_E_NOTIFICATION_APPLICATIONS = "notificationApplications";
-    private static final String KEY_E_NOTIFICATION_DURATION = "notificationDuration";
-    private static final String KEY_E_NOTIFICATION_START_TIME = "notificationStartTime";
-    private static final String KEY_E_BATTERY_POWER_SAVE_MODE = "batteryPowerSaveMode";
-    private static final String KEY_E_BLUETOOTH_DEVICES_TYPE = "bluetoothDevicesType";
-    private static final String KEY_E_APPLICATION_ENABLED = "applicationEnabled";
-    private static final String KEY_E_APPLICATION_APPLICATIONS = "applicationApplications";
-    private static final String KEY_E_NOTIFICATION_END_WHEN_REMOVED = "notificationEndWhenRemoved";
-    private static final String KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS = "calendarIgnoreAllDayEvents";
-    private static final String KEY_E_LOCATION_ENABLED = "locationEnabled";
-    private static final String KEY_E_LOCATION_FK_GEOFENCE = "fklocationGeofenceId";
-    private static final String KEY_E_LOCATION_WHEN_OUTSIDE = "locationWhenOutside";
-    private static final String KEY_E_DELAY_END = "delayEnd";
-    private static final String KEY_E_IS_IN_DELAY_END = "isInDelayEnd";
-    private static final String KEY_E_START_STATUS_TIME = "startStatusTime";
-    private static final String KEY_E_PAUSE_STATUS_TIME = "pauseStatusTime";
-    private static final String KEY_E_ORIENTATION_ENABLED = "orientationEnabled";
-    private static final String KEY_E_ORIENTATION_SIDES = "orientationSides";
-    private static final String KEY_E_ORIENTATION_DISTANCE = "orientationDistance";
-    private static final String KEY_E_ORIENTATION_DISPLAY = "orientationDisplay";
-    private static final String KEY_E_ORIENTATION_IGNORE_APPLICATIONS = "orientationIgnoreApplications";
-    private static final String KEY_E_MOBILE_CELLS_ENABLED = "mobileCellsEnabled";
-    private static final String KEY_E_MOBILE_CELLS_WHEN_OUTSIDE = "mobileCellsWhenOutside";
-    private static final String KEY_E_MOBILE_CELLS_CELLS = "mobileCellsCells";
-    private static final String KEY_E_LOCATION_GEOFENCES = "fklocationGeofences";
-    private static final String KEY_E_NFC_ENABLED = "nfcEnabled";
-    private static final String KEY_E_NFC_NFC_TAGS = "nfcNfcTags";
-    private static final String KEY_E_NFC_START_TIME = "nfcStartTime";
-    private static final String KEY_E_NFC_DURATION = "nfcDuration";
-    private static final String KEY_E_SMS_PERMANENT_RUN = "smsPermanentRun";
-    private static final String KEY_E_NOTIFICATION_PERMANENT_RUN = "notificationPermanentRun";
-    private static final String KEY_E_NFC_PERMANENT_RUN = "nfcPermanentRun";
-    private static final String KEY_E_CALENDAR_START_BEFORE_EVENT = "calendarStartBeforeEvent";
-    private static final String KEY_E_RADIO_SWITCH_ENABLED = "radioSwitchEnabled";
-    private static final String KEY_E_RADIO_SWITCH_WIFI = "radioSwitchWifi";
-    private static final String KEY_E_RADIO_SWITCH_BLUETOOTH = "radioSwitchBluetooth";
-    private static final String KEY_E_RADIO_SWITCH_MOBILE_DATA = "radioSwitchMobileData";
-    private static final String KEY_E_RADIO_SWITCH_GPS = "radioSwitchGPS";
-    private static final String KEY_E_RADIO_SWITCH_NFC = "radioSwitchNFC";
-    private static final String KEY_E_RADIO_SWITCH_AIRPLANE_MODE = "radioSwitchAirplaneMode";
-    private static final String KEY_E_NOTIFICATION_VIBRATE_START = "notificationVibrate";
-    private static final String KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
-    private static final String KEY_E_CALL_DURATION = "callDuration";
-    private static final String KEY_E_CALL_PERMANENT_RUN = "callPermanentRun";
-    private static final String KEY_E_CALL_START_TIME = "callStartTime";
-    private static final String KEY_E_NOTIFICATION_SOUND_REPEAT_START = "notificationSoundRepeat";
-    private static final String KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START = "notificationSoundRepeatInterval";
-    private static final String KEY_E_NOTIFICATION_IN_CALL = "notificationRingingCall";
-    private static final String KEY_E_NOTIFICATION_MISSED_CALL = "notificationMissedCall";
-    private static final String KEY_E_START_WHEN_ACTIVATED_PROFILE = "startWhenActivatedProfile";
-    private static final String KEY_E_BLUETOOTH_SENSOR_PASSED = "bluetoothSensorPassed";
-    private static final String KEY_E_LOCATION_SENSOR_PASSED = "locationSensorPassed";
-    private static final String KEY_E_MOBILE_CELLS_SENSOR_PASSED = "mobileCellsSensorPassed";
-    private static final String KEY_E_ORIENTATION_SENSOR_PASSED = "orientationSensorPassed";
-    private static final String KEY_E_WIFI_SENSOR_PASSED = "wifiSensorPassed";
-    private static final String KEY_E_APPLICATION_SENSOR_PASSED = "applicationSensorPassed";
-    private static final String KEY_E_BATTERY_SENSOR_PASSED = "batterySensorPassed";
-    private static final String KEY_E_CALENDAR_SENSOR_PASSED = "calendarSensorPassed";
-    private static final String KEY_E_CALL_SENSOR_PASSED = "callSensorPassed";
-    private static final String KEY_E_NFC_SENSOR_PASSED = "nfcSensorPassed";
-    private static final String KEY_E_NOTIFICATION_SENSOR_PASSED = "notificationSensorPassed";
-    private static final String KEY_E_ACCESSORY_SENSOR_PASSED = "peripheralSensorPassed";
-    private static final String KEY_E_RADIO_SWITCH_SENSOR_PASSED = "radioSwitchSensorPassed";
-    private static final String KEY_E_SCREEN_SENSOR_PASSED = "screenSensorPassed";
-    private static final String KEY_E_SMS_SENSOR_PASSED = "smsSensorPassed";
-    private static final String KEY_E_TIME_SENSOR_PASSED = "timeSensorPassed";
-    private static final String KEY_E_CALENDAR_ALL_EVENTS = "calendarAllEvents";
-    private static final String KEY_E_ALARM_CLOCK_ENABLED = "alarmClockEnabled";
-    private static final String KEY_E_ALARM_CLOCK_PERMANENT_RUN = "alarmClockPermanentRun";
-    private static final String KEY_E_ALARM_CLOCK_DURATION = "alarmClockDuration";
-    private static final String KEY_E_ALARM_CLOCK_START_TIME = "alarmClockStartTime";
-    private static final String KEY_E_ALARM_CLOCK_SENSOR_PASSED = "alarmClockSensorPassed";
-    private static final String KEY_E_NOTIFICATION_SOUND_END = "notificationSoundEnd";
-    private static final String KEY_E_NOTIFICATION_VIBRATE_END = "notificationVibrateEnd";
-    private static final String KEY_E_BATTERY_PLUGGED = "batteryPlugged";
-    private static final String KEY_E_TIME_TYPE = "timeType";
-    private static final String KEY_E_ORIENTATION_CHECK_LIGHT = "orientationCheckLight";
-    private static final String KEY_E_ORIENTATION_LIGHT_MIN = "orientationLightMin";
-    private static final String KEY_E_ORIENTATION_LIGHT_MAX = "orientationLightMax";
-    private static final String KEY_E_NOTIFICATION_CHECK_CONTACTS = "notificationCheckContacts";
-    private static final String KEY_E_NOTIFICATION_CONTACTS = "notificationContacts";
-    private static final String KEY_E_NOTIFICATION_CONTACT_GROUPS = "notificationContactGroups";
-    private static final String KEY_E_NOTIFICATION_CHECK_TEXT = "notificationCheckText";
-    private static final String KEY_E_NOTIFICATION_TEXT = "notificationText";
-    private static final String KEY_E_NOTIFICATION_CONTACT_LIST_TYPE = "notificationContactListType";
-    private static final String KEY_E_DEVICE_BOOT_ENABLED = "deviceBootEnabled";
-    private static final String KEY_E_DEVICE_BOOT_PERMANENT_RUN = "deviceBootPermanentRun";
-    private static final String KEY_E_DEVICE_BOOT_DURATION = "deviceBootDuration";
-    private static final String KEY_E_DEVICE_BOOT_START_TIME = "deviceBootStartTime";
-    private static final String KEY_E_DEVICE_BOOT_SENSOR_PASSED = "deviceBootSensorPassed";
-    private static final String KEY_E_ALARM_CLOCK_APPLICATIONS = "alarmClockApplications";
-    private static final String KEY_E_ALARM_CLOCK_PACKAGE_NAME = "alarmClockPackageName";
-    private static final String KEY_E_AT_END_HOW_UNDO = "atEndHowUndo";
-    private static final String KEY_E_CALENDAR_STATUS = "calendarStatus";
-    private static final String KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
-    private static final String KEY_E_CALENDAR_EVENT_TODAY_EXISTS = "calendarEventTodayExists";
-    private static final String KEY_E_CALENDAR_DAY_CONTAINS_EVENT = "calendarDayContainsEvent";
-    private static final String KEY_E_CALENDAR_ALL_DAY_EVENTS = "calendarAllDayEvents";
-    private static final String KEY_E_ACCESSORY_TYPE = "accessoryType";
-    private static final String KEY_E_CALL_FROM_SIM_SLOT = "callFromSIMSlot";
-    private static final String KEY_E_CALL_FOR_SIM_CARD = "callForSIMCard";
-    private static final String KEY_E_SMS_FROM_SIM_SLOT = "smsFromSIMSlot";
-    private static final String KEY_E_SMS_FOR_SIM_CARD = "smsForSIMCard";
-    private static final String KEY_E_MOBILE_CELLS_FOR_SIM_CARD = "mobileCellsForSIMCard";
-    private static final String KEY_E_SOUND_PROFILE_ENABLED = "soundProfileEnabled";
-    private static final String KEY_E_SOUND_PROFILE_RINGER_MODES = "soundProfileRingerModes";
-    private static final String KEY_E_SOUND_PROFILE_ZEN_MODES = "soundProfileZenModes";
-    private static final String KEY_E_SOUND_PROFILE_SENSOR_PASSED = "soundProfileSensorPassed";
-    private static final String KEY_E_PERIODIC_ENABLED = "periodicEnabled";
-    private static final String KEY_E_PERIODIC_MULTIPLY_INTERVAL = "periodicMultiplyInterval";
-    private static final String KEY_E_PERIODIC_DURATION = "periodicDuration";
-    private static final String KEY_E_PERIODIC_START_TIME = "periodicStartTime";
-    private static final String KEY_E_PERIODIC_COUNTER = "periodicCounter";
-    private static final String KEY_E_PERIODIC_SENSOR_PASSED = "periodicSensorPassed";
-    private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = "radioSwitchDefaultSIMForCalls";
-    private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = "radioSwitchDefaultSIMForSMS";
-    private static final String KEY_E_RADIO_SWITCH_SIM_ON_OFF = "radioSwitchSIMOnOff";
-    private static final String KEY_E_VOLUMES_ENABLED = "volumesEnabled";
-    private static final String KEY_E_VOLUMES_SENSOR_PASSED = "volumesSensorPassed";
-    private static final String KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundStartPlayAlsoInSilentMode";
-    private static final String KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundEndPlayAlsoInSilentMode";
-    private static final String KEY_E_VOLUMES_RINGTONE = "volumesRingtone";
-    private static final String KEY_E_VOLUMES_NOTIFICATION = "volumesNotification";
-    private static final String KEY_E_VOLUMES_MEDIA = "volumesMedia";
-    private static final String KEY_E_VOLUMES_ALARM = "volumesAlarm";
-    private static final String KEY_E_VOLUMES_SYSTEM = "volumesSystem";
-    private static final String KEY_E_VOLUMES_VOICE = "volumesVoice";
-    private static final String KEY_E_VOLUMES_BLUETOOTHSCO = "volumesBluetoothSCO";
-    private static final String KEY_E_VOLUMES_ACCESSIBILITY = "volumesAccessibility";
-    private static final String KEY_E_ACTIVATED_PROFILE_ENABLED = "activatedProfileEnabled";
-    private static final String KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED = "activatedProfileSensorPassed";
-    private static final String KEY_E_ACTIVATED_PROFILE_START_PROFILE = "activatedProfileStartProfile";
-    private static final String KEY_E_ACTIVATED_PROFILE_END_PROFILE = "activatedProfileEndProfile";
-    private static final String KEY_E_ACTIVATED_PROFILE_RUNNING = "activatedProfileRunning";
+    static final String KEY_E_ID = "id";
+    static final String KEY_E_NAME = "name";
+    static final String KEY_E_START_ORDER = "startOrder";
+    static final String KEY_E_FK_PROFILE_START = "fkProfile";
+    static final String KEY_E_STATUS = "status";
+    static final String KEY_E_START_TIME = "startTime";
+    static final String KEY_E_END_TIME = "endTime";
+    static final String KEY_E_DAYS_OF_WEEK = "daysOfWeek";
+    static final String KEY_E_USE_END_TIME = "useEndTime";
+    static final String KEY_E_BATTERY_LEVEL = "batteryLevel";
+    static final String KEY_E_NOTIFICATION_SOUND_START = "notificationSound";
+    static final String KEY_E_BATTERY_LEVEL_LOW = "batteryLevelLow";
+    static final String KEY_E_BATTERY_LEVEL_HIGHT = "batteryLevelHight";
+    static final String KEY_E_BATTERY_CHARGING = "batteryCharging";
+    static final String KEY_E_TIME_ENABLED = "timeEnabled";
+    static final String KEY_E_BATTERY_ENABLED = "batteryEnabled";
+    static final String KEY_E_CALL_ENABLED = "callEnabled";
+    static final String KEY_E_CALL_EVENT = "callEvent";
+    static final String KEY_E_CALL_CONTACTS = "callContacts";
+    static final String KEY_E_CALL_CONTACT_LIST_TYPE = "contactListType";
+    static final String KEY_E_FK_PROFILE_END = "fkProfileEnd";
+    static final String KEY_E_FORCE_RUN = "forceRun";
+    static final String KEY_E_BLOCKED = "blocked";
+    static final String KEY_E_UNDONE_PROFILE = "undoneProfile";
+    static final String KEY_E_PRIORITY = "priority";
+    static final String KEY_E_ACCESSORY_ENABLED = "peripheralEnabled";
+    static final String KEY_E_PERIPHERAL_TYPE = "peripheralType";
+    static final String KEY_E_CALENDAR_ENABLED = "calendarEnabled";
+    static final String KEY_E_CALENDAR_CALENDARS = "calendarCalendars";
+    static final String KEY_E_CALENDAR_SEARCH_FIELD = "calendarSearchField";
+    static final String KEY_E_CALENDAR_SEARCH_STRING = "calendarSearchString";
+    static final String KEY_E_CALENDAR_EVENT_START_TIME = "calendarEventStartTime";
+    static final String KEY_E_CALENDAR_EVENT_END_TIME = "calendarEventEndTime";
+    static final String KEY_E_CALENDAR_EVENT_FOUND = "calendarEventFound";
+    static final String KEY_E_WIFI_ENABLED = "wifiEnabled";
+    static final String KEY_E_WIFI_SSID = "wifiSSID";
+    static final String KEY_E_WIFI_CONNECTION_TYPE = "wifiConnectionType";
+    static final String KEY_E_SCREEN_ENABLED = "screenEnabled";
+    //static final String KEY_E_SCREEN_DELAY = "screenDelay";
+    static final String KEY_E_SCREEN_EVENT_TYPE = "screenEventType";
+    static final String KEY_E_DELAY_START = "delayStart";
+    static final String KEY_E_IS_IN_DELAY_START = "isInDelay";
+    static final String KEY_E_SCREEN_WHEN_UNLOCKED = "screenWhenUnlocked";
+    static final String KEY_E_BLUETOOTH_ENABLED = "bluetoothEnabled";
+    static final String KEY_E_BLUETOOTH_ADAPTER_NAME = "bluetoothAdapterName";
+    static final String KEY_E_BLUETOOTH_CONNECTION_TYPE = "bluetoothConnectionType";
+    static final String KEY_E_SMS_ENABLED = "smsEnabled";
+    //static final String KEY_E_SMS_EVENT = "smsEvent";
+    static final String KEY_E_SMS_CONTACTS = "smsContacts";
+    static final String KEY_E_SMS_CONTACT_LIST_TYPE = "smsContactListType";
+    static final String KEY_E_SMS_START_TIME = "smsStartTime";
+    static final String KEY_E_CALL_CONTACT_GROUPS = "callContactGroups";
+    static final String KEY_E_SMS_CONTACT_GROUPS = "smsContactGroups";
+    static final String KEY_E_AT_END_DO = "atEndDo";
+    static final String KEY_E_CALENDAR_AVAILABILITY = "calendarAvailability";
+    static final String KEY_E_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
+    static final String KEY_E_FK_PROFILE_START_WHEN_ACTIVATED = "fkProfileStartWhenActivated";
+    static final String KEY_E_SMS_DURATION = "smsDuration";
+    static final String KEY_E_NOTIFICATION_ENABLED = "notificationEnabled";
+    static final String KEY_E_NOTIFICATION_APPLICATIONS = "notificationApplications";
+    static final String KEY_E_NOTIFICATION_DURATION = "notificationDuration";
+    static final String KEY_E_NOTIFICATION_START_TIME = "notificationStartTime";
+    static final String KEY_E_BATTERY_POWER_SAVE_MODE = "batteryPowerSaveMode";
+    static final String KEY_E_BLUETOOTH_DEVICES_TYPE = "bluetoothDevicesType";
+    static final String KEY_E_APPLICATION_ENABLED = "applicationEnabled";
+    static final String KEY_E_APPLICATION_APPLICATIONS = "applicationApplications";
+    static final String KEY_E_NOTIFICATION_END_WHEN_REMOVED = "notificationEndWhenRemoved";
+    static final String KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS = "calendarIgnoreAllDayEvents";
+    static final String KEY_E_LOCATION_ENABLED = "locationEnabled";
+    static final String KEY_E_LOCATION_FK_GEOFENCE = "fklocationGeofenceId";
+    static final String KEY_E_LOCATION_WHEN_OUTSIDE = "locationWhenOutside";
+    static final String KEY_E_DELAY_END = "delayEnd";
+    static final String KEY_E_IS_IN_DELAY_END = "isInDelayEnd";
+    static final String KEY_E_START_STATUS_TIME = "startStatusTime";
+    static final String KEY_E_PAUSE_STATUS_TIME = "pauseStatusTime";
+    static final String KEY_E_ORIENTATION_ENABLED = "orientationEnabled";
+    static final String KEY_E_ORIENTATION_SIDES = "orientationSides";
+    static final String KEY_E_ORIENTATION_DISTANCE = "orientationDistance";
+    static final String KEY_E_ORIENTATION_DISPLAY = "orientationDisplay";
+    static final String KEY_E_ORIENTATION_IGNORE_APPLICATIONS = "orientationIgnoreApplications";
+    static final String KEY_E_MOBILE_CELLS_ENABLED = "mobileCellsEnabled";
+    static final String KEY_E_MOBILE_CELLS_WHEN_OUTSIDE = "mobileCellsWhenOutside";
+    static final String KEY_E_MOBILE_CELLS_CELLS = "mobileCellsCells";
+    static final String KEY_E_LOCATION_GEOFENCES = "fklocationGeofences";
+    static final String KEY_E_NFC_ENABLED = "nfcEnabled";
+    static final String KEY_E_NFC_NFC_TAGS = "nfcNfcTags";
+    static final String KEY_E_NFC_START_TIME = "nfcStartTime";
+    static final String KEY_E_NFC_DURATION = "nfcDuration";
+    static final String KEY_E_SMS_PERMANENT_RUN = "smsPermanentRun";
+    static final String KEY_E_NOTIFICATION_PERMANENT_RUN = "notificationPermanentRun";
+    static final String KEY_E_NFC_PERMANENT_RUN = "nfcPermanentRun";
+    static final String KEY_E_CALENDAR_START_BEFORE_EVENT = "calendarStartBeforeEvent";
+    static final String KEY_E_RADIO_SWITCH_ENABLED = "radioSwitchEnabled";
+    static final String KEY_E_RADIO_SWITCH_WIFI = "radioSwitchWifi";
+    static final String KEY_E_RADIO_SWITCH_BLUETOOTH = "radioSwitchBluetooth";
+    static final String KEY_E_RADIO_SWITCH_MOBILE_DATA = "radioSwitchMobileData";
+    static final String KEY_E_RADIO_SWITCH_GPS = "radioSwitchGPS";
+    static final String KEY_E_RADIO_SWITCH_NFC = "radioSwitchNFC";
+    static final String KEY_E_RADIO_SWITCH_AIRPLANE_MODE = "radioSwitchAirplaneMode";
+    static final String KEY_E_NOTIFICATION_VIBRATE_START = "notificationVibrate";
+    static final String KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
+    static final String KEY_E_CALL_DURATION = "callDuration";
+    static final String KEY_E_CALL_PERMANENT_RUN = "callPermanentRun";
+    static final String KEY_E_CALL_START_TIME = "callStartTime";
+    static final String KEY_E_NOTIFICATION_SOUND_REPEAT_START = "notificationSoundRepeat";
+    static final String KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START = "notificationSoundRepeatInterval";
+    static final String KEY_E_NOTIFICATION_IN_CALL = "notificationRingingCall";
+    static final String KEY_E_NOTIFICATION_MISSED_CALL = "notificationMissedCall";
+    static final String KEY_E_START_WHEN_ACTIVATED_PROFILE = "startWhenActivatedProfile";
+    static final String KEY_E_BLUETOOTH_SENSOR_PASSED = "bluetoothSensorPassed";
+    static final String KEY_E_LOCATION_SENSOR_PASSED = "locationSensorPassed";
+    static final String KEY_E_MOBILE_CELLS_SENSOR_PASSED = "mobileCellsSensorPassed";
+    static final String KEY_E_ORIENTATION_SENSOR_PASSED = "orientationSensorPassed";
+    static final String KEY_E_WIFI_SENSOR_PASSED = "wifiSensorPassed";
+    static final String KEY_E_APPLICATION_SENSOR_PASSED = "applicationSensorPassed";
+    static final String KEY_E_BATTERY_SENSOR_PASSED = "batterySensorPassed";
+    static final String KEY_E_CALENDAR_SENSOR_PASSED = "calendarSensorPassed";
+    static final String KEY_E_CALL_SENSOR_PASSED = "callSensorPassed";
+    static final String KEY_E_NFC_SENSOR_PASSED = "nfcSensorPassed";
+    static final String KEY_E_NOTIFICATION_SENSOR_PASSED = "notificationSensorPassed";
+    static final String KEY_E_ACCESSORY_SENSOR_PASSED = "peripheralSensorPassed";
+    static final String KEY_E_RADIO_SWITCH_SENSOR_PASSED = "radioSwitchSensorPassed";
+    static final String KEY_E_SCREEN_SENSOR_PASSED = "screenSensorPassed";
+    static final String KEY_E_SMS_SENSOR_PASSED = "smsSensorPassed";
+    static final String KEY_E_TIME_SENSOR_PASSED = "timeSensorPassed";
+    static final String KEY_E_CALENDAR_ALL_EVENTS = "calendarAllEvents";
+    static final String KEY_E_ALARM_CLOCK_ENABLED = "alarmClockEnabled";
+    static final String KEY_E_ALARM_CLOCK_PERMANENT_RUN = "alarmClockPermanentRun";
+    static final String KEY_E_ALARM_CLOCK_DURATION = "alarmClockDuration";
+    static final String KEY_E_ALARM_CLOCK_START_TIME = "alarmClockStartTime";
+    static final String KEY_E_ALARM_CLOCK_SENSOR_PASSED = "alarmClockSensorPassed";
+    static final String KEY_E_NOTIFICATION_SOUND_END = "notificationSoundEnd";
+    static final String KEY_E_NOTIFICATION_VIBRATE_END = "notificationVibrateEnd";
+    static final String KEY_E_BATTERY_PLUGGED = "batteryPlugged";
+    static final String KEY_E_TIME_TYPE = "timeType";
+    static final String KEY_E_ORIENTATION_CHECK_LIGHT = "orientationCheckLight";
+    static final String KEY_E_ORIENTATION_LIGHT_MIN = "orientationLightMin";
+    static final String KEY_E_ORIENTATION_LIGHT_MAX = "orientationLightMax";
+    static final String KEY_E_NOTIFICATION_CHECK_CONTACTS = "notificationCheckContacts";
+    static final String KEY_E_NOTIFICATION_CONTACTS = "notificationContacts";
+    static final String KEY_E_NOTIFICATION_CONTACT_GROUPS = "notificationContactGroups";
+    static final String KEY_E_NOTIFICATION_CHECK_TEXT = "notificationCheckText";
+    static final String KEY_E_NOTIFICATION_TEXT = "notificationText";
+    static final String KEY_E_NOTIFICATION_CONTACT_LIST_TYPE = "notificationContactListType";
+    static final String KEY_E_DEVICE_BOOT_ENABLED = "deviceBootEnabled";
+    static final String KEY_E_DEVICE_BOOT_PERMANENT_RUN = "deviceBootPermanentRun";
+    static final String KEY_E_DEVICE_BOOT_DURATION = "deviceBootDuration";
+    static final String KEY_E_DEVICE_BOOT_START_TIME = "deviceBootStartTime";
+    static final String KEY_E_DEVICE_BOOT_SENSOR_PASSED = "deviceBootSensorPassed";
+    static final String KEY_E_ALARM_CLOCK_APPLICATIONS = "alarmClockApplications";
+    static final String KEY_E_ALARM_CLOCK_PACKAGE_NAME = "alarmClockPackageName";
+    static final String KEY_E_AT_END_HOW_UNDO = "atEndHowUndo";
+    static final String KEY_E_CALENDAR_STATUS = "calendarStatus";
+    static final String KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
+    static final String KEY_E_CALENDAR_EVENT_TODAY_EXISTS = "calendarEventTodayExists";
+    static final String KEY_E_CALENDAR_DAY_CONTAINS_EVENT = "calendarDayContainsEvent";
+    static final String KEY_E_CALENDAR_ALL_DAY_EVENTS = "calendarAllDayEvents";
+    static final String KEY_E_ACCESSORY_TYPE = "accessoryType";
+    static final String KEY_E_CALL_FROM_SIM_SLOT = "callFromSIMSlot";
+    static final String KEY_E_CALL_FOR_SIM_CARD = "callForSIMCard";
+    static final String KEY_E_SMS_FROM_SIM_SLOT = "smsFromSIMSlot";
+    static final String KEY_E_SMS_FOR_SIM_CARD = "smsForSIMCard";
+    static final String KEY_E_MOBILE_CELLS_FOR_SIM_CARD = "mobileCellsForSIMCard";
+    static final String KEY_E_SOUND_PROFILE_ENABLED = "soundProfileEnabled";
+    static final String KEY_E_SOUND_PROFILE_RINGER_MODES = "soundProfileRingerModes";
+    static final String KEY_E_SOUND_PROFILE_ZEN_MODES = "soundProfileZenModes";
+    static final String KEY_E_SOUND_PROFILE_SENSOR_PASSED = "soundProfileSensorPassed";
+    static final String KEY_E_PERIODIC_ENABLED = "periodicEnabled";
+    static final String KEY_E_PERIODIC_MULTIPLY_INTERVAL = "periodicMultiplyInterval";
+    static final String KEY_E_PERIODIC_DURATION = "periodicDuration";
+    static final String KEY_E_PERIODIC_START_TIME = "periodicStartTime";
+    static final String KEY_E_PERIODIC_COUNTER = "periodicCounter";
+    static final String KEY_E_PERIODIC_SENSOR_PASSED = "periodicSensorPassed";
+    static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = "radioSwitchDefaultSIMForCalls";
+    static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = "radioSwitchDefaultSIMForSMS";
+    static final String KEY_E_RADIO_SWITCH_SIM_ON_OFF = "radioSwitchSIMOnOff";
+    static final String KEY_E_VOLUMES_ENABLED = "volumesEnabled";
+    static final String KEY_E_VOLUMES_SENSOR_PASSED = "volumesSensorPassed";
+    static final String KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundStartPlayAlsoInSilentMode";
+    static final String KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundEndPlayAlsoInSilentMode";
+    static final String KEY_E_VOLUMES_RINGTONE = "volumesRingtone";
+    static final String KEY_E_VOLUMES_NOTIFICATION = "volumesNotification";
+    static final String KEY_E_VOLUMES_MEDIA = "volumesMedia";
+    static final String KEY_E_VOLUMES_ALARM = "volumesAlarm";
+    static final String KEY_E_VOLUMES_SYSTEM = "volumesSystem";
+    static final String KEY_E_VOLUMES_VOICE = "volumesVoice";
+    static final String KEY_E_VOLUMES_BLUETOOTHSCO = "volumesBluetoothSCO";
+    static final String KEY_E_VOLUMES_ACCESSIBILITY = "volumesAccessibility";
+    static final String KEY_E_ACTIVATED_PROFILE_ENABLED = "activatedProfileEnabled";
+    static final String KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED = "activatedProfileSensorPassed";
+    static final String KEY_E_ACTIVATED_PROFILE_START_PROFILE = "activatedProfileStartProfile";
+    static final String KEY_E_ACTIVATED_PROFILE_END_PROFILE = "activatedProfileEndProfile";
+    static final String KEY_E_ACTIVATED_PROFILE_RUNNING = "activatedProfileRunning";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -3882,7 +3882,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        }
     }
 
-    private void startRunningCommand() throws Exception {
+    void startRunningCommand() throws Exception {
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "lock");
 //            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningCommand=" + runningCommand);
@@ -3897,7 +3897,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         runningCommand = true;
     }
 
-    private void stopRunningCommand() {
+    void stopRunningCommand() {
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "unlock");
 //            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningCommand=" + runningCommand);
@@ -3974,1409 +3974,66 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Adding new profile
     void addProfile(Profile profile, boolean merged) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                int porder = getMaxProfileOrder() + 1;
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_NAME, profile._name); // Profile Name
-                values.put(KEY_ICON, profile._icon); // Icon
-                values.put(KEY_CHECKED, (profile._checked) ? 1 : 0); // Checked
-                values.put(KEY_PORDER, porder); // POrder
-                //values.put(KEY_PORDER, profile._porder); // POrder
-                values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
-                values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
-                values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
-                values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
-                values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
-                values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
-                values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
-                values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
-                values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
-                values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
-                values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
-                values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
-                values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
-                values.put(KEY_SOUND_ALARM, profile._soundAlarm);
-                values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
-                values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
-                values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
-                values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
-                values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-                values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
-                values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
-                values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
-                values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
-                values.put(KEY_DEVICE_GPS, profile._deviceGPS);
-                values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
-                values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-                values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
-                values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
-                values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
-                values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
-                values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
-                values.put(KEY_DEVICE_NFC, profile._deviceNFC);
-                values.put(KEY_DURATION, profile._duration);
-                values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
-                values.put(KEY_DURATION_NOTIFICATION_SOUND, profile._durationNotificationSound);
-                values.put(KEY_DURATION_NOTIFICATION_VIBRATE, profile._durationNotificationVibrate);
-                values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
-                values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
-                values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
-                values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
-                values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
-                values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
-                values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
-                values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
-                values.put(KEY_VIBRATE_NOTIFICATIONS, profile._vibrateNotifications);
-                values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
-                values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
-                values.put(KEY_LOCK_DEVICE, profile._lockDevice);
-                values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-                values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
-                values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
-                values.put(KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
-                values.put(KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
-                values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
-                values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
-                values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
-                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
-                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
-                values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
-                values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
-                values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
-                values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
-                values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
-                values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
-                values.put(KEY_VOLUME_DTMF, profile._volumeDTMF);
-                values.put(KEY_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
-                values.put(KEY_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
-                values.put(KEY_AFTER_DURATION_PROFILE, profile._afterDurationProfile);
-                values.put(KEY_ALWAYS_ON_DISPLAY, profile._alwaysOnDisplay);
-                values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
-                values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
-                values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
-                values.put(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
-                values.put(KEY_GENERATE_NOTIFICATION, profile._generateNotification);
-                values.put(KEY_CAMERA_FLASH, profile._cameraFlash);
-                values.put(KEY_DEVICE_NETWORK_TYPE_SIM1, profile._deviceNetworkTypeSIM1);
-                values.put(KEY_DEVICE_NETWORK_TYPE_SIM2, profile._deviceNetworkTypeSIM2);
-                values.put(KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
-                values.put(KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
-                values.put(KEY_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
-                values.put(KEY_DEVICE_ONOFF_SIM1, profile._deviceOnOffSIM1);
-                values.put(KEY_DEVICE_ONOFF_SIM2, profile._deviceOnOffSIM2);
-                values.put(KEY_SOUND_RINGTONE_CHANGE_SIM1, profile._soundRingtoneChangeSIM1);
-                values.put(KEY_SOUND_RINGTONE_SIM1, profile._soundRingtoneSIM1);
-                values.put(KEY_SOUND_RINGTONE_CHANGE_SIM2, profile._soundRingtoneChangeSIM2);
-                values.put(KEY_SOUND_RINGTONE_SIM2, profile._soundRingtoneSIM2);
-                values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM1, profile._soundNotificationChangeSIM1);
-                values.put(KEY_SOUND_NOTIFICATION_SIM1, profile._soundNotificationSIM1);
-                values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
-                values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
-                values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
-                values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
-                values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
-                values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
-                values.put(KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
-                values.put(KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
-                values.put(KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
-                values.put(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
-
-                // Insert Row
-                if (!merged) {
-                    profile._id = db.insert(TABLE_PROFILES, null, values);
-                    profile._porder = porder;
-                } else {
-                    values.put(KEY_ID, profile._id);
-                    db.insert(TABLE_MERGED_PROFILE, null, values);
-                }
-                //db.close(); // Closing database connection
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerProfiles.addProfile(this, profile, merged);
     }
 
     // Getting single profile
     Profile getProfile(long profile_id, boolean merged) {
-        importExportLock.lock();
-        try {
-
-            Profile profile = null;
-
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                String tableName = TABLE_PROFILES;
-                if (merged)
-                    tableName = TABLE_MERGED_PROFILE;
-                Cursor cursor = db.query(tableName,
-                        new String[]{KEY_ID,
-                                KEY_NAME,
-                                KEY_ICON,
-                                KEY_CHECKED,
-                                KEY_PORDER,
-                                KEY_VOLUME_RINGER_MODE,
-                                KEY_VOLUME_RINGTONE,
-                                KEY_VOLUME_NOTIFICATION,
-                                KEY_VOLUME_MEDIA,
-                                KEY_VOLUME_ALARM,
-                                KEY_VOLUME_SYSTEM,
-                                KEY_VOLUME_VOICE,
-                                KEY_SOUND_RINGTONE_CHANGE,
-                                KEY_SOUND_RINGTONE,
-                                KEY_SOUND_NOTIFICATION_CHANGE,
-                                KEY_SOUND_NOTIFICATION,
-                                KEY_SOUND_ALARM_CHANGE,
-                                KEY_SOUND_ALARM,
-                                KEY_DEVICE_AIRPLANE_MODE,
-                                KEY_DEVICE_WIFI,
-                                KEY_DEVICE_BLUETOOTH,
-                                KEY_DEVICE_SCREEN_TIMEOUT,
-                                KEY_DEVICE_BRIGHTNESS,
-                                KEY_DEVICE_WALLPAPER_CHANGE,
-                                KEY_DEVICE_WALLPAPER,
-                                KEY_DEVICE_MOBILE_DATA,
-                                KEY_DEVICE_MOBILE_DATA_PREFS,
-                                KEY_DEVICE_GPS,
-                                KEY_DEVICE_RUN_APPLICATION_CHANGE,
-                                KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
-                                KEY_DEVICE_AUTOSYNC,
-                                KEY_SHOW_IN_ACTIVATOR,
-                                KEY_DEVICE_AUTOROTATE,
-                                KEY_DEVICE_LOCATION_SERVICE_PREFS,
-                                KEY_VOLUME_SPEAKER_PHONE,
-                                KEY_DEVICE_NFC,
-                                KEY_DURATION,
-                                KEY_AFTER_DURATION_DO,
-                                KEY_DURATION_NOTIFICATION_SOUND,
-                                KEY_DURATION_NOTIFICATION_VIBRATE,
-                                KEY_VOLUME_ZEN_MODE,
-                                KEY_DEVICE_KEYGUARD,
-                                KEY_VIBRATE_ON_TOUCH,
-                                KEY_DEVICE_WIFI_AP,
-                                KEY_DEVICE_POWER_SAVE_MODE,
-                                KEY_ASK_FOR_DURATION,
-                                KEY_DEVICE_NETWORK_TYPE,
-                                KEY_NOTIFICATION_LED,
-                                KEY_VIBRATE_WHEN_RINGING,
-                                KEY_VIBRATE_NOTIFICATIONS,
-                                KEY_DEVICE_WALLPAPER_FOR,
-                                KEY_HIDE_STATUS_BAR_ICON,
-                                KEY_LOCK_DEVICE,
-                                KEY_DEVICE_CONNECT_TO_SSID,
-                                KEY_APPLICATION_DISABLE_WIFI_SCANNING,
-                                KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING,
-                                KEY_DEVICE_WIFI_AP_PREFS,
-                                KEY_APPLICATION_DISABLE_LOCATION_SCANNING,
-                                KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
-                                KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING,
-                                KEY_HEADS_UP_NOTIFICATIONS,
-                                KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
-                                KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
-                                KEY_ACTIVATION_BY_USER_COUNT,
-                                KEY_DEVICE_NETWORK_TYPE_PREFS,
-                                KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
-                                KEY_SCREEN_DARK_MODE,
-                                KEY_DTMF_TONE_WHEN_DIALING,
-                                KEY_SOUND_ON_TOUCH,
-                                KEY_VOLUME_DTMF,
-                                KEY_VOLUME_ACCESSIBILITY,
-                                KEY_VOLUME_BLUETOOTH_SCO,
-                                KEY_AFTER_DURATION_PROFILE,
-                                KEY_ALWAYS_ON_DISPLAY,
-                                KEY_SCREEN_ON_PERMANENT,
-                                KEY_VOLUME_MUTE_SOUND,
-                                KEY_DEVICE_LOCATION_MODE,
-                                KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
-                                KEY_GENERATE_NOTIFICATION,
-                                KEY_CAMERA_FLASH,
-                                KEY_DEVICE_NETWORK_TYPE_SIM1,
-                                KEY_DEVICE_NETWORK_TYPE_SIM2,
-                                KEY_DEVICE_MOBILE_DATA_SIM1,
-                                KEY_DEVICE_MOBILE_DATA_SIM2,
-                                KEY_DEVICE_DEFAULT_SIM_CARDS,
-                                KEY_DEVICE_ONOFF_SIM1,
-                                KEY_DEVICE_ONOFF_SIM2,
-                                KEY_SOUND_RINGTONE_CHANGE_SIM1,
-                                KEY_SOUND_RINGTONE_SIM1,
-                                KEY_SOUND_RINGTONE_CHANGE_SIM2,
-                                KEY_SOUND_RINGTONE_SIM2,
-                                KEY_SOUND_NOTIFICATION_CHANGE_SIM1,
-                                KEY_SOUND_NOTIFICATION_SIM1,
-                                KEY_SOUND_NOTIFICATION_CHANGE_SIM2,
-                                KEY_SOUND_NOTIFICATION_SIM2,
-                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
-                                KEY_DEVICE_LIVE_WALLPAPER,
-                                KEY_DEVICE_WALLPAPER_FOLDER,
-                                KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
-                                KEY_DEVICE_VPN_SETTINGS_PREFS,
-                                KEY_END_OF_ACTIVATION_TYPE,
-                                KEY_END_OF_ACTIVATION_TIME,
-                                KEY_APPLICATION_DISABLE_PERIODIC_SCANNING
-                        },
-                        KEY_ID + "=?",
-                        new String[]{String.valueOf(profile_id)}, null, null, null, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-
-                    if (cursor.getCount() > 0) {
-                        profile = new Profile(cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ID)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_ICON)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_CHECKED)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_PORDER)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_RINGER_MODE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_RINGTONE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_NOTIFICATION)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_MEDIA)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_ALARM)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_SYSTEM)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_VOICE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_ALARM_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_ALARM)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AIRPLANE_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_BLUETOOTH)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_SCREEN_TIMEOUT)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_BRIGHTNESS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_GPS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOSYNC)),
-                                (cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR) != -1) && (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOROTATE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_SERVICE_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_SPEAKER_PHONE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NFC)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DURATION)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_AFTER_DURATION_DO)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_ZEN_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_KEYGUARD)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_ON_TOUCH)),
-                                (cursor.getColumnIndex(KEY_DEVICE_WIFI_AP) != -1) ? cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) : 0,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_POWER_SAVE_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ASK_FOR_DURATION)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_NOTIFICATION_LED)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_WHEN_RINGING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_FOR)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_HIDE_STATUS_BAR_ICON)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_LOCK_DEVICE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_CONNECT_TO_SSID)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_WIFI_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DURATION_NOTIFICATION_SOUND)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DURATION_NOTIFICATION_VIBRATE)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_LOCATION_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_HEADS_UP_NOTIFICATIONS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
-                                cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ACTIVATION_BY_USER_COUNT)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SCREEN_DARK_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DTMF_TONE_WHEN_DIALING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_ON_TOUCH)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_DTMF)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_ACCESSIBILITY)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_BLUETOOTH_SCO)),
-                                cursor.getLong(cursor.getColumnIndexOrThrow(KEY_AFTER_DURATION_PROFILE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ALWAYS_ON_DISPLAY)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SCREEN_ON_PERMANENT)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_MUTE_SOUND)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_GENERATE_NOTIFICATION)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_CAMERA_FLASH)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA_SIM2)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_DEFAULT_SIM_CARDS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_ONOFF_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_ONOFF_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE_SIM1)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE_SIM2)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_CHANGE_SIM1)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_LIVE_WALLPAPER)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_NOTIFICATIONS)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_FOLDER)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_VPN_SETTINGS_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TIME)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING))
-                        );
-                    }
-
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return profile;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerProfiles.getProfile(this, profile_id, merged);
     }
 
     // Getting All Profiles
     List<Profile> getAllProfiles() {
-        importExportLock.lock();
-        try {
-
-            List<Profile> profileList = new ArrayList<>();
-
-            try {
-                startRunningCommand();
-
-                // Select All Query
-                final String selectQuery = "SELECT " + KEY_ID + "," +
-                        KEY_NAME + "," +
-                        KEY_ICON + "," +
-                        KEY_CHECKED + "," +
-                        KEY_PORDER + "," +
-                        KEY_VOLUME_RINGER_MODE + "," +
-                        KEY_VOLUME_RINGTONE + "," +
-                        KEY_VOLUME_NOTIFICATION + "," +
-                        KEY_VOLUME_MEDIA + "," +
-                        KEY_VOLUME_ALARM + "," +
-                        KEY_VOLUME_SYSTEM + "," +
-                        KEY_VOLUME_VOICE + "," +
-                        KEY_SOUND_RINGTONE_CHANGE + "," +
-                        KEY_SOUND_RINGTONE + "," +
-                        KEY_SOUND_NOTIFICATION_CHANGE + "," +
-                        KEY_SOUND_NOTIFICATION + "," +
-                        KEY_SOUND_ALARM_CHANGE + "," +
-                        KEY_SOUND_ALARM + "," +
-                        KEY_DEVICE_AIRPLANE_MODE + "," +
-                        KEY_DEVICE_WIFI + "," +
-                        KEY_DEVICE_BLUETOOTH + "," +
-                        KEY_DEVICE_SCREEN_TIMEOUT + "," +
-                        KEY_DEVICE_BRIGHTNESS + "," +
-                        KEY_DEVICE_WALLPAPER_CHANGE + "," +
-                        KEY_DEVICE_WALLPAPER + "," +
-                        KEY_DEVICE_MOBILE_DATA + "," +
-                        KEY_DEVICE_MOBILE_DATA_PREFS + "," +
-                        KEY_DEVICE_GPS + "," +
-                        KEY_DEVICE_RUN_APPLICATION_CHANGE + "," +
-                        KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME + "," +
-                        KEY_DEVICE_AUTOSYNC + "," +
-                        KEY_SHOW_IN_ACTIVATOR + "," +
-                        KEY_DEVICE_AUTOROTATE + "," +
-                        KEY_DEVICE_LOCATION_SERVICE_PREFS + "," +
-                        KEY_VOLUME_SPEAKER_PHONE + "," +
-                        KEY_DEVICE_NFC + "," +
-                        KEY_DURATION + "," +
-                        KEY_AFTER_DURATION_DO + "," +
-                        KEY_DURATION_NOTIFICATION_SOUND + "," +
-                        KEY_DURATION_NOTIFICATION_VIBRATE + "," +
-                        KEY_VOLUME_ZEN_MODE + "," +
-                        KEY_DEVICE_KEYGUARD + "," +
-                        KEY_VIBRATE_ON_TOUCH + "," +
-                        KEY_DEVICE_WIFI_AP + "," +
-                        KEY_DEVICE_POWER_SAVE_MODE + "," +
-                        KEY_ASK_FOR_DURATION + "," +
-                        KEY_DEVICE_NETWORK_TYPE + "," +
-                        KEY_NOTIFICATION_LED + "," +
-                        KEY_VIBRATE_WHEN_RINGING + "," +
-                        KEY_VIBRATE_NOTIFICATIONS + "," +
-                        KEY_DEVICE_WALLPAPER_FOR + "," +
-                        KEY_HIDE_STATUS_BAR_ICON + "," +
-                        KEY_LOCK_DEVICE + "," +
-                        KEY_DEVICE_CONNECT_TO_SSID + "," +
-                        KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
-                        KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "," +
-                        KEY_DEVICE_WIFI_AP_PREFS + "," +
-                        KEY_APPLICATION_DISABLE_LOCATION_SCANNING + "," +
-                        KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + "," +
-                        KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + "," +
-                        KEY_HEADS_UP_NOTIFICATIONS + "," +
-                        KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "," +
-                        KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "," +
-                        KEY_ACTIVATION_BY_USER_COUNT + "," +
-                        KEY_DEVICE_NETWORK_TYPE_PREFS + "," +
-                        KEY_DEVICE_CLOSE_ALL_APPLICATIONS + "," +
-                        KEY_SCREEN_DARK_MODE + "," +
-                        KEY_DTMF_TONE_WHEN_DIALING + "," +
-                        KEY_SOUND_ON_TOUCH + "," +
-                        KEY_VOLUME_DTMF + "," +
-                        KEY_VOLUME_ACCESSIBILITY + "," +
-                        KEY_VOLUME_BLUETOOTH_SCO + "," +
-                        KEY_AFTER_DURATION_PROFILE + "," +
-                        KEY_ALWAYS_ON_DISPLAY + "," +
-                        KEY_SCREEN_ON_PERMANENT + "," +
-                        KEY_VOLUME_MUTE_SOUND + "," +
-                        KEY_DEVICE_LOCATION_MODE + "," +
-                        KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + "," +
-                        KEY_GENERATE_NOTIFICATION + "," +
-                        KEY_CAMERA_FLASH + "," +
-                        KEY_DEVICE_NETWORK_TYPE_SIM1 + "," +
-                        KEY_DEVICE_NETWORK_TYPE_SIM2 + "," +
-                        KEY_DEVICE_MOBILE_DATA_SIM1 + "," +
-                        KEY_DEVICE_MOBILE_DATA_SIM2 + "," +
-                        KEY_DEVICE_DEFAULT_SIM_CARDS + "," +
-                        KEY_DEVICE_ONOFF_SIM1 + "," +
-                        KEY_DEVICE_ONOFF_SIM2 + "," +
-                        KEY_SOUND_RINGTONE_CHANGE_SIM1 + "," +
-                        KEY_SOUND_RINGTONE_SIM1 + "," +
-                        KEY_SOUND_RINGTONE_CHANGE_SIM2 + "," +
-                        KEY_SOUND_RINGTONE_SIM2 + "," +
-                        KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + "," +
-                        KEY_SOUND_NOTIFICATION_SIM1 + "," +
-                        KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "," +
-                        KEY_SOUND_NOTIFICATION_SIM2 + "," +
-                        KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "," +
-                        KEY_DEVICE_LIVE_WALLPAPER + "," +
-                        KEY_DEVICE_WALLPAPER_FOLDER + "," +
-                        KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + "," +
-                        KEY_DEVICE_VPN_SETTINGS_PREFS + "," +
-                        KEY_END_OF_ACTIVATION_TYPE + "," +
-                        KEY_END_OF_ACTIVATION_TIME + "," +
-                        KEY_APPLICATION_DISABLE_PERIODIC_SCANNING +
-                " FROM " + TABLE_PROFILES;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    do {
-                        Profile profile = new Profile();
-                        profile._id = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ID));
-                        profile._name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME));
-                        profile._icon = cursor.getString(cursor.getColumnIndexOrThrow(KEY_ICON));
-                        profile._checked = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_CHECKED)) == 1;
-                        profile._porder = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_PORDER));
-                        profile._volumeRingerMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_RINGER_MODE));
-                        profile._volumeRingtone = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_RINGTONE));
-                        profile._volumeNotification = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_NOTIFICATION));
-                        profile._volumeMedia = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_MEDIA));
-                        profile._volumeAlarm = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_ALARM));
-                        profile._volumeSystem = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_SYSTEM));
-                        profile._volumeVoice = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_VOICE));
-                        profile._soundRingtoneChange = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE));
-                        profile._soundRingtone = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE));
-                        profile._soundNotificationChange = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_CHANGE));
-                        profile._soundNotification = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION));
-                        profile._soundAlarmChange = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_ALARM_CHANGE));
-                        profile._soundAlarm = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_ALARM));
-                        profile._deviceAirplaneMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AIRPLANE_MODE));
-                        profile._deviceWiFi = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI));
-                        profile._deviceBluetooth = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_BLUETOOTH));
-                        profile._deviceScreenTimeout = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_SCREEN_TIMEOUT));
-                        profile._deviceBrightness = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_BRIGHTNESS));
-                        profile._deviceWallpaperChange = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_CHANGE));
-                        profile._deviceWallpaper = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER));
-                        profile._deviceMobileData = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA));
-                        profile._deviceMobileDataPrefs = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA_PREFS));
-                        profile._deviceGPS = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_GPS));
-                        profile._deviceRunApplicationChange = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_CHANGE));
-                        profile._deviceRunApplicationPackageName = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME));
-                        profile._deviceAutoSync = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOSYNC));
-                        profile._showInActivator = (cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR) != -1) && (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1);
-                        profile._deviceAutoRotate = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOROTATE));
-                        profile._deviceLocationServicePrefs = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_SERVICE_PREFS));
-                        profile._volumeSpeakerPhone = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_SPEAKER_PHONE));
-                        profile._deviceNFC = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NFC));
-                        profile._duration = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DURATION));
-                        profile._afterDurationDo = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_AFTER_DURATION_DO));
-                        profile._durationNotificationSound = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DURATION_NOTIFICATION_SOUND));
-                        profile._durationNotificationVibrate = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DURATION_NOTIFICATION_VIBRATE)) == 1;
-                        profile._volumeZenMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_ZEN_MODE));
-                        profile._deviceKeyguard = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_KEYGUARD));
-                        profile._vibrationOnTouch = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_ON_TOUCH));
-                        profile._deviceWiFiAP = (cursor.getColumnIndex(KEY_DEVICE_WIFI_AP) != -1) ? cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) : 0;
-                        profile._devicePowerSaveMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_POWER_SAVE_MODE));
-                        profile._askForDuration = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ASK_FOR_DURATION)) == 1;
-                        profile._deviceNetworkType = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE));
-                        profile._notificationLed = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_NOTIFICATION_LED));
-                        profile._vibrateWhenRinging = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_WHEN_RINGING));
-                        profile._vibrateNotifications = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_NOTIFICATIONS));
-                        profile._deviceWallpaperFor = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_FOR));
-                        profile._hideStatusBarIcon = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_HIDE_STATUS_BAR_ICON)) == 1;
-                        profile._lockDevice = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_LOCK_DEVICE));
-                        profile._deviceConnectToSSID = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_CONNECT_TO_SSID));
-                        profile._applicationDisableWifiScanning = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_WIFI_SCANNING));
-                        profile._applicationDisableBluetoothScanning = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING));
-                        profile._deviceWiFiAPPrefs = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP_PREFS));
-                        profile._applicationDisableLocationScanning = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_LOCATION_SCANNING));
-                        profile._applicationDisableMobileCellScanning = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING));
-                        profile._applicationDisableOrientationScanning = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING));
-                        profile._headsUpNotifications = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_HEADS_UP_NOTIFICATIONS));
-                        profile._deviceForceStopApplicationChange = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE));
-                        profile._deviceForceStopApplicationPackageName = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME));
-                        profile._activationByUserCount = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ACTIVATION_BY_USER_COUNT));
-                        profile._deviceNetworkTypePrefs = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE_PREFS));
-                        profile._deviceCloseAllApplications = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_CLOSE_ALL_APPLICATIONS));
-                        profile._screenDarkMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SCREEN_DARK_MODE));
-                        profile._dtmfToneWhenDialing = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DTMF_TONE_WHEN_DIALING));
-                        profile._soundOnTouch = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_ON_TOUCH));
-                        profile._volumeDTMF = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_DTMF));
-                        profile._volumeAccessibility = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_ACCESSIBILITY));
-                        profile._volumeBluetoothSCO = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_BLUETOOTH_SCO));
-                        profile._afterDurationProfile = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_AFTER_DURATION_PROFILE));
-                        profile._alwaysOnDisplay = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ALWAYS_ON_DISPLAY));
-                        profile._screenOnPermanent = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SCREEN_ON_PERMANENT));
-                        profile._volumeMuteSound = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_MUTE_SOUND)) == 1;
-                        profile._deviceLocationMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_MODE));
-                        profile._applicationDisableNotificationScanning = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING));
-                        profile._generateNotification = cursor.getString(cursor.getColumnIndexOrThrow(KEY_GENERATE_NOTIFICATION));
-                        profile._cameraFlash = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_CAMERA_FLASH));
-                        profile._deviceNetworkTypeSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE_SIM1));
-                        profile._deviceNetworkTypeSIM2 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE_SIM2));
-                        profile._deviceMobileDataSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA_SIM1));
-                        profile._deviceMobileDataSIM2 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA_SIM2));
-                        profile._deviceDefaultSIMCards = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_DEFAULT_SIM_CARDS));
-                        profile._deviceOnOffSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_ONOFF_SIM1));
-                        profile._deviceOnOffSIM2 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_ONOFF_SIM2));
-                        profile._soundRingtoneChangeSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE_SIM1));
-                        profile._soundRingtoneSIM1 = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM1));
-                        profile._soundRingtoneChangeSIM2 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE_SIM2));
-                        profile._soundRingtoneSIM2 = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM2));
-                        profile._soundNotificationChangeSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_CHANGE_SIM1));
-                        profile._soundNotificationSIM1 = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_SIM1));
-                        profile._soundNotificationChangeSIM2 = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_CHANGE_SIM2));
-                        profile._soundNotificationSIM2 = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_SIM2));
-                        profile._soundSameRingtoneForBothSIMCards = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS));
-                        profile._deviceLiveWallpaper = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_LIVE_WALLPAPER));
-                        profile._deviceWallpaperFolder = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_FOLDER));
-                        profile._applicationDisableGloabalEventsRun = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN));
-                        profile._deviceVPNSettingsPrefs = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_VPN_SETTINGS_PREFS));
-                        profile._endOfActivationType = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TYPE));
-                        profile._endOfActivationTime = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TIME));
-                        profile._applicationDisablePeriodicScanning = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING));
-                        // Adding profile to list
-                        profileList.add(profile);
-                    } while (cursor.moveToNext());
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-
-            return profileList;
-
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerProfiles.getAllProfiles(this);
     }
 
     // Updating single profile
     void updateProfile(Profile profile) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_NAME, profile._name);
-                values.put(KEY_ICON, profile._icon);
-                values.put(KEY_CHECKED, (profile._checked) ? 1 : 0);
-                values.put(KEY_PORDER, profile._porder);
-                values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
-                values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
-                values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
-                values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
-                values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
-                values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
-                values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
-                values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
-                values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
-                values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
-                values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
-                values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
-                values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
-                values.put(KEY_SOUND_ALARM, profile._soundAlarm);
-                values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
-                values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
-                values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
-                values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
-                values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-                values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
-                values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
-                values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
-                values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
-                values.put(KEY_DEVICE_GPS, profile._deviceGPS);
-                values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
-                values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-                values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
-                values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
-                values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
-                values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
-                values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
-                values.put(KEY_DEVICE_NFC, profile._deviceNFC);
-                values.put(KEY_DURATION, profile._duration);
-                values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
-                values.put(KEY_DURATION_NOTIFICATION_SOUND, profile._durationNotificationSound);
-                values.put(KEY_DURATION_NOTIFICATION_VIBRATE, profile._durationNotificationVibrate);
-                values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
-                values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
-                values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
-                values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
-                values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
-                values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
-                values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
-                values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
-                values.put(KEY_VIBRATE_NOTIFICATIONS, profile._vibrateNotifications);
-                values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
-                values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
-                values.put(KEY_LOCK_DEVICE, profile._lockDevice);
-                values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-                values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
-                values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
-                values.put(KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
-                values.put(KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
-                values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
-                values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
-                values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
-                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
-                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
-                values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
-                values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
-                values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
-                values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
-                values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
-                values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
-                values.put(KEY_VOLUME_DTMF, profile._volumeDTMF);
-                values.put(KEY_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
-                values.put(KEY_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
-                values.put(KEY_AFTER_DURATION_PROFILE, profile._afterDurationProfile);
-                values.put(KEY_ALWAYS_ON_DISPLAY, profile._alwaysOnDisplay);
-                values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
-                values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
-                values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
-                values.put(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
-                values.put(KEY_GENERATE_NOTIFICATION, profile._generateNotification);
-                values.put(KEY_CAMERA_FLASH, profile._cameraFlash);
-                values.put(KEY_DEVICE_NETWORK_TYPE_SIM1, profile._deviceNetworkTypeSIM1);
-                values.put(KEY_DEVICE_NETWORK_TYPE_SIM2, profile._deviceNetworkTypeSIM2);
-                values.put(KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
-                values.put(KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
-                values.put(KEY_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
-                values.put(KEY_DEVICE_ONOFF_SIM1, profile._deviceOnOffSIM1);
-                values.put(KEY_DEVICE_ONOFF_SIM2, profile._deviceOnOffSIM2);
-                values.put(KEY_SOUND_RINGTONE_CHANGE_SIM1, profile._soundRingtoneChangeSIM1);
-                values.put(KEY_SOUND_RINGTONE_SIM1, profile._soundRingtoneSIM1);
-                values.put(KEY_SOUND_RINGTONE_CHANGE_SIM2, profile._soundRingtoneChangeSIM2);
-                values.put(KEY_SOUND_RINGTONE_SIM2, profile._soundRingtoneSIM2);
-                values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM1, profile._soundNotificationChangeSIM1);
-                values.put(KEY_SOUND_NOTIFICATION_SIM1, profile._soundNotificationSIM1);
-                values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
-                values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
-                values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
-                values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
-                values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
-                values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
-                values.put(KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
-                values.put(KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
-                values.put(KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
-                values.put(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
-
-                // updating row
-                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                        new String[]{String.valueOf(profile._id)});
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerProfiles.updateProfile(this, profile);
     }
 
     // Deleting single profile
     void deleteProfile(Profile profile) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-                try {
-
-                    // unlink shortcuts from profile
-                    String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                    for (String split : splits) {
-                        boolean shortcut = Application.isShortcut(split);
-                        if (shortcut) {
-                            long shortcutId = Application.getShortcutId(split);
-                            deleteShortcut(shortcutId);
-                        }
-                    }
-
-                    db.delete(TABLE_PROFILES, KEY_ID + " = ?",
-                            new String[]{String.valueOf(profile._id)});
-
-                    // unlink profile from events
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_E_FK_PROFILE_START, 0);
-                    db.update(TABLE_EVENTS, values, KEY_E_FK_PROFILE_START + " = ?",
-                            new String[]{String.valueOf(profile._id)});
-
-                    ContentValues values2 = new ContentValues();
-                    values2.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
-                    db.update(TABLE_EVENTS, values2, KEY_E_FK_PROFILE_END + " = ?",
-                            new String[]{String.valueOf(profile._id)});
-
-                    ContentValues values3 = new ContentValues();
-                    values3.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
-                    db.update(TABLE_EVENTS, values3, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " = ?",
-                            new String[]{String.valueOf(profile._id)});
-
-                    final String selectQuery = "SELECT " + KEY_E_ID + "," +
-                                                            KEY_E_START_WHEN_ACTIVATED_PROFILE +
-                                                            " FROM " + TABLE_EVENTS;
-                    Cursor cursor = db.rawQuery(selectQuery, null);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            String oldFkProfiles = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_START_WHEN_ACTIVATED_PROFILE));
-                            if (!oldFkProfiles.isEmpty()) {
-                                splits = oldFkProfiles.split("\\|");
-                                StringBuilder newFkProfiles = new StringBuilder();
-                                for (String split : splits) {
-                                    long fkProfile = Long.parseLong(split);
-                                    if (fkProfile != profile._id) {
-                                        if (newFkProfiles.length() > 0)
-                                            newFkProfiles.append("|");
-                                        newFkProfiles.append(split);
-                                    }
-                                }
-                                values = new ContentValues();
-                                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, newFkProfiles.toString());
-                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_ID))});
-                            }
-                        } while (cursor.moveToNext());
-                    }
-                    cursor.close();
-
-                    db.setTransactionSuccessful();
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerProfiles.deleteProfile(this, profile);
     }
 
     // Deleting all profiles
     boolean deleteAllProfiles() {
-        boolean ok = false;
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-
-                try {
-                    db.delete(TABLE_PROFILES, null, null);
-                    //db.delete(TABLE_SHORTCUTS, null, null);
-                    //db.delete(TABLE_INTENTS, null, null);
-
-                    // unlink profiles from events
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_E_FK_PROFILE_START, 0);
-                    values.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
-                    values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
-                    values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, "");
-                    db.update(TABLE_EVENTS, values, null, null);
-
-                    db.setTransactionSuccessful();
-
-                    ok = true;
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-        return ok;
-    }
-
-    /*
-    // Getting profiles Count
-    int getProfilesCount() {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                final String countQuery;
-                //if (forActivator)
-                //    countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + " WHERE " + KEY_SHOW_IN_ACTIVATOR + "=1";
-                //else
-                    countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    r = cursor.getInt(0);
-                    cursor.close();
-                }
-
-                //db.close();
-
-                //if (forActivator && (!ApplicationPreferences.applicationActivatorHeader(context))) {
-                //    Profile profile = getActivatedProfile();
-                //    if ((profile != null) && (!profile._showInActivator)) {
-                //        r++;
-                //    }
-                //}
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
-
-    // Getting max(porder)
-    private int getMaxProfileOrder() {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                String countQuery = "SELECT MAX(" + KEY_PORDER + ") FROM " + TABLE_PROFILES;
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor.getCount() > 0) {
-                    if (cursor.moveToFirst()) {
-                        r = cursor.getInt(0);
-                    }
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-
-    private void doActivateProfile(Profile profile, boolean activate)
-    {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-                try {
-                    // update all profiles checked to false
-                    ContentValues valuesAll = new ContentValues();
-                    valuesAll.put(KEY_CHECKED, 0);
-                    db.update(TABLE_PROFILES, valuesAll, null, null);
-
-                    // updating checked = true for profile
-                    //profile.setChecked(true);
-
-                    if (activate && (profile != null)) {
-                        ContentValues values = new ContentValues();
-                        //values.put(KEY_CHECKED, (profile.getChecked()) ? 1 : 0);
-                        values.put(KEY_CHECKED, 1);
-
-                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                new String[]{String.valueOf(profile._id)});
-                    }
-
-                    db.setTransactionSuccessful();
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerProfiles.deleteAllProfiles(this);
     }
 
     void activateProfile(Profile profile)
     {
-        doActivateProfile(profile, true);
-
-//        Log.e("DatabaseHandler.activateProfile", "sendBroadcast");
-        Intent sendIntent = new Intent(PhoneProfilesService.ACTION_ACTIVATED_PROFILE_EVENT_BROADCAST_RECEIVER);
-        sendIntent.putExtra(ActivatedProfileEventBroadcastReceiver.EXTRA_ACTIVATED_PROFILE, profile._id);
-        context.sendBroadcast(sendIntent);
+        DatabaseHandlerProfiles.activateProfile(this, profile);
     }
 
     void deactivateProfile()
     {
-        doActivateProfile(null, false);
+        DatabaseHandlerProfiles.deactivateProfile(this);
     }
 
     Profile getActivatedProfile()
     {
-        importExportLock.lock();
-        try {
-            Profile profile = null;
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.query(TABLE_PROFILES,
-                        new String[]{KEY_ID,
-                                KEY_NAME,
-                                KEY_ICON,
-                                KEY_CHECKED,
-                                KEY_PORDER,
-                                KEY_VOLUME_RINGER_MODE,
-                                KEY_VOLUME_RINGTONE,
-                                KEY_VOLUME_NOTIFICATION,
-                                KEY_VOLUME_MEDIA,
-                                KEY_VOLUME_ALARM,
-                                KEY_VOLUME_SYSTEM,
-                                KEY_VOLUME_VOICE,
-                                KEY_SOUND_RINGTONE_CHANGE,
-                                KEY_SOUND_RINGTONE,
-                                KEY_SOUND_NOTIFICATION_CHANGE,
-                                KEY_SOUND_NOTIFICATION,
-                                KEY_SOUND_ALARM_CHANGE,
-                                KEY_SOUND_ALARM,
-                                KEY_DEVICE_AIRPLANE_MODE,
-                                KEY_DEVICE_WIFI,
-                                KEY_DEVICE_BLUETOOTH,
-                                KEY_DEVICE_SCREEN_TIMEOUT,
-                                KEY_DEVICE_BRIGHTNESS,
-                                KEY_DEVICE_WALLPAPER_CHANGE,
-                                KEY_DEVICE_WALLPAPER,
-                                KEY_DEVICE_MOBILE_DATA,
-                                KEY_DEVICE_MOBILE_DATA_PREFS,
-                                KEY_DEVICE_GPS,
-                                KEY_DEVICE_RUN_APPLICATION_CHANGE,
-                                KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
-                                KEY_DEVICE_AUTOSYNC,
-                                KEY_SHOW_IN_ACTIVATOR,
-                                KEY_DEVICE_AUTOROTATE,
-                                KEY_DEVICE_LOCATION_SERVICE_PREFS,
-                                KEY_VOLUME_SPEAKER_PHONE,
-                                KEY_DEVICE_NFC,
-                                KEY_DURATION,
-                                KEY_AFTER_DURATION_DO,
-                                KEY_DURATION_NOTIFICATION_SOUND,
-                                KEY_DURATION_NOTIFICATION_VIBRATE,
-                                KEY_VOLUME_ZEN_MODE,
-                                KEY_DEVICE_KEYGUARD,
-                                KEY_VIBRATE_ON_TOUCH,
-                                KEY_DEVICE_WIFI_AP,
-                                KEY_DEVICE_POWER_SAVE_MODE,
-                                KEY_ASK_FOR_DURATION,
-                                KEY_DEVICE_NETWORK_TYPE,
-                                KEY_NOTIFICATION_LED,
-                                KEY_VIBRATE_WHEN_RINGING,
-                                KEY_VIBRATE_NOTIFICATIONS,
-                                KEY_DEVICE_WALLPAPER_FOR,
-                                KEY_HIDE_STATUS_BAR_ICON,
-                                KEY_LOCK_DEVICE,
-                                KEY_DEVICE_CONNECT_TO_SSID,
-                                KEY_APPLICATION_DISABLE_WIFI_SCANNING,
-                                KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING,
-                                KEY_DEVICE_WIFI_AP_PREFS,
-                                KEY_APPLICATION_DISABLE_LOCATION_SCANNING,
-                                KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
-                                KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING,
-                                KEY_HEADS_UP_NOTIFICATIONS,
-                                KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
-                                KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
-                                KEY_ACTIVATION_BY_USER_COUNT,
-                                KEY_DEVICE_NETWORK_TYPE_PREFS,
-                                KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
-                                KEY_SCREEN_DARK_MODE,
-                                KEY_DTMF_TONE_WHEN_DIALING,
-                                KEY_SOUND_ON_TOUCH,
-                                KEY_VOLUME_DTMF,
-                                KEY_VOLUME_ACCESSIBILITY,
-                                KEY_VOLUME_BLUETOOTH_SCO,
-                                KEY_AFTER_DURATION_PROFILE,
-                                KEY_ALWAYS_ON_DISPLAY,
-                                KEY_SCREEN_ON_PERMANENT,
-                                KEY_VOLUME_MUTE_SOUND,
-                                KEY_DEVICE_LOCATION_MODE,
-                                KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
-                                KEY_GENERATE_NOTIFICATION,
-                                KEY_CAMERA_FLASH,
-                                KEY_DEVICE_NETWORK_TYPE_SIM1,
-                                KEY_DEVICE_NETWORK_TYPE_SIM2,
-                                KEY_DEVICE_MOBILE_DATA_SIM1,
-                                KEY_DEVICE_MOBILE_DATA_SIM2,
-                                KEY_DEVICE_DEFAULT_SIM_CARDS,
-                                KEY_DEVICE_ONOFF_SIM1,
-                                KEY_DEVICE_ONOFF_SIM2,
-                                KEY_SOUND_RINGTONE_CHANGE_SIM1,
-                                KEY_SOUND_RINGTONE_SIM1,
-                                KEY_SOUND_RINGTONE_CHANGE_SIM2,
-                                KEY_SOUND_RINGTONE_SIM2,
-                                KEY_SOUND_NOTIFICATION_CHANGE_SIM1,
-                                KEY_SOUND_NOTIFICATION_SIM1,
-                                KEY_SOUND_NOTIFICATION_CHANGE_SIM2,
-                                KEY_SOUND_NOTIFICATION_SIM2,
-                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
-                                KEY_DEVICE_LIVE_WALLPAPER,
-                                KEY_DEVICE_WALLPAPER_FOLDER,
-                                KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
-                                KEY_DEVICE_VPN_SETTINGS_PREFS,
-                                KEY_END_OF_ACTIVATION_TYPE,
-                                KEY_END_OF_ACTIVATION_TIME,
-                                KEY_APPLICATION_DISABLE_PERIODIC_SCANNING
-                        },
-                        KEY_CHECKED + "=?",
-                        new String[]{"1"}, null, null, null, null);
-                if (cursor != null) {
-                    cursor.moveToFirst();
-
-                    int rc = cursor.getCount();
-
-                    if (rc == 1) {
-
-                        profile = new Profile(cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ID)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_ICON)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_CHECKED)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_PORDER)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_RINGER_MODE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_RINGTONE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_NOTIFICATION)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_MEDIA)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_ALARM)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_SYSTEM)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_VOICE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_ALARM_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_ALARM)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AIRPLANE_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_BLUETOOTH)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_SCREEN_TIMEOUT)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_BRIGHTNESS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_GPS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOSYNC)),
-                                (cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR) != -1) && (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOROTATE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_SERVICE_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_SPEAKER_PHONE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NFC)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DURATION)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_AFTER_DURATION_DO)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_ZEN_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_KEYGUARD)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_ON_TOUCH)),
-                                (cursor.getColumnIndex(KEY_DEVICE_WIFI_AP) != -1) ? cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) : 0,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_POWER_SAVE_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ASK_FOR_DURATION)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_NOTIFICATION_LED)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_WHEN_RINGING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_FOR)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_HIDE_STATUS_BAR_ICON)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_LOCK_DEVICE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_CONNECT_TO_SSID)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_WIFI_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DURATION_NOTIFICATION_SOUND)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DURATION_NOTIFICATION_VIBRATE)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_LOCATION_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_HEADS_UP_NOTIFICATIONS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
-                                cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ACTIVATION_BY_USER_COUNT)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SCREEN_DARK_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DTMF_TONE_WHEN_DIALING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_ON_TOUCH)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_DTMF)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_ACCESSIBILITY)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_VOLUME_BLUETOOTH_SCO)),
-                                cursor.getLong(cursor.getColumnIndexOrThrow(KEY_AFTER_DURATION_PROFILE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ALWAYS_ON_DISPLAY)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SCREEN_ON_PERMANENT)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_MUTE_SOUND)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_GENERATE_NOTIFICATION)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_CAMERA_FLASH)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_MOBILE_DATA_SIM2)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_DEFAULT_SIM_CARDS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_ONOFF_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_ONOFF_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE_SIM1)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_CHANGE_SIM2)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_CHANGE_SIM1)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_LIVE_WALLPAPER)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_NOTIFICATIONS)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_WALLPAPER_FOLDER)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_VPN_SETTINGS_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_END_OF_ACTIVATION_TIME)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(KEY_APPLICATION_DISABLE_PERIODIC_SCANNING))
-                                );
-                    }
-
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return profile;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerProfiles.getActivatedProfile(this);
     }
 
     long getProfileIdByName(String name)
     {
-        importExportLock.lock();
-        try {
-            long id = 0;
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.query(TABLE_PROFILES,
-                        new String[]{KEY_ID},
-                        "trim(" + KEY_NAME + ")=?",
-                        new String[]{name}, null, null, null, null);
-                if (cursor != null) {
-                    cursor.moveToFirst();
-
-                    int rc = cursor.getCount();
-
-                    if (rc == 1) {
-                        id = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ID));
-                    }
-
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return id;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerProfiles.getProfileIdByName(this, name);
     }
 
     void setProfileOrder(List<Profile> list)
     {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-
-                db.beginTransaction();
-                try {
-
-                    for (int i = 0; i < list.size(); i++) {
-                        Profile profile = list.get(i);
-                        profile._porder = i + 1;
-
-                        values.put(KEY_PORDER, profile._porder);
-
-                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                new String[]{String.valueOf(profile._id)});
-                    }
-
-                    db.setTransactionSuccessful();
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerProfiles.setProfileOrder(this, list);
     }
 
     void getProfileIcon(Profile profile)
     {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.query(TABLE_PROFILES,
-                        new String[]{KEY_ICON},
-                        KEY_ID + "=?",
-                        new String[]{Long.toString(profile._id)}, null, null, null, null);
-
-                if (cursor != null) {
-                    if (cursor.moveToFirst())
-                        profile._icon = cursor.getString(cursor.getColumnIndexOrThrow(KEY_ICON));
-                    cursor.close();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerProfiles.getProfileIcon(this, profile);
     }
 
     void saveMergedProfile(Profile profile) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-
-                try {
-                    db.delete(TABLE_MERGED_PROFILE, null, null);
-
-                    addProfile(profile, true);
-
-                    db.setTransactionSuccessful();
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerProfiles.saveMergedProfile(this, profile);
     }
 
     // this is called only from onUpgrade and importDB
@@ -5461,383 +4118,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    /*
-    int getTypeProfilesCount(int profileType)
-    {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                final String countQuery;
-                String whereString = "";
-                if (profileType == PTYPE_CONNECT_TO_SSID) {
-                    String profileTypeChecked;
-                    //if (!sharedProfile)
-                        profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_JUSTANY + "\"";
-                    //else
-                    //    profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "=\"" + Profile.CONNECTTOSSID_SHAREDPROFILE + "\"";
-                    whereString = " WHERE " + profileTypeChecked;
-                }
-                if (profileType == PTYPE_FORCE_STOP) {
-                    String profileTypeChecked;
-                    //if (!sharedProfile)
-                        profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "!="+Profile.NO_CHANGE_VALUE_STR;
-                    //else
-                    //    profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "="+Profile.SHARED_PROFILE_VALUE_STR;
-                    whereString = " WHERE " + profileTypeChecked;
-                }
-                if (profileType == PTYPE_LOCK_DEVICE) {
-                    String profileTypeChecked;
-                    //if (!sharedProfile)
-                        profileTypeChecked = KEY_LOCK_DEVICE + "!="+Profile.NO_CHANGE_VALUE_STR;
-                    //else
-                    //    profileTypeChecked = KEY_LOCK_DEVICE + "="+Profile.SHARED_PROFILE_VALUE_STR;
-                    whereString = " WHERE " + profileTypeChecked;
-                }
-
-                countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + whereString;
-                //PPApplication.logE("DatabaseHandler.getTypeProfilesCount", "countQuery="+countQuery);
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    r = cursor.getInt(0);
-                    cursor.close();
-                }
-                //PPApplication.logE("DatabaseHandler.getTypeProfilesCount", "r="+r);
-
-                //db.close();
-
-            } catch (Exception e) {
-                //PPApplication.logE("DatabaseHandler.getTypeProfilesCount", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
-
-    private long getActivationByUserCount(long profileId) {
-        importExportLock.lock();
-        try {
-            long r = 0;
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.query(TABLE_PROFILES,
-                        new String[]{KEY_ACTIVATION_BY_USER_COUNT},
-                        KEY_ID + "=?",
-                        new String[]{Long.toString(profileId)}, null, null, null, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    r = cursor.getLong(0);
-                    cursor.close();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-
-    private void increaseActivationByUserCount(long profileId) {
-        long count = getActivationByUserCount(profileId);
-        ++count;
-
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-                try {
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_ACTIVATION_BY_USER_COUNT, count);
-
-                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                            new String[]{String.valueOf(profileId)});
-
-                    db.setTransactionSuccessful();
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+    long getActivationByUserCount(long profileId) {
+        return DatabaseHandlerProfiles.getActivationByUserCount(this, profileId);
     }
 
     void increaseActivationByUserCount(Profile profile) {
-        if (profile != null) {
-            long count = getActivationByUserCount(profile._id);
-            ++count;
-            profile._activationByUserCount = count;
-            increaseActivationByUserCount(profile._id);
-        }
+        DatabaseHandlerProfiles.increaseActivationByUserCount(this, profile);
     }
 
-    List<Profile> getProfilesForDynamicShortcuts(boolean counted/*, int limit*/) {
-        importExportLock.lock();
-        try {
-
-            List<Profile> profileList = new ArrayList<>();
-
-            try {
-                startRunningCommand();
-
-                // Select All Query
-                String selectQuery = "SELECT " + KEY_ID + "," +
-                                                KEY_NAME + "," +
-                                                KEY_ICON + "," +
-                                                KEY_ACTIVATION_BY_USER_COUNT +
-                                    " FROM " + TABLE_PROFILES +
-                                    " WHERE " + KEY_SHOW_IN_ACTIVATOR + "=1";
-
-                if (counted) {
-                    selectQuery = selectQuery +
-                            " AND " + KEY_ACTIVATION_BY_USER_COUNT + "> 0" +
-                            " ORDER BY " + KEY_ACTIVATION_BY_USER_COUNT + " DESC " +
-                            " LIMIT " + "3"; // 3 shortcuts because first is restart events
-                }
-                else {
-                    selectQuery = selectQuery +
-                            " AND " + KEY_ACTIVATION_BY_USER_COUNT + "= 0" +
-                            " ORDER BY " + KEY_PORDER +
-                            " LIMIT " + "3"; // 3 shortcuts because first is restart events
-                }
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    do {
-                        Profile profile = new Profile();
-                        profile._id = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ID));
-                        /*if (counted)
-                            profile._name = "(" + cursor.getString(cursor.getColumnIndexOrThrow(KEY_ACTIVATION_BY_USER_COUNT)) + ")"  + cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME));
-                        else*/
-                            profile._name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME));
-                        profile._icon = cursor.getString(cursor.getColumnIndexOrThrow(KEY_ICON));
-                        // Adding contact to list
-                        profileList.add(profile);
-                    } while (cursor.moveToNext());
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-
-            return profileList;
-
-        } finally {
-            stopRunningCommand();
-        }
+    List<Profile> getProfilesForDynamicShortcuts(/*boolean counted*/) {
+        return DatabaseHandlerProfiles.getProfilesForDynamicShortcuts(this);
     }
 
-/*
-    void fixPhoneProfilesSilentInProfiles() {
-        importExportLock.lock();
-        try {
-
-            try {
-                startRunningCommand();
-
-                final String selectQuery = "SELECT " + KEY_ID + "," +
-                        KEY_SOUND_RINGTONE + "," +
-                        KEY_SOUND_NOTIFICATION + "," +
-                        KEY_SOUND_ALARM +
-                        " FROM " + TABLE_PROFILES;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                try {
-                    db.beginTransaction();
-
-                    // get "PhoneProfiles Silent" uris from system
-                    //String ppSilentRingtoneUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_RINGTONE);
-                    //String ppSilentNotificationUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_NOTIFICATION);
-                    //String ppSilentAlarmUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_ALARM);
-
-                    // looping through all rows and adding to list
-                    if (cursor.moveToFirst()) {
-                        do {
-                            long profileId = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ID));
-
-                            // get in profile configured ringtone uris
-                            String soundRingtone = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_RINGTONE));
-                            String soundNotification = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_NOTIFICATION));
-                            String soundAlarm = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SOUND_ALARM));
-
-                            ContentValues values = new ContentValues();
-                            String[] splits = soundRingtone.split("\\|");
-                            if (!splits[0].isEmpty()) {
-                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "profileId=" + profileId);
-                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundRingtone=" + soundRingtone);
-                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "ringtone - splits[0]=" + splits[0]);
-                                if (TonesHandler.searchUri(context, RingtoneManager.TYPE_RINGTONE, splits[0]).isEmpty()) {
-                                    // ringtone uri not exists in RingtoneManager, maybe it is "PhoneProfiles Silent"
-                                    //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_RINGTONE="+ppSilentRingtoneUri);
-                                    values.put(KEY_SOUND_RINGTONE, "");
-                                }
-                            }
-                            splits = soundNotification.split("\\|");
-                            if (!splits[0].isEmpty()) {
-                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "profileId=" + profileId);
-                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundNotification=" + soundNotification);
-                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "notification - splits[0]=" + splits[0]);
-                                if (TonesHandler.searchUri(context, RingtoneManager.TYPE_NOTIFICATION, splits[0]).isEmpty()) {
-                                    // ringtone uri not exists in RingtoneManager, maybe it is "PhoneProfiles Silent"
-                                    //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_NOTIFICATION="+ppSilentNotificationUri);
-                                    values.put(KEY_SOUND_NOTIFICATION, "");
-                                }
-                            }
-                            splits = soundAlarm.split("\\|");
-                            if (!splits[0].isEmpty()) {
-                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "profileId=" + profileId);
-                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundAlarm=" + soundAlarm);
-                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "alarm - splits[0]=" + splits[0]);
-                                if (TonesHandler.searchUri(context, RingtoneManager.TYPE_ALARM, splits[0]).isEmpty()) {
-                                    // ringtone uri not exists in RingtoneManager, maybe it is "PhoneProfiles Silent"
-                                    //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_ALARM="+ppSilentAlarmUri);
-                                    values.put(KEY_SOUND_ALARM, "");
-                                }
-                            }
-
-                            if (values.size() > 0)
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                                                new String[]{String.valueOf(profileId)});
-
-                        } while (cursor.moveToNext());
-                    }
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-
-        } finally {
-            stopRunningCommand();
-        }
+    List<Profile> getProfilesInQuickTilesForDynamicShortcuts() {
+        return DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts(this);
     }
-*/
 
     void updateProfileShowInActivator(Profile profile) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-                try {
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_SHOW_IN_ACTIVATOR, profile._showInActivator);
-
-                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                            new String[]{String.valueOf(profile._id)});
-
-                    db.setTransactionSuccessful();
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerProfiles.updateProfileShowInActivator(this, profile);
     }
-
-    /*
-    void updateChangeWallpaperTime(Profile profile)
-    {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_CHANGE_WALLPAPER_TIME, profile._changeWallpaperTime);
-
-                db.beginTransaction();
-
-                try {
-                    // updating row
-                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                            new String[]{String.valueOf(profile._id)});
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateChangeWallpaperTime", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
 
 // EVENTS --------------------------------------------------------------------------------
 
@@ -6088,7 +4387,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         event._notificationSoundEndPlayAlsoInSilentMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE)) == 1;
                         event.createEventPreferences();
                         getEventPreferences(event, db);
-                        // Adding contact to list
                         eventList.add(event);
                     } while (cursor.moveToNext());
                 }

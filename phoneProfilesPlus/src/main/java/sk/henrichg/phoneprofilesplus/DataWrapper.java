@@ -904,8 +904,9 @@ public class DataWrapper {
                 if (shortcutManager != null) {
                     final int limit = 4;
 
-                    List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true/*, limit*/);
-                    List<Profile> notCountedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(false/*, limit*/);
+                    //List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
+                    List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesInQuickTilesForDynamicShortcuts();
+                    List<Profile> notCountedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(/*false*/);
 
                     ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
@@ -917,7 +918,7 @@ public class DataWrapper {
                     shortcuts.add(createShortcutInfo(_profile, true));
 
                     for (Profile profile : countedProfiles) {
-                        //PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name);
+                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name + " count="+profile._activationByUserCount);
                         profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                         shortcuts.add(createShortcutInfo(profile, false));
                     }
@@ -925,14 +926,17 @@ public class DataWrapper {
                     int shortcutsCount = countedProfiles.size();
                     if (shortcutsCount < limit) {
                         for (Profile profile : notCountedProfiles) {
-                            //PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
+                            PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
                             profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                             shortcuts.add(createShortcutInfo(profile, false));
-
                             ++shortcutsCount;
                             if (shortcutsCount == limit)
                                 break;
                         }
+                    }
+
+                    for (ShortcutInfo info : shortcuts) {
+                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "profile in shortcut=" +info.getShortLabel());
                     }
 
                     //noinspection ConstantConditions
