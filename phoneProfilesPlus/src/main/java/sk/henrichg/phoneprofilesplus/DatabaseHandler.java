@@ -3973,7 +3973,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 // PROFILES --------------------------------------------------------------------------------
 
     // Adding new profile
-    void addProfile(Profile profile, boolean merged) {
+    void addProfile(Profile profile, @SuppressWarnings("SameParameterValue") boolean merged) {
         DatabaseHandlerProfiles.addProfile(this, profile, merged);
     }
 
@@ -4118,9 +4118,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
     long getActivationByUserCount(long profileId) {
         return DatabaseHandlerProfiles.getActivationByUserCount(this, profileId);
     }
+    */
 
     void increaseActivationByUserCount(Profile profile) {
         DatabaseHandlerProfiles.increaseActivationByUserCount(this, profile);
@@ -4201,7 +4203,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     void updateEventBlocked(Event event)
     {
-        DatabaseHandlerEvents.updateEventStatus(this, event);
+        DatabaseHandlerEvents.updateEventBlocked(this, event);
     }
 
     void unblockAllEvents()
@@ -4511,7 +4513,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     boolean isMobileCellSaved(int mobileCell) {
-        return DatabaseHandlerEvents.isMobileCellSaved(this, mobileCell)
+        return DatabaseHandlerEvents.isMobileCellSaved(this, mobileCell);
     }
 
     void loadMobileCellsSensorRunningPausedEvents(List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
@@ -4527,195 +4529,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Adding new nfc tag
     void addNFCTag(NFCTag tag) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_NT_UID, tag._uid);
-                values.put(KEY_NT_NAME, tag._name);
-
-                db.beginTransaction();
-
-                try {
-                    // Inserting Row
-                    db.insert(TABLE_NFC_TAGS, null, values);
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close(); // Closing database connection
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.addNFCTag(this, tag);
     }
 
     // Getting All nfc tags
     List<NFCTag> getAllNFCTags() {
-        importExportLock.lock();
-        try {
-            List<NFCTag> nfcTagList = new ArrayList<>();
-            try {
-                startRunningCommand();
-
-                // Select All Query
-                final String selectQuery = "SELECT " + KEY_NT_ID + "," +
-                        KEY_NT_UID + ", " +
-                        KEY_NT_NAME +
-                        " FROM " + TABLE_NFC_TAGS +
-                        " ORDER BY " + KEY_NT_NAME;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    do {
-                        NFCTag nfcTag = new NFCTag(
-                            cursor.getLong(cursor.getColumnIndexOrThrow(KEY_NT_ID)),
-                            cursor.getString(cursor.getColumnIndexOrThrow(KEY_NT_NAME)),
-                            cursor.getString(cursor.getColumnIndexOrThrow(KEY_NT_UID)));
-                        nfcTagList.add(nfcTag);
-                    } while (cursor.moveToNext());
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return nfcTagList;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getAllNFCTags(this);
     }
 
     // Updating single nfc tag
     void updateNFCTag(NFCTag tag) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_NT_UID, tag._uid);
-                values.put(KEY_NT_NAME, tag._name);
-
-                db.beginTransaction();
-
-                try {
-                    // updating row
-                    db.update(TABLE_NFC_TAGS, values, KEY_NT_ID + " = ?",
-                            new String[]{String.valueOf(tag._id)});
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateNFCTag", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.updateNFCTag(this, tag);
     }
 
     // Deleting single nfc tag
     void deleteNFCTag(NFCTag tag) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-
-                try {
-                    // delete geofence
-                    db.delete(TABLE_NFC_TAGS, KEY_NT_ID + " = ?",
-                            new String[]{String.valueOf(tag._id)});
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteNFCTag", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.deleteNFCTag(this, tag);
     }
-
-    /*
-    String getNFCTagNameByUid(String uid){
-        importExportLock.lock();
-        try {
-            String tagName = "";
-            try {
-                startRunningCommand();
-
-                // Select All Query
-                final String selectQuery = "SELECT " + KEY_NT_NAME +
-                        " FROM " + TABLE_NFC_TAGS +
-                        " WHERE " + KEY_NT_UID + "=" + uid;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    tagName = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NT_NAME));
-                }
-
-                cursor.close();
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return tagName;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
 
 // INTENTS ----------------------------------------------------------------------
 
@@ -4743,98 +4573,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void deleteIntent(long intentId) {
         DatabaseHandlerProfiles.deleteIntent(this, intentId);
     }
-
-    /*
-    void updatePPIntentUsageCount(final List<Application> oldApplicationsList,
-                                   final List<Application> applicationsList) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-
-                try {
-
-                    for (Application application : oldApplicationsList) {
-                        if ((application.type == Application.TYPE_INTENT) && (application.intentId > 0)) {
-
-                            Cursor cursor = db.query(TABLE_INTENTS,
-                                    new String[]{ KEY_IN_USED_COUNT },
-                                    KEY_IN_ID + "=?",
-                                    new String[]{String.valueOf(application.intentId)}, null, null, null, null);
-
-                            if (cursor != null) {
-                                cursor.moveToFirst();
-
-                                if (cursor.getCount() > 0) {
-                                    int usedCount = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_IN_USED_COUNT));
-                                    if (usedCount > 0) {
-                                        --usedCount;
-
-                                        Log.e("DatabaseHandler.updatePPIntentUsageCount", "usedCount (old)="+usedCount);
-                                        ContentValues values = new ContentValues();
-                                        values.put(KEY_IN_USED_COUNT, usedCount);
-                                        db.update(TABLE_INTENTS, values, KEY_IN_ID + " = ?",
-                                                new String[]{String.valueOf(application.intentId)});
-
-                                    }
-                                }
-
-                                cursor.close();
-                            }
-                        }
-                    }
-
-                    for (Application application : applicationsList) {
-                        if ((application.type == Application.TYPE_INTENT) && (application.intentId > 0)) {
-
-                            Cursor cursor = db.query(TABLE_INTENTS,
-                                    new String[]{ KEY_IN_USED_COUNT },
-                                    KEY_IN_ID + "=?",
-                                    new String[]{String.valueOf(application.intentId)}, null, null, null, null);
-
-                            if (cursor != null) {
-                                cursor.moveToFirst();
-
-                                if (cursor.getCount() > 0) {
-                                    int usedCount = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_IN_USED_COUNT));
-                                    ++usedCount;
-
-                                    Log.e("DatabaseHandler.updatePPIntentUsageCount", "usedCount (new)="+usedCount);
-                                    ContentValues values = new ContentValues();
-                                    values.put(KEY_IN_USED_COUNT, usedCount);
-                                    db.update(TABLE_INTENTS, values, KEY_IN_ID + " = ?",
-                                            new String[]{String.valueOf(application.intentId)});
-                                }
-
-                                cursor.close();
-                            }
-                        }
-                    }
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.updatePPIntentUsageCount", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
 
 // ACTIVITY LOG -------------------------------------------------------------------
 

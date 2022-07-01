@@ -4601,7 +4601,7 @@ public class DatabaseHandlerEvents {
                                 mobileCell._lastRunningEvents = cell.lastRunningEvents;
                                 mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 mobileCell._doNotDetect = cell.doNotDetect;
-                                updateMobileCell(mobileCell);
+                                updateMobileCell(instance, mobileCell);
                             }
                         } else {
                             if (value != null) {
@@ -4619,7 +4619,7 @@ public class DatabaseHandlerEvents {
                                         mobileCell._lastRunningEvents = cell.lastRunningEvents;
                                         mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                         mobileCell._doNotDetect = cell.doNotDetect;
-                                        updateMobileCell(mobileCell);
+                                        updateMobileCell(instance, mobileCell);
                                     }
                                 }
                             }
@@ -4635,7 +4635,7 @@ public class DatabaseHandlerEvents {
                                 mobileCell._lastRunningEvents = cell.lastRunningEvents;
                                 mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 mobileCell._doNotDetect = cell.doNotDetect;
-                                updateMobileCell(mobileCell);
+                                updateMobileCell(instance, mobileCell);
                             }
                         }
                     }
@@ -4963,24 +4963,24 @@ public class DatabaseHandlerEvents {
 // NFC_TAGS ----------------------------------------------------------------------
 
     // Adding new nfc tag
-    void addNFCTag(NFCTag tag) {
-        importExportLock.lock();
+    static void addNFCTag(DatabaseHandler instance, NFCTag tag) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_NT_UID, tag._uid);
-                values.put(KEY_NT_NAME, tag._name);
+                values.put(DatabaseHandler.KEY_NT_UID, tag._uid);
+                values.put(DatabaseHandler.KEY_NT_NAME, tag._name);
 
                 db.beginTransaction();
 
                 try {
                     // Inserting Row
-                    db.insert(TABLE_NFC_TAGS, null, values);
+                    db.insert(DatabaseHandler.TABLE_NFC_TAGS, null, values);
 
                     db.setTransactionSuccessful();
 
@@ -4995,27 +4995,27 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
     // Getting All nfc tags
-    List<NFCTag> getAllNFCTags() {
-        importExportLock.lock();
+    static List<NFCTag> getAllNFCTags(DatabaseHandler instance) {
+        instance.importExportLock.lock();
         try {
             List<NFCTag> nfcTagList = new ArrayList<>();
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 // Select All Query
-                final String selectQuery = "SELECT " + KEY_NT_ID + "," +
-                        KEY_NT_UID + ", " +
-                        KEY_NT_NAME +
-                        " FROM " + TABLE_NFC_TAGS +
-                        " ORDER BY " + KEY_NT_NAME;
+                final String selectQuery = "SELECT " + DatabaseHandler.KEY_NT_ID + "," +
+                        DatabaseHandler.KEY_NT_UID + ", " +
+                        DatabaseHandler.KEY_NT_NAME +
+                        " FROM " + DatabaseHandler.TABLE_NFC_TAGS +
+                        " ORDER BY " + DatabaseHandler.KEY_NT_NAME;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -5023,9 +5023,9 @@ public class DatabaseHandlerEvents {
                 if (cursor.moveToFirst()) {
                     do {
                         NFCTag nfcTag = new NFCTag(
-                            cursor.getLong(cursor.getColumnIndexOrThrow(KEY_NT_ID)),
-                            cursor.getString(cursor.getColumnIndexOrThrow(KEY_NT_NAME)),
-                            cursor.getString(cursor.getColumnIndexOrThrow(KEY_NT_UID)));
+                            cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NT_ID)),
+                            cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NT_NAME)),
+                            cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NT_UID)));
                         nfcTagList.add(nfcTag);
                     } while (cursor.moveToNext());
                 }
@@ -5038,29 +5038,29 @@ public class DatabaseHandlerEvents {
             }
             return nfcTagList;
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
     // Updating single nfc tag
-    void updateNFCTag(NFCTag tag) {
-        importExportLock.lock();
+    static void updateNFCTag(DatabaseHandler instance, NFCTag tag) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_NT_UID, tag._uid);
-                values.put(KEY_NT_NAME, tag._name);
+                values.put(DatabaseHandler.KEY_NT_UID, tag._uid);
+                values.put(DatabaseHandler.KEY_NT_NAME, tag._name);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_NFC_TAGS, values, KEY_NT_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_NFC_TAGS, values, DatabaseHandler.KEY_NT_ID + " = ?",
                             new String[]{String.valueOf(tag._id)});
 
                     db.setTransactionSuccessful();
@@ -5078,25 +5078,25 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
     // Deleting single nfc tag
-    void deleteNFCTag(NFCTag tag) {
-        importExportLock.lock();
+    static void deleteNFCTag(DatabaseHandler instance, NFCTag tag) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 db.beginTransaction();
 
                 try {
                     // delete geofence
-                    db.delete(TABLE_NFC_TAGS, KEY_NT_ID + " = ?",
+                    db.delete(DatabaseHandler.TABLE_NFC_TAGS, DatabaseHandler.KEY_NT_ID + " = ?",
                             new String[]{String.valueOf(tag._id)});
 
                     db.setTransactionSuccessful();
@@ -5114,44 +5114,8 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
-
-    /*
-    String getNFCTagNameByUid(String uid){
-        importExportLock.lock();
-        try {
-            String tagName = "";
-            try {
-                startRunningCommand();
-
-                // Select All Query
-                final String selectQuery = "SELECT " + KEY_NT_NAME +
-                        " FROM " + TABLE_NFC_TAGS +
-                        " WHERE " + KEY_NT_UID + "=" + uid;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    tagName = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NT_NAME));
-                }
-
-                cursor.close();
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return tagName;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
 
 }
