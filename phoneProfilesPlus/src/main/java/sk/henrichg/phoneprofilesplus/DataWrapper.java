@@ -917,13 +917,17 @@ public class DataWrapper {
                     // first profile is restart events
                     shortcuts.add(createShortcutInfo(_profile, true));
 
+                    int shortcutsCount = 0;
                     for (Profile profile : countedProfiles) {
                         PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name + " count="+profile._activationByUserCount);
                         profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                         shortcuts.add(createShortcutInfo(profile, false));
+                        ++shortcutsCount;
+                        if (shortcutsCount == limit)
+                            break;
                     }
 
-                    int shortcutsCount = countedProfiles.size();
+                    //int shortcutsCount = countedProfiles.size();
                     if (shortcutsCount < limit) {
                         for (Profile profile : notCountedProfiles) {
                             PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);

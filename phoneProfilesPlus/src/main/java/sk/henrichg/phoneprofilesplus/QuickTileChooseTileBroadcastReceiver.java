@@ -73,15 +73,18 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
+
                     String toast = context.getString(R.string.tile_chooser_tile_changed_toast);
                     if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID)
                         toast = toast + " " + context.getString(R.string.menu_restart_events);
                     else {
-                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                         Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], false, false, false);
                         toast = toast + " " + profile._name;
                     }
                     PPApplication.showToast(context.getApplicationContext(), toast, Toast.LENGTH_LONG);
+
+                    dataWrapper.setDynamicLauncherShortcuts();
 
                 } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));

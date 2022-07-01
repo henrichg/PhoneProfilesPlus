@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1535,17 +1536,17 @@ class DatabaseHandlerProfiles {
 
                 /*if (counted) {
                     selectQuery = selectQuery +
-                            " WHERE " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + "> 0" +
-                            " ORDER BY " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + " DESC " +
+                            //" WHERE " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + "> 0" +
+                            //" ORDER BY " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + " DESC " +
                             " LIMIT " + "3"; // 3 shortcuts because first is restart events
-                //}
-                else*/ {
+                }
+                else {
                     selectQuery = selectQuery +
                             " WHERE " + DatabaseHandler.KEY_SHOW_IN_ACTIVATOR + "=1" +
                             " AND " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + "= 0" +
                             " ORDER BY " + DatabaseHandler.KEY_PORDER +
                             " LIMIT " + "3"; // 3 shortcuts because first is restart events
-                }
+                }*/
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
@@ -1560,8 +1561,11 @@ class DatabaseHandlerProfiles {
                         profile._name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NAME));
                         profile._icon = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ICON));
                         profile._activationByUserCount = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT));
+                        Log.e("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "profile._id="+profile._id+" profile._name="+profile._name);
                         for (int i = 0; i < PPApplication.quickTileProfileId.length; i++) {
-                            if (ApplicationPreferences.getQuickTileProfileId(instance.context, i) == profile._id)
+                            long tiledProfileId = ApplicationPreferences.getQuickTileProfileId(instance.context, i);
+                            Log.e("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "tiledProfileId="+tiledProfileId);
+                            if (tiledProfileId == profile._id)
                                 profileList.add(profile);
                         }
                     } while (cursor.moveToNext());
