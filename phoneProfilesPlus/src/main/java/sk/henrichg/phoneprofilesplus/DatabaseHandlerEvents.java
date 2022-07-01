@@ -2553,26 +2553,26 @@ public class DatabaseHandlerEvents {
         }
     }
 
-    void updateEventCalendarTimes(Event event)
+    static void updateEventCalendarTimes(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_CALENDAR_EVENT_START_TIME, event._eventPreferencesCalendar._startTime);
-                values.put(KEY_E_CALENDAR_EVENT_END_TIME, event._eventPreferencesCalendar._endTime);
-                values.put(KEY_E_CALENDAR_EVENT_FOUND, event._eventPreferencesCalendar._eventFound ? 1 : 0);
+                values.put(DatabaseHandler.KEY_E_CALENDAR_EVENT_START_TIME, event._eventPreferencesCalendar._startTime);
+                values.put(DatabaseHandler.KEY_E_CALENDAR_EVENT_END_TIME, event._eventPreferencesCalendar._endTime);
+                values.put(DatabaseHandler.KEY_E_CALENDAR_EVENT_FOUND, event._eventPreferencesCalendar._eventFound ? 1 : 0);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -2590,35 +2590,35 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void setEventCalendarTimes(Event event)
+    static void setEventCalendarTimes(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                KEY_E_CALENDAR_EVENT_START_TIME,
-                                KEY_E_CALENDAR_EVENT_END_TIME,
-                                KEY_E_CALENDAR_EVENT_FOUND
+                                DatabaseHandler.KEY_E_CALENDAR_EVENT_START_TIME,
+                                DatabaseHandler.KEY_E_CALENDAR_EVENT_END_TIME,
+                                DatabaseHandler.KEY_E_CALENDAR_EVENT_FOUND
                         },
-                        KEY_E_ID + "=?",
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        event._eventPreferencesCalendar._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_CALENDAR_EVENT_START_TIME));
-                        event._eventPreferencesCalendar._endTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_CALENDAR_EVENT_END_TIME));
-                        event._eventPreferencesCalendar._eventFound = (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_CALENDAR_EVENT_FOUND)) == 1);
+                        event._eventPreferencesCalendar._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALENDAR_EVENT_START_TIME));
+                        event._eventPreferencesCalendar._endTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALENDAR_EVENT_END_TIME));
+                        event._eventPreferencesCalendar._eventFound = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALENDAR_EVENT_FOUND)) == 1);
                     }
 
                     cursor.close();
@@ -2629,28 +2629,28 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void updateEventCalendarTodayExists(Event event)
+    static void updateEventCalendarTodayExists(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_CALENDAR_EVENT_TODAY_EXISTS, event._eventPreferencesCalendar._eventTodayExists ? 1 : 0);
+                values.put(DatabaseHandler.KEY_E_CALENDAR_EVENT_TODAY_EXISTS, event._eventPreferencesCalendar._eventTodayExists ? 1 : 0);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -2668,32 +2668,32 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    boolean getEventInDelayStart(Event event)
+    static boolean getEventInDelayStart(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             int eventInDelay = 0;
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                KEY_E_IS_IN_DELAY_START
+                                DatabaseHandler.KEY_E_IS_IN_DELAY_START
                         },
-                        KEY_E_ID + "=?",
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        eventInDelay = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_IS_IN_DELAY_START));
+                        eventInDelay = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_IS_IN_DELAY_START));
                     }
 
                     cursor.close();
@@ -2706,29 +2706,29 @@ public class DatabaseHandlerEvents {
             }
             return (eventInDelay == 1);
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void updateEventInDelayStart(Event event)
+    static void updateEventInDelayStart(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0);
-                values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
+                values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0);
+                values.put(DatabaseHandler.KEY_E_START_STATUS_TIME, event._startStatusTime);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -2746,28 +2746,28 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void resetAllEventsInDelayStart()
+    static void resetAllEventsInDelayStart(DatabaseHandler instance)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_IS_IN_DELAY_START, 0);
+                values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_START, 0);
 
                 db.beginTransaction();
 
                 try {
                     // updating rows
-                    db.update(TABLE_EVENTS, values, null, null);
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
 
                     db.setTransactionSuccessful();
 
@@ -2784,32 +2784,32 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    boolean getEventInDelayEnd(Event event)
+    static boolean getEventInDelayEnd(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             int eventInDelay = 0;
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                KEY_E_IS_IN_DELAY_END
+                                DatabaseHandler.KEY_E_IS_IN_DELAY_END
                         },
-                        KEY_E_ID + "=?",
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        eventInDelay = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_IS_IN_DELAY_END));
+                        eventInDelay = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_IS_IN_DELAY_END));
                     }
 
                     cursor.close();
@@ -2822,29 +2822,29 @@ public class DatabaseHandlerEvents {
             }
             return (eventInDelay == 1);
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void updateEventInDelayEnd(Event event)
+    static void updateEventInDelayEnd(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
-                values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
+                values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
+                values.put(DatabaseHandler.KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -2862,29 +2862,29 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void updateSMSStartTime(Event event)
+    static void updateSMSStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_SMS_START_TIME, event._eventPreferencesSMS._startTime);
-                values.put(KEY_E_SMS_FROM_SIM_SLOT, event._eventPreferencesSMS._fromSIMSlot);
+                values.put(DatabaseHandler.KEY_E_SMS_START_TIME, event._eventPreferencesSMS._startTime);
+                values.put(DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT, event._eventPreferencesSMS._fromSIMSlot);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -2902,33 +2902,33 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void getSMSStartTime(Event event)
+    static void getSMSStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                KEY_E_SMS_START_TIME,
-                                KEY_E_SMS_FROM_SIM_SLOT
+                                DatabaseHandler.KEY_E_SMS_START_TIME,
+                                DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT
                         },
-                        KEY_E_ID + "=?",
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        event._eventPreferencesSMS._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_SMS_START_TIME));
-                        event._eventPreferencesSMS._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_SMS_FROM_SIM_SLOT));
+                        event._eventPreferencesSMS._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_START_TIME));
+                        event._eventPreferencesSMS._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT));
                         //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
                         //    PPApplication.logE("[SMS sensor] DatabaseHandler.getSMSStartTime", "startTime="+event._eventPreferencesSMS._startTime);
                     }
@@ -2941,151 +2941,28 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    /*
-    void updateNotificationStartTime(Event event)
+    static void updateNFCStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_NOTIFICATION_START_TIME, event._eventPreferencesNotification._startTime);
+                values.put(DatabaseHandler.KEY_E_NFC_START_TIME, event._eventPreferencesNFC._startTime);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                            new String[]{String.valueOf(event._id)});
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    Log.e("DatabaseHandler.updateNotificationStartTimes", Log.getStackTraceString(e));
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-    }
-
-    void getNotificationStartTime(Event event)
-    {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.query(TABLE_EVENTS,
-                        new String[]{
-                                KEY_E_NOTIFICATION_START_TIME
-                        },
-                        KEY_E_ID + "=?",
-                        new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
-                    cursor.moveToFirst();
-
-                    if (cursor.getCount() > 0) {
-                        event._eventPreferencesNotification._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_NOTIFICATION_START_TIME));
-                    }
-
-                    cursor.close();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
-
-    /*
-    int getBluetoothDevicesTypeCount(int devicesType, int forceScan)
-    {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                if (forceScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-                    final String countQuery;
-                    String devicesTypeChecked;
-                    devicesTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-                    devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND ";
-                    devicesTypeChecked = devicesTypeChecked + "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3) AND ";
-                    if (devicesType == EventPreferencesBluetooth.DTYPE_CLASSIC)
-                        devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=0";
-                    else if (devicesType == EventPreferencesBluetooth.DTYPE_LE)
-                        devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=1";
-
-                    countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
-                            " WHERE " + devicesTypeChecked;
-
-                    //SQLiteDatabase db = this.getReadableDatabase();
-                    SQLiteDatabase db = getMyWritableDatabase();
-
-                    Cursor cursor = db.rawQuery(countQuery, null);
-
-                    if (cursor != null) {
-                        cursor.moveToFirst();
-                        r = cursor.getInt(0);
-                        cursor.close();
-                    }
-
-                    //db.close();
-
-                } else
-                    r = 999;
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
-
-    void updateNFCStartTime(Event event)
-    {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_E_NFC_START_TIME, event._eventPreferencesNFC._startTime);
-
-                db.beginTransaction();
-
-                try {
-                    // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -3103,31 +2980,31 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void getNFCStartTime(Event event)
+    static void getNFCStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                KEY_E_NFC_START_TIME
+                                DatabaseHandler.KEY_E_NFC_START_TIME
                         },
-                        KEY_E_ID + "=?",
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        event._eventPreferencesNFC._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_NFC_START_TIME));
+                        event._eventPreferencesNFC._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NFC_START_TIME));
                     }
 
                     cursor.close();
@@ -3138,70 +3015,29 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    /*
-    int getBatteryEventWithLevelCount()
+    static void updateCallStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                final String countQuery;
-                String eventChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-                eventChecked = eventChecked + KEY_E_BATTERY_ENABLED + "=1" + " AND ";
-                eventChecked = eventChecked + "(" + KEY_E_BATTERY_LEVEL_LOW + ">0" + " OR ";
-                eventChecked = eventChecked + KEY_E_BATTERY_LEVEL_HIGHT + "<100" + ")";
-
-                countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
-                        " WHERE " + eventChecked;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    r = cursor.getInt(0);
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
-
-    void updateCallStartTime(Event event)
-    {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_CALL_START_TIME, event._eventPreferencesCall._startTime);
-                values.put(KEY_E_CALL_FROM_SIM_SLOT, event._eventPreferencesCall._fromSIMSlot);
+                values.put(DatabaseHandler.KEY_E_CALL_START_TIME, event._eventPreferencesCall._startTime);
+                values.put(DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT, event._eventPreferencesCall._fromSIMSlot);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -3219,33 +3055,33 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void getCallStartTime(Event event)
+    static void getCallStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                KEY_E_CALL_START_TIME,
-                                KEY_E_CALL_FROM_SIM_SLOT
+                                DatabaseHandler.KEY_E_CALL_START_TIME,
+                                DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT
                         },
-                        KEY_E_ID + "=?",
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        event._eventPreferencesCall._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_CALL_START_TIME));
-                        event._eventPreferencesCall._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_CALL_FROM_SIM_SLOT));
+                        event._eventPreferencesCall._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_START_TIME));
+                        event._eventPreferencesCall._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT));
                     }
 
                     cursor.close();
@@ -3256,29 +3092,29 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void updateAlarmClockStartTime(Event event)
+    static void updateAlarmClockStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_ALARM_CLOCK_START_TIME, event._eventPreferencesAlarmClock._startTime);
-                values.put(KEY_E_ALARM_CLOCK_PACKAGE_NAME, event._eventPreferencesAlarmClock._alarmPackageName);
+                values.put(DatabaseHandler.KEY_E_ALARM_CLOCK_START_TIME, event._eventPreferencesAlarmClock._startTime);
+                values.put(DatabaseHandler.KEY_E_ALARM_CLOCK_PACKAGE_NAME, event._eventPreferencesAlarmClock._alarmPackageName);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -3296,33 +3132,33 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void getAlarmClockStartTime(Event event)
+    static void getAlarmClockStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                KEY_E_ALARM_CLOCK_START_TIME,
-                                KEY_E_ALARM_CLOCK_PACKAGE_NAME
+                                DatabaseHandler.KEY_E_ALARM_CLOCK_START_TIME,
+                                DatabaseHandler.KEY_E_ALARM_CLOCK_PACKAGE_NAME
                         },
-                        KEY_E_ID + "=?",
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        event._eventPreferencesAlarmClock._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_ALARM_CLOCK_START_TIME));
-                        event._eventPreferencesAlarmClock._alarmPackageName = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_ALARM_CLOCK_PACKAGE_NAME));
+                        event._eventPreferencesAlarmClock._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ALARM_CLOCK_START_TIME));
+                        event._eventPreferencesAlarmClock._alarmPackageName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ALARM_CLOCK_PACKAGE_NAME));
                     }
 
                     cursor.close();
@@ -3333,28 +3169,28 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void updateDeviceBootStartTime(Event event)
+    static void updateDeviceBootStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_DEVICE_BOOT_START_TIME, event._eventPreferencesDeviceBoot._startTime);
+                values.put(DatabaseHandler.KEY_E_DEVICE_BOOT_START_TIME, event._eventPreferencesDeviceBoot._startTime);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -3372,31 +3208,31 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void getDeviceBootStartTime(Event event)
+    static void getDeviceBootStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                KEY_E_DEVICE_BOOT_START_TIME
+                                DatabaseHandler.KEY_E_DEVICE_BOOT_START_TIME
                         },
-                        KEY_E_ID + "=?",
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        event._eventPreferencesDeviceBoot._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_DEVICE_BOOT_START_TIME));
+                        event._eventPreferencesDeviceBoot._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_DEVICE_BOOT_START_TIME));
                     }
 
                     cursor.close();
@@ -3407,28 +3243,28 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void updatePeriodicCounter(Event event)
+    static void updatePeriodicCounter(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_PERIODIC_COUNTER, event._eventPreferencesPeriodic._counter);
+                values.put(DatabaseHandler.KEY_E_PERIODIC_COUNTER, event._eventPreferencesPeriodic._counter);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -3446,28 +3282,28 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void updatePeriodicStartTime(Event event)
+    static void updatePeriodicStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_PERIODIC_START_TIME, event._eventPreferencesPeriodic._startTime);
+                values.put(DatabaseHandler.KEY_E_PERIODIC_START_TIME, event._eventPreferencesPeriodic._startTime);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -3485,38 +3321,38 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void getPeriodicStartTime(Event event)
+    static void getPeriodicStartTime(DatabaseHandler instance, Event event)
     {
-        importExportLock.lock();
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_EVENTS,
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                KEY_E_PERIODIC_COUNTER,
-                                KEY_E_PERIODIC_MULTIPLY_INTERVAL,
-                                KEY_E_PERIODIC_START_TIME
+                                DatabaseHandler.KEY_E_PERIODIC_COUNTER,
+                                DatabaseHandler.KEY_E_PERIODIC_MULTIPLY_INTERVAL,
+                                DatabaseHandler.KEY_E_PERIODIC_START_TIME
                         },
-                        KEY_E_ID + "=?",
+                        DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        int multiplyInterval = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_PERIODIC_MULTIPLY_INTERVAL));
+                        int multiplyInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PERIODIC_MULTIPLY_INTERVAL));
 
-                        event._eventPreferencesPeriodic._counter = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_PERIODIC_COUNTER));
+                        event._eventPreferencesPeriodic._counter = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PERIODIC_COUNTER));
                         if (event._eventPreferencesPeriodic._counter >=
                                 ApplicationPreferences.applicationEventPeriodicScanningScanInterval * multiplyInterval)
-                            event._eventPreferencesPeriodic._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_PERIODIC_START_TIME));
+                            event._eventPreferencesPeriodic._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PERIODIC_START_TIME));
                         else
                             event._eventPreferencesPeriodic._startTime = 0;
 
@@ -3530,28 +3366,28 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
-    void updateEventForceRun(Event event) {
-        importExportLock.lock();
+    static void updateEventForceRun(DatabaseHandler instance, Event event) {
+        instance.importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                instance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 db.beginTransaction();
                 try {
                     ContentValues values = new ContentValues();
-                    values.put(KEY_E_FORCE_RUN, event._ignoreManualActivation);
+                    values.put(DatabaseHandler.KEY_E_FORCE_RUN, event._ignoreManualActivation);
                     if (event._ignoreManualActivation) {
-                        values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation);
+                        values.put(DatabaseHandler.KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation);
                     }
 
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});
 
                     db.setTransactionSuccessful();
@@ -3566,7 +3402,7 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            stopRunningCommand();
+            instance.stopRunningCommand();
         }
     }
 
