@@ -1618,4 +1618,565 @@ class DatabaseHandlerProfiles {
         }
     }
 
+// SHORTCUTS ----------------------------------------------------------------------
+
+    // Adding new shortcut
+    static void addShortcut(DatabaseHandler instance, Shortcut shortcut) {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_S_INTENT, shortcut._intent);
+                values.put(DatabaseHandler.KEY_S_NAME, shortcut._name);
+
+                db.beginTransaction();
+
+                try {
+                    // Inserting Row
+                    shortcut._id = db.insert(DatabaseHandler.TABLE_SHORTCUTS, null, values);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    // Getting single shortcut
+    static Shortcut getShortcut(DatabaseHandler instance, long shortcutId) {
+        instance.importExportLock.lock();
+        try {
+            Shortcut shortcut = null;
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_SHORTCUTS,
+                        new String[]{DatabaseHandler.KEY_S_ID,
+                                DatabaseHandler.KEY_S_INTENT,
+                                DatabaseHandler.KEY_S_NAME
+                        },
+                        DatabaseHandler.KEY_S_ID + "=?",
+                        new String[]{String.valueOf(shortcutId)}, null, null, null, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        shortcut = new Shortcut();
+                        shortcut._id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_S_ID));
+                        shortcut._intent = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_S_INTENT));
+                        shortcut._name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_S_NAME));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return shortcut;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    // Deleting single shortcut
+    static void deleteShortcut(DatabaseHandler instance, long shortcutId) {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                db.beginTransaction();
+
+                try {
+
+                    // delete geofence
+                    db.delete(DatabaseHandler.TABLE_SHORTCUTS, DatabaseHandler.KEY_S_ID + " = ?",
+                            new String[]{String.valueOf(shortcutId)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandler.deleteShortcut", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+// INTENTS ----------------------------------------------------------------------
+
+    // Adding new intent
+    static void addIntent(DatabaseHandler instance, PPIntent intent) {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_IN_NAME, intent._name);
+                values.put(DatabaseHandler.KEY_IN_PACKAGE_NAME, intent._packageName);
+                values.put(DatabaseHandler.KEY_IN_CLASS_NAME, intent._className);
+                values.put(DatabaseHandler.KEY_IN_ACTION, intent._action);
+                values.put(DatabaseHandler.KEY_IN_DATA, intent._data);
+                values.put(DatabaseHandler.KEY_IN_MIME_TYPE, intent._mimeType);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_1, intent._extraKey1);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_1, intent._extraValue1);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_1, intent._extraType1);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_2, intent._extraKey2);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_2, intent._extraValue2);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_2, intent._extraType2);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_3, intent._extraKey3);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_3, intent._extraValue3);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_3, intent._extraType3);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_4, intent._extraKey4);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_4, intent._extraValue4);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_4, intent._extraType4);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_5, intent._extraKey5);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_5, intent._extraValue5);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_5, intent._extraType5);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_6, intent._extraKey6);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_6, intent._extraValue6);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_6, intent._extraType6);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_7, intent._extraKey7);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_7, intent._extraValue7);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_7, intent._extraType7);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_8, intent._extraKey8);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_8, intent._extraValue8);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_8, intent._extraType8);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_9, intent._extraKey9);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_9, intent._extraValue9);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_9, intent._extraType9);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_10, intent._extraKey10);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_10, intent._extraValue10);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_10, intent._extraType10);
+                values.put(DatabaseHandler.KEY_IN_CATEGORIES, intent._categories);
+                values.put(DatabaseHandler.KEY_IN_FLAGS, intent._flags);
+                values.put(DatabaseHandler.KEY_IN_INTENT_TYPE, intent._intentType);
+
+                //values.put(KEY_IN_USED_COUNT, intent._usedCount);
+                values.put(DatabaseHandler.KEY_IN_DO_NOT_DELETE, intent._doNotDelete);
+
+                db.beginTransaction();
+
+                try {
+                    // Inserting Row
+                    intent._id = db.insert(DatabaseHandler.TABLE_INTENTS, null, values);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    // Getting All intents
+    static List<PPIntent> getAllIntents(DatabaseHandler instance) {
+        instance.importExportLock.lock();
+        try {
+            List<PPIntent> intentList = new ArrayList<>();
+            try {
+                instance.startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT " + DatabaseHandler.KEY_IN_ID + "," +
+                        DatabaseHandler.KEY_IN_NAME + ", " +
+                        DatabaseHandler.KEY_IN_PACKAGE_NAME + ", " +
+                        DatabaseHandler.KEY_IN_CLASS_NAME + ", " +
+                        DatabaseHandler.KEY_IN_ACTION + ", " +
+                        DatabaseHandler.KEY_IN_DATA + ", " +
+                        DatabaseHandler.KEY_IN_MIME_TYPE + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_1 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_1 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_1 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_2 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_2 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_2 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_3 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_3 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_3 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_4 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_4 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_4 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_5 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_5 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_5 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_6 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_6 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_6 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_7 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_7 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_7 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_8 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_8 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_8 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_9 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_9 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_9 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_KEY_10 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_VALUE_10 + ", " +
+                        DatabaseHandler.KEY_IN_EXTRA_TYPE_10 + ", " +
+                        DatabaseHandler.KEY_IN_CATEGORIES + ", " +
+                        DatabaseHandler.KEY_IN_FLAGS + ", " +
+                        DatabaseHandler.KEY_IN_INTENT_TYPE + ", " +
+
+                        //DatabaseHandler.KEY_IN_USED_COUNT + ", " +
+                        DatabaseHandler.KEY_IN_DO_NOT_DELETE +
+
+                        " FROM " + DatabaseHandler.TABLE_INTENTS +
+                        " ORDER BY " + DatabaseHandler.KEY_IN_NAME;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        PPIntent ppIntent = new PPIntent(
+                                cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_ID)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_NAME)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_PACKAGE_NAME)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_CLASS_NAME)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_ACTION)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_DATA)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_MIME_TYPE)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_1)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_1)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_1)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_2)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_2)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_2)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_3)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_3)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_3)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_4)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_4)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_4)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_5)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_5)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_5)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_6)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_6)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_6)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_7)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_7)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_7)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_8)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_8)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_8)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_9)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_9)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_9)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_10)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_10)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_10)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_CATEGORIES)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_FLAGS)),
+                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_USED_COUNT)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_INTENT_TYPE)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_DO_NOT_DELETE))  == 1
+                        );
+                        intentList.add(ppIntent);
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return intentList;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    // Updating single intent
+    static void updateIntent(DatabaseHandler instance, PPIntent intent) {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_IN_NAME, intent._name);
+                values.put(DatabaseHandler.KEY_IN_PACKAGE_NAME, intent._packageName);
+                values.put(DatabaseHandler.KEY_IN_CLASS_NAME, intent._className);
+                values.put(DatabaseHandler.KEY_IN_ACTION, intent._action);
+                values.put(DatabaseHandler.KEY_IN_DATA, intent._data);
+                values.put(DatabaseHandler.KEY_IN_MIME_TYPE, intent._mimeType);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_1, intent._extraKey1);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_1, intent._extraValue1);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_1, intent._extraType1);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_2, intent._extraKey2);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_2, intent._extraValue2);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_2, intent._extraType2);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_3, intent._extraKey3);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_3, intent._extraValue3);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_3, intent._extraType3);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_4, intent._extraKey4);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_4, intent._extraValue4);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_4, intent._extraType4);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_5, intent._extraKey5);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_5, intent._extraValue5);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_5, intent._extraType5);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_6, intent._extraKey6);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_6, intent._extraValue6);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_6, intent._extraType6);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_7, intent._extraKey7);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_7, intent._extraValue7);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_7, intent._extraType7);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_8, intent._extraKey8);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_8, intent._extraValue8);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_8, intent._extraType8);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_9, intent._extraKey9);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_9, intent._extraValue9);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_9, intent._extraType9);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_KEY_10, intent._extraKey10);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_VALUE_10, intent._extraValue10);
+                values.put(DatabaseHandler.KEY_IN_EXTRA_TYPE_10, intent._extraType10);
+                values.put(DatabaseHandler.KEY_IN_CATEGORIES, intent._categories);
+                values.put(DatabaseHandler.KEY_IN_FLAGS, intent._flags);
+                values.put(DatabaseHandler.KEY_IN_INTENT_TYPE, intent._intentType);
+
+                //values.put(DatabaseHandler.KEY_IN_USED_COUNT, intent._usedCount);
+                values.put(DatabaseHandler.KEY_IN_DO_NOT_DELETE, intent._doNotDelete);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(DatabaseHandler.TABLE_INTENTS, values, DatabaseHandler.KEY_IN_ID + " = ?",
+                            new String[]{String.valueOf(intent._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandler.updateIntent", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    // Getting single intent
+    static PPIntent getIntent(DatabaseHandler instance, long intentId) {
+        instance.importExportLock.lock();
+        try {
+            PPIntent intent = null;
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_INTENTS,
+                        new String[]{DatabaseHandler.KEY_IN_ID,
+                                DatabaseHandler.KEY_IN_NAME,
+                                DatabaseHandler.KEY_IN_PACKAGE_NAME,
+                                DatabaseHandler.KEY_IN_CLASS_NAME,
+                                DatabaseHandler.KEY_IN_ACTION,
+                                DatabaseHandler.KEY_IN_DATA,
+                                DatabaseHandler.KEY_IN_MIME_TYPE,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_1,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_1,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_1,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_2,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_2,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_2,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_3,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_3,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_3,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_4,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_4,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_4,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_5,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_5,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_5,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_6,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_6,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_6,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_7,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_7,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_7,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_8,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_8,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_8,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_9,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_9,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_9,
+                                DatabaseHandler.KEY_IN_EXTRA_KEY_10,
+                                DatabaseHandler.KEY_IN_EXTRA_VALUE_10,
+                                DatabaseHandler.KEY_IN_EXTRA_TYPE_10,
+                                DatabaseHandler.KEY_IN_CATEGORIES,
+                                DatabaseHandler.KEY_IN_FLAGS,
+                                DatabaseHandler.KEY_IN_INTENT_TYPE,
+
+                                //DatabaseHandler.KEY_IN_USED_COUNT,
+                                DatabaseHandler.KEY_IN_DO_NOT_DELETE
+                        },
+                        DatabaseHandler.KEY_IN_ID + "=?",
+                        new String[]{String.valueOf(intentId)}, null, null, null, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        intent = new PPIntent(
+                                cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_ID)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_NAME)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_PACKAGE_NAME)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_CLASS_NAME)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_ACTION)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_DATA)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_MIME_TYPE)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_1)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_1)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_1)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_2)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_2)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_2)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_3)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_3)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_3)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_4)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_4)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_4)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_5)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_5)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_5)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_6)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_6)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_6)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_7)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_7)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_7)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_8)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_8)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_8)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_9)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_9)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_9)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_KEY_10)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_VALUE_10)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_EXTRA_TYPE_10)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_CATEGORIES)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_FLAGS)),
+                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_USED_COUNT)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_INTENT_TYPE)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_IN_DO_NOT_DELETE)) == 1
+                        );
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return intent;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    // Deleting single intent
+    static void deleteIntent(DatabaseHandler instance, long intentId) {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                db.beginTransaction();
+
+                try {
+                    // delete geofence
+                    db.delete(DatabaseHandler.TABLE_INTENTS, DatabaseHandler.KEY_IN_ID + " = ?",
+                            new String[]{String.valueOf(intentId)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandler.deleteIntent", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
 }
