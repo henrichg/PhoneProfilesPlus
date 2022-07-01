@@ -4266,7 +4266,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     boolean getEventInDelayStart(Event event)
     {
-        DatabaseHandlerEvents.getEventInDelayStart(this, event);
+        return DatabaseHandlerEvents.getEventInDelayStart(this, event);
     }
 
     void updateEventInDelayStart(Event event)
@@ -4281,7 +4281,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     boolean getEventInDelayEnd(Event event)
     {
-        DatabaseHandlerEvents.getEventInDelayEnd(this, event);
+        return DatabaseHandlerEvents.getEventInDelayEnd(this, event);
     }
 
     void updateEventInDelayEnd(Event event)
@@ -4360,1101 +4360,100 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     int getOrientationWithLightSensorEventsCount()
     {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                final String countQuery;
-                String eventTypeChecked;
-                eventTypeChecked = KEY_E_STATUS + "!=0 AND ";  //  only not stopped events
-                eventTypeChecked = eventTypeChecked + KEY_E_ORIENTATION_ENABLED + "=1 AND " +
-                                            KEY_E_ORIENTATION_CHECK_LIGHT + "=1";
-
-                countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
-                        " WHERE " + eventTypeChecked;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    r = cursor.getInt(0);
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getOrientationWithLightSensorEventsCount(this);
     }
 
     void updateActivatedProfileSensorRunningParameter(Event event) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-                try {
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_E_ACTIVATED_PROFILE_RUNNING, event._eventPreferencesActivatedProfile._running);
-
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                            new String[]{String.valueOf(event._id)});
-
-                    db.setTransactionSuccessful();
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.updateActivatedProfileSensorRunningParameter(this, event);
     }
 
 // EVENT TIMELINE ------------------------------------------------------------------
 
     // Adding time line
     void addEventTimeline(EventTimeline eventTimeline) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_ET_FK_EVENT, eventTimeline._fkEvent); // Event id
-                //values.put(KEY_ET_FK_PROFILE_RETURN, eventTimeline._fkProfileEndActivated); // Profile id returned on pause/stop event
-                values.put(KEY_ET_EORDER, getMaxEOrderET() + 1); // event running order
-
-                db.beginTransaction();
-
-                try {
-                    // Inserting Row
-                    eventTimeline._id = db.insert(TABLE_EVENT_TIMELINE, null, values);
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close(); // Closing database connection
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-    }
-
-    // Getting max(eorder)
-    private int getMaxEOrderET() {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                String countQuery = "SELECT MAX(" + KEY_ET_EORDER + ") FROM " + TABLE_EVENT_TIMELINE;
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor.getCount() > 0) {
-                    if (cursor.moveToFirst()) {
-                        r = cursor.getInt(0);
-                    }
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.addEventTimeline(this, eventTimeline);
     }
 
     // Getting all event timeline
     List<EventTimeline> getAllEventTimelines() {
-        importExportLock.lock();
-        try {
-            List<EventTimeline> eventTimelineList = new ArrayList<>();
-            try {
-                startRunningCommand();
-
-                // Select All Query
-                final String selectQuery = "SELECT " + KEY_ET_ID + "," +
-                        KEY_ET_FK_EVENT + "," +
-                        KEY_ET_FK_PROFILE_RETURN + "," +
-                        KEY_ET_EORDER +
-                        " FROM " + TABLE_EVENT_TIMELINE +
-                        " ORDER BY " + KEY_ET_EORDER;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    do {
-                        EventTimeline eventTimeline = new EventTimeline();
-
-                        eventTimeline._id = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ET_ID));
-                        eventTimeline._fkEvent = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ET_FK_EVENT));
-                        //eventTimeline._fkProfileEndActivated = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ET_FK_PROFILE_RETURN));
-                        eventTimeline._eorder = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ET_EORDER));
-
-                        // Adding event timeline to list
-                        eventTimelineList.add(eventTimeline);
-                    } while (cursor.moveToNext());
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return eventTimelineList;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getAllEventTimelines(this);
     }
 
     // Deleting event timeline
     void deleteEventTimeline(EventTimeline eventTimeline) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-                db.delete(TABLE_EVENT_TIMELINE, KEY_ET_ID + " = ?",
-                        new String[]{String.valueOf(eventTimeline._id)});
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.deleteEventTimeline(this, eventTimeline);
     }
 
     // Deleting all events from timeline
     void deleteAllEventTimelines(/*boolean updateEventStatus*/) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_E_STATUS, Event.ESTATUS_PAUSE);
-
-                db.beginTransaction();
-
-                try {
-
-                    db.delete(TABLE_EVENT_TIMELINE, null, null);
-
-                    //if (updateEventStatus) {
-                    db.update(TABLE_EVENTS, values, KEY_E_STATUS + " = ?",
-                            new String[]{String.valueOf(Event.ESTATUS_RUNNING)});
-                    //}
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteAllEventTimelines", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.deleteAllEventTimelines(this);
     }
-
-    /*
-    // Getting max(eorder)
-    int getCountEventsInTimeline() {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                String countQuery = "SELECT COUNT(" + KEY_ET_ID + ") FROM " + TABLE_EVENT_TIMELINE;
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor.getCount() > 0) {
-                    if (cursor.moveToFirst()) {
-                        r = cursor.getInt(0);
-                    }
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
 
     String getLastStartedEventName() {
-        importExportLock.lock();
-        try {
-            String eventName = "?";
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                String query =
-                        "SELECT "+KEY_ET_FK_EVENT+" FROM "+TABLE_EVENT_TIMELINE+" ORDER BY "+KEY_ET_EORDER+" DESC LIMIT 1";
-                Cursor cursor1 = db.rawQuery(query, null);
-
-                long lastEvent = 0;
-
-                if (cursor1.getCount() > 0) {
-                    if (cursor1.moveToFirst()) {
-                        lastEvent = cursor1.getLong(0);
-                    }
-
-                    if (lastEvent > 0) {
-                        query = "SELECT "+KEY_E_NAME+","+KEY_E_FORCE_RUN+
-                                " FROM "+TABLE_EVENTS+
-                                " WHERE "+KEY_E_ID+"="+lastEvent;
-                        Cursor cursor2 = db.rawQuery(query, null);
-
-                        if (cursor2.getCount() > 0) {
-                            if (cursor2.moveToFirst()) {
-                                String _eventName = cursor2.getString(0);
-                                boolean _forceRun = cursor2.getInt(1) == 1;
-                                //if ((!ApplicationPreferences.prefEventsBlocked) || _forceRun)
-                                //    eventName = _eventName;
-                                if ((!Event.getEventsBlocked(context)) || _forceRun)
-                                    eventName = _eventName;
-                            }
-                        }
-                        cursor2.close();
-                    }
-                }
-                cursor1.close();
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return eventName;
-        } finally {
-            stopRunningCommand();
-        }
-    }
-
-// ACTIVITY LOG -------------------------------------------------------------------
-
-    // Adding activity log
-    void addActivityLog(int deleteOldActivityLogs,
-                        int logType, String eventName, String profileName, String profileEventsCount) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_AL_LOG_TYPE, logType);
-                values.put(KEY_AL_EVENT_NAME, eventName);
-                values.put(KEY_AL_PROFILE_NAME, profileName);
-                values.put(KEY_AL_PROFILE_EVENT_COUNT, profileEventsCount);
-
-                db.beginTransaction();
-
-                try {
-                    if (deleteOldActivityLogs > 0) {
-                        // delete older than 7 days old records
-                        db.delete(TABLE_ACTIVITY_LOG, KEY_AL_LOG_DATE_TIME +
-                                " < date('now','-" + deleteOldActivityLogs + " days')", null);
-                    }
-
-                    // Inserting Row
-                    db.insert(TABLE_ACTIVITY_LOG, null, values);
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close(); // Closing database connection
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-    }
-
-    void clearActivityLog() {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                //db.beginTransaction();
-
-                try {
-                    db.delete(TABLE_ACTIVITY_LOG, null, null);
-
-                    // db.setTransactionSuccessful();
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //} finally {
-                    //db.endTransaction();
-                    PPApplication.recordException(e);
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-    }
-
-    Cursor getActivityLogCursor() {
-        importExportLock.lock();
-        try {
-            Cursor cursor = null;
-            try {
-                startRunningCommand();
-
-                final String selectQuery = "SELECT " + KEY_AL_ID + "," +
-                        KEY_AL_LOG_DATE_TIME + "," +
-                        KEY_AL_LOG_TYPE + "," +
-                        KEY_AL_EVENT_NAME + "," +
-                        KEY_AL_PROFILE_NAME + "," +
-                        //KEY_AL_PROFILE_ICON + "," +
-                        //KEY_AL_DURATION_DELAY + "," +
-                        KEY_AL_PROFILE_EVENT_COUNT +
-                        " FROM " + TABLE_ACTIVITY_LOG +
-                        " ORDER BY " + KEY_AL_ID + " DESC";
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                cursor = db.rawQuery(selectQuery, null);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return cursor;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getLastStartedEventName(this);
     }
 
 // GEOFENCES ----------------------------------------------------------------------
 
     // Adding new geofence
     void addGeofence(Geofence geofence) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_G_NAME, geofence._name); // geofence Name
-                values.put(KEY_G_LATITUDE, geofence._latitude);
-                values.put(KEY_G_LONGITUDE, geofence._longitude);
-                values.put(KEY_G_RADIUS, geofence._radius);
-                values.put(KEY_G_CHECKED, 0);
-                values.put(KEY_G_TRANSITION, 0);
-
-                db.beginTransaction();
-
-                try {
-                    // Inserting Row
-                    geofence._id = db.insert(TABLE_GEOFENCES, null, values);
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close(); // Closing database connection
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.addGeofence(this, geofence);
     }
 
     // Getting single geofence
     Geofence getGeofence(long geofenceId) {
-        importExportLock.lock();
-        try {
-            Geofence geofence = null;
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.query(TABLE_GEOFENCES,
-                        new String[]{KEY_G_ID,
-                                KEY_G_NAME,
-                                KEY_G_LATITUDE,
-                                KEY_G_LONGITUDE,
-                                KEY_G_RADIUS
-                        },
-                        KEY_G_ID + "=?",
-                        new String[]{String.valueOf(geofenceId)}, null, null, null, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-
-                    if (cursor.getCount() > 0) {
-                        geofence = new Geofence();
-                        geofence._id = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_G_ID));
-                        geofence._name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_G_NAME));
-                        geofence._latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(KEY_G_LATITUDE));
-                        geofence._longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(KEY_G_LONGITUDE));
-                        geofence._radius = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_G_RADIUS));
-                    }
-
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return geofence;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getGeofence(this, geofenceId);
     }
 
     // Getting All geofences
     List<Geofence> getAllGeofences() {
-        importExportLock.lock();
-        try {
-            List<Geofence> geofenceList = new ArrayList<>();
-            try {
-                startRunningCommand();
-
-                // Select All Query
-                final String selectQuery = "SELECT " + KEY_G_ID + "," +
-                        KEY_G_NAME + "," +
-                        KEY_G_LATITUDE + "," +
-                        KEY_G_LONGITUDE + "," +
-                        KEY_G_RADIUS + "," +
-                        KEY_G_TRANSITION +
-                        " FROM " + TABLE_GEOFENCES +
-                        " ORDER BY " + KEY_G_ID;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    do {
-                        Geofence geofence = new Geofence();
-                        geofence._id = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_G_ID));
-                        geofence._name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_G_NAME));
-                        geofence._latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(KEY_G_LATITUDE));
-                        geofence._longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(KEY_G_LONGITUDE));
-                        geofence._radius = cursor.getFloat(cursor.getColumnIndexOrThrow(KEY_G_RADIUS));
-                        geofence._transition = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_G_TRANSITION));
-                        geofenceList.add(geofence);
-                    } while (cursor.moveToNext());
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return geofenceList;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getAllGeofences(this);
     }
 
     // Updating single geofence
     void updateGeofence(Geofence geofence) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(KEY_G_NAME, geofence._name);
-                values.put(KEY_G_LATITUDE, geofence._latitude);
-                values.put(KEY_G_LONGITUDE, geofence._longitude);
-                values.put(KEY_G_RADIUS, geofence._radius);
-                values.put(KEY_G_CHECKED, 0);
-
-                db.beginTransaction();
-
-                try {
-                    // updating row
-                    db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?",
-                            new String[]{String.valueOf(geofence._id)});
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.updateGeofence(this, geofence);
     }
 
     void updateGeofenceTransition(long geofenceId, int geofenceTransition) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                //db.beginTransaction();
-
-                try {
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_G_TRANSITION, geofenceTransition);
-                    db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?", new String[]{String.valueOf(geofenceId)});
-
-                    //db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateGeofenceTransition", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                    //} finally {
-                    //db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.updateGeofenceTransition(this, geofenceId, geofenceTransition);
     }
-
-    /*
-    void updateAllGeofenceTransitions(List<Geofence> geofences) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-
-                try {
-
-                    for (Geofence geofence : geofences) {
-                        ContentValues values = new ContentValues();
-                        values.put(KEY_G_TRANSITION, geofence._transition);
-                        db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?", new String[]{String.valueOf(geofence._id)});
-                    }
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateGeofenceTransition", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-    }
-    */
 
     void clearAllGeofenceTransitions() {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                //db.beginTransaction();
-
-                try {
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_G_TRANSITION, 0);
-                    db.update(TABLE_GEOFENCES, values, null, null);
-
-                    //db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.clearAllGeofenceTransitions", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                    //} finally {
-                    //db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.clearAllGeofenceTransitions(this);
     }
 
     // Deleting single geofence
     void deleteGeofence(long geofenceId) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                db.beginTransaction();
-
-                final String selectQuery = "SELECT " + KEY_E_ID + "," +
-                        KEY_E_LOCATION_GEOFENCES +
-                        " FROM " + TABLE_EVENTS;
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                //noinspection TryFinallyCanBeTryWithResources
-                try {
-
-                    // delete geofence
-                    db.delete(TABLE_GEOFENCES, KEY_G_ID + " = ?",
-                            new String[]{String.valueOf(geofenceId)});
-
-                    // looping through all rows and adding to list
-                    if (cursor.moveToFirst()) {
-                        do {
-                            String geofences = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_LOCATION_GEOFENCES));
-                            String[] splits = geofences.split("\\|");
-                            boolean found = false;
-                            geofences = "";
-                            for (String geofence : splits) {
-                                if (!geofence.isEmpty()) {
-                                    if (!geofence.equals(Long.toString(geofenceId))) {
-                                        if (!geofences.isEmpty())
-                                            //noinspection StringConcatenationInLoop
-                                            geofences = geofences + "|";
-                                        //noinspection StringConcatenationInLoop
-                                        geofences = geofences + geofence;
-                                    } else
-                                        found = true;
-                                }
-                            }
-                            if (found) {
-                                // unlink geofence from events
-                                ContentValues values = new ContentValues();
-                                values.put(KEY_E_LOCATION_GEOFENCES, geofences);
-                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_ID)))});
-                            }
-                        } while (cursor.moveToNext());
-                    }
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteGeofence", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                    cursor.close();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.deleteGeofence(this, geofenceId);
     }
 
     void checkGeofence(String geofences, int check) {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                ContentValues values = new ContentValues();
-
-                db.beginTransaction();
-
-                try {
-                    if (!geofences.isEmpty()) {
-                        // check geofences
-                        String[] splits = geofences.split("\\|");
-                        for (String geofence : splits) {
-                            if (!geofence.isEmpty()) {
-                                int _check = check;
-                                if (check == 2) {
-                                    final String selectQuery = "SELECT " + KEY_G_CHECKED +
-                                            " FROM " + TABLE_GEOFENCES +
-                                            " WHERE " + KEY_G_ID + "=" + geofence;
-                                    Cursor cursor = db.rawQuery(selectQuery, null);
-                                    if (cursor != null) {
-                                        if (cursor.moveToFirst())
-                                            _check = (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_G_CHECKED)) == 0) ? 1 : 0;
-                                        cursor.close();
-                                    }
-                                }
-                                if (_check != 2) {
-                                    values.clear();
-                                    values.put(KEY_G_CHECKED, _check);
-                                    db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?", new String[]{geofence});
-                                }
-                            }
-                        }
-                    } else {
-                        // uncheck geofences
-                        values.clear();
-                        values.put(KEY_G_CHECKED, 0);
-                        db.update(TABLE_GEOFENCES, values, null, null);
-                    }
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    //Log.e("DatabaseHandler.checkGeofence", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
+        DatabaseHandlerEvents.checkGeofence(this, geofences, check);
     }
 
     Cursor getGeofencesCursor() {
-        importExportLock.lock();
-        try {
-            Cursor cursor = null;
-            try {
-                startRunningCommand();
-
-                final String selectQuery = "SELECT " + KEY_G_ID + "," +
-                        KEY_G_LATITUDE + "," +
-                        KEY_G_LONGITUDE + "," +
-                        KEY_G_RADIUS + "," +
-                        KEY_G_NAME + "," +
-                        KEY_G_CHECKED +
-                        " FROM " + TABLE_GEOFENCES +
-                        " ORDER BY " + /*KEY_G_CHECKED + " DESC," +*/ KEY_G_NAME + " ASC";
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                cursor = db.rawQuery(selectQuery, null);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return cursor;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getGeofencesCursor(this);
     }
 
     String getGeofenceName(long geofenceId) {
-        importExportLock.lock();
-        try {
-            String r = "";
-            try {
-                startRunningCommand();
-
-                final String countQuery = "SELECT " + KEY_G_NAME +
-                        " FROM " + TABLE_GEOFENCES +
-                        " WHERE " + KEY_G_ID + "=" + geofenceId;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor != null) {
-                    if (cursor.moveToFirst())
-                        r = cursor.getString(cursor.getColumnIndexOrThrow(KEY_G_NAME));
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getGeofenceName(this, geofenceId);
     }
 
     String getCheckedGeofences() {
-        importExportLock.lock();
-        try {
-            String value = "";
-            try {
-                startRunningCommand();
-
-                final String countQuery = "SELECT " + KEY_G_ID + ","
-                        + KEY_G_CHECKED +
-                        " FROM " + TABLE_GEOFENCES;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor != null) {
-                    if (cursor.moveToFirst()) {
-                        do {
-                            if (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_G_CHECKED)) == 1) {
-                                if (!value.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    value = value + "|";
-                                //noinspection StringConcatenationInLoop
-                                value = value + cursor.getLong(cursor.getColumnIndexOrThrow(KEY_G_ID));
-                            }
-                        } while (cursor.moveToNext());
-                    }
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return value;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getCheckedGeofences(this);
     }
 
     int getGeofenceCount() {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                String countQuery = "SELECT  count(*) FROM " + TABLE_GEOFENCES;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    r = cursor.getInt(0);
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getGeofenceCount(this);
     }
 
     boolean isGeofenceUsed(long geofenceId/*, boolean onlyEnabledEvents*/) {
-        importExportLock.lock();
-        try {
-            boolean found = false;
-            try {
-                startRunningCommand();
-
-                String selectQuery = "SELECT " + KEY_E_LOCATION_GEOFENCES +
-                        " FROM " + TABLE_EVENTS +
-                        " WHERE " + KEY_E_LOCATION_ENABLED + "=1";
-
-                /*
-                if (onlyEnabledEvents)
-                    selectQuery = selectQuery + " AND " + KEY_E_STATUS + " IN (" +
-                            String.valueOf(Event.ESTATUS_PAUSE) + "," +
-                            String.valueOf(Event.ESTATUS_RUNNING) + ")";
-                */
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    do {
-                        String geofences = cursor.getString(cursor.getColumnIndexOrThrow(KEY_E_LOCATION_GEOFENCES));
-                        String[] splits = geofences.split("\\|");
-                        for (String geofence : splits) {
-                            if (!geofence.isEmpty()) {
-                                if (geofence.equals(Long.toString(geofenceId))) {
-                                    found = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (found)
-                            break;
-                    } while (cursor.moveToNext());
-                }
-
-                cursor.close();
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return found;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.isGeofenceUsed(this, geofenceId);
     }
 
     int getGeofenceTransition(long geofenceId) {
-        importExportLock.lock();
-        try {
-            int r = 0;
-            try {
-                startRunningCommand();
-
-                final String countQuery = "SELECT " + KEY_G_TRANSITION +
-                        " FROM " + TABLE_GEOFENCES +
-                        " WHERE " + KEY_G_ID + "=" + geofenceId;
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.rawQuery(countQuery, null);
-
-                if (cursor != null) {
-                    if (cursor.moveToFirst())
-                        r = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_G_TRANSITION));
-                    cursor.close();
-                }
-
-                //db.close();
-
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            return r;
-        } finally {
-            stopRunningCommand();
-        }
+        return DatabaseHandlerEvents.getGeofenceTransition(this, geofenceId);
     }
 
 // SHORTCUTS ----------------------------------------------------------------------
@@ -6424,6 +5423,116 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
     */
+
+// ACTIVITY LOG -------------------------------------------------------------------
+
+    // Adding activity log
+    void addActivityLog(int deleteOldActivityLogs,
+                        int logType, String eventName, String profileName, String profileEventsCount) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_AL_LOG_TYPE, logType);
+                values.put(KEY_AL_EVENT_NAME, eventName);
+                values.put(KEY_AL_PROFILE_NAME, profileName);
+                values.put(KEY_AL_PROFILE_EVENT_COUNT, profileEventsCount);
+
+                db.beginTransaction();
+
+                try {
+                    if (deleteOldActivityLogs > 0) {
+                        // delete older than 7 days old records
+                        db.delete(TABLE_ACTIVITY_LOG, KEY_AL_LOG_DATE_TIME +
+                                " < date('now','-" + deleteOldActivityLogs + " days')", null);
+                    }
+
+                    // Inserting Row
+                    db.insert(TABLE_ACTIVITY_LOG, null, values);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void clearActivityLog() {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                //db.beginTransaction();
+
+                try {
+                    db.delete(TABLE_ACTIVITY_LOG, null, null);
+
+                    // db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //} finally {
+                    //db.endTransaction();
+                    PPApplication.recordException(e);
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    Cursor getActivityLogCursor() {
+        importExportLock.lock();
+        try {
+            Cursor cursor = null;
+            try {
+                startRunningCommand();
+
+                final String selectQuery = "SELECT " + KEY_AL_ID + "," +
+                        KEY_AL_LOG_DATE_TIME + "," +
+                        KEY_AL_LOG_TYPE + "," +
+                        KEY_AL_EVENT_NAME + "," +
+                        KEY_AL_PROFILE_NAME + "," +
+                        //KEY_AL_PROFILE_ICON + "," +
+                        //KEY_AL_DURATION_DELAY + "," +
+                        KEY_AL_PROFILE_EVENT_COUNT +
+                        " FROM " + TABLE_ACTIVITY_LOG +
+                        " ORDER BY " + KEY_AL_ID + " DESC";
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                cursor = db.rawQuery(selectQuery, null);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return cursor;
+        } finally {
+            stopRunningCommand();
+        }
+    }
 
 // OTHERS -------------------------------------------------------------------------
 
