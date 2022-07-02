@@ -22,6 +22,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1547,15 +1548,18 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not enabled accessibility service
             int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false, false);
-            if (accessibilityEnabled == 1) {
+            Log.e("EventsPrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
+            /*if (accessibilityEnabled == 1) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                Log.e("EventsPrefsFragment.setRedTextToPreferences", "extenderVersion="+extenderVersion);
                 if (extenderVersion != 0) {
                     // PPPE is installed
+                    Log.e("EventsPrefsFragment.setRedTextToPreferences", "accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
                     if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2)
                         // Extender is not connected
                         accessibilityEnabled = 0;
                 }
-            }
+            }*/
             Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
             if (accessibilityEnabled == 1) {
                 if (preference != null) {

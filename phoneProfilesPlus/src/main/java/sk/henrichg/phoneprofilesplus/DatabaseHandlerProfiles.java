@@ -1561,10 +1561,10 @@ class DatabaseHandlerProfiles {
                         profile._name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NAME));
                         profile._icon = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ICON));
                         profile._activationByUserCount = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT));
-                        Log.e("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "profile._id="+profile._id+" profile._name="+profile._name);
+//                        Log.e("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "profile._id="+profile._id+" profile._name="+profile._name);
                         for (int i = 0; i < PPApplication.quickTileProfileId.length; i++) {
                             long tiledProfileId = ApplicationPreferences.getQuickTileProfileId(instance.context, i);
-                            Log.e("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "tiledProfileId="+tiledProfileId);
+//                            Log.e("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "tiledProfileId="+tiledProfileId);
                             if (tiledProfileId == profile._id)
                                 profileList.add(profile);
                         }

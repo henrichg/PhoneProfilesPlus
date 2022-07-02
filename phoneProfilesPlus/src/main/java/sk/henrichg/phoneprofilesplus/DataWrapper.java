@@ -919,7 +919,7 @@ public class DataWrapper {
 
                     int shortcutsCount = 0;
                     for (Profile profile : countedProfiles) {
-                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name + " count="+profile._activationByUserCount);
+//                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name + " count="+profile._activationByUserCount);
                         profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                         shortcuts.add(createShortcutInfo(profile, false));
                         ++shortcutsCount;
@@ -930,7 +930,7 @@ public class DataWrapper {
                     //int shortcutsCount = countedProfiles.size();
                     if (shortcutsCount < limit) {
                         for (Profile profile : notCountedProfiles) {
-                            PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
+//                            PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
                             profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                             shortcuts.add(createShortcutInfo(profile, false));
                             ++shortcutsCount;
@@ -939,9 +939,9 @@ public class DataWrapper {
                         }
                     }
 
-                    for (ShortcutInfo info : shortcuts) {
-                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "profile in shortcut=" +info.getShortLabel());
-                    }
+//                    for (ShortcutInfo info : shortcuts) {
+//                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "profile in shortcut=" +info.getShortLabel());
+//                    }
 
                     //noinspection ConstantConditions
                     if (shortcuts.size() > 0)
