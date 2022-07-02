@@ -2348,12 +2348,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Permissions.checkProfileMicrophone(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
-            //todo
-            if (PPApplication.isRooted(true))
-                cattegorySummaryData.defaultAssistantSet = true;
-            else
-            if (profile._deviceAirplaneMode != 0)
-                cattegorySummaryData.defaultAssistantSet = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context);
+            if ((!PPApplication.isRooted(true)) && (profile._deviceAirplaneMode != 0)) {
+                // change only when default assistant is false, becuse may be checked also for another
+                // profile parameters
+                boolean defaultAssistantSet = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context);
+                if (!defaultAssistantSet)
+                    cattegorySummaryData.defaultAssistantSet = false;
+            }
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, R.string.profile_preferences_deviceAutosync, context);
 //            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_AUTOSYNC - notGrantedG1Permission="+notGrantedG1Permission);
