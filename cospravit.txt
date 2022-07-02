@@ -574,12 +574,6 @@ TOTO NETREBA, PPP VIE ZAPNUT BLUETOOTH AJ PRI AIRPLANE MODE ON
         }
     }
 
-Mozno by som mohol to spravit tak, ze ak je airplane mode zapnuty, pouizje v
-ActivateProfileHelper.doExecuteForRadios() namiesto wifiManager.setWifiEnabled, "svc wifi enable".
-Ale podla mna to vyzaduje root. Tak ako pri "Mobile data". Cize parameter "Wi-Fi" bude mat este
-jeden item "(R) On in airolane mode", "(R) off in airplane mode", "(R) Togghe in airplane mode".
-To sa mi paci. :-)
-
 /home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/SetAirplaneModeAction.java
 matoda: mo11681y2()
 
@@ -595,4 +589,13 @@ Bluetooth - Class: C3530gc.java
             bluetoothAdapter.enable();
         }
     }
+
+---
+
+Mozno by som mohol to spravit tak, ze ak je airplane mode zapnuty, pouizje v
+ActivateProfileHelper.doExecuteForRadios() namiesto wifiManager.setWifiEnabled, "svc wifi enable".
+Ale podla mna to vyzaduje root. Tak ako pri "Mobile data". Cize parameter "Wi-Fi" bude mat este
+jeden item "(R) On in airolane mode", "(R) off in airplane mode", "(R) Togghe in airplane mode".
+To sa mi paci. :-)
+
 
