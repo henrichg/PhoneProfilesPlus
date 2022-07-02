@@ -517,3 +517,66 @@ https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
 
 --------------------
 
+Macrodroid ma parameter na airplane mode, ktorym sa urci, ci ma zostat wifi a bluetooth zanute.
+Vypada to tak, ze airplane mod sice vypne aj wifi ale po sekunde ho zapne.
+Musim zistit, ako to robi.
+
+Pre Wifi vola:
+- "svc wifi enable". Zaujimave.
+Pre Bluetooth vola:
+- if (bluetoothAdapter != null) { bluetoothAdapter.enable(); }
+
+    public void mo11681y2(TriggerContextInfo triggerContextInfo) {
+        boolean z = Settings.System.getInt(mo15668c0().getContentResolver(), "airplane_mode_on", 0) != 0;
+        BluetoothAdapter adapter = ((BluetoothManager) mo15668c0().getSystemService("bluetooth")).getAdapter();
+        boolean z2 = adapter != null && adapter.isEnabled();
+        int i = this.m_state;
+        boolean z3 = i != 0 ? (i == 1 || i != 2) ? false : !z : true;
+        if (this.mechanismOption == 1) {
+            Intent intent = new Intent("com.arlosoft.macrodropid.action.ASSISTANT");
+            intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
+            intent.putExtra("airplane_mode_enabled", z3);
+            mo15668c0().sendBroadcast(intent);
+            return;
+        }
+        boolean z4 = ((WifiManager) mo15668c0().getApplicationContext().getSystemService("wifi")).getWifiState() == 3;
+        int a = C7384c1.m31072a("android.net.IConnectivityManager", "setAirplaneMode");
+        String[] strArr = new String[1];
+        StringBuilder sb = new StringBuilder();
+        sb.append("service call connectivity ");
+        sb.append(a);
+        sb.append(" i32 ");
+        String str = "1";
+        sb.append(z3 ? str : "0");
+        strArr[0] = sb.toString();
+        C5306q1.m22879n0(strArr);
+        String[] strArr2 = new String[2];
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append("settings put global airplane_mode_on ");
+        if (!z3) {
+            str = "0";
+        }
+        sb2.append(str);
+        strArr2[0] = sb2.toString();
+        StringBuilder sb3 = new StringBuilder();
+        sb3.append("su -c am broadcast -a android.intent.action.AIRPLANE_MODE --ez state ");
+        sb3.append(z3 ? "true" : "false");
+        strArr2[1] = sb3.toString();
+        C5306q1.m22879n0(strArr2);
+
+        if (this.m_keepWifiOn && z4) {
+TOTO ZAPNE WIFI
+            new Handler(mo15668c0().getMainLooper()).postDelayed(new C3530gc(this), 1000);
+        }
+        if (this.m_keepBluetoothOn && z2) {
+TOTO NETREBA, PPP VIE ZAPNUT BLUETOOTH AJ PRI AIRPLANE MODE ON
+            new Handler(mo15668c0().getMainLooper()).postDelayed(new C3469ec(adapter), 1000);
+        }
+    }
+
+Mozno by som mohol to spravit tak, ze ak je airplane mode zapnuty, pouizje v
+ActivateProfileHelper.doExecuteForRadios() namiesto wifiManager.setWifiEnabled, "svc wifi enable".
+Ale podla mna to vyzaduje root. Tak ako pri "Mobile data". Cize parameter "Wi-Fi" bude mat este
+jeden item "(R) On in airolane mode", "(R) off in airplane mode", "(R) Togghe in airplane mode".
+To sa mi paci. :-)
+

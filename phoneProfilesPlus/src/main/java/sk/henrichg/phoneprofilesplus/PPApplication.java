@@ -262,7 +262,7 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
 
-                                                +"|DataWrapper.setDynamicLauncherShortcuts"
+                                                //+"|DataWrapper.setDynamicLauncherShortcuts"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
