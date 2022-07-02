@@ -1246,8 +1246,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((!ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) &&
                     (!Permissions.checkMicrophone(getActivity().getApplicationContext()))) {
                 // RECORD_AUDIO must be granted for set PPP as default assistant
-                // must be enabled when PPP is defult assistant
-                // because must be possible remove it
+                // but must be enabled when PPP is defult assistant because must be possible remove it
                 assistantPreference.setEnabled(false);
             } else {
                 assistantPreference.setEnabled(true);
@@ -2349,6 +2348,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Permissions.checkProfileMicrophone(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
+            //todo
+            if (PPApplication.isRooted(true))
+                cattegorySummaryData.defaultAssistantSet = true;
+            else
             if (profile._deviceAirplaneMode != 0)
                 cattegorySummaryData.defaultAssistantSet = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context);
         }
