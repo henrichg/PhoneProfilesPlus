@@ -1221,9 +1221,9 @@ class DatabaseHandlerImportExport {
                                 importNFCTags(db, exportedDBObj);
                                 importIntents(db, exportedDBObj);
 
-                                instance.updateDb(db, version);
+                                DatabaseHandlerCreateUpdateDB.updateDb(instance, db, version);
 
-                                instance.afterUpdateDb(db);
+                                DatabaseHandlerCreateUpdateDB.afterUpdateDb(db);
                                 afterImportDb(instance, db);
 
                                 db.setTransactionSuccessful();
