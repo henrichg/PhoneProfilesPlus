@@ -598,4 +598,16 @@ Ale podla mna to vyzaduje root. Tak ako pri "Mobile data". Cize parameter "Wi-Fi
 jeden item "(R) On in airolane mode", "(R) off in airplane mode", "(R) Togghe in airplane mode".
 To sa mi paci. :-)
 
+Ako zistim, ci je zapnuty airplne mod. Len vtedy pouzijem svc wifi enable/disable:
+@SuppressWarnings("deprecation")
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+public static boolean isAirplaneModeOn(Context context) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+    } else {
+        return Settings.Global.getInt(context.getContentResolver(),
+                Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+    }
+}
 
