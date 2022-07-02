@@ -581,6 +581,8 @@ jeden item "(R) On in airolane mode", "(R) off in airplane mode", "(R) Togghe in
 To sa mi paci. :-)
 
 /home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/SetAirplaneModeAction.java
+matoda: mo11681y2()
+
 Wifi - class C3469ec
    public final void run() {
         SetAirplaneModeAction.m16576Y2(this.f7644a);
