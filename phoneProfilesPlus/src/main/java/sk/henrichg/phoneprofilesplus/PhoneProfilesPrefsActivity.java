@@ -127,29 +127,23 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         PhoneProfilesPrefsFragment preferenceFragment = new PhoneProfilesPrefsRoot();
         if (extraScrollTo != null) {
             switch (extraScrollTo) {
-                case "applicationInterfaceCategoryRoot":
-                    preferenceFragment = new PhoneProfilesPrefsInterface();
-                    break;
-                case "categoryApplicationStartRoot":
-                    preferenceFragment = new PhoneProfilesPrefsApplicationStart();
-                    break;
                 case "categorySystemRoot":
                     preferenceFragment = new PhoneProfilesPrefsSystem();
                     break;
                 case "categoryPermissionsRoot":
                     preferenceFragment = new PhoneProfilesPrefsPermissions();
                     break;
-                case "categoryNotificationsRoot":
-                    preferenceFragment = new PhoneProfilesPrefsNotifications();
-                    break;
                 case "profileActivationCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsProfileActivation();
                     break;
-                case "specialProfileParametersCategoryRoot":
-                    preferenceFragment = new PhoneProfilesPrefsSpecialProfileParameters();
-                    break;
                 case "eventRunCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsEventRun();
+                    break;
+                case "categoryNotificationsRoot":
+                    preferenceFragment = new PhoneProfilesPrefsNotifications();
+                    break;
+                case "specialProfileParametersCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsSpecialProfileParameters();
                     break;
                 case "periodicScanningCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsPeriodicScanning();
@@ -172,6 +166,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 case "notificationScanningCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsNotificationScanning();
                     break;
+                case "applicationInterfaceCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsInterface();
+                    break;
+                case "categoryApplicationStartRoot":
+                    preferenceFragment = new PhoneProfilesPrefsApplicationStart();
+                    break;
                 case "categoryActivatorRoot":
                     preferenceFragment = new PhoneProfilesPrefsActivator();
                     break;
@@ -187,7 +187,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 case "categoryWidgetIconRoot":
                     preferenceFragment = new PhoneProfilesPrefsWidgetIcon();
                     break;
-                case "categoryShortcutIconRoot":
+                case "categoryShortcutRoot":
                     preferenceFragment = new PhoneProfilesPrefsShortcut();
                     break;
                 case "categorySamsungEdgePanelRoot":
