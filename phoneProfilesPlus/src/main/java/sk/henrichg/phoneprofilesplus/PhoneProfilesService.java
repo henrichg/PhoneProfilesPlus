@@ -6595,9 +6595,11 @@ public class PhoneProfilesService extends Service
                     if (notificationProfileIconColor.equals("0")) {
                         if ((!notificationBackgroundColor.equals("5")) ||
                             (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)) {
-                            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                            if (bitmap != null)
-                                iconBitmap = bitmap;
+                            if (profile != null) {
+                                Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                                if (bitmap != null)
+                                    iconBitmap = bitmap;
+                            }
                         }
                     }
 
@@ -6656,9 +6658,11 @@ public class PhoneProfilesService extends Service
                     if (notificationProfileIconColor.equals("1"))
                         iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
                     else {
-                        Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                        if (bitmap != null)
-                            iconBitmap = bitmap;
+                        if (profile != null) {
+                            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                            if (bitmap != null)
+                                iconBitmap = bitmap;
+                        }
                     }
 
                     if (notificationNotificationStyle.equals("0")) {
@@ -6724,9 +6728,11 @@ public class PhoneProfilesService extends Service
                     notificationBuilder.setSmallIcon(iconSmallResource);
                 }
 
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                if (bitmap != null)
-                    iconBitmap = bitmap;
+                if (profile != null) {
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                    if (bitmap != null)
+                        iconBitmap = bitmap;
+                }
 
                 if (notificationNotificationStyle.equals("0")) {
                     try {
