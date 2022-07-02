@@ -580,3 +580,17 @@ Ale podla mna to vyzaduje root. Tak ako pri "Mobile data". Cize parameter "Wi-Fi
 jeden item "(R) On in airolane mode", "(R) off in airplane mode", "(R) Togghe in airplane mode".
 To sa mi paci. :-)
 
+/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/SetAirplaneModeAction.java
+Wifi - class C3469ec
+   public final void run() {
+        SetAirplaneModeAction.m16576Y2(this.f7644a);
+    }
+
+Bluetooth - Class: C3530gc.java
+ /* renamed from: Y2 */
+    static /* synthetic */ void m16576Y2(BluetoothAdapter bluetoothAdapter) {
+        if (bluetoothAdapter != null) {
+            bluetoothAdapter.enable();
+        }
+    }
+
