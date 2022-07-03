@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.List;
 import java.util.concurrent.locks.Condition;
@@ -23,7 +24,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2493;
+    static final int DATABASE_VERSION = 2496;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -608,7 +609,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 //        importExportLock.lock();
-//        try {
+        //try {
 //            try {
 //                startRunningUpgrade();
 
@@ -628,21 +629,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 onCreate(db);
                 */
 
+//                Log.e("DatabaseHandler.onUpgrade", "createTables");
                 DatabaseHandlerCreateUpdateDB.createTables(db);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_PROFILES)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_PROFILES);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_MERGED_PROFILE)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_MERGED_PROFILE);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_EVENTS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_EVENTS);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_EVENT_TIMELINE)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_EVENT_TIMELINE);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_ACTIVITY_LOG)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_ACTIVITY_LOG);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_GEOFENCES)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_GEOFENCES);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_SHORTCUTS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_SHORTCUTS);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_MOBILE_CELLS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_MOBILE_CELLS);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_NFC_TAGS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_NFC_TAGS);
+//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_INTENTS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_INTENTS);
+//                Log.e("DatabaseHandler.onUpgrade", "createIndexes");
                 DatabaseHandlerCreateUpdateDB.createIndexes(db);
 
+//                Log.e("DatabaseHandler.onUpgrade", "updateDB");
                 DatabaseHandlerCreateUpdateDB.updateDb(this, db, oldVersion);
 
+//                Log.e("DatabaseHandler.onUpgrade", "afterUpdateDB");
                 DatabaseHandlerCreateUpdateDB.afterUpdateDb(db);
 
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
@@ -655,6 +670,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 //            } catch (Exception e) {
 //                //PPApplication.recordException(e);
+//                Log.e("DatabaseHandler.onUpgrade", Log.getStackTraceString(e));
+//                throw e;
 //            }
 //        } finally {
 //            stopRunningUpgrade();

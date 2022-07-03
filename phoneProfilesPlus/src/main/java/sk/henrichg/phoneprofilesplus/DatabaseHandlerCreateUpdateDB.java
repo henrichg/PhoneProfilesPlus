@@ -3,9 +3,11 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -124,9 +126,11 @@ class DatabaseHandlerCreateUpdateDB {
     }
 
     static void createTables(SQLiteDatabase db) {
+//        Log.e("DatabaseHandlerCreateUpdateDB.createTables", "(1)");
         final String CREATE_PROFILES_TABLE = profileTableCreationString(DatabaseHandler.TABLE_PROFILES);
         db.execSQL(CREATE_PROFILES_TABLE);
 
+//        Log.e("DatabaseHandlerCreateUpdateDB.createTables", "(2)");
         final String CREATE_MERGED_PROFILE_TABLE = profileTableCreationString(DatabaseHandler.TABLE_MERGED_PROFILE);
         db.execSQL(CREATE_MERGED_PROFILE_TABLE);
 
@@ -325,6 +329,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
+//        Log.e("DatabaseHandlerCreateUpdateDB.createTables", "(3)");
+
         final String CREATE_EVENTTIME_TABLE = "CREATE TABLE IF NOT EXISTS " + DatabaseHandler.TABLE_EVENT_TIMELINE + "("
                 + DatabaseHandler.KEY_ET_ID + " " + DatabaseHandler.INTEGER_TYPE + " PRIMARY KEY,"
                 + DatabaseHandler.KEY_ET_EORDER + " " + DatabaseHandler.INTEGER_TYPE + ","
@@ -427,6 +433,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_IN_DO_NOT_DELETE + " " + DatabaseHandler.INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_INTENTS_TABLE);
+
+//        Log.e("DatabaseHandlerCreateUpdateDB.createTables", "(xxx)");
     }
 
     static void createIndexes(SQLiteDatabase db) {
@@ -487,12 +495,19 @@ class DatabaseHandlerCreateUpdateDB {
         List<String> columns = new ArrayList<>();
         Cursor cursor = null;
         try {
-            cursor = db.rawQuery("PRAGMA DatabaseHandler.TABLE_info("+ table +")", null);
+//            Log.e("DatabaseHandlerCreateUpdateDB.getTableColums", db.toString());
+
+            //cursor = db.rawQuery("PRAGMA DatabaseHandler.TABLE_info("+ table +")", null);
+            //cursor = db.rawQuery("PRAGMA phoneProfilesManager.TABLE_info("+ table +")", null);
+
+            cursor = db.rawQuery("select * from "+table + " LIMIT 1", null);
             if (cursor != null) {
-                while (cursor.moveToNext()) {
-                    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-                    columns.add(name);
-                }
+                String[] _columns = cursor.getColumnNames();
+                Collections.addAll(columns, _columns);
+                //while (cursor.moveToNext()) {
+                //    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                //    columns.add(name);
+                //}
             }
         } finally {
             if (cursor != null && !cursor.isClosed())
@@ -502,12 +517,15 @@ class DatabaseHandlerCreateUpdateDB {
     }
 
     static void createTableColumsWhenNotExists(SQLiteDatabase db, String table) {
+//        Log.e("DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists", "START");
         List<String> columns = getTableColums(db, table);
-        //PPApplication.logE("DatabaseHandler.createTableColumsWhenNotExists", "cocolumns.size()=" + columns.size());
+//        Log.e("DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists", "columns.size()=" + columns.size());
         switch (table) {
             case DatabaseHandler.TABLE_PROFILES:
             case DatabaseHandler.TABLE_MERGED_PROFILE:
+//                Log.e("DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists", "KEY_NAME");
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_NAME, DatabaseHandler.TEXT_TYPE, columns);
+//                Log.e("DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists", "KEY_ICON");
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ICON, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_CHECKED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PORDER,  DatabaseHandler.INTEGER_TYPE, columns);
@@ -884,22 +902,28 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_IN_DO_NOT_DELETE, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
         }
+//        Log.e("DatabaseHandler.createTableColumsWhenNotExists", "END");
     }
 
-    static private boolean columnExists (String column, List<String> columns) {
-        boolean isExists = false;
+    static private boolean columnExists (String column, List<String> columns, String table) {
+/*        boolean exists = false;
         for (String _column : columns) {
-            //Log.e("DatabaseHandler.columnExists", "oldVersion < 2446 --- "+_column);
+            if (table.equals(DatabaseHandler.TABLE_PROFILES))
+                Log.e("DatabaseHandlerCreateUpdateDB.columnExists", table + ": " + _column);
             if (column.equalsIgnoreCase(_column)) {
-                isExists = true;
+                exists = true;
                 break;
             }
-        }
-        return isExists;
+        }*/
+        boolean exists;
+        exists = columns.contains(column);
+        if (table.equals(DatabaseHandler.TABLE_PROFILES))
+            Log.e("DatabaseHandlerCreateUpdateDB.columnExists", table + ": " + column + " " + exists);
+        return exists;
     }
 
     static private void createColumnWhenNotExists(SQLiteDatabase db, String table, String column, String columnType, List<String> columns) {
-        if (!columnExists(column, columns))
+        if (!columnExists(column, columns, table))
             // create column
             db.execSQL("ALTER TABLE " + table + " ADD COLUMN " + column + " " + columnType);
     }
@@ -2978,7 +3002,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             try {
                 List<String> columns = getTableColums(db, DatabaseHandler.TABLE_EVENTS);
-                if (columnExists(DatabaseHandler.KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, columns)) {
+                if (columnExists(DatabaseHandler.KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, columns, DatabaseHandler.TABLE_EVENTS)) {
 //                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column exists");
 
                     final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
@@ -3018,7 +3042,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             try {
                 List<String> columns = getTableColums(db, DatabaseHandler.TABLE_EVENTS);
-                if (columnExists(DatabaseHandler.KEY_E_PERIPHERAL_TYPE, columns)) {
+                if (columnExists(DatabaseHandler.KEY_E_PERIPHERAL_TYPE, columns, DatabaseHandler.TABLE_EVENTS)) {
 //                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column exists");
 
                     final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
@@ -3294,6 +3318,7 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_RUNNING + "=0");
         }
 
+//        Log.e("DatabaseHandlerCreateUpdateDB.updateDb", "xxxx");
     }
 
 }
