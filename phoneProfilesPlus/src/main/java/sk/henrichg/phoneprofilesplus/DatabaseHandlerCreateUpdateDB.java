@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -905,7 +904,7 @@ class DatabaseHandlerCreateUpdateDB {
 //        Log.e("DatabaseHandler.createTableColumsWhenNotExists", "END");
     }
 
-    static private boolean columnExists (String column, List<String> columns, String table) {
+    static private boolean columnExists (String column, List<String> columns/*, String table*/) {
 /*        boolean exists = false;
         for (String _column : columns) {
             if (table.equals(DatabaseHandler.TABLE_PROFILES))
@@ -917,13 +916,13 @@ class DatabaseHandlerCreateUpdateDB {
         }*/
         boolean exists;
         exists = columns.contains(column);
-        if (table.equals(DatabaseHandler.TABLE_PROFILES))
-            Log.e("DatabaseHandlerCreateUpdateDB.columnExists", table + ": " + column + " " + exists);
+//        if (table.equals(DatabaseHandler.TABLE_PROFILES))
+//            Log.e("DatabaseHandlerCreateUpdateDB.columnExists", table + ": " + column + " " + exists);
         return exists;
     }
 
     static private void createColumnWhenNotExists(SQLiteDatabase db, String table, String column, String columnType, List<String> columns) {
-        if (!columnExists(column, columns, table))
+        if (!columnExists(column, columns/*, table*/))
             // create column
             db.execSQL("ALTER TABLE " + table + " ADD COLUMN " + column + " " + columnType);
     }
@@ -3002,7 +3001,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             try {
                 List<String> columns = getTableColums(db, DatabaseHandler.TABLE_EVENTS);
-                if (columnExists(DatabaseHandler.KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, columns, DatabaseHandler.TABLE_EVENTS)) {
+                if (columnExists(DatabaseHandler.KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, columns/*, DatabaseHandler.TABLE_EVENTS*/)) {
 //                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column exists");
 
                     final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
@@ -3042,7 +3041,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             try {
                 List<String> columns = getTableColums(db, DatabaseHandler.TABLE_EVENTS);
-                if (columnExists(DatabaseHandler.KEY_E_PERIPHERAL_TYPE, columns, DatabaseHandler.TABLE_EVENTS)) {
+                if (columnExists(DatabaseHandler.KEY_E_PERIPHERAL_TYPE, columns/*, DatabaseHandler.TABLE_EVENTS*/)) {
 //                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column exists");
 
                     final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
