@@ -813,9 +813,9 @@
     <string-array name="wifiModeArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_wifiModeArray_on_ignoreHotspot</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
         <item>@string/array_pref_hardwareModeArray_toggle</item>
+        <item>@string/array_pref_wifiModeArray_on_ignoreHotspot</item>
         <item>@string/array_pref_wifiModeArray_toggle_ignoreHotspot</item>
         <item>@string/array_pref_wifiModeArray_on_inAirplaneMode</item>
         <item>@string/array_pref_wifiModeArray_off_inAirplaneMode</item>
@@ -824,9 +824,9 @@
     <string-array name="wifiModeValues">
         <item>0</item>
         <item>1</item>
-        <item>4</item>
         <item>2</item>
         <item>3</item>
+        <item>4</item>
         <item>5</item>
         <item>6</item>
         <item>7</item>
