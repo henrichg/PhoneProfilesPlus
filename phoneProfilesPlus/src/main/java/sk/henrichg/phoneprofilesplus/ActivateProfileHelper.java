@@ -527,6 +527,7 @@ class ActivateProfileHelper {
                             switch (profile._deviceWiFi) {
                                 case 1:
                                 case 4:
+                                case 6:
 //                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 1,4");
                                     if (!isWifiEnabled) {
                                         isWifiEnabled = true;
@@ -534,6 +535,7 @@ class ActivateProfileHelper {
                                     }
                                     break;
                                 case 2:
+                                case 7:
 //                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 2");
                                     if (isWifiEnabled) {
                                         isWifiEnabled = false;
@@ -542,6 +544,7 @@ class ActivateProfileHelper {
                                     break;
                                 case 3:
                                 case 5:
+                                case 8:
 //                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 3,5");
                                     isWifiEnabled = !isWifiEnabled;
                                     setWifiState = true;
@@ -558,12 +561,18 @@ class ActivateProfileHelper {
                                 try {
 //                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabled()");
                                     //PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.doExecuteForRadio");
-                                    //if (Build.VERSION.SDK_INT >= 29)
-                                    //    CmdWifi.setWifi(isWifiEnabled);
-                                    //else
+                                    if ((profile._deviceWiFi == 6) ||
+                                        (profile._deviceWiFi == 7) ||
+                                        (profile._deviceWiFi == 8)) {
+                                        setWifiInAirplaneMode(/*appContext,*/ isWifiEnabled);
+                                    } else {
+                                        //if (Build.VERSION.SDK_INT >= 29)
+                                        //    CmdWifi.setWifi(isWifiEnabled);
+                                        //else
 //                                        PPApplication.logE("[WIFI_ENABLED] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabled="+isWifiEnabled);
                                         wifiManager.setWifiEnabled(isWifiEnabled);
                                         //CmdWifi.setWifiEnabled(isWifiAPEnabled);
+                                    }
                                 } catch (Exception e) {
                                     //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
                                     //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
@@ -920,7 +929,7 @@ class ActivateProfileHelper {
                         // switch ON airplane mode, set it before doExecuteForRadios
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "setAirplaneMode()");
                         setAirplaneMode(context, _isAirplaneMode);
-                        PPApplication.sleep(2500);
+                        PPApplication.sleep(1500);
                         //PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                     }
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "doExecuteForRadios()");
@@ -6136,6 +6145,27 @@ class ActivateProfileHelper {
 //                    else
 //                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "transactionCode == -1");
                 }*/
+            }
+        }
+    }
+
+    private static void setWifiInAirplaneMode(/*Context context, */boolean enable)
+    {
+        //Context appContext = context.getApplicationContext();
+
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                PPApplication.isRooted(false)) {
+            synchronized (PPApplication.rootMutex) {
+                String command1 = "svc wifi " + (enable ? "enable" : "disable");
+                //PPApplication.logE("ActivateProfileHelper.setWifiInAirplaneMode", "command=" + command1);
+                Command command = new Command(0, false, command1);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                    PPApplication.commandWait(command, "ActivateProfileHelper.setWifiInAirplaneMode");
+                    //PPApplication.logE("ActivateProfileHelper.setWifiInAirplaneMode", "after wait");
+                } catch (Exception e) {
+                    //Log.e("ActivateProfileHelper.setWifiInAirplaneMode", Log.getStackTraceString(e));
+                }
             }
         }
     }

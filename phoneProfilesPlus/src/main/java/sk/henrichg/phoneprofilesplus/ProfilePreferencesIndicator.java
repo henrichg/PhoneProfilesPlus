@@ -1142,7 +1142,12 @@ class ProfilePreferencesIndicator {
             // wifi
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5)) {
+                    if ((profile._deviceWiFi == 1) ||
+                            (profile._deviceWiFi == 3) ||
+                            (profile._deviceWiFi == 4) ||
+                            (profile._deviceWiFi == 5) ||
+                            (profile._deviceWiFi == 6) ||
+                            (profile._deviceWiFi == 8)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFi) + ": " +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
@@ -1155,7 +1160,8 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._deviceWiFi == 2) {
+                    if ((profile._deviceWiFi == 2) ||
+                        (profile._deviceWiFi == 7)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFi) + ": " +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);

@@ -4140,7 +4140,7 @@ public class Profile {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
                 case PREF_PROFILE_DEVICE_WIFI:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, null, sharedPreferences, fromUIThread);
                     break;
                 case PREF_PROFILE_DEVICE_BLUETOOTH:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
@@ -4266,7 +4266,7 @@ public class Profile {
 //                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
 //                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
 //            }
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, profile, sharedPreferences, fromUIThread);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);

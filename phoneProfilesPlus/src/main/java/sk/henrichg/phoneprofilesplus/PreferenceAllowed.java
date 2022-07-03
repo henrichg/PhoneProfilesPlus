@@ -10,6 +10,7 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 class PreferenceAllowed {
     int allowed;
@@ -114,11 +115,65 @@ class PreferenceAllowed {
         }
     }
 
-    static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(PreferenceAllowed preferenceAllowed) {
+    static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(PreferenceAllowed preferenceAllowed,
+                  Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread) {
 
-        if (PPApplication.HAS_FEATURE_WIFI)
+        if (PPApplication.HAS_FEATURE_WIFI) {
             // device has Wifi
             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+
+            boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+            String preferenceKey = Profile.PREF_PROFILE_DEVICE_WIFI;
+
+            boolean requiresRoot = false;
+            if (profile != null) {
+                requiresRoot = (profile._deviceWiFi == 6) || (profile._deviceWiFi == 7) || (profile._deviceWiFi == 8);
+                if (profile._name.equals("Profile"))
+                    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI", "requiresRoot="+requiresRoot);
+            } else if (sharedPreferences != null) {
+                String preferenceValue = sharedPreferences.getString(preferenceKey, "0");
+                requiresRoot = preferenceValue.equals("6") || preferenceValue.equals("7") || preferenceValue.equals("8");
+                if (sharedPreferences.getString(Profile.PREF_PROFILE_NAME, "").equals("Profile"))
+                    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI", "requiresRoot="+requiresRoot);
+            }
+
+            if (requiresRoot && PPApplication.isRooted(fromUIThread)) {
+                // device is rooted
+
+                if (profile != null) {
+                    // test if grant root is disabled
+                    /*if ((profile._deviceWiFi == 6) ||
+                            (profile._deviceWiFi == 7) ||
+                            (profile._deviceWiFi == 8)) {*/
+                    if (applicationNeverAskForGrantRoot) {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                    }
+                    //}
+                } else //noinspection ConstantConditions
+                    if (sharedPreferences != null) {
+                    //String preferenceValue = sharedPreferences.getString(preferenceKey, "0");
+                    /*if (preferenceValue.equals("6") ||
+                            preferenceValue.equals("7") ||
+                            preferenceValue.equals("8")) {*/
+                    if (applicationNeverAskForGrantRoot) {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        // not needed to test all parameters
+                    }
+                    //}
+                }
+            } else
+            if (requiresRoot) {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                if ((profile != null) && (profile._deviceWiFi != 0)) {
+                    preferenceAllowed.notAllowedRoot = true;
+//                    Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFi");
+                }
+            }
+        }
         else {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;

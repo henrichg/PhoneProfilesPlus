@@ -2003,6 +2003,10 @@
 
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
 
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
