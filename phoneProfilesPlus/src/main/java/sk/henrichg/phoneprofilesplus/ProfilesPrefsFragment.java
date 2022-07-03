@@ -91,6 +91,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "prf_pref_deviceBrightness_forceSetBrightnessAtScreenOn";
     private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS = "prf_pref_deviceAirplaneMode_assistantSettings";
     private static final String PREF_SCREEN_DARK_MODE_INFO = "prf_pref_screenDarkModeInfo";
+    private static final String PREF_PROFILE_AIRPLANE_MODE_RADIOS_INFO = "prf_pref_deviceAirplaneModeRadiosInfo";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1258,7 +1259,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        infoDialogPreference = prefMng.findPreference("prf_pref_deviceAirplaneModeRadiosInfo");
+        infoDialogPreference = prefMng.findPreference(PREF_PROFILE_AIRPLANE_MODE_RADIOS_INFO);
         if (infoDialogPreference != null) {
 
             String url;
@@ -1271,7 +1272,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     "<b>"+getString(R.string.profile_preferences_deviceAirplaneModeRadios_info1) + "</b><br><br>" +
                             getString(R.string.profile_preferences_deviceAirplaneModeRadios_info2) + " " +
                             getString(R.string.profile_preferences_deviceAirplaneModeRadios_info3) + ":<br>" +
-                            "<a href=" + url + ">" + url+ " &#8658;</a>";
+                            "<a href=" + url + ">" + url+ " &#8658;</a><br><br>";
+
+            String configuredRadios = Settings.Global.getString(context.getContentResolver(), "airplane_mode_radios");
+
+            infoText = infoText + getString(R.string.profile_preferences_deviceAirplaneModeRadios_info4) + " " + configuredRadios;
 
             infoDialogPreference.setInfoText(infoText);
             infoDialogPreference.setIsHtml(true);

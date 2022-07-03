@@ -599,8 +599,6 @@ jeden item "(R) On in airolane mode", "(R) off in airplane mode", "(R) Togghe in
 To sa mi paci. :-)
 
 Ako zistim, ci je zapnuty airplne mod. Len vtedy pouzijem svc wifi enable/disable:
-@SuppressWarnings("deprecation")
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public static boolean isAirplaneModeOn(Context context) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
         return Settings.System.getInt(context.getContentResolver(),

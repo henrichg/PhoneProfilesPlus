@@ -2001,6 +2001,8 @@
 
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with a double arrow sign.</string>
 
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
