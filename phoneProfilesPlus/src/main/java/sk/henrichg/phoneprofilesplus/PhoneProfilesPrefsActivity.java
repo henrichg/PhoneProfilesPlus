@@ -45,6 +45,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     private boolean fromFinish = false;
     private boolean invalidateEditor = false;
 
+    int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
     public static final String EXTRA_RESET_EDITOR = "reset_editor";
@@ -121,7 +123,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             //extraScrollToType = "category";
         }
         else if (intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE)) {
-            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+            appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
             Bundle bundle = appWidgetManager.getAppWidgetOptions(appWidgetId);
@@ -391,14 +393,21 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (activityStarted) {
             doPreferenceChanges();
 
+            //todo
+
             // for startActivityForResult
             returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
             Permissions.grantRootChanged = false;
-            setResult(RESULT_OK, returnIntent);
+
+            if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+                Intent resultValue = new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+                setResult(RESULT_OK, resultValue);
+            } else
+                setResult(RESULT_OK, returnIntent);
         }
         else {
             Permissions.grantRootChanged = false;
-            setResult(RESULT_CANCELED, returnIntent);
+            setResult(RESULT_CANCELED);//, returnIntent);
         }
 
         super.finish();

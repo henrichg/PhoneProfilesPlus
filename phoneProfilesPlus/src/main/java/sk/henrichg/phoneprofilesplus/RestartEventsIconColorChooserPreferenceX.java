@@ -73,7 +73,6 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
                 "ic_profile_restart_events|1|1|"+color, 0);
         restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
 
-        //todo - tu musis pouizit Profile.increaseProfileIconBrightnessForActivity()
         Bitmap bitmap = restartEvents.increaseProfileIconBrightnessForContext(context, restartEvents._iconBitmap);
         if (bitmap != null)
             restartEvents._iconBitmap = bitmap;

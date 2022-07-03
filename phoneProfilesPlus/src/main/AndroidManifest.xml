@@ -249,7 +249,7 @@
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
                 <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
             </intent-filter>
         </activity>
