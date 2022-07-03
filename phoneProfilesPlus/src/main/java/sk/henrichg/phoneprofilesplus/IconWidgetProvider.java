@@ -12,6 +12,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -49,6 +50,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
     private static void _onUpdate(Context context, AppWidgetManager appWidgetManager,
                           /*Profile _profile, DataWrapper _dataWrapper,*/ int[] appWidgetIds) {
+
         String applicationWidgetIconLightness;
         String applicationWidgetIconColor;
         boolean applicationWidgetIconCustomIconLightness;
@@ -385,6 +387,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
             for (int widgetId : appWidgetIds) {
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowProfileDuration="+applicationWidgetIconShowProfileDuration);
+
+                Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
+                bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ICON);
+                appWidgetManager.updateAppWidgetOptions(widgetId, bundle);
+
                 RemoteViews remoteViews;
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&

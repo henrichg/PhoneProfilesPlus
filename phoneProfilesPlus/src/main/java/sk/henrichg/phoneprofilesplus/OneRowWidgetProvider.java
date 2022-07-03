@@ -12,6 +12,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -447,6 +448,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             //int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
             for (int widgetId : appWidgetIds) {
+
+                Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
+                bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ONE_ROW);
+                appWidgetManager.updateAppWidgetOptions(widgetId, bundle);
 
 //                AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(widgetId);
 //                PPApplication.logE("OneRowWidgetProvider._onUpdate", "info.updatePeriodMillis="+info.updatePeriodMillis);

@@ -780,8 +780,15 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
     */
 
-    private static void doOnUpdate(Context context, AppWidgetManager appWidgetManager, int appWidgetId, boolean fromOnUpdate)
+    private static void doOnUpdate(Context context, AppWidgetManager appWidgetManager,
+                                   int appWidgetId, boolean fromOnUpdate, boolean addWidgetType)
     {
+        if (addWidgetType) {
+            Bundle bundle = appWidgetManager.getAppWidgetOptions(appWidgetId);
+            bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_LIST);
+            appWidgetManager.updateAppWidgetOptions(appWidgetId, bundle);
+        }
+
         //Bundle widgetIdOptions;
         //widgetIdOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
         //boolean isLargeLayout = setLayoutParams(context, appWidgetManager, appWidgetId, widgetIdOptions);
@@ -823,7 +830,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 //if ((appContext != null) && (appWidgetManager != null)) {
 
                     for (int appWidgetId : appWidgetIds) {
-                        doOnUpdate(appContext, appWidgetManager, appWidgetId, true);
+                        doOnUpdate(appContext, appWidgetManager, appWidgetId, true, true);
                     }
 
                     //if (dataWrapper != null)
@@ -893,7 +900,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                         //if ((appContext != null) && (appWidgetManager != null)) {
                             for (int appWidgetId : appWidgetIds) {
-                                doOnUpdate(appContext, appWidgetManager, appWidgetId, false);
+                                doOnUpdate(appContext, appWidgetManager, appWidgetId, false, true);
                             }
                         //}
                     });
@@ -1036,7 +1043,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     private static void updateAfterWidgetOptionsChanged(Context context, int appWidgetId) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        doOnUpdate(context, appWidgetManager, appWidgetId, false);
+        doOnUpdate(context, appWidgetManager, appWidgetId, false, false);
     }
 
     /*
