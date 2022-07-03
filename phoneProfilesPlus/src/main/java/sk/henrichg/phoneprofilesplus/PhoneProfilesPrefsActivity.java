@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -112,12 +113,28 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         useAlarmClockEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
 
-        String extraScrollTo;
+        String extraScrollTo = null;
         Intent intent = getIntent();
         if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
             // activity is started from notification, scroll to notifications category
             extraScrollTo = "categoryNotificationsRoot";
             //extraScrollToType = "category";
+        }
+        else if (intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE)) {
+            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
+            Bundle bundle = appWidgetManager.getAppWidgetOptions(appWidgetId);
+            int widgetType = bundle.getInt(PPApplication.BUNDLE_WIDGET_TYPE, 0);
+
+            if (widgetType == PPApplication.WIDGET_TYPE_ICON)
+                extraScrollTo = "categoryWidgetIconRoot";
+            else
+            if (widgetType == PPApplication.WIDGET_TYPE_ONE_ROW)
+                extraScrollTo = "categoryWidgetOneRowRoot";
+            else
+            if (widgetType == PPApplication.WIDGET_TYPE_LIST)
+                extraScrollTo = "categoryWidgetListRoot";
         }
         else {
             extraScrollTo = intent.getStringExtra(EXTRA_SCROLL_TO);
