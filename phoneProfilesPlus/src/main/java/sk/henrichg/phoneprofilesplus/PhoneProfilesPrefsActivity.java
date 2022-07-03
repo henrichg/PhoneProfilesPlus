@@ -117,12 +117,13 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         String extraScrollTo = null;
         Intent intent = getIntent();
+        String action = intent.getAction();
         if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
             // activity is started from notification, scroll to notifications category
             extraScrollTo = "categoryNotificationsRoot";
             //extraScrollToType = "category";
         }
-        else if (intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE)) {
+        else if ((action != null) && action.equals(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE)) {
             appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
