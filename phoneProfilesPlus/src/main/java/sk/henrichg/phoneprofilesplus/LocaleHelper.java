@@ -18,9 +18,21 @@ public class LocaleHelper {
 
     public static Context onAttach(Context context) {
         LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
-        String language = getPersistedData(context, SELECTED_LANGUAGE, systemLocales.get(0).getLanguage());
-        String country = getPersistedData(context, SELECTED_COUNTRY, systemLocales.get(0).getCountry());
-        String script = getPersistedData(context, SELECTED_SCRIPT, systemLocales.get(0).getScript());
+        String language;
+        String country;
+        String script;
+        try {
+            //noinspection ConstantConditions
+            language = getPersistedData(context, SELECTED_LANGUAGE, systemLocales.get(0).getLanguage());
+            //noinspection ConstantConditions
+            country = getPersistedData(context, SELECTED_COUNTRY, systemLocales.get(0).getCountry());
+            //noinspection ConstantConditions
+            script = getPersistedData(context, SELECTED_SCRIPT, systemLocales.get(0).getScript());
+        } catch (Exception e) {
+            language = "en";
+            country = "";
+            script = "";
+        }
         /*if (language.equals("[sys]")) {
             language = systemLocales.get(0).getLanguage();
             country = systemLocales.get(0).getCountry();
@@ -68,9 +80,18 @@ public class LocaleHelper {
 
         if (language.equals("[sys]")) {
             LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
-            language = systemLocales.get(0).getLanguage();
-            country = systemLocales.get(0).getCountry();
-            script = systemLocales.get(0).getScript();
+            try {
+                //noinspection ConstantConditions
+                language = systemLocales.get(0).getLanguage();
+                //noinspection ConstantConditions
+                country = systemLocales.get(0).getCountry();
+                //noinspection ConstantConditions
+                script = systemLocales.get(0).getScript();
+            } catch (Exception e) {
+                language = "en";
+                country = "";
+                script = "";
+            }
 
 //            Log.e("LocaleHelper.setLocale", "language="+language);
 //            Log.e("LocaleHelper.setLocale", "country="+country);

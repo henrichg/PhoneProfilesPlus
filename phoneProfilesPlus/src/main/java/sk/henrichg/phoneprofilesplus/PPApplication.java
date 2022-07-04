@@ -589,7 +589,7 @@ public class PPApplication extends Application
     private static final String PREF_LAST_ACTIVATED_PROFILE = "last_activated_profile";
     private static final String PREF_WALLPAPER_CHANGE_TIME = "wallpaper_change_time";
 
-    static final String BUNDLE_WIDGET_TYPE = PACKAGE_NAME +"_BUNDLE_WIDGET_TYPE";
+    //static final String BUNDLE_WIDGET_TYPE = PACKAGE_NAME +"_BUNDLE_WIDGET_TYPE";
     static final int WIDGET_TYPE_ICON = 1;
     static final int WIDGET_TYPE_ONE_ROW = 2;
     static final int WIDGET_TYPE_LIST = 3;

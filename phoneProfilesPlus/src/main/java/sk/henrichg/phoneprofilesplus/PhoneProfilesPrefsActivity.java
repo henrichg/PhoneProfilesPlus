@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -127,8 +129,25 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
-            Bundle bundle = appWidgetManager.getAppWidgetOptions(appWidgetId);
-            int widgetType = bundle.getInt(PPApplication.BUNDLE_WIDGET_TYPE, 0);
+            /*Bundle bundle = appWidgetManager.getAppWidgetOptions(appWidgetId);
+            int widgetType = bundle.getInt(PPApplication.BUNDLE_WIDGET_TYPE, 0);*/
+
+            int widgetType = 0;
+            PackageManager packageManager = getApplicationContext().getPackageManager();
+            AppWidgetProviderInfo providerInfo = appWidgetManager.getAppWidgetInfo(appWidgetId);
+            if ((packageManager != null) && (providerInfo != null)) {
+                String widgetLabel = providerInfo.loadLabel(packageManager);
+                if (widgetLabel != null) {
+                    if (widgetLabel.equals(getString(R.string.widget_label_icon)))
+                        widgetType = PPApplication.WIDGET_TYPE_ICON;
+                    else
+                    if (widgetLabel.equals(getString(R.string.widget_label_one_row)))
+                        widgetType = PPApplication.WIDGET_TYPE_ONE_ROW;
+                    else
+                    if (widgetLabel.equals(getString(R.string.widget_label_list)))
+                        widgetType = PPApplication.WIDGET_TYPE_LIST;
+                }
+            }
 
             if (widgetType == PPApplication.WIDGET_TYPE_ICON)
                 extraScrollTo = "categoryWidgetIconRoot";

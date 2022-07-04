@@ -12,7 +12,6 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -388,9 +387,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowProfileDuration="+applicationWidgetIconShowProfileDuration);
 
-                Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
-                bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ICON);
-                appWidgetManager.updateAppWidgetOptions(widgetId, bundle);
+                //Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
+                //bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ICON);
+                //appWidgetManager.updateAppWidgetOptions(widgetId, bundle);
 
                 RemoteViews remoteViews;
 
