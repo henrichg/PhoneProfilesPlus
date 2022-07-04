@@ -8,7 +8,7 @@
     <dimen name="run_stop_indicator_width">54dp</dimen>
     <dimen name="run_stop_indicator_height">28dp</dimen>
     <dimen name="run_stop_indicator_margin_top">0dp</dimen>
-    <dimen name="run_stop_indicator_margin_end_editor">3dp</dimen>
+    <dimen name="run_stop_indicator_margin_end_editor">2dp</dimen>
     <dimen name="run_stop_indicator_margin_end_activator">0dp</dimen>
 
     <dimen name="activator_min_width_minor">65%</dimen>
