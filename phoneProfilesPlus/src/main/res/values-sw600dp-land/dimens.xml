@@ -5,7 +5,7 @@
     <dimen name="activity_margin_end">40dp</dimen>
 
     <dimen name="activator_toolbar_height">27dp</dimen>
-    <dimen name="run_stop_indicator_width">50dp</dimen>
+    <dimen name="run_stop_indicator_width">52dp</dimen>
     <dimen name="run_stop_indicator_height">26dp</dimen>
     <dimen name="run_stop_indicator_margin_top">0dp</dimen>
     <dimen name="run_stop_indicator_margin_end_editor">3dp</dimen>
