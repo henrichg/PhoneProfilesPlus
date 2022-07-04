@@ -1278,7 +1278,6 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi i Bluetooth potvrdni dijalozi</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Za \"ColorOs\" je moguće onemogućiti ove dijaloge. Klikni ovdje da vidiš na koji način.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">U postavkama sustava uređaja:\n1. Opcije za programere\/Opcije programere = omogućite\n2. Opcije za programere\/Ispravljanje pogrešaka\/USB ispravljanje pogrešaka = omogući\n3. Opcije za programere\/Aplikacije\/Onemogućuje nadzor autorizacije = omogući.</string>
-    <string name="important_info_android_look_application_settings">Otvorite PhoneProfilesPlus postavke i podesite ih. Pogotovo parametre označene podebljanim tekstom.</string>
     <string name="profile_preferences_red_texts_text_2">Za ovo, ovu opciju nije moguće aktivirati.</string>
     <string name="event_preferences_red_texts_text_2">Za ovo nije moguće promeniti način rada.</string>
     <string name="profile_preferences_red_texts_in_header">Neki profili imaju pogreške u svojim postavkama. Ove postavke su označene sa crvenom bojom. Ispravite pogreške.</string>
@@ -1729,9 +1728,6 @@
     <string name="check_github_releases_version_critical">! CRITICAL !</string>
     <string name="important_info_profile_grant_1_howTo_0">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="important_info_event_event_sensors">Each event has sensors. All sensors with enabled \"Enable run\", must be \"passed\" to start running of event. Running event ends, when any sensor is not \"passed\".\n\n\"Pass\" status is indicated with color of sensor name in Editor:</string>
-    <string name="important_info_event_event_sensors_waiting">Blue: sensor is in waiting state. \"Pass\" status is determined.</string>
-    <string name="important_info_event_event_sensors_passed">Green: sensor is \"passed\".</string>
-    <string name="important_info_event_event_sensors_not_pased">Yellow: sensor is not \"passed\".</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN Settings</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Click here to show information about connect\/disconnect VPN configured in OpenVPN application.</string>
@@ -1943,6 +1939,37 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Setting screen not found.\n\nPlease go into device settings: \"Settings / Apps / App launch\" and set \"Manage manually\" for PhoneProfilesPlus.</string>
     <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
     <string name="enable_notificaitons_button">Enable</string>
+    <string name="phone_profiles_pref_applicationWidgetUseDynamicColors">Use dynamic colors</string>
+    <string name="important_info_event_event_sensors_waiting">Purple: sensor is in waiting state. \"Pass\" status is determined.</string>
+    <string name="important_info_event_event_sensors_passed">Green with double arrow: sensor is \"passed\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Blue: sensor is not \"passed\".</string>
+    <string name="activity_log_help_message_colors">Used colors</string>
+    <string name="activity_log_help_message_colors_profile_activation">Profile activation</string>
+    <string name="activity_log_help_message_colors_event_start">Event start</string>
+    <string name="activity_log_help_message_colors_event_end">Event end</string>
+    <string name="activity_log_help_message_colors_restart_events">Restart events</string>
+    <string name="activity_log_help_message_colors_event_delay_start_end">Event in delay start/end</string>
+    <string name="activity_log_help_message_colors_error">Error</string>
+    <string name="activity_log_help_message_colors_others">Other situations</string>
+    <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Restart events\" icon color</string>
+    <string name="important_info_notification_settings_text1">Recommendation for configuration of parameters \"Settings\"/\"Application notification\":</string>
+    <string name="important_info_notification_settings_text2">Configure parameter \"Notification style\" to \"Custom\", \"Use decoration\" switched off, \"Show profile icon\" switched on, \"Show preferences indicator\" switched on.</string>
+    <string name="important_info_notification_settings_text3">With this configuration, notification will be displayed with profile icon, preferences indicator with icons (as in Editor), \"Restart events\" as icon and notification will be smaller.</string>
+    <string name="important_info_notification_settings_text4">Is possible to expand the notification, which is without decoration, with a gesture: swipe down with two fingers.</string>
+    <string name="important_info_notification_settings_configure">Click here to configure \"Application notification\" with these parameters.</string>
+    <string name="important_info_notification_settings_toast">Configured</string>
+    <string name="menu_choose_language">Choose language</string>
+    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="important_info_choose_language_text1">Choose language:</string>
+    <string name="important_info_choose_language_text2">In Editor menu is added \"Choose language\" option. With this option, you can change application language.\nMenu for this is added also in PhoneProfilesPlusExtender (version 8.0).</string>
+    <string name="profile_icon_preference_iconColor_help">Icon color</string>
+    <string name="profile_icon_preference_iconColor_help_info_1">In a dark application theme, the color of the preview icon may have increased brightness.</string>
+    <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>
+    <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with a double arrow sign.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verzija:</string>
@@ -1986,6 +2013,8 @@
     <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
     <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
     <string name="extender_enable_notificaitons_button">Enable</string>
+    <string name="extender_menu_choose_language">Choose language</string>
+    <string name="extender_menu_choose_language_system_language">[System]</string>
     <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -2061,4 +2090,5 @@
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationIncreaseBrightnessForProfileIcon">Increase brightness of profile icon in dark mode</string>-->
 </resources>

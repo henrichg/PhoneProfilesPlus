@@ -1278,7 +1278,6 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Диалоги подтверждения Wi-Fi и Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">В ColorOS эти диалоги можно отключить. Чтобы узнать как, нажмите сюда.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Установите в настройках системы:\n1. Для разработчиков\/Для разработчиков = включено\n2. Для разработчиков\/Отладка\/Отладка по USB = включено\n3. Для разработчиков\/Приложения\/Отключить отслеживание разрешений = включено.</string>
-    <string name="important_info_android_look_application_settings">Откройте, пожалуйста, настройки PhoneProfilesPlus и задайте их, особенно параметры, отмеченные жирным текстом.</string>
     <string name="profile_preferences_red_texts_text_2">Поэтому его невозможно активировать.</string>
     <string name="event_preferences_red_texts_text_2">Поэтому невозможно разрешить/запретить его запуск.</string>
     <string name="profile_preferences_red_texts_in_header">Настройки некоторых профилей ошибочны. Такие профили отмечены красным цветом. Пожалуйста, исправьте их.</string>
@@ -1729,9 +1728,6 @@
     <string name="check_github_releases_version_critical">! КРИТИЧЕСКОЕ !</string>
     <string name="important_info_profile_grant_1_howTo_0">Эту инструкцию лучше открыть в браузере на компьютере. Она находится в файле README.md на GitHub PhoneProfilesPlus и озаглавлена</string>
     <string name="important_info_event_event_sensors">У каждого события есть датчики. Для запуска события должны быть выполнены условия всех включённых датчиков. Событие завершается, когда условие хотя бы одного датчика перестаёт выполняться.\n\nСтатус выполнения условия указывается цветом названия датчика в Редакторе:</string>
-    <string name="important_info_event_event_sensors_waiting">Синий: датчик находится в состоянии ожидания, идёт проверка выполнения условия.</string>
-    <string name="important_info_event_event_sensors_passed">Зелёный: условие выполняется.</string>
-    <string name="important_info_event_event_sensors_not_pased">Жёлтый: условие не выполняется.</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Настройки VPN</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Нажмите сюда для просмотра информации о подключении\/отключении VPN, настроенного в приложении OpenVPN.</string>
@@ -1775,8 +1771,8 @@
     <string name="end_of_activation_duration_acronym">d</string>
     <string name="end_of_activation_time_acronym">t</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Показывать время окончания активации профиля</string>
-    <string name="event_delay_start_acronym">ds</string>
-    <string name="event_delay_end_acronym">de</string>
+    <string name="event_delay_start_acronym">зз</string>
+    <string name="event_delay_end_acronym">зо</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">по достижении точного времени - отмена профиля</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">по достижении точного времени - профиль по умолчанию</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">по достижении точного времени - перезапуск событий</string>
@@ -1941,8 +1937,39 @@
     <string name="event_preferences_activated_profile_info_summary">Профили не должны быть одинаковыми. В противном случае оба параметра будут помечены ошибочными.</string>
     <string name="quick_tile_icon_label">Активировать профиль</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Экран настройки не найден.\n\nПерейдите, пожалуйста, в настройки устройства: \"Настройки\" / \"Приложения\" / \"Запуск приложений\" и задайте для PhoneProfilesPlus \"Управление вручную\".</string>
-    <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
-    <string name="enable_notificaitons_button">Enable</string>
+    <string name="notifications_permission_text">Разрешение на показ уведомлений не предоставлено.\n\nРазрешите, пожалуйста, уведомления от PhoneProfilesPlus, иначе они не будут отображаться.</string>
+    <string name="enable_notificaitons_button">Разрешить</string>
+    <string name="phone_profiles_pref_applicationWidgetUseDynamicColors">Использовать динамические цвета</string>
+    <string name="important_info_event_event_sensors_waiting">Фиолетовый: датчик находится в состоянии ожидания, идёт проверка выполнения условия.</string>
+    <string name="important_info_event_event_sensors_passed">Зелёный с двойной стрелочкой: условие выполняется.</string>
+    <string name="important_info_event_event_sensors_not_pased">Синий: условие не выполняется.</string>
+    <string name="activity_log_help_message_colors">Используемые цвета</string>
+    <string name="activity_log_help_message_colors_profile_activation">Активация профиля</string>
+    <string name="activity_log_help_message_colors_event_start">Запуск события</string>
+    <string name="activity_log_help_message_colors_event_end">Окончание события</string>
+    <string name="activity_log_help_message_colors_restart_events">Перезапуск событий</string>
+    <string name="activity_log_help_message_colors_event_delay_start_end">Задержка при запуске/окончании события</string>
+    <string name="activity_log_help_message_colors_error">Ошибка</string>
+    <string name="activity_log_help_message_colors_others">Прочие ситуации</string>
+    <string name="phone_profiles_pref_applicationRestartEventsIconColor">Цвет иконки \"Перезапустить события\"</string>
+    <string name="important_info_notification_settings_text1">Рекомендация по настройке уведомлений приложения:</string>
+    <string name="important_info_notification_settings_text2">Выберите \"Другой\" стиль уведомлений, выключите \"Использовать оформление\" и включите \"Показывать иконку профиля\" и \"Показывать индикатор настроек\".</string>
+    <string name="important_info_notification_settings_text3">С такими настройками уведомления будут отображаться с иконкой профиля, индикатором настроек с иконками (как в Редакторе), кнопкой \"Перезапустить события\" в виде иконки, а также они будут меньше.</string>
+    <string name="important_info_notification_settings_text4">Уведомления без оформления можно развернуть свайпом двумя пальцами вниз.</string>
+    <string name="important_info_notification_settings_configure">Нажмите сюда, чтобы применить эти настройки уведомлений приложения.</string>
+    <string name="important_info_notification_settings_toast">Настроено</string>
+    <string name="menu_choose_language">Выбрать язык</string>
+    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="important_info_choose_language_text1">Выбрать язык:</string>
+    <string name="important_info_choose_language_text2">В меню Редактора добавлен пункт \"Выбрать язык\", с помощью которого вы можете изменить язык приложения.\nТакое же меню добавлено и в PhoneProfilesPlusExtender (с версии 8.0).</string>
+    <string name="profile_icon_preference_iconColor_help">Цвет иконки</string>
+    <string name="profile_icon_preference_iconColor_help_info_1">В тёмной теме приложения иконка предпросмотра может иметь увеличенную яркость.</string>
+    <string name="profile_icon_preference_iconColor_help_info_2">Иконка с увеличенной яркостью будет использоваться в интерфейсе приложения, а также в уведомлениях и виджетах с тёмным фоном.</string>
+    <string name="important_info_android_look_application_settings">Откройте, пожалуйста, настройки PhoneProfilesPlus и задайте нужные параметры, особенно те, что отмечены двойной стрелочкой.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender для PhoneProfilesPlus. Он работает только вместе с PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Версия:</string>
@@ -1984,8 +2011,10 @@
     <string name="extender_notification_permission_title">Разрешение не предоставлено</string>
     <string name="extender_notification_sms_mms_permission_text">Разрешение для параметра \"Датчик SMS/MMS\" не предоставлено. Нажмите на это уведомление, чтобы открыть Extender, и предоставьте разрешение, нажав на соответствующую кнопку.</string>
     <string name="extender_notification_call_permission_text">Разрешение для параметра \"Датчик вызовов\" не предоставлено. Нажмите на это уведомление, чтобы открыть Extender, и предоставьте разрешение, нажав на соответствующую кнопку.</string>
-    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
-    <string name="extender_enable_notificaitons_button">Enable</string>
+    <string name="extender_notifications_permission_text">Разрешение на показ уведомлений не предоставлено.\n\nРазрешите, пожалуйста, уведомления от PhoneProfilesPlusExtender, иначе они не будут отображаться.</string>
+    <string name="extender_enable_notificaitons_button">Разрешить</string>
+    <string name="extender_menu_choose_language">Выбрать язык</string>
+    <string name="extender_menu_choose_language_system_language">[System]</string>
     <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -2061,4 +2090,5 @@
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationIncreaseBrightnessForProfileIcon">Increase brightness of profile icon in dark mode</string>-->
 </resources>

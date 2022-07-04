@@ -1278,7 +1278,6 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Dialogues de confirmation du Wi-Fi et du Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pour \"ColorOs\" est possible de désactiver ces boîtes de dialogue. Cliquez ceci, pour savoir comment.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Dans les paramètres du système :\n1. Options développeurs\/Options du développeur = activer\n2. Options développeur \/Debugging\/Débogage USB = activer\n3. Options développeurs\/Apps\/Désactiver la surveillance des permissions = activer.</string>
-    <string name="important_info_android_look_application_settings">Veuillez ouvrir les paramètres PhoneProfilesPlus et le configurer. Surtout les paramètres marqués avec du texte en gras.</string>
     <string name="profile_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de l\'activer.</string>
     <string name="event_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de changer son exécution.</string>
     <string name="profile_preferences_red_texts_in_header">Certains profils ont des erreurs dans leurs préférences. Ces profils sont marqués de couleur rouge. Veuillez les corriger.</string>
@@ -1729,9 +1728,6 @@
     <string name="check_github_releases_version_critical">! CRITIQUE !</string>
     <string name="important_info_profile_grant_1_howTo_0">Il est préférable d\'ouvrir cette aide dans son navigateur Internet sur un PC. Elle est dans le fichier README.md du GitHub de PhoneProfilesPlus</string>
     <string name="important_info_event_event_sensors">Chaque événement a des capteurs. Tous les capteurs avec activé \"Activer l\'exécution\", doivent être \"passés\" pour démarrer l\'exécution de l\'événement. L\'exécution de l\'événement se termine, lorsque n\'importe quel capteur n\'est pas \"passé\".\n\nle statut \"passé\" est indiqué avec la couleur du nom du capteur dans l\'éditeur:</string>
-    <string name="important_info_event_event_sensors_waiting">Bleu : le capteur est en attente. Le statut de \"Passé\" est déterminé.</string>
-    <string name="important_info_event_event_sensors_passed">Vert : le capteur est \"passé\".</string>
-    <string name="important_info_event_event_sensors_not_pased">Jaune : le capteur n\'est pas \"passé\".</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Paramètres VPN</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Cliquez ici pour afficher des informations sur la connexion\/déconnexion du VPN configuré dans l\'application OpenVPN.</string>
@@ -1775,8 +1771,8 @@
     <string name="end_of_activation_duration_acronym">j</string>
     <string name="end_of_activation_time_acronym">h</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Afficher la fin de l\'activation du profil</string>
-    <string name="event_delay_start_acronym">ds</string>
-    <string name="event_delay_end_acronym">de</string>
+    <string name="event_delay_start_acronym">dd</string>
+    <string name="event_delay_end_acronym">df</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">après l\'heure exacte atteinte - annuler le profil</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">après l\'heure exacte atteinte - profil par défaut</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">après l\'heure exacte atteinte - redémarrez les événements</string>
@@ -1940,9 +1936,40 @@
     <string name="event_preferences_activated_profile_info">Profils configurés</string>
     <string name="event_preferences_activated_profile_info_summary">Les profils ne doivent pas être identiques. S\'ils le sont, leurs paramètres seront marqués en erreur dans la configuration.</string>
     <string name="quick_tile_icon_label">Activer le profil</string>
-    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Setting screen not found.\n\nPlease go into device settings: \"Settings / Apps / App launch\" and set \"Manage manually\" for PhoneProfilesPlus.</string>
-    <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
-    <string name="enable_notificaitons_button">Enable</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Écran de configuration non trouvé.\n\nVeuillez aller dans les paramètres de l\'appareil : \"Paramètres / Applications / Lancement de l\'application\" et définir \"Gérer manuellement\" pour PhoneProfilesPlus.</string>
+    <string name="notifications_permission_text">La permission pour les notifications n\'est pas accordée.\n\n Validez cette permission pour PhoneProfilesPlus. Sans cela les notifications de PhoneProfilesPlus ne seront pas affichées.</string>
+    <string name="enable_notificaitons_button">Activé</string>
+    <string name="phone_profiles_pref_applicationWidgetUseDynamicColors">Utiliser les couleurs dynamiques</string>
+    <string name="important_info_event_event_sensors_waiting">Violet : Le capteur est en état d\'attente. Le statut \"Pass\" est déterminé.</string>
+    <string name="important_info_event_event_sensors_passed">Vert avec double flèche : le capteur est \"passé\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Bleu : le capteur n\'est pas \"passé\".</string>
+    <string name="activity_log_help_message_colors">Couleurs utilisées</string>
+    <string name="activity_log_help_message_colors_profile_activation">Activation du profil</string>
+    <string name="activity_log_help_message_colors_event_start">L\'événement a commencé</string>
+    <string name="activity_log_help_message_colors_event_end">Fin de l\'événement</string>
+    <string name="activity_log_help_message_colors_restart_events">Redémarrer les événements</string>
+    <string name="activity_log_help_message_colors_event_delay_start_end">Latence de Début/fin de l\'évènement</string>
+    <string name="activity_log_help_message_colors_error">Erreur</string>
+    <string name="activity_log_help_message_colors_others">Autres situations</string>
+    <string name="phone_profiles_pref_applicationRestartEventsIconColor">Couleur de l\'icône « Redémarrer les événements »</string>
+    <string name="important_info_notification_settings_text1">Recommandation pour la configuration des paramètres \"Paramètres\"/\"Notification d\'application\":</string>
+    <string name="important_info_notification_settings_text2">Configurer le paramètre « Style de notification » sur « Personnalisé », « Utiliser les décorations » sur désactivé, « Afficher l\'icône de profil » sur activé, « Afficher l\'indicateur de préférences » sur activé.</string>
+    <string name="important_info_notification_settings_text3">Avec cette configuration, les notifications seront affichées avec l\'icône de profil, l\'indicateur de préférences avec des icônes (comme dans l\'éditeur), \"Redémarrer les événements\" comme icône et la notification sera plus petite.</string>
+    <string name="important_info_notification_settings_text4">Il est possible d\'étendre la notification, qui est sans décoration, avec le geste « glisser vers le bas avec deux doigts ».</string>
+    <string name="important_info_notification_settings_configure">Cliquez ici pour configurer la « notification de l\'application » avec ces paramètres.</string>
+    <string name="important_info_notification_settings_toast">Configuré</string>
+    <string name="menu_choose_language">Choisissez la langue</string>
+    <string name="menu_choose_language_system_language">[Système]</string>
+    <string name="important_info_choose_language_text1">Choisissez la langue :</string>
+    <string name="important_info_choose_language_text2">Dans le menu de l\'éditeur l\'option « Choisir la langue » est ajouté. Avec cette option, vous pouvez changer la langue de l\'application.\nLe menu pour cela est ajouté également dans PhoneProfilesPlusExtender (version 8.0).</string>
+    <string name="profile_icon_preference_iconColor_help">Couleur de l\'icône</string>
+    <string name="profile_icon_preference_iconColor_help_info_1">Dans un thème sombre de l’application, la couleur de l’icône de prévisualisation peut avoir augmenté la luminosité.</string>
+    <string name="profile_icon_preference_iconColor_help_info_2">Une icône avec cette luminosité accrue sera utilisée dans l\'interface de l\'application. De même, dans les notifications et les widgets, lorsque leur arrière-plan est sombre.</string>
+    <string name="important_info_android_look_application_settings">Veuillez ouvrir les paramètres PhoneProfilesPlus et le configurer. Surtout les paramètres marqués d\'un signe à double flèche.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pour PhoneProfilesPlus. Il ne fonctionne qu\'avec PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version :</string>
@@ -1984,8 +2011,10 @@
     <string name="extender_notification_permission_title">Autorisation non accordée</string>
     <string name="extender_notification_sms_mms_permission_text">L\'autorisation pour le paramètre d\'événement \"Capteur SMS/MMS\" n\'est pas accordée. Cliquez sur cette notification pour ouvrir Extender. Dans celle-ci, utiliser le bouton pour accorder cette autorisation.</string>
     <string name="extender_notification_call_permission_text">L\'autorisation pour le paramètre \"Capteur d\'appel\" n\'est pas accordée. Cliquez sur cette notification pour ouvrir Extender. Dedans, utilisez le bouton pour accorder cette autorisation.</string>
-    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
-    <string name="extender_enable_notificaitons_button">Enable</string>
+    <string name="extender_notifications_permission_text">La permission pour les notifications n\'est pas accordée.\n\n Validez cette permission pour PhoneProfilesPlus. Sans cela les notifications de PhoneProfilesPlus ne seront pas affichées.</string>
+    <string name="extender_enable_notificaitons_button">Activé</string>
+    <string name="extender_menu_choose_language">Choisissez la langue</string>
+    <string name="extender_menu_choose_language_system_language">[Système]</string>
     <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -2061,4 +2090,5 @@
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationIncreaseBrightnessForProfileIcon">Increase brightness of profile icon in dark mode</string>-->
 </resources>

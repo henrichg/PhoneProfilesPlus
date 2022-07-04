@@ -39,7 +39,7 @@ android {
     }
     lint {
         abortOnError false
-        disable 'LongLogTag'
+        disable 'ManifestResource', 'LongLogTag', 'AppBundleLocaleChanges'
     }
 
 }

@@ -1036,7 +1036,7 @@
     <string name="event_preferences_call_PPPExtender_install_summary">Klik hier om PhoneProfilesPlusExtender te installeren. Een actieve service is nodig voor het ontvangen van oproepen.</string>
     <string name="permission_why_event_sms_preferences">voor lezen contacten in SMS/MMS sensor</string>
     <string name="permission_why_event_call_preferences">voor lezen contacten, detecteren gespreksbeltoon (voor \"nachtoproep\") in oproepsensor</string>
-    <string name="phone_profiles_pref_notificationUseDecoration">Gebruik decoratie</string>
+    <string name="phone_profiles_pref_notificationUseDecoration">Gebruik notificatie aanpassing</string>
     <string name="phone_profiles_pref_notificationLayoutType">Lay-out type</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Uitbreidbaar</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Groot</string>
@@ -1278,7 +1278,6 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi- en Bluetooth bevestigingsscherm</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Voor \"ColorOs\" is het mogelijk om deze schermen uit te schakelen. Klik hier om te zien hoe.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In apparaat systeeminstellingen:\n1. Ontwikkelaarsopties\/Ontwikkelaarsopties = inschakelen\n2. Ontwikkelaarsopties\/Debugging\/USB debugging = inschakelen\n3. Ontwikkelaarsopties\/Apps\/Uitschakelen autorisatie monitoring = inschakelen.</string>
-    <string name="important_info_android_look_application_settings">Open PhoneProfilesPlus Instellingen en configureer. Speciale parameters zijn gemarkeerd met vetgedrukte tekst.</string>
     <string name="profile_preferences_red_texts_text_2">Voor dit is het niet mogelijk om het te activeren.</string>
     <string name="event_preferences_red_texts_text_2">Voor dit is het niet mogelijk om uitvoeren te activeren.</string>
     <string name="profile_preferences_red_texts_in_header">Sommige profielen hebben fouten in de voorkeuren. Deze profielen zijn gemarkeerd met een rode kleur. Los deze fouten op.</string>
@@ -1586,7 +1585,7 @@
     <string name="github_assets_screenshot_text">\"Assets\" staat onder de release notes. \"Assets\" in de mobiele weergave moetbje aangeklikken.</string>
     <string name="title_activity_tile_chooser">Snelle tegel profiel kiezer</string>
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Voorkeuren licht indicator</string>
-    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoratie voor melding (indien ingeschakeld), wordt alleen weergegeven als de achtergrondkleur van het type \"Native\" is.</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Melding aanpassing (indien ingeschakeld), alleen te zien als de achtergrondkleur van het type \"Native\" is.</string>
     <string name="mobile_cells_item_delete_all_selected">Alle geselecteerde verwijderen</string>
     <string name="delete_application_alert_message">Deze applicatie verwijderen?</string>
     <string name="delete_intent_alert_message">Deze intent verwijderen?</string>
@@ -1729,9 +1728,6 @@
     <string name="check_github_releases_version_critical">! KRITIEK !</string>
     <string name="important_info_profile_grant_1_howTo_0">Deze help is beter te openen op een computer met een browser. Het is in PhoneProfilesPlus GitHub README.md, gemarkeerd als</string>
     <string name="important_info_event_event_sensors">Elk event heeft sensoren. Alle sensoren die \"Uitvoeren inschakelen\" hebben moeten \"geslaagd\" zijn om te werken. Een lopende gebeurtenis eindigt wanneer een sensor niet \"geslaagd\" is.\n\n\"Geslaagd\" status wordt aangegeven met de kleur van de sensornaam in de editor:</string>
-    <string name="important_info_event_event_sensors_waiting">Blauw: sensor is in wachtstand. De status \"Geslaagd\" is bepaald.</string>
-    <string name="important_info_event_event_sensors_passed">Groen: sensor is \"Geslaagd\".</string>
-    <string name="important_info_event_event_sensors_not_pased">Geel: sensor is niet \"geslaagd\".</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN-instellingen</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Klik hier voor informatie over de connectie\/verbroken connectie VPN die geconfigureerd is in de OpenVPN-programma.</string>
@@ -1941,8 +1937,39 @@
     <string name="event_preferences_activated_profile_info_summary">Profielen mogen niet hetzelfde zijn. Als profielen hetzelfde zijn, worden beide parameters gemarkeerd als een fout in de configuratie.</string>
     <string name="quick_tile_icon_label">Activeer profiel</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Instellingen scherm niet gevonden.\n\nGa naar apparaatinstellingen: \"Instellingen / Apps / App launch\" en stel \"Handmatig\" in voor PhoneProfilesPlus.</string>
-    <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
-    <string name="enable_notificaitons_button">Enable</string>
+    <string name="notifications_permission_text">Toegang tot meldingen is niet verleend.\n\nSchakel meldingen voor PhoneProfilesPlus in. Zonder dit aan te zetten worden meldingen van PhoneProfilesPlus niet weergegeven.</string>
+    <string name="enable_notificaitons_button">Inschakelen</string>
+    <string name="phone_profiles_pref_applicationWidgetUseDynamicColors">Gebruik dynamische kleuren</string>
+    <string name="important_info_event_event_sensors_waiting">Paars: sensor is in wacht status. De status \"Doorgaan\" is vastgesteld.</string>
+    <string name="important_info_event_event_sensors_passed">Groen met dubbele pijl: sensor is \"doorgaan\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Groen: sensor is niet \"doorgaan\".</string>
+    <string name="activity_log_help_message_colors">Gebruikte kleuren</string>
+    <string name="activity_log_help_message_colors_profile_activation">Profiel activatie</string>
+    <string name="activity_log_help_message_colors_event_start">Event start</string>
+    <string name="activity_log_help_message_colors_event_end">Event einde</string>
+    <string name="activity_log_help_message_colors_restart_events">Herstart events</string>
+    <string name="activity_log_help_message_colors_event_delay_start_end">Vertraging in vertraging starten/einde event</string>
+    <string name="activity_log_help_message_colors_error">Fout</string>
+    <string name="activity_log_help_message_colors_others">Andere situaties</string>
+    <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Event herstarten\" icoon kleur</string>
+    <string name="important_info_notification_settings_text1">Aanbeveling voor de configuratie van parameters \"Instellingen\"/\"Applicatie notificatie\":</string>
+    <string name="important_info_notification_settings_text2">Configureer de parameter \"Notificatie stijl\" naar \"Aangepast\", \"Toon notificatie aanpassing\" uitgeschakeld en \"Toon profielpictogram\" ingeschakeld.</string>
+    <string name="important_info_notification_settings_text3">Met deze configuratie wordt een notificatie weergegeven met het profielpictogram, voorkeursindicator met pictogrammen (zoals in de Editor), \"Event herstarten\" als pictogram en notificatie zal kleiner worden.</string>
+    <string name="important_info_notification_settings_text4">Het is mogelijk om de melding uit te breiden, zonder notificatie aanpassing, met een gebaar: veeg naar beneden met twee vingers.</string>
+    <string name="important_info_notification_settings_configure">Klik hier om \"Applicatie notificatie\" te configureren met deze parameters.</string>
+    <string name="important_info_notification_settings_toast">Geconfigureerd</string>
+    <string name="menu_choose_language">Taal kiezen</string>
+    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="important_info_choose_language_text1">Kies taal:</string>
+    <string name="important_info_choose_language_text2">In het menu Editor is de optie \"Kies taal\" toegevoegd. Met deze optie kunt u de taal van de applicatie wijzigen.\nDeze optie is ook toegevoegd in PhoneProfilesPlusExtender (versie 8.0).</string>
+    <string name="profile_icon_preference_iconColor_help">Icoonkleur</string>
+    <string name="profile_icon_preference_iconColor_help_info_1">In een donker toepassingsthema kan de kleur van het voorbeeldicoon meer helderheid geven.</string>
+    <string name="profile_icon_preference_iconColor_help_info_2">Een icoon met deze verhoogde helderheid wordt gebruikt in de GUI van de applicatie. Ook in notificaties en widgets als hun achtergrond donker is.</string>
+    <string name="important_info_android_look_application_settings">Open PhoneProfilesPlus Instellingen en configureer. Vooral de instellingen gemarkeerd met dubbele pijl teken.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender voor PhoneProfilesPlus. Deze werkt alleen in combinatie met PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Versie:</string>
@@ -1984,8 +2011,10 @@
     <string name="extender_notification_permission_title">Geen toestemming verleend</string>
     <string name="extender_notification_sms_mms_permission_text">Toestemming voor event parameter \"SMS/MMS sensor\" is niet gegeven. Klik op deze notificatie om de extensie te openen. Binnen deze optie kun je de knop gebruiken om deze machtiging te verlenen.</string>
     <string name="extender_notification_call_permission_text">Er is geen toestemming gegeven voor de event parameter \"Oproep sensor\". Klik op deze melding om de Extender te openen. Daarbinnen gebruik je de knop om de toestemming te verlenen.</string>
-    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
-    <string name="extender_enable_notificaitons_button">Enable</string>
+    <string name="extender_notifications_permission_text">Toegang tot meldingen is niet verleend.\n\nSchakel meldingen voor PhoneProfilesPlus in. Zonder dit aan te zetten worden meldingen van PhoneProfilesPlus niet weergegeven.</string>
+    <string name="extender_enable_notificaitons_button">Inschakelen</string>
+    <string name="extender_menu_choose_language">Taal kiezen</string>
+    <string name="extender_menu_choose_language_system_language">[System]</string>
     <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -2061,4 +2090,5 @@
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationIncreaseBrightnessForProfileIcon">Increase brightness of profile icon in dark mode</string>-->
 </resources>

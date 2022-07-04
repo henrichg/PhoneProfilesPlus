@@ -157,7 +157,7 @@
     <string name="event_list_item_menu_stop">Zastav</string>
     <string name="event_list_item_menu_duplicate">Duplikuj</string>
     <string name="event_list_item_menu_delete">Odstraň</string>
-    <string name="phone_profiles_pref_notificationPrefIndicator">Indikátor parametrů profilu</string>
+    <string name="phone_profiles_pref_notificationPrefIndicator">Zobrazit Indikátor parametrů</string>
     <string name="phone_profiles_pref_applicationHomeLauncher">Spustit z domovské obrazovky</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Spustit z widgetu</string>
     <string name="phone_profiles_pref_notificationLauncher">Spustit z notifikací</string>
@@ -1278,7 +1278,6 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi a Bluetooth potvrzovací dialogy</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pro \"ColorOs\" je možné tyto dialogy zakázat. Klikněte zde pro zobrazení jak.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">V parametrech zařízení:\n1. Vývojářské možnosti\/Vývojářské možnosti = povolit\n2. Vývojářské možnosti\/Ladění\/Ladění přes USB = povolit\n3. Vývojářské možnosti\/Aplikace\/Zabraň sledování povolení = povolit.</string>
-    <string name="important_info_android_look_application_settings">Prosím otevřete Nastavení PhoneProfilesPlus a nakonfigurujte jejich. Speciální parametry označeny tučně.</string>
     <string name="profile_preferences_red_texts_text_2">Pro toto, není možné ho aktivovat.</string>
     <string name="event_preferences_red_texts_text_2">Pro toto, není možné změnit její běh.</string>
     <string name="profile_preferences_red_texts_in_header">Některé profily mají chyby ve svých parametrech. Tyto profily jsou označeny červenou barvou. Prosím opravte je.</string>
@@ -1729,9 +1728,6 @@
     <string name="check_github_releases_version_critical">! KRITICKÉ !</string>
     <string name="important_info_profile_grant_1_howTo_0">Tuto pomoc je lepší otevřít v počítači v jeho internetovém prohlížeči. Je v PhoneProfilesPlus GitHub README.md, označené jako</string>
     <string name="important_info_event_event_sensors">Každá událost má senzory. Všechny senzory s povoleným \"Povolit běh\", musí být \"splněna\", aby se spustil běh události. Spuštěna událost skončí, když některý senzor není \"splněn\".\n\nStav \"splněn\" je indikován barvou názvu senzoru v Editoru:</string>
-    <string name="important_info_event_event_sensors_waiting">Modrá: senzor je ve stavu čekání. Určuje se stav \"splněn\".</string>
-    <string name="important_info_event_event_sensors_passed">Zelená: senzor je \"splněn\".</string>
-    <string name="important_info_event_event_sensors_not_pased">Žlutá: senzor není \"splněn\".</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Nastavení VPN</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Klikněte sem pro zobrazení informace o připojení\/odpojení VPN nakonfigurované v aplikaci OpenVPN.</string>
@@ -1943,6 +1939,38 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Obrazovka nastavení nebyla nalezena.\n\nPřejděte do nastavení zařízení: „Nastavení / Aplikace / Spuštění aplikace“ a nastavte „Spravovat manuálně“ pro PhoneProfilesPlus.</string>
     <string name="notifications_permission_text">Povolení k oznámení není uděleno.\n\nPovolte upozornění pro PhoneProfilesPlus. Bez tohoto povolení se upozornění z PhoneProfilesPlus nebudou zobrazovat.</string>
     <string name="enable_notificaitons_button">Povolit</string>
+    <string name="phone_profiles_pref_applicationWidgetUseDynamicColors">Použít dynamické barvy</string>
+    <string name="important_info_event_event_sensors_waiting">Fialová: senzor je ve stavu čekání. Určuje se stav \"splněný\".</string>
+    <string name="important_info_event_event_sensors_passed">Zelená s dvojitou šipkou: senzor je \"splněný\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Modrá: senzor není \"splněný\".</string>
+    <string name="activity_log_help_message_colors">Použité barvy</string>
+    <string name="activity_log_help_message_colors_profile_activation">Aktivace profilu</string>
+    <string name="activity_log_help_message_colors_event_start">Start události</string>
+    <string name="activity_log_help_message_colors_event_end">Konec události</string>
+    <string name="activity_log_help_message_colors_restart_events">Restart událostí</string>
+    <string name="activity_log_help_message_colors_event_delay_start_end">Štart/koniec udalosti v pozdržení</string>
+    <string name="activity_log_help_message_colors_error">Chyba</string>
+    <string name="activity_log_help_message_colors_others">Ostatní situace</string>
+    <string name="phone_profiles_pref_applicationRestartEventsIconColor">Barva ikony \"Restart událostí\"</string>
+    <string name="important_info_notification_settings_text1">Doporučení pro konfiguraci parametrů \"Nastavení\"/\"Notifikace aplikace\":</string>
+    <string name="important_info_notification_settings_text2">Nakonfigurujte parametr \"Styl oznámení\" na \"Vlastní\", \"Použít dekoraci\" vypnuto, \"Zobrazit ikonu profilu\" zapnuto, \"Zobrazit
+ indikátor parametrů“ zapnuto.</string>
+    <string name="important_info_notification_settings_text3">Při této konfiguraci se upozornění zobrazí s ikonou profilu, indikátor parametrů s ikonami (jako v Editoru), ikona \"Restart události\" a upozornění bude menší.</string>
+    <string name="important_info_notification_settings_text4">Notifikaci, která je bez dekorace, lze rozbalit gestem: potažením dvěma prsty dolů.</string>
+    <string name="important_info_notification_settings_configure">Klepnutím sem nakonfigurujete \"Notifikace aplikace\" s těmito parametry.</string>
+    <string name="important_info_notification_settings_toast">Nakonfigurováno</string>
+    <string name="menu_choose_language">Zvolit jazyk</string>
+    <string name="menu_choose_language_system_language">[Systémový]</string>
+    <string name="important_info_choose_language_text1">Zvolit jazyk:</string>
+    <string name="important_info_choose_language_text2">V menu Editoru je přidána možnost „Vybrat jazyk“. Pomocí ní můžete změnit jazyk aplikace.\nMenu na toto je přidáno také v PhoneProfilesPlusExtender (verze 8.0).</string>
+    <string name="profile_icon_preference_iconColor_help">Barva ikony</string>
+    <string name="profile_icon_preference_iconColor_help_info_1">V tmavém tématu aplikace může mít barva ikony v náhledu zvýšený jas.</string>
+    <string name="profile_icon_preference_iconColor_help_info_2">Ikona s tímto zvýšeným jasem se bude používat v celém GUI aplikace. Také v oznámení a widgetech, pokud je jejich pozadí tmavé.</string>
+    <string name="important_info_android_look_application_settings">Prosím otevřete Nastavení PhoneProfilesPlus a nakonfigurujte je. Zejména parametry označené znakem dvojité šipky.</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Aktuální konfigurace:</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Zapnout v režimu Letadlo</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Vypnout v režimu Letadlo</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Přepnout stav v režimu Letadlo</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender pro PhoneProfilesPlus. Funguje pouze ve spojení s PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Verze:</string>
@@ -1986,6 +2014,8 @@
     <string name="extender_notification_call_permission_text">Oprávnění pro parametr události \"Senzor hovoru\" není uděleno. Klepnutím na toto oznámení otevřete Extender. V něm použijte tlačítko pro udělení tohoto oprávnění.</string>
     <string name="extender_notifications_permission_text">Povolení k oznámení není uděleno.\n\nPovolte upozornění pro PhoneProfilesPlusExtender. Bez tohoto povolení se upozornění z PhoneProfilesPlusExtender nebudou zobrazovat.</string>
     <string name="extender_enable_notificaitons_button">Povolit</string>
+    <string name="extender_menu_choose_language">Zvolit jazyk</string>
+    <string name="extender_menu_choose_language_system_language">[Systémový]</string>
     <!--    <string name="extender_dont_enable_notificaitons_button">Do not enable</string> -->
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -2061,4 +2091,5 @@
     <!--    <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners</string>-->
     <!--    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>-->
+    <!--    <string name="phone_profiles_pref_applicationIncreaseBrightnessForProfileIcon">Increase brightness of profile icon in dark mode</string>-->
 </resources>
