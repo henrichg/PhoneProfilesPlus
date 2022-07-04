@@ -48,6 +48,8 @@ On your PC, open a Command Prompt (Windows), or Terminal (Linux, OSX). Navigate 
 
 `adb shell content update --uri content://settings/global --bind value:s:'cell,nfc,wimax' --where "name=\'airplane_mode_radios\'`
 
+And please, do reboot of device after change of this configuration.
+
 ### Source:
 https://defkey.com/2020/12/15/keep-wi-fi-bluetooth-airplane-mode
 
