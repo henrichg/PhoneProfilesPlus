@@ -647,18 +647,15 @@ Cez neho je mozne ziskat, ci je mobil v roamingu alebo ci jeho data su v roaming
 
 A samozrejme potom este novy senzor do udalosti pre toto.
 
+ASI NETREBA, VOLANE onServiceStateChanged() NA ZACIATKU
 Treba na zaciatku v doForFirstStart() testnut, ci je v mobil roamingu. Takze sprav to ako mas hore v
 onServiceStateChanged() a pouzi na to tieto globalne premmene v PPApplication:
-    static PhoneCallsListener phoneCallsListenerSIM1 = null;
-    static PhoneCallsListener phoneCallsListenerSIM2 = null;
-    static PhoneCallsListener phoneCallsListenerDefaul = null;
     static TelephonyManager telephonyManagerSIM1 = null;
     static TelephonyManager telephonyManagerSIM2 = null;
     static TelephonyManager telephonyManagerDefault = null;
-
 Pouzi na ziskanie ServiceState toto: TelephonyManager.getServiceState().
 ALE BACHA, JE LEN OD API 26. Takze pre nizsie api nebude v senzore ziskanie data roamingu.
-Pre API < 26 pouzi len toto (ziskanie network roamingu):
+Pre API < 26 pouzi len toto (ziskanie network roamingu z TelephonyManager):
     if (telephonyManager.isNetworkRoaming()) {
         // In Roaming
     } else {
@@ -666,6 +663,7 @@ Pre API < 26 pouzi len toto (ziskanie network roamingu):
     }
 
 V emulatore si mozem zapnut roaming, takze mozem testovat ;-)
+Funfuje v api 24, v 32 neslo. Tak testuj.
 
 Zdroj: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
 
