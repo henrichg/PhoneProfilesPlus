@@ -1237,7 +1237,7 @@ public class PPApplication extends Application
         super.attachBaseContext(LocaleHelper.onAttach(base));
         //Reflection.unseal(base);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            HiddenApiBypass.addHiddenApiExemptions("");
+            HiddenApiBypass.addHiddenApiExemptions("L");
         }
 
         // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
