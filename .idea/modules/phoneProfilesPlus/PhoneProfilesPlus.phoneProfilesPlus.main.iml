@@ -73,6 +73,7 @@
     <orderEntry type="library" name="Gradle: com.linkedin.dexmaker:dexmaker:2.28.1" level="project" />
     <orderEntry type="library" name="Gradle: ./phoneProfilesPlus/libs/sdk-v1.0.0.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./phoneProfilesPlus/libs/slook_v1.4.0.jar" level="project" />
+    <orderEntry type="library" name="Gradle: org.lsposed.hiddenapibypass:hiddenapibypass:4.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-mail:5.9.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-core:5.9.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-notification:5.9.5@aar" level="project" />

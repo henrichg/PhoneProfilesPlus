@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -36,7 +35,6 @@ class AddProfileDialog
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_profile_preference, null);
         dialogBuilder.setView(layout);
 
@@ -65,7 +63,6 @@ class AddProfileDialog
 
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void onShow(/*DialogInterface dialog*/) {
         AddProfileDialog.GetProfilesAsyncTask asyncTask = new AddProfileDialog.GetProfilesAsyncTask(this, activity, profileListFragment.activityDataWrapper);
         asyncTask.execute();

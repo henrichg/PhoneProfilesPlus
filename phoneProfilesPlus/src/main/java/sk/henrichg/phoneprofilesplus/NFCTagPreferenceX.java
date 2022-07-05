@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -122,7 +121,6 @@ public class NFCTagPreferenceX extends DialogPreference {
         return false;
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void refreshListView(/*boolean forRescan, */final String scrollToTag)
     {
         if (fragment != null)

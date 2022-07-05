@@ -25,7 +25,11 @@ class BluetoothScanner {
     static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
     static boolean bluetoothDiscoveryStarted = false;
     static BluetoothLeScanner bluetoothLEScanner = null;
+
+    // this is OK, because this callback will be set to null after stop of LE scan
+    @SuppressLint("StaticFieldLeak")
     static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
+
     //static BluetoothLEScanCallback18 bluetoothLEScanCallback18 = null;
     //static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
 
@@ -116,7 +120,6 @@ class BluetoothScanner {
                     else
                         leDevicesScan = false;*/
                     /*if (PPApplication.logEnabled()) {
-                        //noinspection ConstantConditions
                         PPApplication.logE("$$$B BluetoothScanner.doScan", "classicDevicesScan=" + classicDevicesScan);
                         PPApplication.logE("$$$B BluetoothScanner.doScan", "leDevicesScan=" + leDevicesScan);
                     }*/
@@ -166,7 +169,7 @@ class BluetoothScanner {
                                 //unlock();
                             }
 
-                            //noinspection ConstantConditions,ConstantIfStatement
+                            //noinspection ConstantConditions
                             if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
                                 BluetoothScanWorker.setScanRequest(context, false);
                                 BluetoothScanWorker.setLEScanRequest(context, false);
@@ -361,7 +364,6 @@ class BluetoothScanner {
         }
     }
 
-    @SuppressLint("NewApi")
     private int enableBluetooth(BluetoothAdapter bluetooth,
                                 Handler bluetoothChangeHandler,
                                 boolean forLE)
@@ -482,7 +484,6 @@ class BluetoothScanner {
         }
     }
 
-    @SuppressLint("InlinedApi")
     static boolean bluetoothLESupported(/*Context context*/) {
         return (/*(android.os.Build.VERSION.SDK_INT >= 18) &&*/
                 PPApplication.HAS_FEATURE_BLUETOOTH_LE);
@@ -492,7 +493,6 @@ class BluetoothScanner {
         //if (Build.VERSION.SDK_INT >= 23) {
             // check for Location Settings
 
-            //noinspection RedundantIfStatement
             if (!PhoneProfilesService.isLocationEnabled(context)/* || (!isScanAlwaysAvailable)*/) {
                 // Location settings are not properly set, show notification about it
 

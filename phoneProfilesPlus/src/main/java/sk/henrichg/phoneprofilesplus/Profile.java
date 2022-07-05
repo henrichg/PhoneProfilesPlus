@@ -1145,7 +1145,7 @@ public class Profile {
     // constructor
     Profile(String name,
                    String icon,
-                   @SuppressWarnings("SameParameterValue") Boolean checked,
+                   Boolean checked,
                    int porder,
                    int volumeRingerMode,
                    String volumeRingtone,
@@ -1838,7 +1838,6 @@ public class Profile {
     // compare profies for check if withProfile has any change
     // used for profilie activation by event
     // return: false = compared profiles are not the same
-    @SuppressWarnings("RedundantIfStatement")
     boolean compareProfile(Profile withProfile)
     {
         //PPApplication.logE("$$$ compareProfiles","name="+_name);
@@ -2882,7 +2881,7 @@ public class Profile {
 //    private static final float _B = 0.28466892f;
 //    private static final float _C = 0.55991073f;
 
-/*    @SuppressWarnings("SameParameterValue")
+/*
     private static float convertLinearToGamma(float val, float min, float max) {
         // For some reason, HLG normalizes to the range [0, 12] rather than [0, 1]
         final float normalizedVal = MathUtils.norm(min, max, val) * 12;
@@ -2899,7 +2898,6 @@ public class Profile {
         return MathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret);
     }
 
-    @SuppressWarnings("SameParameterValue")
     private static float convertGammaToLinear(float val, float min, float max) {
         //int spaceMax = GAMMA_SPACE_MAX_256;
         //if (PPApplication.romIsOnePlus)
@@ -2917,7 +2915,6 @@ public class Profile {
         return MathUtils.lerp(min, max, ret / 12);
     }
 
-    @SuppressWarnings("SameParameterValue")
     private static float getPercentage(float value, float min, float max) {
         if (value > max) {
             return 1.0f;
@@ -3156,7 +3153,6 @@ public class Profile {
         return convertPercentsToBrightnessAdaptiveValue(percentage, context);
     }
 
-    @SuppressWarnings("SameParameterValue")
     static long convertBrightnessToPercents(int value/*, int maxValue, int minValue*/)
     {
         long percentage;

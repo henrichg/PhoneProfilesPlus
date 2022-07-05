@@ -186,7 +186,6 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         });
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_ask_for_duration, null);
         dialogBuilder.setView(layout);
 

@@ -992,13 +992,12 @@ class Event {
                 hasVibrator = (vibrator != null) && vibrator.hasVibrator();
             }
 
+            Preference preference = prefMng.findPreference(key);
             if (hasVibrator) {
-                Preference preference = prefMng.findPreference(key);
                 if (preference != null)
                     preference.setVisible(true);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false, false);
             } else {
-                Preference preference = prefMng.findPreference(key);
                 if (preference != null)
                     preference.setVisible(false);
             }
@@ -2499,7 +2498,6 @@ class Event {
         }
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     void setDelayStartAlarm(DataWrapper dataWrapper)
     {
         removeDelayStartAlarm(dataWrapper);
@@ -2762,7 +2760,6 @@ class Event {
         //PPApplication.logE("[HANDLER] Event.removeDelayStartAlarm", "removed");
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     void setDelayEndAlarm(DataWrapper dataWrapper, boolean forRestartEvents)
     {
         removeDelayEndAlarm(dataWrapper);

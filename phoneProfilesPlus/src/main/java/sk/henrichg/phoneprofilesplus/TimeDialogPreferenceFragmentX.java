@@ -37,7 +37,6 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
         return inflater.inflate(R.layout.dialog_time_preference, null, false);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDialogView(@NonNull View view)
     {

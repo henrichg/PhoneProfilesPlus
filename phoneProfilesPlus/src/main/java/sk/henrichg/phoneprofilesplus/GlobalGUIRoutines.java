@@ -308,7 +308,7 @@ class GlobalGUIRoutines {
             switchNightMode(appContext);
     }
 
-    static void reloadActivity(final Activity activity, @SuppressWarnings("SameParameterValue") boolean newIntent)
+    static void reloadActivity(final Activity activity, boolean newIntent)
     {
         if (activity == null)
             return;
@@ -431,7 +431,6 @@ class GlobalGUIRoutines {
     }
     */
 
-    @SuppressWarnings("SameParameterValue")
     static int dpToPx(int dp)
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
@@ -499,7 +498,8 @@ class GlobalGUIRoutines {
 
         String finalDateTime = "";
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date date;
         if (timeToFormat != null) {
@@ -1290,7 +1290,6 @@ class GlobalGUIRoutines {
     static void registerOnActivityDestroyListener(@NonNull Preference preference, @NonNull PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
-            @SuppressLint("PrivateApi")
             Method method = pm.getClass().getDeclaredMethod(
                     "registerOnActivityDestroyListener",
                     PreferenceManager.OnActivityDestroyListener.class);
@@ -1303,7 +1302,6 @@ class GlobalGUIRoutines {
     static void unregisterOnActivityDestroyListener(@NonNull Preference preference, @NonNull PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
-            @SuppressLint("PrivateApi")
             Method method = pm.getClass().getDeclaredMethod(
                     "unregisterOnActivityDestroyListener",
                     PreferenceManager.OnActivityDestroyListener.class);
@@ -1375,7 +1373,6 @@ class GlobalGUIRoutines {
         private int mSelectedIndex = -1;
         private final Activity activity;
 
-        @SuppressWarnings("SameParameterValue")
         HighlightedSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
             super(activity, textViewResourceId, objects);
             this.activity = activity;

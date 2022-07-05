@@ -1951,9 +1951,7 @@ public class DatabaseHandlerEvents {
         }
     }
 
-    static void updateAllEventsStatus(DatabaseHandler instance,
-                                      @SuppressWarnings("SameParameterValue") int fromStatus,
-                               @SuppressWarnings("SameParameterValue") int toStatus)
+    static void updateAllEventsStatus(DatabaseHandler instance, int fromStatus, int toStatus)
     {
         instance.importExportLock.lock();
         try {
@@ -4835,7 +4833,6 @@ public class DatabaseHandlerEvents {
         }
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean isMobileCellSaved(DatabaseHandler instance, int mobileCell) {
         instance.importExportLock.lock();
         try {

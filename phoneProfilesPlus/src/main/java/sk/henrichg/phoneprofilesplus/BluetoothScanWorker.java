@@ -672,7 +672,6 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    @SuppressLint("NewApi")
     static void startLEScan(final Context context)
     {
         //PPApplication.logE("BluetoothScanWorker.startLEScan", "xxx");
@@ -728,7 +727,6 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    @SuppressLint("NewApi")
     static void stopLEScan(final Context context) {
         //PPApplication.logE("%%%%BLE BluetoothScanWorker.stopLEScan", "xxx");
         if (BluetoothScanner.bluetoothLESupported(/*context*/)) {
@@ -748,6 +746,7 @@ public class BluetoothScanWorker extends Worker {
                         }
 
                         BluetoothScanner.bluetoothLEScanner.stopScan(BluetoothScanner.bluetoothLEScanCallback21);
+                        BluetoothScanner.bluetoothLEScanCallback21 = null;
 
                         //PPApplication.logE("%%%%BLE BluetoothScanWorker.stopLEScan", "stopped");
                     } catch (Exception e) {

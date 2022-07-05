@@ -210,7 +210,7 @@ public class EditorEventListFragment extends Fragment
             showTargetHelps();
     }
 
-    @SuppressLint({"AlwaysShowAction", "SetTextI18n"})
+    @SuppressLint("SetTextI18n")
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.editor_events_activated_profile_pref_indicator);
@@ -1469,7 +1469,6 @@ public class EditorEventListFragment extends Fragment
                             return null;
                         }
 
-                        //noinspection ForLoopReplaceableByForEach
                         for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                             Event event = it.next();
                             int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
@@ -1547,7 +1546,6 @@ public class EditorEventListFragment extends Fragment
             if (!activityDataWrapper.eventListFilled)
                 return;
 
-            //noinspection ForLoopReplaceableByForEach
             for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                 Event event = it.next();
                 int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
@@ -2026,7 +2024,6 @@ public class EditorEventListFragment extends Fragment
 
     /*
     void updateEventForceRun(final Event event) {
-        //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(getString(R.string.event_string_0) + ": " + event._name);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -2222,7 +2219,6 @@ public class EditorEventListFragment extends Fragment
             return null;
         }
 
-        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void result)
         {

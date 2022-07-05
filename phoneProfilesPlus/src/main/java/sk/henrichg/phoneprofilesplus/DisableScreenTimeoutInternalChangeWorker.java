@@ -33,7 +33,6 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
             if (workManager != null) {
                 ListenableFuture<List<WorkInfo>> statuses;
                 statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                //noinspection TryWithIdenticalCatches
                 try {
                     List<WorkInfo> workInfoList = statuses.get();
                     for (WorkInfo workInfo : workInfoList) {

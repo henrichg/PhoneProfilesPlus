@@ -24,7 +24,6 @@ final class WifiApManager {
     private ConnectivityManager mConnectivityManager;
     private String packageName;
 
-    @SuppressLint("PrivateApi")
     WifiApManager(Context context) throws SecurityException, NoSuchMethodException {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (mWifiManager != null)
@@ -244,7 +243,6 @@ final class WifiApManager {
             //PPApplication.logE("WifiApManager.callStartTethering", Log.getStackTraceString(e));
 
             // Newer devices have "callingPkg" String argument at the end of this method.
-            @SuppressLint("SoonBlockedPrivateApi")
             Method startTetheringMethod = internalConnectivityManagerClass.getDeclaredMethod("startTethering",
                     int.class,
                     ResultReceiver.class,
@@ -296,8 +294,8 @@ final class WifiApManager {
         }
     }
 
-    @SuppressWarnings("RedundantArrayCreation")
     @SuppressLint("PrivateApi")
+    @SuppressWarnings("RedundantArrayCreation")
     static boolean canExploitWifiTethering30(Context context) {
         try {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -376,8 +374,8 @@ final class WifiApManager {
 
     // Thanks to author of MacroDroid application.
     // It is used as source of this implenetation.
-    @SuppressWarnings("RedundantArrayCreation")
     @SuppressLint("PrivateApi")
+    @SuppressWarnings("RedundantArrayCreation")
     static private void _startTethering30(Context context,
                                    MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract,
                                    Handler handler) {

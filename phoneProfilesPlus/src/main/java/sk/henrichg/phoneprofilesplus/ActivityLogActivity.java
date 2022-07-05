@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -25,7 +24,6 @@ public class ActivityLogActivity extends AppCompatActivity {
     private ListView listView;
     private ActivityLogAdapter activityLogAdapter;
 
-    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
@@ -177,7 +175,6 @@ public class ActivityLogActivity extends AppCompatActivity {
             //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
             LayoutInflater inflater = getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_info_preference, null);
             dialogBuilder.setView(layout);
 

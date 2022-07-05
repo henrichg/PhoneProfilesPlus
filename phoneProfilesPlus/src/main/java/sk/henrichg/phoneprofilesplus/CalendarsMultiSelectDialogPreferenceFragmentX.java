@@ -100,7 +100,6 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
         preference.fragment = null;
     }
 
-    @SuppressLint("StaticFieldLeak")
     void refreshListView(final boolean notForUnselect) {
         asyncTask = new RefreshListViewAsyncTask(notForUnselect,
                             preference, this, prefContext) ;
@@ -181,7 +180,6 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
             }
         }
 
-        @SuppressLint("MissingPermission")
         @Override
         protected Void doInBackground(Void... params) {
             CalendarsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
@@ -202,7 +200,6 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
                     */
                     // Submit the query and get a Cursor object back.
                     //cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
-                    //noinspection MissingPermission
                     cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
                     if (cur != null) {
                         while (cur.moveToNext()) {

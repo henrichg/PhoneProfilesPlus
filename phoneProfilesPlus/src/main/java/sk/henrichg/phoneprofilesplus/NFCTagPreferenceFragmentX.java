@@ -211,7 +211,6 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         preference.fragment = null;
     }
 
-    @SuppressLint("StaticFieldLeak")
     void refreshListView(/*boolean forRescan, */final String scrollToTag)
     {
         //final boolean _forRescan = forRescan;

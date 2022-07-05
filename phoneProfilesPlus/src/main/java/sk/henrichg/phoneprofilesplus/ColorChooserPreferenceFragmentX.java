@@ -132,7 +132,6 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
                     //LayoutInflater inflater = getLayoutInflater();
                     // WARNING - use this for get transparent beckround of EditText celector handler
                     LayoutInflater inflater = LayoutInflater.from(preference.context);
-                    @SuppressLint("InflateParams")
                     View layout = inflater.inflate(R.layout.dialog_custom_color_preference, null);
                     dialogBuilder.setView(layout);
 

@@ -511,7 +511,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean forRescan, final int renameCellId)
     {
         rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, renameCellId, preference, this, prefContext);

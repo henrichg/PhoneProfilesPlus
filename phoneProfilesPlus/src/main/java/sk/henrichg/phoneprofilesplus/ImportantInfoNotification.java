@@ -96,7 +96,6 @@ class ImportantInfoNotification {
 
         if (newsLatest) {
             // change to false for not show notification
-            //noinspection ConstantConditions
             news = true;
         }
 
@@ -117,7 +116,6 @@ class ImportantInfoNotification {
             //    PPApplication.logE("ImportantInfoNotification.canShowNotification", "callSensorsCount=" + callSensorsCount);
             //}
 
-            //noinspection RedundantIfStatement
             if (!sensorExists)
                 news = false;
             else {
@@ -131,7 +129,6 @@ class ImportantInfoNotification {
             boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
             if (!sensorExists)
                 sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
-            //noinspection RedundantIfStatement
             if (!sensorExists)
                 news = false;
             else {

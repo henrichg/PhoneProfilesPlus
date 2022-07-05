@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
@@ -211,7 +210,6 @@ public class TileChooserListFragment extends Fragment {
         activityDataWrapper = null;
     }
 
-    @SuppressLint("StaticFieldLeak")
     void chooseTile(final int position)
     {
         if (getActivity() != null) {

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -112,7 +111,6 @@ class MobileCellsScanner {
         MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
     }
 
-    @SuppressLint("InlinedApi")
     void connect() {
 //        PPApplication.logE("MobileCellsScanner.connect", "xxx");
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);

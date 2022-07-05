@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -1312,12 +1311,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 // IMPORT/EXPORT -------------------------------------------------------------------------
 
-    @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     int importDB(/*String applicationDataPath*/) {
         return DatabaseHandlerImportExport.importDB(this);
     }
 
-    @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     int exportDB()
     {
         return DatabaseHandlerImportExport.exportDB(this);

@@ -91,7 +91,6 @@ class AutostartPermissionNotification {
         }
     }
 
-    @SuppressLint("BatteryLife")
     static private void showNotification(Context context, String title, String text) {
         PPApplication.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)

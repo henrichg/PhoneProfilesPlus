@@ -2,6 +2,13 @@ Ked nejde git push, skus v terminaly AS:
 git config credential.helper store
 
 --------------------------------
+Hadanie warningov v kode:
+Toto hladaj:
+@SuppressLint
+@SuppressWarnings
+//noinspection
+
+--------------------------------
 
 Preco uz nie je PPP v GPlay:
 

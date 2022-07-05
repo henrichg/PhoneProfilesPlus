@@ -134,7 +134,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
 
                 if (PPApplication.logEnabled()) {
-                    @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String alarmTimeS = sdf.format(sbn.getPostTime());
                     PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
@@ -548,8 +547,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     */
 
     // Convenience method for sending an {@link android.content.Intent} with {@link #ACTION_REQUEST_INTERRUPTION_FILTER}.
-/*    @SuppressLint("InlinedApi")
-    public static void requestInterruptionFilter(final Context context, final int zenMode) {
+/* public static void requestInterruptionFilter(final Context context, final int zenMode) {
         try {
             boolean a60 = //(android.os.Build.VERSION.SDK_INT == 23) &&
                     Build.VERSION.RELEASE.equals("6.0");
@@ -618,7 +616,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 /*
     class NLServiceReceiver extends BroadcastReceiver {
 
-        @SuppressLint("InlinedApi")
         @Override
         public void onReceive(Context context, Intent intent) {
 //            PPApplication.logE("[IN_BROADCAST] PPNotificationListenerService.NLServiceReceiver.onReceive", "xxx");

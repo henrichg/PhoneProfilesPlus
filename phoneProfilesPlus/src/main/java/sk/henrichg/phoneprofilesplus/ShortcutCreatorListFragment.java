@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -218,7 +217,6 @@ public class ShortcutCreatorListFragment extends Fragment {
         activityDataWrapper = null;
     }
 
-    @SuppressLint("StaticFieldLeak")
     void createShortcut(final int position)
     {
         new CreateShortcutAsyncTask(position, this).execute();
@@ -255,7 +253,6 @@ public class ShortcutCreatorListFragment extends Fragment {
         String profileName;
         String longLabel;
         boolean useCustomColor;
-        Context context;
         Intent shortcutIntent;
         ShortcutInfoCompat.Builder shortcutBuilderCompat;
 
@@ -281,56 +278,57 @@ public class ShortcutCreatorListFragment extends Fragment {
                     profile = fragment.activityDataWrapper.profileList.get(position);
                 }
 
-                //noinspection ConstantConditions
-                context = fragment.getActivity().getApplicationContext();
+                if (fragment.getActivity() != null) {
+                    Context context = fragment.getActivity().getApplicationContext();
 
-                if (profile != null) {
-                    isIconResourceID = profile.getIsIconResourceID();
-                    iconIdentifier = profile.getIconIdentifier();
-                    profileName = profile._name;
-                    longLabel = fragment.getString(R.string.shortcut_activate_profile) + profileName;
-                    useCustomColor = profile.getUseCustomColorForIcon();
-                    String id;
-                    if (position == 0) {
-                        profileName = fragment.getString(R.string.menu_restart_events);
-                        longLabel = profileName;
-                        id = "restart_events";
-                    } else
-                        id = "profile_" + profile._id;
+                    if (profile != null) {
+                        isIconResourceID = profile.getIsIconResourceID();
+                        iconIdentifier = profile.getIconIdentifier();
+                        profileName = profile._name;
+                        longLabel = fragment.getString(R.string.shortcut_activate_profile) + profileName;
+                        useCustomColor = profile.getUseCustomColorForIcon();
+                        String id;
+                        if (position == 0) {
+                            profileName = fragment.getString(R.string.menu_restart_events);
+                            longLabel = profileName;
+                            id = "restart_events";
+                        } else
+                            id = "profile_" + profile._id;
 
-                    if (profileName.isEmpty())
-                        profileName = " ";
+                        if (profileName.isEmpty())
+                            profileName = " ";
 
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._id=" + profile._id);
-                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileName=" + profileName);
-                    }*/
+                        /*if (PPApplication.logEnabled()) {
+                            PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._id=" + profile._id);
+                            PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileName=" + profileName);
+                        }*/
 
-                    if (position == 0) {
-                        // restart events
+                        if (position == 0) {
+                            // restart events
                         /*shortcutIntent = new Intent(context, ActionForExternalApplicationActivity.class);
                         shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);*/
-                        shortcutIntent = new Intent(context, BackgroundActivateProfileActivity.class);
-                        shortcutIntent.setAction(Intent.ACTION_MAIN);
-                        shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
-                        shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
-                    } else {
-                        shortcutIntent = new Intent(context, BackgroundActivateProfileActivity.class);
-                        shortcutIntent.setAction(Intent.ACTION_MAIN);
-                        shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
-                        shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                            shortcutIntent = new Intent(context, BackgroundActivateProfileActivity.class);
+                            shortcutIntent.setAction(Intent.ACTION_MAIN);
+                            shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
+                            shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
+                        } else {
+                            shortcutIntent = new Intent(context, BackgroundActivateProfileActivity.class);
+                            shortcutIntent.setAction(Intent.ACTION_MAIN);
+                            shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
+                            shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                        }
+
+                        /*
+                        Intent intent = new Intent();
+                        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+                        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, profileName);
+                        */
+
+                        shortcutBuilderCompat = new ShortcutInfoCompat.Builder(context, id);
+                        shortcutBuilderCompat.setIntent(shortcutIntent);
+                        shortcutBuilderCompat.setShortLabel(profileName);
+                        shortcutBuilderCompat.setLongLabel(longLabel);
                     }
-
-                    /*
-                    Intent intent = new Intent();
-                    intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-                    intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, profileName);
-                    */
-
-                    shortcutBuilderCompat = new ShortcutInfoCompat.Builder(context, id);
-                    shortcutBuilderCompat.setIntent(shortcutIntent);
-                    shortcutBuilderCompat.setShortLabel(profileName);
-                    shortcutBuilderCompat.setLongLabel(longLabel);
                 }
             }
         }
@@ -339,80 +337,100 @@ public class ShortcutCreatorListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             ShortcutCreatorListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
-                if (profile != null) {
+                if (fragment.getActivity() != null) {
+                    Context context = fragment.getActivity().getApplicationContext();
+
+                    if (profile != null) {
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "isIconResourceID=" + isIconResourceID);
                         PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._iconBitmap=" + profile._iconBitmap);
                     }*/
 
-                    if (isIconResourceID) {
-                        if (profile._iconBitmap != null)
-                            profileBitmap = profile._iconBitmap;
-                        else {
-                            //int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                            int iconResource = Profile.getIconResource(iconIdentifier);
-                            //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
-                            profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
+                        if (isIconResourceID) {
+                            if (profile._iconBitmap != null)
+                                profileBitmap = profile._iconBitmap;
+                            else {
+                                //int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                                int iconResource = Profile.getIconResource(iconIdentifier);
+                                //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
+                                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
+                            }
+                        } else {
+                            int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+                            int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+                            //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
+                            profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context);
+                            if (profileBitmap == null) {
+                                int iconResource = R.drawable.ic_profile_default;
+                                //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
+                                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
+                            }
                         }
-                    } else {
-                        int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
-                        int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
-                        //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
-                        profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context);
-                        if (profileBitmap == null) {
-                            int iconResource = R.drawable.ic_profile_default;
-                            //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
-                            profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
-                        }
-                    }
-                    if (Build.VERSION.SDK_INT < 26)
-                        shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
+                        if (Build.VERSION.SDK_INT < 26)
+                            shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
 
-                    if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
+                        if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "applicationWidgetIconColor=1");
                             PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "useCustomColor=" + useCustomColor);
                         }*/
-                        if (isIconResourceID || useCustomColor) {
-                            // icon is from resource or colored by custom color
-                            int monochromeValue = 0xFF;
-                            String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) monochromeValue = 0x00;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) monochromeValue = 0x20;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) monochromeValue = 0x40;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) monochromeValue = 0x60;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) monochromeValue = 0x80;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) monochromeValue = 0xA0;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) monochromeValue = 0xC0;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) monochromeValue = 0xE0;
-                            //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 0xFF;
-                            profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, context*/);
-                        } else {
-                            float monochromeValue = 255f;
-                            String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) monochromeValue = -255f;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) monochromeValue = -192f;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) monochromeValue = -128f;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) monochromeValue = -64f;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) monochromeValue = 0f;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) monochromeValue = 64f;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) monochromeValue = 128f;
-                            if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) monochromeValue = 192f;
-                            //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 255f;
-                            profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
-                            if (ApplicationPreferences.applicationShortcutCustomIconLightness)
-                                profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
+                            if (isIconResourceID || useCustomColor) {
+                                // icon is from resource or colored by custom color
+                                int monochromeValue = 0xFF;
+                                String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0))
+                                    monochromeValue = 0x00;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12))
+                                    monochromeValue = 0x20;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25))
+                                    monochromeValue = 0x40;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37))
+                                    monochromeValue = 0x60;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50))
+                                    monochromeValue = 0x80;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62))
+                                    monochromeValue = 0xA0;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75))
+                                    monochromeValue = 0xC0;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87))
+                                    monochromeValue = 0xE0;
+                                //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 0xFF;
+                                profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, context*/);
+                            } else {
+                                float monochromeValue = 255f;
+                                String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0))
+                                    monochromeValue = -255f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12))
+                                    monochromeValue = -192f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25))
+                                    monochromeValue = -128f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37))
+                                    monochromeValue = -64f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50))
+                                    monochromeValue = 0f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62))
+                                    monochromeValue = 64f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75))
+                                    monochromeValue = 128f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87))
+                                    monochromeValue = 192f;
+                                //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 255f;
+                                profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
+                                if (ApplicationPreferences.applicationShortcutCustomIconLightness)
+                                    profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
+                            }
                         }
+
+                        //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileBitmap=" + profileBitmap);
+
+                        if (Build.VERSION.SDK_INT < 26)
+                            profileShortcutBitmap = fragment.combineImages(profileBitmap, shortcutOverlayBitmap);
+                        else
+                            profileShortcutBitmap = profileBitmap;
+                        //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
+                        shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
                     }
-
-                    //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileBitmap=" + profileBitmap);
-
-                    if (Build.VERSION.SDK_INT < 26)
-                        profileShortcutBitmap = fragment.combineImages(profileBitmap, shortcutOverlayBitmap);
-                    else
-                        profileShortcutBitmap = profileBitmap;
-                    //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
-                    shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
                 }
             }
 
@@ -427,6 +445,9 @@ public class ShortcutCreatorListFragment extends Fragment {
             ShortcutCreatorListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if ((fragment.getActivity() != null) && !fragment.getActivity().isFinishing()) {
+
+                    Context context = fragment.getActivity().getApplicationContext();
+
                     if (profile != null) {
                         //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "create result intent");
 

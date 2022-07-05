@@ -15,7 +15,7 @@ public class LockDeviceActivity extends AppCompatActivity {
     private View view = null;
     private boolean displayed = false;
 
-    @SuppressLint({"InflateParams", "WrongConstant"})
+    @SuppressLint({"WrongConstant", "InflateParams"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

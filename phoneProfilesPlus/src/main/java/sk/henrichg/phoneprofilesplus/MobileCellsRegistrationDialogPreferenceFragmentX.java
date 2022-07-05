@@ -76,7 +76,6 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
         });
 
         LayoutInflater inflater = ((Activity)prefContext).getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_mobile_cells_registration_preference, null);
         dialogBuilder.setView(layout);
 

@@ -71,7 +71,8 @@ public final class ImprovedBulletSpan implements LeadingMarginSpan {
         return this.color;
     }
 
-    ImprovedBulletSpan(int bulletRadius, int gapWidth, @SuppressWarnings("SameParameterValue") int color) {
+    ImprovedBulletSpan(int bulletRadius, int gapWidth,
+                       @SuppressWarnings("SameParameterValue") int color) {
         this.bulletRadius = bulletRadius;
         this.gapWidth = gapWidth;
         this.color = color;

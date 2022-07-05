@@ -554,7 +554,6 @@ public class PhoneProfilesService extends Service
     public static void stop(/*Context context*/) {
         if (instance != null) {
             /*try {
-                //noinspection deprecation
                 context.sendStickyBroadcast(new Intent(ACTION_STOP));
                 //context.sendBroadcast(new Intent(ACTION_STOP));
             } catch (Exception ignored) {
@@ -579,7 +578,6 @@ public class PhoneProfilesService extends Service
         return serviceHasFirstStart;
     }
 
-//    @SuppressWarnings("SameParameterValue")
 //    void setServiceHasFirstStart(boolean value) {
 //        serviceHasFirstStart = value;
 //    }
@@ -3203,7 +3201,6 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("[RJS] PhoneProfilesService.schedulePeriodicScanningWorker", "SCHEDULE");
         if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
             boolean eventAllowed = false;
-            //noinspection RedundantIfStatement
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)) {
                 // start only for screen On
                 eventAllowed = true;
@@ -4010,17 +4007,14 @@ public class PhoneProfilesService extends Service
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory())) {
                 Log.e("PhoneProfilesService.doForFirstStart", "create PPP folder - start");
-                //noinspection ResultOfMethodCallIgnored
                 boolean created = exportDir.mkdirs();
                 Log.e("PhoneProfilesService.doForFirstStart", "created="+created);
                 try {
-                    //noinspection ResultOfMethodCallIgnored
                     exportDir.setReadable(true, false);
                 } catch (Exception ee) {
                     PPApplication.recordException(ee);
                 }
                 try {
-                    //noinspection ResultOfMethodCallIgnored
                     exportDir.setWritable(true, false);
                 } catch (Exception ee) {
                     PPApplication.recordException(ee);
@@ -6845,7 +6839,6 @@ public class PhoneProfilesService extends Service
 
     static void clearOldProfileNotification() {
         boolean clear = false;
-        //noinspection RedundantIfStatement
         if (Build.MANUFACTURER.equals("HMD Global"))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
             clear = true;
@@ -7257,7 +7250,6 @@ public class PhoneProfilesService extends Service
         return PPApplication.mStartedOrientationSensors;
     }
 
-    @SuppressLint("NewApi")
     private void startListeningOrientationSensors() {
         //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "mStartedOrientationSensors="+mStartedOrientationSensors);
         if (!PPApplication.mStartedOrientationSensors) {
@@ -7417,7 +7409,6 @@ public class PhoneProfilesService extends Service
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_ORIENTATION_EVENT_SENSOR_TAG_WORK);
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     void setOrientationSensorAlarm(Context context)
     {
         Calendar calEndTime = Calendar.getInstance();
@@ -7766,7 +7757,6 @@ public class PhoneProfilesService extends Service
                     //    }
                     //}
                     //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                    //noinspection RedundantIfStatement
                     if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
                            simulateRinging = true;
                            //stream = AudioManager.STREAM_ALARM;

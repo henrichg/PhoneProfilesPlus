@@ -88,7 +88,6 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
         preference.fragment = null;
     }
 
-    @SuppressLint("StaticFieldLeak")
     void refreshListView(final boolean notForUnselect) {
         asyncTask = new RefreshListViewAsyncTask(notForUnselect, preference, this, prefContext);
         asyncTask.execute();

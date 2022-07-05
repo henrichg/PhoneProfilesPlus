@@ -143,7 +143,6 @@ class IgnoreBatteryOptimizationNotification {
 
         /*
         Intent disableIntent = new Intent(context, IgnoreBatteryOptimizationDisableActivity.class);
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pDisableIntent = PendingIntent.getActivity(context, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
                 //R.drawable.ic_action_exit_app,

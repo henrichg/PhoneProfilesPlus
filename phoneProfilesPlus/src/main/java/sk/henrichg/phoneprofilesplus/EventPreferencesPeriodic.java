@@ -376,7 +376,6 @@ class EventPreferencesPeriodic extends EventPreferences {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_PERIODIC_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(long alarmTime, Context context)
     {
         //PPApplication.logE("EventPreferencesPeriodic.setAlarm","_permanentRun="+_permanentRun);

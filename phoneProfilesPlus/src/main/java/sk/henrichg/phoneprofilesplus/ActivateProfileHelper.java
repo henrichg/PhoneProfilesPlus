@@ -841,10 +841,10 @@ class ActivateProfileHelper {
             declaredMethod.setAccessible(true);
             Integer num = (Integer) declaredMethod.invoke(null, new Object[0]);
             if (num != null) {
-                //noinspection RedundantArrayCreation
+                @SuppressWarnings("RedundantArrayCreation")
                 @SuppressLint("PrivateApi")
                 Object newInstance = Class.forName("com.android.internal.app.AssistUtils").getConstructor(new Class[]{Context.class}).newInstance(new Object[]{context});
-                //noinspection RedundantArrayCreation
+                @SuppressWarnings("RedundantArrayCreation")
                 Method declaredMethod2 = newInstance.getClass().getDeclaredMethod("getAssistComponentForUser", new Class[]{Integer.TYPE});
                 declaredMethod2.setAccessible(true);
                 compName = (ComponentName) declaredMethod2.invoke(newInstance, new Object[]{num});
@@ -1111,7 +1111,6 @@ class ActivateProfileHelper {
         }
     }
 
-    @SuppressLint("NewApi")
     private static void setVolumes(Context context, Profile profile, AudioManager audioManager, int systemZenMode,
                                    int linkUnlink, boolean forProfileActivation, boolean forRingerMode)
     {
@@ -1628,7 +1627,6 @@ class ActivateProfileHelper {
             } else {
                 //PPApplication.logE("ActivateProfileHelper.setZenMode", "ZENMODE_SILENT or not can change zen mode");
                 try {
-                    //noinspection SwitchStatementWithTooFewBranches
                     switch (zenMode) {
                         case ZENMODE_SILENT:
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
@@ -3258,7 +3256,6 @@ class ActivateProfileHelper {
         }
     }
 
-    @SuppressLint("SwitchIntDef")
     static int getSystemZenMode(Context context/*, int defaultValue*/) {
         Context appContext = context.getApplicationContext();
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -3693,7 +3690,6 @@ class ActivateProfileHelper {
                         }
                         visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
                     }
-                    //noinspection WrongConstant
                     wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
                     //} else
                     //    wallpaperManager.setBitmap(decodedSampleBitmap);
@@ -5521,7 +5517,6 @@ class ActivateProfileHelper {
     */
 
     /*
-    @SuppressLint("RtlHardcoded")
     static void createBrightnessView(Profile profile, Context context)
     {
         PPApplication.logE("ActivateProfileHelper.createBrightnessView", "xxx");
@@ -5859,7 +5854,6 @@ class ActivateProfileHelper {
 
                         getDataEnabledMethod.setAccessible(true);
 
-                        //noinspection ConstantConditions
                         return (Boolean) getDataEnabledMethod.invoke(ITelephonyStub);
                     }
                     else
@@ -5885,7 +5879,6 @@ class ActivateProfileHelper {
                     getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
                     getDataEnabledMethod.setAccessible(true);
 
-                    //noinspection ConstantConditions
                     return (Boolean) getDataEnabledMethod.invoke(telephonyManager);
 
                 } catch (Exception e) {
@@ -7640,7 +7633,6 @@ class ActivateProfileHelper {
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     static void showError(Context context, String profileName, int parameterType) {
         if ((context == null) || (profileName == null))
             return;

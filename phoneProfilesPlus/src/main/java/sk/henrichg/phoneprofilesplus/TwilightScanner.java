@@ -195,7 +195,6 @@ class TwilightScanner {
         return distance >= totalAccuracy;
     }
 
-    @SuppressLint("HandlerLeak")
     private final class LocationHandler extends Handler {
         private static final int MSG_ENABLE_LOCATION_UPDATES = 1;
         private static final int MSG_GET_NEW_LOCATION_UPDATE = 2;
@@ -358,7 +357,8 @@ class TwilightScanner {
                             mLocationManager.getProviders(new Criteria(), true).iterator();
                     //noinspection WhileLoopReplaceableByForEach
                     while (providers.hasNext()) {
-                        @SuppressLint("MissingPermission") final Location lastKnownLocation =
+                        @SuppressLint("MissingPermission")
+                        final Location lastKnownLocation =
                                 mLocationManager.getLastKnownLocation(providers.next());
                         // pick the most recent location
                         if (location == null || (lastKnownLocation != null &&

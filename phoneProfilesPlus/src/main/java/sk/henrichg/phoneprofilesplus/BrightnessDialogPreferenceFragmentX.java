@@ -46,7 +46,6 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         return inflater.inflate(R.layout.dialog_brightness_preference, null, false);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);

@@ -247,7 +247,7 @@ public class EditorActivity extends AppCompatActivity
         }
     };
 
-    @SuppressLint({"NewApi", "RestrictedApi"})
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -358,7 +358,6 @@ public class EditorActivity extends AppCompatActivity
         }
 
         drawerListView = findViewById(R.id.editor_drawer_list);
-        //noinspection ConstantConditions
         headerView =  getLayoutInflater().inflate(R.layout.editor_drawer_list_header, drawerListView, false);
         drawerListView.addHeaderView(headerView, null, false);
         drawerHeaderFilterImage = findViewById(R.id.editor_drawer_list_header_icon);
@@ -735,7 +734,6 @@ public class EditorActivity extends AppCompatActivity
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
-            //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorActivity.onStart", "application is started");
@@ -870,7 +868,6 @@ public class EditorActivity extends AppCompatActivity
         });
     }
 
-    @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean ret = super.onPrepareOptionsMenu(menu);
@@ -2227,7 +2224,6 @@ public class EditorActivity extends AppCompatActivity
                             dialogBuilder.setMessage(R.string.backup_settings_alert_title);
 
                             LayoutInflater inflater = (activity.getLayoutInflater());
-                            @SuppressLint("InflateParams")
                             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
                             dialogBuilder.setView(layout);
 
@@ -2505,7 +2501,6 @@ public class EditorActivity extends AppCompatActivity
     }
 
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean importApplicationPreferences(File src/*, int what*/) {
         boolean res = true;
         ObjectInputStream input = null;
@@ -2815,7 +2810,6 @@ public class EditorActivity extends AppCompatActivity
         dialogBuilder2.setTitle(R.string.import_profiles_from_pp_alert_title);
 
         LayoutInflater inflater = (getLayoutInflater());
-        @SuppressLint("InflateParams")
         final View layout = inflater.inflate(R.layout.dialog_import_pp_data_alert, null);
         dialogBuilder2.setView(layout);
 
@@ -3023,7 +3017,6 @@ public class EditorActivity extends AppCompatActivity
      */
 
      /*
-     @SuppressLint("SetTextI18n")
      private void setStatusBarTitle()
      {
         // set filter status bar title
@@ -4316,7 +4309,6 @@ public class EditorActivity extends AppCompatActivity
             dialogBuilder.setMessage(R.string.backup_settings_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -4461,7 +4453,6 @@ public class EditorActivity extends AppCompatActivity
                 dialogBuilder.setMessage(R.string.restore_settings_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -4635,7 +4626,6 @@ public class EditorActivity extends AppCompatActivity
             dialogBuilder.setMessage(R.string.import_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -4678,7 +4668,6 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
-        @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
         @Override
         protected Integer doInBackground(Void... params) {
             //PPApplication.logE("PPApplication.exitApp", "from EditorActivity.doImportData shutdown=false");
@@ -4694,11 +4683,9 @@ public class EditorActivity extends AppCompatActivity
                     /*try {
                         File exportPath = new File(sd, _applicationDataPath);
                         if (exportPath.exists()) {
-                            //noinspection ResultOfMethodCallIgnored
                             exportPath.setReadable(true, false);
                         }
                         if (exportPath.exists()) {
-                            //noinspection ResultOfMethodCallIgnored
                             exportPath.setWritable(true, false);
                         }
                     } catch (Exception e) {
@@ -4842,7 +4829,6 @@ public class EditorActivity extends AppCompatActivity
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private static class ImportFromPPAsyncTask extends AsyncTask<Void, Integer, Integer> {
         private final DataWrapper _dataWrapper;
         private boolean profilesError = true;
@@ -4871,7 +4857,6 @@ public class EditorActivity extends AppCompatActivity
             dialogBuilder.setMessage(R.string.import_profiles_from_pp_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -4939,7 +4924,6 @@ public class EditorActivity extends AppCompatActivity
         }
 
         @SuppressWarnings("StringConcatenationInLoop")
-        @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
         @Override
         protected Integer doInBackground(Void... params) {
             //PPApplication.logE("PPApplication.exitApp", "from EditorActivity.doImportData shutdown=false");
@@ -5637,7 +5621,6 @@ public class EditorActivity extends AppCompatActivity
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private static class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
         private final DataWrapper dataWrapper;
         private boolean runStopEvents;
@@ -5659,7 +5642,6 @@ public class EditorActivity extends AppCompatActivity
             dialogBuilder.setMessage(R.string.export_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -5694,7 +5676,6 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
-        @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
         @Override
         protected Integer doInBackground(Void... params) {
 
@@ -5891,7 +5872,6 @@ public class EditorActivity extends AppCompatActivity
                     } else {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                         LayoutInflater inflater = (activity).getLayoutInflater();
-                        @SuppressLint("InflateParams")
                         View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
                         dialogBuilder.setView(layout);
                         dialogBuilder.setTitle(R.string.backup_settings_alert_title);

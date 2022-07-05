@@ -30,7 +30,6 @@ public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragm
         return inflater.inflate(R.layout.dialog_better_number_preference, null, false);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);

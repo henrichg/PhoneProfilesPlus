@@ -93,7 +93,6 @@ class RunApplicationEditorDialogX
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_run_applications_editor, null);
         dialogBuilder.setView(layout);
 
@@ -277,7 +276,6 @@ class RunApplicationEditorDialogX
         if (cachedApplicationList != null) {
             for (Application _application : cachedApplicationList) {
                 boolean add = false;
-                //noinspection RedundantIfStatement
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     add = true;
                 if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
@@ -328,7 +326,6 @@ class RunApplicationEditorDialogX
             int pos = 0;
             for (Application _application : cachedApplicationList) {
                 boolean search = false;
-                //noinspection RedundantIfStatement
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     search = true;
                 if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))

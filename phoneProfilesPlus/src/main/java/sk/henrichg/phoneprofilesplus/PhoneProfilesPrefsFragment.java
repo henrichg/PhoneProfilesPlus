@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -234,7 +233,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
-    @SuppressLint("BatteryLife")
     @SuppressWarnings("deprecation")
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -434,7 +432,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     //if (!PPApplication.romIsMIUI) {
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_WRITE_SETTINGS, getActivity().getApplicationContext())) {
                         try {
-                            @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                             intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -511,7 +508,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
@@ -537,7 +533,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     //if (!PPApplication.romIsMIUI) {
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
                         try {
-                            @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                             intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -794,7 +789,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
                             try {
-                                @SuppressLint("InlinedApi")
                                 Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivity(intent);
@@ -1355,7 +1349,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         " " + getString(R.string.notification_channel_not_used_mobile_cell));
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @SuppressWarnings("ConstantConditions")
                     @TargetApi(Build.VERSION_CODES.O)
                     @Override
                     public boolean onPreferenceClick(Preference preference) {

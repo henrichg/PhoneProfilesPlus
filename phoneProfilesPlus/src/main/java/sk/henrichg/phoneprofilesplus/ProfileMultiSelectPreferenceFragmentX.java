@@ -124,7 +124,6 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     void refreshListView(final boolean notForUnselect) {
         asyncTask = new RefreshListViewAsyncTask(notForUnselect,
                 preference, this, prefContext) ;

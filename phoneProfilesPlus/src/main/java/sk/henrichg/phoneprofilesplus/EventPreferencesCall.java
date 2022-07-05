@@ -639,12 +639,10 @@ class EventPreferencesCall extends EventPreferences {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_CALL_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
-    @SuppressLint("NewApi")
     private void setAlarm(long alarmTime, Context context) {
         if (!_permanentRun) {
             if (_startTime > 0) {
                 /*if (PPApplication.logEnabled()) {
-                    @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String result = sdf.format(alarmTime);
                     PPApplication.logE("EventPreferencesCall.setAlarm", "endTime=" + result);

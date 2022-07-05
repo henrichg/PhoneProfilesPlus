@@ -176,15 +176,14 @@ public class DonationPayPalFragment extends Fragment {
     }
 
     /*
-    public void purchaseSuccessful(@SuppressWarnings("unused") List<Purchase> purchases) {
+    public void purchaseSuccessful(List<Purchase> purchases) {
         if (getActivity() != null) {
             PPApplication.setDonationDonated(getActivity().getApplicationContext());
             PPApplication.showToast(getActivity().getApplicationContext(), getString(R.string.donation_thanks_dialog), Toast.LENGTH_LONG);
         }
     }
 
-    @SuppressWarnings("EmptyMethod")
-    public void purchaseUnsuccessful(@SuppressWarnings("unused") List<Purchase> purchases) {
+    public void purchaseUnsuccessful(List<Purchase> purchases) {
     }
 
     public void displayAnErrorIfNeeded(int response) {

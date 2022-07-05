@@ -69,7 +69,6 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         {
             profileName.setTypeface(null, Typeface.BOLD);
             profileName.setTextSize(16);
-            //noinspection ConstantConditions
             profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
         }
         else*/

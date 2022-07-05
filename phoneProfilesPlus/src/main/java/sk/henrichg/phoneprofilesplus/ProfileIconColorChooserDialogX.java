@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -43,7 +42,6 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_profile_icon_color_chooser, null);
         dialogBuilder.setView(layout);
 
@@ -188,7 +186,6 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
                 dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
                 LayoutInflater inflater = activity.getLayoutInflater();
-                @SuppressLint("InflateParams")
                 View layout = inflater.inflate(R.layout.dialog_custom_color_preference, null);
                 dialogBuilder.setView(layout);
 

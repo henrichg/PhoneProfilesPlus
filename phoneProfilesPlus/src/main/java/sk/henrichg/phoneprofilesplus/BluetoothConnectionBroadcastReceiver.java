@@ -205,7 +205,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
 
                     /*if (PPApplication.logEnabled()) {
-                        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         if (PPApplication.logEnabled()) {
                             PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.name=" + device.getName());
                             PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.address=" + device.getAddress());
@@ -216,7 +216,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     Calendar calendar = Calendar.getInstance();
                     long bootTime = calendar.getTimeInMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                     /*if (PPApplication.logEnabled()) {
-                        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "bootTime=" + sdf.format(bootTime));
                     }*/
 
@@ -341,7 +341,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     for (BluetoothDeviceData device : connectedDevices) {
                         /*if (PPApplication.logEnabled()) {
-                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                             if (PPApplication.logEnabled()) {
                                 PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.name=" + device.name);
                                 PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.timestamp=" + sdf.format(device.timestamp));
@@ -351,7 +351,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         Calendar calendar = Calendar.getInstance();
                         long bootTime = calendar.getTimeInMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                         /*if (PPApplication.logEnabled()) {
-                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                             PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "bootTime=" + sdf.format(bootTime));
                         }*/
                         if (device.timestamp < bootTime)

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -48,7 +47,6 @@ class ContactsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.ViewHo
         itemView.setOnClickListener(this);
     }
 
-    @SuppressLint("SetTextI18n")
     void bindContact(Contact contact) {
         this.contact = contact;
 

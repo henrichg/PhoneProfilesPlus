@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.service.voice.VoiceInteractionSession;
-import androidx.annotation.RequiresApi;
 //import com.arlosoft.macrodroid.macro.C6023h;
 //import com.arlosoft.macrodroid.macro.Macro;
 //import com.arlosoft.macrodroid.triggers.HomeButtonLongPressTrigger;
@@ -16,7 +15,6 @@ import androidx.annotation.RequiresApi;
 //import java.util.Iterator;
 //import kotlin.jvm.internal.C0330j;
 
-@RequiresApi(23)
 /* renamed from: com.arlosoft.macrodroid.voiceservice.a */
 /* compiled from: MacroDroidVoiceSession.kt */
 public final class PPPVoiceInteractionSession extends VoiceInteractionSession {

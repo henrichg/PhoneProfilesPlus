@@ -283,7 +283,6 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         }*/
     }
 
-    @SuppressLint("StaticFieldLeak")
     void refreshListView(boolean forRescan, final String scrollToSSID)
     {
         rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, scrollToSSID, preference, this, prefContext);

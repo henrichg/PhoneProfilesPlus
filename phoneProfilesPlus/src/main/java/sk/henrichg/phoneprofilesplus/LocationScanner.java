@@ -432,7 +432,6 @@ class LocationScanner
         }
     }
 
-    @SuppressLint("MissingPermission")
     void updateTransitionsByLastKnownLocation(String provider) {
 //        PPApplication.logE("##### LocationScanner.updateTransitionsByLastKnownLocation","xxxx");
 

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -41,7 +40,6 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference {
         setSummaryCMSDP();
     }
 
-    @SuppressLint("MissingPermission")
     static String getSummary(String value, Context context) {
         String summary = context.getString(R.string.calendars_multiselect_summary_text_not_selected);
         if (Permissions.checkCalendar(context)) {
@@ -54,7 +52,6 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference {
                     Uri uri = Calendars.CONTENT_URI;
                     String selection = Calendars._ID + "=" + splits[0];
                     // permission is already checked in Permissions.checkCalendar()
-                    //noinspection MissingPermission
                     cur = cr.query(uri, CalendarsMultiSelectDialogPreferenceFragmentX.CALENDAR_PROJECTION, selection, null, null);
                     if (cur != null) {
                         //while (cur.moveToNext()) {
@@ -74,7 +71,6 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference {
         return summary;
     }
 
-    @SuppressLint("MissingPermission")
     private void setSummaryCMSDP()
     {
         setSummary(getSummary(value, _context));

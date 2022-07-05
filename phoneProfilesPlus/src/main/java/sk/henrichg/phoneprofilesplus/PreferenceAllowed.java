@@ -151,7 +151,8 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                     }
                     //}
-                } else //noinspection ConstantConditions
+                } else
+                    //noinspection ConstantConditions
                     if (sharedPreferences != null) {
                     //String preferenceValue = sharedPreferences.getString(preferenceKey, "0");
                     /*if (preferenceValue.equals("6") ||
@@ -924,7 +925,6 @@ class PreferenceAllowed {
             else {
                 if ((profile != null) && (profile._vibrateWhenRinging != 0)) {
                     boolean enabled = false;
-                    //noinspection RedundantIfStatement
                     if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 4))
                         enabled = true;
                     if (profile._volumeRingerMode == 5) {

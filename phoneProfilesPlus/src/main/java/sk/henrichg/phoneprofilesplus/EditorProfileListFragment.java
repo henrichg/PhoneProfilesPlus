@@ -178,7 +178,7 @@ public class EditorProfileListFragment extends Fragment
             showTargetHelps();
     }
 
-    @SuppressLint({"InflateParams", "NotifyDataSetChanged"})
+    @SuppressLint("NotifyDataSetChanged")
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.editor_profiles_activated_profile_pref_indicator);
@@ -1354,7 +1354,6 @@ public class EditorProfileListFragment extends Fragment
 
     /*
     void changeShowInActivator(final Profile profile) {
-        //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(getString(R.string.profile_string_0) + ": " + profile._name);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -1772,7 +1771,6 @@ public class EditorProfileListFragment extends Fragment
             return null;
         }
 
-        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void result)
         {

@@ -142,7 +142,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
 
             /*if (PPApplication.logEnabled()) {
-                @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 String result = sdf.format(alarmTime);
                 PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime=" + result);

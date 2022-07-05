@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -47,7 +46,6 @@ class RunApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder impl
         itemView.setOnClickListener(this);
     }
 
-    @SuppressLint("SetTextI18n")
     void bindApplication(Application application, int position) {
         this.application = application;
         //PPApplication.logE("ApplicationEditorDialogViewHolder.bindApplication", "this.application="+this.application);

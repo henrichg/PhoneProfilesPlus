@@ -108,7 +108,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         if (defaultUEH != null) {
             boolean ignore = false;
-            //noinspection RedundantIfStatement
             if (t.getName().equals("FinalizerWatchdogDaemon") && (e instanceof TimeoutException)) {
                 // ignore these exceptions
                 // java.util.concurrent.TimeoutException: com.android.internal.os.BinderInternal$GcWatcher.finalize() timed out after 10 seconds
@@ -153,7 +152,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             /*File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory()))
-                //noinspection ResultOfMethodCallIgnored
                 exportDir.mkdirs();
 
             File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);*/
@@ -189,7 +187,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         /*File sd = Environment.getExternalStorageDirectory();
         File exportDir = new File(sd, PPApplication.EXPORT_PATH);
         if (!(exportDir.exists() && exportDir.isDirectory()))
-            //noinspection ResultOfMethodCallIgnored
             exportDir.mkdirs();
 
         File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);*/

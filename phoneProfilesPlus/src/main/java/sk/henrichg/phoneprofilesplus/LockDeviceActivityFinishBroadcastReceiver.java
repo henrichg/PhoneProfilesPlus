@@ -49,7 +49,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     static void setAlarm(Context context)
     {
         removeAlarm(context);
@@ -87,7 +86,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 }
             } else {
             /*int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
-            //noinspection ConstantConditions
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =

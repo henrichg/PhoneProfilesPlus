@@ -21,7 +21,6 @@
  */
 package com.stericson.rootshell.execution;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.stericson.rootshell.RootShell;
@@ -521,7 +520,6 @@ public class Shell {
      * @return true if SELinux set to enforcing, or false in the case of
      * permissive or not present
      */
-    @SuppressLint("ObsoleteSdkInt")
     public synchronized boolean isSELinuxEnforcing() {
         if (isSELinuxEnforcing == null) {
             Boolean enforcing = null;

@@ -294,7 +294,6 @@ public class GeofenceScanWorker extends Worker {
                         else
                             statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                         boolean allFinished = true;
-                        //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
                             //PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
@@ -356,7 +355,6 @@ public class GeofenceScanWorker extends Worker {
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                    //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
                         //PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
@@ -398,7 +396,6 @@ public class GeofenceScanWorker extends Worker {
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                    //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
                         //PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());

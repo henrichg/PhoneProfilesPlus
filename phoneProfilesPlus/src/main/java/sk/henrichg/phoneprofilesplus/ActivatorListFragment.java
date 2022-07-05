@@ -159,8 +159,7 @@ public class ActivatorListFragment extends Fragment {
 
         activatedProfileHeader = view.findViewById(R.id.act_prof_header);
         if (activatedProfileHeader != null) {
-            /*@SuppressWarnings("ConstantConditions")
-            Handler handler = new Handler(getActivity().getMainLooper());
+            /* Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -242,7 +241,7 @@ public class ActivatorListFragment extends Fragment {
         private final boolean applicationActivatorPrefIndicator;
         //private final boolean applicationActivatorHeader;
         private final boolean applicationActivatorGridLayout;
-        private final GridView gridView;
+        //private final GridView gridView;
 
         //private boolean someErrorProfiles = false;
 
@@ -267,7 +266,7 @@ public class ActivatorListFragment extends Fragment {
             applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
             //applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(this.dataWrapper.context);
             applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout;
-            gridView = fragment.gridView;
+            //gridView = fragment.gridView;
         }
 
         @Override
@@ -315,22 +314,26 @@ public class ActivatorListFragment extends Fragment {
             }
 
             if (applicationActivatorGridLayout) {
-                int count = 0;
-                for (Profile profile : this.dataWrapper.profileList) {
-                    if (profile._showInActivator)
-                        ++count;
-                }
+                final ActivatorListFragment fragment = this.fragmentWeakRef.get();
+                if ((fragment != null) && (fragment.isAdded())) {
 
-                int numColumns = gridView.getNumColumns();
+                    int count = 0;
+                    for (Profile profile : this.dataWrapper.profileList) {
+                        if (profile._showInActivator)
+                            ++count;
+                    }
 
-                int modulo = count % numColumns;
-                if (modulo > 0) {
-                    for (int i = 0; i < numColumns - modulo; i++) {
-                        Profile profile = DataWrapper.getNonInitializedProfile(
-                                dataWrapper.context.getString(R.string.profile_name_default),
-                                Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
-                        profile._showInActivator = true;
-                        this.dataWrapper.profileList.add(profile);
+                    int numColumns = fragment.gridView.getNumColumns();
+
+                    int modulo = count % numColumns;
+                    if (modulo > 0) {
+                        for (int i = 0; i < numColumns - modulo; i++) {
+                            Profile profile = DataWrapper.getNonInitializedProfile(
+                                    dataWrapper.context.getString(R.string.profile_name_default),
+                                    Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
+                            profile._showInActivator = true;
+                            this.dataWrapper.profileList.add(profile);
+                        }
                     }
                 }
             }
@@ -387,11 +390,9 @@ public class ActivatorListFragment extends Fragment {
 //                        if (someErrorProfiles) {
 //                            // some profiles has errors
 //
-//                            //noinspection ConstantConditions
 //                            Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
 //                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-//                            //noinspection ConstantConditions
 //                            fragment.getActivity().startActivity(intent);
 //
 //                            try {

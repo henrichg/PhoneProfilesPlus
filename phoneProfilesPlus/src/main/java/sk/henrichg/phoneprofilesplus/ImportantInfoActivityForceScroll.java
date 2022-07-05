@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +15,6 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
     static final String EXTRA_SCROLL_TO = "extra_important_info_activity_scroll_to";
     static final String EXTRA_SHOW_FRAGMENT = "extra_important_info_activity_show_fragmenbt";
 
-    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false, false, false); // must by called before super.onCreate()

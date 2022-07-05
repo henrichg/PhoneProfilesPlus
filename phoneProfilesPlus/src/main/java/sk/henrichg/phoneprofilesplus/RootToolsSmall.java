@@ -100,7 +100,6 @@ class RootToolsSmall {
       fos.close();
 
       File file = context.getFileStreamPath(name);
-      //noinspection ResultOfMethodCallIgnored
       file.setExecutable(true);
       return RootToolsSmall.runSuCommand(file.getAbsolutePath());
     } catch (Exception ignored) {

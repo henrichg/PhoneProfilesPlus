@@ -45,7 +45,6 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
         }
     }
 
-    @SuppressLint("NewApi")
     static void setAlarm(int lockDelay, Context context)
     {
         final Context appContext = context.getApplicationContext();
@@ -67,7 +66,6 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     long alarmTime = now.getTimeInMillis();
 
                     /*if (PPApplication.logEnabled()) {
-                        @SuppressLint("SimpleDateFormat")
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String result = sdf.format(alarmTime);
                         PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "alarmTime=" + result);
@@ -130,7 +128,6 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     long alarmTime = now.getTimeInMillis();
 
                     /*if (PPApplication.logEnabled()) {
-                        @SuppressLint("SimpleDateFormat")
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String result = sdf.format(alarmTime);
                         PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "alarmTime=" + result);

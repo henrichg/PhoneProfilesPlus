@@ -29,7 +29,6 @@ public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragme
         return inflater.inflate(R.layout.dialog_custom_color_preference, null, false);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);

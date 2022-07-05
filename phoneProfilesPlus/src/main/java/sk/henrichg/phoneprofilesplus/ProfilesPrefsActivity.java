@@ -802,7 +802,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsActivationDuration extends ProfilesPrefsFragment {
 
         @Override
@@ -812,7 +811,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsSoundProfiles extends ProfilesPrefsFragment {
 
         @Override
@@ -822,7 +820,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsVolumes extends ProfilesPrefsFragment {
 
         @Override
@@ -832,7 +829,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsSounds extends ProfilesPrefsFragment {
 
         @Override
@@ -842,7 +838,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsTouchEffects extends ProfilesPrefsFragment {
 
         @Override
@@ -852,7 +847,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsRadios extends ProfilesPrefsFragment {
 
         @Override
@@ -862,7 +856,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsScreen extends ProfilesPrefsFragment {
 
         @Override
@@ -872,7 +865,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsApplication extends ProfilesPrefsFragment {
 
         @Override
@@ -882,7 +874,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsOthers extends ProfilesPrefsFragment {
 
         @Override
@@ -892,7 +883,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsForceStopApplications extends ProfilesPrefsFragment {
 
         @Override
@@ -902,7 +892,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsLockDevice extends ProfilesPrefsFragment {
 
         @Override
@@ -912,7 +901,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsLedAccessories extends ProfilesPrefsFragment {
 
         @Override
@@ -922,7 +910,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsRadiosDualSIMSupport extends ProfilesPrefsFragment {
 
         @Override
@@ -932,7 +919,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsSoundsDualSIMSupport extends ProfilesPrefsFragment {
 
         @Override
@@ -942,7 +928,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsWallpaper extends ProfilesPrefsFragment {
 
         @Override

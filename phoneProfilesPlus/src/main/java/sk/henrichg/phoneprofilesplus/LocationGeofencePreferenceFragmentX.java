@@ -229,7 +229,6 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
             //    //PhoneProfilesPrefsFragment.setChangedLocationGeofencePreference(this);
             //    getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
             //}
-            //noinspection deprecation
             getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
         }
     }

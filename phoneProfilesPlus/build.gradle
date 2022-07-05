@@ -47,6 +47,8 @@ android {
 dependencies {
     //implementation 'androidx.multidex:multidex:2.0.1'
 
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
+
     // https://developer.android.com/guide/background/listenablefuture
     implementation "com.google.guava:guava:31.0.1-android" // this version is in link above
     implementation "ch.acra:acra-mail:$ppVersions.acra"

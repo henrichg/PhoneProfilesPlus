@@ -275,9 +275,7 @@ class BitmapManipulator {
 
             int rotatedWidth, rotatedHeight;
             if (rotate == 90 || rotate == 270) {
-                //noinspection SuspiciousNameCombination
                 rotatedWidth = height;
-                //noinspection SuspiciousNameCombination
                 rotatedHeight = width;
             } else {
                 rotatedWidth = width;

@@ -176,7 +176,6 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
         String line;
         try {
             while ((line = reader.readLine()) != null) {
-                //noinspection StringConcatenationInsideStringBufferAppend
                 sb.append(line + "n");
             }
         } catch (IOException e) {

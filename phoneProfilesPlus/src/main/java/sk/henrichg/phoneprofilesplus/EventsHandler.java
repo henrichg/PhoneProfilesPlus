@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -597,7 +596,6 @@ class EventsHandler {
                     try {
                         WorkManager instance = WorkManager.getInstance(context.getApplicationContext());
                         ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosForUniqueWork("restartEventsWithDelayWork");
-                        //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
                             boolean enqueued = false;
@@ -1615,7 +1613,6 @@ class EventsHandler {
 
 //--------
 
-    @SuppressLint({ "NewApi", "SimpleDateFormat" })
     private void doHandleEvent(Event event, boolean statePause, /*String sensorType,*/
                                boolean forRestartEvents, /*boolean manualRestart,*/
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
@@ -1972,7 +1969,6 @@ class EventsHandler {
                     // do start of events, all sensors are passed
 
                     boolean continueHandle = true;
-                    //noinspection RedundantIfStatement
                     if (newEventStatus == Event.ESTATUS_PAUSE) {
                         // is paused, for this do not start it
                         continueHandle = false;

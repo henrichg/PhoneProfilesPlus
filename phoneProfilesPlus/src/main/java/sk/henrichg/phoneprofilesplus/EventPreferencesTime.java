@@ -1245,7 +1245,6 @@ class EventPreferencesTime extends EventPreferences {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_TIME_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
         /*boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");

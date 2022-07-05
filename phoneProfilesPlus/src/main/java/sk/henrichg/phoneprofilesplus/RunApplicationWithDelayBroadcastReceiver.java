@@ -81,7 +81,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         return sum;
     }
 
-    @SuppressLint("NewApi")
     static void setDelayAlarm(Context context, int startApplicationDelay, String profileName, String runApplicationData)
     {
         removeDelayAlarm(context, runApplicationData);
@@ -110,7 +109,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         long alarmTime = now.getTimeInMillis();
 
                         /*if (PPApplication.logEnabled()) {
-                            @SuppressLint("SimpleDateFormat")
                             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                             String result = sdf.format(alarmTime);
                             PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);
@@ -191,7 +189,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         long alarmTime = now.getTimeInMillis();
 
                         /*if (PPApplication.logEnabled()) {
-                            @SuppressLint("SimpleDateFormat")
                             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                             String result = sdf.format(alarmTime);
                             PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);

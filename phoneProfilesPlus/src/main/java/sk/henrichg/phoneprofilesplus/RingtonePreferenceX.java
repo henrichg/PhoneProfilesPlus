@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -450,7 +449,6 @@ public class RingtonePreferenceX extends DialogPreference {
 
         //String oldRingtoneUri;
 
-        @SuppressLint("ParcelClassLoader")
         SavedState(Parcel source) {
             super(source);
             ringtoneUri = source.readString();
@@ -514,8 +512,7 @@ public class RingtonePreferenceX extends DialogPreference {
                 RingtoneManager manager = new RingtoneManager(prefContext);
 
                 Uri uri;// = null;
-                        /*//noinspection ConstantConditions
-                        switch (ringtoneType) {
+                        /*switch (ringtoneType) {
                             case "ringtone":
                                 uri = Settings.System.DEFAULT_RINGTONE_URI;
                                 break;

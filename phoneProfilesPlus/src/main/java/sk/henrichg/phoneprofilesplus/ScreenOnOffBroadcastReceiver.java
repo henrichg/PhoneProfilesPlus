@@ -223,7 +223,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             // for screen off restart scanners only when it is required for any scanner
 //                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off - lock device set alarm - restart scanners - start");
                             boolean restart = false;
-                            //noinspection RedundantIfStatement
                             if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning &&
                                     ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)
                                 restart = true;

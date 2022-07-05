@@ -114,7 +114,6 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
         itemTouchHelper.startDrag(viewHolder);
     }
 
-    @SuppressLint("StaticFieldLeak")
     void refreshListView(final boolean afterEdit) {
         asyncTask = new RefreshListViewAsyncTask(afterEdit, preference, this, prefContext);
         asyncTask.execute();

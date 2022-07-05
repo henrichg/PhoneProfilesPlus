@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +43,6 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
           //int position;
         }
 
-    @SuppressLint("PrivateResource")
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;

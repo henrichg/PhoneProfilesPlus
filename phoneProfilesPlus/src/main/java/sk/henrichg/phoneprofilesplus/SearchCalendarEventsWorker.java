@@ -288,7 +288,6 @@ public class SearchCalendarEventsWorker extends Worker {
             final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.cancelWork");
-                //noinspection Convert2MethodRef
                 _cancelWork();
             });
         }

@@ -172,7 +172,6 @@ class TonesHandler {
     */
 
     /*
-    @SuppressLint("SetWorldReadable")
     private static boolean _installTone(int resID, String title, Context context) {
         //try {
         //    // Make sure the shared storage is currently writable
@@ -195,7 +194,6 @@ class TonesHandler {
         if (path != null) {
             //PPApplication.logE("TonesHandler._installTone", "path=" + path.getAbsolutePath());
 
-            //noinspection ResultOfMethodCallIgnored
             path.mkdirs();
             String filename = context.getResources().getResourceEntryName(resID) + ".ogg";
             File outFile = new File(path, filename);
@@ -207,7 +205,6 @@ class TonesHandler {
                 // Write the file
                 InputStream inputStream = null;
                 FileOutputStream outputStream = null;
-                //noinspection TryFinallyCanBeTryWithResources
                 try {
                     inputStream = context.getResources().openRawResource(resID);
                     outputStream = new FileOutputStream(outFile);
@@ -392,8 +389,8 @@ class TonesHandler {
     */
 
     /*
-    static void installTone(@SuppressWarnings("SameParameterValue") int resID,
-                            @SuppressWarnings("SameParameterValue") String title,
+    static void installTone(int resID,
+                            String title,
                             Context context) {
 
         //boolean granted = Permissions.grantInstallTonePermissions(context.getApplicationContext());

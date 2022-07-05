@@ -5,7 +5,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import androidx.annotation.RequiresApi;
 
 import com.android.dx.Code;
 import com.android.dx.DexMaker;
@@ -26,7 +25,6 @@ public final class WifiTetheringCallbackMaker {
 
     @SuppressWarnings({"rawtypes", "RedundantArrayCreation"})
     @SuppressLint("PrivateApi")
-    @RequiresApi(api = 21)
     public WifiTetheringCallbackMaker(Context context,
                                       MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract) {
         Class<?> onStartTetheringCallback;

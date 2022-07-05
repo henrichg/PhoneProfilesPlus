@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -26,9 +25,7 @@ class ActivityLogAdapter extends CursorAdapter {
     //private final int KEY_AL_DURATION_DELAY;
     private final int KEY_AL_PROFILE_EVENT_COUNT;
 
-    @SuppressLint("UseSparseArrays")
     private final HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
-    @SuppressLint("UseSparseArrays")
     private final HashMap<Integer, Integer> activityTypeColors = new HashMap<>();
 
     ActivityLogAdapter(Context context, Cursor cursor) {
@@ -99,7 +96,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE, R.string.altype_afterEndOfActivationTime_specificProfile);
 
         //int otherColor = R.color.altype_other;
-        /*//noinspection SwitchStatementWithTooFewBranches
+        /*
         switch (ApplicationPreferences.applicationTheme(context, true)) {
 //            case "color":
 //                otherColor = R.color.altype_other;

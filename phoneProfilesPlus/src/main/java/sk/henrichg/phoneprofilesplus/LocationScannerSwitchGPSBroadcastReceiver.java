@@ -54,7 +54,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
         //PPApplication.logE("[HANDLER] LocationScannerSwitchGPSBroadcastReceiver.removeAlarm", "removed");
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     static void setAlarm(Context context)
     {
         removeAlarm(context);

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -34,7 +33,6 @@ class ApplicationsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.Vi
         itemView.setOnClickListener(this);
     }
 
-    @SuppressLint("SetTextI18n")
     void bindApplication(Application application) {
         this.application = application;
 

@@ -34,7 +34,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     static public void setAlarm(Profile profile, boolean forRestartEvents, int startupSource, Context context)
     {
         removeAlarm(profile, context);
@@ -278,14 +277,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 String workName = MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int) profile._id;
                 ListenableFuture<List<WorkInfo>> statuses;
                 statuses = workManager.getWorkInfosForUniqueWork(workName);
-                //noinspection TryWithIdenticalCatches
                 try {
                     List<WorkInfo> workInfoList = statuses.get();
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
                     // cancel only enqueued works
                     for (WorkInfo workInfo : workInfoList) {
                         WorkInfo.State state = workInfo.getState();
-                        //noinspection IfStatementMissingBreakInLoop
                         if (state == WorkInfo.State.ENQUEUED) {
                             // any work is enqueued, cancel it
                             isWorkRunning = true;
@@ -341,8 +338,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
+        final Context appContext = context.getApplicationContext();
         if (useHandler) {
-            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadBroadcast(/*"ProfileDurationAlarmBroadcastReceiver.onReceive"*/);
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
@@ -377,7 +374,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             });
         }
         else {
-            final Context appContext = context.getApplicationContext();
 
             _doWork(/*false,*/ appContext, profileId, forRestartEvents, startupSource);
         }

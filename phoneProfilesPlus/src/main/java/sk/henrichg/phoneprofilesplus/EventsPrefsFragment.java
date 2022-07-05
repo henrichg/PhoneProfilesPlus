@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -1702,7 +1701,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.refreshListView(true, Integer.MAX_VALUE);
     }
 
-    @SuppressLint("SetTextI18n")
     private void installExtenderFromGitHub() {
         if (getActivity() == null)
             return;
@@ -1711,7 +1709,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
         dialogBuilder.setView(layout);
 
@@ -1791,7 +1788,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             dialog.show();
     }
 
-    @SuppressLint("SetTextI18n")
     private void installExtender() {
         if (getActivity() == null) {
             return;
@@ -1802,7 +1798,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 
@@ -1860,7 +1855,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 

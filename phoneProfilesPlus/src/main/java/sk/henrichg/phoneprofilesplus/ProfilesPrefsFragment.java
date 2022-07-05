@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -1864,7 +1863,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
-    @SuppressWarnings({"SameReturnValue", "DuplicateExpressions"})
+    @SuppressWarnings("SameReturnValue")
     private boolean setCategorySummarySoundProfile(Context context,
                                                    CattegorySummaryData cattegorySummaryData) {
         String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE,
@@ -1928,6 +1927,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                     } else
+                        //noinspection DuplicateExpressions
                         if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
                         if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
@@ -1955,6 +1955,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                         } else
+                            //noinspection DuplicateExpressions
                             if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
                             if (!cattegorySummaryData.summary.isEmpty())
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
@@ -5567,7 +5568,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         //preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, false, true, true, context);
         boolean grantedG1Permission = true;
-        //noinspection RedundantIfStatement
         if (preferenceAllowed.notAllowedG1) {
             //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
                 grantedG1Permission = false;
@@ -5579,7 +5579,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
         boolean accessibilityNotRequired = true;
-        //noinspection RedundantIfStatement
         if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0)))
             accessibilityNotRequired = false;
 //        if ((profile != null) && profile._name.equals("Lock device")) {
@@ -5986,7 +5985,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (showDoNotDisturbPermission) {
             // Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS exists
             try {
-                @SuppressLint("InlinedApi")
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                 //noinspection deprecation
@@ -6019,7 +6017,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, getActivity())) {
             try {
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {
@@ -6050,7 +6047,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private void installExtenderFromGitHub() {
         if (getActivity() == null) {
             return;
@@ -6060,7 +6056,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
         dialogBuilder.setView(layout);
 
@@ -6140,7 +6135,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             dialog.show();
     }
 
-    @SuppressLint("SetTextI18n")
     private void installExtender() {
         if (getActivity() == null) {
             return;
@@ -6151,7 +6145,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 
@@ -6209,7 +6202,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 

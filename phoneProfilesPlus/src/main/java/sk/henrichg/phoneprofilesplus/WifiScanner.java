@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
@@ -162,7 +161,7 @@ class WifiScanner {
                             //unlock();
                         }
 
-                        //noinspection ConstantConditions,ConstantIfStatement
+                        //noinspection ConstantConditions
                         if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
 
                             //PPApplication.logE("$$$W WifiScanner.doScan", "scan started");
@@ -371,7 +370,6 @@ class WifiScanner {
     }
     */
 
-    @SuppressLint("NewApi")
     private int enableWifi(WifiManager wifi, Handler wifiChangeHandler)
     {
         //PPApplication.logE("@@@ WifiScanner.enableWifi","xxx");
@@ -510,7 +508,6 @@ class WifiScanner {
             isScanAlwaysAvailable = isWifiEnabled || WifiScanWorker.wifi.isScanAlwaysAvailable();
             */
 
-            //noinspection RedundantIfStatement
             if (!PhoneProfilesService.isLocationEnabled(context)/* || (!isScanAlwaysAvailable)*/) {
                 // Location settings are not properly set, show notification about it
 

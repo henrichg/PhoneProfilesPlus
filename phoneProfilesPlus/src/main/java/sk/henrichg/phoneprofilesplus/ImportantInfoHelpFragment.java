@@ -50,7 +50,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         return inflater.inflate(R.layout.important_info_fragment_important_info_expandable, container, false);
     }
 
-    @SuppressLint({"SetTextI18n", "BatteryLife"})
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -787,7 +787,6 @@ public class ImportantInfoHelpFragment extends Fragment {
 
     }
 
-    @SuppressLint("SetTextI18n")
     static private void installExtenderFromGitHub(Activity activity, boolean finishActivity) {
         if (activity == null) {
             return;
@@ -797,7 +796,6 @@ public class ImportantInfoHelpFragment extends Fragment {
         dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
         dialogBuilder.setView(layout);
 
@@ -892,7 +890,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             dialog.show();
     }
 
-    @SuppressLint("SetTextI18n")
     static void installExtender(Activity activity, boolean finishActivity) {
         if (activity == null) {
             return;
@@ -903,7 +900,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = activity.getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 
@@ -971,7 +967,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 

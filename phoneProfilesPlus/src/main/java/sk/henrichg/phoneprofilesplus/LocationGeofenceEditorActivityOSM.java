@@ -171,7 +171,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
         switch (applicationThene) {
             case "white":
-                //noinspection DuplicateBranchesInSwitch
                 isNightMode = false;
                 break;
             case "dark":
@@ -189,14 +188,12 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                         //    notificationTextColor = "2";
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
-                        //noinspection DuplicateBranchesInSwitch
                         isNightMode = false;
                         // this is possible only when device has option for set background color
                         //if ((Build.VERSION.SDK_INT < 29) && notificationNightMode)
                         //    notificationTextColor = "1";
                         break;
                     case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                        //noinspection DuplicateBranchesInSwitch
                         isNightMode = false;
                         break;
                     default:
@@ -292,7 +289,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_better_number_preference, null);
         dialogBuilder.setView(layout);
 
@@ -478,7 +474,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     protected void onStart() {
         super.onStart();
@@ -760,7 +755,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("MissingPermission")
     private void startLocationUpdates(boolean showErrorDialog) {
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
 
@@ -782,7 +776,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         boolean locationEnabled = false;
         String provider; // = "";
         /*try {
-            //noinspection ConstantConditions
             locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             if (locationEnabled)
                 provider = LocationManager.GPS_PROVIDER;
@@ -793,7 +786,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
         if (!locationEnabled) {
             try {
-                //noinspection ConstantConditions
                 locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
                 if (locationEnabled)
                     provider = LocationManager.NETWORK_PROVIDER;

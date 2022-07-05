@@ -37,7 +37,6 @@ public class PhoneCallsListener extends PhoneStateListener {
     static final int LINKMODE_LINK = 1;
     static final int LINKMODE_UNLINK = 2;
 
-
     PhoneCallsListener(Context context) {
         this.savedContext = context.getApplicationContext();
     }
@@ -123,6 +122,10 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
         */
 
+        /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+            Object ret = HiddenApiBypass.invoke(ServiceState.class, serviceState, "getVoiceRoaming");
+            Log.e("PhoneCallsListener.onServiceStateChanged", "ret="+ret);
+        }*/
         // You can also check roaming state using this
         if (serviceState.getRoaming()) {
             // In Roaming
@@ -384,7 +387,6 @@ public class PhoneCallsListener extends PhoneStateListener {
 //                PPApplication.logE("PhoneCallsListener.callAnswered", "savedSpeakerphone="+savedSpeakerphone);
 //                PPApplication.logE("PhoneCallsListener.callAnswered", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
                 boolean changeSpeakerphone = false;
-                //noinspection RedundantIfStatement
                 if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
                     changeSpeakerphone = true;
                 if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on

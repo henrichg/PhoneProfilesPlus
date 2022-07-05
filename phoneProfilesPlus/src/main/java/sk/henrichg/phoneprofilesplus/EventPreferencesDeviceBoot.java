@@ -283,7 +283,6 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DEVICE_BOOT_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(long alarmTime, Context context)
     {
         //PPApplication.logE("[BOOT] EventPreferencesDeviceBoot.setAlarm","_permanentRun="+_permanentRun);

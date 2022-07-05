@@ -28,7 +28,6 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     public static final String EXTRA_TAG_NAME = "tag_name";
     public static final String EXTRA_TAG_DB_ID = "tag_db_id";
 
-    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()

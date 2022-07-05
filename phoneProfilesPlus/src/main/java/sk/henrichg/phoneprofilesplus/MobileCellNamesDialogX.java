@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -80,7 +79,6 @@ class MobileCellNamesDialogX {
         });
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_mobile_cell_names, null);
         dialogBuilder.setView(layout);
 
@@ -140,7 +138,6 @@ class MobileCellNamesDialogX {
     }
 
 
-    @SuppressLint("StaticFieldLeak")
     public void show() {
         if (!activity.isFinishing()) {
             mDialog.show();

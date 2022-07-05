@@ -243,7 +243,6 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         });
 
         LayoutInflater inflater = getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_not_used_mobile_cells_detected, null);
         dialogBuilder.setView(layout);
 

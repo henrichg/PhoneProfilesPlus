@@ -299,7 +299,6 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         }*/
     }
 
-    @SuppressLint("StaticFieldLeak")
     void refreshListView(boolean forRescan, final String scrollToBTName)
     {
         rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, scrollToBTName,

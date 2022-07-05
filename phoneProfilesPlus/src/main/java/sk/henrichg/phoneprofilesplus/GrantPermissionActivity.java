@@ -1628,7 +1628,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void finishGrant() {
         final Context context = getApplicationContext();
 

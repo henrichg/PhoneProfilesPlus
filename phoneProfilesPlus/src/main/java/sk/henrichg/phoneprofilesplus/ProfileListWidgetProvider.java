@@ -963,7 +963,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
     */
     /*
-    private static boolean setLayoutParamsMotorola(Context context, @SuppressWarnings("unused") int spanX, int spanY, int appWidgetId)
+    private static boolean setLayoutParamsMotorola(Context context, int spanX, int spanY, int appWidgetId)
     {
         // for Motorola devices use spanY
 

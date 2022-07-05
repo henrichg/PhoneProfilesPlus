@@ -55,6 +55,7 @@ import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.MailSenderConfigurationBuilder;
 import org.acra.config.NotificationConfigurationBuilder;
 import org.acra.data.StringFormat;
+import org.lsposed.hiddenapibypass.HiddenApiBypass;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -63,7 +64,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -710,9 +710,17 @@ public class PPApplication extends Application
 
     //BrightnessView brightnessView = null;
     //BrightnessView screenTimeoutAlwaysOnView = null;
+
+    // this is OK, ActivateProfileHelper.removeKeepScreenOnView()
+    // set it to null
+    @SuppressLint("StaticFieldLeak")
     static BrightnessView keepScreenOnView = null;
 
+    // this is OK, activity will be removed and lockDeviceActivity set to null after destroy of
+    // LockDeviceActivity
+    @SuppressLint("StaticFieldLeak")
     static LockDeviceActivity lockDeviceActivity = null;
+
     static int screenTimeoutWhenLockDeviceActivityIsDisplayed = 0;
 
 //    static int brightnessBeforeScreenOff;
@@ -812,7 +820,12 @@ public class PPApplication extends Application
     static ActivatedProfileEventBroadcastReceiver activatedProfileEventBroadcastReceiver = null;
 
     static SettingsContentObserver settingsContentObserver = null;
+
+    // this is OK, mobileDataStateChangedContentObserver will set to null when
+    // observer will be unregistered
+    @SuppressLint("StaticFieldLeak")
     static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
+
     static ContactsContentObserver contactsContentObserver = null;
 
     static SensorManager sensorManager = null;
@@ -823,8 +836,18 @@ public class PPApplication extends Application
 
     static OrientationScanner orientationScanner = null;
     static boolean mStartedOrientationSensors = false;
+
+    // this is OK, locationScanner will bet to null, when location scanner will be stopped
+    @SuppressLint("StaticFieldLeak")
     static LocationScanner locationScanner = null;
+
+    // this is OK, mobileCellsScanner will bet to null, when mobile cells scanner will be stopped
+    @SuppressLint("StaticFieldLeak")
     static MobileCellsScanner mobileCellsScanner = null;
+
+
+    // this is OK, twilightScanner will bet to null, when twilight scanner will be stopped
+    @SuppressLint("StaticFieldLeak")
     static TwilightScanner twilightScanner = null;
 
     static boolean notificationScannerRunning = false;
@@ -1024,7 +1047,8 @@ public class PPApplication extends Application
             PPApplication.logE("##### PPApplication.onCreate", "osVersion=" + System.getProperty("os.version"));
             PPApplication.logE("##### PPApplication.onCreate", "api level=" + Build.VERSION.SDK_INT);
 
-            PPApplication.logE("##### PPApplication.onCreate", "deviceName="+ Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME));
+            if (Build.VERSION.SDK_INT >= 25)
+                PPApplication.logE("##### PPApplication.onCreate", "deviceName="+ Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME));
             PPApplication.logE("##### PPApplication.onCreate", "release="+ Build.VERSION.RELEASE);
 
             PPApplication.logE("##### PPApplication.onCreate", "board="+ Build.BOARD);
@@ -1043,7 +1067,7 @@ public class PPApplication extends Application
         // Bypass Android's hidden API restrictions
         // !!! WARNING - this is required also for android.jar from android-hidden-api !!!
         // https://github.com/tiann/FreeReflection
-        if (Build.VERSION.SDK_INT >= 28) {
+        /*if (Build.VERSION.SDK_INT >= 28) {
             try {
                 Method forName = Class.class.getDeclaredMethod("forName", String.class);
                 Method getDeclaredMethod = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
@@ -1061,7 +1085,7 @@ public class PPApplication extends Application
                 //Log.e("PPApplication.onCreate", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
-        }
+        }*/
         //////////////////////////////////////////
 
         /*
@@ -1211,6 +1235,10 @@ public class PPApplication extends Application
     protected void attachBaseContext(Context base) {
         //super.attachBaseContext(base);
         super.attachBaseContext(LocaleHelper.onAttach(base));
+        //Reflection.unseal(base);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            HiddenApiBypass.addHiddenApiExemptions("");
+        }
 
         // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
         if (ACRA.isACRASenderServiceProcess()) {
@@ -1392,7 +1420,7 @@ public class PPApplication extends Application
     }
 
     // is called from ThreadHandler
-    static void cancelAllWorks(/*@SuppressWarnings("SameParameterValue") boolean atStart*/) {
+    static void cancelAllWorks(/*boolean atStart*/) {
         //PPApplication.logE("------------ PPApplication.cancelAllWorks", "atStart="+atStart);
         /*if (atStart) {
             cancelWork(ShowProfileNotificationWorker.WORK_TAG, false);
@@ -1568,7 +1596,6 @@ public class PPApplication extends Application
         /*File sd = Environment.getExternalStorageDirectory();
         File exportDir = new File(sd, PPApplication.EXPORT_PATH);
         if (!(exportDir.exists() && exportDir.isDirectory()))
-            //noinspection ResultOfMethodCallIgnored
             exportDir.mkdirs();
 
         File logFile = new File(sd, EXPORT_PATH + "/" + LOG_FILENAME);
@@ -1595,7 +1622,6 @@ public class PPApplication extends Application
             /*File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory()))
-                //noinspection ResultOfMethodCallIgnored
                 exportDir.mkdirs();
 
             File logFile = new File(sd, EXPORT_PATH + "/" + LOG_FILENAME);
@@ -2950,7 +2976,6 @@ public class PPApplication extends Application
         try {
 //            PPApplication.logE("[ROOT] PPApplication._isRooted", "start RootToolsSmall.isRooted()");
             //if (roottools.isRootAvailable()) {
-            //noinspection RedundantIfStatement
             if (RootToolsSmall.isRooted()) {
                 // device is rooted
 //                PPApplication.logE("[ROOT] PPApplication._isRooted", "root available");
@@ -3114,7 +3139,6 @@ public class PPApplication extends Application
                     if (f.exists()) {
                         try {
                             InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
-                            //noinspection TryFinallyCanBeTryWithResources
                             try {
                                 enforcing = (is.read() == '1');
                             } finally {
@@ -3464,7 +3488,6 @@ public class PPApplication extends Application
 
     // dual SIM --------------------------------------------
 
-    @SuppressLint("NewApi")
     static boolean hasSIMCard(Context appContext, int simCard) {
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
@@ -4131,8 +4154,7 @@ public class PPApplication extends Application
         return (modVer == null || modVer.length() == 0 ? "Unknown" : modVer);
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private static String getSystemProperty(String propName)
+    private static String getSystemProperty(@SuppressWarnings("SameParameterValue") String propName)
     {
         String line;
         BufferedReader input = null;
@@ -4380,7 +4402,6 @@ public class PPApplication extends Application
             @Override
             protected String doInBackground(Void... voids) {
                 try {
-                    //noinspection RegExpRedundantEscape
                     return ((JSONObject) new JSONTokener(
                             InputStreamUtil.read(new URL("https://dontkillmyapp.com/api/v2/"+Build.MANUFACTURER.toLowerCase().replaceAll(" ", "-")+".json").openStream())).nextValue()
                     ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", fragment.getString(R.string.app_name));
@@ -4413,7 +4434,6 @@ public class PPApplication extends Application
                             }
                         });
 
-                        //noinspection ConstantConditions
                         new AlertDialog.Builder(fragment.getContext())
                                 .setTitle("How to make my app work")
                                 .setView(wv).setPositiveButton(android.R.string.ok, null).show();
@@ -5020,7 +5040,6 @@ public class PPApplication extends Application
         } catch (Exception ignored) {}
     }
 
-    @SuppressWarnings("SameParameterValue")
     static void setCustomKey(String key, int value) {
         try {
             //FirebaseCrashlytics.getInstance().setCustomKey(key, value);
@@ -5028,7 +5047,6 @@ public class PPApplication extends Application
         } catch (Exception ignored) {}
     }
 
-    @SuppressWarnings("SameParameterValue")
     static void setCustomKey(String key, String value) {
         try {
             //FirebaseCrashlytics.getInstance().setCustomKey(key, value);
@@ -5036,7 +5054,6 @@ public class PPApplication extends Application
         } catch (Exception ignored) {}
     }
 
-    @SuppressWarnings("SameParameterValue")
     static void setCustomKey(String key, boolean value) {
         try {
             //FirebaseCrashlytics.getInstance().setCustomKey(key, value);

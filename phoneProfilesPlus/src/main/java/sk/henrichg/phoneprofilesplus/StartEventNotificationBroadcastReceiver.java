@@ -59,7 +59,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     static void setAlarm(Event event, Context context)
     {
         //if (!_permanentRun) {
