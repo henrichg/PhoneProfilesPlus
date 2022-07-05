@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -117,7 +116,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         //intent.setClass(context, AlarmClockBroadcastReceiver.class);
 
         // cancel alarm
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null) {
             //PPApplication.logE("NextAlarmClockBroadcastReceiver.removeAlarm", "alarm found");
@@ -155,7 +153,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             intent.putExtra(AlarmClockBroadcastReceiver.EXTRA_ALARM_PACKAGE_NAME, alarmPackageName);
 
             // set alarm
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             //if (android.os.Build.VERSION.SDK_INT >= 23)
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);

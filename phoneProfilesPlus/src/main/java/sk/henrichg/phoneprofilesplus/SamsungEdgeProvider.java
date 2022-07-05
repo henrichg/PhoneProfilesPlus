@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -305,7 +304,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         // clicks
         Intent intent = new Intent(context, EditorActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         widget.setOnClickPendingIntent(R.id.widget_samsung_edge_header, pendingIntent);
@@ -336,7 +334,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         Intent clickIntent=new Intent(context, BackgroundActivateProfileActivity.class);
         clickIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent clickPI=PendingIntent.getActivity(context, 400,
                 clickIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);

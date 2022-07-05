@@ -78,4 +78,5 @@
         <ignore path="src/main/res/drawable/samsung_edge_panel.webp" />
     </issue>
     <issue id="ProtectedPermissions" severity="warning" />
+    <issue id="UnspecifiedImmutableFlag"  severity="ignore" />
 </lint>

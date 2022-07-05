@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -115,7 +114,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         intent.setAction(PPApplication.ACTION_DONATION);
         //intent.setClass(context, DonationBroadcastReceiver.class);
 
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -123,7 +121,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             if (ApplicationPreferences.applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -149,7 +146,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 intent.setAction(PPApplication.ACTION_DONATION);
                 //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     alarmManager.cancel(pendingIntent);
@@ -316,7 +312,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                         .setAutoCancel(true); // clear notification after click
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
                 mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);

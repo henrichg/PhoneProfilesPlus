@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -71,14 +70,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
                     intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
 
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                     if (alarmManager != null) {
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -143,7 +140,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -151,7 +147,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     if (ApplicationPreferences.applicationUseAlarmClock) {
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -212,7 +207,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -220,7 +214,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     if (ApplicationPreferences.applicationUseAlarmClock) {
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -311,7 +304,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
                     //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
 
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_NO_CREATE);
                     if (pendingIntent != null) {
                         alarmManager.cancel(pendingIntent);

@@ -400,7 +400,6 @@ class TwilightScanner {
             updateTwilightState(true/*, true*/);
         }
 
-        @SuppressLint("UnspecifiedImmutableFlag")
         void updateTwilightState(boolean setAlarm/*, boolean log*/) {
             if (mLocation == null) {
                 setTwilightState(null);
@@ -505,7 +504,6 @@ class TwilightScanner {
                 // remove alarm
                 try {
                     Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
                     if (pendingIntent != null) {
                         if (mAlarmManager != null)
@@ -521,7 +519,6 @@ class TwilightScanner {
                 Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
 
                 if (mAlarmManager != null) {
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
                     if (pendingIntent != null) {
                         //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");

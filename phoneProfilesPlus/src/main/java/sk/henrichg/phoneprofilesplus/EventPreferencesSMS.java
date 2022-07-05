@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -596,7 +595,6 @@ class EventPreferencesSMS extends EventPreferences {
                 intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
@@ -628,7 +626,6 @@ class EventPreferencesSMS extends EventPreferences {
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -636,7 +633,6 @@ class EventPreferencesSMS extends EventPreferences {
                     if (ApplicationPreferences.applicationUseAlarmClock) {
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);

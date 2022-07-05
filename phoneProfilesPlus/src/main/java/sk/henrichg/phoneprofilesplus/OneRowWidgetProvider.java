@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -681,7 +680,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 //remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events_click, pIntentRE);
                 //} else
@@ -692,7 +690,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 // clear all opened activities
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 200, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_profile_root, pendingIntent);
 

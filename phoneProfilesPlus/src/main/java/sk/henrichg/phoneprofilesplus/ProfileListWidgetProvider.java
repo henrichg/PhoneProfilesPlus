@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -707,7 +706,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //{
             Intent intent = new Intent(context, EditorActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
@@ -715,7 +713,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                 widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events_click, pIntentRE);
             //}
@@ -737,7 +734,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
             Intent clickIntent=new Intent(context, BackgroundActivateProfileActivity.class);
             clickIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent clickPI=PendingIntent.getActivity(context, 300,
                                                         clickIntent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);

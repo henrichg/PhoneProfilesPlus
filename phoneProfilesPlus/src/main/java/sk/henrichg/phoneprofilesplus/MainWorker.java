@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -185,7 +184,6 @@ public class MainWorker extends Worker {
                                             .setAutoCancel(true); // clear notification after click
                                     mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
-                                    @SuppressLint("UnspecifiedImmutableFlag")
                                     PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                                     mBuilder.setContentIntent(pi);
 

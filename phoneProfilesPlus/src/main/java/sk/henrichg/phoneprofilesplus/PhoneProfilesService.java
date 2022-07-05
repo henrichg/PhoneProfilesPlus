@@ -5546,7 +5546,6 @@ public class PhoneProfilesService extends Service
 
     // profile notification -------------------
 
-    @SuppressLint({"NewApi", "UnspecifiedImmutableFlag"})
     void _showProfileNotification(final DataWrapper dataWrapper, boolean forFirstStart)
     {
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
@@ -6357,7 +6356,6 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
     private void _addRestartEventsToProfileNotification(boolean forFirstStart,
                                                         RemoteViews contentView, RemoteViews contentViewLarge,
                                                         NotificationCompat.Builder notificationBuilder,
@@ -8585,7 +8583,6 @@ public class PhoneProfilesService extends Service
                 .setAutoCancel(true); // clear notification after click
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
 

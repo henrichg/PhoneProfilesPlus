@@ -4489,7 +4489,6 @@ class ActivateProfileHelper {
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -5126,7 +5125,6 @@ class ActivateProfileHelper {
                     break;
             }
 
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(pi);
             mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);

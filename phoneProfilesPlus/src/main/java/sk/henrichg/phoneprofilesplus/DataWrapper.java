@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -2757,7 +2756,6 @@ public class DataWrapper {
                     intent.putExtra(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
                     intent.putExtra(PhoneProfilesService.EXTRA_LOG_TYPE, logType);
 
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -2774,7 +2772,6 @@ public class DataWrapper {
 
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -2834,7 +2831,6 @@ public class DataWrapper {
                 intent.putExtra(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
                 intent.putExtra(PhoneProfilesService.EXTRA_LOG_TYPE, logType);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -2854,7 +2850,6 @@ public class DataWrapper {
 
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);

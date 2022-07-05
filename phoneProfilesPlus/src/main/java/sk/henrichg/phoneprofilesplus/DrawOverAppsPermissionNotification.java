@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -92,7 +91,6 @@ class DrawOverAppsPermissionNotification {
         final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
         intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);

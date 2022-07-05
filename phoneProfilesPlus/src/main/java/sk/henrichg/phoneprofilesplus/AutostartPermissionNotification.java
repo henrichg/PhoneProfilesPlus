@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -105,7 +104,6 @@ class AutostartPermissionNotification {
         intent = new Intent(context, AutostartPermissionActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);

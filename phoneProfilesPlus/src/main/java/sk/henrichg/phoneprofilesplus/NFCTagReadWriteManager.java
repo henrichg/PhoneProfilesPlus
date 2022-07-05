@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -103,7 +102,6 @@ class NFCTagReadWriteManager {
     /*
      * To be executed on OnCreate of the activity
      */
-    @SuppressLint("UnspecifiedImmutableFlag")
     void onActivityCreate() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
         pendingIntent = PendingIntent.getActivity(activity, 0,
