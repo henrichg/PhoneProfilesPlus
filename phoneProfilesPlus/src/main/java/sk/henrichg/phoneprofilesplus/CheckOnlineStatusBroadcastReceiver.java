@@ -45,6 +45,9 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
 
                     LocationScanner.onlineStatusChanged(appContext);
 
+//                    boolean isNetworkRoaming = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).isNetworkRoaming();
+//                    Log.e("CheckOnlineStatusBroadcastReceiver.onReceive", "isNetworkRoaming="+isNetworkRoaming);
+
                 } catch (Exception e) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
