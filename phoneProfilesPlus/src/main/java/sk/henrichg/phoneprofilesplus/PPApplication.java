@@ -2502,6 +2502,8 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_activated_profile_description_ppp);
 
+                // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
+                // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
                 NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
@@ -2536,6 +2538,8 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_mobile_cells_registration_description);
 
+                // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
+                // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
                 NotificationChannel channel = new NotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
@@ -2565,6 +2569,8 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.empty_string);
 
+                // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
+                // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
                 NotificationChannel channel = new NotificationChannel(INFORMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
@@ -2655,6 +2661,8 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_notify_event_start_description);
 
+                // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
+                // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
                 NotificationChannel channel = new NotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
@@ -2716,6 +2724,8 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.empty_string);
 
+                // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
+                // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
                 NotificationChannel channel = new NotificationChannel(DONATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
@@ -2745,6 +2755,8 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_new_release_description);
 
+                // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
+                // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
                 NotificationChannel channel = new NotificationChannel(NEW_RELEASE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
@@ -2805,6 +2817,8 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_generated_by_profile_description);
 
+                // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
+                // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
                 NotificationChannel channel = new NotificationChannel(GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
@@ -2836,6 +2850,8 @@ public class PPApplication extends Application
                 String description = context.getString(R.string.notification_channel_keep_screen_on_description) +
                         " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\".";
 
+                // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
+                // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
                 NotificationChannel channel = new NotificationChannel(KEEP_SCREEN_ON_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.

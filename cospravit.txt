@@ -653,6 +653,15 @@ Cez neho je mozne ziskat, ci je mobil v roamingu alebo ci jeho data su v roaming
 
 A samozrejme potom este novy senzor do udalosti pre toto.
 
+Treba na zaciatku v doForFirstStart() testnut, ci je v mobil roamingu. Takze sprav to ako mas hore v
+onServiceStateChanged() a pouzi na to tieto globalne premmene v PPApplication:
+    static PhoneCallsListener phoneCallsListenerSIM1 = null;
+    static PhoneCallsListener phoneCallsListenerSIM2 = null;
+    static PhoneCallsListener phoneCallsListenerDefaul = null;
+    static TelephonyManager telephonyManagerSIM1 = null;
+    static TelephonyManager telephonyManagerSIM2 = null;
+    static TelephonyManager telephonyManagerDefault = null;
+
 V emulatore si mozem zapnut roaming, takze mozem testovat ;-)
 
 Zdroj: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
