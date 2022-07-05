@@ -517,6 +517,8 @@ https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
 
 --------------------
 
+HOTOVO. PRIDANA MOZNOST WI-FI ON/OFF CEZ "svc wifi enable".
+
 Macrodroid ma parameter na airplane mode, ktorym sa urci, ci ma zostat wifi a bluetooth zanute.
 Vypada to tak, ze airplane mod sice vypne aj wifi ale po sekunde ho zapne.
 Musim zistit, ako to robi.
@@ -608,4 +610,50 @@ public static boolean isAirplaneModeOn(Context context) {
                 Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
     }
 }
+
+-------------------
+
+Senzor na detekciu, ci je tel.cislo v roamingu.
+Vraj na to staci PhonePstaeListener. Ten mam a regustujem ho cez:
+PhoneProfilesService.registerPhoneCallsListener();
+Volane v PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers().
+
+Kedze je to v AllTheTime, ma to uz zaregistovanie vzdy.
+Staci pridat toto:
+
+Toto musis pridat, mas tam len PhoneStateListener.LISTEN_CALL_STATE. Cez oparator |:
+PhoneStateListener.LISTEN_SERVICE_STATE;
+
+A potom v samotnom listeneri treba pridat novu metodu:
+
+   @Override
+    public void onServiceStateChanged(ServiceState serviceState) {
+        super.onServiceStateChanged(serviceState);
+        if (telephonyManager.isNetworkRoaming()) {
+            // In Roaming
+        } else {
+            // Not in Roaming
+        }
+        // You can also check roaming state using this
+        if (serviceState.getRoaming()) {
+            // In Roaming
+        } else {
+            // Not in Roaming
+        }
+    }
+
+Este je monzost cez SubscriptionManager (pre dual sim), ale tu detekciu cez listener treba tak ci tak:
+"With Android 5.1 update, there is now a very easy roaming detection: just use the SubscriptionManager
+and get a roaming info from SubscriptionInfo getDataRoaming(). If there are multiple SIMs, only the info
+from active one is returned, which is convenient."
+Toto je ale len pre roaming dat. Takze asi TelephopnyManmager bude lepsi.
+Cez neho je mozne ziskat, ci je mobil v roamingu alebo ci jeho data su v roamingu:
+- TelephonyManager.isNetworkRoaming()
+- TelephonyManager.getDataRoaming()
+
+A samozrejme potom este novy senzor do udalosti pre toto.
+
+Zdroj: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
+
+-----------------------
 
