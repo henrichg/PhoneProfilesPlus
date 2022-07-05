@@ -653,6 +653,8 @@ Cez neho je mozne ziskat, ci je mobil v roamingu alebo ci jeho data su v roaming
 
 A samozrejme potom este novy senzor do udalosti pre toto.
 
+V emulatore si mozem zapnut roaming, takze mozem testovat ;-)
+
 Zdroj: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
 
 -----------------------
