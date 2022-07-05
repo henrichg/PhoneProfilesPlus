@@ -1165,16 +1165,18 @@ public class PhoneProfilesService extends Service
                                         if (PPApplication.telephonyManagerSIM1 == null) {
 //                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
                                             PPApplication.telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                            PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(subscriptionInfo, context);
-                                            PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1, PhoneStateListener.LISTEN_CALL_STATE);
+                                            PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(1, subscriptionInfo, context);
+                                            PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1,
+                                                    PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
                                         }
                                     }
                                     if ((subscriptionInfo.getSimSlotIndex() == 1)) {
                                         if (PPApplication.telephonyManagerSIM2 == null) {
 //                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
                                             PPApplication.telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                            PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(subscriptionInfo, context);
-                                            PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2, PhoneStateListener.LISTEN_CALL_STATE);
+                                            PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(2, subscriptionInfo, context);
+                                            PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2,
+                                                    PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
                                         }
                                     }
                                 }
@@ -1189,8 +1191,9 @@ public class PhoneProfilesService extends Service
 //                        PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "mSubscriptionManager == null");
                 }
                 else {
-                    PPApplication.phoneCallsListenerDefaul = new PhoneCallsListener(null, context);
-                    PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul, PhoneStateListener.LISTEN_CALL_STATE);
+                    PPApplication.phoneCallsListenerDefaul = new PhoneCallsListener(0, null, context);
+                    PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul,
+                            PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
                 }
             }
         }

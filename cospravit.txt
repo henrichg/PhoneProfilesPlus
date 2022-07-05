@@ -629,12 +629,6 @@ A potom v samotnom listeneri treba pridat novu metodu:
    @Override
     public void onServiceStateChanged(ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
-        if (telephonyManager.isNetworkRoaming()) {
-            // In Roaming
-        } else {
-            // Not in Roaming
-        }
-        // You can also check roaming state using this
         if (serviceState.getRoaming()) {
             // In Roaming
         } else {
@@ -661,6 +655,15 @@ onServiceStateChanged() a pouzi na to tieto globalne premmene v PPApplication:
     static TelephonyManager telephonyManagerSIM1 = null;
     static TelephonyManager telephonyManagerSIM2 = null;
     static TelephonyManager telephonyManagerDefault = null;
+
+Pouzi na ziskanie ServiceState toto: TelephonyManager.getServiceState().
+ALE BACHA, JE LEN OD API 26. Takze pre nizsie api nebude v senzore ziskanie data roamingu.
+Pre API < 26 pouzi len toto (ziskanie network roamingu):
+    if (telephonyManager.isNetworkRoaming()) {
+        // In Roaming
+    } else {
+        // Not in Roaming
+    }
 
 V emulatore si mozem zapnut roaming, takze mozem testovat ;-)
 

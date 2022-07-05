@@ -6,10 +6,14 @@ import android.media.AudioManager;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
+import android.telephony.ServiceState;
 import android.telephony.SubscriptionInfo;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 public class PhoneCallsListener extends PhoneStateListener {
+
+    int forSimCard;
 
     //final SubscriptionInfo subscriptionInfo;
 
@@ -36,8 +40,10 @@ public class PhoneCallsListener extends PhoneStateListener {
     static final int LINKMODE_UNLINK = 2;
 
 
-    PhoneCallsListener(@SuppressWarnings("unused") SubscriptionInfo subscriptionInfo,
+    PhoneCallsListener(int forSimCard,
+                        @SuppressWarnings("unused") SubscriptionInfo subscriptionInfo,
                        Context context) {
+        this.forSimCard = forSimCard;
         //this.subscriptionInfo = subscriptionInfo;
         this.savedContext = context.getApplicationContext();
     }
@@ -107,6 +113,34 @@ public class PhoneCallsListener extends PhoneStateListener {
             }
             lastState = state;
         }
+    }
+
+    public void onServiceStateChanged(ServiceState serviceState) {
+        super.onServiceStateChanged(serviceState);
+
+        /*TelephonyManager telephonyManager;
+        if (forSimCard == 1)
+            telephonyManager = PPApplication.telephonyManagerSIM1;
+        else
+        if (forSimCard == 2)
+            telephonyManager = PPApplication.telephonyManagerSIM2;
+        else
+            telephonyManager = PPApplication.telephonyManagerDefault;*/
+
+        // You can also check roaming state using this
+        if (serviceState.getRoaming()) {
+            // In Roaming
+            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - network");
+        } else {
+            // Not in Roaming
+            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - network");
+        }
+        if (serviceState.getDataRoaming()) {
+            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - data");
+        } else {
+            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - data");
+        }
+
     }
 
     protected void onIncomingCallStarted(/*String number, Date eventTime*/)
