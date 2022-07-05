@@ -762,10 +762,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 public void onSequenceFinish() {
                     //targetHelpsSequenceStarted = false;
 
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                    editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.apply();
-                    ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = true;
+                    //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                    //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.apply();
+                    //ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = true;
 
                 }
 
@@ -783,10 +783,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
 
-            editor = ApplicationPreferences.getEditor(getApplicationContext());
-            editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
-            editor.apply();
-            ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = false;
+            //editor = ApplicationPreferences.getEditor(getApplicationContext());
+            //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+            //editor.apply();
+            //ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = false;
 
             sequence.start();
         }

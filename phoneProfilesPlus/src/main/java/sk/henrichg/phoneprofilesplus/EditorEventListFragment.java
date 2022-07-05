@@ -1782,7 +1782,7 @@ public class EditorEventListFragment extends Fragment
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
 
                                 editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                                editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                                //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                                 editor.apply();
 
@@ -1792,7 +1792,7 @@ public class EditorEventListFragment extends Fragment
                                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
 
                                 ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
+                                //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
                             }
                         });
                 sequence.continueOnCancel(true)
@@ -1840,12 +1840,12 @@ public class EditorEventListFragment extends Fragment
             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
             if (filterType == FILTER_TYPE_START_ORDER)
                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
-            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+            //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
             editor.apply();
             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
             if (filterType == FILTER_TYPE_START_ORDER)
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
-            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
+            //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
         }
     }
 

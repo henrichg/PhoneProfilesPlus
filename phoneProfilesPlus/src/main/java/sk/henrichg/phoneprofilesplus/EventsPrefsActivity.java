@@ -728,10 +728,10 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 public void onSequenceFinish() {
                     //targetHelpsSequenceStarted = false;
 
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                    editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.apply();
-                    ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = true;
+                    //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                    //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.apply();
+                    //ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = true;
 
                 }
 
@@ -749,10 +749,10 @@ public class EventsPrefsActivity extends AppCompatActivity {
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
 
-            editor = ApplicationPreferences.getEditor(getApplicationContext());
-            editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
-            editor.apply();
-            ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = false;
+            //editor = ApplicationPreferences.getEditor(getApplicationContext());
+            //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+            //editor.apply();
+            //ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = false;
 
             sequence.start();
         }

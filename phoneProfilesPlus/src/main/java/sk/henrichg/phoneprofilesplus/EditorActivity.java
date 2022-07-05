@@ -3890,7 +3890,7 @@ public class EditorActivity extends AppCompatActivity
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
 
                             editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                            //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                             ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
@@ -3900,7 +3900,7 @@ public class EditorActivity extends AppCompatActivity
                                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
                             ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+                            //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
 
                         }
                         else {
@@ -3911,7 +3911,7 @@ public class EditorActivity extends AppCompatActivity
                             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
 
                             editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                            //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                             ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
@@ -3920,7 +3920,7 @@ public class EditorActivity extends AppCompatActivity
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
 
                             ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
+                            //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
                         }
                         editor.apply();
                     }

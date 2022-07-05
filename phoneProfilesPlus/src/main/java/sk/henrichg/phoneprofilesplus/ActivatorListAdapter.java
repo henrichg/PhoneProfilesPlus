@@ -25,7 +25,7 @@ class ActivatorListAdapter extends BaseAdapter
 
     //public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
-    static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_adapter_start_target_helps_finished";
+    //static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_adapter_start_target_helps_finished";
 
     ActivatorListAdapter(ActivatorListFragment f, /*List<Profile> pl, */DataWrapper dataWrapper)
     {
@@ -363,10 +363,10 @@ class ActivatorListAdapter extends BaseAdapter
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
-                    ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+                    //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
@@ -401,7 +401,7 @@ class ActivatorListAdapter extends BaseAdapter
 
                     editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                     editor.apply();
 
@@ -411,7 +411,7 @@ class ActivatorListAdapter extends BaseAdapter
 
                     ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
                     ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
-                    ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+                    //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
@@ -434,10 +434,10 @@ class ActivatorListAdapter extends BaseAdapter
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
 
-            editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-            editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
-            editor.apply();
-            ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = false;
+            //editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+            //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+            //editor.apply();
+            //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = false;
 
             sequence.start();
         }

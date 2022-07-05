@@ -1554,7 +1554,7 @@ public class EditorProfileListFragment extends Fragment
                                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
 
                                 editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                                //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                                 editor.apply();
 
@@ -1566,7 +1566,7 @@ public class EditorProfileListFragment extends Fragment
                                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
                                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+                                //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
                             }
                         });
                 sequence.continueOnCancel(true)
@@ -1614,10 +1614,10 @@ public class EditorProfileListFragment extends Fragment
             //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
-            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+            //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
             editor.apply();
             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
-            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+            //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
         }
     }
 

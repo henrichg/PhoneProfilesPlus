@@ -667,7 +667,7 @@ public class ActivatorActivity extends AppCompatActivity {
 
                         editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
                         editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                        editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                        //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                         editor.apply();
 
@@ -677,7 +677,7 @@ public class ActivatorActivity extends AppCompatActivity {
 
                         ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
                         ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
-                        ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+                        //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
 
                         final Handler handler = new Handler(getMainLooper());
                         handler.postDelayed(() -> {
