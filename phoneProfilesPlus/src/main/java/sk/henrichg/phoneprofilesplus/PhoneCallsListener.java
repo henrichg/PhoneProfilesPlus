@@ -18,6 +18,9 @@ public class PhoneCallsListener extends PhoneStateListener {
     boolean inCall;
     boolean isIncoming;
 
+    boolean networkRoaming;
+    boolean dataRoaming;
+
     private static AudioManager audioManager = null;
 
     private static boolean savedSpeakerphone = false;
@@ -124,14 +127,18 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (serviceState.getRoaming()) {
             // In Roaming
             Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - network");
+            networkRoaming = true;
         } else {
             // Not in Roaming
             Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - network");
+            networkRoaming = false;
         }
         if (serviceState.getDataRoaming()) {
             Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - data");
+            dataRoaming = true;
         } else {
             Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - data");
+            dataRoaming = false;
         }
 
         /*

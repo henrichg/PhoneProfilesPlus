@@ -642,8 +642,15 @@ and get a roaming info from SubscriptionInfo getDataRoaming(). If there are mult
 from active one is returned, which is convenient."
 Toto je ale len pre roaming dat. Takze asi TelephopnyManmager bude lepsi.
 Cez neho je mozne ziskat, ci je mobil v roamingu alebo ci jeho data su v roamingu:
-- TelephonyManager.isNetworkRoaming()
-- TelephonyManager.getDataRoaming()
+
+pridal som tieto dve premenne:
+    boolean networkRoaming;
+    boolean dataRoaming;
+citaj v doHandleEvent() z:
+    static PhoneCallsListener phoneCallsListenerSIM1 = null;
+    static PhoneCallsListener phoneCallsListenerSIM2 = null;
+    static PhoneCallsListener phoneCallsListenerDefaul = null;
+Podpora pre dual sim musi byt od API 26. Tak ako pri "Call sensor".
 
 A samozrejme potom este novy senzor do udalosti pre toto.
 
