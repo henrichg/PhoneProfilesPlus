@@ -702,5 +702,5 @@ assistenta, aj ked ma mobil rootnuty. Vybral si to tak.
 No a na package replaced by zistoval, ci je mobil rootnuty a ak nie je a ma, ze chce ho nastavovat,
 tak by prepol na ten assistent typ.
 Proste by tam mal viac moznosti, podobne ako pri wifi. Nic hrozneho.
-
+A v array by boli polozky s rootom oznacene (R) s assistentom nie.
 
