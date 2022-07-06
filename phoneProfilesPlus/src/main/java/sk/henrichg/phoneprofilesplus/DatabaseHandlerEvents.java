@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1350,7 +1351,9 @@ public class DatabaseHandlerEvents {
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_ENABLED)) == 1);
                 eventPreferences._checkNetwork = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK)) == 1);
-                eventPreferences._checkNetwork = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_DATA)) == 1);
+//                Log.e("DatabaseHandlerEvents.getEventPreferencesRoaming", "KEY_E_ROAMING_CHECK_NETWORK="+cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK)));
+                eventPreferences._checkData = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_DATA)) == 1);
+//                Log.e("DatabaseHandlerEvents.getEventPreferencesRoaming", "KEY_E_ROAMING_CHECK_DATA="+cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_DATA)));
                 eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED)));
             }
@@ -1804,7 +1807,9 @@ public class DatabaseHandlerEvents {
 
         values.put(DatabaseHandler.KEY_E_ROAMING_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK, (eventPreferences._checkNetwork) ? 1 : 0);
+//        Log.e("DatabaseHandlerEvents.updateEventPreferencesRoaming", "eventPreferences._checkNetwork="+eventPreferences._checkNetwork);
         values.put(DatabaseHandler.KEY_E_ROAMING_CHECK_DATA, (eventPreferences._checkData) ? 1 : 0);
+//        Log.e("DatabaseHandlerEvents.updateEventPreferencesRoaming", "eventPreferences._checkData="+eventPreferences._checkData);
         values.put(DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD, eventPreferences._forSIMCard);
 
@@ -2155,6 +2160,9 @@ public class DatabaseHandlerEvents {
                         case DatabaseHandler.ETYPE_ACTIVATED_PROFILE:
                             sensorPassedField = DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED;
                             break;
+                        case DatabaseHandler.ETYPE_ROAMING:
+                            sensorPassedField = DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
@@ -2288,6 +2296,10 @@ public class DatabaseHandlerEvents {
                     case DatabaseHandler.ETYPE_ACTIVATED_PROFILE:
                         sensorPassed = event._eventPreferencesActivatedProfile.getSensorPassed();
                         sensorPassedField = DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED;
+                        break;
+                    case DatabaseHandler.ETYPE_ROAMING:
+                        sensorPassed = event._eventPreferencesRoaming.getSensorPassed();
+                        sensorPassedField = DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED;
                         break;
                 }
                 ContentValues values = new ContentValues();
@@ -2537,6 +2549,8 @@ public class DatabaseHandlerEvents {
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_VOLUMES_ENABLED + "=1";
                     else if (eventType == DatabaseHandler.ETYPE_ACTIVATED_PROFILE)
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_ENABLED + "=1";
+                    else if (eventType == DatabaseHandler.ETYPE_ROAMING)
+                        eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_ROAMING_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + DatabaseHandler.TABLE_EVENTS +

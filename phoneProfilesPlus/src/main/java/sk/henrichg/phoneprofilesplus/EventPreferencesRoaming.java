@@ -109,6 +109,8 @@ class EventPreferencesRoaming extends EventPreferences {
                     descr = descr + "<b>" + context.getString(R.string.pref_event_roaming_check_network) + "</b>";
                 }
                 if (this._checkData) {
+                    if (this._checkNetwork)
+                        descr = descr + " • ";
                     descr = descr + "<b>" + context.getString(R.string.pref_event_roaming_check_data) + "</b>";
                 }
 

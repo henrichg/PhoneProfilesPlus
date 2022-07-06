@@ -1547,7 +1547,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not enabled accessibility service
             int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false, false);
-            Log.e("EventsPrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
+//            Log.e("EventsPrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
             /*if (accessibilityEnabled == 1) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 Log.e("EventsPrefsFragment.setRedTextToPreferences", "extenderVersion="+extenderVersion);
