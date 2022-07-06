@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/event_preferences_category_eventRoamingParameters"
+    app:key="eventRoamingCategory" >
+
+    <SwitchPreferenceCompat
+        app:key="eventRoamingEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <SwitchPreferenceCompat
+        app:key="eventRoamingCheckNetwork"
+        app:title="@string/pref_event_roaming_check_network"
+        app:defaultValue="true"
+        app:dependency="eventRoamingEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <SwitchPreferenceCompat
+        app:key="eventRoamingCheckData"
+        app:title="@string/pref_event_roaming_check_data"
+        app:defaultValue="true"
+        app:dependency="eventRoamingEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

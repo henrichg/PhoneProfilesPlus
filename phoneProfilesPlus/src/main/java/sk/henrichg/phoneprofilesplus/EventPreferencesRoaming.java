@@ -20,8 +20,8 @@ class EventPreferencesRoaming extends EventPreferences {
     int _fromSIMSlot;
 
     static final String PREF_EVENT_ROAMING_ENABLED = "eventRoamingEnabled";
-    private static final String PREF_EVENT_ROAMING_CHECK_NETWORK = "eventRoamingEvent";
-    static final String PREF_EVENT_ROAMING_CHECK_DATA = "eventRoamingContacts";
+    private static final String PREF_EVENT_ROAMING_CHECK_NETWORK = "eventRoamingCheckNetwork";
+    static final String PREF_EVENT_ROAMING_CHECK_DATA = "eventRoamingCheckData";
     private static final String PREF_EVENT_ROAMING_FOR_SIM_CARD = "eventRomanigForSimCard";
 
     static final String PREF_EVENT_ROAMING_ENABLED_NO_CHECK_SIM = "eventRoamingEnabledEnabledNoCheckSim";

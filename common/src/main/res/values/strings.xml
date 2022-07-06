@@ -2007,6 +2007,14 @@
     <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
     <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
 
+    <string name="event_preference_sensor_roaming_summary">This sensor will start an event when network or data is in roaming. Parameters: Check network, Check data.</string>
+    <string name="event_type_roaming">Roaming</string>
+    <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
+    <string name="pref_event_roaming_check_network">Check network</string>
+    <string name="pref_event_roaming_check_data">Check data</string>
+    <string name="event_preferences_roaming_forSimCard">For SIM card</string>
+    <string name="permission_why_event_roaming_preferences">for check if network or data is in roaming</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

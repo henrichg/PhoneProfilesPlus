@@ -984,6 +984,14 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    static public class EventsPrefsRoamingParameters extends EventsPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.event_prefs_roaming_sensor, rootKey);
+        }
+    }
+
     void changeCurentLightSensorValue() {
 //        PPApplication.logE("EventsPrefsActivity.changeCurentLightSensorValue", "xxx");
 

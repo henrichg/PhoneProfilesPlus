@@ -818,6 +818,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_MICROPHONE:
                         s = getString(R.string.permission_why_profile_default_assistant);
                         break;
+                    case Permissions.PERMISSION_EVENT_ROAMING_PREFERENCES:
+                        s = getString(R.string.permission_why_event_roaming_preferences);
+                        break;
                 }
             }
         }
@@ -1637,7 +1640,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         PPApplication.registerContentObservers(context);
         PPApplication.registerCallbacks(context);
-        PPApplication.registerPhoneCallsListener(context);;
+        PPApplication.registerPhoneCallsListener(context);
 
 
         /*
