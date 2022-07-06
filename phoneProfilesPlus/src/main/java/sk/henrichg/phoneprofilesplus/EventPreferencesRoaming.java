@@ -17,7 +17,12 @@ class EventPreferencesRoaming extends EventPreferences {
     boolean _checkData;
     int _forSIMCard;
 
-    int _fromSIMSlot;
+    boolean _networkRoamingInSIMSlot0;
+    boolean _dataRoamingInSIMSlot0;
+    boolean _networkRoamingInSIMSlot1;
+    boolean _dataRoamingInSIMSlot1;
+    boolean _networkRoamingInSIMSlot2;
+    boolean _dataRoamingInSIMSlot2;
 
     static final String PREF_EVENT_ROAMING_ENABLED = "eventRoamingEnabled";
     private static final String PREF_EVENT_ROAMING_CHECK_NETWORK = "eventRoamingCheckNetwork";
@@ -27,6 +32,13 @@ class EventPreferencesRoaming extends EventPreferences {
     static final String PREF_EVENT_ROAMING_ENABLED_NO_CHECK_SIM = "eventRoamingEnabledEnabledNoCheckSim";
 
     private static final String PREF_EVENT_ROAMING_CATEGORY = "eventRoamingCategoryRoot";
+
+    private static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_0 = "eventRoamingNetworkInSIMSlot0";
+    private static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_0 = "eventRoamingInDataSIMSlot0";
+    private static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_1 = "eventRoamingNetworkInSIMSlot1";
+    private static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_1 = "eventRoamingDataInSIMSlot1";
+    private static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_2 = "eventRoamingNetworkInSIMSlot2";
+    private static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_2 = "eventRoamingDataInSIMSlot2";
 
     EventPreferencesRoaming(Event event,
                             boolean enabled,
@@ -39,7 +51,12 @@ class EventPreferencesRoaming extends EventPreferences {
         this._checkData = checkData;
         this._forSIMCard = forSIMCard;
 
-        this._fromSIMSlot = 0;
+        this._networkRoamingInSIMSlot0 = false;
+        this._dataRoamingInSIMSlot0 = false;
+        this._networkRoamingInSIMSlot1 = false;
+        this._dataRoamingInSIMSlot1 = false;
+        this._networkRoamingInSIMSlot2 = false;
+        this._dataRoamingInSIMSlot2 = false;
     }
 
     void copyPreferences(Event fromEvent) {
@@ -49,7 +66,12 @@ class EventPreferencesRoaming extends EventPreferences {
         this._forSIMCard = fromEvent._eventPreferencesRoaming._forSIMCard;
         this.setSensorPassed(fromEvent._eventPreferencesRoaming.getSensorPassed());
 
-        this._fromSIMSlot = 0;
+        this._networkRoamingInSIMSlot0 = false;
+        this._dataRoamingInSIMSlot0 = false;
+        this._networkRoamingInSIMSlot1 = false;
+        this._dataRoamingInSIMSlot1 = false;
+        this._networkRoamingInSIMSlot2 = false;
+        this._dataRoamingInSIMSlot2 = false;
     }
 
     void loadSharedPreferences(SharedPreferences preferences) {
@@ -322,17 +344,77 @@ class EventPreferencesRoaming extends EventPreferences {
     }
     */
 
+    static void getEventRoamingInSIMSlot(Context context, int simSlot) {
+        synchronized (PPApplication.eventRoamingSensorMutex) {
+            switch (simSlot) {
+                case 0:
+                    ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0 = ApplicationPreferences.
+                            getSharedPreferences(context).getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_0, false);
+                    ApplicationPreferences.prefEventRoamingDataInSIMSlot0 = ApplicationPreferences.
+                            getSharedPreferences(context).getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_0, false);
+                    break;
+                case 1:
+                    ApplicationPreferences.prefEventRoamingNetworkInSIMSlot1 = ApplicationPreferences.
+                            getSharedPreferences(context).getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_1, false);
+                    ApplicationPreferences.prefEventRoamingDataInSIMSlot1 = ApplicationPreferences.
+                            getSharedPreferences(context).getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_1, false);
+                    break;
+                case 2:
+                    ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2 = ApplicationPreferences.
+                            getSharedPreferences(context).getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_2, false);
+                    ApplicationPreferences.prefEventRoamingDataInSIMSlot2 = ApplicationPreferences.
+                            getSharedPreferences(context).getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_2, false);
+                    break;
+            }
+        }
+    }
+    static void setEventRoamingInSIMSlot(Context context, int simSlot, boolean networkRoaming, boolean dataRoaming) {
+        synchronized (PPApplication.eventRoamingSensorMutex) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+            switch (simSlot) {
+                case 0:
+                    editor.putBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_0, networkRoaming);
+                    ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0 = networkRoaming;
+                    editor.putBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_0, dataRoaming);
+                    ApplicationPreferences.prefEventRoamingDataInSIMSlot0 = dataRoaming;
+                    break;
+                case 1:
+                    editor.putBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_1, networkRoaming);
+                    ApplicationPreferences.prefEventRoamingNetworkInSIMSlot1 = networkRoaming;
+                    editor.putBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_1, dataRoaming);
+                    ApplicationPreferences.prefEventRoamingDataInSIMSlot1 = dataRoaming;
+                    break;
+                case 2:
+                    editor.putBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_2, networkRoaming);
+                    ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2 = networkRoaming;
+                    editor.putBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_2, dataRoaming);
+                    ApplicationPreferences.prefEventRoamingDataInSIMSlot2 = dataRoaming;
+                    break;
+            }
+
+            editor.apply();
+        }
+    }
+
+
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                int simSlot = 0;//ApplicationPreferences.prefEventRoamingFromSIMSlot;
 
-                _fromSIMSlot = simSlot;
-//                    PPApplication.logE("EventPreferencesRoaming.doHandleEvent", "_fromSIMSlot=" + _fromSIMSlot);
+                this._networkRoamingInSIMSlot0 = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0;
+                this._dataRoamingInSIMSlot0 = ApplicationPreferences.prefEventRoamingDataInSIMSlot0;
+                this._networkRoamingInSIMSlot1 = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot1;
+                this._dataRoamingInSIMSlot1 = ApplicationPreferences.prefEventRoamingDataInSIMSlot1;
+                this._networkRoamingInSIMSlot2 = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2;
+                this._dataRoamingInSIMSlot2 = ApplicationPreferences.prefEventRoamingDataInSIMSlot2;
 
-                if ((Build.VERSION.SDK_INT < 26) || (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
 
+                if ((Build.VERSION.SDK_INT < 26) ||
+                        ((_forSIMCard == 0) && (_networkRoamingInSIMSlot0 || _dataRoamingInSIMSlot0)) ||
+                        ((_forSIMCard == 1) && (_networkRoamingInSIMSlot1 || _dataRoamingInSIMSlot1)) ||
+                        ((_forSIMCard == 2) && (_networkRoamingInSIMSlot2 || _dataRoamingInSIMSlot2))) {
+                    eventsHandler.roamingPassed = true;
                 }
                 else
                     eventsHandler.roamingPassed = false;

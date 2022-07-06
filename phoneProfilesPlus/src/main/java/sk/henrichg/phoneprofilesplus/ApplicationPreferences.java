@@ -47,6 +47,12 @@ class ApplicationPreferences {
     static long prefEventAlarmClockTime;
     static String prefEventAlarmClockPackageName;
     static boolean keepScreenOnPermanent;
+    static boolean prefEventRoamingNetworkInSIMSlot0;
+    static boolean prefEventRoamingDataInSIMSlot0;
+    static boolean prefEventRoamingNetworkInSIMSlot1;
+    static boolean prefEventRoamingDataInSIMSlot1;
+    static boolean prefEventRoamingNetworkInSIMSlot2;
+    static boolean prefEventRoamingDataInSIMSlot2;
 
     static boolean applicationEventNeverAskForEnableRun;
     static boolean applicationNeverAskForGrantRoot;

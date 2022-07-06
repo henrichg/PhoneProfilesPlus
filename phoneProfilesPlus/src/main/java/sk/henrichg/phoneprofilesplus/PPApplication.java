@@ -387,6 +387,7 @@ public class PPApplication extends Application
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
     static final NotUnlinkVolumesMutex notUnlinkVolumesMutex = new NotUnlinkVolumesMutex();
+    static final EventRoamingSensorMutex eventRoamingSensorMutex = new EventRoamingSensorMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 
@@ -2018,9 +2019,11 @@ public class PPApplication extends Application
         WifiScanWorker.getWifiEnabledForScan(context);
         WifiScanWorker.getScanRequest(context);
         WifiScanWorker.getWaitForResults(context);
-
         NextAlarmClockBroadcastReceiver.getEventAlarmClockTime(context);
         NextAlarmClockBroadcastReceiver.getEventAlarmClockPackageName(context);
+        EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 0);
+        EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 1);
+        EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 2);
 
         ApplicationPreferences.loadStartTargetHelps(context);
     }

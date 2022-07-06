@@ -1330,6 +1330,34 @@ public class DatabaseHandlerEvents {
         }
     }
 
+    static private void getEventPreferencesRoaming(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                new String[]{DatabaseHandler.KEY_E_ROAMING_ENABLED,
+                        DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK,
+                        DatabaseHandler.KEY_E_ROAMING_CHECK_DATA,
+                        DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED,
+                        DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD
+                },
+                DatabaseHandler.KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesRoaming eventPreferences = event._eventPreferencesRoaming;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_ENABLED)) == 1);
+                eventPreferences._checkNetwork = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK)) == 1);
+                eventPreferences._checkNetwork = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_DATA)) == 1);
+                eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
+
     // this is called only from getEvent and getAllEvents
     // for this is not needed to calling importExportLock.lock();
     static private void getEventPreferences(Event event, SQLiteDatabase db) {
@@ -1355,6 +1383,7 @@ public class DatabaseHandlerEvents {
         getEventPreferencesPeriodic(event, db);
         getEventPreferencesVolumes(event, db);
         getEventPreferencesActivatedProfile(event, db);
+        getEventPreferencesRoaming(event, db);
     }
 
     static private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -1768,6 +1797,22 @@ public class DatabaseHandlerEvents {
                 new String[] { String.valueOf(event._id) });
     }
 
+    static private void updateEventPreferencesRoaming(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesRoaming eventPreferences = event._eventPreferencesRoaming;
+
+        values.put(DatabaseHandler.KEY_E_ROAMING_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK, (eventPreferences._checkNetwork) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_ROAMING_CHECK_DATA, (eventPreferences._checkData) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED, eventPreferences.getSensorPassed());
+        values.put(DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD, eventPreferences._forSIMCard);
+
+        // updating row
+        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
     static private void updateEventPreferences(Event event, SQLiteDatabase db) {
@@ -1793,6 +1838,7 @@ public class DatabaseHandlerEvents {
         updateEventPreferencesPeriodic(event, db);
         updateEventPreferencesVolumes(event, db);
         updateEventPreferencesActivatedProfile(event, db);
+        updateEventPreferencesRoaming(event, db);
     }
 
 

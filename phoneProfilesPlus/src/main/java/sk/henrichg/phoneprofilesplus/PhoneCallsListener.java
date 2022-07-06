@@ -21,6 +21,8 @@ public class PhoneCallsListener extends PhoneStateListener {
     boolean networkRoaming;
     boolean dataRoaming;
 
+    int simSlot;
+
     private static AudioManager audioManager = null;
 
     private static boolean savedSpeakerphone = false;
@@ -37,8 +39,9 @@ public class PhoneCallsListener extends PhoneStateListener {
     static final int LINKMODE_LINK = 1;
     static final int LINKMODE_UNLINK = 2;
 
-    PhoneCallsListener(Context context) {
+    PhoneCallsListener(Context context, int simSlot) {
         this.savedContext = context.getApplicationContext();
+        this.simSlot = simSlot;
     }
 
     public void onCallStateChanged (int state, String phoneNumber) {
@@ -153,6 +156,8 @@ public class PhoneCallsListener extends PhoneStateListener {
             Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - settings global - data");
         }
         */
+
+        EventPreferencesRoaming.setEventRoamingInSIMSlot(savedContext, simSlot, networkRoaming, dataRoaming);
     }
 
     protected void onIncomingCallStarted(/*String number, Date eventTime*/)
