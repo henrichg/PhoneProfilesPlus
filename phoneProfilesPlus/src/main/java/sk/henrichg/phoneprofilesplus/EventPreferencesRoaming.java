@@ -436,6 +436,7 @@ class EventPreferencesRoaming extends EventPreferences {
                 else
                 if (_checkNetwork)
                     eventsHandler.roamingPassed = networkRoaming;
+                else
                 if (_checkData)
                     eventsHandler.roamingPassed = dataRoaming;
                 else
