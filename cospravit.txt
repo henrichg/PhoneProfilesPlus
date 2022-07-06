@@ -684,3 +684,23 @@ Zdroj: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is
 
 -----------------------
 
+Airplane mod a assistent:
+
+Mam tam toto:
+
+    <ListPreference
+        app:title="@string/profile_preferences_deviceAirplaneMode"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceAirplaneMode"
+        app:defaultValue="0"
+        app:entries="@array/hardwareModeArray"
+        app:entryValues="@array/hardwareModeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+Takze som sem do tych array pridat moznost ze to chce cez assistenta. A spravil by to cez
+assistenta, aj ked ma mobil rootnuty. Vybral si to tak.
+No a na package replaced by zistoval, ci je mobil rootnuty a ak nie je a ma, ze chce ho nastavovat,
+tak by prepol na ten assistent typ.
+Proste by tam mal viac moznosti, podobne ako pri wifi. Nic hrozneho.
+
+
