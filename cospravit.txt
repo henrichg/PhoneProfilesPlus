@@ -703,4 +703,6 @@ No a na package replaced by zistoval, ci je mobil rootnuty a ak nie je a ma, ze 
 tak by prepol na ten assistent typ.
 Proste by tam mal viac moznosti, podobne ako pri wifi. Nic hrozneho.
 A v array by boli polozky s rootom oznacene (R) s assistentom nie.
+Ide mi o to pravo mikrofon, ktore mi to pytalo, ked som na S10 bootol do nerootnutej particie.
+To bol podraz od PPP. :-)
 
