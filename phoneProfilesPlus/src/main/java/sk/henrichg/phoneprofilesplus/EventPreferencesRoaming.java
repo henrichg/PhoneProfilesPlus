@@ -409,15 +409,37 @@ class EventPreferencesRoaming extends EventPreferences {
                 this._networkRoamingInSIMSlot2 = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2;
                 this._dataRoamingInSIMSlot2 = ApplicationPreferences.prefEventRoamingDataInSIMSlot2;
 
-
-                if ((Build.VERSION.SDK_INT < 26) ||
-                        ((_forSIMCard == 0) && (_networkRoamingInSIMSlot0 || _dataRoamingInSIMSlot0)) ||
-                        ((_forSIMCard == 1) && (_networkRoamingInSIMSlot1 || _dataRoamingInSIMSlot1)) ||
-                        ((_forSIMCard == 2) && (_networkRoamingInSIMSlot2 || _dataRoamingInSIMSlot2))) {
-                    eventsHandler.roamingPassed = true;
+                boolean networkRoaming = false;
+                boolean dataRoaming = false;
+                if (Build.VERSION.SDK_INT < 26) {
+                    networkRoaming = _networkRoamingInSIMSlot0;
+                    dataRoaming = _dataRoamingInSIMSlot0;
                 }
                 else
-                    eventsHandler.roamingPassed = false;
+                if (_forSIMCard == 0) {
+                    networkRoaming = _networkRoamingInSIMSlot0 || _networkRoamingInSIMSlot1 || _networkRoamingInSIMSlot2;
+                    dataRoaming = _dataRoamingInSIMSlot0 || _dataRoamingInSIMSlot1 || _dataRoamingInSIMSlot2;
+                }
+                else
+                if (_forSIMCard == 1) {
+                    networkRoaming = _networkRoamingInSIMSlot1;
+                    dataRoaming = _dataRoamingInSIMSlot1;
+                }
+                else
+                if (_forSIMCard == 2) {
+                    networkRoaming = _networkRoamingInSIMSlot2;
+                    dataRoaming = _dataRoamingInSIMSlot2;
+                }
+
+                if (_checkNetwork && _checkData)
+                    eventsHandler.roamingPassed = networkRoaming && dataRoaming;
+                else
+                if (_checkNetwork)
+                    eventsHandler.roamingPassed = networkRoaming;
+                if (_checkData)
+                    eventsHandler.roamingPassed = dataRoaming;
+                else
+                    eventsHandler.notAllowedRoaming = true;
 
                 if (!eventsHandler.notAllowedRoaming) {
                     if (eventsHandler.roamingPassed)
