@@ -2015,6 +2015,13 @@
     <string name="event_preferences_roaming_forSimCard">For SIM card</string>
     <string name="permission_why_event_roaming_preferences">for check if network or data is in roaming</string>
 
+    <string name="array_pref_airplaneModeArray_root_on">(R) On</string>
+    <string name="array_pref_airplaneModeArray_root_off">(R) Off</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(R) Toggle</string>
+    <string name="array_pref_airplaneModeArray_assistant_on">On with Assistant</string>
+    <string name="array_pref_airplaneModeArray_assistant_off">Off with Assistant</string>
+    <string name="array_pref_airplaneModeArray_assistant_toggle">Toggle with Assistant</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

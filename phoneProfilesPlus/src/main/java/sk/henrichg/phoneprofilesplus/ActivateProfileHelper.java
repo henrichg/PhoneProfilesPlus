@@ -899,28 +899,35 @@ class ActivateProfileHelper {
 
                     boolean _isAirplaneMode = false;
                     boolean _setAirplaneMode = false;
+                    boolean _useAssisten = false;
                     if (profile._deviceAirplaneMode != 0) {
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             _isAirplaneMode = isAirplaneMode(appContext);
                             switch (profile._deviceAirplaneMode) {
                                 case 1:
+                                case 4:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 1");
                                     if (!_isAirplaneMode) {
                                         _isAirplaneMode = true;
                                         _setAirplaneMode = true;
+                                        _useAssisten = profile._deviceAirplaneMode == 4;
                                     }
                                     break;
                                 case 2:
+                                case 5:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 2");
                                     if (_isAirplaneMode) {
                                         _isAirplaneMode = false;
                                         _setAirplaneMode = true;
+                                        _useAssisten = profile._deviceAirplaneMode == 5;
                                     }
                                     break;
                                 case 3:
+                                case 6:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 3");
                                     _isAirplaneMode = !_isAirplaneMode;
                                     _setAirplaneMode = true;
+                                    _useAssisten = profile._deviceAirplaneMode == 6;
                                     break;
                             }
                         }
@@ -928,7 +935,7 @@ class ActivateProfileHelper {
                     if (_setAirplaneMode /*&& _isAirplaneMode*/) {
                         // switch ON airplane mode, set it before doExecuteForRadios
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "setAirplaneMode()");
-                        setAirplaneMode(context, _isAirplaneMode);
+                        setAirplaneMode(context, _isAirplaneMode, _useAssisten);
                         PPApplication.sleep(1500);
                         //PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                     }
@@ -5757,11 +5764,11 @@ class ActivateProfileHelper {
         //    return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     }
 
-    private static void setAirplaneMode(Context context, boolean mode)
+    private static void setAirplaneMode(Context context, boolean mode, boolean useAssistant)
     {
         boolean isRooted = PPApplication.isRooted(false);
         boolean settingsBinaryExists = PPApplication.settingsBinaryExists(false);
-        if (isRooted &&
+        if (isRooted && (!useAssistant) &&
             (!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             settingsBinaryExists) {
             // device is rooted
@@ -5793,9 +5800,7 @@ class ActivateProfileHelper {
             }
         }
         else
-        /*if (!isRooted ||
-            ApplicationPreferences.applicationNeverAskForGrantRoot ||
-            (!settingsBinaryExists))*/ {
+        if (useAssistant && isPPPSetAsDefaultAssistant(context)) {
             Intent intent = new Intent(PPPVoiceService.ACTION_ASSISTANT);
             intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
             intent.putExtra("airplane_mode_enabled", mode);

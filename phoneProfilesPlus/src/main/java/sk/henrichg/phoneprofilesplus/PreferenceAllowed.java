@@ -71,7 +71,7 @@ class PreferenceAllowed {
 
             if (profile != null) {
                 // test if grant root is disabled
-                if (profile._deviceAirplaneMode != 0) {
+                if (profile._deviceAirplaneMode < 4) {
                     if (applicationNeverAskForGrantRoot) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
@@ -100,17 +100,26 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
             }
-        } else {
-            // check if default Assistent is set to PPP
-            if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
-                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT;
-                //if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
-                //    preferenceAllowed.notAllowedRoot = true;
+        }
+        if (Build.VERSION.SDK_INT <= 30) {
+            boolean assistantParameters = false;
+            if (profile != null) {
+                assistantParameters = profile._deviceAirplaneMode >= 4;
+            } else if (sharedPreferences != null) {
+                assistantParameters = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
+            }
+            if (assistantParameters) {
+                // check if default Assistent is set to PPP
+                if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT;
+                    //if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
+                    //    preferenceAllowed.notAllowedRoot = true;
                     //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
-                //}
+                    //}
+                }
             }
         }
     }

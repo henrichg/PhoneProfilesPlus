@@ -1240,22 +1240,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Preference assistantPreference = prefMng.findPreference(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
         if (assistantPreference != null) {
-            if (PPApplication.isRooted(true)) {
-                assistantPreference.setEnabled(false);
-            } else
-            if ((!ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) &&
-                    (!Permissions.checkMicrophone(getActivity().getApplicationContext()))) {
-                // RECORD_AUDIO must be granted for set PPP as default assistant
-                // but must be enabled when PPP is defult assistant because must be possible remove it
-                assistantPreference.setEnabled(false);
-            } else {
-                assistantPreference.setEnabled(true);
-                //assistantPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                assistantPreference.setOnPreferenceClickListener(preference13 -> {
-                    configureAssistant();
-                    return false;
-                });
-            }
+            //assistantPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            assistantPreference.setOnPreferenceClickListener(preference13 -> {
+                configureAssistant();
+                return false;
+            });
         }
 
         infoDialogPreference = prefMng.findPreference(PREF_PROFILE_AIRPLANE_MODE_RADIOS_INFO);
@@ -2354,7 +2343,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Permissions.checkProfileMicrophone(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
-            if ((!PPApplication.isRooted(true)) && (profile._deviceAirplaneMode != 0)) {
+            if (/*(!PPApplication.isRooted(true)) &&*/ (profile._deviceAirplaneMode >= 4)) {
                 // change only when default assistant is false, becuse may be checked also for another
                 // profile parameters
                 boolean defaultAssistantSet = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context);
@@ -5519,7 +5508,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
             }
         }
-        if (Build.VERSION.SDK_INT <= 30) {
+        /*if (Build.VERSION.SDK_INT <= 30) {
             if (key.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS)) {
                 // RECORD_AUDIO must be granted for set PPP as default assistant
                 // must be enabled when PPP is defult assistant
@@ -5531,7 +5520,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null)
                     preference.setEnabled(enabled);
             }
-        }
+        }*/
     }
 
     private void disableDependedPref(String key) {
@@ -5578,6 +5567,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //        }
 
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
+
         boolean accessibilityNotRequired = true;
         if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0)))
             accessibilityNotRequired = false;
@@ -5593,10 +5583,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
 //        }
 
+        boolean defaultAssistantNotRequired = true;
+        if ((profile != null) && (profile._deviceAirplaneMode >= 4))
+            defaultAssistantNotRequired = false;
+        boolean defaultAssistantEnabled = defaultAssistantNotRequired || (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context.getApplicationContext()));
+
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-            return (!grantedAllPermissions) || (!enabledNotificationAccess) || (!accessibilityEnabled);
+            return (!grantedAllPermissions) || (!enabledNotificationAccess) || (!accessibilityEnabled) || (!defaultAssistantEnabled);
         else
-            return (!grantedAllPermissions) || (!grantedRoot) || (!grantedG1Permission) || (!enabledNotificationAccess) || (!accessibilityEnabled);
+            return (!grantedAllPermissions) || (!grantedRoot) || (!grantedG1Permission) || (!enabledNotificationAccess) || (!accessibilityEnabled) || (!defaultAssistantEnabled);
     }
 
     void setRedTextToPreferences() {

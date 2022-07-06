@@ -24,8 +24,8 @@
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceAirplaneMode"
         app:defaultValue="0"
-        app:entries="@array/hardwareModeArray"
-        app:entryValues="@array/hardwareModeValues"
+        app:entries="@array/airplaneModeArray"
+        app:entryValues="@array/airplaneModeValues"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceAutosync"

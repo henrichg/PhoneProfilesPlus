@@ -1500,6 +1500,24 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="airplaneModeArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_airplaneModeArray_root_on</item>
+        <item>@string/array_pref_airplaneModeArray_root_off</item>
+        <item>@string/array_pref_airplaneModeArray_root_toggle</item>
+        <item>@string/array_pref_airplaneModeArray_assistant_on</item>
+        <item>@string/array_pref_airplaneModeArray_assistant_off</item>
+        <item>@string/array_pref_airplaneModeArray_assistant_toggle</item>
+    </string-array>
+    <string-array name="airplaneModeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
 
 
 </resources>

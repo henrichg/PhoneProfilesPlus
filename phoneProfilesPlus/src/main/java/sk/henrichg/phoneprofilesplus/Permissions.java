@@ -988,8 +988,8 @@ class Permissions {
 
         if (Build.VERSION.SDK_INT <= 30) {
             try {
-                if ((profile._deviceAirplaneMode != 0) &&
-                        (!PPApplication.isRooted(false))) {
+                if ((profile._deviceAirplaneMode >= 4)/* &&
+                        (!PPApplication.isRooted(false))*/) {
                     // if deice is not rooted, required is set PPP as default assistant
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
