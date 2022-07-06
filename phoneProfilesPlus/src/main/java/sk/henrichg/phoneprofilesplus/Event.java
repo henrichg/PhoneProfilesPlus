@@ -88,6 +88,7 @@ class Event {
     EventPreferencesPeriodic _eventPreferencesPeriodic;
     EventPreferencesVolumes _eventPreferencesVolumes;
     EventPreferencesActivatedProfile _eventPreferencesActivatedProfile;
+    EventPreferencesRoaming _eventPreferencesRoaming;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -442,6 +443,11 @@ class Event {
         this._eventPreferencesActivatedProfile = new EventPreferencesActivatedProfile(this, false, 0, 0);
     }
 
+    private void createEventPreferencesRoaming()
+    {
+        this._eventPreferencesRoaming = new EventPreferencesRoaming(this, false, false, false, 0);
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -466,6 +472,7 @@ class Event {
         createEventPreferencesPeriodic();
         createEventPreferencesVolumes();
         createEventPreferencesActivatedProfile();
+        createEventPreferencesRoaming();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -514,6 +521,8 @@ class Event {
             createEventPreferencesVolumes();
         if (this._eventPreferencesActivatedProfile == null)
             createEventPreferencesActivatedProfile();
+        if (this._eventPreferencesRoaming == null)
+            createEventPreferencesRoaming();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -536,6 +545,7 @@ class Event {
         this._eventPreferencesPeriodic.copyPreferences(fromEvent);
         this._eventPreferencesVolumes.copyPreferences(fromEvent);
         this._eventPreferencesActivatedProfile.copyPreferences(fromEvent);
+        this._eventPreferencesRoaming.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -583,7 +593,9 @@ class Event {
                 (this._eventPreferencesVolumes._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesActivatedProfile._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesRoaming._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -639,6 +651,8 @@ class Event {
             runnable = runnable && this._eventPreferencesVolumes.isRunnable(appContext);
         if (this._eventPreferencesActivatedProfile._enabled)
             runnable = runnable && this._eventPreferencesActivatedProfile.isRunnable(appContext);
+        if (this._eventPreferencesRoaming._enabled)
+            runnable = runnable && this._eventPreferencesRoaming.isRunnable(appContext);
 
         return runnable;
     }
@@ -669,7 +683,8 @@ class Event {
                             this._eventPreferencesSoundProfile._enabled ||
                             this._eventPreferencesPeriodic._enabled ||
                             this._eventPreferencesVolumes._enabled ||
-                            this._eventPreferencesActivatedProfile._enabled;
+                            this._eventPreferencesActivatedProfile._enabled ||
+                            this._eventPreferencesRoaming._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -716,6 +731,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesVolumes.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesActivatedProfile._enabled)
                 accessibilityEnabled = this._eventPreferencesActivatedProfile.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesRoaming._enabled)
+                accessibilityEnabled = this._eventPreferencesRoaming.isAccessibilityServiceEnabled(context, againCheckInDelay);
         }
 
         return accessibilityEnabled;
@@ -776,6 +793,7 @@ class Event {
         this._eventPreferencesPeriodic.loadSharedPreferences(preferences);
         this._eventPreferencesVolumes.loadSharedPreferences(preferences);
         this._eventPreferencesActivatedProfile.loadSharedPreferences(preferences);
+        this._eventPreferencesRoaming.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -838,6 +856,7 @@ class Event {
         this._eventPreferencesPeriodic.saveSharedPreferences(preferences);
         this._eventPreferencesVolumes.saveSharedPreferences(preferences);
         this._eventPreferencesActivatedProfile.saveSharedPreferences(preferences);
+        this._eventPreferencesRoaming.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -1297,6 +1316,8 @@ class Event {
             _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesActivatedProfile.setSummary(prefMng, key, preferences, context);
             _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesRoaming.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesRoaming.setCategorySummary(prefMng, preferences, context);
         }
     }
 
@@ -1378,6 +1399,8 @@ class Event {
         _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesActivatedProfile.setAllSummary(prefMng, preferences, context);
         _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesRoaming.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesRoaming.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context, boolean addPassStatus)
@@ -1418,6 +1441,12 @@ class Event {
 
         if (_eventPreferencesSMS._enabled) {
             String desc = _eventPreferencesSMS.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesRoaming._enabled) {
+            String desc = _eventPreferencesRoaming.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
                 description = description + "<li>" + desc + "</li>";
         }
@@ -1547,6 +1576,7 @@ class Event {
         _eventPreferencesPeriodic.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesVolumes.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesActivatedProfile.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesRoaming.checkPreferences(prefMng, onlyCategory, context);
     }
 
     /*
@@ -2298,116 +2328,29 @@ class Event {
     }
 
     void setSensorsWaiting() {
-        //if (_eventPreferencesApplication._enabled)
-            _eventPreferencesApplication.setSensorPassed(_eventPreferencesApplication.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesApplication.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesBattery._enabled)
-            _eventPreferencesBattery.setSensorPassed(_eventPreferencesBattery.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesBattery.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesBluetooth._enabled)
-            _eventPreferencesBluetooth.setSensorPassed(_eventPreferencesBluetooth.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesBluetooth.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesCalendar._enabled)
-            _eventPreferencesCalendar.setSensorPassed(_eventPreferencesCalendar.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesCalendar.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesCall._enabled)
-            _eventPreferencesCall.setSensorPassed(_eventPreferencesCall.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesCall.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesLocation._enabled)
-            _eventPreferencesLocation.setSensorPassed(_eventPreferencesLocation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesLocation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesMobileCells._enabled)
-            _eventPreferencesMobileCells.setSensorPassed(_eventPreferencesMobileCells.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesMobileCells.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesNFC._enabled)
-            _eventPreferencesNFC.setSensorPassed(_eventPreferencesNFC.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesNFC.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesNotification._enabled)
-            _eventPreferencesNotification.setSensorPassed(_eventPreferencesNotification.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesNotification.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesOrientation._enabled)
-            _eventPreferencesOrientation.setSensorPassed(_eventPreferencesOrientation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesOrientation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesAccessories._enabled)
-            _eventPreferencesAccessories.setSensorPassed(_eventPreferencesAccessories.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesAccessories.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesRadioSwitch._enabled)
-            _eventPreferencesRadioSwitch.setSensorPassed(_eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesRadioSwitch.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesScreen._enabled)
-            _eventPreferencesScreen.setSensorPassed(_eventPreferencesScreen.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesScreen.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesSMS._enabled)
-            _eventPreferencesSMS.setSensorPassed(_eventPreferencesSMS.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesSMS.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesTime._enabled)
-            _eventPreferencesTime.setSensorPassed(_eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesTime.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesWifi._enabled)
-            _eventPreferencesWifi.setSensorPassed(_eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesWifi.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesAlarmClock._enabled)
-            _eventPreferencesAlarmClock.setSensorPassed(_eventPreferencesAlarmClock.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesAlarmClock.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesDeviceBoot._enabled)
+        _eventPreferencesApplication.setSensorPassed(_eventPreferencesApplication.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesBattery.setSensorPassed(_eventPreferencesBattery.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesBluetooth.setSensorPassed(_eventPreferencesBluetooth.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesCalendar.setSensorPassed(_eventPreferencesCalendar.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesCall.setSensorPassed(_eventPreferencesCall.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesLocation.setSensorPassed(_eventPreferencesLocation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesMobileCells.setSensorPassed(_eventPreferencesMobileCells.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesNFC.setSensorPassed(_eventPreferencesNFC.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesNotification.setSensorPassed(_eventPreferencesNotification.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesOrientation.setSensorPassed(_eventPreferencesOrientation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesAccessories.setSensorPassed(_eventPreferencesAccessories.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesRadioSwitch.setSensorPassed(_eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesScreen.setSensorPassed(_eventPreferencesScreen.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesSMS.setSensorPassed(_eventPreferencesSMS.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesTime.setSensorPassed(_eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesWifi.setSensorPassed(_eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesAlarmClock.setSensorPassed(_eventPreferencesAlarmClock.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesDeviceBoot.setSensorPassed(_eventPreferencesDeviceBoot.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesDeviceBoot.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesSoundProfile._enabled)
         _eventPreferencesSoundProfile.setSensorPassed(_eventPreferencesSoundProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesSoundProfile.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesPeriodic._enabled)
         _eventPreferencesPeriodic.setSensorPassed(_eventPreferencesPeriodic.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesPeriodic.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesVolumes._enabled)
         _eventPreferencesVolumes.setSensorPassed(_eventPreferencesVolumes.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesPeriodic.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesActivatedProfile._enabled)
         _eventPreferencesActivatedProfile.setSensorPassed(_eventPreferencesActivatedProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesActivatedProfile.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
+        _eventPreferencesRoaming.setSensorPassed(_eventPreferencesRoaming.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2438,6 +2381,7 @@ class Event {
             _eventPreferencesPeriodic.setSystemEventForStart(context);
             _eventPreferencesVolumes.setSystemEventForStart(context);
             _eventPreferencesActivatedProfile.setSystemEventForStart(context);
+            _eventPreferencesRoaming.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2466,6 +2410,7 @@ class Event {
             _eventPreferencesPeriodic.setSystemEventForPause(context);
             _eventPreferencesVolumes.setSystemEventForPause(context);
             _eventPreferencesActivatedProfile.setSystemEventForPause(context);
+            _eventPreferencesRoaming.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2494,6 +2439,7 @@ class Event {
             _eventPreferencesPeriodic.removeSystemEvent(context);
             _eventPreferencesVolumes.removeSystemEvent(context);
             _eventPreferencesActivatedProfile.removeSystemEvent(context);
+            _eventPreferencesRoaming.removeSystemEvent(context);
         }
     }
 

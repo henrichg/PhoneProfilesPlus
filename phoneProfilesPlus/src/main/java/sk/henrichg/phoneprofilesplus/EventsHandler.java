@@ -66,6 +66,7 @@ class EventsHandler {
     boolean notAllowedPeriodic;
     boolean notAllowedVolumes;
     boolean notAllowedActivatedProfile;
+    boolean notAllowedRoaming;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -89,6 +90,7 @@ class EventsHandler {
     boolean periodicPassed;
     boolean volumesPassed;
     boolean activatedProfilePassed;
+    boolean roamingPassed;
 
     static final int SENSOR_TYPE_RADIO_SWITCH = 1;
     static final int SENSOR_TYPE_RESTART_EVENTS = 2;
@@ -139,60 +141,8 @@ class EventsHandler {
     static final int SENSOR_TYPE_PERIODIC_EVENT_END = 47;
     static final int SENSOR_TYPE_VOLUMES = 48;
     static final int SENSOR_TYPE_ACTIVATED_PROFILE = 49;
+    static final int SENSOR_TYPE_ROAMING = 50;
     static final int SENSOR_TYPE_ALL = 999;
-
-    /*
-    static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
-    static final String SENSOR_TYPE_RESTART_EVENTS = "restartEvents";
-    static final String SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK = "restartEventsNotUnblock";
-    static final String SENSOR_TYPE_MANUAL_RESTART_EVENTS = "manualRestartEvents";
-    static final String SENSOR_TYPE_PHONE_CALL = "phoneCall";
-    static final String SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED = "calendarProviderChanged";
-    static final String SENSOR_TYPE_SEARCH_CALENDAR_EVENTS = "searchCalendarEvents";
-    static final String SENSOR_TYPE_SMS = "sms";
-    static final String SENSOR_TYPE_NOTIFICATION = "notification";
-    static final String SENSOR_TYPE_NFC_TAG = "nfcTag";
-    static final String SENSOR_TYPE_EVENT_DELAY_START = "eventDelayStart";
-    static final String SENSOR_TYPE_EVENT_DELAY_END = "eventDelayEnd";
-    static final String SENSOR_TYPE_BATTERY = "battery";
-    static final String SENSOR_TYPE_BATTERY_WITH_LEVEL = "batteryWithLevel";
-    static final String SENSOR_TYPE_BLUETOOTH_CONNECTION = "bluetoothConnection";
-    static final String SENSOR_TYPE_BLUETOOTH_STATE = "bluetoothState";
-    static final String SENSOR_TYPE_DOCK_CONNECTION = "dockConnection";
-    static final String SENSOR_TYPE_CALENDAR = "calendar";
-    static final String SENSOR_TYPE_TIME = "time";
-    static final String SENSOR_TYPE_APPLICATION = "application";
-    static final String SENSOR_TYPE_HEADSET_CONNECTION = "headsetConnection";
-    //static final String SENSOR_TYPE_NOTIFICATION_EVENT_END = "notificationEventEnd";
-    static final String SENSOR_TYPE_SMS_EVENT_END = "smsEventEnd";
-    static final String SENSOR_TYPE_WIFI_CONNECTION = "wifiConnection";
-    static final String SENSOR_TYPE_WIFI_STATE = "wifiState";
-    static final String SENSOR_TYPE_POWER_SAVE_MODE = "powerSaveMode";
-    static final String SENSOR_TYPE_LOCATION_SCANNER = "locationScanner";
-    static final String SENSOR_TYPE_LOCATION_MODE = "locationMode";
-    static final String SENSOR_TYPE_DEVICE_ORIENTATION = "deviceOrientation";
-    static final String SENSOR_TYPE_MOBILE_CELLS = "mobileCells";
-    static final String SENSOR_TYPE_NFC_EVENT_END = "nfcEventEnd";
-    static final String SENSOR_TYPE_WIFI_SCANNER = "wifiScanner";
-    static final String SENSOR_TYPE_BLUETOOTH_SCANNER = "bluetoothScanner";
-    static final String SENSOR_TYPE_SCREEN = "screen";
-    static final String SENSOR_TYPE_DEVICE_IDLE_MODE = "deviceIdleMode";
-    static final String SENSOR_TYPE_PHONE_CALL_EVENT_END = "phoneCallEventEnd";
-    static final String SENSOR_TYPE_ALARM_CLOCK = "alarmClock";
-    static final String SENSOR_TYPE_ALARM_CLOCK_EVENT_END = "alarmClockEventEnd";
-    static final String SENSOR_TYPE_DEVICE_BOOT = "deviceBoot";
-    static final String SENSOR_TYPE_DEVICE_BOOT_EVENT_END = "deviceBootEventEnd";
-    static final String SENSOR_TYPE_PERIODIC_EVENTS_HANDLER = "periodicEventsHandler";
-    static final String SENSOR_TYPE_ACCESSORIES = "accessories";
-    static final String SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK = "calendarEventExistsCheck";
-    static final String SENSOR_TYPE_CONTACTS_CACHE_CHANGED = "contactsCacheChanged";
-    static final String SENSOR_TYPE_SOUND_PROFILE = "soundProfile";
-    static final String SENSOR_TYPE_PERIODIC = "periodic";
-    static final String SENSOR_TYPE_PERIODIC_EVENT_END = "periodicEventEnd";
-    static final String SENSOR_TYPE_VOLUMES = "volumes";
-    static final String SENSOR_TYPE_ACTIVATED_PROFILE = "activatedProfile";
-    static final String SENSOR_TYPE_ALL = "ALL";
-    */
 
     public EventsHandler(Context context) {
         this.context = context.getApplicationContext();
@@ -1865,6 +1815,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedActivatedProfile)
                 allPassed &= activatedProfilePassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesRoaming._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedRoaming)
+                allPassed &= roamingPassed;
             else
                 someNotAllowed = true;
         }

@@ -233,7 +233,6 @@ class ApplicationPreferences {
     static String applicationRestartEventsIconColor;
     //static boolean applicationIncreaseBrightnessForProfileIcon;
 
-
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
     static int applicationEventPeriodicScanningScanInTimeMultiplyTo;
