@@ -495,6 +495,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
         }
 
+        if (android.os.Build.VERSION.SDK_INT < 30) {
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            if (preference != null)
+            {
+                preference.setTitle("(R) "+getString(R.string.profile_preferences_deviceAirplaneMode));
+                String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "");
+                setSummary(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, value);
+            }
+        }
         /*if (android.os.Build.VERSION.SDK_INT >= 26) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
             if (preference != null)
