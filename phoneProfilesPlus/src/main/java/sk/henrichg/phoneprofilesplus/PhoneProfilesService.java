@@ -152,6 +152,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REREGISTER_RECEIVERS_AND_WORKERS = "reregister_receivers_and_workers";
     static final String EXTRA_REGISTER_CONTENT_OBSERVERS = "register_content_observers";
     static final String EXTRA_REGISTER_CALLBACKS = "register_callbacks";
+    static final String EXTRA_REGISTER_PHONE_CALLS_LISTENER = "register_phone_calls_listener";
     static final String EXTRA_FROM_BATTERY_CHANGE = "from_battery_change";
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
@@ -5129,6 +5130,9 @@ public class PhoneProfilesService extends Service
                             } else if (intent.getBooleanExtra(EXTRA_REGISTER_CALLBACKS, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_CALLBACKS");
                                 ppService.registerAllTheTimeCallbacks(true);
+                            } else if (intent.getBooleanExtra(EXTRA_REGISTER_PHONE_CALLS_LISTENER, false)) {
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_PHONE_CALLS_LISTENER");
+                                registerPhoneCallsListener(true, appContext);
                             } else if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
                                 ppService.doSimulatingRingingCall(intent);

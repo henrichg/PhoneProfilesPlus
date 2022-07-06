@@ -3607,6 +3607,18 @@ public class PPApplication extends Application
         }
     }
 
+    public static void registerPhoneCallsListener(Context context) {
+        try {
+            //PPApplication.logE("[RJS] PPApplication.registerContentObservers", "xxx");
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_PHONE_CALLS_LISTENER, true);
+            PPApplication.runCommand(context, commandIntent);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+
     public static void restartPeriodicScanningScanner(Context context/*, boolean forScreenOn*/) {
         try {
             //PPApplication.logE("[RJS] PPApplication.restartWifiScanner", "xxx");
