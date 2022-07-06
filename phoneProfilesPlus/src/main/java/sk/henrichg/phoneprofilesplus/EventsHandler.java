@@ -1265,7 +1265,7 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_DEVICE_BOOT;
             case SENSOR_TYPE_ACTIVATED_PROFILE:
                 return DatabaseHandler.ETYPE_ACTIVATED_PROFILE;
-            case SENSOR_TYPE_ROAMING:E:
+            case SENSOR_TYPE_ROAMING:
                 return DatabaseHandler.ETYPE_ROAMING;
             default:
                 return DatabaseHandler.ETYPE_ALL;
@@ -1655,6 +1655,7 @@ class EventsHandler {
         event._eventPreferencesPeriodic.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesVolumes.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesActivatedProfile.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesRoaming.doHandleEvent(this/*, forRestartEvents*/);
 
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
