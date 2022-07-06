@@ -101,14 +101,14 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
             }
         }
+        boolean assistantParameter = false;
+        if (profile != null) {
+            assistantParameter = profile._deviceAirplaneMode >= 4;
+        } else if (sharedPreferences != null) {
+            assistantParameter = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
+        }
         if (Build.VERSION.SDK_INT <= 30) {
-            boolean assistantParameters = false;
-            if (profile != null) {
-                assistantParameters = profile._deviceAirplaneMode >= 4;
-            } else if (sharedPreferences != null) {
-                assistantParameters = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
-            }
-            if (assistantParameters) {
+            if (assistantParameter) {
                 // check if default Assistent is set to PPP
                 if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -120,6 +120,11 @@ class PreferenceAllowed {
                     //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
                     //}
                 }
+            }
+        } else {
+            if (assistantParameter) {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
             }
         }
     }
