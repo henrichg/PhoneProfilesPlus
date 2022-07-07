@@ -2016,6 +2016,8 @@
     <string name="array_pref_airplaneModeArray_assistant_off">Off with Assistant</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">Toggle with Assistant</string>
 
+    <string name="preference_not_allowed_reason_not_two_sim_cards">not two SIM cards inserted</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
