@@ -114,7 +114,6 @@
     <string name="event_preferences_time_timeDays">Dni v týždni</string>
     <string name="event_preferences_time_startTime">Čas začiatku</string>
     <string name="event_preferences_time_endTime">Čas konca</string>
-    <string name="array_pref_event_all">Všetko</string>
     <string name="editor_drawer_title_profiles">Profily</string>
     <string name="editor_drawer_title_events">Udalosti</string>
     <string name="editor_drawer_list_item_profiles_all">Všetky</string>
@@ -511,8 +510,6 @@
     <string name="array_event_pref_orientationDistanceType_near">V blízkosti</string>
     <string name="array_event_pref_orientationDistanceType_far">Ďaleko</string>
     <string name="event_preferences_orientation_ignoreForApplications">Ignorovať pre aplikácie</string>
-    <string name="applications_preference_applicationType_application">aplikácia</string>
-    <string name="applications_preference_applicationType_shortcut">odkaz</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Nastav parametre Wi-Fi skenovania v nastaveniach aplikácie.</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Nastav parametre Bluetooth skenovania v nastaveniach aplikácie.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Skenovanie orientácie</string>
@@ -834,7 +831,7 @@
     <string name="duration_pref_dlg_activation_hours_label">Hodiny:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minúty:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Sekundy:</string>
-    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Prosím, zapnite Polohu a \"Vyhľadávanie Wi-Fi\" v nastaveniach systému. Bez toho Wi-Fi skenovanie nebude fungovať.</string>
+    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Prosím zapnite Polohu a \"Vyhľadávanie Wi-Fi\" v nastaveniach systému. Bez toho Wi-Fi skenovanie nebude fungovať.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Prosím, zapnite Polohu a Vyhľadávanie Bluetooth v nastaveniach systému. Bez toho, skenovanie Bluetooth nebude fungovať.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Systémové nastavenie \"Ponechať Wi-Fi zapnuté\"</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary">Nakonfigurujte \"Ponechať Wi-Fi zapnuté počas spánku\" na \"Vždy\". Bez toho, skenovanie Wi-Fi nebude fungovať počas spánku zariadenia.</string>
@@ -1072,8 +1069,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Nenastavené na Vždy</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Prístup k notifikáciám zapnutý</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Prístup k notifikáciám vypnutý</string>
-    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="intent_editor_title">Editor intentu</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intenty</string>
     <string name="application_editor_intent_intent_name">Názov intentu:</string>
@@ -1955,7 +1950,7 @@
     <string name="important_info_notification_settings_text1">Odporúčanie pre konfiguráciu parametrov \"Nastavenia\"/\"Notifikácia aplikácie\":</string>
     <string name="important_info_notification_settings_text2">Nakonfigurujte parameter \"Štýl notifikácie\" na \"Vlastný\", \"Použiť dekoráciu\" vypnuté, \"Zobraziť ikonu profilu“ zapnuté, \"Zobraziť 
 indikátor parametrov“ zapnuté.</string>
-    <string name="important_info_notification_settings_text3">Pri tejto konfigurácii sa upozornenie zobrazí s ikonou profilu, indikátor parametrov s ikonami (ako v Editore), ikona \"Reštart udalosti\" a upozornenie bude menšie.</string>
+    <string name="important_info_notification_settings_text3">Pri tejto konfigurácii sa notifikácia zobrazí s ikonou profilu, indikátor parametrov s ikonami (ako v Editore), ikona \"Reštart udalosti\" a upozornenie bude menšie.</string>
     <string name="important_info_notification_settings_text4">Notifikáciu, ktorá je bez dekorácie, je možné rozbaliť gestom: potiahnutím dvoma prstami nadol.</string>
     <string name="important_info_notification_settings_configure">Kliknutím sem nakonfigurujete \"Notifikácia aplikácie\" s týmito parametrami.</string>
     <string name="important_info_notification_settings_toast">Nakonfigurované</string>
@@ -1971,6 +1966,20 @@ indikátor parametrov“ zapnuté.</string>
     <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Zapnúť v režime Lietadlo</string>
     <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Vypnúť v režime Lietadlo</string>
     <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Prepnúť stav v režime Lietadlo</string>
+    <string name="event_preference_sensor_roaming_summary">Tento senzor spustí udalosť, keď sú sieť alebo dáta v roamingu. Parametre: Kontrola siete, Kontrola dát.</string>
+    <string name="event_type_roaming">Roaming</string>
+    <string name="event_preferences_category_eventRoamingParameters">Senzor roamingu</string>
+    <string name="pref_event_roaming_check_network">Kontrola siete</string>
+    <string name="pref_event_roaming_check_data">Kontrola dát</string>
+    <string name="event_preferences_roaming_forSimCard">Pre SIM kartu</string>
+    <string name="permission_why_event_roaming_preferences">pre kontrolu, či sú sieť alebo dáta v roamingu</string>
+    <string name="array_pref_airplaneModeArray_root_on">(R) Zapnúť</string>
+    <string name="array_pref_airplaneModeArray_root_off">(R) Vypnúť</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(R) Prepnúť stav</string>
+    <string name="array_pref_airplaneModeArray_assistant_on">Zapnúť Asistentom</string>
+    <string name="array_pref_airplaneModeArray_assistant_off">Vypnúť Asistentom</string>
+    <string name="array_pref_airplaneModeArray_assistant_toggle">Prepnúť stav Asistentom</string>
+    <string name="preference_not_allowed_reason_not_two_sim_cards">nie sú vložené dve SIM karty</string>
     <!-- **************************************************************************************** -->
 <!--    <string name="extender_accessibility_service_description">Extender pre PhoneProfilesPlus. Funguje iba v spojení s PhoneProfilesPlus.</string>-->
 <!--    <string name="extender_about_application_version">Verzia:</string>-->
@@ -1986,7 +1995,7 @@ indikátor parametrov“ zapnuté.</string>
 <!--    <string name="extender_permissions_not_granted">Neudelené</string>-->
 <!--    <string name="extender_permissions_granted">Udelené</string>-->
 <!--    <string name="extender_permissions_button">Udeľ/odopri\npráva</string>-->
-<!--    <string name="extender_accessibility_service_event_sensor_call">• Služba Dostupnosť pre parametre udalosti \"Sensor hovoru\". Funkcia dostupnosti nie je použitá, bežiaci servis je potrebný pre príjem hovorov.</string>-->
+<!--    <string name="extender_accessibility_service_event_sensor_call">• Služba Dostupnosť pre parametre udalosti \"Senzor hovoru\". Funkcia dostupnosti nie je použitá, bežiaci servis je potrebný pre príjem hovorov.</string>-->
 <!--    <string name="extender_permissions_event_sensor_call">• Povolenia pre parametre udalosti \"Senzor hovoru\" - povolenie Telefón</string>-->
 <!--    <string name="extender_permissions_event_sensor_call_28">• Povolenia pre parametre udalosti \"Senzor hovoru\" - povolenie Telefón, Denníky hovorov</string>-->
 <!--    <string name="extender_toast_permissions_not_granted">Povolenia nie sú udelené</string>-->

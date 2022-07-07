@@ -114,7 +114,6 @@
     <string name="event_preferences_time_timeDays">Дні тижня</string>
     <string name="event_preferences_time_startTime">Час початку</string>
     <string name="event_preferences_time_endTime">Час завершення</string>
-    <string name="array_pref_event_all">Усі</string>
     <string name="editor_drawer_title_profiles">Профілі</string>
     <string name="editor_drawer_title_events">Події</string>
     <string name="editor_drawer_list_item_profiles_all">Усі</string>
@@ -511,8 +510,6 @@
     <string name="array_event_pref_orientationDistanceType_near">Біля</string>
     <string name="array_event_pref_orientationDistanceType_far">Далеко</string>
     <string name="event_preferences_orientation_ignoreForApplications">Ігнорувати для застосунків</string>
-    <string name="applications_preference_applicationType_application">застосунок</string>
-    <string name="applications_preference_applicationType_shortcut">ярлик</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Встановити параметри сканування Wi-Fi в налаштуваннях додатку.</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Встановити параметри сканування Bluetooth в налаштуваннях додатку.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Визначення орієнтації екрану</string>
@@ -1072,8 +1069,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Не встановлено Завжди</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Доступ до Сповіщень надано</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Доступ до Сповіщень НЕ надано</string>
-    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="intent_editor_title">Intent редактор</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
     <string name="application_editor_intent_intent_name">Intent назва:</string>
@@ -1967,10 +1962,24 @@
     <string name="profile_icon_preference_iconColor_help_info_1">Якщо темна тема програми, то колір іконки, при попередньому перегляді, може мати підвищену яскравість.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>
     <string name="important_info_android_look_application_settings">Відкрийте налаштування PhoneProfilesPlus та налаштуйте його. Особливо параметри, позначені подвійною стрілкою.</string>
-    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Поточна конфігурація:</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Увімк. в режимі \"У літаку\"</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Вимк. в режимі \"У літаку\"</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Перемкнути у режимі \"У літаку\"</string>
+    <string name="event_preference_sensor_roaming_summary">Цей датчик призначено для запуску події у роумінгу. Параметри: Перевірте мережу, перевірте дані.</string>
+    <string name="event_type_roaming">Роумінг</string>
+    <string name="event_preferences_category_eventRoamingParameters">Датчик роумінгу</string>
+    <string name="pref_event_roaming_check_network">Перевірте мережу</string>
+    <string name="pref_event_roaming_check_data">Перевірте дані</string>
+    <string name="event_preferences_roaming_forSimCard">Для SIM-карти</string>
+    <string name="permission_why_event_roaming_preferences">для перевірки мережі або даних у роумінгу</string>
+    <string name="array_pref_airplaneModeArray_root_on">(R) Увімк</string>
+    <string name="array_pref_airplaneModeArray_root_off">(R) Вимк</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(R) Перемикач</string>
+    <string name="array_pref_airplaneModeArray_assistant_on">Увімкнено з помічником</string>
+    <string name="array_pref_airplaneModeArray_assistant_off">Вимкнено з помічником</string>
+    <string name="array_pref_airplaneModeArray_assistant_toggle">Перемкнути з помічником</string>
+    <string name="preference_not_allowed_reason_not_two_sim_cards">not two SIM cards inserted</string>
     <!-- **************************************************************************************** -->
 <!--    <string name="extender_accessibility_service_description">Extender для PhoneProfilesPlus. Працює лише у поєднанні з PhoneProfilesPlus.</string>-->
 <!--    <string name="extender_about_application_version">Версія:</string>-->

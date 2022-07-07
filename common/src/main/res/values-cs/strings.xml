@@ -114,7 +114,6 @@
     <string name="event_preferences_time_timeDays">Dny v týdnu</string>
     <string name="event_preferences_time_startTime">Čas začátku</string>
     <string name="event_preferences_time_endTime">Čas konce</string>
-    <string name="array_pref_event_all">Všechno</string>
     <string name="editor_drawer_title_profiles">Profily</string>
     <string name="editor_drawer_title_events">Události</string>
     <string name="editor_drawer_list_item_profiles_all">Všechny</string>
@@ -407,7 +406,7 @@
     <string name="pref_event_battery_power_save_mode">Úsporný režim</string>
     <string name="event_preferences_battery_power_save_mode">Úsporný režim</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Nastavení Úsporného režimu</string>
-    <string name="important_info_profile_adaptiveBrightness_root">V Androidu 6+ není možné měnit úrovně \"Adaptivní jas\" pokud nemáte práva ROOT.</string>
+    <string name="important_info_profile_adaptiveBrightness_root">V Androidu 6+ není možné měnit úrovně \"Adaptivní jas\" pokud nemáte práva root.</string>
     <string name="important_info_profile_wifiScanning_location">V Android 6+, pro skenování Wi-Fi musí být povolena Poloha a \"Vyhledávání sítí Wi-Fi\" v nastaveních Polohy.</string>
     <string name="important_info_profile_bluetoothScanning_location">V Android 6+, pro Bluetooth LE skenování musí být povolena Poloha a \"Hledání zařízení Bluetooth\" v nastavení Polohy.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Úsporný režim</string>
@@ -436,7 +435,7 @@
     <string name="important_info_profile_activation_text11">Červená: události jsou zastaveny - spouštění událostí může být povoleno v menu Editoru pomocí \"Povolit běh událostí\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Ikona pro restart událostí:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Ikona pro \"semafor\":</string>
-    <string name="important_info_android_doze_mode">Android 6+ implementuje \"Doze režim\" a \"App Standby\". Pokud jste narazili na problémy s aktivací profilu z událostí, ppokud jste nechali zařízení v klidu a odpojeno nějakou dobu, s vypnutou obrazovkou, klikněte zde a přidejte PhoneProfilesPlus do \"Neoptimalizováno\".</string>
+    <string name="important_info_android_doze_mode">Android 6+ implementuje \"Doze režim\" a \"Pohotovostní režim aplikace\". Pokud jste narazili na problémy s aktivací profilu z událostí, pokud jste nechali zařízení v klidu a odpojeno nějakou dobu, s vypnutou obrazovkou, klikněte zde a přidejte PhoneProfilesPlus do \"Neoptimalizováno\".</string>
     <string name="info_notification_event_states">Událost může být ve 6ti stavech:</string>
     <string name="info_notification_event_states_running">Běh: událost je spuštěna a běží. Parametry události jsou splněny.</string>
     <string name="info_notification_event_states_paused">Pozastaveno: událost neběží. Parametry události nejsou splněny. Událost čeká na jejich splnění.</string>
@@ -511,8 +510,6 @@
     <string name="array_event_pref_orientationDistanceType_near">Poblíž</string>
     <string name="array_event_pref_orientationDistanceType_far">Daleko</string>
     <string name="event_preferences_orientation_ignoreForApplications">Ignorovat pro aplikace</string>
-    <string name="applications_preference_applicationType_application">aplikace</string>
-    <string name="applications_preference_applicationType_shortcut">odkaz</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Nastavit parametry Wi-Fi skenování v nastavení aplikace.</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Nastav parametry Bluetooth skenování v nastavení aplikace.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Skenování orientace</string>
@@ -1072,8 +1069,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Nenastaveno na Vždy</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Přístup k notifikacím zapnutý</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Přístup k notifikacím vypnutý</string>
-    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="intent_editor_title">Editor intentu</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intenty</string>
     <string name="application_editor_intent_intent_name">Název intentu:</string>
@@ -1149,10 +1144,10 @@
     <string name="notification_channel_not_used_mobile_cell">Detekce nepoužívané mobilní buňky</string>
     <string name="notification_channel_not_used_mobile_cell_description">Zobrazuje notifikaci na zjištěnou nepoužívanou mobilní buňku.</string>
     <string name="notification_not_used_mobile_cell_title">Byla zjištěna nová mobilní buňka</string>
-    <string name="notification_not_used_mobile_cell_text1">Zjištěné ID mobilní buňky:</string>
+    <string name="notification_not_used_mobile_cell_text1">Zjištěné id mobilní buňky:</string>
     <string name="notification_not_used_mobile_cell_text2">Klikněte sem a přidejte ji do senzoru mobilních buněk událostí.</string>
     <string name="not_used_mobile_cells_detected_title">Zjištěné nepoužité mobilní buňky</string>
-    <string name="not_used_mobile_cells_detected_cell_id">Zjištěné ID mobilní buňky:</string>
+    <string name="not_used_mobile_cells_detected_cell_id">Zjištěné id mobilní buňky:</string>
     <string name="not_used_mobile_cells_detected_connection_time">Zařízení bylo připojeno:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Přidejte ji k událostem:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Registrace buněk slouží k registraci mobilních buněk pro tuto událost. Registrace bude probíhat na pozadí. Během provádění registrace se doporučuje neměnit umístění zařízení.</string>
@@ -1255,7 +1250,7 @@
     <string name="event_preference_sensor_screen_summary">Tento senzor spustí událost podle zapnutí / vypnutí obrazovky. Parametry: Typ události (obrazovka se zapnula/vypnula), Start když je odemčené/zamčené (událost nastane když zařízení na odemknuté/zamčené).</string>
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Zobrazit indikátory parametrů profilu v aktivátor, Editoru, odkazu</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Zobrazit indikátory parametrů profilu v oznámení</string>
-    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Zobrazit indikátory parametrů profilu v widgetech</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Zobrazit indikátory parametrů profilu ve widgetech</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Podtržené parametry jsou povinné.</string>
     <string name="event_preferences_red_sensors_summary">Zkontrolujte také parametry senzoru označené červenou barvou.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Parametry senzorů jsou pod hlavními parametry události.</string>
@@ -1290,7 +1285,7 @@
     <string name="preferences_durationInfo_summary">Parametry označené symbolem [M] se používají pouze tehdy, když je tento profil aktivován manuálně. Aktivace z události tyto parametry ignoruje.</string>
     <string name="profile_event_name_ask_for_duration">ptát</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Na widget nelze kliknout</string>
-    <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Pokud miniaplikace PhoneProfilesPlus nefunguje (kliknutí na widget), povolte povolení v nastavení zařízení: Nastavení / Aplikace / Správa aplikací / PhoneProfilesPlus / Jiné povolení / Zobrazit vyskakovací okna při běhu na pozadí.</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Pokud widgety PhoneProfilesPlus nefunguje (kliknutí na widget), povolte povolení v nastavení zařízení: Nastavení / Aplikace / Správa aplikací / PhoneProfilesPlus / Jiné povolení / Zobrazit vyskakovací okna při běhu na pozadí.</string>
     <string name="array_pref_12_percent" formatted="false">13%</string>
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
@@ -1320,13 +1315,13 @@
     <string name="phone_profiles_pref_grantG1Permission_summary">Prosím udělte povolení WRITE_SECURE_SETTINGS pro PhoneProfilesPlus. Je vyžadováno pro parametry profilu a události, označené jako (G1). Potom ROOT nebude potřebný.</string>
     <string name="profile_preferences_profile_not_found">Profil nenalezen. Vymazán?</string>
     <string name="event_preferences_event_not_found">Událost nenalezena. Vymazána?</string>
-    <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte povolení \"Vykreslit přes další aplikace\". Ale toto povolení je vyžadováno pro Android 10. Prosim udělte ho.</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte povolení \"Vykreslit přes další aplikace\". Ale toto povolení je vyžadováno pro Android 10. Prosím udělte ho.</string>
     <string name="event_preferences_battery_level_info">Upozornění pro úroveň baterie</string>
     <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Spodní úroveň &gt; 0% nebo horní úroveň &lt; 100% spotřebovává baterii!</string>
     <string name="event_preference_sensor_device_boot_summary">Tento senzor nastartuje událost okamžitě po startu zařízení. Parametry: Trvalý běh, Trvání (délka události).</string>
     <string name="event_type_device_boot">Start zařízení</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Senzor startu zařízení</string>
-    <string name="phone_profiles_pref_notificationSystemSettingsAll_summary">Konfigurace pro všechny notifikační kategorie</string>
+    <string name="phone_profiles_pref_notificationSystemSettingsAll_summary">Konfigurace pro všechny kategorie notifikací</string>
     <string name="phone_profiles_pref_notificationSystemSettingsAll_A7_summary">Konfigurace pro veškerá oznámení</string>
     <string name="event_preferences_alarm_clock_info">Interně podporované aplikace Budík</string>
     <string name="event_preferences_alarm_clock_applications">Aplikace Budík</string>
@@ -1427,7 +1422,7 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">V Nastavení zařízení\/Aplikace\/Správa aplikací\/PhoneProfilesPlus\/Ostatní povolení: \"Změnit Wi-Fi připojení\" a \"Změnit připojení Bluetooth\" nastavit na \"Povolit\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Restart událostí nefunguje, protože běh událostí je vypnutý</string>
     <string name="critical_github_release">Kritické vydání aplikace</string>
-    <string name="critical_github_release_notification">Klikněte na tuto notifikaci pro stiahutie kritického vydání PhoneProfilesPlus z jeho GitHub.</string>
+    <string name="critical_github_release_notification">Klikněte na tuto notifikaci pro stáhnutí kritického vydání PhoneProfilesPlus z jeho GitHub.</string>
     <string name="acra_email_subject_text">zpráva o selhání</string>
     <string name="acra_email_body_text">PhoneProfilesPlus selhal. Připojena je zpráva o selhání.</string>
     <string name="acra_notification_title">Je mi líto, PhoneProfilesPlus selhal</string>
@@ -1472,7 +1467,7 @@
     <string name="editor_drawer_order_end_profile_name">Název profilu na konci</string>
     <string name="donation_paypal_donate_button">Přispět</string>
     <string name="normal_github_release">Nová verze aplikace</string>
-    <string name="normal_github_release_notification">Klikněte na toto oznámení pro stažení nového vydání PhoneProfilesPlus z GitHubu.</string>
+    <string name="normal_github_release_notification">Klikněte na tuto notifikaci pro stažení nového vydání PhoneProfilesPlus z GitHubu.</string>
     <string name="normal_github_release_confirm_notification_disable">Opravdu chcete nezobrazovat toto oznámení v budoucnu?</string>
     <string name="profile_preferences_PPPExtender_installed_summary">Nainstalováno:</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Nenainstalováno</string>
@@ -1520,7 +1515,7 @@
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobilní data pro SIM 2</string>
     <string name="array_pref_radioSwitch_connected">Připojeno</string>
     <string name="array_pref_radioSwitch_disconnected">Odpojeno</string>
-    <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pro start události podle přepínání rádií (zapnout/vypnout) a podle jejich stavu připojeno/odpojeno. Parametry: Wi-fi, Bluetooth, Mobilní data, GPS, NFC, Režim letadlo.</string>
+    <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pro start události podle přepínání rádií (zapnout/vypnout) a podle jejich stavu připojeno/odpojeno. Parametry: Wi-Fi, Bluetooth, Mobilní data, GPS, NFC, Režim letadlo.</string>
     <string name="default_sim_pref_dlg_voice">Výchozí SIM pro hlas</string>
     <string name="default_sim_pref_dlg_sms">Výchozí SIM pro SMS</string>
     <string name="default_sim_pref_dlg_data">Výchozí SIM pro data</string>
@@ -1605,7 +1600,7 @@
     <string name="menu_check_releases_fdroid">Zkontrolovat v F-Droid</string>
     <string name="check_releases_go_to_fdroid">Jít do F-Droid repozitáře</string>
     <string name="check_releases_fdroid_application">Aplikace F-Droid:</string>
-    <string name="check_releases_fdroid_repository_with_ppp">Repozitář na jeho konfiguraci v aplikaci F-Droid:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Repozitář na konfiguraci v aplikaci F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Pokud změna hlasitosti médií nefunguje, je to pravděpodobně způsobeno povoleným \"příznakem bezpečné hlasitosti\". Chcete-li tento příznak zakázat, udělte oprávnění (G1), protože na povolení tohoto příznaku je třeba toto povolení.</string>
     <string name="menu_check_releases_galaxy_store">Zkontrolovat v Galaxy Store</string>
     <string name="check_releases_open_galaxy_store">Otevřít Galaxy Store</string>
@@ -1849,7 +1844,7 @@
     <string name="important_info_profile_grant_1_howTo_20_5">Možná existuje podobná možnost v jiných zařízeních.</string>
     <string name="important_info_profile_grant_1_howTo_20_6">Bez toho povolení nefunguje.</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling">Omezení skenování Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_summary">Klknutím sem zobrazíte, jak vypnout omezování skenování Wi-Fi, abyste umožnili skenování s intervalem kratším než 30 minut.</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanThrottling_summary">Kliknutím sem zobrazíte, jak vypnout omezování skenování Wi-Fi, abyste umožnili skenování s intervalem kratším než 30 minut.</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info1">Jak funguje omezení skenování Wi-Fi:</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info2">Každá aplikace v popředí může skenovat čtyřikrát za 2 minuty. To umožňuje větší množství skenování v krátké době.</string>
     <string name="phone_profiles_pref_applicationEventWifiScanThrottling_info3">Všechny aplikace na pozadí mohou skenovat jednou za 30 minut (PhoneProfilesPlus běží na pozadí).</string>
@@ -1870,7 +1865,7 @@
     <string name="event_preferences_category_eventVolumesParameters">Senzor hlasitostí</string>
     <string name="event_preferences_volumes_info_title">Konfigurace senzoru</string>
     <string name="event_preferences_volumes_info_summary">Úroveň všech hlasitostí musí být splněna, aby se spustila událost. Nakonfigurujte pouze hlasitosti, které potřebujete.</string>
-    <string name="event_preferences_notificationSoundPlayAlsoInSilentMode">Přehrát notifikaci iv tichém režimu</string>
+    <string name="event_preferences_notificationSoundPlayAlsoInSilentMode">Přehrát notifikaci i v tichém režimu</string>
     <string name="profile_preferences_endOfActivationNotificationCategory">Notifikace pro konec aktivace profilu</string>
     <string name="profile_preferences_startOfEventNotificationCategory">Notifikace pro start události</string>
     <string name="profile_preferences_endOfEventNotificationCategory">Notifikace pro konec události</string>
@@ -1948,7 +1943,7 @@
     <string name="activity_log_help_message_colors_event_start">Start události</string>
     <string name="activity_log_help_message_colors_event_end">Konec události</string>
     <string name="activity_log_help_message_colors_restart_events">Restart událostí</string>
-    <string name="activity_log_help_message_colors_event_delay_start_end">Štart/koniec udalosti v pozdržení</string>
+    <string name="activity_log_help_message_colors_event_delay_start_end">Štart/konec udalosti v pozdržení</string>
     <string name="activity_log_help_message_colors_error">Chyba</string>
     <string name="activity_log_help_message_colors_others">Ostatní situace</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Barva ikony \"Restart událostí\"</string>
@@ -1971,6 +1966,20 @@
     <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Zapnout v režimu Letadlo</string>
     <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Vypnout v režimu Letadlo</string>
     <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Přepnout stav v režimu Letadlo</string>
+    <string name="event_preference_sensor_roaming_summary">Tento senzor spustí událost, když jsou síť nebo data v roamingu. Parametry: Kontrola sítě, Kontrola dat.</string>
+    <string name="event_type_roaming">Roaming</string>
+    <string name="event_preferences_category_eventRoamingParameters">Senzor roamingu</string>
+    <string name="pref_event_roaming_check_network">Kontrola sítě</string>
+    <string name="pref_event_roaming_check_data">Kontrola dat</string>
+    <string name="event_preferences_roaming_forSimCard">Pro SIM kartu</string>
+    <string name="permission_why_event_roaming_preferences">pro kontrolu, zda je síť nebo data v roamingu</string>
+    <string name="array_pref_airplaneModeArray_root_on">(R) Zapnout</string>
+    <string name="array_pref_airplaneModeArray_root_off">(R) Vypnout</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(R) Přepnout stav</string>
+    <string name="array_pref_airplaneModeArray_assistant_on">Zapnout s Asistentem</string>
+    <string name="array_pref_airplaneModeArray_assistant_off">Vypnout s Asistentem</string>
+    <string name="array_pref_airplaneModeArray_assistant_toggle">Přepnout stav s Asistentem</string>
+    <string name="preference_not_allowed_reason_not_two_sim_cards">nejsou vloženy dvě SIM karty</string>
     <!-- **************************************************************************************** -->
 <!--    <string name="extender_accessibility_service_description">Extender pro PhoneProfilesPlus. Funguje pouze ve spojení s PhoneProfilesPlus.</string>-->
 <!--    <string name="extender_about_application_version">Verze:</string>-->
@@ -1986,7 +1995,7 @@
 <!--    <string name="extender_permissions_not_granted">Odepřeno</string>-->
 <!--    <string name="extender_permissions_granted">Uděleno</string>-->
 <!--    <string name="extender_permissions_button">Uděl/odepři\npráva</string>-->
-<!--    <string name="extender_accessibility_service_event_sensor_call">• Služba Usnadnění pro parametry události \"Sensor hovoru\". Funkce usnadnění není použita, běžící servis je potřebný pro příjem hovorů.</string>-->
+<!--    <string name="extender_accessibility_service_event_sensor_call">• Služba Usnadnění pro parametry události \"Senzor hovoru\". Funkce usnadnění není použita, běžící servis je potřebný pro příjem hovorů.</string>-->
 <!--    <string name="extender_permissions_event_sensor_call">• Povolení pro parametry události \"Senzor hovoru\" - povolení Telefon</string>-->
 <!--    <string name="extender_permissions_event_sensor_call_28">• Povolení pro parametry události \"Senzor hovoru\" - povolení Telefon, Deníky hovorů</string>-->
 <!--    <string name="extender_toast_permissions_not_granted">Povolení nejsou udělena</string>-->
@@ -2009,7 +2018,7 @@
 <!--    <string name="extender_popup_windows_in_background_button">Otevři\nDalší povolení\n(MIUI)</string>-->
 <!--    <string name="extender_notification_channel_grant_permission">Udělení povolení</string>-->
 <!--    <string name="extender_notification_channel_grant_permission_description">Zobrazuje povolení, které je třeba, abyste udělili.</string>-->
-<!--    <string name="extender_notification_permission_title">Povolení není udělěno</string>-->
+<!--    <string name="extender_notification_permission_title">Povolení není uděleno</string>-->
 <!--    <string name="extender_notification_sms_mms_permission_text">Oprávnění pro parametr události \"Senzor SMS/MMS\" není uděleno. Klepnutím na toto oznámení otevřete Extender. V něm se použije tlačítko pro udělení tohoto oprávnění.</string>-->
 <!--    <string name="extender_notification_call_permission_text">Oprávnění pro parametr události \"Senzor hovoru\" není uděleno. Klepnutím na toto oznámení otevřete Extender. V něm použijte tlačítko pro udělení tohoto oprávnění.</string>-->
 <!--    <string name="extender_notifications_permission_text">Povolení k oznámení není uděleno.\n\nPovolte upozornění pro PhoneProfilesPlusExtender. Bez tohoto povolení se upozornění z PhoneProfilesPlusExtender nebudou zobrazovat.</string>-->

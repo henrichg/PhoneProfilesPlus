@@ -114,7 +114,6 @@
     <string name="event_preferences_time_timeDays">Días de la semana</string>
     <string name="event_preferences_time_startTime">Hora de inicio</string>
     <string name="event_preferences_time_endTime">Hora de fin</string>
-    <string name="array_pref_event_all">Todos</string>
     <string name="editor_drawer_title_profiles">Perfiles</string>
     <string name="editor_drawer_title_events">Eventos</string>
     <string name="editor_drawer_list_item_profiles_all">Todos</string>
@@ -511,8 +510,6 @@
     <string name="array_event_pref_orientationDistanceType_near">Cerca</string>
     <string name="array_event_pref_orientationDistanceType_far">Lejos</string>
     <string name="event_preferences_orientation_ignoreForApplications">Ignorar para aplicaciones</string>
-    <string name="applications_preference_applicationType_application">aplicación</string>
-    <string name="applications_preference_applicationType_shortcut">atajo</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Configurar los parámetros de escaneo Wi-Fi en los ajustes de la aplicación.</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Configurar los parámetros de escaneo Bluetooth en los ajustes de la aplicación.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Escaneo de orientación</string>
@@ -1072,8 +1069,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">No establecido en Siempre</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Acceso a notificaciones habilitado</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Acceso a notificaciones deshabilitado</string>
-    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="intent_editor_title">Editor de intentos</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intentos</string>
     <string name="application_editor_intent_intent_name">Nombre del intento:</string>
@@ -1966,10 +1961,24 @@
     <string name="profile_icon_preference_iconColor_help_info_1">En las aplicaciones con tema oscuro, el color del icono de vista previa puede haber aumentado de brillo.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Un icono con este aumento de brillo se utilizará a través de la GUI de la aplicación. También en notificaciones y widgets, cuando su fondo sea oscuro.</string>
     <string name="important_info_android_look_application_settings">Por favor, abre los ajustes de PhoneProfilesPlus y configúralo. Especialmente los parámetros marcados con un signo de flecha doble.</string>
-    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Configuración actual:</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Encender en modo avión</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Apagar en modo avión</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Alternar en modo avión</string>
+    <string name="event_preference_sensor_roaming_summary">Este sensor iniciará un evento cuando la red o los datos estén en itinerancia. Parámetros: Comprobar red, Comprobar datos.</string>
+    <string name="event_type_roaming">Itinerancia</string>
+    <string name="event_preferences_category_eventRoamingParameters">Sensor de itinerancia</string>
+    <string name="pref_event_roaming_check_network">Comprobar red</string>
+    <string name="pref_event_roaming_check_data">Comprobar datos</string>
+    <string name="event_preferences_roaming_forSimCard">Para tarjeta SIM</string>
+    <string name="permission_why_event_roaming_preferences">para comprobar si la red o los datos están en itinerancia</string>
+    <string name="array_pref_airplaneModeArray_root_on">(R) Encendido</string>
+    <string name="array_pref_airplaneModeArray_root_off">(R) Apagado</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(R) Alternar</string>
+    <string name="array_pref_airplaneModeArray_assistant_on">Encender con Asistente</string>
+    <string name="array_pref_airplaneModeArray_assistant_off">Apagar con Asistente</string>
+    <string name="array_pref_airplaneModeArray_assistant_toggle">Alternar con Asistente</string>
+    <string name="preference_not_allowed_reason_not_two_sim_cards">no se han introducido dos tarjetas SIM</string>
     <!-- **************************************************************************************** -->
 <!--    <string name="extender_accessibility_service_description">Extender para PhoneProfilesPlus. Funciona solo en conjunto con PhoneProfilesPlus.</string>-->
 <!--    <string name="extender_about_application_version">Versión:</string>-->

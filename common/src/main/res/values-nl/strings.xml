@@ -114,7 +114,6 @@
     <string name="event_preferences_time_timeDays">Dagen van de week</string>
     <string name="event_preferences_time_startTime">Starttijd</string>
     <string name="event_preferences_time_endTime">Eindtijd</string>
-    <string name="array_pref_event_all">Alles</string>
     <string name="editor_drawer_title_profiles">Profielen</string>
     <string name="editor_drawer_title_events">Events</string>
     <string name="editor_drawer_list_item_profiles_all">Alles</string>
@@ -511,8 +510,6 @@
     <string name="array_event_pref_orientationDistanceType_near">In de buurt</string>
     <string name="array_event_pref_orientationDistanceType_far">Ver</string>
     <string name="event_preferences_orientation_ignoreForApplications">Negeren voor programma\'s</string>
-    <string name="applications_preference_applicationType_application">programma</string>
-    <string name="applications_preference_applicationType_shortcut">snelkoppeling</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Stel Wi-Fi scan parameters in bij programma-instellingen.</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Stel Bluetooth scan parameters in bij programma-instellingen.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Oriëntatie scannen</string>
@@ -1072,8 +1069,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Niet ingesteld op Altijd</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Toegang tot meldingen ingeschakeld</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Toegang tot meldingen uitgeschakeld</string>
-    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="intent_editor_title">Intent editor</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
     <string name="application_editor_intent_intent_name">Intent naam:</string>
@@ -1966,10 +1961,24 @@
     <string name="profile_icon_preference_iconColor_help_info_1">In een donker toepassingsthema kan de kleur van het voorbeeldicoon meer helderheid geven.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Een icoon met deze verhoogde helderheid wordt gebruikt in de GUI van de applicatie. Ook in notificaties en widgets als hun achtergrond donker is.</string>
     <string name="important_info_android_look_application_settings">Open PhoneProfilesPlus Instellingen en configureer. Vooral de instellingen gemarkeerd met dubbele pijl teken.</string>
-    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Huidige configuratie:</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Aan in vliegtuigmodus</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Uit in Vliegtuigmodus</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Omschakelen in Vliegtuigmodus</string>
+    <string name="event_preference_sensor_roaming_summary">Deze sensor start een event wanneer het netwerk of data roaming zijn. Parameters: Controleer netwerk, controleer data.</string>
+    <string name="event_type_roaming">Roaming</string>
+    <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
+    <string name="pref_event_roaming_check_network">Controleer netwerk</string>
+    <string name="pref_event_roaming_check_data">Controleer data</string>
+    <string name="event_preferences_roaming_forSimCard">Voor simkaart</string>
+    <string name="permission_why_event_roaming_preferences">als controle wanneer netwerk of data in roaming zijn</string>
+    <string name="array_pref_airplaneModeArray_root_on">(R) Aan</string>
+    <string name="array_pref_airplaneModeArray_root_off">(R) Uit</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(R) Omschakeling</string>
+    <string name="array_pref_airplaneModeArray_assistant_on">Aan met assistent</string>
+    <string name="array_pref_airplaneModeArray_assistant_off">Uit met assistent</string>
+    <string name="array_pref_airplaneModeArray_assistant_toggle">Omschakelen met assistent</string>
+    <string name="preference_not_allowed_reason_not_two_sim_cards">not two SIM cards inserted</string>
     <!-- **************************************************************************************** -->
 <!--    <string name="extender_accessibility_service_description">Extender voor PhoneProfilesPlus. Deze werkt alleen in combinatie met PhoneProfilesPlus.</string>-->
 <!--    <string name="extender_about_application_version">Versie:</string>-->

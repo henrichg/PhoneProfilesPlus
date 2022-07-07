@@ -114,7 +114,6 @@
     <string name="event_preferences_time_timeDays">Hari dalam seminggu</string>
     <string name="event_preferences_time_startTime">Waktu Mulai</string>
     <string name="event_preferences_time_endTime">Waktu Berakhir</string>
-    <string name="array_pref_event_all">Semua</string>
     <string name="editor_drawer_title_profiles">Profil</string>
     <string name="editor_drawer_title_events">Acara</string>
     <string name="editor_drawer_list_item_profiles_all">Semua</string>
@@ -511,8 +510,6 @@
     <string name="array_event_pref_orientationDistanceType_near">Dekat</string>
     <string name="array_event_pref_orientationDistanceType_far">Jauh</string>
     <string name="event_preferences_orientation_ignoreForApplications">Abaikan untuk aplikasi</string>
-    <string name="applications_preference_applicationType_application">aplikasi</string>
-    <string name="applications_preference_applicationType_shortcut">jalan pintas</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Setup Wi-Fi scanning parameters in application settings.</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Setup Bluetooth scanning parameters in application settings.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Pemindaian orientasi</string>
@@ -1072,8 +1069,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Not set to Always</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Notification access enabled</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Notification access disabled</string>
-    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="intent_editor_title">Intent editor</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
     <string name="application_editor_intent_intent_name">Intent name:</string>
@@ -1970,6 +1965,20 @@
     <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
     <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
     <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
+    <string name="event_preference_sensor_roaming_summary">This sensor will start an event when network or data are in roaming. Parameters: Check network, Check data.</string>
+    <string name="event_type_roaming">Roaming</string>
+    <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
+    <string name="pref_event_roaming_check_network">Check network</string>
+    <string name="pref_event_roaming_check_data">Check data</string>
+    <string name="event_preferences_roaming_forSimCard">For SIM card</string>
+    <string name="permission_why_event_roaming_preferences">for check, if network or data are in roaming</string>
+    <string name="array_pref_airplaneModeArray_root_on">(R) On</string>
+    <string name="array_pref_airplaneModeArray_root_off">(R) Off</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(R) Toggle</string>
+    <string name="array_pref_airplaneModeArray_assistant_on">On with Assistant</string>
+    <string name="array_pref_airplaneModeArray_assistant_off">Off with Assistant</string>
+    <string name="array_pref_airplaneModeArray_assistant_toggle">Toggle with Assistant</string>
+    <string name="preference_not_allowed_reason_not_two_sim_cards">not two SIM cards inserted</string>
     <!-- **************************************************************************************** -->
 <!--    <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>-->
 <!--    <string name="extender_about_application_version">Version:</string>-->

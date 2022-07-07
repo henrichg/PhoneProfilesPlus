@@ -34,11 +34,4 @@ public class LaunchSamsungEdgeConfigurationActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public void finish()
-    {
-        super.finish();
-        //overridePendingTransition(0, 0);
-    }
-
 }

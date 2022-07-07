@@ -114,7 +114,6 @@
     <string name="event_preferences_time_timeDays">Giorni della settimana</string>
     <string name="event_preferences_time_startTime">Ora di inizio</string>
     <string name="event_preferences_time_endTime">Ora di fine</string>
-    <string name="array_pref_event_all">Tutto</string>
     <string name="editor_drawer_title_profiles">Profili</string>
     <string name="editor_drawer_title_events">Eventi</string>
     <string name="editor_drawer_list_item_profiles_all">Tutto</string>
@@ -511,8 +510,6 @@
     <string name="array_event_pref_orientationDistanceType_near">Vicino</string>
     <string name="array_event_pref_orientationDistanceType_far">Lontano</string>
     <string name="event_preferences_orientation_ignoreForApplications">Ignora per applicazioni</string>
-    <string name="applications_preference_applicationType_application">applicazione</string>
-    <string name="applications_preference_applicationType_shortcut">collegamento</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Definire i parametri del Wi-Fi nelle impostazioni dell\'applicazione.</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Definire i parametri del bluetooth nelle impostazioni dell\'applicazione.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Scansione orientamento</string>
@@ -1072,8 +1069,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Non impostato a Sempre</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Accesso alle notifiche abilitato</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Accesso alle notifiche disabilitato</string>
-    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="intent_editor_title">Editor dell\'Intento</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intenti</string>
     <string name="application_editor_intent_intent_name">Nome intento:</string>
@@ -1895,10 +1890,10 @@
     <string name="accessibility_service_not_used">Non usato</string>
     <string name="preference_not_used_extender_reason">Motivo:</string>
     <string name="location_editor_enable_location_summary">Spiacenti, è impossibile ottenere la posizione.\n\nSei pregato di abilitare la Posizione e la \"Scansione Wi-Fi\" nelle Impostazioni di Sistema.\nInoltre, connetti il dispositivo alla rete se non è già connesso.</string>
-    <string name="profile_preferences_applicationEnableGlobalEventsRun">Enable events run</string>
-    <string name="menu_run_events">Enable events run</string>
-    <string name="menu_stop_events">Disable events run</string>
-    <string name="application_editor_intent_hint_not_set">Not set</string>
+    <string name="profile_preferences_applicationEnableGlobalEventsRun">Abilita esecuzione eventi</string>
+    <string name="menu_run_events">Abilita esecuzione eventi</string>
+    <string name="menu_stop_events">Disabilita esecuzione eventi</string>
+    <string name="application_editor_intent_hint_not_set">Non impostato</string>
     <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
     <string name="application_editor_intent_hint_not_selected">Not selected</string>
     <string name="application_editor_intent_action_none">[None]</string>
@@ -1966,10 +1961,24 @@
     <string name="profile_icon_preference_iconColor_help_info_1">In a dark application theme, the color of the preview icon may have increased brightness.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with a double arrow sign.</string>
-    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Configurazione corrente:</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Attiva in modalità Aereo</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Disattivata in Modalità Aereo</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Attiva/Disattiva in Modalità Aereo</string>
+    <string name="event_preference_sensor_roaming_summary">This sensor will start an event when network or data are in roaming. Parameters: Check network, Check data.</string>
+    <string name="event_type_roaming">Roaming</string>
+    <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
+    <string name="pref_event_roaming_check_network">Check network</string>
+    <string name="pref_event_roaming_check_data">Check data</string>
+    <string name="event_preferences_roaming_forSimCard">For SIM card</string>
+    <string name="permission_why_event_roaming_preferences">for check, if network or data are in roaming</string>
+    <string name="array_pref_airplaneModeArray_root_on">(R) On</string>
+    <string name="array_pref_airplaneModeArray_root_off">(R) Off</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(R) Toggle</string>
+    <string name="array_pref_airplaneModeArray_assistant_on">On with Assistant</string>
+    <string name="array_pref_airplaneModeArray_assistant_off">Off with Assistant</string>
+    <string name="array_pref_airplaneModeArray_assistant_toggle">Toggle with Assistant</string>
+    <string name="preference_not_allowed_reason_not_two_sim_cards">not two SIM cards inserted</string>
     <!-- **************************************************************************************** -->
 <!--    <string name="extender_accessibility_service_description">Extender per PhoneProfilesPlus. Funziona solo in combinazione con PhoneProfilesPlus.</string>-->
 <!--    <string name="extender_about_application_version">Versione:</string>-->

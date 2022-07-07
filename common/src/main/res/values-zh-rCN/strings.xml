@@ -114,7 +114,6 @@
     <string name="event_preferences_time_timeDays">周中的天</string>
     <string name="event_preferences_time_startTime">开始时间</string>
     <string name="event_preferences_time_endTime">结束时间</string>
-    <string name="array_pref_event_all">所有日期</string>
     <string name="editor_drawer_title_profiles">情景</string>
     <string name="editor_drawer_title_events">事件</string>
     <string name="editor_drawer_list_item_profiles_all">所有日期</string>
@@ -511,8 +510,6 @@
     <string name="array_event_pref_orientationDistanceType_near">近</string>
     <string name="array_event_pref_orientationDistanceType_far">远</string>
     <string name="event_preferences_orientation_ignoreForApplications">忽略应用程序</string>
-    <string name="applications_preference_applicationType_application">应用程序</string>
-    <string name="applications_preference_applicationType_shortcut">快捷方式</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">在应用程序设置中设置Wi-Fi扫描参数</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">在应用程序设置中设置蓝牙扫描参数。</string>
     <string name="phone_profiles_pref_category_orientation_scanning">手机方向扫描</string>
@@ -1072,8 +1069,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">未设置为始终</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">通知访问权限已启用</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">通知访问权限已禁用</string>
-    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="intent_editor_title">Intent 编辑器</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
     <string name="application_editor_intent_intent_name">Intnet 名称:</string>
@@ -1966,10 +1961,24 @@
     <string name="profile_icon_preference_iconColor_help_info_1">在深色主题中，预览图标的颜色可能会提高亮度。</string>
     <string name="profile_icon_preference_iconColor_help_info_2">这种增强亮度的图标将应用在整个图形界面中。包括通知和小部件，当它们的背景是深色时。</string>
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with a double arrow sign.</string>
-    <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
+    <string name="profile_preferences_deviceAirplaneModeRadios_info4">当前配置：</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) 飞行模式下开启</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) 飞行模式下关闭</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) 飞行模式下切换</string>
+    <string name="event_preference_sensor_roaming_summary">This sensor will start an event when network or data are in roaming. Parameters: Check network, Check data.</string>
+    <string name="event_type_roaming">Roaming</string>
+    <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
+    <string name="pref_event_roaming_check_network">Check network</string>
+    <string name="pref_event_roaming_check_data">Check data</string>
+    <string name="event_preferences_roaming_forSimCard">For SIM card</string>
+    <string name="permission_why_event_roaming_preferences">for check, if network or data are in roaming</string>
+    <string name="array_pref_airplaneModeArray_root_on">(R) On</string>
+    <string name="array_pref_airplaneModeArray_root_off">(R) Off</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(R) Toggle</string>
+    <string name="array_pref_airplaneModeArray_assistant_on">On with Assistant</string>
+    <string name="array_pref_airplaneModeArray_assistant_off">Off with Assistant</string>
+    <string name="array_pref_airplaneModeArray_assistant_toggle">Toggle with Assistant</string>
+    <string name="preference_not_allowed_reason_not_two_sim_cards">not two SIM cards inserted</string>
     <!-- **************************************************************************************** -->
 <!--    <string name="extender_accessibility_service_description">PhoneProfilesPlus 的扩展。它仅与 PhoneProfilesPlus 一起工作。</string>-->
 <!--    <string name="extender_about_application_version">版本：</string>-->
