@@ -1403,7 +1403,7 @@ public class EditorActivity extends AppCompatActivity
                     language.language = languageValue;
                     language.country = "";
                     language.script = "";
-                    language.name = getString(R.string.extender_menu_choose_language_system_language);
+                    language.name = getString(R.string.menu_choose_language_system_language);
                 } else {
                     String[] splits = languageValue.split("-");
                     String sLanguage = splits[0];
@@ -1482,7 +1482,7 @@ public class EditorActivity extends AppCompatActivity
             //}
 
             AlertDialog chooseLanguageDialog = new AlertDialog.Builder(this)
-                    .setTitle(R.string.extender_menu_choose_language)
+                    .setTitle(R.string.menu_choose_language)
                     .setCancelable(true)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setSingleChoiceItems(languageNameChoices, selectedLanguage, (dialog, which) -> {

@@ -76,19 +76,6 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
             errorColor = true;
         setTextStyle(textViewAppName, errorColor);
 
-        /*switch (application.type) {
-            case Application.TYPE_APPLICATION:
-                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
-                break;
-            case Application.TYPE_SHORTCUT:
-                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
-                break;
-            case Application.TYPE_INTENT:
-                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_intent));
-                break;
-        }
-        setTextStyle(textViewAppType, errorColor);*/
-
         text = context.getString(R.string.applications_editor_dialog_startApplicationDelay);
         text = text + " " + GlobalGUIRoutines.getDurationString(application.startApplicationDelay);
         textViewStartApplicationDelay.setText(text);
