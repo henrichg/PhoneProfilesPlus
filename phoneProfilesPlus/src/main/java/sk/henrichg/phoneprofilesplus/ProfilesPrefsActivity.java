@@ -40,7 +40,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     public static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
     //public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
+    //public static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

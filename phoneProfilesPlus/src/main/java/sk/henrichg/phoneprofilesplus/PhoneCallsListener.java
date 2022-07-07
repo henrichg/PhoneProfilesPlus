@@ -21,7 +21,7 @@ public class PhoneCallsListener extends PhoneStateListener {
     boolean networkRoaming;
     boolean dataRoaming;
 
-    int simSlot;
+    final int simSlot;
 
     private static AudioManager audioManager = null;
 

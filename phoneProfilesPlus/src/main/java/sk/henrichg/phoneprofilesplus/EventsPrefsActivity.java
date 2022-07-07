@@ -57,7 +57,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     };
 
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
+    //public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

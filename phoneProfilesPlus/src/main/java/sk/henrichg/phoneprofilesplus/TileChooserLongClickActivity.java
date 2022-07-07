@@ -55,9 +55,9 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
                 //PPApplication.logE("LongClickTileChooserActivity.onCreate", "qsTile is null");
             //}
         }
-        else {
-            //TODO add dialog for displaying not support for change tile parameter for this android api
-        }
+        //else {
+            // add dialog for displaying not support for change tile parameter for this android api
+        //}
     }
 
     @Override

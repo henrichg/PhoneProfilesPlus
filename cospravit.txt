@@ -706,3 +706,9 @@ A v array by boli polozky s rootom oznacene (R) s assistentom nie.
 Ide mi o to pravo mikrofon, ktore mi to pytalo, ked som na S10 bootol do nerootnutej particie.
 To bol podraz od PPP. :-)
 
+--------------
+
+Roaming.
+Mám problém s Android 12+. Viem si prepínať roaming v emulatore a tam to pri Android 12 dáva vždy false.
+Nepadá to. Hm, hm. Dufam, ze je to len bug emulatora.
+
