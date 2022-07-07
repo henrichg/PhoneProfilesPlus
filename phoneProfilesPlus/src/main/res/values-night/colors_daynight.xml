@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#202020</color>
-    <color name="primaryDark">#202020</color>
+    <color name="primary">#201a18</color>
+    <color name="primaryDark">#201a18</color>
 <!--    <color name="accent">#E99B7F</color>-->
     <color name="accent">#f8b162</color>
 <!--    <color name="accent_disabled">#70E99B7F</color>-->
     <color name="navigationBar">#000000</color>
 
     <!--<color name="activityBackgroundColor">#FF252525</color>-->
-    <color name="activityBackgroundColor">#FF202020</color>
+    <color name="activityBackgroundColor">#FF201a18</color>
     <color name="activityWhiteTextColor">#FFFFFFFF</color>
     <color name="activityNormalTextColor">#FFd5d5d5</color>
     <color name="activitySecondaryTextColor">#CFFFFFFF</color>
     <color name="bootomNavigationTextColor">#FFE0E0E0</color>
-    <color name="activityDisabledTextColor">#4DFFFFFF</color>
-    <color name="activityCommandBackgroundColor">#1FFFFFFF</color>
-    <color name="activityPopupMenuBackgroundColor">#FF1C1C1C</color>
+    <color name="activityDisabledTextColor">#4Dffdad3</color>
+    <color name="activityCommandBackgroundColor">#1Fffdad3</color>
+    <color name="activityPopupMenuBackgroundColor">#FF1a1513</color>
 
 <!--    <color name="notificationDecorationColor">#DC8160</color>-->
     <color name="notificationDecorationColor">#cc893e</color>
@@ -29,17 +29,17 @@
     <!--<color name="navigationDrawerItemBackgroundPressed">#1FFFFFFF</color>-->
 <!--    <color name="preferenceDialogBackground">#FF000000</color>-->
 <!--    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>-->
-    <color name="dialog_divider">#20FFFFFF</color>
+    <color name="dialog_divider">#20ffdad3</color>
 
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
     <color name="editorFilterBackgroundColor">#FF272727</color>
 
     <color name="tabTargetHelpOuterCircleColor">#FFb37761</color>
-    <color name="tabTargetHelpTargetCircleColor">#FF202020</color>
+    <color name="tabTargetHelpTargetCircleColor">#FF201a18</color>
     <color name="tabTargetHelpTextColor">#FF000000</color>
 
-    <color name="fastScrollTrackPP">#FF4F4F4F</color>
-    <color name="fastScrollThumbInactivePP">#FF8F8F8F</color>
+    <color name="fastScrollTrackPP">#20ffdad3</color>
+    <color name="fastScrollThumbInactivePP">#60f8b162</color>
 <!--    <color name="fastScrollThumbPP">#FFE99B7F</color>-->
     <color name="fastScrollThumbPP">#fff8b162</color>
 <!--    <color name="fastScrollPopupBackgroundPP">#FFE99B7F</color>-->
@@ -69,12 +69,12 @@
     <color name="toastTextColor">#FFFFFFFF</color>
     <color name="toastBorderColor">#FF707070</color>
 
-    <color name="dialogBorderColor">#FF454545</color>
-    <color name="buttonBorderColor">#FF707070</color>
+    <color name="dialogBorderColor">#FF403430</color>
+    <color name="buttonBorderColor">#FF4d3e39</color>
 <!--    <color name="alertButtonBorderColor">#FF707070</color>-->
-    <color name="buttonBackgroundColor">#FF1C1C1C</color>
-    <color name="buttonClickedBackgroundColor">#FF505050</color>
-    <color name="popupMenuBorderColor">#FF454545</color>
+    <color name="buttonBackgroundColor">#FF1a1513</color>
+    <color name="buttonClickedBackgroundColor">#FF403430</color>
+    <color name="popupMenuBorderColor">#FF403430</color>
 <!--    <color name="profileIconBorderColor">#FF505050</color>-->
 <!--    <color name="cardViewBorderColor">#FF454545</color>-->
 
