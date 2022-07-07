@@ -621,6 +621,7 @@ public static boolean isAirplaneModeOn(Context context) {
 -------------------
 
 Senzor na detekciu, ci je tel.cislo v roamingu.
+
 Vraj na to staci PhonePstaeListener. Ten mam a regustujem ho cez:
 PhoneProfilesService.registerPhoneCallsListener();
 Volane v PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers().
@@ -677,8 +678,8 @@ Pre API < 26 pouzi len toto (ziskanie network roamingu z TelephonyManager):
         // Not in Roaming
     }
 
-V emulatore si mozem zapnut roaming, takze mozem testovat ;-)
-Funfuje v api 24, v 32 neslo. Tak testuj.
+Mám problém s Android 12+. Viem si prepínať roaming v emulatore a tam to pri Android 12 dáva vždy false.
+Nepadá to. Hm, hm. Dufam, ze je to len bug emulatora.
 
 Zdroj: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
 
@@ -708,7 +709,4 @@ To bol podraz od PPP. :-)
 
 --------------
 
-Roaming.
-Mám problém s Android 12+. Viem si prepínať roaming v emulatore a tam to pri Android 12 dáva vždy false.
-Nepadá to. Hm, hm. Dufam, ze je to len bug emulatora.
 
