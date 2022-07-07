@@ -556,7 +556,7 @@ class ApplicationPreferences {
                     _applicationTheme.equals("material") ||
                     _applicationTheme.equals("color") ||
                     _applicationTheme.equals("dlight")) {
-                String defaultValue = "white";
+                String defaultValue = "dark";
                 if (Build.VERSION.SDK_INT >= 28)
                     defaultValue = "night_mode";
                 _applicationTheme = defaultValue;
@@ -654,10 +654,10 @@ class ApplicationPreferences {
     }
     */
 
-    static private final String PREF_APPLICATION_THEME_DEFAULT_VALUE_WHITE = "white";
+    static private final String PREF_APPLICATION_THEME_DEFAULT_VALUE_DARK = "dark";
     static private final String PREF_APPLICATION_THEME_DEFAULT_VALUE_NIGHT_MODE = "night_mode";
     static String applicationThemeDefaultValue() {
-        String defaultValue = PREF_APPLICATION_THEME_DEFAULT_VALUE_WHITE;
+        String defaultValue = PREF_APPLICATION_THEME_DEFAULT_VALUE_DARK;
         if (Build.VERSION.SDK_INT >= 28)
             defaultValue = PREF_APPLICATION_THEME_DEFAULT_VALUE_NIGHT_MODE;
         return defaultValue;
