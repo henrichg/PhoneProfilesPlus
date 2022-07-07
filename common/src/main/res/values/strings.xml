@@ -2013,7 +2013,7 @@
     <string name="pref_event_roaming_check_network">Check network</string>
     <string name="pref_event_roaming_check_data">Check data</string>
     <string name="event_preferences_roaming_forSimCard">For SIM card</string>
-    <string name="permission_why_event_roaming_preferences">for check if network or data are in roaming</string>
+    <string name="permission_why_event_roaming_preferences">for check, if network or data are in roaming</string>
 
     <string name="array_pref_airplaneModeArray_root_on">(R) On</string>
     <string name="array_pref_airplaneModeArray_root_off">(R) Off</string>
