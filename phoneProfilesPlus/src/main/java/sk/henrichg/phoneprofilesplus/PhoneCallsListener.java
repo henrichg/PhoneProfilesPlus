@@ -9,7 +9,6 @@ import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 public class PhoneCallsListener extends PhoneStateListener {
 
@@ -104,10 +103,10 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         /*
         TelephonyManager telephonyManager;
-        if (forSimCard == 1)
+        if (simSlot == 1)
             telephonyManager = PPApplication.telephonyManagerSIM1;
         else
-        if (forSimCard == 2)
+        if (simSlot == 2)
             telephonyManager = PPApplication.telephonyManagerSIM2;
         else
             telephonyManager = PPApplication.telephonyManagerDefault;
@@ -133,18 +132,18 @@ public class PhoneCallsListener extends PhoneStateListener {
         // You can also check roaming state using this
         if (serviceState.getRoaming()) {
             // In Roaming
-            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - network");
+//            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - network");
             networkRoaming = true;
         } else {
             // Not in Roaming
-            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - network");
+//            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - network");
             networkRoaming = false;
         }
         if (serviceState.getDataRoaming()) {
-            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - data");
+//            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - data");
             dataRoaming = true;
         } else {
-            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - data");
+//            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - data");
             dataRoaming = false;
         }
 
