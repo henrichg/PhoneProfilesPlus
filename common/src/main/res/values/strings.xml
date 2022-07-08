@@ -2018,8 +2018,8 @@
 
     <string name="preference_not_allowed_reason_not_two_sim_cards">not two SIM cards inserted</string>
 
-    <string name="phone_profiles_pref_applicationWidgetColorBNightModeOff">Background color - dark mode off</string>
-    <string name="phone_profiles_pref_applicationWidgetColorBNightModeOn">Background color - dark mode on</string>
+    <string name="phone_profiles_pref_applicationWidgetColorBNightModeOff">Background color - night mode off</string>
+    <string name="phone_profiles_pref_applicationWidgetColorBNightModeOn">Background color - night mode on</string>
 
     <!-- **************************************************************************************** -->
 
