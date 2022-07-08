@@ -108,7 +108,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetListBackgroundType = true; // background type = color
-                            applicationWidgetListBackgroundColor = String.valueOf(0x272727); // color of background
+                            applicationWidgetListBackgroundColor = String.valueOf(0x201a18); // color of background
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                             applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white

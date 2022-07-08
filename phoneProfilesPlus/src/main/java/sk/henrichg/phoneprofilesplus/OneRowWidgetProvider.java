@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -130,7 +131,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(0x272727); // color of background
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(0x201a18); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                             applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
@@ -589,8 +590,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
+                    //remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, 0, 0, 0));
                     remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
+                }
 
                 remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
 

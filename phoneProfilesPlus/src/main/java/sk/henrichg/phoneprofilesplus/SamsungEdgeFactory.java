@@ -174,8 +174,8 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                         switch (nightModeFlags) {
                             case Configuration.UI_MODE_NIGHT_YES:
                                 applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
-                                applicationSamsungEdgeBackgroundType = true; // background type = not color
-                                applicationSamsungEdgeBackgroundColor = String.valueOf(0x272727); // color of background
+                                applicationSamsungEdgeBackgroundType = true; // background type = color
+                                applicationSamsungEdgeBackgroundColor = String.valueOf(0x201a18); // color of background
                                 //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
                                 break;
                             case Configuration.UI_MODE_NIGHT_NO:
