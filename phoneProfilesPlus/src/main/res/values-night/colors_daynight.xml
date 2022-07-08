@@ -70,7 +70,7 @@
     <color name="toastBorderColor">#FF707070</color>
 
     <color name="dialogBorderColor">#FF403430</color>
-    <color name="buttonBorderColor">#FF4d3e39</color>
+    <color name="buttonBorderColor">#FF66524b</color>
 <!--    <color name="alertButtonBorderColor">#FF707070</color>-->
     <color name="buttonBackgroundColor">#FF1a1513</color>
     <color name="buttonClickedBackgroundColor">#FF403430</color>
