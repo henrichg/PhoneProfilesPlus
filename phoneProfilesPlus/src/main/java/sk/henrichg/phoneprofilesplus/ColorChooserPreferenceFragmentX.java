@@ -43,7 +43,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         int preselect = -1;
         for (int i = 0; i < preference.mColors.length; i++) {
-            if (preference.mColors[i] == Integer.parseInt(preference.value)) {
+            if (preference.mColors[i] == preference.parseValue(preference.value)) {
                 preselect = i;
                 break;
             }
@@ -60,7 +60,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         ImageView check = (ImageView) customColorLayout.getChildAt(0);
 
-        int customColor = Integer.parseInt(preference.value);
+        int customColor = preference.parseValue(preference.value);
 
         if(Color.red(customColor) +
                 Color.green(customColor) +
@@ -137,7 +137,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
 
                     final ChromaColorView chromaColorView = layout.findViewById(R.id.custom_color_chroma_color_view);
                     //PPApplication.logE("CustomColorDialogPreferenceFragmentX.onBindDialogView", "preference.value="+preference.value);
-                    chromaColorView.setCurrentColor(Integer.parseInt(preference.value));
+                    chromaColorView.setCurrentColor(preference.parseValue(preference.value));
                     chromaColorView.setColorMode(ColorMode.values()[0]);
                     chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);
 

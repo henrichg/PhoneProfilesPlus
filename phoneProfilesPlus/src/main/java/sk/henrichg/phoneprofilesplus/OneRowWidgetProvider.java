@@ -74,6 +74,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         //boolean applicationWidgetOneRowHigherLayout;
         boolean applicationWidgetOneRowChangeColorsByNightMode;
         boolean applicationWidgetOneRowUseDynamicColors;
+        String applicationWidgetOneRowBackgroundColorNightModeOff;
+        String applicationWidgetOneRowBackgroundColorNightModeOn;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
@@ -103,8 +106,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             //applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
             applicationWidgetOneRowChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
             applicationWidgetOneRowUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowUseDynamicColors;
+            applicationWidgetOneRowBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOff;
+            applicationWidgetOneRowBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn;
 
-            if (Build.VERSION.SDK_INT >= 31) {
+            if (Build.VERSION.SDK_INT >= 30) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
@@ -122,6 +127,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
+                if (Build.VERSION.SDK_INT < 31)
+                    applicationWidgetOneRowUseDynamicColors = false;
+                Log.e("OneRowWidgetProvider._onUpdate", "applicationWidgetOneRowChangeColorsByNightMode="+applicationWidgetOneRowChangeColorsByNightMode);
+                Log.e("OneRowWidgetProvider._onUpdate", "applicationWidgetOneRowUseDynamicColors="+applicationWidgetOneRowUseDynamicColors);
                 if (//PPApplication.isPixelLauncherDefault(context) ||
                         (applicationWidgetOneRowChangeColorsByNightMode &&
                          (!applicationWidgetOneRowUseDynamicColors))) {
@@ -131,7 +140,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(0x201a18); // color of background
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetOneRowBackgroundColorNightModeOn)); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                             applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
@@ -143,7 +152,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(0xfcfcfc); // color of background
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetOneRowBackgroundColorNightModeOff)); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "0";
                             applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
@@ -234,9 +243,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
 
         int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
-        if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+        if (applicationWidgetOneRowChangeColorsByNightMode &&
             applicationWidgetOneRowIconColor.equals("0")) {
-            if (applicationWidgetOneRowUseDynamicColors)
+            if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowUseDynamicColors)
                 indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
             else
                 indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;

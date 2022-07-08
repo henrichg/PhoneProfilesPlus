@@ -39,11 +39,16 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         String applicationSamsungEdgeIconLightness;
         boolean applicationSamsungEdgeCustomIconLightness;
         boolean applicationSamsungEdgeChangeColorsByNightMode;
+        //String applicationSamsungEdgeBackgroundColorNightModeOff;
+        //String applicationSamsungEdgeBackgroundColorNightModeOn;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
             applicationSamsungEdgeIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
             applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
             applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+            //applicationSamsungEdgeBackgroundColorNightModeOff = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff;
+            //applicationSamsungEdgeBackgroundColorNightModeOn = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn;
 
             if (Build.VERSION.SDK_INT >= 30) {
                 if (applicationSamsungEdgeChangeColorsByNightMode) {
@@ -157,6 +162,8 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             boolean applicationSamsungEdgeBackgroundType;
             String applicationSamsungEdgeLightnessB;
             String applicationSamsungEdgeBackgroundColor;
+            String applicationSamsungEdgeBackgroundColorNightModeOff;
+            String applicationSamsungEdgeBackgroundColorNightModeOn;
 
             synchronized (PPApplication.applicationPreferencesMutex) {
                 applicationSamsungEdgeLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
@@ -166,6 +173,8 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                 applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType;
                 applicationSamsungEdgeLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB;
                 applicationSamsungEdgeBackgroundColor = ApplicationPreferences.applicationSamsungEdgeBackgroundColor;
+                applicationSamsungEdgeBackgroundColorNightModeOff = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff;
+                applicationSamsungEdgeBackgroundColorNightModeOn = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn;
 
                 if (Build.VERSION.SDK_INT >= 30) {
                     if (applicationSamsungEdgeChangeColorsByNightMode) {
@@ -175,14 +184,14 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                             case Configuration.UI_MODE_NIGHT_YES:
                                 applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                                 applicationSamsungEdgeBackgroundType = true; // background type = color
-                                applicationSamsungEdgeBackgroundColor = String.valueOf(0x201a18); // color of background
+                                applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
                                 //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
                                 break;
                             case Configuration.UI_MODE_NIGHT_NO:
                             case Configuration.UI_MODE_NIGHT_UNDEFINED:
                                 applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                                 applicationSamsungEdgeBackgroundType = true; // background type = not color
-                                applicationSamsungEdgeBackgroundColor = String.valueOf(0xfcfcfc); // color of background
+                                applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
                                 //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
                                 break;
                         }

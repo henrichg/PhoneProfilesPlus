@@ -54,6 +54,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         int applicationWidgetListRoundedCornersRadius;
         boolean applicationWidgetListChangeColorsByNightMode;
         boolean applicationWidgetListUseDynamicColors;
+        String applicationWidgetListBackgroundColorNightModeOff;
+        String applicationWidgetListBackgroundColorNightModeOn;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
@@ -74,6 +77,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
             applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
+            applicationWidgetListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff;
+            applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetListRoundedCorners) {
@@ -81,7 +86,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 applicationWidgetListRoundedCornersRadius = 1;
             }
 
-            if (Build.VERSION.SDK_INT >= 31) {
+            if (Build.VERSION.SDK_INT >= 30) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetListRoundedCorners = true;
@@ -99,6 +104,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
+                if (Build.VERSION.SDK_INT < 31)
+                    applicationWidgetListUseDynamicColors = false;
                 if (//PPApplication.isPixelLauncherDefault(context) ||
                         (applicationWidgetListChangeColorsByNightMode &&
                         (!applicationWidgetListUseDynamicColors))) {
@@ -108,7 +115,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetListBackgroundType = true; // background type = color
-                            applicationWidgetListBackgroundColor = String.valueOf(0x201a18); // color of background
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                             applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
@@ -120,7 +127,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetListBackgroundType = true; // background type = color
-                            applicationWidgetListBackgroundColor = String.valueOf(0xfcfcfc); // color of background
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = "0";
                             applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
@@ -562,9 +569,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetListCustomIconLightness);
                 if (applicationWidgetListPrefIndicator) {
                     int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
-                    if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                    if (applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0")) {
-                        if (applicationWidgetListUseDynamicColors)
+                        if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListUseDynamicColors)
                             indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
                         else
                             indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;

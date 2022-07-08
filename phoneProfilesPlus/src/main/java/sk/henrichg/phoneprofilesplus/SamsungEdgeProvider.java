@@ -45,6 +45,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         String applicationSamsungEdgeLightnessT;
         String applicationSamsungEdgeVerticalPosition;
         boolean applicationSamsungEdgeChangeColorsByNightMode;
+        String applicationSamsungEdgeBackgroundColorNightModeOff;
+        String applicationSamsungEdgeBackgroundColorNightModeOn;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
             applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType;
@@ -57,6 +60,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             applicationSamsungEdgeLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
             applicationSamsungEdgeVerticalPosition = ApplicationPreferences.applicationSamsungEdgeVerticalPosition;
             applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+            applicationSamsungEdgeBackgroundColorNightModeOff = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff;
+            applicationSamsungEdgeBackgroundColorNightModeOn = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn;
 
             if (Build.VERSION.SDK_INT >= 30) {
 
@@ -67,7 +72,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                             applicationSamsungEdgeBackgroundType = true; // background type = color
-                            applicationSamsungEdgeBackgroundColor = String.valueOf(0x201a18); // color of background
+                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
                             //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
                             applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                             //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
@@ -77,7 +82,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                             applicationSamsungEdgeBackgroundType = true; // background type = not color
-                            applicationSamsungEdgeBackgroundColor = String.valueOf(0xfcfcfc); // color of background
+                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
                             //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
                             applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                             //applicationSamsungEdgeIconColor = "0"; // icon type = colorful

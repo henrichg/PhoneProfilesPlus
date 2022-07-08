@@ -65,6 +65,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
         int applicationWidgetIconRoundedCornersRadius;
         boolean applicationWidgetIconChangeColorsByNightMode;
         boolean applicationWidgetIconUseDynamicColors;
+        String applicationWidgetIconBackgroundColorNightModeOff;
+        String applicationWidgetIconBackgroundColorNightModeOn;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
@@ -83,6 +86,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
             applicationWidgetIconChangeColorsByNightMode = ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode;
             applicationWidgetIconUseDynamicColors = ApplicationPreferences.applicationWidgetIconUseDynamicColors;
+            applicationWidgetIconBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetIconBackgroundColorNightModeOff;
+            applicationWidgetIconBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetIconBackgroundColorNightModeOn;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetIconRoundedCorners) {
@@ -90,7 +95,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 applicationWidgetIconRoundedCornersRadius = 1;
             }
 
-            if (Build.VERSION.SDK_INT >= 31) {
+            if (Build.VERSION.SDK_INT >= 30) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetIconRoundedCorners = true;
@@ -108,6 +113,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
+                if (Build.VERSION.SDK_INT < 31)
+                    applicationWidgetIconUseDynamicColors = false;
                 if ((/*PPApplication.isPixelLauncherDefault(context) ||*/
                         applicationWidgetIconChangeColorsByNightMode &&
                         (!applicationWidgetIconUseDynamicColors))) {
@@ -117,7 +124,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetIconBackgroundType = true; // background type = color
-                            applicationWidgetIconBackgroundColor = String.valueOf(0x201a18); // color of background
+                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetIconBackgroundColorNightModeOn)); // color of background
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                             applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
@@ -128,7 +135,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetIconBackgroundType = true; // background type = color
-                            applicationWidgetIconBackgroundColor = String.valueOf(0xfcfcfc); // color of background
+                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetIconBackgroundColorNightModeOff)); // color of background
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "0";
                             applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black

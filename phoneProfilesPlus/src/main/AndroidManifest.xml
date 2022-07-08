@@ -469,6 +469,27 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
+            android:name=".LaunchWidgetIconConfigurationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
+            android:name=".LaunchWidgetOneRowConfigurationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
+            android:name=".LaunchWidgetListConfigurationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
             android:name=".LaunchSamsungEdgeConfigurationActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"

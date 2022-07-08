@@ -238,6 +238,14 @@ class ApplicationPreferences {
     static boolean applicationWidgetListUseDynamicColors;
     static String applicationRestartEventsIconColor;
     //static boolean applicationIncreaseBrightnessForProfileIcon;
+    static String  applicationWidgetIconBackgroundColorNightModeOff;
+    static String  applicationWidgetIconBackgroundColorNightModeOn;
+    static String  applicationWidgetOneRowBackgroundColorNightModeOff;
+    static String  applicationWidgetOneRowBackgroundColorNightModeOn;
+    static String  applicationWidgetListBackgroundColorNightModeOff;
+    static String  applicationWidgetListBackgroundColorNightModeOn;
+    static String  applicationSamsungEdgeBackgroundColorNightModeOff;
+    static String  applicationSamsungEdgeBackgroundColorNightModeOn;
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -499,6 +507,14 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS = "applicationShortcutCustomIconLightness";
     static final String PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR = "applicationRestartEventsIconColor";
     //static final String PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON = "applicationIncreaseBrightnessForProfileIcon";
+    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationWidgetIconBackgroundColorNightModeOff";
+    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetIconBackgroundColorNightModeOn";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationWidgetOneRowBackgroundColorNightModeOff";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetOneRowBackgroundColorNightModeOn";
+    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationWidgetListBackgroundColorNightModeOff";
+    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetListBackgroundColorNightModeOn";
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationSamsungEdgeBackgroundColorNightModeOff";
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationSamsungEdgeBackgroundColorNightModeOn";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -1873,6 +1889,46 @@ class ApplicationPreferences {
         applicationIncreaseBrightnessForProfileIcon = getSharedPreferences(context).getBoolean(PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON_DEFAULT_VALUE);
     }
     */
+
+    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static void applicationWidgetIconBackgroundColorNightModeOff(Context context) {
+        applicationWidgetIconBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff201a18";
+    static void applicationWidgetIconBackgroundColorNightModeOn(Context context) {
+        applicationWidgetIconBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static void applicationWidgetOneRowBackgroundColorNightModeOff(Context context) {
+        applicationWidgetOneRowBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff201a18";
+    static void applicationWidgetOneRowBackgroundColorNightModeOn(Context context) {
+        applicationWidgetOneRowBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static void applicationWidgetListBackgroundColorNightModeOff(Context context) {
+        applicationWidgetListBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff201a18";
+    static void applicationWidgetListBackgroundColorNightModeOn(Context context) {
+        applicationWidgetListBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static void applicationSamsungEdgeBackgroundColorNightModeOff(Context context) {
+        applicationSamsungEdgeBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff201a18";
+    static void applicationSamsungEdgeBackgroundColorNightModeOn(Context context) {
+        applicationSamsungEdgeBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+    }
 
     static void deleteBadPreferences(Context context) {
         SharedPreferences mySPrefs = getSharedPreferences(context);

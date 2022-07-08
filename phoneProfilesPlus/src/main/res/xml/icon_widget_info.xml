@@ -14,7 +14,7 @@
     android:description="@string/icon_widget_description"
     android:widgetCategory="home_screen"
 
-    android:configure="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity"
+    android:configure="sk.henrichg.phoneprofilesplus.LaunchWidgetIconConfigurationActivity"
     android:widgetFeatures="reconfigurable"
     tools:targetApi="p" />
 <!--    android:widgetFeatures="reconfigurable|configuration_optional" />-->

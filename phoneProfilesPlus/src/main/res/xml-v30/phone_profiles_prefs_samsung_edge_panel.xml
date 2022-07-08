@@ -24,6 +24,16 @@
         app:summary="@string/phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOff"
+        app:key="applicationSamsungEdgeBackgroundColorNightModeOff"
+        app:defaultValue="#fffcfcfc"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOn"
+        app:key="applicationSamsungEdgeBackgroundColorNightModeOn"
+        app:defaultValue="#ff201a18"
+        app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
