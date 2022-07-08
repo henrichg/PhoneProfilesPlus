@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +9,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LaunchWidgetListConfigurationActivity extends AppCompatActivity {
 
+    int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //overridePendingTransition(0, 0);
+        overridePendingTransition(0, 0);
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+
+        if ((action != null) && action.equals(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE)) {
+            appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        }
     }
 
     @Override
@@ -27,11 +37,34 @@ public class LaunchWidgetListConfigurationActivity extends AppCompatActivity {
         try {
             Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
             intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categoryWidgetListRoot");
-            startActivity(intent);
+            //noinspection deprecation
+            startActivityForResult(intent, 100);
         } catch (Exception e) {
-            finish();
+            //finish();
         }
         finish();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
+    }
+
+    @Override
+    public void finish() {
+        // finish is called before of onStop()
+
+        Intent returnIntent = new Intent();
+        if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+            Intent resultValue = new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            setResult(RESULT_OK, resultValue);
+        } else
+            setResult(RESULT_OK, returnIntent);
+
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }

@@ -11,7 +11,7 @@ public class LaunchSamsungEdgeConfigurationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //overridePendingTransition(0, 0);
+        overridePendingTransition(0, 0);
     }
 
     @Override
@@ -27,11 +27,22 @@ public class LaunchSamsungEdgeConfigurationActivity extends AppCompatActivity {
         try {
             Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
             intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categorySamsungEdgePanelRoot");
-            startActivity(intent);
+            //noinspection deprecation
+            startActivityForResult(intent, 100);
         } catch (Exception e) {
             finish();
         }
-        finish();
+    }
+
+    @Override
+    public void finish() {
+        // finish is called before of onStop()
+
+        Intent returnIntent = new Intent();
+        setResult(RESULT_OK, returnIntent);
+
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }

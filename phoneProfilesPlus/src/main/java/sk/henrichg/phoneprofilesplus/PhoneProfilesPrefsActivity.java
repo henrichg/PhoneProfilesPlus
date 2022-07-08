@@ -3,17 +3,13 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
-import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +44,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     private boolean fromFinish = false;
     private boolean invalidateEditor = false;
 
-    int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+    //int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
@@ -118,9 +114,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         useAlarmClockEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
 
-        String extraScrollTo = null;
+        String extraScrollTo; //= null;
         Intent intent = getIntent();
-        String action = intent.getAction();
+        //String action = intent.getAction();
         if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
             // activity is started from notification, scroll to notifications category
             extraScrollTo = "categoryNotificationsRoot";
@@ -415,16 +411,14 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (activityStarted) {
             doPreferenceChanges();
 
-            //todo
-
             // for startActivityForResult
             returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
             Permissions.grantRootChanged = false;
 
-            if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
-                Intent resultValue = new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-                setResult(RESULT_OK, resultValue);
-            } else
+            //if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+            //    Intent resultValue = new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            //    setResult(RESULT_OK, resultValue);
+            //} else
                 setResult(RESULT_OK, returnIntent);
         }
         else {
