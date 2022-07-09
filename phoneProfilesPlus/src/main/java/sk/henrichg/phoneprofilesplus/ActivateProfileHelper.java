@@ -2993,7 +2993,7 @@ class ActivateProfileHelper {
                         int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
 //                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
-                        setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false, false);
+                        setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false, true);
                     }
 
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
