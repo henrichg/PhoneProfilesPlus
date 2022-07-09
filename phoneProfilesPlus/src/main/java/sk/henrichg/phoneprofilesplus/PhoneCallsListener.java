@@ -410,7 +410,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 //if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
 //                PPApplication.logE("PhoneCallsListener.callAnswered", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
                 //PPApplication.logE("PhoneCallsListener.callAnswered", "xxx - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
-                PPApplication.sleep(500);
+                PPApplication.sleep(200);
             }
             else
                 break;
@@ -521,7 +521,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         long start = SystemClock.uptimeMillis();
         do {
             if (audioManager.getMode() != AudioManager.MODE_NORMAL)
-                PPApplication.sleep(500);
+                PPApplication.sleep(200);
             else
                 break;
         } while (SystemClock.uptimeMillis() - start < 5 * 1000);

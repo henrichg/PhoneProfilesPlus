@@ -473,7 +473,7 @@ class WifiScanner {
                     break;
             }*/
 
-            PPApplication.sleep(500);
+            PPApplication.sleep(200);
         } while (SystemClock.uptimeMillis() - start < 5 * 1000);
     }
 
@@ -491,7 +491,7 @@ class WifiScanner {
                     break;
             }*/
 
-            PPApplication.sleep(500);
+            PPApplication.sleep(200);
         } while (SystemClock.uptimeMillis() - start < WIFI_SCAN_DURATION * 1000);
     }
 

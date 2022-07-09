@@ -4947,7 +4947,7 @@ public class EditorActivity extends AppCompatActivity
                                 importPPDataBroadcastReceiver.importEndeed)
                             break;
 
-                        PPApplication.sleep(500);
+                        PPApplication.sleep(200);
                     } while (SystemClock.uptimeMillis() - start < 30 * 1000);
 
                     if (!importFromPPStopped) {

@@ -364,7 +364,7 @@ public class BluetoothScanWorker extends Worker {
                             break;
                         }
 
-                        PPApplication.sleep(500);
+                        PPApplication.sleep(200);
                     } while (SystemClock.uptimeMillis() - start < BluetoothScanner.CLASSIC_BT_SCAN_DURATION * 1000);
 
                     //PPApplication.logE("BluetoothScanWorker.waitForFinish", "END WAIT FOR FINISH");

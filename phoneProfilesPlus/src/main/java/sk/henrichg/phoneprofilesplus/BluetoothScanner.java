@@ -437,7 +437,7 @@ class BluetoothScanner {
                     break;
             }*/
 
-            PPApplication.sleep(500);
+            PPApplication.sleep(200);
         } while (SystemClock.uptimeMillis() - start < 5 * 1000);
     }
 
@@ -448,7 +448,7 @@ class BluetoothScanner {
             if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
                     ApplicationPreferences.prefEventBluetoothWaitForResult))
                 break;
-            PPApplication.sleep(500);
+            PPApplication.sleep(200);
         } while (SystemClock.uptimeMillis() - start < CLASSIC_BT_SCAN_DURATION * 1000);
 
         BluetoothScanWorker.finishCLScan(context);
@@ -465,7 +465,7 @@ class BluetoothScanner {
                         ApplicationPreferences.prefEventBluetoothLEWaitForResult))
                     break;
 
-                PPApplication.sleep(500);
+                PPApplication.sleep(200);
             } while (SystemClock.uptimeMillis() - start < (applicationEventBluetoothLEScanDuration * 5L) * 1000);
             //PPApplication.logE("%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd", "do finishLEScan");
             BluetoothScanWorker.finishLEScan(context);
@@ -476,7 +476,7 @@ class BluetoothScanner {
             // wait for ScanCallback.onBatchScanResults after stop scan
             start = SystemClock.uptimeMillis();
             do {
-                PPApplication.sleep(500);
+                PPApplication.sleep(200);
             } while (SystemClock.uptimeMillis() - start < 10 * 1000);
             // save ScanCallback.onBatchScanResults
             BluetoothScanWorker.finishLEScan(context);

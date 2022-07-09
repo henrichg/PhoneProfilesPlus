@@ -363,7 +363,7 @@ public class WifiScanWorker extends Worker {
                             break;
                         }
 
-                        PPApplication.sleep(500);
+                        PPApplication.sleep(200);
                     } while (SystemClock.uptimeMillis() - start < WifiScanner.WIFI_SCAN_DURATION * 1000);
                     //PPApplication.logE("WifiScanWorker.waitForFinish", "END WAIT FOR FINISH");
                 }
