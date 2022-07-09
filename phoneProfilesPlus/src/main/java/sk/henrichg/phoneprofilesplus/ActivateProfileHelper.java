@@ -1279,7 +1279,7 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        } else {
+        }// else {
             if (profile._volumeMuteSound) {
                 if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
 //                Log.e("ActivateProfileHelper.setVolumes", "mute - music");
@@ -1291,15 +1291,13 @@ class ActivateProfileHelper {
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
             }
-        }
+        //}
 
         // get mute state before set of all volumes; system stream may set mute to true
         boolean ringMuted = audioManager.isStreamMute(AudioManager.STREAM_RING);
         boolean notificationMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION);
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "ring mute status="+ringMuted);
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "notification mute status="+notificationMuted);
-        boolean systemMuted = audioManager.isStreamMute(AudioManager.STREAM_SYSTEM);
-        boolean dtmfMuted = audioManager.isStreamMute(AudioManager.STREAM_DTMF);
 
         if (forRingerMode) {
             // get mute state before set of all volumes; system stream may set mute to true
@@ -1332,7 +1330,7 @@ class ActivateProfileHelper {
             }
         }
 
-        if (!forRingerMode) {
+        //if (!forRingerMode) {
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityChange()=" + profile.getVolumeAccessibilityChange());
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityValue()=" + profile.getVolumeAccessibilityValue());
 
@@ -1349,7 +1347,7 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        }
+        //}
 
         if (forRingerMode) {
 
@@ -1370,6 +1368,9 @@ class ActivateProfileHelper {
                     //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeSystemValue()=" + profile.getVolumeSystemValue());
 
                     if (forProfileActivation) {
+                        boolean systemMuted = audioManager.isStreamMute(AudioManager.STREAM_SYSTEM);
+                        boolean dtmfMuted = audioManager.isStreamMute(AudioManager.STREAM_DTMF);
+
                         if (!dtmfMuted) {
                             if (profile.getVolumeDTMFChange()) {
                                 synchronized (PPApplication.notUnlinkVolumesMutex) {
@@ -1566,7 +1567,7 @@ class ActivateProfileHelper {
         }*/
 
         if (forProfileActivation) {
-            if (!forRingerMode) {
+            //if (!forRingerMode) {
                 if (profile.getVolumeBluetoothSCOChange()) {
                     try {
                         //EventPreferencesVolumes.internalChange = true;
@@ -1602,7 +1603,7 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            }
+            //}
         }
 
         //int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
@@ -2969,12 +2970,12 @@ class ActivateProfileHelper {
                             //PostDelayedBroadcastReceiver.setAlarm(
                            //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
                         }
-                    }
-                    if (profile.getVolumeAlarmChange() ||
+                    } else {
+                    /*if (profile.getVolumeAlarmChange() ||
                             profile.getVolumeVoiceChange() ||
                             profile.getVolumeAccessibilityChange() ||
                             profile.getVolumeBluetoothSCOChange() ||
-                            profile.getVolumeMediaChange()) {
+                            profile.getVolumeMediaChange()) {*/
 
 //                        PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
                         RingerModeChangeReceiver.internalChange = true;
