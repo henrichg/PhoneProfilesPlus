@@ -145,13 +145,9 @@ class PreferenceAllowed {
             boolean requiresRoot = false;
             if (profile != null) {
                 requiresRoot = (profile._deviceWiFi == 6) || (profile._deviceWiFi == 7) || (profile._deviceWiFi == 8);
-                if (profile._name.equals("Profile"))
-                    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI", "requiresRoot="+requiresRoot);
             } else if (sharedPreferences != null) {
                 String preferenceValue = sharedPreferences.getString(preferenceKey, "0");
                 requiresRoot = preferenceValue.equals("6") || preferenceValue.equals("7") || preferenceValue.equals("8");
-                if (sharedPreferences.getString(Profile.PREF_PROFILE_NAME, "").equals("Profile"))
-                    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI", "requiresRoot="+requiresRoot);
             }
 
             if (requiresRoot && PPApplication.isRooted(fromUIThread)) {

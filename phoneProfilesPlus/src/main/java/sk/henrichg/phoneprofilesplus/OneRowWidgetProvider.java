@@ -14,7 +14,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -129,8 +128,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 }
                 if (Build.VERSION.SDK_INT < 31)
                     applicationWidgetOneRowUseDynamicColors = false;
-                Log.e("OneRowWidgetProvider._onUpdate", "applicationWidgetOneRowChangeColorsByNightMode="+applicationWidgetOneRowChangeColorsByNightMode);
-                Log.e("OneRowWidgetProvider._onUpdate", "applicationWidgetOneRowUseDynamicColors="+applicationWidgetOneRowUseDynamicColors);
                 if (//PPApplication.isPixelLauncherDefault(context) ||
                         (applicationWidgetOneRowChangeColorsByNightMode &&
                          (!applicationWidgetOneRowUseDynamicColors))) {

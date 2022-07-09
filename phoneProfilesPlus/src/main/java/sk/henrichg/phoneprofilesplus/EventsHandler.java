@@ -332,7 +332,6 @@ class EventsHandler {
                     (sensorType == SENSOR_TYPE_SEARCH_CALENDAR_EVENTS) ||
                     (sensorType == SENSOR_TYPE_CALENDAR) ||
                     (sensorType == SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK) ||
-                    (sensorType == SENSOR_TYPE_SCREEN) || // also for screen on/off compute calendar alarms
                     saveCalendarStartEndTime) {
                 // search for calendar events
                 //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "search for calendar events");
@@ -340,8 +339,8 @@ class EventsHandler {
                     if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
                         if (_event._eventPreferencesCalendar.isRunnable(context)) {
                             //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "event._id=" + _event._id);
-                            _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
                             _event._eventPreferencesCalendar.saveCalendarEventExists(dataWrapper);
+                            _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
                         }
                     }
                 }
@@ -972,7 +971,7 @@ class EventsHandler {
 
             //todo - why sleep si needed ???
             // for notifed is not needed, palyNotificationSound uses handlerThreadPlayTone
-            // !!! test handle evetns without doSleep
+            // !!! test handle events without doSleep
             //if (doSleep || notified) {
             //    PPApplication.sleep(500);
             //}
@@ -1263,39 +1262,22 @@ class EventsHandler {
         event._eventPreferencesCall.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesAccessories.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesCalendar.doHandleEvent(this/*, forRestartEvents*/);
-
-        //todo is long - look at it
         event._eventPreferencesWifi.doHandleEvent(this, forRestartEvents);
-
         event._eventPreferencesScreen.doHandleEvent(this/*, forRestartEvents*/);
-
-        //todo is long - look at it
         event._eventPreferencesBluetooth.doHandleEvent(this, forRestartEvents);
-
         event._eventPreferencesSMS.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesNotification.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesApplication.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesLocation.doHandleEvent(this, forRestartEvents);
-
-        //todo is long - look at it
         event._eventPreferencesOrientation.doHandleEvent(this, forRestartEvents);
-
-        //todo is long - look at it
         event._eventPreferencesMobileCells.doHandleEvent(this, forRestartEvents);
-
         event._eventPreferencesNFC.doHandleEvent(this/*, forRestartEvents*/);
-
-        //todo is long - look at it
         event._eventPreferencesRadioSwitch.doHandleEvent(this/*, forRestartEvents*/);
-
         event._eventPreferencesAlarmClock.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesDeviceBoot.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesSoundProfile.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesPeriodic.doHandleEvent(this/*, forRestartEvents*/);
-
-        //todo is long - look at it
         event._eventPreferencesVolumes.doHandleEvent(this/*, forRestartEvents*/);
-
         event._eventPreferencesActivatedProfile.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesRoaming.doHandleEvent(this/*, forRestartEvents*/);
 

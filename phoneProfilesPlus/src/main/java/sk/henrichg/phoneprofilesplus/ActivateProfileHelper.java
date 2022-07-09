@@ -127,7 +127,7 @@ class ActivateProfileHelper {
         if (profile == null)
             return;
 
-        PPApplication.sleep(300);
+        boolean firstSleepCalled = false;
 
         Context appContext = context.getApplicationContext();
 
@@ -140,6 +140,13 @@ class ActivateProfileHelper {
 
                     if (profile._deviceOnOffSIM1 != 0) {
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                PPApplication.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1");
                             //boolean _isSIM1On = isSIMOn(appContext, 1);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM1On="+_isSIM1On);
@@ -170,6 +177,12 @@ class ActivateProfileHelper {
                     }
                     if (profile._deviceOnOffSIM2 != 0) {
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                PPApplication.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2");
                             //boolean _isSIM2On = isSIMOn(appContext, 2);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM2On="+_isSIM2On);
@@ -207,6 +220,12 @@ class ActivateProfileHelper {
         if (Build.VERSION.SDK_INT >= 26) {
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    //noinspection ConstantConditions
+                    if (!firstSleepCalled) {
+                        PPApplication.sleep(300);
+                        firstSleepCalled = true;
+                    }
+
 //                    PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "profile._deviceDefaultSIMCards="+profile._deviceDefaultSIMCards);
                     String[] splits = profile._deviceDefaultSIMCards.split("\\|");
                     if (splits.length == 3) {
@@ -246,6 +265,12 @@ class ActivateProfileHelper {
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    PPApplication.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                 // in array.xml, networkTypeGSMValues are 100+ values
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
@@ -260,6 +285,12 @@ class ActivateProfileHelper {
                 if (phoneCount > 1) {
                     if (profile._deviceNetworkTypeSIM1 >= 100) {
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                PPApplication.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                             // in array.xml, networkTypeGSMValues are 100+ values
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
@@ -269,6 +300,12 @@ class ActivateProfileHelper {
                     }
                     if (profile._deviceNetworkTypeSIM2 >= 100) {
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                PPApplication.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                             // in array.xml, networkTypeGSMValues are 100+ values
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
@@ -283,6 +320,12 @@ class ActivateProfileHelper {
         // setup mobile data
         if (profile._deviceMobileData != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    PPApplication.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData");
                 boolean _isMobileData = isMobileData(appContext, 0);
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -322,9 +365,14 @@ class ActivateProfileHelper {
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
-
                     if (profile._deviceMobileDataSIM1 != 0) {
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                PPApplication.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
 //                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1");
                             boolean _isMobileData = isMobileData(appContext, 1);
 //                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -361,6 +409,12 @@ class ActivateProfileHelper {
                     }
                     if (profile._deviceMobileDataSIM2 != 0) {
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                PPApplication.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
 //                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2");
                             boolean _isMobileData = isMobileData(appContext, 2);
 //                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -404,6 +458,12 @@ class ActivateProfileHelper {
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    PPApplication.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
                 if (Build.VERSION.SDK_INT < 30) {
                     WifiApManager wifiApManager = null;
@@ -452,7 +512,7 @@ class ActivateProfileHelper {
                         if (setWifiAPState) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiAP()");
                             setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, profile, appContext);
-                            PPApplication.sleep(3000);
+                            PPApplication.sleep(1000);
                         }
                     }
                 }
@@ -509,6 +569,12 @@ class ActivateProfileHelper {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    //noinspection ConstantConditions
+                    if (!firstSleepCalled) {
+                        PPApplication.sleep(300);
+                        firstSleepCalled = true;
+                    }
+
 //                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi ALLOWED");
                     boolean isWifiAPEnabled;
                     if (Build.VERSION.SDK_INT < 30)
@@ -590,6 +656,12 @@ class ActivateProfileHelper {
             // connect to SSID
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                    //noinspection ConstantConditions
+                    if (!firstSleepCalled) {
+                        PPApplication.sleep(300);
+                        firstSleepCalled = true;
+                    }
+
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID");
                     if (Permissions.checkLocation(appContext)) {
                         WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
@@ -681,6 +753,12 @@ class ActivateProfileHelper {
         // setup bluetooth
         if (profile._deviceBluetooth != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    PPApplication.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth");
                 BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
@@ -741,6 +819,12 @@ class ActivateProfileHelper {
         // setup location mode
         if (profile._deviceLocationMode != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    PPApplication.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode");
 
                 switch (profile._deviceLocationMode) {
@@ -767,6 +851,12 @@ class ActivateProfileHelper {
         // setup GPS
         if (profile._deviceGPS != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    PPApplication.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS");
                 //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
@@ -808,6 +898,13 @@ class ActivateProfileHelper {
         // setup NFC
         if (profile._deviceNFC != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    PPApplication.sleep(300);
+                    //noinspection UnusedAssignment
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC");
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(appContext);
                 if (nfcAdapter != null) {
@@ -1136,71 +1233,71 @@ class ActivateProfileHelper {
 
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile._volumeMuteSound=" + profile._volumeMuteSound);
 
-        if (profile._volumeMuteSound) {
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
-                // WARNING mute.unmute must be called only for audible ringer mode
-                //         change of mute state bad affects silent mode (is not working)
+        if (forRingerMode) {
+            if (profile._volumeMuteSound) {
+                if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+                    // WARNING mute.unmute must be called only for audible ringer mode
+                    //         change of mute state bad affects silent mode (is not working)
 
-                if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+                    if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "mute - ring");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "mute - notification");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "mute - system");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "mute - dtmf");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
                 }
-            }
-            if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
+                if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
 //                Log.e("ActivateProfileHelper.setVolumes", "mute - music");
-                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            }
-        }
-        else {
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
-                // WARNING mute.unmute must be called only for audible ringer mode
-                //         change of mute state bad affects silent mode (is not working)
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                }
+            } else {
+                if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+                    // WARNING mute.unmute must be called only for audible ringer mode
+                    //         change of mute state bad affects silent mode (is not working)
 
-                if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+                    if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "unmute - ring");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "unmute - notification");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "unmute - system");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "unmute - dtmf");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
                 }
-            }
-            if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
+                if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
 //                Log.e("ActivateProfileHelper.setVolumes", "unmute - music");
-                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                }
             }
         }
-
-        // get mute state before set of all volumes; system stream may set mute to true
-        boolean ringMuted = audioManager.isStreamMute(AudioManager.STREAM_RING);
-        boolean notificationMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION);
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "ring mute status="+ringMuted);
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "notification mute status="+notificationMuted);
-        boolean systemMuted = audioManager.isStreamMute(AudioManager.STREAM_SYSTEM);
-        boolean dtmfMuted = audioManager.isStreamMute(AudioManager.STREAM_DTMF);
-        boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
 
         if (forRingerMode) {
+            // get mute state before set of all volumes; system stream may set mute to true
+            boolean ringMuted = audioManager.isStreamMute(AudioManager.STREAM_RING);
+            boolean notificationMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION);
+            //PPApplication.logE("ActivateProfileHelper.setVolumes", "ring mute status="+ringMuted);
+            //PPApplication.logE("ActivateProfileHelper.setVolumes", "notification mute status="+notificationMuted);
+            boolean systemMuted = audioManager.isStreamMute(AudioManager.STREAM_SYSTEM);
+            boolean dtmfMuted = audioManager.isStreamMute(AudioManager.STREAM_DTMF);
+
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeRingtoneChange()=" + profile.getVolumeRingtoneChange());
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeRingtoneValue()=" + profile.getVolumeRingtoneValue());
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeNotificationChange()=" + profile.getVolumeNotificationChange());
@@ -1485,10 +1582,14 @@ class ActivateProfileHelper {
                     PPApplication.recordException(e);
                 }
             }
-            if (!profile._volumeMuteSound) {
-                if (!musicMuted) {
-                    if (profile.getVolumeMediaChange()) {
-                        setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
+
+            if (forRingerMode) {
+                if (!profile._volumeMuteSound) {
+                    boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
+                    if (!musicMuted) {
+                        if (profile.getVolumeMediaChange()) {
+                            setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
+                        }
                     }
                 }
             }
@@ -2787,167 +2888,121 @@ class ActivateProfileHelper {
         __handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
-            //Context appContext= appContextWeakRef.get();
-            //Profile profile = profileWeakRef.get();
-            //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForVolumes");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-            //if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForVolumes");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
-                    if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
-                            ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
-                        if (Permissions.checkPhone(appContext))
-                            linkUnlink = linkUnlinkVolumes;
-                    }
+                int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
+                if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
+                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+                    if (Permissions.checkPhone(appContext))
+                        linkUnlink = linkUnlinkVolumes;
+                }
 //                          PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlink=" + linkUnlink);
 
-                    if (profile != null) {
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 1");
-                        boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences);
+                if (profile != null) {
+                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 1");
+                    boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences);
 
-                        final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+                    final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+
+                    if ((profile._volumeRingerMode != 0) ||
+                            profile.getVolumeRingtoneChange() ||
+                            profile.getVolumeNotificationChange() ||
+                            profile.getVolumeSystemChange() ||
+                            profile.getVolumeDTMFChange() ||
+                            profile.getVolumeMediaChange()) {
+
+//                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "change ringer mode");
 
                         // sleep for change of ringer mode and volumes
                         // because may be changed by another profile or from outside of PPP
                         PPApplication.sleep(500);
 
-//                                PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
+                        PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
                         RingerModeChangeReceiver.internalChange = true;
-                        //EventPreferencesVolumes.internalChange = true;
 
-                        if ((profile._volumeRingerMode != 0) ||
-                                profile.getVolumeRingtoneChange() ||
-                                profile.getVolumeNotificationChange() ||
-                                profile.getVolumeSystemChange() ||
-                                profile.getVolumeDTMFChange()) {
+                        if (canChangeZenMode(appContext)) {
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "can change zen mode");
 
-//                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "change ringer mode");
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeRingerModeForVolumeEqual0()");
+                            changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
+                            changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
-                            //if (Permissions.checkProfileAccessNotificationPolicy(context, profile, null)) {
-                            if (canChangeZenMode(appContext)) {
-                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "can change zen mode");
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode()");
+                            setRingerMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
 
-                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeRingerModeForVolumeEqual0()");
-                                changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
-                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
-                                changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
+                            //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
+                            PPApplication.sleep(500);
 
-                                //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
-
-                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode()");
-                                setRingerMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
-
-                                //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
-                                PPApplication.sleep(500);
-
-                                // get actual system zen mode (may be changed in setRingerMode())
-                                int systemZenMode = getSystemZenMode(appContext/*, -1*/);
-
-//                                  PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
-                                setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
-
-                                //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
-
-                                /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                                final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
-                                        RingerModeChangeReceiver.internalChange = false;
-                                    }
-                                }, 3000);*/
-                                        //PostDelayedBroadcastReceiver.setAlarm(
-                                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
-                            }
-                        } else
-                        /*if (profile.getVolumeMediaChange() ||
-                            profile.getVolumeAlarmChange() ||
-                            profile.getVolumeVoiceChange() ||
-                            profile.getVolumeAccessibilityChange() ||
-                            profile.getVolumeBluetoothSCOChange())*/ {
-                            // call setVolume() for "Mute sound"
-
-//                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
-
+                            // get actual system zen mode (may be changed in setRingerMode())
                             int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
+//                                  PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
+                            setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
+
+                            //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
+
+                            /*PPApplication.startHandlerThreadInternalChangeToFalse();
+                            final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
+                                    RingerModeChangeReceiver.internalChange = false;
+                                }
+                            }, 3000);*/
+                            //PostDelayedBroadcastReceiver.setAlarm(
+                           //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
+                        }
+                    } else
+                    if (profile.getVolumeAlarmChange() ||
+                            profile.getVolumeVoiceChange() ||
+                            profile.getVolumeAccessibilityChange() ||
+                            profile.getVolumeBluetoothSCOChange()) {
+
+//                        PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
+                        RingerModeChangeReceiver.internalChange = true;
+
+//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
+
+                        int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+
 //                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
-                            setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false);
-                        }
-                        /*else {
-                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ringer mode and volumes are not configured");
-                        }*/
-
-                        /*
-                        if (profile._volumeSpeakerPhone != 0) {
-                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
-                            boolean savedSpeakerphone = false; audioManager.isSpeakerphoneOn();
-                            boolean changeSpeakerphone = false;
-                            if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
-                                changeSpeakerphone = true;
-                            if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
-                                changeSpeakerphone = true;
-                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "changeSpeakerphone="+changeSpeakerphone);
-                            if (changeSpeakerphone) {
-                                /// activate SpeakerPhone
-
-                                // not working in EMUI :-/
-                                audioManager.setMode(AudioManager.MODE_IN_CALL);
-
-                                // Delay 2 seconds mode changed to MODE_IN_CALL
-                                long start = SystemClock.uptimeMillis();
-                                do {
-                                    if (audioManager.getMode() != AudioManager.MODE_IN_CALL) {
-                                        //if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
-                                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                                        PPApplication.sleep(500);
-                                    }
-                                    else
-                                        break;
-                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "SystemClock.uptimeMillis() - start="+(SystemClock.uptimeMillis() - start));
-                                } while (SystemClock.uptimeMillis() - start < (5 * 1000));
-                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                                //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
-
-                                PPApplication.sleep(500);
-                                audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
-                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ACTIVATED SPEAKERPHONE");
-                            }
-                        }
-                        */
-
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
-                        DisableInternalChangeWorker.enqueueWork();
-                        //DisableVolumesInternalChangeWorker.enqueueWork();
-
-                        if (noErrorSetTone) {
-                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 2");
-                            setTones(appContext, profile, executedProfileSharedPreferences);
-                        }
-
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "end");
-
+                        setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false);
                     }
-                } catch (Exception e) {
+//                    else {
+//                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ringer mode and volumes are not configured");
+//                    }
+
+                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
+                    DisableInternalChangeWorker.enqueueWork();
+                    //DisableVolumesInternalChangeWorker.enqueueWork();
+
+                    if (noErrorSetTone) {
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 2");
+                        setTones(appContext, profile, executedProfileSharedPreferences);
+                    }
+
+                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "end");
+
+                }
+            } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
                     }
                 }
-            //}
+            }
         });
     }
 

@@ -101,6 +101,8 @@ public class PhoneCallsListener extends PhoneStateListener {
     public void onServiceStateChanged(ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 
+//        Log.e("PhoneCallsListener.onServiceStateChanged", "state="+serviceState.getState());
+
         /*
         TelephonyManager telephonyManager;
         if (simSlot == 1)
@@ -157,45 +159,87 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
         */
 
+        EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
+        boolean oldNetworkRoaming = false;
+        boolean oldDataRoaming = false;
+        synchronized (PPApplication.eventRoamingSensorMutex) {
+            switch (simSlot) {
+                case 0:
+                    oldNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0;
+                    oldDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot0;
+                    break;
+                case 1:
+                    oldNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot1;
+                    oldDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot1;
+                    break;
+                case 2:
+                    oldNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2;
+                    oldDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot2;
+                    break;
+            }
+        }
+
         EventPreferencesRoaming.setEventRoamingInSIMSlot(savedContext, simSlot, networkRoaming, dataRoaming);
-        if (Event.getGlobalEventsRunning()) {
-            //if (useHandler) {
-            final Context appContext = savedContext.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"PeriodicEventEndBroadcastReceiver.doWork"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-            //        context.getApplicationContext()) {
-            __handler.post(() -> {
+        boolean newNetworkRoaming = false;
+        boolean newDataRoaming = false;
+        EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
+        synchronized (PPApplication.eventRoamingSensorMutex) {
+            switch (simSlot) {
+                case 0:
+                    newNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0;
+                    newDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot0;
+                    break;
+                case 1:
+                    newNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot1;
+                    newDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot1;
+                    break;
+                case 2:
+                    newNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2;
+                    newDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot2;
+                    break;
+            }
+        }
+
+        if ((newNetworkRoaming != oldNetworkRoaming) || (newDataRoaming != oldDataRoaming)) {
+            if (Event.getGlobalEventsRunning()) {
+                //if (useHandler) {
+                final Context appContext = savedContext.getApplicationContext();
+                PPApplication.startHandlerThreadBroadcast(/*"PeriodicEventEndBroadcastReceiver.doWork"*/);
+                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                //        context.getApplicationContext()) {
+                __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallListener.onServiceStateChanged");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneCallListener_onServiceStateChanged");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneCallListener_onServiceStateChanged");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
 //                        PPApplication.logE("[EVENTS_HANDLER_CALL] PhoneCallListener.onServiceStateChanged", "sensorType=SENSOR_TYPE_ROAMING");
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ROAMING);
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ROAMING);
 
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PhoneCallListener.onServiceStateChanged");
-                } catch (Exception e) {
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PhoneCallListener.onServiceStateChanged");
+                    } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
-                }
-                //}
-            });
+                    //}
+                });
+            }
         }
 
     }

@@ -298,6 +298,11 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
 
+                        if (action.equals(Intent.ACTION_SCREEN_ON)) {
+                            // search fo events in calendandar
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
+                        }
+
 //                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
                     }
 

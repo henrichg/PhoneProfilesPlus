@@ -33,12 +33,12 @@ class EventPreferencesRoaming extends EventPreferences {
 
     private static final String PREF_EVENT_ROAMING_CATEGORY = "eventRoamingCategoryRoot";
 
-    private static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_0 = "eventRoamingNetworkInSIMSlot0";
-    private static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_0 = "eventRoamingInDataSIMSlot0";
-    private static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_1 = "eventRoamingNetworkInSIMSlot1";
-    private static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_1 = "eventRoamingDataInSIMSlot1";
-    private static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_2 = "eventRoamingNetworkInSIMSlot2";
-    private static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_2 = "eventRoamingDataInSIMSlot2";
+    static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_0 = "eventRoamingNetworkInSIMSlot0";
+    static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_0 = "eventRoamingInDataSIMSlot0";
+    static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_1 = "eventRoamingNetworkInSIMSlot1";
+    static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_1 = "eventRoamingDataInSIMSlot1";
+    static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_2 = "eventRoamingNetworkInSIMSlot2";
+    static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_2 = "eventRoamingDataInSIMSlot2";
 
     EventPreferencesRoaming(Event event,
                             boolean enabled,

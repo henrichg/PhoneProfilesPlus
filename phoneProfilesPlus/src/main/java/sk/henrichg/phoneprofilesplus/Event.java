@@ -3024,6 +3024,11 @@ class Event {
 
         //boolean checked = false;
 
+        if (preferenceKey.equals(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED)) {
+            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            return preferenceAllowed;
+        }
+
         if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
         {
             if (PPApplication.HAS_FEATURE_WIFI)
