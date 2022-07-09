@@ -1279,19 +1279,18 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        }// else {
-            if (profile._volumeMuteSound) {
-                if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
+        }
+        if (profile._volumeMuteSound) {
+            if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
 //                Log.e("ActivateProfileHelper.setVolumes", "mute - music");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-            } else {
-                if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
-//                Log.e("ActivateProfileHelper.setVolumes", "unmute - music");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
-        //}
+        } else {
+            if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
+//                Log.e("ActivateProfileHelper.setVolumes", "unmute - music");
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            }
+        }
 
         // get mute state before set of all volumes; system stream may set mute to true
         boolean ringMuted = audioManager.isStreamMute(AudioManager.STREAM_RING);
@@ -1330,24 +1329,22 @@ class ActivateProfileHelper {
             }
         }
 
-        //if (!forRingerMode) {
-            //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityChange()=" + profile.getVolumeAccessibilityChange());
-            //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityValue()=" + profile.getVolumeAccessibilityValue());
+        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityChange()=" + profile.getVolumeAccessibilityChange());
+        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityValue()=" + profile.getVolumeAccessibilityValue());
 
-            if (forProfileActivation) {
-                if (Build.VERSION.SDK_INT >= 26) {
-                    if (profile.getVolumeAccessibilityChange()) {
-                        try {
-                            //EventPreferencesVolumes.internalChange = true;
-                            audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                            //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+        if (forProfileActivation) {
+            if (Build.VERSION.SDK_INT >= 26) {
+                if (profile.getVolumeAccessibilityChange()) {
+                    try {
+                        //EventPreferencesVolumes.internalChange = true;
+                        audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
                 }
             }
-        //}
+        }
 
         if (forRingerMode) {
 
@@ -1567,43 +1564,41 @@ class ActivateProfileHelper {
         }*/
 
         if (forProfileActivation) {
-            //if (!forRingerMode) {
-                if (profile.getVolumeBluetoothSCOChange()) {
-                    try {
-                        //EventPreferencesVolumes.internalChange = true;
-                        audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
+            if (profile.getVolumeBluetoothSCOChange()) {
+                try {
+                    //EventPreferencesVolumes.internalChange = true;
+                    audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+            if (profile.getVolumeVoiceChange()) {
+                try {
+                    //EventPreferencesVolumes.internalChange = true;
+                    audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+            if (profile.getVolumeAlarmChange()) {
+                try {
+                    //EventPreferencesVolumes.internalChange = true;
+                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+            if (!profile._volumeMuteSound) {
+                boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
+                if (!musicMuted) {
+                    if (profile.getVolumeMediaChange()) {
+                        setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
                     }
                 }
-                if (profile.getVolumeVoiceChange()) {
-                    try {
-                        //EventPreferencesVolumes.internalChange = true;
-                        audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                }
-                if (profile.getVolumeAlarmChange()) {
-                    try {
-                        //EventPreferencesVolumes.internalChange = true;
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                }
-                if (!profile._volumeMuteSound) {
-                    boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
-                    if (!musicMuted) {
-                        if (profile.getVolumeMediaChange()) {
-                            setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
-                        }
-                    }
-                }
-            //}
+            }
         }
 
         //int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
@@ -2971,11 +2966,6 @@ class ActivateProfileHelper {
                            //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
                         }
                     } else {
-                    /*if (profile.getVolumeAlarmChange() ||
-                            profile.getVolumeVoiceChange() ||
-                            profile.getVolumeAccessibilityChange() ||
-                            profile.getVolumeBluetoothSCOChange() ||
-                            profile.getVolumeMediaChange()) {*/
 
 //                        PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
                         RingerModeChangeReceiver.internalChange = true;
