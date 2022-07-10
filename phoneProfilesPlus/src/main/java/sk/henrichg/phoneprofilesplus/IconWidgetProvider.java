@@ -505,6 +505,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
                             remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_highest_widget_no_profile_name_dn);
                         } else {
+                            // profile._endOfActivationType - 0 = duration, 1 = end time
                             if ((profile._endOfActivationType == 0) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {

@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:layout_height="@dimen/one_row_widget_height_highest"
     android:gravity="center"
     android:orientation="vertical"
     android:background="#40000000"
@@ -32,8 +30,8 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default"

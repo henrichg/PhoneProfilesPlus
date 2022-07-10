@@ -29,8 +29,8 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"

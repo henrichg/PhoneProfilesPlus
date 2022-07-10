@@ -3632,14 +3632,17 @@ public class Profile {
             profileName = profileName + " " + eventName;
         String durationString = "";
         if (_askForDuration) {
+            boolean showEndTime = false;
             if (_checked) {
                 long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
                 if (endDurationTime > 0) {
                     durationString = "(" + context.getString(R.string.duration_end_acronym) +":" + timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                    showEndTime = true;
                 }
             }
-            else
+            if (!showEndTime) {
                 durationString = "[ " + context.getString(R.string.profile_event_name_ask_for_duration) + " ]";
+            }
         }
         else
         if (_endOfActivationType == 0) {
