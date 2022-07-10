@@ -2054,12 +2054,10 @@ public class DataWrapper {
                                 (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                                 if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                                     if (PhoneProfilesService.getInstance() != null) {
-                                        PPApplication.logE("DataWrapper.activateProfileWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationSound="+ApplicationPreferences.applicationApplicationProfileActivationNotificationSound);
-                                        PPApplication.logE("DataWrapper.activateProfileWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate="+ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                                         PhoneProfilesService.getInstance().playNotificationSound(
                                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                                ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
-                                                false);
+                                                ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                                                false*/);
                                         //PPApplication.sleep(500);
                                     }
                                 }
@@ -2649,12 +2647,10 @@ public class DataWrapper {
                 else {
                     if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                         if (PhoneProfilesService.getInstance() != null) {
-                            PPApplication.logE("DataWrapper.restartEventsWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationSound="+ApplicationPreferences.applicationApplicationProfileActivationNotificationSound);
-                            PPApplication.logE("DataWrapper.restartEventsWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate="+ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                             PhoneProfilesService.getInstance().playNotificationSound(
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
-                                    false);
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                                    false*/);
                             //PPApplication.sleep(500);
                         }
                     }
@@ -2718,12 +2714,10 @@ public class DataWrapper {
 
             if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                 if (PhoneProfilesService.getInstance() != null) {
-                    PPApplication.logE("DataWrapper.restartEventsWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationSound="+ApplicationPreferences.applicationApplicationProfileActivationNotificationSound);
-                    PPApplication.logE("DataWrapper.restartEventsWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate="+ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                     PhoneProfilesService.getInstance().playNotificationSound(
                             ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
-                            false);
+                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                            false*/);
                     //PPApplication.sleep(500);
                 }
             }

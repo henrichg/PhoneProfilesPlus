@@ -461,13 +461,14 @@ class EventsHandler {
             Profile oldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
             boolean profileChanged = false;
 
-            boolean notified = false;
+            //boolean notified = false;
 
 //            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (3)");
 
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
+            //noinspection IfStatementWithIdenticalBranches
             if (isRestart) {
 //                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (4)");
 
@@ -479,6 +480,7 @@ class EventsHandler {
 
 
                 // 1. pause events
+                Event pausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
 //                    if (PPApplication.logEnabled()) {
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "state PAUSE");
@@ -501,6 +503,8 @@ class EventsHandler {
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
+                            pausedEvent = _event;
+
                             if (startProfileMerged)
                                 mergedProfilesCount++;
                             if (endProfileMerged)
@@ -508,7 +512,7 @@ class EventsHandler {
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
 
-                            _event.notifyEventEnd(false, false);
+                            //_event.notifyEventEnd(false, false);
                         }
 
 //                        if (PPApplication.logEnabled()) {
@@ -520,6 +524,11 @@ class EventsHandler {
 //                        }
                     }
                 }
+                if (pausedEvent != null) {
+                    // notify this event
+                    pausedEvent.notifyEventEnd(/*true, true*/);
+                    //notified = true;
+                }
 
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### clear for pause - restart events");
                 synchronized (PPApplication.profileActivationMutex) {
@@ -530,6 +539,7 @@ class EventsHandler {
 
                 // 2. start events
                 //sortEventsByStartOrderAsc(dataWrapper.eventList);
+                Event startedEvent = null;
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
 //                    if (PPApplication.logEnabled()) {
@@ -553,6 +563,8 @@ class EventsHandler {
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
+                            startedEvent = _event;
+
                             if (startProfileMerged)
                                 mergedProfilesCount++;
                             if (endProfileMerged)
@@ -560,7 +572,7 @@ class EventsHandler {
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
 
-                            _event.notifyEventStart(context, false, false);
+                            //_event.notifyEventStart(context, false, false);
                         }
 
 //                        if (PPApplication.logEnabled()) {
@@ -574,6 +586,12 @@ class EventsHandler {
 //                        }
                     }
                 }
+                if (startedEvent != null) {
+                    // notify this event;
+                    startedEvent.notifyEventStart(context/*, true, true*/);
+                    //notified = true;
+                }
+
             } else {
 //                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (5)");
 
@@ -584,6 +602,7 @@ class EventsHandler {
                 }*/
 
                 //1. pause events
+                Event pausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "state PAUSE");
@@ -606,6 +625,7 @@ class EventsHandler {
 
                         if (running && paused) {
                             // pause only running events
+                            pausedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -614,8 +634,8 @@ class EventsHandler {
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
 
-                            if (_event.notifyEventEnd(!notified, true))
-                                notified = true;
+                            //if (_event.notifyEventEnd(!notified, true))
+                            //    notified = true;
 
                             /*if (PPApplication.logEnabled()) {
                                 if (ppService != null)
@@ -630,8 +650,14 @@ class EventsHandler {
 //                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
                     }
                 }
+                if (pausedEvent != null) {
+                    // notify this event;
+                    pausedEvent.notifyEventStart(context/*, true, true*/);
+                    //notified = true;
+                }
 
                 //2. start events
+                Event startedEvent = null;
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
                     /*if (PPApplication.logEnabled()) {
@@ -655,6 +681,7 @@ class EventsHandler {
 
                         if (running && paused) {
                             // start only paused events
+                            startedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -663,8 +690,8 @@ class EventsHandler {
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
 
-                            if (_event.notifyEventStart(context, !notified, true))
-                                notified = true;
+                            //if (_event.notifyEventStart(context, !notified, true))
+                            //    notified = true;
                         }
 
 //                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "state RUNNING");
@@ -673,6 +700,11 @@ class EventsHandler {
 //                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
 //                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
                     }
+                }
+                if (startedEvent != null) {
+                    // notify this event;
+                    startedEvent.notifyEventStart(context/*, true, true*/);
+                    //notified = true;
                 }
             }
 
@@ -954,22 +986,20 @@ class EventsHandler {
             PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "defaultProfileNotificationSound=" + defaultProfileNotificationSound);
             */
 
-            if (!notified) {
+            //if (!notified) {
                 // notify default profile
                 if (!defaultProfileNotificationSound.isEmpty() || defaultProfileNotificationVibrate) {
                     if (ppService != null) {
-                        PPApplication.logE("EventsHandler.handleEvents", "ApplicationPreferences.applicationDefaultProfileNotificationSound="+ApplicationPreferences.applicationDefaultProfileNotificationSound);
-                        PPApplication.logE("EventsHandler.handleEvents", "ApplicationPreferences.applicationDefaultProfileNotificationVibrate="+ApplicationPreferences.applicationDefaultProfileNotificationVibrate);
                         ppService.playNotificationSound(
                                 defaultProfileNotificationSound,
-                                defaultProfileNotificationVibrate,
-                                false);
+                                defaultProfileNotificationVibrate/*,
+                                false*/);
 //                        if (isRestart)
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "default profile notified");
                         //notified = true;
                     }
                 }
-            }
+            //}
 
             //todo - why sleep si needed ???
             // for notifed is not needed, palyNotificationSound uses handlerThreadPlayTone

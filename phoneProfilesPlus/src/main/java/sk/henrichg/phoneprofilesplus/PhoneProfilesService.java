@@ -8347,9 +8347,9 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void playNotificationSound (final String notificationSound,
-                                       final boolean notificationVibrate,
-                                       final boolean playAlsoInSilentMode) {
+    public void playNotificationSound(final String notificationSound,
+                                       final boolean notificationVibrate/*,
+                                       final boolean playAlsoInSilentMode*/) {
 
         //final Context appContext = getApplicationContext();
         PPApplication.startHandlerThreadBroadcast();
@@ -8369,7 +8369,7 @@ public class PhoneProfilesService extends Service
                     ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
             //PPApplication.logE("PhoneProfilesService.playNotificationSound", "isAudible="+isAudible);
 
-            if (notificationVibrate || ((!isAudible) && (!playAlsoInSilentMode) && (!notificationSound.isEmpty()))) {
+            if (notificationVibrate || ((!isAudible) /*&& (!playAlsoInSilentMode)*/ && (!notificationSound.isEmpty()))) {
                 Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 if ((vibrator != null) && vibrator.hasVibrator()) {
                     //PPApplication.logE("PhoneProfilesService.playNotificationSound", "vibration");
@@ -8393,7 +8393,7 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("PhoneProfilesService.playNotificationSound", "notificationSound="+notificationSound);
                 if (!notificationSound.isEmpty())
                 {
-                    if (isAudible || playAlsoInSilentMode) {
+                    if (isAudible/* || playAlsoInSilentMode*/) {
 
                         Uri notificationUri = Uri.parse(notificationSound);
                         try {

@@ -3337,12 +3337,12 @@ class Event {
 
     //----------------------------------
 
-    boolean notifyEventStart(Context context, boolean playSound, boolean canPlayAlsoInSilentMode) {
+    void notifyEventStart(Context context/*, boolean playSound, boolean canPlayAlsoInSilentMode*/) {
         String notificationSoundStart = _notificationSoundStart;
         boolean notificationVibrateStart = _notificationVibrateStart;
-        boolean playAlsoInSilentMode = false;
-        if (canPlayAlsoInSilentMode)
-            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
+        //boolean playAlsoInSilentMode = false;
+        //if (canPlayAlsoInSilentMode)
+        //    playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundStart.isEmpty() || notificationVibrateStart) {
 
@@ -3406,44 +3406,40 @@ class Event {
                 StartEventNotificationBroadcastReceiver.setAlarm(this, context);
             }
 
-            if (playSound)
+            //if (playSound)
                 if (PhoneProfilesService.getInstance() != null) {
-                    PPApplication.logE("Event.notifyEventStart", "_notificationSoundStart=" + _notificationSoundStart);
-                    PPApplication.logE("Event.notifyEventStart", "_notificationVibrateStart=" + _notificationVibrateStart);
                     PhoneProfilesService.getInstance().playNotificationSound(
                             notificationSoundStart,
-                            notificationVibrateStart,
-                            playAlsoInSilentMode);
+                            notificationVibrateStart/*,
+                            false*//*playAlsoInSilentMode*/);
                 }
 
-            return true;
+            //return true;
         }
-        return false;
+        //return false;
     }
 
-    boolean notifyEventEnd(/*Context context*/ boolean playSound,
-                           boolean canPlayAlsoInSilentMode) {
+    void notifyEventEnd(/*Context context*/ /*boolean playSound,
+                           boolean canPlayAlsoInSilentMode*/) {
         String notificationSoundEnd = _notificationSoundEnd;
         boolean notificationVibrateEnd = _notificationVibrateEnd;
-        boolean playAlsoInSilentMode = false;
-        if (canPlayAlsoInSilentMode)
-            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
+        //boolean playAlsoInSilentMode = false;
+        //if (canPlayAlsoInSilentMode)
+        //    playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
-            if (playSound)
+            //if (playSound)
                 if (PhoneProfilesService.getInstance() != null) {
-                    PPApplication.logE("Event.notifyEventEnd", "_notificationSoundEnd=" + _notificationSoundEnd);
-                    PPApplication.logE("Event.notifyEventEnd", "_notificationVibrateEnd=" + _notificationVibrateEnd);
                     PhoneProfilesService.getInstance().playNotificationSound(
                             notificationSoundEnd,
-                            notificationVibrateEnd,
-                            playAlsoInSilentMode);
+                            notificationVibrateEnd/*,
+                            false*//*playAlsoInSilentMode*/);
                 }
 
-            return true;
+            //return true;
         }
-        return false;
+        //return false;
     }
 
 }

@@ -124,12 +124,10 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                         if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                             if (PhoneProfilesService.getInstance() != null) {
-                                PPApplication.logE("AskForDurationDialog.onClick", "ApplicationPreferences.applicationApplicationProfileActivationNotificationSound="+ApplicationPreferences.applicationApplicationProfileActivationNotificationSound);
-                                PPApplication.logE("AskForDurationDialog.onClick", "ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate="+ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                                 PhoneProfilesService.getInstance().playNotificationSound(
                                         ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
-                                        false);
+                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                                        false*/);
                                 //PPApplication.sleep(500);
                             }
                         }
@@ -165,12 +163,10 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                     if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                         if (PhoneProfilesService.getInstance() != null) {
-                            PPApplication.logE("AskForDurationDialog.onClick", "ApplicationPreferences.applicationApplicationProfileActivationNotificationSound="+ApplicationPreferences.applicationApplicationProfileActivationNotificationSound);
-                            PPApplication.logE("AskForDurationDialog.onClick", "ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate="+ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                             PhoneProfilesService.getInstance().playNotificationSound(
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
-                                    false);
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                                    false*/);
                             //PPApplication.sleep(500);
                         }
                     }
