@@ -3407,11 +3407,14 @@ class Event {
             }
 
             if (playSound)
-                if (PhoneProfilesService.getInstance() != null)
+                if (PhoneProfilesService.getInstance() != null) {
+                    PPApplication.logE("Event.notifyEventStart", "_notificationSoundStart=" + _notificationSoundStart);
+                    PPApplication.logE("Event.notifyEventStart", "_notificationVibrateStart=" + _notificationVibrateStart);
                     PhoneProfilesService.getInstance().playNotificationSound(
                             notificationSoundStart,
                             notificationVibrateStart,
                             playAlsoInSilentMode);
+                }
 
             return true;
         }
@@ -3429,11 +3432,14 @@ class Event {
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
             if (playSound)
-                if (PhoneProfilesService.getInstance() != null)
+                if (PhoneProfilesService.getInstance() != null) {
+                    PPApplication.logE("Event.notifyEventEnd", "_notificationSoundEnd=" + _notificationSoundEnd);
+                    PPApplication.logE("Event.notifyEventEnd", "_notificationVibrateEnd=" + _notificationVibrateEnd);
                     PhoneProfilesService.getInstance().playNotificationSound(
                             notificationSoundEnd,
                             notificationVibrateEnd,
                             playAlsoInSilentMode);
+                }
 
             return true;
         }

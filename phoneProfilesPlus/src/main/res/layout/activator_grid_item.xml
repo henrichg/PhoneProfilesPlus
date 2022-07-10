@@ -37,7 +37,7 @@
         android:minLines="1"
         android:maxLines="2"
         android:text="@string/profile_name_default"
-        android:textSize="14dp"
+        android:textSize="13dp"
         android:gravity="center_horizontal"
         tools:ignore="SpUsage" />
 

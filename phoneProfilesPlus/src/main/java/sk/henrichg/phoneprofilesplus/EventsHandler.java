@@ -958,6 +958,8 @@ class EventsHandler {
                 // notify default profile
                 if (!defaultProfileNotificationSound.isEmpty() || defaultProfileNotificationVibrate) {
                     if (ppService != null) {
+                        PPApplication.logE("EventsHandler.handleEvents", "ApplicationPreferences.applicationDefaultProfileNotificationSound="+ApplicationPreferences.applicationDefaultProfileNotificationSound);
+                        PPApplication.logE("EventsHandler.handleEvents", "ApplicationPreferences.applicationDefaultProfileNotificationVibrate="+ApplicationPreferences.applicationDefaultProfileNotificationVibrate);
                         ppService.playNotificationSound(
                                 defaultProfileNotificationSound,
                                 defaultProfileNotificationVibrate,

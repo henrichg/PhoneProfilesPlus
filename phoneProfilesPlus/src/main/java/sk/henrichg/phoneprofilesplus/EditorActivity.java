@@ -2589,8 +2589,8 @@ public class EditorActivity extends AppCompatActivity
                     // set application parameters to "Not used" for non-granted Uri premissions
                     ContentResolver contentResolver = getApplicationContext().getContentResolver();
                     String tone = ApplicationPreferences.getSharedPreferences(getApplicationContext()).getString(
-                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND,
-                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND,
+                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE);
                     if (!tone.isEmpty()) {
                         if (tone.contains("content://media/external")) {
                             boolean isGranted = false;
@@ -2607,8 +2607,8 @@ public class EditorActivity extends AppCompatActivity
                             }
                             if (!isGranted) {
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                                editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND,
-                                        ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                                editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND,
+                                        ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE);
                                 editor.apply();
                             }
                         }

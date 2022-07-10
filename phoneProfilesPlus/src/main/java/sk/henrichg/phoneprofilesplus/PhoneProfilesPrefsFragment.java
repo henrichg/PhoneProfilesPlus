@@ -2028,7 +2028,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             RingtonePreferenceX preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
             if (preference != null)
                 preference.refreshListView();
-            preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND);
+            preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND);
             if (preference != null)
                 preference.refreshListView();
         }
@@ -2267,8 +2267,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);

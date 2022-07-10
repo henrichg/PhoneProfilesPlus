@@ -214,8 +214,8 @@ class ApplicationPreferences {
     static int applicationWidgetListRoundedCornersRadius;
     static int applicationWidgetIconRoundedCornersRadius;
     static String applicationActivatorNumColums;
-    static String applicationApplicationInterfaceNotificationSound;
-    static boolean applicationApplicationInterfaceNotificationVibrate;
+    static String applicationApplicationProfileActivationNotificationSound;
+    static boolean applicationApplicationProfileActivationNotificationVibrate;
     static boolean applicationActivatorAddRestartEventsIntoProfileList;
     static boolean applicationActivatorIncreaseBrightness;
     //static boolean applicationWidgetOneRowHigherLayout;
@@ -484,8 +484,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS = "applicationWidgetListRoundedCornersRadius";
     static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS = "applicationWidgetIconRoundedCornersRadius";
     static final String PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS = "applicationActivatorNumColums";
-    static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND = "applicationApplicationInterfaceNotificationSound";
-    static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE = "applicationApplicationInterfaceNotificationVibrate";
+    static final String PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND = "applicationApplicationInterfaceNotificationSound";
+    static final String PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE = "applicationApplicationInterfaceNotificationVibrate";
     static final String PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST = "applicationActivatorAddRestartEventsIntoProfileList";
     static final String PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS = "applicationActivatorIncreaseBrightness";
     static final String PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "applicationForceSetBrightnessAtScreenOn";
@@ -1560,14 +1560,14 @@ class ApplicationPreferences {
         applicationActivatorNumColums = getSharedPreferences(context).getString(PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS, PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE = "";
+    static final String PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE = "";
     static void applicationApplicationInterfaceNotificationSound(Context context) {
-        applicationApplicationInterfaceNotificationSound = getSharedPreferences(context).getString(PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND, PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+        applicationApplicationProfileActivationNotificationSound = getSharedPreferences(context).getString(PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND, PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE_DEFAULT_VALUE = false;
+    static final boolean PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE_DEFAULT_VALUE = false;
     static void applicationApplicationInterfaceNotificationVibrate(Context context) {
-        applicationApplicationInterfaceNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE, PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE_DEFAULT_VALUE);
+        applicationApplicationProfileActivationNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE, PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE_DEFAULT_VALUE);
     }
 
     static final boolean PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST_DEFAULT_VALUE = false;

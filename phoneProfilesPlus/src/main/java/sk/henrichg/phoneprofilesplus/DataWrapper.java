@@ -2052,12 +2052,13 @@ public class DataWrapper {
                                 (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
                                 (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                                 (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
-                                if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                                if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                                     if (PhoneProfilesService.getInstance() != null) {
-                                        //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                                        PPApplication.logE("DataWrapper.activateProfileWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationSound="+ApplicationPreferences.applicationApplicationProfileActivationNotificationSound);
+                                        PPApplication.logE("DataWrapper.activateProfileWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate="+ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                                         PhoneProfilesService.getInstance().playNotificationSound(
-                                                ApplicationPreferences.applicationApplicationInterfaceNotificationSound,
-                                                ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate,
+                                                ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                                ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                                 false);
                                         //PPApplication.sleep(500);
                                     }
@@ -2646,12 +2647,13 @@ public class DataWrapper {
                     PPApplication.startPPService(context, serviceIntent);
                 }
                 else {
-                    if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                    if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                         if (PhoneProfilesService.getInstance() != null) {
-                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                            PPApplication.logE("DataWrapper.restartEventsWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationSound="+ApplicationPreferences.applicationApplicationProfileActivationNotificationSound);
+                            PPApplication.logE("DataWrapper.restartEventsWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate="+ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                             PhoneProfilesService.getInstance().playNotificationSound(
-                                    ApplicationPreferences.applicationApplicationInterfaceNotificationSound,
-                                    ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate,
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                     false);
                             //PPApplication.sleep(500);
                         }
@@ -2714,12 +2716,13 @@ public class DataWrapper {
                 });
             }
 
-            if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+            if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                 if (PhoneProfilesService.getInstance() != null) {
-                    //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                    PPApplication.logE("DataWrapper.restartEventsWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationSound="+ApplicationPreferences.applicationApplicationProfileActivationNotificationSound);
+                    PPApplication.logE("DataWrapper.restartEventsWithAlert", "ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate="+ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                     PhoneProfilesService.getInstance().playNotificationSound(
-                            ApplicationPreferences.applicationApplicationInterfaceNotificationSound,
-                            ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate,
+                            ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                             false);
                     //PPApplication.sleep(500);
                 }
