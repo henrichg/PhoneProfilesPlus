@@ -198,7 +198,7 @@ public class PhoneProfilesService extends Service
     private boolean notificationIsPlayed = false;
     //private int oldNotificationVolume = 0;
     private Timer notificationPlayTimer = null;
-    private int oldVolumeForPlayNotificationSound = 0;
+    //private int oldVolumeForPlayNotificationSound = 0;
 
     String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
     boolean connectToSSIDStarted = false;
@@ -8331,16 +8331,15 @@ public class PhoneProfilesService extends Service
                 //PPApplication.recordException(e);
             }
 
-            if (oldVolumeForPlayNotificationSound != -1) {
-                try {
-                    EventPreferencesVolumes.internalChange = true;
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-
-                    DisableVolumesInternalChangeWorker.enqueueWork();
-                } catch (Exception e) {
-                    //PPApplication.recordException(e);
-                }
-            }
+            //if (oldVolumeForPlayNotificationSound != -1) {
+            //    try {
+            //        EventPreferencesVolumes.internalChange = true;
+            //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            //        DisableVolumesInternalChangeWorker.enqueueWork();
+            //    } catch (Exception e) {
+            //        //PPApplication.recordException(e);
+            //    }
+            //}
 
             notificationIsPlayed = false;
             notificationMediaPlayer = null;
@@ -8412,8 +8411,8 @@ public class PhoneProfilesService extends Service
                             notificationMediaPlayer = new MediaPlayer();
 
                             int usage = AudioAttributes.USAGE_NOTIFICATION;
-                            if (!isAudible)
-                                usage = AudioAttributes.USAGE_ALARM;
+                            //if (!isAudible)
+                            //    usage = AudioAttributes.USAGE_ALARM;
 
                             AudioAttributes attrs = new AudioAttributes.Builder()
                                     .setUsage(usage)
@@ -8425,15 +8424,15 @@ public class PhoneProfilesService extends Service
                             notificationMediaPlayer.prepare();
                             notificationMediaPlayer.setLooping(false);
 
-                            if (!isAudible) {
-                                oldVolumeForPlayNotificationSound = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                                int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-                                int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * 75.0f);
-                                EventPreferencesVolumes.internalChange = true;
-                                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                            }
-                            else
-                                oldVolumeForPlayNotificationSound = -1;
+                            //if (!isAudible) {
+                            //    oldVolumeForPlayNotificationSound = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                            //    int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                            //    int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * 75.0f);
+                            //    EventPreferencesVolumes.internalChange = true;
+                            //    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                            //}
+                            //else
+                            //    oldVolumeForPlayNotificationSound = -1;
 
                             notificationMediaPlayer.start();
 
@@ -8457,14 +8456,14 @@ public class PhoneProfilesService extends Service
                                             //PPApplication.recordException(e);
                                         }
 
-                                        if ((notificationIsPlayed) && (oldVolumeForPlayNotificationSound != -1)) {
-                                            try {
-                                                EventPreferencesVolumes.internalChange = true;
-                                                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                            } catch (Exception e) {
-                                                //PPApplication.recordException(e);
-                                            }
-                                        }
+                                        //if ((notificationIsPlayed) && (oldVolumeForPlayNotificationSound != -1)) {
+                                        //    try {
+                                        //        EventPreferencesVolumes.internalChange = true;
+                                        //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        //    } catch (Exception e) {
+                                        //        //PPApplication.recordException(e);
+                                        //    }
+                                        //}
 
                                     }
 

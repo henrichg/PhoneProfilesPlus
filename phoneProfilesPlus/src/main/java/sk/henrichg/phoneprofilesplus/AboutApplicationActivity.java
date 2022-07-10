@@ -439,9 +439,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         });
 
         Button closeButton = findViewById(R.id.about_application_close);
-        closeButton.setOnClickListener(view -> {
-            finish();
-        });
+        closeButton.setOnClickListener(view -> finish());
 
     }
 
