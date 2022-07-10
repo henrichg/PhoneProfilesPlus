@@ -4,8 +4,8 @@
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
     android:gravity="center"
     android:background="#40000000"
     tools:ignore="Overdraw">
@@ -31,8 +31,8 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
@@ -46,7 +46,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/icon_widget_icon"
             android:text="@string/profile_name_default"
-            android:textSize="13dp"
+            android:textSize="12dp"
             android:gravity="center_horizontal"
             android:maxLines="2"
             tools:ignore="SpUsage" />

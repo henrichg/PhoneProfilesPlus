@@ -597,9 +597,9 @@ public class PPApplication extends Application
     private static final String PREF_WALLPAPER_CHANGE_TIME = "wallpaper_change_time";
 
     //static final String BUNDLE_WIDGET_TYPE = PACKAGE_NAME +"_BUNDLE_WIDGET_TYPE";
-    static final int WIDGET_TYPE_ICON = 1;
-    static final int WIDGET_TYPE_ONE_ROW = 2;
-    static final int WIDGET_TYPE_LIST = 3;
+    //static final int WIDGET_TYPE_ICON = 1;
+    //static final int WIDGET_TYPE_ONE_ROW = 2;
+    //static final int WIDGET_TYPE_LIST = 3;
 
     // WorkManager tags
     static final String AFTER_FIRST_START_WORK_TAG = "afterFirstStartWork";
@@ -2229,6 +2229,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn(context);
             ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff(context);
             ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn(context);
+            ApplicationPreferences.applicationWidgetIconLayoutHeight(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

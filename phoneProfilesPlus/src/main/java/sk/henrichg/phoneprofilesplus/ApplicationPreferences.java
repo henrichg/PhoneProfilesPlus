@@ -246,6 +246,7 @@ class ApplicationPreferences {
     static String  applicationWidgetListBackgroundColorNightModeOn;
     static String  applicationSamsungEdgeBackgroundColorNightModeOff;
     static String  applicationSamsungEdgeBackgroundColorNightModeOn;
+    static String applicationWidgetIconLayoutHeight;
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -515,6 +516,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetListBackgroundColorNightModeOn";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationSamsungEdgeBackgroundColorNightModeOff";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationSamsungEdgeBackgroundColorNightModeOn";
+    static final String PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT = "applicationWidgetIconLayoutHeight";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -1928,6 +1930,11 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff201a18";
     static void applicationSamsungEdgeBackgroundColorNightModeOn(Context context) {
         applicationSamsungEdgeBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE = "2";
+    static void applicationWidgetIconLayoutHeight(Context context) {
+        applicationWidgetIconLayoutHeight = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE);
     }
 
     static void deleteBadPreferences(Context context) {
