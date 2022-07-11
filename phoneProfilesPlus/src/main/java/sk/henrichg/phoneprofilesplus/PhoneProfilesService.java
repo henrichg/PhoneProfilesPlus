@@ -8374,9 +8374,9 @@ public class PhoneProfilesService extends Service
                     //PPApplication.logE("PhoneProfilesService.playNotificationSound", "vibration");
                     try {
                         if (Build.VERSION.SDK_INT >= 26) {
-                            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                            vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
                         } else {
-                            vibrator.vibrate(500);
+                            vibrator.vibrate(300);
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
