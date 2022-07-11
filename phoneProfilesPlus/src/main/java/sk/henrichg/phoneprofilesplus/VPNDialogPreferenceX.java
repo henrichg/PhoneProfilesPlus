@@ -73,9 +73,9 @@ public class VPNDialogPreferenceX extends DialogPreference {
 
         prefVolumeDataSummary = entries[applicaitonIdx];
 
-        if (vpnApplication == 0)
+        if ((vpnApplication == 1) || (vpnApplication == 2))
             prefVolumeDataSummary = prefVolumeDataSummary + " " + profileName;
-        else
+        if (vpnApplication == 3)
             prefVolumeDataSummary = prefVolumeDataSummary + " " + tunnelName;
 
         setSummary(prefVolumeDataSummary);
@@ -103,20 +103,9 @@ public class VPNDialogPreferenceX extends DialogPreference {
         savedInstanceState = false;
     }
 
-    /*
     static boolean changeEnabled(String value) {
-        String[] splits = value.split("\\|");
-        if (splits.length > 1) {
-            try {
-                return Integer.parseInt(splits[1]) == 0;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-        else
-            return false;
+        return !value.startsWith("0");
     }
-    */
 
     @Override
     protected Parcelable onSaveInstanceState()

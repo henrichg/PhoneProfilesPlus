@@ -2144,6 +2144,21 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // VPN
+            if (!profile._deviceVPN.startsWith("0")) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPN);
+                    if (fillStrings)
+                        strings[countDrawables++] = "vpn";
+                    else {
+                        disabled[countDrawables] = false;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vpn;
+                    }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
 
         }
         else

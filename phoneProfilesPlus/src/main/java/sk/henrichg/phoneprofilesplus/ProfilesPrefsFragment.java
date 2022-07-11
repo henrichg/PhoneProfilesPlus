@@ -267,6 +267,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof VPNDialogPreferenceX)
+        {
+            ((VPNDialogPreferenceX)preference).fragment = new VPNDialogPreferenceFragmentX();
+            dialogFragment = ((VPNDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -1722,6 +1730,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                                 }
                                 break;
+                            case Profile.PREF_PROFILE_DEVICE_VPN:
+                                if (VPNDialogPreferenceX.changeEnabled(value)) {
+                                    title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
                             default:
                                 if (!value.equals(defaultValueS)) {
                                     if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
@@ -2645,9 +2660,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
+            //todo - sem napln value
+
+            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+        }
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_VPN, R.string.profile_preferences_deviceVPN, context);
+//            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_VPN - notGrantedG1Permission="+notGrantedG1Permission);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
+
             String value = GlobalGUIRoutines.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS)),
+                    preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN)),
                     R.array.vpnSettingsPrefsValues, R.array.vpnSettingsPrefsArray, context);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
@@ -4540,6 +4565,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_VPN))
+        {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String sValue = value.toString();
+                boolean change = VPNDialogPreferenceX.changeEnabled(sValue);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, false);
+            }
+        }
 
     }
 
@@ -4910,7 +4944,38 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_VPN)) {
+            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    boolean errorColor = false;
+                    if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
+                        preference.setEnabled(false);
+                    else
+                        errorColor = !value.toString().equals("0");
+                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, false, errorColor);
+                } else {
+                    preference.setEnabled(true);
 
+                    String sValue = value.toString();
+                    boolean bold = !sValue.startsWith("0");
+
+                    Profile profile = new Profile();
+                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "0||");
+                    Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                    boolean _permissionGranted = permissions.size() == 0;
+
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, !_permissionGranted);
+                }
+            }
+        }
         if (Build.VERSION.SDK_INT >= 26) {
 
             if (phoneCount > 1) {
@@ -5204,6 +5269,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS);
         setSummary(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE);
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING);
+        setSummary(Profile.PREF_PROFILE_DEVICE_VPN);
 
         // disable depended preferences
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);

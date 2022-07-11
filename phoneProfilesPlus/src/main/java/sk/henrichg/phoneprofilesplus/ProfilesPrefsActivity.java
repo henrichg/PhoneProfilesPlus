@@ -389,7 +389,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceVPNSettingsPrefs,
                         origProfile._endOfActivationType,
                         origProfile._endOfActivationTime,
-                        origProfile._applicationDisablePeriodicScanning
+                        origProfile._applicationDisablePeriodicScanning,
+                        origProfile._deviceVPN
                 );
                 showSaveMenu = true;
             }
@@ -600,6 +601,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._applicationDisableGloabalEventsRun = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, ""));
             profile._deviceVPNSettingsPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, ""));
             profile._applicationDisablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, ""));
+            profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "")
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

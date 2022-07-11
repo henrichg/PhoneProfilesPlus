@@ -77,6 +77,7 @@ class Permissions {
     static final int PERMISSION_WALLPAPER_FOLDER_PREFERENCE = 48;
     static final int PERMISSION_PROFILE_MICROPHONE = 49;
     static final int PERMISSION_EVENT_ROAMING_PREFERENCES = 50;
+    static final int PERMISSION_PROFILE_VPN = 51;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -145,6 +146,8 @@ class Permissions {
     private static final String PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION = "show_request_draw_overlays_permission";
 
     private static final String PREF_PERMISSIONS_CHANGED = "permissionsChanged";
+
+    static final String WIREGUARD_CONTROL_TUNNELS = "com.wireguard.android.permission.CONTROL_TUNNELS";
 
     // permission groups
     private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSION = "writeSystemSettingsPermission";
@@ -735,6 +738,13 @@ class Permissions {
                     if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                 }
+            }
+            boolean grantedWireGuardPermission = true;
+            if (profile._deviceVPN.startsWith("3"))
+                grantedWireGuardPermission = ContextCompat.checkSelfPermission(context, WIREGUARD_CONTROL_TUNNELS) == PackageManager.PERMISSION_GRANTED;
+            if (permissions != null) {
+                if (!grantedWireGuardPermission)
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_VPN, WIREGUARD_CONTROL_TUNNELS));
             }
         } catch (Exception ignored) {}
     }

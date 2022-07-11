@@ -1519,6 +1519,7 @@
         <item>6</item>
     </string-array>
     <string-array name="vpnApplicationArray">
+        <item>@string/array_pref_no_change</item>
         <item>OpenVPN Connect</item>
         <item>OpenVPN for Android</item>
         <item>WireGuard</item>
@@ -1527,6 +1528,7 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
     </string-array>
 
 </resources>

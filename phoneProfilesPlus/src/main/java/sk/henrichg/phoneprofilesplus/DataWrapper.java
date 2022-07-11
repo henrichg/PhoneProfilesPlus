@@ -282,7 +282,8 @@ public class DataWrapper {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING))
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN)
             );
     }
 

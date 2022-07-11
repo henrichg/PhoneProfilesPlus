@@ -127,6 +127,7 @@ public class Profile {
     int _endOfActivationType;
     int _endOfActivationTime;
     int _applicationDisablePeriodicScanning;
+    String _deviceVPN;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -237,6 +238,7 @@ public class Profile {
     static final String PREF_PROFILE_END_OF_ACTIVATION_TYPE = "prf_pref_endOfActivationType";
     static final String PREF_PROFILE_END_OF_ACTIVATION_TIME = "prf_pref_endOfActivationTime";
     static final String PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING = "prf_pref_applicationDisablePeriodicScanning";
+    static final String PREF_PROFILE_DEVICE_VPN = "prf_pref_deviceVPN";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -347,6 +349,7 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TIME, "0");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_VPN, "0||");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -1031,7 +1034,8 @@ public class Profile {
                    int deviceVPNSettingsPrefs,
                    int endOfActivationType,
                    int endOfActivationTime,
-                   int applicationDisablePeriodicScanning
+                   int applicationDisablePeriodicScanning,
+                   String deviceVPN
             )
     {
         this._id = id;
@@ -1136,6 +1140,7 @@ public class Profile {
         this._endOfActivationType = endOfActivationType;
         this._endOfActivationTime = endOfActivationTime;
         this._applicationDisablePeriodicScanning = applicationDisablePeriodicScanning;
+        this._deviceVPN = deviceVPN;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1244,7 +1249,8 @@ public class Profile {
                    int deviceVPNSettingsPrefs,
                    int endOfActivationType,
                    int endOfActivationTime,
-                   int applicationDisablePeriodicScanning
+                   int applicationDisablePeriodicScanning,
+                   String deviceVPN
     )
     {
         this._name = name;
@@ -1348,6 +1354,7 @@ public class Profile {
         this._endOfActivationType = endOfActivationType;
         this._endOfActivationTime = endOfActivationTime;
         this._applicationDisablePeriodicScanning = applicationDisablePeriodicScanning;
+        this._deviceVPN = deviceVPN;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1458,6 +1465,7 @@ public class Profile {
         this._endOfActivationType = profile._endOfActivationType;
         this._endOfActivationTime = profile._endOfActivationTime;
         this._applicationDisablePeriodicScanning = profile._applicationDisablePeriodicScanning;
+        this._deviceVPN = profile._deviceVPN;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1808,6 +1816,8 @@ public class Profile {
                     this._deviceVPNSettingsPrefs = withProfile._deviceVPNSettingsPrefs;
                 if (withProfile._applicationDisablePeriodicScanning != 0)
                     this._applicationDisablePeriodicScanning = withProfile._applicationDisablePeriodicScanning;
+                if (!withProfile._deviceVPN.startsWith("0"))
+                    this._deviceVPN = withProfile._deviceVPN;
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -2259,6 +2269,10 @@ public class Profile {
                 return false;
             }
             if (this._applicationDisablePeriodicScanning != withProfile._applicationDisablePeriodicScanning) {
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisablePeriodicScanning");
+                return false;
+            }
+            if (!this._deviceVPN.equals(withProfile._deviceVPN)) {
                 //PPApplication.logE("$$$ compareProfiles","_applicationDisablePeriodicScanning");
                 return false;
             }
@@ -3863,7 +3877,8 @@ public class Profile {
                     profile._deviceVPNSettingsPrefs,
                     profile._endOfActivationType,
                     profile._endOfActivationTime,
-                    profile._applicationDisablePeriodicScanning
+                    profile._applicationDisablePeriodicScanning,
+                    profile._deviceVPN
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -4110,6 +4125,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, Integer.toString(this._applicationDisableGloabalEventsRun));
         editor.putString(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, Integer.toString(this._deviceVPNSettingsPrefs));
         editor.putString(PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, Integer.toString(this._applicationDisablePeriodicScanning));
+        editor.putString(PREF_PROFILE_DEVICE_VPN, this._deviceVPN);
 
         editor.apply();
     }
