@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -25,6 +26,10 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
     private AppCompatSpinner vpnApplicationSpinner = null;
     private EditText profileNameEditText = null;
     private EditText tunnelNameEditText = null;
+    private TextView profileNameLabel = null;
+    private TextView tunnelNameLabel = null;
+    private RadioButton enableVPNRBtn = null;
+    private RadioButton disableVPNRBtn = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -53,12 +58,12 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         vpnApplicationSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
 
-        RadioButton enableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNEnableRB);
+        enableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNEnableRB);
         enableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             preference.enableVPN = true;
             preference.callChangeListener(preference.getSValue());
         });
-        RadioButton disableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNDisableRB);
+        disableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNDisableRB);
         disableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             preference.enableVPN = false;
             preference.callChangeListener(preference.getSValue());
@@ -100,7 +105,7 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
             }
         });
 
-        String[] entryValues = getResources().getStringArray(R.array.volumesSensorOperatorValues);
+        String[] entryValues = getResources().getStringArray(R.array.vpnApplicationValues);
         int vpnApplicationIdx = 0;
         for (String entryValue : entryValues) {
             if (entryValue.equals(String.valueOf(preference.vpnApplication))) {
@@ -115,6 +120,11 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
 
         profileNameEditText.setText(preference.profileName);
         tunnelNameEditText.setText(preference.tunnelName);
+
+        profileNameLabel = view.findViewById(R.id.vpnPrefDialogProfileNameLabel);
+        tunnelNameLabel = view.findViewById(R.id.vpnPrefDialogTunnelNameLabel);
+
+        enableViews();
 
         vpnApplicationSpinner.setOnItemSelectedListener(this);
     }
@@ -137,12 +147,42 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
 
         String[] vpnApplicationValues = context.getResources().getStringArray(R.array.vpnApplicationValues);
         preference.vpnApplication = Integer.parseInt(vpnApplicationValues[position]);
+        enableViews();
         preference.callChangeListener(preference.getSValue());
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void enableViews() {
+        if (preference.vpnApplication == 0) {
+            enableVPNRBtn.setEnabled(false);
+            disableVPNRBtn.setEnabled(false);
+            profileNameLabel.setEnabled(false);
+            profileNameEditText.setEnabled(false);
+            tunnelNameLabel.setEnabled(false);
+            tunnelNameEditText.setEnabled(false);
+        }
+        else
+        if ((preference.vpnApplication == 1) || (preference.vpnApplication == 2)) {
+            enableVPNRBtn.setEnabled(true);
+            disableVPNRBtn.setEnabled(true);
+            profileNameLabel.setEnabled(true);
+            profileNameEditText.setEnabled(true);
+            tunnelNameLabel.setEnabled(false);
+            tunnelNameEditText.setEnabled(false);
+        }
+        else
+        if (preference.vpnApplication == 3) {
+            enableVPNRBtn.setEnabled(true);
+            disableVPNRBtn.setEnabled(true);
+            profileNameLabel.setEnabled(false);
+            profileNameEditText.setEnabled(false);
+            tunnelNameLabel.setEnabled(true);
+            tunnelNameEditText.setEnabled(true);
+        }
     }
 
 }

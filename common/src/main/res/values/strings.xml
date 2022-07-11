@@ -2026,6 +2026,8 @@
     <string name="vpn_profile_pref_dlg_application_name_label">VPN application:</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">Enable VPN</string>
     <string name="vpn_profile_pref_dlg_disable_vpn">Disable VPN</string>
+    <string name="vpn_profile_name_pref_dlg_label">OpenVPN profile name:</string>
+    <string name="vpn_tunnel_name_pref_dlg_label">WireGuard tunnel name:</string>
     <string name="vpn_profile_name_pref_dlg_hint">OpenVPN profile name</string>
     <string name="vpn_tunnel_name_pref_dlg_hint">WireGuard tunnel name</string>
 
