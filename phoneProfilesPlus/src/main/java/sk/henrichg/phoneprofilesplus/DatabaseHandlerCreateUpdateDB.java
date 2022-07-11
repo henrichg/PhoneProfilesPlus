@@ -1023,13 +1023,27 @@ class DatabaseHandlerCreateUpdateDB {
     }
 
     static void afterUpdateDb(SQLiteDatabase db) {
-        //Cursor cursorUpdateDB = null;
-        //String intentName;
-        //boolean found;
+        Cursor cursorSearchIntent = null;
+        Cursor cursorSearchProfile = null;
+        boolean found;
         //ContentValues values = new ContentValues();
 
         //noinspection EmptyFinallyBlock
         try {
+            cursorSearchIntent = db.rawQuery("SELECT " + DatabaseHandler.KEY_IN_ID + " FROM " + DatabaseHandler.TABLE_INTENTS +
+                            " WHERE " +
+                            DatabaseHandler.KEY_IN_ACTION + "=\"net.openvpn.openvpn.CONNECT\" AND " +
+                            DatabaseHandler.KEY_IN_PACKAGE_NAME + "=\"net.openvpn.openvpn\"",
+                    null);
+            found = false;
+            if (cursorSearchIntent.moveToFirst()) {
+                do {
+                    //cursorSearchProfile =
+                } while (cursorSearchIntent.moveToNext());
+            }
+            cursorSearchIntent.close();
+
+
             db.delete(DatabaseHandler.TABLE_INTENTS,
                     DatabaseHandler.KEY_IN_ACTION + " = ? AND " +
                     DatabaseHandler.KEY_IN_PACKAGE_NAME + " = ?",
@@ -1206,8 +1220,8 @@ class DatabaseHandlerCreateUpdateDB {
             cursorUpdateDB.close();
             */
         } finally {
-            //if ((cursorUpdateDB != null) && (!cursorUpdateDB.isClosed()))
-            //    cursorUpdateDB.close();
+            if ((cursorSearchIntent != null) && (!cursorSearchIntent.isClosed()))
+                cursorSearchIntent.close();
         }
     }
 

@@ -1674,7 +1674,7 @@ class Permissions {
                 //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR);
                 intent.putExtra(EXTRA_INTERACTIVE, false);
-                intent.putExtra(EXTRA_ACTIVATE_PROFILE, false);
+                intent.putExtra(EXTRA_ACTIVATE_PROFILE, true);
 
                 if (Build.VERSION.SDK_INT >= 29) {
                     for (PermissionType permissionType : permissions) {
@@ -1744,7 +1744,7 @@ class Permissions {
                 //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
                 intent.putExtra(EXTRA_INTERACTIVE, true);
-                intent.putExtra(EXTRA_ACTIVATE_PROFILE, 0);
+                intent.putExtra(EXTRA_ACTIVATE_PROFILE, false);
                 //if (fromPreferences && (!onlyNotification))
                 //    ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
                 //else
@@ -2346,7 +2346,7 @@ class Permissions {
                 //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
                 intent.putExtra(EXTRA_INTERACTIVE, true);
-                intent.putExtra(EXTRA_ACTIVATE_PROFILE, 0);
+                intent.putExtra(EXTRA_ACTIVATE_PROFILE, false);
                 //if (fromPreferences && (!onlyNotification))
                 //    ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
                 //else

@@ -7521,6 +7521,12 @@ class ActivateProfileHelper {
                                 intent.putExtra("de.blinkt.openvpn.api.profileName", profileName);
                                 break;
                             case 4:
+                                if (Permissions.checkProfileWireGuard(context, profile, null)) {
+                                    intent = new Intent(enableVPN ? "com.wireguard.android.action.SET_TUNNEL_UP" : "com.wireguard.android.action.SET_TUNNEL_DOWN");
+                                    intent.setPackage("com.wireguard.android");
+                                    intent.putExtra("tunnel", tunnelName);
+                                    context.sendBroadcast(intent);
+                                }
                                 break;
                         }
 
