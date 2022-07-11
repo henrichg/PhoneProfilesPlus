@@ -1518,6 +1518,15 @@
         <item>5</item>
         <item>6</item>
     </string-array>
-
+    <string-array name="vpnApplicationArray">
+        <item>OpenVPN Connect</item>
+        <item>OpenVPN for Android</item>
+        <item>WireGuard</item>
+    </string-array>
+    <string-array name="vpnApplicationValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
 </resources>

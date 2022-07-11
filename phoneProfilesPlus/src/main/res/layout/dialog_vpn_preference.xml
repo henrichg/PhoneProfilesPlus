@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vpnPrefDialogRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <TextView
+        android:id="@+id/vpnPrefDialogVPNApplicationText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/vpn_profile_pref_dlg_application_name_text"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/vpnPrefDialogVPNApplication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:popupElevation="0dp"
+        android:entries="@array/vpnApplicationArray"
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+
+    <EditText
+        android:id="@+id/vpnPrefDialogProfileName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:selectAllOnFocus="true"
+        android:hint="@string/vpn_profile_name_pref_dlg_hint"
+        android:inputType="textNoSuggestions"
+        android:importantForAutofill="no"/>
+
+    <EditText
+        android:id="@+id/cpnPrefDialogTunnelName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:selectAllOnFocus="true"
+        android:hint="@string/vpn_tunnel_name_pref_dlg_hint"
+        android:inputType="textNoSuggestions"
+        android:importantForAutofill="no"/>
+
+</LinearLayout>
