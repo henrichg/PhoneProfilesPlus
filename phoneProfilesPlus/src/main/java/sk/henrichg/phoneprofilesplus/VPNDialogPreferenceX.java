@@ -13,11 +13,12 @@ public class VPNDialogPreferenceX extends DialogPreference {
 
     private final Context _context;
 
-    private String sValue = "0||";
+    private String sValue = "0|0||";
     private String defaultValue;
     private boolean savedInstanceState;
 
     int vpnApplication;
+    boolean enableVPN;
     String profileName;
     String tunnelName;
 
@@ -45,12 +46,14 @@ public class VPNDialogPreferenceX extends DialogPreference {
         String[] splits = sValue.split("\\|");
         try {
             vpnApplication = Integer.parseInt(splits[0]);
-            profileName = splits[1];
-            tunnelName = splits[2];
+            enableVPN = splits[1].equals("0");
+            profileName = splits[2];
+            tunnelName = splits[3];
         } catch (Exception e) {
             //Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             vpnApplication = 0;
+            enableVPN = true;
             profileName = "";
             tunnelName = "";
         }
@@ -73,16 +76,25 @@ public class VPNDialogPreferenceX extends DialogPreference {
 
         prefVolumeDataSummary = entries[applicaitonIdx];
 
+        if (enableVPN)
+            prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_profile_pref_dlg_enable_vpn);
+        else
+            prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_profile_pref_dlg_disable_vpn);
+
         if ((vpnApplication == 1) || (vpnApplication == 2))
-            prefVolumeDataSummary = prefVolumeDataSummary + " " + profileName;
+            prefVolumeDataSummary = prefVolumeDataSummary + "; " + profileName;
         if (vpnApplication == 3)
-            prefVolumeDataSummary = prefVolumeDataSummary + " " + tunnelName;
+            prefVolumeDataSummary = prefVolumeDataSummary + "; " + tunnelName;
 
         setSummary(prefVolumeDataSummary);
     }
 
     String getSValue() {
+        String sEnableVPN = "0";
+        if (!enableVPN)
+            sEnableVPN = "1";
         return vpnApplication
+                + "|" + sEnableVPN
                 + "|" + profileName
                 + "|" + tunnelName;
     }

@@ -2660,7 +2660,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            //todo - sem napln value
+            String value = GlobalGUIRoutines.getListPreferenceString(
+                    preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS)),
+                    R.array.vpnSettingsPrefsValues, R.array.vpnSettingsPrefsArray, context);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
         }
@@ -2670,10 +2673,32 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN)),
-                    R.array.vpnSettingsPrefsValues, R.array.vpnSettingsPrefsArray, context);
+            String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN));
+
+            int vpnApplication;
+
+            String[] splits = value.split("\\|");
+            try {
+                vpnApplication = Integer.parseInt(splits[0]);
+            } catch (Exception e) {
+                //Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+                vpnApplication = 0;
+            }
+
+            String[] entries = getResources().getStringArray(R.array.vpnApplicationArray);
+            String[] entryValues = getResources().getStringArray(R.array.vpnApplicationValues);
+
+            int applicaitonIdx = 0;
+            for (String entryValue : entryValues) {
+                if (entryValue.equals(String.valueOf(vpnApplication))) {
+                    break;
+                }
+                ++applicaitonIdx;
+            }
+
+            value = entries[applicaitonIdx];
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
         }
@@ -4968,7 +4993,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     Profile profile = new Profile();
                     ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                    profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "0||");
+                    profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "0|0||");
                     Permissions.checkProfileRadioPreferences(context, profile, permissions);
                     boolean _permissionGranted = permissions.size() == 0;
 

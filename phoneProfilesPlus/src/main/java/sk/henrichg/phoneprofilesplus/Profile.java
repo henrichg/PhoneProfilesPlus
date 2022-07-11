@@ -349,7 +349,7 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TIME, "0");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, "0");
-        defaultValuesString.put(PREF_PROFILE_DEVICE_VPN, "0||");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_VPN, "0|0||");
     }
 
     static final int RINGERMODE_RING = 1;

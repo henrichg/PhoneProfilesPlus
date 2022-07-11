@@ -2023,7 +2023,9 @@
     <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode.</string>
 
     <string name="profile_preferences_deviceVPN">VPN</string>
-    <string name="vpn_profile_pref_dlg_application_name_text">VPN application</string>
+    <string name="vpn_profile_pref_dlg_application_name_label">VPN application:</string>
+    <string name="vpn_profile_pref_dlg_enable_vpn">Enable VPN</string>
+    <string name="vpn_profile_pref_dlg_disable_vpn">Disable VPN</string>
     <string name="vpn_profile_name_pref_dlg_hint">OpenVPN profile name</string>
     <string name="vpn_tunnel_name_pref_dlg_hint">WireGuard tunnel name</string>
 

@@ -11,14 +11,12 @@
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <TextView
-        android:id="@+id/vpnPrefDialogVPNApplicationText"
+        android:id="@+id/vpnPrefDialogVPNApplicationLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/vpn_profile_pref_dlg_application_name_text"
+        android:text="@string/vpn_profile_pref_dlg_application_name_label"
         android:textSize="16sp"
         tools:ignore="HardcodedText"/>
-
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/vpnPrefDialogVPNApplication"
         android:layout_width="wrap_content"
@@ -26,6 +24,27 @@
         android:popupElevation="0dp"
         android:entries="@array/vpnApplicationArray"
         style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+
+    <RadioGroup
+        android:id="@+id/vpnPrefDialogEnableVPNLabelRG"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <RadioButton
+            android:id="@+id/vpnPrefDialogEnableVPNEnableRB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/vpn_profile_pref_dlg_enable_vpn"/>
+        <RadioButton
+            android:id="@+id/vpnPrefDialogEnableVPNDisableRB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/vpn_profile_pref_dlg_disable_vpn"/>
+    </RadioGroup>
 
     <EditText
         android:id="@+id/vpnPrefDialogProfileName"
@@ -37,7 +56,7 @@
         android:importantForAutofill="no"/>
 
     <EditText
-        android:id="@+id/cpnPrefDialogTunnelName"
+        android:id="@+id/vpnPrefDialogTunnelName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:selectAllOnFocus="true"

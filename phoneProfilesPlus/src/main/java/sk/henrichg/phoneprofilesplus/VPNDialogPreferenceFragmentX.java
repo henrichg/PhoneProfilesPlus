@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -52,6 +53,17 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         vpnApplicationSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
 
+        RadioButton enableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNEnableRB);
+        enableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            preference.enableVPN = true;
+            preference.callChangeListener(preference.getSValue());
+        });
+        RadioButton disableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNDisableRB);
+        disableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            preference.enableVPN = false;
+            preference.callChangeListener(preference.getSValue());
+        });
+
         profileNameEditText = view.findViewById(R.id.vpnPrefDialogProfileName);
         profileNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.highlighted_spinner_all));
         profileNameEditText.addTextChangedListener(new TextWatcher() {
@@ -66,12 +78,11 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
             @Override
             public void afterTextChanged(Editable s) {
                 preference.profileName = profileNameEditText.getText().toString();
-
                 preference.callChangeListener(preference.getSValue());
             }
         });
 
-        tunnelNameEditText = view.findViewById(R.id.cpnPrefDialogTunnelName);
+        tunnelNameEditText = view.findViewById(R.id.vpnPrefDialogTunnelName);
         tunnelNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.highlighted_spinner_all));
         tunnelNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,7 +96,6 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
             @Override
             public void afterTextChanged(Editable s) {
                 preference.tunnelName = tunnelNameEditText.getText().toString();
-
                 preference.callChangeListener(preference.getSValue());
             }
         });
@@ -99,6 +109,9 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
             ++vpnApplicationIdx;
         }
         vpnApplicationSpinner.setSelection(vpnApplicationIdx);
+
+        enableVPNRBtn.setChecked(preference.enableVPN);
+        disableVPNRBtn.setChecked(!preference.enableVPN);
 
         profileNameEditText.setText(preference.profileName);
         tunnelNameEditText.setText(preference.tunnelName);
@@ -124,7 +137,6 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
 
         String[] vpnApplicationValues = context.getResources().getStringArray(R.array.vpnApplicationValues);
         preference.vpnApplication = Integer.parseInt(vpnApplicationValues[position]);
-
         preference.callChangeListener(preference.getSValue());
     }
 
