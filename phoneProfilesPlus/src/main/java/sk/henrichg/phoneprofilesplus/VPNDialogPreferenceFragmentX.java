@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -10,10 +12,12 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.pm.PackageInfoCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
@@ -141,12 +145,27 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         preference.fragment = null;
     }
 
+    private boolean isCompatible() {
+    try {
+        PackageInfo info = context.getPackageManager().getPackageInfo("com.wireguard.android", 0);
+        return PackageInfoCompat.getLongVersionCode(info) >= 466;
+    } catch (PackageManager.NameNotFoundException e) {
+        return false;
+    }
+}
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         ((GlobalGUIRoutines.HighlightedSpinnerAdapter)vpnApplicationSpinner.getAdapter()).setSelection(position);
 
         String[] vpnApplicationValues = context.getResources().getStringArray(R.array.vpnApplicationValues);
         preference.vpnApplication = Integer.parseInt(vpnApplicationValues[position]);
+
+        if (preference.vpnApplication == 4)
+            if (!isCompatible()) {
+            PPApplication.showToast(context,
+                    context.getString(R.string.vpn_profile_pref_dlg_wireguard_not_comaptible), Toast.LENGTH_LONG);
+            }
+
         enableViews();
         preference.callChangeListener(preference.getSValue());
     }
@@ -178,12 +197,21 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         }
         else
         if (preference.vpnApplication == 4) {
-            enableVPNRBtn.setEnabled(true);
-            disableVPNRBtn.setEnabled(true);
-            profileNameLabel.setEnabled(false);
-            profileNameEditText.setEnabled(false);
-            tunnelNameLabel.setEnabled(true);
-            tunnelNameEditText.setEnabled(true);
+            if (isCompatible()) {
+                enableVPNRBtn.setEnabled(true);
+                disableVPNRBtn.setEnabled(true);
+                profileNameLabel.setEnabled(false);
+                profileNameEditText.setEnabled(false);
+                tunnelNameLabel.setEnabled(true);
+                tunnelNameEditText.setEnabled(true);
+            } else {
+                enableVPNRBtn.setEnabled(false);
+                disableVPNRBtn.setEnabled(false);
+                profileNameLabel.setEnabled(false);
+                profileNameEditText.setEnabled(false);
+                tunnelNameLabel.setEnabled(false);
+                tunnelNameEditText.setEnabled(false);
+            }
         }
     }
 
