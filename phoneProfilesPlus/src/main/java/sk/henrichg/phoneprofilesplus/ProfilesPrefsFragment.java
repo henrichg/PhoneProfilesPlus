@@ -2697,8 +2697,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 ++applicaitonIdx;
             }
-
             value = entries[applicaitonIdx];
+
+            boolean enableVPB = true;
+            try {
+                enableVPB = Integer.parseInt(splits[1]) == 1;
+            } catch (Exception e) {
+                //Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+            }
+            if (enableVPB)
+                value = value + "; " + getString(R.string.vpn_profile_pref_dlg_enable_vpn);
+            else
+                value = value + "; " + getString(R.string.vpn_profile_pref_dlg_disable_vpn);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
         }

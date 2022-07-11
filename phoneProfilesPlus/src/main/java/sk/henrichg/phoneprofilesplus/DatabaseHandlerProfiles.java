@@ -126,6 +126,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
                 values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
+                values.put(DatabaseHandler.KEY_DEVICE_VPN, profile._deviceVPN);
 
                 // Insert Row
                 if (!merged) {
@@ -263,7 +264,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TIME,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING
+                                DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING,
+                                DatabaseHandler.KEY_DEVICE_VPN
                         },
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -374,7 +376,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING))
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN))
                         );
                     }
 
@@ -505,7 +508,8 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS + "," +
                         DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE + "," +
                         DatabaseHandler.KEY_END_OF_ACTIVATION_TIME + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING +
+                        DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + "," +
+                        DatabaseHandler.KEY_DEVICE_VPN +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -620,6 +624,7 @@ class DatabaseHandlerProfiles {
                         profile._endOfActivationType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE));
                         profile._endOfActivationTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME));
                         profile._applicationDisablePeriodicScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING));
+                        profile._deviceVPN = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -752,6 +757,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
                 values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
+                values.put(DatabaseHandler.KEY_DEVICE_VPN, profile._deviceVPN);
 
                 // updating row
                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1100,7 +1106,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TIME,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING
+                                DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING,
+                                DatabaseHandler.KEY_DEVICE_VPN
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -1213,7 +1220,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING))
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN))
                                 );
                     }
 
