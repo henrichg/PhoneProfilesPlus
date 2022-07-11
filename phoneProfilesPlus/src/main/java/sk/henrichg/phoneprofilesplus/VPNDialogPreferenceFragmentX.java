@@ -45,9 +45,9 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         vpnApplicationSpinner = view.findViewById(R.id.vpnPrefDialogVPNApplication);
 
         GlobalGUIRoutines.HighlightedSpinnerAdapter vpnApplicationSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                (EventsPrefsActivity) context,
+                (ProfilesPrefsActivity) context,
                 R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.volumesSensorOperatorArray));
+                getResources().getStringArray(R.array.vpnApplicationArray));
         vpnApplicationSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         vpnApplicationSpinner.setAdapter(vpnApplicationSpinnerAdapter);
         vpnApplicationSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);

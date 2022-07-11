@@ -42,13 +42,18 @@ public class VPNDialogPreferenceX extends DialogPreference {
 
     private void getValueVDP()
     {
-        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sValue="+sValue);
         String[] splits = sValue.split("\\|");
         try {
             vpnApplication = Integer.parseInt(splits[0]);
             enableVPN = splits[1].equals("0");
-            profileName = splits[2];
-            tunnelName = splits[3];
+            if (splits.length > 2)
+                profileName = splits[2];
+            else
+                profileName = "";
+            if (splits.length > 3)
+                tunnelName = splits[3];
+            else
+                tunnelName = "";
         } catch (Exception e) {
             //Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
             PPApplication.recordException(e);
