@@ -1023,28 +1023,14 @@ class DatabaseHandlerCreateUpdateDB {
     }
 
     static void afterUpdateDb(SQLiteDatabase db) {
-        Cursor cursorSearchIntent = null;
-        Cursor cursorSearchProfile = null;
-        boolean found;
-        //ContentValues values = new ContentValues();
+        //Cursor cursorUpdateDB = null;
+        //String intentName;
+        //boolean found;
+        ContentValues values = new ContentValues();
 
         //noinspection EmptyFinallyBlock
         try {
-            cursorSearchIntent = db.rawQuery("SELECT " + DatabaseHandler.KEY_IN_ID + " FROM " + DatabaseHandler.TABLE_INTENTS +
-                            " WHERE " +
-                            DatabaseHandler.KEY_IN_ACTION + "=\"net.openvpn.openvpn.CONNECT\" AND " +
-                            DatabaseHandler.KEY_IN_PACKAGE_NAME + "=\"net.openvpn.openvpn\"",
-                    null);
-            found = false;
-            if (cursorSearchIntent.moveToFirst()) {
-                do {
-                    //cursorSearchProfile =
-                } while (cursorSearchIntent.moveToNext());
-            }
-            cursorSearchIntent.close();
-
-
-            db.delete(DatabaseHandler.TABLE_INTENTS,
+            /*db.delete(DatabaseHandler.TABLE_INTENTS,
                     DatabaseHandler.KEY_IN_ACTION + " = ? AND " +
                     DatabaseHandler.KEY_IN_PACKAGE_NAME + " = ?",
                     new String[]{ "net.openvpn.openvpn.CONNECT", "net.openvpn.openvpn" });
@@ -1061,7 +1047,10 @@ class DatabaseHandlerCreateUpdateDB {
                     DatabaseHandler.KEY_IN_ACTION + " = ? AND " +
                             DatabaseHandler.KEY_IN_PACKAGE_NAME + " = ? AND " +
                             DatabaseHandler.KEY_IN_CLASS_NAME + " = ?",
-                    new String[]{ "android.intent.action.MAIN", "de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN" });
+                    new String[]{ "android.intent.action.MAIN", "de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN" });*/
+
+            values.put(DatabaseHandler.KEY_IN_DO_NOT_DELETE, "0");
+            db.update(DatabaseHandler.TABLE_INTENTS, values, DatabaseHandler.KEY_IN_DO_NOT_DELETE + " = ?", new String[]{String.valueOf(1)});
 
             /*
             intentName = "[OpenVPN Connect - connect URL profile]";
@@ -1217,11 +1206,10 @@ class DatabaseHandlerCreateUpdateDB {
                 values.put(DatabaseHandler.KEY_IN_DO_NOT_DELETE, "1");
                 db.insert(DatabaseHandler.TABLE_INTENTS, null, values);
             }
-            cursorUpdateDB.close();
-            */
+            cursorUpdateDB.close();*/
         } finally {
-            if ((cursorSearchIntent != null) && (!cursorSearchIntent.isClosed()))
-                cursorSearchIntent.close();
+            //if ((cursorSearchIntent != null) && (!cursorSearchIntent.isClosed()))
+            //    cursorSearchIntent.close();
         }
     }
 
