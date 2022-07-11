@@ -77,7 +77,7 @@ class Permissions {
     static final int PERMISSION_WALLPAPER_FOLDER_PREFERENCE = 48;
     static final int PERMISSION_PROFILE_MICROPHONE = 49;
     static final int PERMISSION_EVENT_ROAMING_PREFERENCES = 50;
-    static final int PERMISSION_PROFILE_VPN = 51;
+    static final int PERMISSION_PROFILE_WIREGUARD = 51;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -617,7 +617,6 @@ class Permissions {
     }
 
     static boolean checkProfileWireGuard(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
-        //todo
         if (profile == null) return true;
 
         try {
@@ -626,7 +625,7 @@ class Permissions {
                 grantedWireGuardPermission = ContextCompat.checkSelfPermission(context, WIREGUARD_CONTROL_TUNNELS) == PackageManager.PERMISSION_GRANTED;
             if (permissions != null) {
                 if (!grantedWireGuardPermission)
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_VPN, WIREGUARD_CONTROL_TUNNELS));
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_WIREGUARD, WIREGUARD_CONTROL_TUNNELS));
             }
             return grantedWireGuardPermission;
         } catch (Exception e) {

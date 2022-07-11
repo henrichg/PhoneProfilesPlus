@@ -821,6 +821,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_EVENT_ROAMING_PREFERENCES:
                         s = getString(R.string.permission_why_event_roaming_preferences);
                         break;
+                    case Permissions.PERMISSION_PROFILE_WIREGUARD:
+                        s = getString(R.string.permission_why_profile_wireguard);
+                        break;
                 }
             }
         }

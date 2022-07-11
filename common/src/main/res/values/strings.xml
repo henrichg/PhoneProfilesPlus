@@ -2030,6 +2030,7 @@
     <string name="vpn_tunnel_name_pref_dlg_hint">WireGuard tunnel name</string>
     <string name="altype_profileError_setVPN">profile - error on set VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary2">Connect/disconnect VPN is moved from \"Others\"\/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
+    <string name="permission_why_profile_wireguard">for set tunnel up/down by WireGuard application</string>
 
     <!-- **************************************************************************************** -->
 
