@@ -86,9 +86,9 @@ public class VPNDialogPreferenceX extends DialogPreference {
         else
             prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_profile_pref_dlg_disable_vpn);
 
-        if ((vpnApplication == 1) || (vpnApplication == 2))
+        if ((vpnApplication == 1) || (vpnApplication == 2) || (vpnApplication == 3))
             prefVolumeDataSummary = prefVolumeDataSummary + "; " + profileName;
-        if (vpnApplication == 3)
+        if (vpnApplication == 4)
             prefVolumeDataSummary = prefVolumeDataSummary + "; " + tunnelName;
 
         setSummary(prefVolumeDataSummary);

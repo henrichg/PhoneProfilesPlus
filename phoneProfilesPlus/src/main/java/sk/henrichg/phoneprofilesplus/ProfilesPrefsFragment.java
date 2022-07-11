@@ -1194,6 +1194,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        /*
         infoDialogPreference = prefMng.findPreference("prf_pref_deviceVPNInfo");
         if (infoDialogPreference != null) {
             String url1 = "https://openvpn.net/vpn-server-resources/faq-regarding-openvpn-connect-android/#how-do-i-use-tasker-with-openvpn-connect-for-android";
@@ -1207,6 +1208,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setInfoText(infoText);
             infoDialogPreference.setIsHtml(true);
         }
+        */
 
         preference = findPreference("prf_pref_deviceScreenTimeoutAndKeeepScreenOnInfo");
         if (preference != null) {
@@ -5005,7 +5007,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     Profile profile = new Profile();
                     ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                     profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "0|0||");
-                    Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                    Permissions.checkProfileWireGuard(context, profile, permissions);
                     boolean _permissionGranted = permissions.size() == 0;
 
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, !_permissionGranted);

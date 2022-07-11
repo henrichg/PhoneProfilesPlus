@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2498;
+    static final int DATABASE_VERSION = 2499;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";

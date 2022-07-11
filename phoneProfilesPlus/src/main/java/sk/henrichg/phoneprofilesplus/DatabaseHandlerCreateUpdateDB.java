@@ -1023,13 +1023,33 @@ class DatabaseHandlerCreateUpdateDB {
     }
 
     static void afterUpdateDb(SQLiteDatabase db) {
-        Cursor cursorUpdateDB = null;
-        String intentName;
-        boolean found;
-        ContentValues values = new ContentValues();
+        //Cursor cursorUpdateDB = null;
+        //String intentName;
+        //boolean found;
+        //ContentValues values = new ContentValues();
 
-        // update volumes by device max value
+        //noinspection EmptyFinallyBlock
         try {
+            db.delete(DatabaseHandler.TABLE_INTENTS,
+                    DatabaseHandler.KEY_IN_ACTION + " = ? AND " +
+                    DatabaseHandler.KEY_IN_PACKAGE_NAME + " = ?",
+                    new String[]{ "net.openvpn.openvpn.CONNECT", "net.openvpn.openvpn" });
+            db.delete(DatabaseHandler.TABLE_INTENTS,
+                    DatabaseHandler.KEY_IN_ACTION + " = ? AND " +
+                            DatabaseHandler.KEY_IN_PACKAGE_NAME + " = ?",
+                    new String[]{ "net.openvpn.openvpn.DISCONNECT", "net.openvpn.openvpn" });
+            db.delete(DatabaseHandler.TABLE_INTENTS,
+                    DatabaseHandler.KEY_IN_ACTION + " = ? AND " +
+                            DatabaseHandler.KEY_IN_PACKAGE_NAME + " = ? AND " +
+                            DatabaseHandler.KEY_IN_CLASS_NAME + " = ?",
+                    new String[]{ "android.intent.action.MAIN", "de.blinkt.openvpn", "de.blinkt.openvpn.api.ConnectVPN" });
+            db.delete(DatabaseHandler.TABLE_INTENTS,
+                    DatabaseHandler.KEY_IN_ACTION + " = ? AND " +
+                            DatabaseHandler.KEY_IN_PACKAGE_NAME + " = ? AND " +
+                            DatabaseHandler.KEY_IN_CLASS_NAME + " = ?",
+                    new String[]{ "android.intent.action.MAIN", "de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN" });
+
+            /*
             intentName = "[OpenVPN Connect - connect URL profile]";
             cursorUpdateDB = db.rawQuery("SELECT " + DatabaseHandler.KEY_IN_NAME + " FROM " + DatabaseHandler.TABLE_INTENTS +
                             " WHERE " + DatabaseHandler.KEY_IN_NAME + "=\"" + intentName + "\"",
@@ -1184,9 +1204,10 @@ class DatabaseHandlerCreateUpdateDB {
                 db.insert(DatabaseHandler.TABLE_INTENTS, null, values);
             }
             cursorUpdateDB.close();
+            */
         } finally {
-            if ((cursorUpdateDB != null) && (!cursorUpdateDB.isClosed()))
-                cursorUpdateDB.close();
+            //if ((cursorUpdateDB != null) && (!cursorUpdateDB.isClosed()))
+            //    cursorUpdateDB.close();
         }
     }
 

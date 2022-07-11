@@ -94,6 +94,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE, R.string.altype_afterEndOfActivationTime_defaultProfile);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS, R.string.altype_afterEndOfActivationTime_restartEvents);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE, R.string.altype_afterEndOfActivationTime_specificProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN, R.string.altype_profileError_setVPN);
 
         //int otherColor = R.color.altype_other;
         /*
@@ -138,6 +139,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.color.altype_error);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, R.color.altype_other);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, R.color.altype_other);
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START, R.color.altype_other);

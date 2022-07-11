@@ -267,6 +267,7 @@ class Permissions {
         checkProfileImageWallpaper(context, profile, permissions);
         checkProfileWallpaperFolder(context, profile, permissions);
         checkProfileRadioPreferences(context, profile, permissions);
+        checkProfileWireGuard(context, profile, permissions);
         checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
         checkProfileCustomProfileIcon(context, profile, true, permissions);
         //checkProfileAccessNotificationPolicy(context, profile, permissions);
@@ -615,6 +616,24 @@ class Permissions {
         }
     }
 
+    static boolean checkProfileWireGuard(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        //todo
+        if (profile == null) return true;
+
+        try {
+            boolean grantedWireGuardPermission = true;
+            if (profile._deviceVPN.startsWith("4"))
+                grantedWireGuardPermission = ContextCompat.checkSelfPermission(context, WIREGUARD_CONTROL_TUNNELS) == PackageManager.PERMISSION_GRANTED;
+            if (permissions != null) {
+                if (!grantedWireGuardPermission)
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_VPN, WIREGUARD_CONTROL_TUNNELS));
+            }
+            return grantedWireGuardPermission;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     static boolean checkGallery(Context context) {
         try {
             return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
@@ -738,13 +757,6 @@ class Permissions {
                     if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                 }
-            }
-            boolean grantedWireGuardPermission = true;
-            if (profile._deviceVPN.startsWith("3"))
-                grantedWireGuardPermission = ContextCompat.checkSelfPermission(context, WIREGUARD_CONTROL_TUNNELS) == PackageManager.PERMISSION_GRANTED;
-            if (permissions != null) {
-                if (!grantedWireGuardPermission)
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_VPN, WIREGUARD_CONTROL_TUNNELS));
             }
         } catch (Exception ignored) {}
     }

@@ -166,7 +166,9 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
             tunnelNameEditText.setEnabled(false);
         }
         else
-        if ((preference.vpnApplication == 1) || (preference.vpnApplication == 2)) {
+        if ((preference.vpnApplication == 1) ||
+                (preference.vpnApplication == 2) ||
+                (preference.vpnApplication == 3)) {
             enableVPNRBtn.setEnabled(true);
             disableVPNRBtn.setEnabled(true);
             profileNameLabel.setEnabled(true);
@@ -175,7 +177,7 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
             tunnelNameEditText.setEnabled(false);
         }
         else
-        if (preference.vpnApplication == 3) {
+        if (preference.vpnApplication == 4) {
             enableVPNRBtn.setEnabled(true);
             disableVPNRBtn.setEnabled(true);
             profileNameLabel.setEnabled(false);
