@@ -100,12 +100,6 @@ public class VPNDialogPreferenceX extends DialogPreference {
         if (!enableVPN)
             sEnableVPN = "1";
 
-        Log.e("VPNDialogPreferenceX.getSValue", "vpnApplication="+vpnApplication);
-        Log.e("VPNDialogPreferenceX.getSValue", "enableVPN="+enableVPN);
-        Log.e("VPNDialogPreferenceX.getSValue", "sEnableVPN="+sEnableVPN);
-        Log.e("VPNDialogPreferenceX.getSValue", "profileName="+profileName);
-        Log.e("VPNDialogPreferenceX.getSValue", "tunnelName="+tunnelName);
-
         return vpnApplication
                 + "|" + sEnableVPN
                 + "|" + profileName

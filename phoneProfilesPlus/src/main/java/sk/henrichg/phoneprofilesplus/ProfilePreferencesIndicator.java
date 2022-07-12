@@ -1446,16 +1446,40 @@ class ProfilePreferencesIndicator {
             // VPN
             if (!profile._deviceVPN.startsWith("0")) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPN);
-                    if (fillStrings)
-                        strings[countDrawables++] = "vpn";
-                    else {
-                        disabled[countDrawables] = false;
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vpn;
+                    String[] splits = profile._deviceVPN.split("\\|");
+                    boolean enableVPN;
+                    try {
+                        enableVPN = splits[1].equals("0");
                     }
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
+                    catch (Exception e) {
+                        enableVPN = false;
+                    }
+                    //noinspection IfStatementWithIdenticalBranches
+                    if (enableVPN) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPN)  + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "vpn:1";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vpn;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    } else {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPN) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "vpn:0";
+                        else {
+                            disabled[countDrawables] = true;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vpn;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
                 }
             }
             // VPN Settings preferences
