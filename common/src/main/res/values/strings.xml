@@ -2029,7 +2029,7 @@
     <string name="vpn_profile_name_pref_dlg_hint">OpenVPN profile name</string>
     <string name="vpn_tunnel_name_pref_dlg_hint">WireGuard tunnel name</string>
     <string name="altype_profileError_setVPN">profile - error on set VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Connect/disconnect VPN is moved from \"Others\"\/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Connect/disconnect VPN for OpenVPN is moved from \"Others\"\/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
     <string name="permission_why_profile_wireguard">for set tunnel up/down by WireGuard application</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard is not installed or is in non-supported version.</string>
 
