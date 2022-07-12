@@ -145,14 +145,33 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         preference.fragment = null;
     }
 
-    private boolean isCompatible() {
-    try {
-        PackageInfo info = context.getPackageManager().getPackageInfo("com.wireguard.android", 0);
-        return PackageInfoCompat.getLongVersionCode(info) >= 466;
-    } catch (PackageManager.NameNotFoundException e) {
-        return false;
+    private boolean isCompatibleWithOpenVPNConnect() {
+        try {
+            //noinspection unused
+            PackageInfo info = context.getPackageManager().getPackageInfo("net.openvpn.openvpn", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
-}
+    private boolean isCompatibleWithOpenVPNFoAndroid() {
+        try {
+            //noinspection unused
+            PackageInfo info = context.getPackageManager().getPackageInfo("de.blinkt.openvpn", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+    private boolean isCompatibleWithWireGuard() {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo("com.wireguard.android", 0);
+            return PackageInfoCompat.getLongVersionCode(info) >= 466;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         ((GlobalGUIRoutines.HighlightedSpinnerAdapter)vpnApplicationSpinner.getAdapter()).setSelection(position);
@@ -160,11 +179,27 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         String[] vpnApplicationValues = context.getResources().getStringArray(R.array.vpnApplicationValues);
         preference.vpnApplication = Integer.parseInt(vpnApplicationValues[position]);
 
-        if (preference.vpnApplication == 4)
-            if (!isCompatible()) {
-            PPApplication.showToast(context,
-                    context.getString(R.string.vpn_profile_pref_dlg_wireguard_not_comaptible), Toast.LENGTH_LONG);
+        if ((preference.vpnApplication == 1) ||
+                (preference.vpnApplication == 2)) {
+            if (isCompatibleWithOpenVPNConnect()) {
+                PPApplication.showToast(context,
+                        context.getString(R.string.vpn_profile_pref_dlg_openvpnconnect_not_comaptible), Toast.LENGTH_LONG);
             }
+        }
+        else
+        if (preference.vpnApplication == 3) {
+            if (isCompatibleWithOpenVPNFoAndroid()) {
+                PPApplication.showToast(context,
+                        context.getString(R.string.vpn_profile_pref_dlg_openvpnforandroid_not_comaptible), Toast.LENGTH_LONG);
+            }
+        }
+        else
+        if (preference.vpnApplication == 4) {
+            if (!isCompatibleWithWireGuard()) {
+                PPApplication.showToast(context,
+                        context.getString(R.string.vpn_profile_pref_dlg_wireguard_not_comaptible), Toast.LENGTH_LONG);
+            }
+        }
 
         enableViews();
         preference.callChangeListener(preference.getSValue());
@@ -186,18 +221,40 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         }
         else
         if ((preference.vpnApplication == 1) ||
-                (preference.vpnApplication == 2) ||
-                (preference.vpnApplication == 3)) {
-            enableVPNRBtn.setEnabled(true);
-            disableVPNRBtn.setEnabled(true);
-            profileNameLabel.setEnabled(true);
-            profileNameEditText.setEnabled(true);
+                (preference.vpnApplication == 2)) {
+            if (isCompatibleWithOpenVPNConnect()) {
+                enableVPNRBtn.setEnabled(true);
+                disableVPNRBtn.setEnabled(true);
+                profileNameLabel.setEnabled(true);
+                profileNameEditText.setEnabled(true);
+            } else {
+                enableVPNRBtn.setEnabled(false);
+                disableVPNRBtn.setEnabled(false);
+                profileNameLabel.setEnabled(false);
+                profileNameEditText.setEnabled(false);
+            }
+            tunnelNameLabel.setEnabled(false);
+            tunnelNameEditText.setEnabled(false);
+        }
+        else
+        if (preference.vpnApplication == 3) {
+            if (isCompatibleWithOpenVPNFoAndroid()) {
+                enableVPNRBtn.setEnabled(true);
+                disableVPNRBtn.setEnabled(true);
+                profileNameLabel.setEnabled(true);
+                profileNameEditText.setEnabled(true);
+            } else {
+                enableVPNRBtn.setEnabled(false);
+                disableVPNRBtn.setEnabled(false);
+                profileNameLabel.setEnabled(false);
+                profileNameEditText.setEnabled(false);
+            }
             tunnelNameLabel.setEnabled(false);
             tunnelNameEditText.setEnabled(false);
         }
         else
         if (preference.vpnApplication == 4) {
-            if (isCompatible()) {
+            if (isCompatibleWithWireGuard()) {
                 enableVPNRBtn.setEnabled(true);
                 disableVPNRBtn.setEnabled(true);
                 profileNameLabel.setEnabled(false);

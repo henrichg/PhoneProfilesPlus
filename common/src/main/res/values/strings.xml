@@ -2032,6 +2032,8 @@
     <string name="profile_preferences_deviceVPNInfo_summary2">Connect\/disconnect VPN for OpenVPN is moved from \"Others\"\/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
     <string name="permission_why_profile_wireguard">for set tunnel up\/down by WireGuard application</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard is not installed or is in non-supported version.</string>
+    <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect is not installed.</string>
+    <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android is not installed.</string>
 
     <!-- **************************************************************************************** -->
 
