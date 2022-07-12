@@ -7525,26 +7525,33 @@ class ActivateProfileHelper {
                                     intent = new Intent(enableVPN ? "com.wireguard.android.action.SET_TUNNEL_UP" : "com.wireguard.android.action.SET_TUNNEL_DOWN");
                                     intent.setPackage("com.wireguard.android");
                                     intent.putExtra("tunnel", tunnelName);
-                                    context.sendBroadcast(intent);
                                 }
                                 break;
                         }
 
                         if (intent != null) {
-                            //noinspection TryWithIdenticalCatches
-                            try {
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(intent);
-                            } catch (ActivityNotFoundException ee) {
-                                //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (01)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
-                                        null, profileName, "");
-                            } catch (SecurityException e) {
-                                //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (02)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
-                                        null, profileName, "");
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
+                            if (vpnApplication < 4) {
+                                //noinspection TryWithIdenticalCatches
+                                try {
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(intent);
+                                } catch (ActivityNotFoundException ee) {
+                                    //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (01)");
+                                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
+                                            null, profileName, "");
+                                } catch (SecurityException e) {
+                                    //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (02)");
+                                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
+                                            null, profileName, "");
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+                            } else {
+                                try {
+                                    context.sendBroadcast(intent);
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
                             }
                         }
                     }
