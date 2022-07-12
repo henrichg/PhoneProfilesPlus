@@ -64,12 +64,12 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
 
         enableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNEnableRB);
         enableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            preference.enableVPN = true;
+            preference.enableVPN = enableVPNRBtn.isChecked();
             preference.callChangeListener(preference.getSValue());
         });
         disableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNDisableRB);
         disableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            preference.enableVPN = false;
+            preference.enableVPN = enableVPNRBtn.isChecked();
             preference.callChangeListener(preference.getSValue());
         });
 

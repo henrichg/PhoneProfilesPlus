@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.preference.DialogPreference;
 
@@ -98,6 +99,13 @@ public class VPNDialogPreferenceX extends DialogPreference {
         String sEnableVPN = "0";
         if (!enableVPN)
             sEnableVPN = "1";
+
+        Log.e("VPNDialogPreferenceX.getSValue", "vpnApplication="+vpnApplication);
+        Log.e("VPNDialogPreferenceX.getSValue", "enableVPN="+enableVPN);
+        Log.e("VPNDialogPreferenceX.getSValue", "sEnableVPN="+sEnableVPN);
+        Log.e("VPNDialogPreferenceX.getSValue", "profileName="+profileName);
+        Log.e("VPNDialogPreferenceX.getSValue", "tunnelName="+tunnelName);
+
         return vpnApplication
                 + "|" + sEnableVPN
                 + "|" + profileName
