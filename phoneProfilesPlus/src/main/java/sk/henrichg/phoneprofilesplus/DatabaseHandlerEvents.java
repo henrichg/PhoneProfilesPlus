@@ -1363,7 +1363,7 @@ public class DatabaseHandlerEvents {
     static private void getEventPreferencesVPN(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                 new String[]{DatabaseHandler.KEY_E_VPN_ENABLED,
-                        DatabaseHandler.KEY_E_VPN_CHECK_CONNECTION,
+                        DatabaseHandler.KEY_E_VPN_CONNECTION_STATUS,
                         DatabaseHandler.KEY_E_VPN_SENSOR_PASSED
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
@@ -1377,7 +1377,7 @@ public class DatabaseHandlerEvents {
                 EventPreferencesVPN eventPreferences = event._eventPreferencesVPN;
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VPN_ENABLED)) == 1);
-                eventPreferences._checkVPNConnection = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VPN_CHECK_CONNECTION)) == 1);
+                eventPreferences._connectionStatus = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VPN_CONNECTION_STATUS));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VPN_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1848,7 +1848,7 @@ public class DatabaseHandlerEvents {
         EventPreferencesVPN eventPreferences = event._eventPreferencesVPN;
 
         values.put(DatabaseHandler.KEY_E_VPN_ENABLED, (eventPreferences._enabled) ? 1 : 0);
-        values.put(DatabaseHandler.KEY_E_VPN_CHECK_CONNECTION, (eventPreferences._checkVPNConnection) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_VPN_CONNECTION_STATUS, eventPreferences._connectionStatus);
         values.put(DatabaseHandler.KEY_E_VPN_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row

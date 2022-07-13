@@ -451,7 +451,7 @@ class Event {
 
     private void createEventPreferencesVPN()
     {
-        this._eventPreferencesVPN = new EventPreferencesVPN(this, false, false);
+        this._eventPreferencesVPN = new EventPreferencesVPN(this, false, 0);
     }
 
     void createEventPreferences()
@@ -1474,14 +1474,14 @@ class Event {
                 description = description + "<li>" + desc + "</li>";
         }
 
-        if (_eventPreferencesVPN._enabled) {
-            String desc = _eventPreferencesVPN.getPreferencesDescription(true, addPassStatus, context);
+        if (_eventPreferencesRadioSwitch._enabled) {
+            String desc = _eventPreferencesRadioSwitch.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
                 description = description + "<li>" + desc + "</li>";
         }
 
-        if (_eventPreferencesRadioSwitch._enabled) {
-            String desc = _eventPreferencesRadioSwitch.getPreferencesDescription(true, addPassStatus, context);
+        if (_eventPreferencesVPN._enabled) {
+            String desc = _eventPreferencesVPN.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
                 description = description + "<li>" + desc + "</li>";
         }

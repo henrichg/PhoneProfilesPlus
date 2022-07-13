@@ -992,6 +992,14 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    static public class EventsPrefsVPNParameters extends EventsPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.event_prefs_vpn_sensor, rootKey);
+        }
+    }
+
     void changeCurentLightSensorValue() {
 //        PPApplication.logE("EventsPrefsActivity.changeCurentLightSensorValue", "xxx");
 

@@ -4,43 +4,44 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
 class EventPreferencesVPN extends EventPreferences {
 
-    boolean _checkVPNConnection;
+    int _connectionStatus;
 
     static final String PREF_EVENT_VPN_ENABLED = "eventVPNEnabled";
-    private static final String PREF_EVENT_VPN_CHECK_CONNECTION = "eventVPNCheckConnection";
+    private static final String PREF_EVENT_VPN_CONNECTION_STATUS = "eventVPNConnectionStatus";
 
     private static final String PREF_EVENT_VPN_CATEGORY = "eventVPNCategoryRoot";
 
     EventPreferencesVPN(Event event,
                         boolean enabled,
-                        boolean checkVPNConnection) {
+                        int connectionStatus) {
         super(event, enabled);
 
-        this._checkVPNConnection = checkVPNConnection;
+        this._connectionStatus = connectionStatus;
     }
 
     void copyPreferences(Event fromEvent) {
         this._enabled = fromEvent._eventPreferencesVPN._enabled;
-        this._checkVPNConnection = fromEvent._eventPreferencesVPN._checkVPNConnection;
+        this._connectionStatus = fromEvent._eventPreferencesVPN._connectionStatus;
         this.setSensorPassed(fromEvent._eventPreferencesVPN.getSensorPassed());
     }
 
     void loadSharedPreferences(SharedPreferences preferences) {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_VPN_ENABLED, _enabled);
-        editor.putBoolean(PREF_EVENT_VPN_CHECK_CONNECTION, this._checkVPNConnection);
+        editor.putString(PREF_EVENT_VPN_CONNECTION_STATUS, String.valueOf(this._connectionStatus));
         editor.apply();
     }
 
     void saveSharedPreferences(SharedPreferences preferences) {
         this._enabled = preferences.getBoolean(PREF_EVENT_VPN_ENABLED, false);
-        this._checkVPNConnection = preferences.getBoolean(PREF_EVENT_VPN_CHECK_CONNECTION, false);
+        this._connectionStatus = Integer.parseInt(preferences.getString(PREF_EVENT_VPN_CONNECTION_STATUS, "0"));
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context) {
@@ -52,17 +53,16 @@ class EventPreferencesVPN extends EventPreferences {
         } else {
             if (addBullet) {
                 descr = descr + "<b>";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_roaming), addPassStatus, DatabaseHandler.ETYPE_VPN, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_vpn), addPassStatus, DatabaseHandler.ETYPE_VPN, context);
                 descr = descr + "</b> ";
             }
 
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (this._checkVPNConnection) {
-                    descr = descr + "<b>" + context.getString(R.string.pref_event_vpn_check_connected) + "</b>";
-                } else {
-                    descr = descr + "<b>" + context.getString(R.string.pref_event_vpn_check_disconnected) + "</b>";
-                }
+                descr = descr + context.getString(R.string.pref_event_vpn_connection_status) + ": ";
+                String[] fields = context.getResources().getStringArray(R.array.eventVPNArray);
+                descr = descr + "<b>" + fields[this._connectionStatus] + "</b>";
+
             }
             else {
                 descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
@@ -85,16 +85,27 @@ class EventPreferencesVPN extends EventPreferences {
             }
         }
 
-        /*Event event = new Event();
+        if (key.equals(PREF_EVENT_VPN_CONNECTION_STATUS))
+        {
+            ListPreference listPreference = prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
+        }
+
+        Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesVPN.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesVPN.isRunnable(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_VPN_ENABLED, false);
-        Preference preference = prefMng.findPreference(PREF_EVENT_VPN_CHECK_ENABLED);
+        ListPreference preference = prefMng.findPreference(PREF_EVENT_VPN_CONNECTION_STATUS);
         if (preference != null) {
-            boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_VPN_CHECK_ENABLED, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
-        }*/
+            int index = preference.findIndexOfValue(preference.getValue());
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+        }
+
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
@@ -105,22 +116,26 @@ class EventPreferencesVPN extends EventPreferences {
         if (preference == null)
             return;
 
-        if (key.equals(PREF_EVENT_VPN_ENABLED) ||
-                key.equals(PREF_EVENT_VPN_CHECK_CONNECTION)) {
+        if (key.equals(PREF_EVENT_VPN_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true" : "false", context);
+        }
+
+        if (key.equals(PREF_EVENT_VPN_CONNECTION_STATUS))
+        {
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
 
     void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
         setSummary(prefMng, PREF_EVENT_VPN_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_VPN_CHECK_CONNECTION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VPN_CONNECTION_STATUS, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            EventPreferencesVPN tmp = new EventPreferencesVPN(this._event, this._enabled, this._checkVPNConnection);
+            EventPreferencesVPN tmp = new EventPreferencesVPN(this._event, this._enabled, this._connectionStatus);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -163,7 +178,7 @@ class EventPreferencesVPN extends EventPreferences {
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_VPN_ENABLED) != null) {
                 setSummary(prefMng, PREF_EVENT_VPN_ENABLED, preferences, context);
-                setSummary(prefMng, PREF_EVENT_VPN_CHECK_CONNECTION, preferences, context);
+                setSummary(prefMng, PREF_EVENT_VPN_CONNECTION_STATUS, preferences, context);
             }
         }
         setCategorySummary(prefMng, preferences, context);
@@ -192,6 +207,9 @@ class EventPreferencesVPN extends EventPreferences {
             if (Event.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                 if (!eventsHandler.notAllowedVPN) {
+                    //todo
+                    eventsHandler.vpnPassed = false;
+
                     if (eventsHandler.vpnPassed)
                         setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else

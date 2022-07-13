@@ -409,7 +409,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_ROAMING_SENSOR_PASSED = "roamingSensorPassed";
     static final String KEY_E_ROAMING_FOR_SIM_CARD = "roamingForSIMCard";
     static final String KEY_E_VPN_ENABLED = "vpnEnabled";
-    static final String KEY_E_VPN_CHECK_CONNECTION = "vpnCheckConnection";
+    static final String KEY_E_VPN_CONNECTION_STATUS = "vpnConnectionStatus";
     static final String KEY_E_VPN_SENSOR_PASSED = "vpnSensorPassed";
 
     // EventTimeLine Table Columns names
