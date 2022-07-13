@@ -63,6 +63,7 @@
         android:layout_marginBottom="10dp"
         android:selectAllOnFocus="true"
         android:hint="@string/generated_notification_intent_hint_not_set"
+        android:textColorHint="@color/activityDisabledTextColor"
         android:inputType="textNoSuggestions"
         android:importantForAutofill="no" />
 
@@ -79,6 +80,7 @@
         android:layout_height="wrap_content"
         android:selectAllOnFocus="true"
         android:hint="@string/generated_notification_intent_hint_not_set"
+        android:textColorHint="@color/activityDisabledTextColor"
         android:inputType="textNoSuggestions|textMultiLine"
         android:importantForAutofill="no" />
 
