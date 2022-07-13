@@ -12,7 +12,7 @@
 
     <ListPreference
         app:title="@string/pref_event_vpn_connection_status"
-        app:summary="@string/array_pref_vpn_notDetect"
+        app:summary="@string/array_pref_vpn_connected"
         app:key="eventVPNConnectionStatus"
         app:defaultValue="0"
         app:entries="@array/eventVPNArray"

@@ -46,6 +46,9 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference._context);
+        dialogBuilder.setTitle(preference.getTitle());
+        dialogBuilder.setIcon(preference.getIcon());
+        dialogBuilder.setCancelable(true);
 
         LayoutInflater inflater = LayoutInflater.from(preference._context);
         View layout = inflater.inflate(R.layout.dialog_vpn_preference, null, false);

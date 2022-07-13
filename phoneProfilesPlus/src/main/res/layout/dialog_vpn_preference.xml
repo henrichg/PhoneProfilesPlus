@@ -58,11 +58,12 @@
         android:id="@+id/vpnPrefDialogProfileName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
         android:layout_marginBottom="10dp"
+        android:hint="@string/application_editor_intent_hint_not_set"
         android:selectAllOnFocus="true"
-        android:hint="@string/vpn_profile_name_pref_dlg_hint"
         android:inputType="textNoSuggestions"
-        android:importantForAutofill="no"/>
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/vpnPrefDialogTunnelNameLabel"
@@ -75,10 +76,12 @@
         android:id="@+id/vpnPrefDialogTunnelName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:hint="@string/application_editor_intent_hint_not_set"
         android:selectAllOnFocus="true"
-        android:hint="@string/vpn_tunnel_name_pref_dlg_hint"
         android:inputType="textNoSuggestions"
-        android:importantForAutofill="no"/>
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/vpnPrefDialogNotSetWhenIsInState"
