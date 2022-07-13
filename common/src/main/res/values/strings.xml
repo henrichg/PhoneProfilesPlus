@@ -2036,7 +2036,7 @@
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android is not installed.</string>
 
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to/disconnected from VPN. Parameters: Connection status.</string>
+    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to\/disconnected from VPN. Parameters: Connection status.</string>
     <string name="pref_event_vpn_check_connected">Check status: connected</string>
     <string name="pref_event_vpn_check_disconnected">Check status: disconnected</string>
     <string name="event_preferences_category_eventVPNParameters">VPN sensor</string>
