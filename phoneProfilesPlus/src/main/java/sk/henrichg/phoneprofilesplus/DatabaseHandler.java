@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2499;
+    static final int DATABASE_VERSION = 2500;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -408,6 +408,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_ROAMING_CHECK_DATA = "roamingCheckData";
     static final String KEY_E_ROAMING_SENSOR_PASSED = "roamingSensorPassed";
     static final String KEY_E_ROAMING_FOR_SIM_CARD = "roamingForSIMCard";
+    static final String KEY_E_VPN_ENABLED = "vpnEnabled";
+    static final String KEY_E_VPN_CHECK_CONNECTION = "vpnCheckConnection";
+    static final String KEY_E_VPN_SENSOR_PASSED = "vpnSensorPassed";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";

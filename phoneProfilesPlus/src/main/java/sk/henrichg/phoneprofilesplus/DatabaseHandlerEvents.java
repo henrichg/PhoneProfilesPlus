@@ -1360,6 +1360,30 @@ public class DatabaseHandlerEvents {
         }
     }
 
+    static private void getEventPreferencesVPN(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                new String[]{DatabaseHandler.KEY_E_VPN_ENABLED,
+                        DatabaseHandler.KEY_E_VPN_CHECK_CONNECTION,
+                        DatabaseHandler.KEY_E_VPN_SENSOR_PASSED
+                },
+                DatabaseHandler.KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesVPN eventPreferences = event._eventPreferencesVPN;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VPN_ENABLED)) == 1);
+                eventPreferences._checkVPNConnection = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VPN_CHECK_CONNECTION)) == 1);
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VPN_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
+
     // this is called only from getEvent and getAllEvents
     // for this is not needed to calling importExportLock.lock();
     static private void getEventPreferences(Event event, SQLiteDatabase db) {
@@ -1386,6 +1410,7 @@ public class DatabaseHandlerEvents {
         getEventPreferencesVolumes(event, db);
         getEventPreferencesActivatedProfile(event, db);
         getEventPreferencesRoaming(event, db);
+        getEventPreferencesVPN(event, db);
     }
 
     static private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -1817,6 +1842,20 @@ public class DatabaseHandlerEvents {
                 new String[] { String.valueOf(event._id) });
     }
 
+    static private void updateEventPreferencesVPN(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesVPN eventPreferences = event._eventPreferencesVPN;
+
+        values.put(DatabaseHandler.KEY_E_VPN_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_VPN_CHECK_CONNECTION, (eventPreferences._checkVPNConnection) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_VPN_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
     static private void updateEventPreferences(Event event, SQLiteDatabase db) {
@@ -1843,6 +1882,7 @@ public class DatabaseHandlerEvents {
         updateEventPreferencesVolumes(event, db);
         updateEventPreferencesActivatedProfile(event, db);
         updateEventPreferencesRoaming(event, db);
+        updateEventPreferencesVPN(event, db);
     }
 
 
@@ -2162,6 +2202,9 @@ public class DatabaseHandlerEvents {
                         case DatabaseHandler.ETYPE_ROAMING:
                             sensorPassedField = DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED;
                             break;
+                        case DatabaseHandler.ETYPE_VPN:
+                            sensorPassedField = DatabaseHandler.KEY_E_VPN_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
@@ -2299,6 +2342,10 @@ public class DatabaseHandlerEvents {
                     case DatabaseHandler.ETYPE_ROAMING:
                         sensorPassed = event._eventPreferencesRoaming.getSensorPassed();
                         sensorPassedField = DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED;
+                        break;
+                    case DatabaseHandler.ETYPE_VPN:
+                        sensorPassed = event._eventPreferencesVPN.getSensorPassed();
+                        sensorPassedField = DatabaseHandler.KEY_E_VPN_SENSOR_PASSED;
                         break;
                 }
                 ContentValues values = new ContentValues();
@@ -2550,6 +2597,8 @@ public class DatabaseHandlerEvents {
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_ENABLED + "=1";
                     else if (eventType == DatabaseHandler.ETYPE_ROAMING)
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_ROAMING_ENABLED + "=1";
+                    else if (eventType == DatabaseHandler.ETYPE_VPN)
+                        eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_VPN_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + DatabaseHandler.TABLE_EVENTS +

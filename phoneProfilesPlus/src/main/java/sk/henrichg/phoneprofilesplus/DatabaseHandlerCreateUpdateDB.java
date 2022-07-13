@@ -330,7 +330,10 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_ROAMING_CHECK_DATA + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD + " " + DatabaseHandler.INTEGER_TYPE
+                + DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_VPN_ENABLED + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_VPN_CHECK_CONNECTION + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_VPN_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -485,6 +488,7 @@ class DatabaseHandlerCreateUpdateDB {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__VOLUMES_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_VOLUMES_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ACTIVATED_PROFILE_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ROAMING_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_ROAMING_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__VPN_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_VPN_ENABLED + ")");
 
         //db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
 
@@ -830,6 +834,9 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_ROAMING_CHECK_DATA, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VPN_ENABLED, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VPN_CHECK_CONNECTION, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VPN_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ET_EORDER, DatabaseHandler.INTEGER_TYPE, columns);
@@ -3367,6 +3374,13 @@ class DatabaseHandlerCreateUpdateDB {
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_VPN + "='0|0||'");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_VPN + "='0|0||'");
+        }
+
+        if (oldVersion < 2500)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VPN_ENABLED + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VPN_CHECK_CONNECTION + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VPN_SENSOR_PASSED + "=0");
         }
 
 //        Log.e("DatabaseHandlerCreateUpdateDB.updateDb", "xxxx");

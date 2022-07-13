@@ -1122,6 +1122,8 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_ACTIVATED_PROFILE;
             case SENSOR_TYPE_ROAMING:
                 return DatabaseHandler.ETYPE_ROAMING;
+            case SENSOR_TYPE_VPN:
+                return DatabaseHandler.ETYPE_VPN;
             default:
                 return DatabaseHandler.ETYPE_ALL;
         }

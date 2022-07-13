@@ -3686,6 +3686,9 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_ROAMING:
                             sensorEnabled = _event._eventPreferencesRoaming._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_VPN:
+                            sensorEnabled = _event._eventPreferencesVPN._enabled;
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;
