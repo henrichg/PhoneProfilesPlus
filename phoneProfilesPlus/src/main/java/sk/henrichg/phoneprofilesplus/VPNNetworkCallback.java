@@ -20,27 +20,27 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLost(Network network) {
         //record vpn disconnect event
-//        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onLost", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onLost", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
-//        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onUnavailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onUnavailable", "xxx");
         doConnection();
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
-//        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onLosing", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
     public void onAvailable(Network network) {
         //record vpn connect event
-//        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onAvailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onAvailable", "xxx");
         connected = true;
         doConnection();
     }

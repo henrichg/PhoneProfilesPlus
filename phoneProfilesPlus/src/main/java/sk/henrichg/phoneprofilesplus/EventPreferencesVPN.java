@@ -165,11 +165,10 @@ class EventPreferencesVPN extends EventPreferences {
     @Override
     boolean isRunnable(Context context) {
 
-        boolean runnable = super.isRunnable(context);
-
+        //boolean runnable = super.isRunnable(context);
         //runnable = runnable && (_checkNetwork || _checkData);
-
-        return runnable;
+        //return runnable;
+        return super.isRunnable(context);
     }
 
     @Override
@@ -207,8 +206,13 @@ class EventPreferencesVPN extends EventPreferences {
             if (Event.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                 if (!eventsHandler.notAllowedVPN) {
-                    //todo
-                    eventsHandler.vpnPassed = false;
+                    if (_connectionStatus == 0)
+                        eventsHandler.vpnPassed = VPNNetworkCallback.connected;
+                    else
+                    if (_connectionStatus == 1)
+                        eventsHandler.vpnPassed = !VPNNetworkCallback.connected;
+                    else
+                        eventsHandler.vpnPassed = false;
 
                     if (eventsHandler.vpnPassed)
                         setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);

@@ -2925,7 +2925,7 @@ class ActivateProfileHelper {
                         // because may be changed by another profile or from outside of PPP
                         PPApplication.sleep(500);
 
-                        PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
+//                        PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
                         RingerModeChangeReceiver.internalChange = true;
 
                         if (canChangeZenMode(appContext)) {
