@@ -2624,7 +2624,7 @@ class DatabaseHandlerCreateUpdateDB {
                                 0,
                                 0,
                                 0,
-                                "0|0||"
+                                "0|0|||0"
                         );
 
                         // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
@@ -3372,8 +3372,8 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2498)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_VPN + "='0|0||'");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_VPN + "='0|0||'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_VPN + "='0|0|||0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_VPN + "='0|0|||0'");
         }
 
         if (oldVersion < 2500)

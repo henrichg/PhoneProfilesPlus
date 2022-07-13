@@ -1,21 +1,25 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -23,10 +27,9 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         implements AdapterView.OnItemSelectedListener
 {
-
-    private Context context;
     private VPNDialogPreferenceX preference;
 
+    private AlertDialog mDialog;
     private AppCompatSpinner vpnApplicationSpinner = null;
     private EditText profileNameEditText = null;
     private EditText tunnelNameEditText = null;
@@ -34,47 +37,44 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
     private TextView tunnelNameLabel = null;
     private RadioButton enableVPNRBtn = null;
     private RadioButton disableVPNRBtn = null;
+    private SwitchCompat doNotSwith = null;
 
-    @SuppressLint("InflateParams")
+    @NonNull
     @Override
-    protected View onCreateDialogView(@NonNull Context context)
-    {
-        this.context = context;
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         preference = (VPNDialogPreferenceX) getPreference();
         preference.fragment = this;
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.dialog_vpn_preference, null, false);
-    }
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference._context);
 
-    @Override
-    protected void onBindDialogView(@NonNull View view) {
-        super.onBindDialogView(view);
+        LayoutInflater inflater = LayoutInflater.from(preference._context);
+        View layout = inflater.inflate(R.layout.dialog_vpn_preference, null, false);
+        dialogBuilder.setView(layout);
 
-        vpnApplicationSpinner = view.findViewById(R.id.vpnPrefDialogVPNApplication);
+        vpnApplicationSpinner = layout.findViewById(R.id.vpnPrefDialogVPNApplication);
 
         GlobalGUIRoutines.HighlightedSpinnerAdapter vpnApplicationSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                (ProfilesPrefsActivity) context,
+                (ProfilesPrefsActivity) preference._context,
                 R.layout.highlighted_spinner,
                 getResources().getStringArray(R.array.vpnApplicationArray));
         vpnApplicationSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         vpnApplicationSpinner.setAdapter(vpnApplicationSpinnerAdapter);
         vpnApplicationSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+        vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(preference._context/*getBaseContext()*/, R.color.highlighted_spinner_all));
 
-        enableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNEnableRB);
+        enableVPNRBtn = layout.findViewById(R.id.vpnPrefDialogEnableVPNEnableRB);
         enableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             preference.enableVPN = enableVPNRBtn.isChecked();
-            preference.callChangeListener(preference.getSValue());
+            //preference.callChangeListener(preference.getSValue());
         });
-        disableVPNRBtn = view.findViewById(R.id.vpnPrefDialogEnableVPNDisableRB);
+        disableVPNRBtn = layout.findViewById(R.id.vpnPrefDialogEnableVPNDisableRB);
         disableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             preference.enableVPN = enableVPNRBtn.isChecked();
-            preference.callChangeListener(preference.getSValue());
+            //preference.callChangeListener(preference.getSValue());
         });
 
-        profileNameEditText = view.findViewById(R.id.vpnPrefDialogProfileName);
-        profileNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.highlighted_spinner_all));
+        profileNameEditText = layout.findViewById(R.id.vpnPrefDialogProfileName);
+        profileNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
         profileNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,12 +87,13 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
             @Override
             public void afterTextChanged(Editable s) {
                 preference.profileName = profileNameEditText.getText().toString();
-                preference.callChangeListener(preference.getSValue());
+                enableOKButton();
+                //preference.callChangeListener(preference.getSValue());
             }
         });
 
-        tunnelNameEditText = view.findViewById(R.id.vpnPrefDialogTunnelName);
-        tunnelNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.highlighted_spinner_all));
+        tunnelNameEditText = layout.findViewById(R.id.vpnPrefDialogTunnelName);
+        tunnelNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
         tunnelNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -105,7 +106,8 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
             @Override
             public void afterTextChanged(Editable s) {
                 preference.tunnelName = tunnelNameEditText.getText().toString();
-                preference.callChangeListener(preference.getSValue());
+                enableOKButton();
+                //preference.callChangeListener(preference.getSValue());
             }
         });
 
@@ -125,12 +127,27 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         profileNameEditText.setText(preference.profileName);
         tunnelNameEditText.setText(preference.tunnelName);
 
-        profileNameLabel = view.findViewById(R.id.vpnPrefDialogProfileNameLabel);
-        tunnelNameLabel = view.findViewById(R.id.vpnPrefDialogTunnelNameLabel);
+        profileNameLabel = layout.findViewById(R.id.vpnPrefDialogProfileNameLabel);
+        tunnelNameLabel = layout.findViewById(R.id.vpnPrefDialogTunnelNameLabel);
+
+        doNotSwith = layout.findViewById(R.id.vpnPrefDialogNotSetWhenIsInState);
+        doNotSwith.setChecked(preference.doNotSetWhenIsinState);
+        doNotSwith.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            preference.doNotSetWhenIsinState = doNotSwith.isChecked();
+            //preference.callChangeListener(preference.getSValue());
+        });
+
+        vpnApplicationSpinner.setOnItemSelectedListener(this);
 
         enableViews();
 
-        vpnApplicationSpinner.setOnItemSelectedListener(this);
+        dialogBuilder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> preference.persistValue());
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+        mDialog = dialogBuilder.create();
+        mDialog.setOnShowListener(dialog -> enableOKButton());
+
+        return mDialog;
     }
 
     @Override
@@ -145,10 +162,26 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         preference.fragment = null;
     }
 
+    private void enableOKButton() {
+        if (mDialog != null) {
+            Button okButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            boolean ok = false;
+            if (((preference.vpnApplication == 1) ||
+                    (preference.vpnApplication == 2) ||
+                    (preference.vpnApplication == 3)) &&
+                    (!preference.profileName.isEmpty()))
+                ok = true;
+            if ((preference.vpnApplication == 4) &&
+                    (!preference.tunnelName.isEmpty()))
+                ok = true;
+            okButton.setEnabled(ok);
+        }
+    }
+
     private boolean isCompatibleWithOpenVPNConnect() {
         try {
             //noinspection unused
-            PackageInfo info = context.getPackageManager().getPackageInfo("net.openvpn.openvpn", 0);
+            PackageInfo info = preference._context.getPackageManager().getPackageInfo("net.openvpn.openvpn", 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -157,7 +190,7 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
     private boolean isCompatibleWithOpenVPNFoAndroid() {
         try {
             //noinspection unused
-            PackageInfo info = context.getPackageManager().getPackageInfo("de.blinkt.openvpn", 0);
+            PackageInfo info = preference._context.getPackageManager().getPackageInfo("de.blinkt.openvpn", 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -165,7 +198,7 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
     }
     private boolean isCompatibleWithWireGuard() {
         try {
-            PackageInfo info = context.getPackageManager().getPackageInfo("com.wireguard.android", 0);
+            PackageInfo info = preference._context.getPackageManager().getPackageInfo("com.wireguard.android", 0);
             return PackageInfoCompat.getLongVersionCode(info) >= 466;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -176,33 +209,34 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         ((GlobalGUIRoutines.HighlightedSpinnerAdapter)vpnApplicationSpinner.getAdapter()).setSelection(position);
 
-        String[] vpnApplicationValues = context.getResources().getStringArray(R.array.vpnApplicationValues);
+        String[] vpnApplicationValues = preference._context.getResources().getStringArray(R.array.vpnApplicationValues);
         preference.vpnApplication = Integer.parseInt(vpnApplicationValues[position]);
 
         if ((preference.vpnApplication == 1) ||
                 (preference.vpnApplication == 2)) {
-            if (isCompatibleWithOpenVPNConnect()) {
-                PPApplication.showToast(context,
-                        context.getString(R.string.vpn_profile_pref_dlg_openvpnconnect_not_comaptible), Toast.LENGTH_LONG);
+            if (!isCompatibleWithOpenVPNConnect()) {
+                PPApplication.showToast(preference._context,
+                        preference._context.getString(R.string.vpn_profile_pref_dlg_openvpnconnect_not_comaptible), Toast.LENGTH_LONG);
             }
         }
         else
         if (preference.vpnApplication == 3) {
-            if (isCompatibleWithOpenVPNFoAndroid()) {
-                PPApplication.showToast(context,
-                        context.getString(R.string.vpn_profile_pref_dlg_openvpnforandroid_not_comaptible), Toast.LENGTH_LONG);
+            if (!isCompatibleWithOpenVPNFoAndroid()) {
+                PPApplication.showToast(preference._context,
+                        preference._context.getString(R.string.vpn_profile_pref_dlg_openvpnforandroid_not_comaptible), Toast.LENGTH_LONG);
             }
         }
         else
         if (preference.vpnApplication == 4) {
             if (!isCompatibleWithWireGuard()) {
-                PPApplication.showToast(context,
-                        context.getString(R.string.vpn_profile_pref_dlg_wireguard_not_comaptible), Toast.LENGTH_LONG);
+                PPApplication.showToast(preference._context,
+                        preference._context.getString(R.string.vpn_profile_pref_dlg_wireguard_not_comaptible), Toast.LENGTH_LONG);
             }
         }
 
         enableViews();
-        preference.callChangeListener(preference.getSValue());
+        enableOKButton();
+        //preference.callChangeListener(preference.getSValue());
     }
 
     @Override
@@ -218,6 +252,7 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
             profileNameEditText.setEnabled(false);
             tunnelNameLabel.setEnabled(false);
             tunnelNameEditText.setEnabled(false);
+            doNotSwith.setEnabled(false);
         }
         else
         if ((preference.vpnApplication == 1) ||
@@ -227,11 +262,13 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
                 disableVPNRBtn.setEnabled(true);
                 profileNameLabel.setEnabled(true);
                 profileNameEditText.setEnabled(true);
+                doNotSwith.setEnabled(true);
             } else {
                 enableVPNRBtn.setEnabled(false);
                 disableVPNRBtn.setEnabled(false);
                 profileNameLabel.setEnabled(false);
                 profileNameEditText.setEnabled(false);
+                doNotSwith.setEnabled(false);
             }
             tunnelNameLabel.setEnabled(false);
             tunnelNameEditText.setEnabled(false);
@@ -243,11 +280,13 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
                 disableVPNRBtn.setEnabled(true);
                 profileNameLabel.setEnabled(true);
                 profileNameEditText.setEnabled(true);
+                doNotSwith.setEnabled(true);
             } else {
                 enableVPNRBtn.setEnabled(false);
                 disableVPNRBtn.setEnabled(false);
                 profileNameLabel.setEnabled(false);
                 profileNameEditText.setEnabled(false);
+                doNotSwith.setEnabled(false);
             }
             tunnelNameLabel.setEnabled(false);
             tunnelNameEditText.setEnabled(false);
@@ -261,6 +300,7 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
                 profileNameEditText.setEnabled(false);
                 tunnelNameLabel.setEnabled(true);
                 tunnelNameEditText.setEnabled(true);
+                doNotSwith.setEnabled(true);
             } else {
                 enableVPNRBtn.setEnabled(false);
                 disableVPNRBtn.setEnabled(false);
@@ -268,6 +308,7 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
                 profileNameEditText.setEnabled(false);
                 tunnelNameLabel.setEnabled(false);
                 tunnelNameEditText.setEnabled(false);
+                doNotSwith.setEnabled(false);
             }
         }
     }

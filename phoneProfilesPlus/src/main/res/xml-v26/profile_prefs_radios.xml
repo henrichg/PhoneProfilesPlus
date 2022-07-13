@@ -176,7 +176,7 @@
     <sk.henrichg.phoneprofilesplus.VPNDialogPreferenceX
         app:key="prf_pref_deviceVPN"
         app:title="@string/profile_preferences_deviceVPN"
-        app:defaultValue="0|0||"
+        app:defaultValue="0|0|||0"
         app:layout="@layout/mp_preference_material_widget" />
 
     <ListPreference

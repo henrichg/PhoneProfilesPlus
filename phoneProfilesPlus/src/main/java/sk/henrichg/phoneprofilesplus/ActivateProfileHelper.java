@@ -7475,82 +7475,106 @@ class ActivateProfileHelper {
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, executedProfileSharedPreferences, true, context).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean enableVPN = splits[1].equals("0");
-                        String profileName = "";
-                        if (splits.length > 2)
-                            profileName = splits[2];
-                        String tunnelName = "";
-                        if (splits.length > 3)
-                            tunnelName = splits[3];
 
-                        Intent intent = null;
-                        switch (vpnApplication) {
-                            case 1:
-                                intent = new Intent();
-                                intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
-                                if (enableVPN) {
-                                    intent.setAction("net.openvpn.openvpn.CONNECT");
-                                    String keyValue = "AS " + profileName;
-                                    intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
-                                    intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", "true");
-                                } else {
-                                    intent.setAction("net.openvpn.openvpn.DISCONNECT");
-                                    intent.putExtra("net.openvpn.openvpn.STOP", "true");
-                                }
-                                break;
-                            case 2:
-                                intent = new Intent();
-                                intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
-                                if (enableVPN) {
-                                    intent.setAction("net.openvpn.openvpn.CONNECT");
-                                    String keyValue = "PC " + profileName;
-                                    intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
-                                    intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", "true");
-                                } else {
-                                    intent.setAction("net.openvpn.openvpn.DISCONNECT");
-                                    intent.putExtra("net.openvpn.openvpn.STOP", "true");
-                                }
-                                break;
-                            case 3:
-                                intent = new Intent();
-                                if (enableVPN) {
-                                    intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.ConnectVPN"));
-                                } else {
-                                    intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN"));
-                                }
-                                intent.setAction("android.intent.action.MAIN");
-                                intent.putExtra("de.blinkt.openvpn.api.profileName", profileName);
-                                break;
-                            case 4:
-                                if (Permissions.checkProfileWireGuard(context, profile, null)) {
-                                    intent = new Intent(enableVPN ? "com.wireguard.android.action.SET_TUNNEL_UP" : "com.wireguard.android.action.SET_TUNNEL_DOWN");
-                                    intent.setPackage("com.wireguard.android");
-                                    intent.putExtra("tunnel", tunnelName);
-                                }
-                                break;
+                        boolean setVPN = true;
+
+                        boolean doNotSet = false;
+                        if (splits.length > 4)
+                            doNotSet = splits[4].equals("1");
+                        if (doNotSet) {
+                            ConnectivityManager connManager = null;
+                            try {
+                                connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                            } catch (Exception e) {
+                                // java.lang.NullPointerException: missing IConnectivityManager
+                                // Dual SIM?? Bug in Android ???
+                                //PPApplication.recordException(e);
+                            }
+                            if (connManager != null) {
+                                Network activeNetwork = connManager.getActiveNetwork();
+                                NetworkCapabilities caps = connManager.getNetworkCapabilities(activeNetwork);
+                                boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+                                setVPN = enableVPN != vpnInUse;
+                            }
                         }
+                        if (setVPN) {
+                            String profileName = "";
+                            if (splits.length > 2)
+                                profileName = splits[2];
+                            String tunnelName = "";
+                            if (splits.length > 3)
+                                tunnelName = splits[3];
 
-                        if (intent != null) {
-                            if (vpnApplication < 4) {
-                                //noinspection TryWithIdenticalCatches
-                                try {
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    context.startActivity(intent);
-                                } catch (ActivityNotFoundException ee) {
-                                    //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (01)");
-                                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
-                                            null, profileName, "");
-                                } catch (SecurityException e) {
-                                    //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (02)");
-                                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
-                                            null, profileName, "");
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                            } else {
-                                try {
-                                    context.sendBroadcast(intent);
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
+                            Intent intent = null;
+                            switch (vpnApplication) {
+                                case 1:
+                                    intent = new Intent();
+                                    intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
+                                    if (enableVPN) {
+                                        intent.setAction("net.openvpn.openvpn.CONNECT");
+                                        String keyValue = "AS " + profileName;
+                                        intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
+                                        intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", "true");
+                                    } else {
+                                        intent.setAction("net.openvpn.openvpn.DISCONNECT");
+                                        intent.putExtra("net.openvpn.openvpn.STOP", "true");
+                                    }
+                                    break;
+                                case 2:
+                                    intent = new Intent();
+                                    intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
+                                    if (enableVPN) {
+                                        intent.setAction("net.openvpn.openvpn.CONNECT");
+                                        String keyValue = "PC " + profileName;
+                                        intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
+                                        intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", "true");
+                                    } else {
+                                        intent.setAction("net.openvpn.openvpn.DISCONNECT");
+                                        intent.putExtra("net.openvpn.openvpn.STOP", "true");
+                                    }
+                                    break;
+                                case 3:
+                                    intent = new Intent();
+                                    if (enableVPN) {
+                                        intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.ConnectVPN"));
+                                    } else {
+                                        intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN"));
+                                    }
+                                    intent.setAction("android.intent.action.MAIN");
+                                    intent.putExtra("de.blinkt.openvpn.api.profileName", profileName);
+                                    break;
+                                case 4:
+                                    if (Permissions.checkProfileWireGuard(context, profile, null)) {
+                                        intent = new Intent(enableVPN ? "com.wireguard.android.action.SET_TUNNEL_UP" : "com.wireguard.android.action.SET_TUNNEL_DOWN");
+                                        intent.setPackage("com.wireguard.android");
+                                        intent.putExtra("tunnel", tunnelName);
+                                    }
+                                    break;
+                            }
+
+                            if (intent != null) {
+                                if (vpnApplication < 4) {
+                                    //noinspection TryWithIdenticalCatches
+                                    try {
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        context.startActivity(intent);
+                                    } catch (ActivityNotFoundException ee) {
+                                        //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (01)");
+                                        PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
+                                                null, profileName, "");
+                                    } catch (SecurityException e) {
+                                        //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (02)");
+                                        PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
+                                                null, profileName, "");
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
+                                } else {
+                                    try {
+                                        context.sendBroadcast(intent);
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
                                 }
                             }
                         }

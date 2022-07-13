@@ -5006,7 +5006,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     Profile profile = new Profile();
                     ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                    profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "0|0||");
+                    profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "0|0|||0");
                     Permissions.checkProfileWireGuard(context, profile, permissions);
                     boolean _permissionGranted = permissions.size() == 0;
 

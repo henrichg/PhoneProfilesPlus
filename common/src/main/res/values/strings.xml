@@ -2045,6 +2045,8 @@
     <string name="array_pref_vpn_connected">Connected</string>
     <string name="array_pref_vpn_disconnected">Disconnected</string>
 
+    <string name="vpn_not_set_when_is_in_state_pref_dlg">Do not set when VPN is already in state</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

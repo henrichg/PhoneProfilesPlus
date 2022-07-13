@@ -11,9 +11,9 @@ public class VPNDialogPreferenceX extends DialogPreference {
 
     VPNDialogPreferenceFragmentX fragment;
 
-    private final Context _context;
+    final Context _context;
 
-    private String sValue = "0|0||";
+    private String sValue = "0|0|||0";
     private String defaultValue;
     private boolean savedInstanceState;
 
@@ -21,6 +21,7 @@ public class VPNDialogPreferenceX extends DialogPreference {
     boolean enableVPN;
     String profileName;
     String tunnelName;
+    boolean doNotSetWhenIsinState;
 
     public VPNDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -54,6 +55,8 @@ public class VPNDialogPreferenceX extends DialogPreference {
                 tunnelName = splits[3];
             else
                 tunnelName = "";
+            if (splits.length > 4)
+                doNotSetWhenIsinState = splits[4].equals("1");
         } catch (Exception e) {
             //Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -61,6 +64,7 @@ public class VPNDialogPreferenceX extends DialogPreference {
             enableVPN = true;
             profileName = "";
             tunnelName = "";
+            doNotSetWhenIsinState = false;
         }
     }
 
@@ -91,6 +95,9 @@ public class VPNDialogPreferenceX extends DialogPreference {
         if (vpnApplication == 4)
             prefVolumeDataSummary = prefVolumeDataSummary + "; " + tunnelName;
 
+        if (doNotSetWhenIsinState)
+            prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_not_set_when_is_in_state_pref_dlg);
+
         setSummary(prefVolumeDataSummary);
     }
 
@@ -99,10 +106,15 @@ public class VPNDialogPreferenceX extends DialogPreference {
         if (!enableVPN)
             sEnableVPN = "1";
 
+        String sDoNotSet = "0";
+        if (doNotSetWhenIsinState)
+            sDoNotSet = "1";
+
         return vpnApplication
                 + "|" + sEnableVPN
                 + "|" + profileName
-                + "|" + tunnelName;
+                + "|" + tunnelName
+                + "|" + sDoNotSet;
     }
 
     void persistValue() {
