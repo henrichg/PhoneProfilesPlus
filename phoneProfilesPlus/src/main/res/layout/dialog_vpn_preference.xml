@@ -60,10 +60,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="@string/application_editor_intent_hint_not_set"
+        android:textSize="16sp"
+        android:textColorHint="@color/activityDisabledTextColor"
         android:selectAllOnFocus="true"
         android:inputType="textNoSuggestions"
-        android:importantForAutofill="no"
-        style="@style/IntentEditorEditTextStyle" />
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/vpnPrefDialogTunnelNameLabel"
@@ -77,10 +78,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/application_editor_intent_hint_not_set"
+        android:textSize="16sp"
+        android:textColorHint="@color/activityDisabledTextColor"
         android:selectAllOnFocus="true"
         android:inputType="textNoSuggestions"
-        android:importantForAutofill="no"
-        style="@style/IntentEditorEditTextStyle" />
+        android:importantForAutofill="no" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/vpnPrefDialogNotSetWhenIsInState"
