@@ -820,6 +820,7 @@ public class PPApplication extends Application
     static DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
     static RestartEventsWithDelayBroadcastReceiver restartEventsWithDelayBroadcastReceiver = null;
     static ActivatedProfileEventBroadcastReceiver activatedProfileEventBroadcastReceiver = null;
+    static VPNNetworkCallback vpnConnectionCallback = null;
 
     static SettingsContentObserver settingsContentObserver = null;
 

@@ -3142,6 +3142,58 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    void registerVPNCallback(boolean register, DataWrapper dataWrapper) {
+        final Context appContext = getApplicationContext();
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerVPNCallbacks", "xxx");
+        if (!register) {
+            if (PPApplication.vpnConnectionCallback != null) {
+                try {
+                    ConnectivityManager connectivityManager =
+                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    if (connectivityManager != null) {
+                        connectivityManager.unregisterNetworkCallback(PPApplication.vpnConnectionCallback);
+                    }
+                    PPApplication.vpnConnectionCallback = null;
+                } catch (Exception e) {
+                    PPApplication.vpnConnectionCallback = null;
+                }
+            }
+        }
+        if (register) {
+            boolean allowed = false;
+
+            dataWrapper.fillEventList();
+            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_VPN/*, false*/);
+            if (eventsExists)
+                allowed = Event.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                if (PPApplication.vpnConnectionCallback == null) {
+                    try {
+                        ConnectivityManager connectivityManager =
+                                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                        if (connectivityManager != null) {
+                            NetworkRequest networkRequest = new NetworkRequest.Builder()
+                                    .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
+                                    .build();
+
+                            PPApplication.vpnConnectionCallback = new VPNNetworkCallback(appContext);
+                            if (Build.VERSION.SDK_INT >= 26)
+                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
+                            else
+                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback);
+                        }
+                    } catch (Exception e) {
+                        PPApplication.vpnConnectionCallback = null;
+                        //PPApplication.recordException(e);
+                    }
+                }
+            }
+            else
+                registerVPNCallback(false, dataWrapper);
+        }
+    }
+
     private void registerLocationScannerReceiver(boolean register, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerLocationScannerReceiver", "xxx");
@@ -3666,35 +3718,35 @@ public class PhoneProfilesService extends Service
         dataWrapper.fillEventList();
         //dataWrapper.fillProfileList(false, false);
 
-        // required for battery event
+        // required for battery sensor
         registerBatteryLevelChangedReceiver(true, dataWrapper);
         registerBatteryChargingChangedReceiver(true, dataWrapper);
 
-        // required for accessories event
+        // required for accessories sensor
         registerReceiverForAccessoriesSensor(true, dataWrapper);
 
-        // required for sms event
+        // required for sms/mms sensor
         registerReceiverForSMSSensor(true, dataWrapper);
 
-        // required for calendar event
+        // required for calendar sensor
         registerReceiverForCalendarSensor(true, dataWrapper);
 
-        // required for radio switch event
+        // required for radio switch sensor
         registerReceiverForRadioSwitchMobileDataSensor(true, dataWrapper);
         registerReceiverForRadioSwitchNFCSensor(true, dataWrapper);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, dataWrapper);
         registerReceiverForRadioSwitchDefaultSIMSensor(true, dataWrapper);
 
-        // required for alarm clock event
+        // required for alarm clock sensor
         registerReceiverForAlarmClockSensor(true, dataWrapper);
 
-        // required for device boot event
+        // required for device boot sensor
         registerReceiverForDeviceBootSensor(true, dataWrapper);
 
-        // required for periodic event
+        // required for periodic sensor
         registerReceiverForPeriodicSensor(true, dataWrapper);
 
-        // required for location and radio switch event
+        // required for location and radio switch sensor
         registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
 
         // required for bluetooth connection type = (dis)connected +
@@ -3733,8 +3785,11 @@ public class PhoneProfilesService extends Service
         // required for wifi scanner
         registerWifiScannerReceiver(true, dataWrapper, false);
 
-        // required for notification event
+        // required for notification sensor
         registerReceiverForNotificationSensor(true, dataWrapper);
+
+        // required for VPN sensor
+        registerVPNCallback(true, dataWrapper);
 
         //SMSBroadcastReceiver.registerSMSContentObserver(appContext);
         //SMSBroadcastReceiver.registerMMSContentObserver(appContext);
@@ -3840,6 +3895,7 @@ public class PhoneProfilesService extends Service
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
         registerReceiverForActivatedProfileSensor(false, null);
+        registerVPNCallback(false, null);
 
         startLocationScanner(false, true, null, false);
         startMobileCellsScanner(false, true, null, false, false);
@@ -3894,6 +3950,7 @@ public class PhoneProfilesService extends Service
         //registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper);
         registerReceiverForActivatedProfileSensor(true, dataWrapper);
+        registerVPNCallback(true, dataWrapper);
 
         schedulePeriodicScanningWorker(/*dataWrapper, true*/);
         scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);

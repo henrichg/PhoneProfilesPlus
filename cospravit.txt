@@ -526,7 +526,8 @@ https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
 
 Detekcia VPNky:
 
-PhoneProfilesService.registerAllTheTimeCallbacks()
+PhoneProfilesService.registerAllTheTimeCallbacks(), ale sprav speci len pre tento senzor, pozri ine
+ako sa robi.
 
 Cize callback na to by malo ist pridat. Staci pouzit:
 .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
@@ -536,6 +537,9 @@ A na detekciu v doHandleEvent:
 Network activeNetwork = connectivityManager.getActiveNetwork();
 NetworkCapabilities caps = connectivityManager.getNetworkCapabilities(activeNetwork);
 boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+- toto vyuzijem aj pre Profile._deviceVPN, kde pridam, ci chce
+  nastavovat aj ked uz ma nastavene (cize vlastne restartnut). Dobre pre vyriesenie problemu
+  uzivatela, co sa stazoval, ze mu to restartuje (vypne/zapne VPN), co nechce aby robilo.
 
 Vid: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
 

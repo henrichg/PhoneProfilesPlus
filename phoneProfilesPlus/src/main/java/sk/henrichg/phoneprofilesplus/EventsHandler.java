@@ -67,6 +67,7 @@ class EventsHandler {
     boolean notAllowedVolumes;
     boolean notAllowedActivatedProfile;
     boolean notAllowedRoaming;
+    boolean notAllowedVPN;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -91,6 +92,7 @@ class EventsHandler {
     boolean volumesPassed;
     boolean activatedProfilePassed;
     boolean roamingPassed;
+    boolean vpnPassed;
 
     static final int SENSOR_TYPE_RADIO_SWITCH = 1;
     static final int SENSOR_TYPE_RESTART_EVENTS = 2;
@@ -142,6 +144,7 @@ class EventsHandler {
     static final int SENSOR_TYPE_VOLUMES = 48;
     static final int SENSOR_TYPE_ACTIVATED_PROFILE = 49;
     static final int SENSOR_TYPE_ROAMING = 50;
+    static final int SENSOR_TYPE_VPN = 51;
     static final int SENSOR_TYPE_ALL = 999;
 
     public EventsHandler(Context context) {
@@ -1257,6 +1260,9 @@ class EventsHandler {
         notAllowedSoundProfile = false;
         notAllowedPeriodic = false;
         notAllowedVolumes = false;
+        notAllowedActivatedProfile = false;
+        notAllowedRoaming = false;
+        notAllowedVPN = false;
 
         timePassed = true;
         batteryPassed = true;
@@ -1279,6 +1285,9 @@ class EventsHandler {
         soundProfilePassed = true;
         periodicPassed = true;
         volumesPassed = true;
+        activatedProfilePassed = true;
+        roamingPassed = true;
+        vpnPassed = true;
 
 //        if (PPApplication.logEnabled()) {
 //            if (forRestartEvents) {
@@ -1312,6 +1321,7 @@ class EventsHandler {
         event._eventPreferencesVolumes.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesActivatedProfile.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesRoaming.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesVPN.doHandleEvent(this/*, forRestartEvents*/);
 
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
@@ -1481,6 +1491,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedRoaming)
                 allPassed &= roamingPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesVPN._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedVPN)
+                allPassed &= vpnPassed;
             else
                 someNotAllowed = true;
         }

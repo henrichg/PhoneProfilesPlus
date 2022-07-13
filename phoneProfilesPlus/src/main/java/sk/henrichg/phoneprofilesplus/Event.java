@@ -89,6 +89,7 @@ class Event {
     EventPreferencesVolumes _eventPreferencesVolumes;
     EventPreferencesActivatedProfile _eventPreferencesActivatedProfile;
     EventPreferencesRoaming _eventPreferencesRoaming;
+    EventPreferencesVPN _eventPreferencesVPN;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -448,6 +449,11 @@ class Event {
         this._eventPreferencesRoaming = new EventPreferencesRoaming(this, false, false, false, 0);
     }
 
+    private void createEventPreferencesVPN()
+    {
+        this._eventPreferencesVPN = new EventPreferencesVPN(this, false, false);
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -473,6 +479,7 @@ class Event {
         createEventPreferencesVolumes();
         createEventPreferencesActivatedProfile();
         createEventPreferencesRoaming();
+        createEventPreferencesVPN();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -523,6 +530,8 @@ class Event {
             createEventPreferencesActivatedProfile();
         if (this._eventPreferencesRoaming == null)
             createEventPreferencesRoaming();
+        if (this._eventPreferencesVPN == null)
+            createEventPreferencesVPN();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -546,6 +555,7 @@ class Event {
         this._eventPreferencesVolumes.copyPreferences(fromEvent);
         this._eventPreferencesActivatedProfile.copyPreferences(fromEvent);
         this._eventPreferencesRoaming.copyPreferences(fromEvent);
+        this._eventPreferencesVPN.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -595,7 +605,9 @@ class Event {
                 (this._eventPreferencesActivatedProfile._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRoaming._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesVPN._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -653,6 +665,8 @@ class Event {
             runnable = runnable && this._eventPreferencesActivatedProfile.isRunnable(appContext);
         if (this._eventPreferencesRoaming._enabled)
             runnable = runnable && this._eventPreferencesRoaming.isRunnable(appContext);
+        if (this._eventPreferencesVPN._enabled)
+            runnable = runnable && this._eventPreferencesVPN.isRunnable(appContext);
 
         return runnable;
     }
@@ -684,7 +698,8 @@ class Event {
                             this._eventPreferencesPeriodic._enabled ||
                             this._eventPreferencesVolumes._enabled ||
                             this._eventPreferencesActivatedProfile._enabled ||
-                            this._eventPreferencesRoaming._enabled;
+                            this._eventPreferencesRoaming._enabled ||
+                            this._eventPreferencesVPN._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -733,6 +748,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesActivatedProfile.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesRoaming._enabled)
                 accessibilityEnabled = this._eventPreferencesRoaming.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesVPN._enabled)
+                accessibilityEnabled = this._eventPreferencesVPN.isAccessibilityServiceEnabled(context, againCheckInDelay);
         }
 
         return accessibilityEnabled;
@@ -794,6 +811,7 @@ class Event {
         this._eventPreferencesVolumes.loadSharedPreferences(preferences);
         this._eventPreferencesActivatedProfile.loadSharedPreferences(preferences);
         this._eventPreferencesRoaming.loadSharedPreferences(preferences);
+        this._eventPreferencesVPN.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -857,6 +875,7 @@ class Event {
         this._eventPreferencesVolumes.saveSharedPreferences(preferences);
         this._eventPreferencesActivatedProfile.saveSharedPreferences(preferences);
         this._eventPreferencesRoaming.saveSharedPreferences(preferences);
+        this._eventPreferencesVPN.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -1318,6 +1337,8 @@ class Event {
             _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesRoaming.setSummary(prefMng, key, preferences, context);
             _eventPreferencesRoaming.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesVPN.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
         }
     }
 
@@ -1401,6 +1422,8 @@ class Event {
         _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesRoaming.setAllSummary(prefMng, preferences, context);
         _eventPreferencesRoaming.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesVPN.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context, boolean addPassStatus)
@@ -1447,6 +1470,12 @@ class Event {
 
         if (_eventPreferencesRoaming._enabled) {
             String desc = _eventPreferencesRoaming.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesVPN._enabled) {
+            String desc = _eventPreferencesVPN.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
                 description = description + "<li>" + desc + "</li>";
         }
@@ -1577,6 +1606,7 @@ class Event {
         _eventPreferencesVolumes.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesActivatedProfile.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesRoaming.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesVPN.checkPreferences(prefMng, onlyCategory, context);
     }
 
     /*
@@ -2351,6 +2381,7 @@ class Event {
         _eventPreferencesVolumes.setSensorPassed(_eventPreferencesVolumes.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesActivatedProfile.setSensorPassed(_eventPreferencesActivatedProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesRoaming.setSensorPassed(_eventPreferencesRoaming.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesVPN.setSensorPassed(_eventPreferencesVPN.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2382,6 +2413,7 @@ class Event {
             _eventPreferencesVolumes.setSystemEventForStart(context);
             _eventPreferencesActivatedProfile.setSystemEventForStart(context);
             _eventPreferencesRoaming.setSystemEventForStart(context);
+            _eventPreferencesVPN.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2411,6 +2443,7 @@ class Event {
             _eventPreferencesVolumes.setSystemEventForPause(context);
             _eventPreferencesActivatedProfile.setSystemEventForPause(context);
             _eventPreferencesRoaming.setSystemEventForPause(context);
+            _eventPreferencesVPN.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2440,6 +2473,7 @@ class Event {
             _eventPreferencesVolumes.removeSystemEvent(context);
             _eventPreferencesActivatedProfile.removeSystemEvent(context);
             _eventPreferencesRoaming.removeSystemEvent(context);
+            _eventPreferencesVPN.removeSystemEvent(context);
         }
     }
 
