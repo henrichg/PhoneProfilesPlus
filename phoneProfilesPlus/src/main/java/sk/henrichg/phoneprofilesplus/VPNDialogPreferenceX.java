@@ -85,18 +85,20 @@ public class VPNDialogPreferenceX extends DialogPreference {
 
         prefVolumeDataSummary = entries[applicaitonIdx];
 
-        if (enableVPN)
-            prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_profile_pref_dlg_enable_vpn);
-        else
-            prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_profile_pref_dlg_disable_vpn);
+        if (vpnApplication > 0) {
+            if (enableVPN)
+                prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_profile_pref_dlg_enable_vpn);
+            else
+                prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_profile_pref_dlg_disable_vpn);
 
-        if ((vpnApplication == 1) || (vpnApplication == 2) || (vpnApplication == 3))
-            prefVolumeDataSummary = prefVolumeDataSummary + "; " + profileName;
-        if (vpnApplication == 4)
-            prefVolumeDataSummary = prefVolumeDataSummary + "; " + tunnelName;
+            if ((vpnApplication == 1) || (vpnApplication == 2) || (vpnApplication == 3))
+                prefVolumeDataSummary = prefVolumeDataSummary + "; " + profileName;
+            if (vpnApplication == 4)
+                prefVolumeDataSummary = prefVolumeDataSummary + "; " + tunnelName;
 
-        if (doNotSetWhenIsinState)
-            prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_not_set_when_is_in_state_pref_dlg);
+            if (doNotSetWhenIsinState)
+                prefVolumeDataSummary = prefVolumeDataSummary + "; " + _context.getString(R.string.vpn_not_set_when_is_in_state_pref_dlg);
+        }
 
         setSummary(prefVolumeDataSummary);
     }
