@@ -67,7 +67,7 @@ public class MainWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "xxxx");
+            long start = System.currentTimeMillis();
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -78,11 +78,11 @@ public class MainWorker extends Worker {
             Set<String> tags = getTags();
             for (String tag : tags) {
                 // ignore tags with package name
-                if (tag.startsWith(PPApplication.PACKAGE_NAME))
+                if (tag.startsWith(PPApplication.PACKAGE_NAME)) {
+                    PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "PPApplication.PACKAGE_NAME");
                     continue;
-
-//                long start = System.currentTimeMillis();
-//                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
+                } else
+                    PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
 
                 switch (tag) {
                     case WifiScanWorker.WORK_TAG_START_SCAN:
@@ -270,11 +270,12 @@ public class MainWorker extends Worker {
                         break;
                 }
 
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start;
-//                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- END tag=" + tag + " - timeElapsed="+timeElapsed);
+                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- END tag=" + tag);
             }
 
+            long finish = System.currentTimeMillis();
+            long timeElapsed = finish - start;
+            PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             PPApplication.recordException(e);

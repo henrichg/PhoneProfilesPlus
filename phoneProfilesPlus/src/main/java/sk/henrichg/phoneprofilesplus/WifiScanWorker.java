@@ -51,8 +51,8 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- START");
+            long start = System.currentTimeMillis();
+            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- START");
 
             //PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "---------------------------------------- START");
 //            Set<String> tags = getTags();
@@ -66,10 +66,10 @@ public class WifiScanWorker extends Worker {
             if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
                 cancelWork(context, false/*, null*/);
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("WifiScanWorker.doWork", "return - not allowed wifi scanning");
-                    PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
-                }*/
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "return - not allowed wifi scanning");
+                    PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "---------------------------------------- END");
+                }
                 return Result.success();
             }
 
@@ -77,10 +77,10 @@ public class WifiScanWorker extends Worker {
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("2")) {
                 cancelWork(context, false/*, null*/);
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("WifiScanWorker.doWork", "return - update in power save mode is not allowed");
-                    PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
-                }*/
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "return - update in power save mode is not allowed");
+                    PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "---------------------------------------- END");
+                }
                 return Result.success();
             }
             else {
@@ -90,6 +90,8 @@ public class WifiScanWorker extends Worker {
                             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
                         // not scan wi-fi in configured time
 //                        PPApplication.logE("WifiScanWorker.doWork", "-- END - scan in time = 2 -------");
+                        PPApplication.logE("WifiScanWorker.doWork", "return - not scan wi-fi in configured time");
+                        PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
                         cancelWork(context, false/*, null*/);
                         return Result.success();
                     }
@@ -148,9 +150,9 @@ public class WifiScanWorker extends Worker {
 
 //            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
 
-//            long finish = System.currentTimeMillis();
-//            long timeElapsed = finish - start;
-//            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+            long finish = System.currentTimeMillis();
+            long timeElapsed = finish - start;
+            PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("WifiScanWorker.doWork", Log.getStackTraceString(e));
