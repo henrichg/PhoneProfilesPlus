@@ -70,6 +70,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             profileEndIndicator = itemView.findViewById(R.id.event_list_item_profile_end_pref_indicator);
         }
 
+        // don't delete this - it is workaround for set this LinearLayout non-clickable
         LinearLayout buttonsLayout = itemView.findViewById(R.id.event_list_item_buttons_root);
         buttonsLayout.setOnClickListener(v -> {});
 

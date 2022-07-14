@@ -53,6 +53,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         if (ApplicationPreferences.applicationEditorPrefIndicator)
             profileIndicator = itemView.findViewById(R.id.profile_list_profile_pref_indicator);
 
+        // don't delete this - it is workaround for set this LinearLayout non-clickable
         LinearLayout buttonsLayout = itemView.findViewById(R.id.profile_list_item_buttons_root);
         buttonsLayout.setOnClickListener(v -> {});
 
