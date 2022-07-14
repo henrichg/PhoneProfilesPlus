@@ -56,20 +56,20 @@
         android:paddingEnd="5dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
-    
+
         <ImageView
             android:id="@+id/event_list_item_status"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:padding="5dp"
-            android:layout_marginStart="0dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
             android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/editor_event_list_item_event_status"
+            android:padding="5dp"
             android:scaleType="centerCrop"
-            android:src="?attr/eventStopStatusIndicator"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:src="?attr/eventStopStatusIndicator" />
 
         <TextView
             android:id="@+id/event_list_item_event_name"
