@@ -10,6 +10,7 @@ import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -68,6 +69,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             profileStartIndicator = itemView.findViewById(R.id.event_list_item_profile_start_pref_indicator);
             profileEndIndicator = itemView.findViewById(R.id.event_list_item_profile_end_pref_indicator);
         }
+
+        LinearLayout buttonsLayout = itemView.findViewById(R.id.event_list_item_buttons_root);
+        buttonsLayout.setOnClickListener(v -> {});
 
         itemView.setOnClickListener(this);
     }

@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.text.Spannable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -51,6 +52,9 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         profileItemEditMenu = itemView.findViewById(R.id.profile_list_item_edit_menu);
         if (ApplicationPreferences.applicationEditorPrefIndicator)
             profileIndicator = itemView.findViewById(R.id.profile_list_profile_pref_indicator);
+
+        LinearLayout buttonsLayout = itemView.findViewById(R.id.profile_list_item_buttons_root);
+        buttonsLayout.setOnClickListener(v -> {});
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
