@@ -4,8 +4,8 @@
     <dimen name="activity_margin_start">0dp</dimen>
     <dimen name="activity_margin_end">0dp</dimen>
 
-<!--    <dimen name="editor_item_end_padding">0dp</dimen>-->
-    <dimen name="editor_item_end_margin">5dp</dimen>
+    <dimen name="editor_profiles_item_buttons_end_margin">2dp</dimen>
+    <dimen name="editor_events_item_buttons_end_margin">0dp</dimen>
 
     <dimen name="activator_toolbar_height">27dp</dimen>
     <dimen name="run_stop_indicator_width">52dp</dimen>

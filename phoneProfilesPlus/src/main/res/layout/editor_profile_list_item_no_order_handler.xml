@@ -10,10 +10,10 @@
     android:paddingBottom="9dp"
     android:orientation="horizontal"
     android:clickable="true"
-    android:background="?attr/selectableItemBackground"
-    android:focusable="true">
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground">
 
-    <LinearLayout 
+    <LinearLayout
         android:id="@+id/profile_list_item_buttons_root"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -25,8 +25,8 @@
             android:id="@+id/profile_list_item_show_in_activator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_marginEnd="8dp"
+            android:padding="9dp"
+            android:layout_marginEnd="0dp"
             android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/profile_preferences_showInActivator"
@@ -36,13 +36,13 @@
             android:id="@+id/profile_list_item_edit_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_marginEnd="@dimen/editor_item_end_margin"
+            android:padding="8dp"
+            android:layout_marginEnd="@dimen/editor_profiles_item_buttons_end_margin"
             android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/tooltip_options_menu"
             android:src="?attr/editItemMenuIcon"/>
-        
+
     </LinearLayout>
     
     <RelativeLayout
