@@ -649,7 +649,7 @@ Ak Executor bude volany aj pri sleepe.
 PPApplication.updateGUI()
 StartLauncherFromNotificationReceiver.onReceive()
 
-No a vsetky workery, ktore som preprobil a ich viac nepouzijem na Executory sprav przdne. Uz take mam.
+No a vsetky workery, ktore som preprobil na Executory a ich viac nepouzijem sprav przdne. Uz take mam.
 Prerobene:
 ShowProfileNotificationWorker.WORK_TAG - 1 sekunda -
  -> PhoneProfilesService.drawProfileNotification cele prerob na Executor, mas tam aj handeleThread pre drawImmediatelly

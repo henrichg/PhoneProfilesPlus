@@ -206,7 +206,7 @@ class WifiScanner {
                                     //PPApplication.logE("$$$W WifiScanner.doScan", "no data received from scanner");
                                     if (ApplicationPreferences.prefForceOneWifiScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
-                                        MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
+                                        MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5);
                                         /*
                                         Data workData = new Data.Builder()
                                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)

@@ -535,7 +535,7 @@ public class MainWorker extends Worker {
 
     }*/
 
-    static void handleEvents(Context context, int _sensorType) {
+    static void handleEvents(Context context, int _sensorType, int delay) {
         PPApplication.logE("[EXECUTOR_CALL]  ***** MainWorker.handleEvents", "schedule - " + _sensorType);
 
         final Context appContext = context.getApplicationContext();
@@ -580,7 +580,7 @@ public class MainWorker extends Worker {
                 }
             }
         };
-        worker.schedule(runnable, 5, TimeUnit.SECONDS);
+        worker.schedule(runnable, delay, TimeUnit.SECONDS);
         worker.shutdown();
     }
 
