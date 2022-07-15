@@ -647,3 +647,9 @@ MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG - 5 sekund
 
+No a este pozri vsetky HandlerThread, ktore su s postDelay a zmen ich na Exexutor.
+Ak Executor bude volany aj pri sleepe.
+PhoneProfilesService.drawProfileNotification() -> toto idem cele prerabat, vid vyssie
+PPApplication.updateGUI()
+StartLauncherFromNotificationReceiver.onReceive()
+
