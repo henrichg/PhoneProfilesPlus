@@ -537,6 +537,8 @@ public class MainWorker extends Worker {
     }*/
 
     static void handleEvents(Context context, int _sensorType) {
+        PPApplication.logE("[EXECUTOR_CALL]  ***** MainWorker.handleEvents", "schedule");
+
         final Context appContext = context.getApplicationContext();
         final int sensorType = _sensorType;
 
@@ -544,7 +546,7 @@ public class MainWorker extends Worker {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START -  - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
+                PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START - " + sensorType);
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -565,7 +567,7 @@ public class MainWorker extends Worker {
 //                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.handleEvents");
                     }
 
-                    PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END -  - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
+                    PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType);
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
@@ -580,6 +582,7 @@ public class MainWorker extends Worker {
             }
         };
         worker.schedule(runnable, 5, TimeUnit.SECONDS);
+        worker.shutdown();
     }
 
 }

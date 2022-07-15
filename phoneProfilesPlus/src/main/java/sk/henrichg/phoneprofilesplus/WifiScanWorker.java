@@ -124,6 +124,7 @@ public class WifiScanWorker extends Worker {
                 }
             };
             worker.schedule(runnable, 5, TimeUnit.SECONDS);
+            worker.shutdown();
 
             /*
             //PPApplication.logE("[RJS] WifiScanWorker.doWork", "schedule work");

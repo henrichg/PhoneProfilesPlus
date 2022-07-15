@@ -623,12 +623,7 @@ Skusam na tych disabled, ale je to malo krat volane.
 Tu mam zoznam, ktore by som mohol preprobit na executor:
 
 MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG - 5 sekund
-ContactsContentObserverWorker.WORK_TAG - 1 minuta ???
-tag, delay - parametre DataWrapper.restartEventsWithDelay()
 MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK - 20 sekund
-ShowProfileNotificationWorker.WORK_TAG - 1 sekunda - PhoneProfilesService.drawProfileNotification cele prerob na Executor, mas tam ak handelrThread pre drawImmediatelly
-WifiScanWorker.WORK_TAG_START_SCAN - 5 sekund
-MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG - 5 sekund -> uz testujem
 MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG 5 sekund
 MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - 5 sekund
 MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG - 5 sekund
@@ -640,16 +635,27 @@ MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG - 10 sekund
-MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG - 5 sekund
-MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG - 5 sekund
 
+tag, delay - parametre DataWrapper.restartEventsWithDelay()
+WifiScanWorker.WORK_TAG_START_SCAN - 5 sekund
+
 No a este pozri vsetky HandlerThread, ktore su s postDelay a zmen ich na Exexutor.
 Ak Executor bude volany aj pri sleepe.
-PhoneProfilesService.drawProfileNotification() -> toto idem cele prerabat, vid vyssie
 PPApplication.updateGUI()
 StartLauncherFromNotificationReceiver.onReceive()
+
+No a vsetky workery, ktore som preprobil a ich viac nepouzijem na Executory sprav przdne. Uz take mam.
+Prerobene:
+ShowProfileNotificationWorker.WORK_TAG - 1 sekunda -
+ -> PhoneProfilesService.drawProfileNotification cele prerob na Executor, mas tam aj handeleThread pre drawImmediatelly
+ -> uz testujem
+MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG - 5 sekund -> uz testujem
+MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG - 5 sekund  -> uz testujem
+MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG - 5 sekund  -> uz testujem
+
+
 

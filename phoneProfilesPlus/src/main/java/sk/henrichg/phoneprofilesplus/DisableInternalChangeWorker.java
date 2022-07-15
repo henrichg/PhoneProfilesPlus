@@ -65,6 +65,7 @@ public class DisableInternalChangeWorker extends Worker {
             }
         };
         worker.schedule(runnable, 5, TimeUnit.SECONDS);
+        worker.shutdown();
 
         /*
         OneTimeWorkRequest disableInternalChangeWorker =

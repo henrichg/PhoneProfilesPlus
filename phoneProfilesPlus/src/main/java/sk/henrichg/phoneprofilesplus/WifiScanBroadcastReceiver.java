@@ -82,6 +82,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                         {
                             //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start work");
 
+                            MainWorker.handleEvents(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
+                            /*
                             Data workData = new Data.Builder()
                                     .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
                                     .build();
@@ -110,12 +112,13 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
 //                                        PPApplication.logE("[WORKER_CALL] WifiScanBroadcastReceiver.onReceive", "xxx");
                                         //workManager.enqueue(worker);
-                                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                                     }
                                 }
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
+                            */
 
                         }
 

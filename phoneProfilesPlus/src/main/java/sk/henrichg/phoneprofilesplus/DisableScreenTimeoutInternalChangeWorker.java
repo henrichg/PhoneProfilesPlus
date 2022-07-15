@@ -90,6 +90,7 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
             }
         };
         worker.schedule(runnable, 5, TimeUnit.SECONDS);
+        worker.shutdown();
 
         /*
         OneTimeWorkRequest disableInternalChangeWorker =

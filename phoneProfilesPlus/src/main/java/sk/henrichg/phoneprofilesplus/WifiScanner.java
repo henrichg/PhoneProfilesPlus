@@ -206,6 +206,8 @@ class WifiScanner {
                                     //PPApplication.logE("$$$W WifiScanner.doScan", "no data received from scanner");
                                     if (ApplicationPreferences.prefForceOneWifiScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
+                                        MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
+                                        /*
                                         Data workData = new Data.Builder()
                                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
                                                 .build();
@@ -234,12 +236,13 @@ class WifiScanner {
 
 //                                                    PPApplication.logE("[WORKER_CALL] WifiScanner.doScan", "xxx");
                                                     //workManager.enqueue(worker);
-                                                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                                                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                                                 }
                                             }
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);
                                         }
+                                        */
 
                                         /*PPApplication.startHandlerThread("WifiScanner.doScan");
                                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

@@ -63,6 +63,7 @@ public class DisableBlockProfileEventActionWorker extends Worker {
             }
         };
         worker.schedule(runnable, 30, TimeUnit.SECONDS);
+        worker.shutdown();
 
         /*
         OneTimeWorkRequest worker =
