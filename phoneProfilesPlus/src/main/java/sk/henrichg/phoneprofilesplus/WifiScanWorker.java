@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class WifiScanWorker extends Worker {
@@ -110,6 +112,20 @@ public class WifiScanWorker extends Worker {
                 startScanner(context, false);
             }
 
+            PPApplication.logE("[EXECUTOR_CALL]  ***** WifiScanWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
+            final Context appContext = context;
+            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- START -  - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
+                    WifiScanWorker.scheduleWork(appContext, false);
+                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- END -  - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
+                }
+            };
+            worker.schedule(runnable, 5, TimeUnit.SECONDS);
+
+            /*
             //PPApplication.logE("[RJS] WifiScanWorker.doWork", "schedule work");
             //scheduleWork(context.getApplicationContext(), false);
             OneTimeWorkRequest worker =
@@ -137,6 +153,7 @@ public class WifiScanWorker extends Worker {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
             /*
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
