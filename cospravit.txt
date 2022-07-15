@@ -543,6 +543,79 @@ boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
 
 Vid: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
 
---------------
+-------------------------------
+
+Worky. Strasne vela ich mam:
+
+MainWork: Kedze su to rozne tagy, tak su to samostatne volania MainWorker. Aj je zalogovane 2x PPApplication.PACKAGE_NAME.
+
+No vypada to, ze naozaj je taka velka kopa workov volana. Pre jeden scan 3 volania worku.
+A to neratam este prekreslenie notifikacie, ak je treba.
+Co s tym spravit, to netusim.
+
+----------
+
+Pozri, ako mohlo vzniknut to 2x volane skenu. Vypada to ako shortInterval a longInterval. Len my nie je jasne,
+preco sa hned skenuje.
+
+Chapem, ze sa nasheduluje short interval a po nom ide sken. Ale long by sa mal len nashedulovat, nemalo by hned
+skenovat, az po 15 minutach. Jedine, z eby to boli 2x za sebou short skeny. Daj si aj tag logovat. U vsetkych.
+
+Dal som pre WifiScanWorker, sice obsahuje 2 tagy, ale vypada to, ze worker to bol volany len raz.
+Tu uz je len otazka, co spravi samotny WifiScanWorker. Ci skuma aky tag je vo worku:
+2022-07-15 11:23:49.673 18420-18514/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: tag=WifiScanJobShort
+2022-07-15 11:23:49.680 18420-18514/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: tag=sk.henrichg.phoneprofilesplus.WifiScanWorker
+2022-07-15 11:23:50.997 18420-18515/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: PPApplication.PACKAGE_NAME
+2022-07-15 11:23:51.006 18420-18515/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- START tag=handleEventsSoundProfileWork
+2022-07-15 11:23:51.429 18420-18515/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- END tag=handleEventsSoundProfileWork
+2022-07-15 11:23:51.440 18420-18515/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  MainWorker.doWork: --------------- timeElapsed=443
+2022-07-15 11:23:52.335 18420-18513/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  DisableInternalChangeWorker.doWork: --------------- START
+2022-07-15 11:23:52.349 18420-18513/sk.henrichg.phoneprofilesplus E/[IN_WORKER]  DisableInternalChangeWorker.doWork: --------------- END - timeElapsed=13
+2022-07-15 11:23:52.731 18420-18514/sk.henrichg.phoneprofilesplus E/[IN_WORKER] WifiScanWorker.doWork: --------------- END - timeElapsed=3068
+
+MainWork ten tag PPApplication.PACKAGE_NAME to bude asi tag alo pri WifiScanWorker, ten ma tiez jeden tag=sk.henrichg.phoneprofilesplus.WifiScanWorker.
+V MainWork sa testuje s startWith(), tak urcite to bude taky.
+
+Ak riadne pozriem to 2x volanie, je medzi nimi rozdiel 13 sekund. To by znamenalo, ze nebezali paralene, len sa proste vygenerovali. Nechapoem ale, ze preco.
+Ze by dake znovuspustenie skenera pri screen on/off? To by aj odpovedalo, ved robim restart skenerov na screen on aj off.
+Ano na screen on aj off mam restart skenerov. Cize toto vygenerovalo to 2x skenovanie.
+
+-----------
+
+Dobre. V MainWorker ma taketo tagy:
+case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:
+case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:
+case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
+case HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG:
+case HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG:
+case HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG:
+case HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG:
+case HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG:
+case HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG:
+case HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG:
+case HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG:
+case HANDLE_EVENTS_PERIODIC_WORK_TAG:
+
+Preco na ne volam worker? Preco ten EventsHandler nevolam v handlerThreade? Z jedoduchosti?
+Tak si sprav taku staticku metodu na to v PhoneProfilesService a hotovo.
+Pozri, kde vsade robis toto volanie MainWorkera.
+Akurat pozri, ci nahodou uz nie je ten work volany z handlerThreade. Vtedy netreba handlera znova.
+Minimalne u Wifi skenera to mas len raz a to v WifiScanBroadcastReceiver.
+
+Mozno uz viem. Pozeram na WifiScanner.doWork a tam je zapoznamkovane pouizite hendlera. No a ten je volany s delay 5 sekund. A asi to nefungovalo
+kvoli sllep optimalizacii. Kua aj s Androidom.
+Kvoli tomuto mam aj tie disable* veci spravene workerom.
+
+Co tak na taketo + na tie disable* a proste na vsetko s delay par sekund pouzit toto?
+
+ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+Runnable runnable = () -> {
+    public void run() {
+        // Do something
+    }
+};
+worker.schedule(runnable, 2000, TimeUnit.MILLISECONDS);
+
+Vyskusaj. Hadam to bude zavolane aj ked mobil je zhasnuty.
 
 
