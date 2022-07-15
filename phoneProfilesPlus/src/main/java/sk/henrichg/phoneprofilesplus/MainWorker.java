@@ -103,17 +103,17 @@ public class MainWorker extends Worker {
                     case HANDLE_EVENTS_PERIODIC_WORK_TAG:
                         int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
                         if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
-                            //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
-                            //PPApplication.logE("DelayedWorksWorker.doWork", "sensorType="+sensorType);
+                            //PPApplication.logE("MainWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
+                            //PPApplication.logE("MainWorker.doWork", "sensorType="+sensorType);
                             // start events handler
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS): sensorType="+sensorType);
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.doWork (DELAYED_WORK_HANDLE_EVENTS): sensorType="+sensorType);
 
 //                            if (tag.equals(HANDLE_EVENTS_PERIODIC_WORK_TAG))
 //                                PPApplication.logE("[EVENTS_HANDLER_CALL] MainWorker.doWork", "sensorType="+sensorType);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS)");
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.doWork");
                         }
                         break;
                     case LOCATION_SCANNER_SWITCH_GPS_TAG_WORK:
@@ -532,5 +532,52 @@ public class MainWorker extends Worker {
         }
 
     }*/
+
+    static void handleEvents(Context context, int _sensorType) {
+        final Context appContext = context.getApplicationContext();
+        final int sensorType = _sensorType;
+        PPApplication.startHandlerThreadBroadcast(/*"DeviceBootEventEndBroadcastReceiver.doWork"*/);
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+        //        context.getApplicationContext()) {
+        __handler.post(() -> {
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.handleEvents");
+
+            //Context appContext= appContextWeakRef.get();
+            //if (appContext != null) {
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_handleEvents");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
+                    //PPApplication.logE("MainWorker.handleEvents", "sensorType="+sensorType);
+                    // start events handler
+                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.handleEvents: sensorType="+sensorType);
+
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(sensorType);
+
+//                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.handleEvents");
+                }
+
+                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DeviceBootEventEndBroadcastReceiver.doWork");
+            } catch (Exception e) {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+            //}
+        });
+    }
 
 }

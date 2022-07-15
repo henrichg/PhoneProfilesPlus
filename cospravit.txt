@@ -633,7 +633,7 @@ MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG 5 sekund
 MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - 5 sekund
 MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG - 5 sekund
 
-Toto asi daj do static metody do MainWorker
+Toto daj do static metody do MainWorker
  - pichni tam partial wakelock
 MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG - 5 sekund
