@@ -536,7 +536,7 @@ public class MainWorker extends Worker {
     }*/
 
     static void handleEvents(Context context, int _sensorType) {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** MainWorker.handleEvents", "schedule");
+        PPApplication.logE("[EXECUTOR_CALL]  ***** MainWorker.handleEvents", "schedule - " + _sensorType);
 
         final Context appContext = context.getApplicationContext();
         final int sensorType = _sensorType;
@@ -568,7 +568,7 @@ public class MainWorker extends Worker {
 
                     PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType);
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

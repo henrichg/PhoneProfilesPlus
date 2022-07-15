@@ -37,6 +37,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 //import me.drakeet.support.toast.ToastCompat;
@@ -2731,10 +2733,10 @@ public class DataWrapper {
     }
 
     // delay is in seconds
-    void restartEventsWithDelay(int delay, boolean alsoRescan, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
-                                String tag, /*boolean clearOld,*/ final int logType)
+    void restartEventsWithDelay(int delay, final boolean alsoRescan, final boolean unblockEventsRun,
+                                String tag, final int logType)
     {
-//        PPApplication.logE("[FIFO_TEST] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
+        PPApplication.logE("[EXECUTOR_CALL] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
 
         if (tag.equals(RestartEventsWithDelayWorker.WORK_TAG_1)) {
 
@@ -2777,6 +2779,43 @@ public class DataWrapper {
                 } else {
 //                    PPApplication.logE("DataWrapper.restartEventsWithDelay","(2)");
 
+                    PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
+
+                    final Context appContext = context.getApplicationContext();
+                    ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
+
+                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END");
+                            } catch (Exception e) {
+//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    worker.schedule(runnable, delay, TimeUnit.SECONDS);
+                    worker.shutdown();
+
+                    /*
                     Data workData = new Data.Builder()
                             .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
                             .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
@@ -2817,6 +2856,7 @@ public class DataWrapper {
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
+                    */
                 }
             }
             else {
@@ -2854,6 +2894,43 @@ public class DataWrapper {
                     } else {
 //                        PPApplication.logE("DataWrapper.restartEventsWithDelay","(4)");
 
+                        PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
+
+                        final Context appContext = context.getApplicationContext();
+                        ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                        Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
+
+                                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END");
+                                } catch (Exception e) {
+//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                    PPApplication.recordException(e);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        };
+                        worker.schedule(runnable, delay, TimeUnit.SECONDS);
+                        worker.shutdown();
+
+                        /*
                         long alarmTime = SystemClock.elapsedRealtime() + delay * 1000L;
 
 //                        if (PPApplication.logEnabled()) {
@@ -2872,11 +2949,50 @@ public class DataWrapper {
                         //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                         //else
                         //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        */
                     }
                 }
             }
 
         } else {
+            PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
+
+            final Context appContext = context.getApplicationContext();
+            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
+
+                        PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END");
+                    } catch (Exception e) {
+//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                }
+            };
+            worker.schedule(runnable, delay, TimeUnit.SECONDS);
+            worker.shutdown();
+
+
+            /*
             Data workData = new Data.Builder()
                     .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
                     .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
@@ -2917,6 +3033,7 @@ public class DataWrapper {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
         }
     }
 

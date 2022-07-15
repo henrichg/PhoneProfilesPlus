@@ -6962,7 +6962,7 @@ public class PhoneProfilesService extends Service
 
                     PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- END");
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.drawProfileNotification", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.drawProfileNotification", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
