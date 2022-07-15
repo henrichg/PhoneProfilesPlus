@@ -2730,7 +2730,7 @@ public class DataWrapper {
         }
     }
 
-    // delay is in seconds, max 5
+    // delay is in seconds
     void restartEventsWithDelay(int delay, boolean alsoRescan, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
                                 String tag, /*boolean clearOld,*/ final int logType)
     {

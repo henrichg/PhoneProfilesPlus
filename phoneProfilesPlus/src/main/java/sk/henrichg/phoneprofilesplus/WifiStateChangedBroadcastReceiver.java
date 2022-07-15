@@ -15,6 +15,8 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
@@ -108,6 +110,22 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                         // start scan
                                         if (ApplicationPreferences.prefEventWifiScanRequest) {
+                                            PPApplication.logE("[EXECUTOR_CALL]  ***** WifiStateChangedBroadcastReceiver.onReceive", "schedule");
+
+                                            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                                            Runnable runnable = new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- START");
+                                                    WifiScanWorker.startScan(appContext);
+                                                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END");
+                                                }
+                                            };
+                                            worker.schedule(runnable, 5, TimeUnit.SECONDS);
+                                            worker.shutdown();
+
+
+                                            /*
                                             OneTimeWorkRequest worker =
                                                     new OneTimeWorkRequest.Builder(MainWorker.class)
                                                             .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
@@ -129,12 +147,13 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 //                                                        //}
 
 //                                                        PPApplication.logE("[WORKER_CALL] WifiStateChangedBroadcastReceiver.onReceive", "xxx");
-                                                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                                                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN, ExistingWorkPolicy.REPLACE, worker);
                                                     }
                                                 }
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);
                                             }
+                                            */
                                         }
                                     }
 

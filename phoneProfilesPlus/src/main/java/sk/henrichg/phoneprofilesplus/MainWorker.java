@@ -89,7 +89,6 @@ public class MainWorker extends Worker {
 
                 switch (tag) {
                     case WifiScanWorker.WORK_TAG_START_SCAN:
-                        //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_START_WIFI_SCAN");
                         WifiScanWorker.startScan(appContext);
                         break;
                     case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:

@@ -640,8 +640,11 @@ MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG - 5 sekund
 MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG - 5 sekund
 
+MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK - toto je podla nastavenia v device Settings, su to sekundy
 tag, delay - parametre DataWrapper.restartEventsWithDelay()
-WifiScanWorker.WORK_TAG_START_SCAN - 5 sekund
+Tu bud pouzivam AlarmClock, alebo worker alebo exact alarm
+Tak nechaj AlarmClock a worker a exact alarm sprav cez Executor
+A potom este pozri, kde vsade takto pouzivas a je to s malym delayou par sekund.
 
 No a este pozri vsetky HandlerThread, ktore su s postDelay a zmen ich na Exexutor.
 Ak Executor bude volany aj pri sleepe.
@@ -656,6 +659,9 @@ ShowProfileNotificationWorker.WORK_TAG - 1 sekunda -
 MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG - 5 sekund -> uz testujem
 MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG - 5 sekund  -> uz testujem
 MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG - 5 sekund  -> uz testujem
+WifiScanWorker.WORK_TAG_START_SCAN - 5 sekund -> us testujem
 
 
+Mal by som to potom este testovat na Xiaomi, Huawei, OnePlus - kvoli tym ich killom na setrenie baterie
+Aj na Nexus 5 - Android 7.1.
 
