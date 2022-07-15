@@ -9,6 +9,8 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class DisableBlockProfileEventActionWorker extends Worker {
@@ -49,7 +51,20 @@ public class DisableBlockProfileEventActionWorker extends Worker {
     }
 
     static void enqueueWork() {
-        //PPApplication.logE("DisableInternalChangeWorker.enqueueWork", "xxx");
+        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableBlockProfileEventActionWorker.enqueueWork", "schedule");
+
+        ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- START");
+                PPApplication.blockProfileEventActions = false;
+                PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- END");
+            }
+        };
+        worker.schedule(runnable, 30, TimeUnit.SECONDS);
+
+        /*
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(DisableBlockProfileEventActionWorker.class)
                         .addTag(DisableBlockProfileEventActionWorker.WORK_TAG)
@@ -77,6 +92,7 @@ public class DisableBlockProfileEventActionWorker extends Worker {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
+        */
     }
 
 }

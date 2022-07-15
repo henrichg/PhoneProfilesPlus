@@ -5474,33 +5474,7 @@ class ActivateProfileHelper {
         }
         setActivatedProfileScreenTimeoutWhenScreenOff(appContext, 0);
 
-        OneTimeWorkRequest disableInternalChangeWorker =
-                new OneTimeWorkRequest.Builder(DisableScreenTimeoutInternalChangeWorker.class)
-                        .addTag(DisableScreenTimeoutInternalChangeWorker.WORK_TAG)
-                        .setInitialDelay(5, TimeUnit.SECONDS)
-                        .build();
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-
-//                    //if (PPApplication.logEnabled()) {
-//                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosForUniqueWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG);
-//                    try {
-//                        List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.setScreenTimeout", "for=" + DisableScreenTimeoutInternalChangeWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                    } catch (Exception ignored) {
-//                    }
-//                    //}
-
-//                    PPApplication.logE("[WORKER_CALL] ActivateProfileHelper.setScreenTimeout", "xxx");
-                    workManager.enqueueUniqueWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                }
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
+        DisableScreenTimeoutInternalChangeWorker.enqueueWork();
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

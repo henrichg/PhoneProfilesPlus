@@ -9,6 +9,8 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class DisableVolumesInternalChangeWorker extends Worker {
@@ -50,7 +52,20 @@ public class DisableVolumesInternalChangeWorker extends Worker {
     }
 
     static void enqueueWork() {
-        //PPApplication.logE("DisableInternalChangeWorker.enqueueWork", "xxx");
+        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableVolumesInternalChangeWorker.enqueueWork", "schedule");
+
+        ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- START");
+                EventPreferencesVolumes.internalChange = false;
+                PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- END");
+            }
+        };
+        worker.schedule(runnable, 5, TimeUnit.SECONDS);
+
+        /*
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableVolumesInternalChangeWorker.class)
                         .addTag(DisableVolumesInternalChangeWorker.WORK_TAG)
@@ -78,5 +93,6 @@ public class DisableVolumesInternalChangeWorker extends Worker {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
+        */
     }
 }
