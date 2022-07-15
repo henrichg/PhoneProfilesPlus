@@ -2786,6 +2786,7 @@ public class DataWrapper {
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
+                            long start = System.currentTimeMillis();
                             PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -2798,7 +2799,9 @@ public class DataWrapper {
 
                                 RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
-                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END");
+                                long finish = System.currentTimeMillis();
+                                long timeElapsed = finish - start;
+                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
                             } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
@@ -2901,6 +2904,7 @@ public class DataWrapper {
                         Runnable runnable = new Runnable() {
                             @Override
                             public void run() {
+                                long start = System.currentTimeMillis();
                                 PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -2913,7 +2917,9 @@ public class DataWrapper {
 
                                     RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
-                                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END");
+                                    long finish = System.currentTimeMillis();
+                                    long timeElapsed = finish - start;
+                                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
                                 } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                     PPApplication.recordException(e);
@@ -2962,6 +2968,7 @@ public class DataWrapper {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
+                    long start = System.currentTimeMillis();
                     PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -2974,7 +2981,9 @@ public class DataWrapper {
 
                         RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
-                        PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END");
+                        long finish = System.currentTimeMillis();
+                        long timeElapsed = finish - start;
+                        PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
                     } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);

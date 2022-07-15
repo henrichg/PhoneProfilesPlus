@@ -116,9 +116,12 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             Runnable runnable = new Runnable() {
                                                 @Override
                                                 public void run() {
+                                                    long start = System.currentTimeMillis();
                                                     PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- START");
                                                     WifiScanWorker.startScan(appContext);
-                                                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END");
+                                                    long finish = System.currentTimeMillis();
+                                                    long timeElapsed = finish - start;
+                                                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END - timeElapsed="+timeElapsed);
                                                 }
                                             };
                                             worker.schedule(runnable, 5, TimeUnit.SECONDS);

@@ -545,6 +545,7 @@ public class MainWorker extends Worker {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
+                long start = System.currentTimeMillis();
                 PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START - " + sensorType);
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -566,7 +567,9 @@ public class MainWorker extends Worker {
 //                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.handleEvents");
                     }
 
-                    PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType);
+                    long finish = System.currentTimeMillis();
+                    long timeElapsed = finish - start;
+                    PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType + " - timeElapsed="+timeElapsed);
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);

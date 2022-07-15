@@ -660,6 +660,7 @@ MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG - 5 sekund  -> uz te
 WifiScanWorker.WORK_TAG_START_SCAN - 5 sekund -> uz testujem
 tag, delay - parametre DataWrapper.restartEventsWithDelay() -> uz testujem
 
+Mohol by si logovat dlzku toho executora ako pro workoch. Aspon teda tie, co volaju EventHandler.
 
 Mal by som to potom este testovat na Xiaomi, Huawei, OnePlus - kvoli tym ich killom na setrenie baterie
 Aj na Nexus 5 - Android 7.1.

@@ -6927,6 +6927,7 @@ public class PhoneProfilesService extends Service
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
+                long start = System.currentTimeMillis();
                 PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- START");
 
                 //Context appContext= appContextWeakRef.get();
@@ -6960,7 +6961,9 @@ public class PhoneProfilesService extends Service
                         }
                     }
 
-                    PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- END");
+                    long finish = System.currentTimeMillis();
+                    long timeElapsed = finish - start;
+                    PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- END - timeElapsed="+timeElapsed);
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.drawProfileNotification", Log.getStackTraceString(e));
                     PPApplication.recordException(e);

@@ -118,9 +118,12 @@ public class WifiScanWorker extends Worker {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
+                    long start = System.currentTimeMillis();
                     PPApplication.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
                     WifiScanWorker.scheduleWork(appContext, false);
-                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
+                    long finish = System.currentTimeMillis();
+                    long timeElapsed = finish - start;
+                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG - timeElapsed="+timeElapsed);
                 }
             };
             worker.schedule(runnable, 5, TimeUnit.SECONDS);
