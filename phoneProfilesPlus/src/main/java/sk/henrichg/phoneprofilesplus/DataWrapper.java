@@ -17,7 +17,6 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.os.SystemClock;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -27,10 +26,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -2783,34 +2778,31 @@ public class DataWrapper {
 
                     final Context appContext = context.getApplicationContext();
                     ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-                    Runnable runnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            long start = System.currentTimeMillis();
-                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+                    Runnable runnable = () -> {
+                        long start = System.currentTimeMillis();
+                        PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay_1");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
+                            RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
-                                long finish = System.currentTimeMillis();
-                                long timeElapsed = finish - start;
-                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
-                            } catch (Exception e) {
+                            long finish = System.currentTimeMillis();
+                            long timeElapsed = finish - start;
+                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
+                        } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
                         }
@@ -2901,34 +2893,31 @@ public class DataWrapper {
 
                         final Context appContext = context.getApplicationContext();
                         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-                        Runnable runnable = new Runnable() {
-                            @Override
-                            public void run() {
-                                long start = System.currentTimeMillis();
-                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+                        Runnable runnable = () -> {
+                            long start = System.currentTimeMillis();
+                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
-                                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                                PowerManager.WakeLock wakeLock = null;
-                                try {
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay_2");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                                    RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
+                                RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
-                                    long finish = System.currentTimeMillis();
-                                    long timeElapsed = finish - start;
-                                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
-                                } catch (Exception e) {
+                                long finish = System.currentTimeMillis();
+                                long timeElapsed = finish - start;
+                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
+                            } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);
-                                } finally {
-                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                        try {
-                                            wakeLock.release();
-                                        } catch (Exception ignored) {
-                                        }
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
                                     }
                                 }
                             }
@@ -2965,34 +2954,31 @@ public class DataWrapper {
 
             final Context appContext = context.getApplicationContext();
             ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    long start = System.currentTimeMillis();
-                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+            Runnable runnable = () -> {
+                long start = System.currentTimeMillis();
+                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay_3");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                        RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
+                    RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
-                        long finish = System.currentTimeMillis();
-                        long timeElapsed = finish - start;
-                        PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
-                    } catch (Exception e) {
+                    long finish = System.currentTimeMillis();
+                    long timeElapsed = finish - start;
+                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
+                } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
                         }
                     }
                 }

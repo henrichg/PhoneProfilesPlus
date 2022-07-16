@@ -3,9 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -17,6 +14,7 @@ public class DisableVolumesInternalChangeWorker extends Worker {
 
     static final String WORK_TAG = "disableVolumesInternalChangeWork";
 
+    @SuppressWarnings("unused")
     public DisableVolumesInternalChangeWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
@@ -26,7 +24,7 @@ public class DisableVolumesInternalChangeWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        try {
+        /*try {
             long start = System.currentTimeMillis();
             PPApplication.logE("[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork", "--------------- START");
 
@@ -35,33 +33,30 @@ public class DisableVolumesInternalChangeWorker extends Worker {
 
             long finish = System.currentTimeMillis();
             long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+            PPApplication.logE("[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);*/
             return Result.success();
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             //Log.e("DisableVolumesInternalChangeWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(PPApplication.pid);
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
+            //Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            //Runnable r = new Runnable() {
+            //    public void run() {
+            //        android.os.Process.killProcess(PPApplication.pid);
+            //    }
+            //};
+            //_handler.postDelayed(r, 1000);
             return Result.failure();
-        }
+        }*/
     }
 
     static void enqueueWork() {
         PPApplication.logE("[EXECUTOR_CALL]  ***** DisableVolumesInternalChangeWorker.enqueueWork", "schedule");
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- START");
-                EventPreferencesVolumes.internalChange = false;
-                PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- END");
-            }
+        Runnable runnable = () -> {
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- START");
+            EventPreferencesVolumes.internalChange = false;
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- END");
         };
         worker.schedule(runnable, 5, TimeUnit.SECONDS);
         worker.shutdown();

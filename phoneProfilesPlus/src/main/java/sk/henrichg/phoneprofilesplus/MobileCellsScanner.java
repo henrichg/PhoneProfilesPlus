@@ -226,13 +226,13 @@ class MobileCellsScanner {
             mobileCellsListenerSIM2.rescanMobileCells();
     }
 
-    void handleEvents(/*final Context appContext*/) {
+    void handleEvents(final Context appContext) {
         if (mobileCellsListenerDefault != null)
-            mobileCellsListenerDefault.handleEvents();
+            mobileCellsListenerDefault.handleEvents(appContext);
         if (mobileCellsListenerSIM1 != null)
-            mobileCellsListenerSIM1.handleEvents();
+            mobileCellsListenerSIM1.handleEvents(appContext);
         if (mobileCellsListenerSIM2 != null)
-            mobileCellsListenerSIM2.handleEvents();
+            mobileCellsListenerSIM2.handleEvents(appContext);
     }
 
     int getRegisteredCell(int forSimCard) {

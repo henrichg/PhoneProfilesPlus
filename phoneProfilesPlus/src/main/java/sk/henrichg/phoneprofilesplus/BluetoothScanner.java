@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.provider.Settings;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -56,19 +55,6 @@ class BluetoothScanner {
             //DataWrapper dataWrapper;
 
             //PPApplication.logE("%%%% BluetoothScanner.doScan", "scannerType=" + scannerType);
-
-            // for Airplane mode ON, no scan
-            //if (android.os.Build.VERSION.SDK_INT >= 17) {
-                if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
-                    //PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END - airplane mode ON -------");
-                    return;
-                }
-            /*} else {
-                if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
-                    PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END - airplane mode ON -------");
-                    return;
-                }
-            }*/
 
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;

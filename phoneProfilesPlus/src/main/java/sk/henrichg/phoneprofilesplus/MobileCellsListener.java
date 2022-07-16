@@ -29,15 +29,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 class MobileCellsListener extends PhoneStateListener {
 
@@ -220,7 +215,7 @@ class MobileCellsListener extends PhoneStateListener {
 
                     //if (_cellInfo != null) {
 //                    PPApplication.logE("[TEST BATTERY] MobileCellsListener.onCellInfoChanged."+simSlot, "xxx");
-                    MobileCellsListener.this.handleEvents(/*appContext*/);
+                    MobileCellsListener.this.handleEvents(appContext);
                     //}
 
 //                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileCellsListener.onCellInfoChanged");
@@ -278,7 +273,7 @@ class MobileCellsListener extends PhoneStateListener {
     //                }
 
                     //PPApplication.logE("[TEST BATTERY] MobileCellsScanner.onServiceStateChanged()", "xxx");
-                    MobileCellsListener.this.handleEvents(/*appContext*/);
+                    MobileCellsListener.this.handleEvents(appContext);
 
 //                      PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileCellsListener.onServiceStateChanged");
                 } catch (Exception e) {
@@ -422,7 +417,7 @@ class MobileCellsListener extends PhoneStateListener {
 
                     //if (_location != null) {
     //                PPApplication.logE("[TEST BATTERY] MobileCellsScanner.onCellLocationChanged."+simSlot, "xxx");
-                    MobileCellsListener.this.handleEvents(/*appContext*/);
+                    MobileCellsListener.this.handleEvents(appContext);
                     //}
 
     //                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileCellsListener.onCellLocationChanged");
@@ -482,7 +477,7 @@ class MobileCellsListener extends PhoneStateListener {
     //                    }
 
                         //PPApplication.logE("[TEST BATTERY] MobileCellsScanner.rescanMobileCells()", "xxx");
-                        MobileCellsListener.this.handleEvents(/*appContext*/);
+                        MobileCellsListener.this.handleEvents(appContext);
 
 //                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileCellsListener.rescanMobileCells");
                     } catch (Exception e) {
@@ -501,7 +496,7 @@ class MobileCellsListener extends PhoneStateListener {
         }
     }
 
-    void handleEvents(/*final Context appContext*/) {
+    void handleEvents(final Context appContext) {
 //        PPApplication.logE("MobileCellsListener.handleEvents."+simSlot, "xxx");
         if (Event.getGlobalEventsRunning())
         {
@@ -517,6 +512,8 @@ class MobileCellsListener extends PhoneStateListener {
                 PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MobileCellsScanner.handleEvents");
             //}*/
 
+            MainWorker.handleEvents(appContext, EventsHandler.SENSOR_TYPE_MOBILE_CELLS, 5);
+            /*
             Data workData = new Data.Builder()
                     .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_MOBILE_CELLS)
                     .build();
@@ -545,12 +542,13 @@ class MobileCellsListener extends PhoneStateListener {
 
 //                        PPApplication.logE("[WORKER_CALL] MobileCellsListener.handleEvents."+simSlot, "xxx");
                         //workManager.enqueue(worker);
-                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
         }
 
         /*

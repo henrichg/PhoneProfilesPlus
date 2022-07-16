@@ -10,10 +10,6 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -113,16 +109,13 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             PPApplication.logE("[EXECUTOR_CALL]  ***** WifiStateChangedBroadcastReceiver.onReceive", "schedule");
 
                                             ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-                                            Runnable runnable = new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    long start = System.currentTimeMillis();
-                                                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- START");
-                                                    WifiScanWorker.startScan(appContext);
-                                                    long finish = System.currentTimeMillis();
-                                                    long timeElapsed = finish - start;
-                                                    PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END - timeElapsed="+timeElapsed);
-                                                }
+                                            Runnable runnable = () -> {
+                                                long start = System.currentTimeMillis();
+                                                PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- START");
+                                                WifiScanWorker.startScan(appContext);
+                                                long finish = System.currentTimeMillis();
+                                                long timeElapsed = finish - start;
+                                                PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END - timeElapsed="+timeElapsed);
                                             };
                                             worker.schedule(runnable, 5, TimeUnit.SECONDS);
                                             worker.shutdown();

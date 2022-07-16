@@ -15,13 +15,8 @@ import android.text.style.ForegroundColorSpan;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 class EventPreferencesPeriodic extends EventPreferences {
 
@@ -434,6 +429,8 @@ class EventPreferencesPeriodic extends EventPreferences {
                     _counter = 0;
                     DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
 
+                    MainWorker.handleEvents(dataWrapper.context, EventsHandler.SENSOR_TYPE_PERIODIC, 5);
+                    /*
                     //enqueueWork();
                     Data workData = new Data.Builder()
                             .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PERIODIC)
@@ -469,6 +466,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
+                    */
                 }
             } else {
                 _counter = 0;

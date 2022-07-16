@@ -6,14 +6,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.provider.Settings;
-
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
-import java.util.concurrent.TimeUnit;
 
 class WifiScanner {
 
@@ -45,12 +37,6 @@ class WifiScanner {
             //DataWrapper dataWrapper;
 
             //PPApplication.logE("%%%% WifiScanner.doScan", "scannerType=" + scannerType);
-
-            // for Airplane mode ON, no scan
-            if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
-//                PPApplication.logE("%%%% WifiScanner.doScan", "-- END - airplane mode ON -------");
-                return;
-            }
 
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
@@ -189,23 +175,28 @@ class WifiScanner {
                                 setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
                             }
 
-                            //PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiScanRequest="+ApplicationPreferences.prefEventWifiScanRequest);
-                            //PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiWaitForResult="+ApplicationPreferences.prefEventWifiWaitForResult);
+                            PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiScanRequest="+ApplicationPreferences.prefEventWifiScanRequest);
+                            PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiWaitForResult="+ApplicationPreferences.prefEventWifiWaitForResult);
 
                             if (ApplicationPreferences.prefEventWifiScanRequest ||
                                     ApplicationPreferences.prefEventWifiWaitForResult) {
-                                //PPApplication.logE("$$$W WifiScanner.doScan", "waiting for scan end");
+                                PPApplication.logE("$$$W WifiScanner.doScan", "waiting for scan end");
 
                                 // wait for scan end
+                                //todo tu caka na sken
                                 waitForWifiScanEnd(/*context*/);
 
-                                //PPApplication.logE("$$$W WifiScanner.doScan", "scan ended");
+                                PPApplication.logE("$$$W WifiScanner.doScan", "scan ended");
 
-                                //PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiWaitForResult="+ApplicationPreferences.prefEventWifiWaitForResult);
+                                PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiWaitForResult="+ApplicationPreferences.prefEventWifiWaitForResult);
                                 if (ApplicationPreferences.prefEventWifiWaitForResult) {
-                                    //PPApplication.logE("$$$W WifiScanner.doScan", "no data received from scanner");
+                                    PPApplication.logE("$$$W WifiScanner.doScan", "no data received from scanner");
                                     if (ApplicationPreferences.prefForceOneWifiScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
+                                        PPApplication.logE("$$$W WifiScanner.doScan", "not start service for force scan");
+
+                                        //todo tu by mal zavolat handleEvents po konci cakania
+                                        // ale niekedy nezavola. Preco?
                                         MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5);
                                         /*
                                         Data workData = new Data.Builder()

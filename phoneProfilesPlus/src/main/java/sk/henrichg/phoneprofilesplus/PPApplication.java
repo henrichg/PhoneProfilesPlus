@@ -264,7 +264,8 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
 
-                                                //+"|VPNDialogPreferenceX"
+                                                +"|WifiScanner.doScan"
+                                                +"|WifiScanBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1483,7 +1484,7 @@ public class PPApplication extends Application
         _cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, false);
-        _cancelWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG, false);
+        _cancelWork(MainWorker.ORIENTATION_SCANNER_WORK_TAG, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG, false);
         _cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
@@ -1493,6 +1494,13 @@ public class PPApplication extends Application
         _cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG, false);
         _cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG, false);
         _cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG, false);
+        _cancelWork(DisableInternalChangeWorker.WORK_TAG, false);
+        _cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, false);
+        _cancelWork(DisableVolumesInternalChangeWorker.WORK_TAG, false);
+
     }
 
     /*

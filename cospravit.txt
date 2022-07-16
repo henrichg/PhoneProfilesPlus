@@ -582,30 +582,6 @@ Ano na screen on aj off mam restart skenerov. Cize toto vygenerovalo to 2x skeno
 
 -----------
 
-Dobre. V MainWorker ma taketo tagy:
-case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:
-case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:
-case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
-case HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG:
-case HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG:
-case HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG:
-case HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG:
-case HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG:
-case HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG:
-case HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG:
-case HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG:
-case HANDLE_EVENTS_PERIODIC_WORK_TAG:
-
-Preco na ne volam worker? Preco ten EventsHandler nevolam v handlerThreade? Z jedoduchosti?
-Tak si sprav taku staticku metodu na to v PhoneProfilesService a hotovo.
-Pozri, kde vsade robis toto volanie MainWorkera.
-Akurat pozri, ci nahodou uz nie je ten work volany z handlerThreade. Vtedy netreba handlera znova.
-Minimalne u Wifi skenera to mas len raz a to v WifiScanBroadcastReceiver.
-
-Mozno uz viem. Pozeram na WifiScanner.doWork a tam je zapoznamkovane pouizite hendlera. No a ten je volany s delay 5 sekund. A asi to nefungovalo
-kvoli sllep optimalizacii. Kua aj s Androidom.
-Kvoli tomuto mam aj tie disable* veci spravene workerom.
-
 Co tak na taketo + na tie disable* a proste na vsetko s delay par sekund pouzit toto?
 
 ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
@@ -616,49 +592,38 @@ Runnable runnable = () -> {
 };
 worker.schedule(runnable, 2000, TimeUnit.MILLISECONDS);
 
-Vyskusaj. Hadam to bude zavolane aj ked mobil je zhasnuty.
-
-Skusam na tych disabled, ale je to malo krat volane.
-
-Tu mam zoznam, ktore by som mohol preprobit na executor:
-
-MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG - 5 sekund
-MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK - 20 sekund
-MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG 5 sekund
-MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - 5 sekund
-MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG - 5 sekund
-
-Toto daj do static metody do MainWorker
- - pichni tam partial wakelock
-MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG - 5 sekund
-MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG - 5 sekund
-MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG - 5 sekund
-MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG - 5 sekund
-MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG - 10 sekund
-MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG - 5 sekund
-MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG - 5 sekund
-MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG - 5 sekund
-MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG - 5 sekund
-
-MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK - toto je podla nastavenia v device Settings, su to sekundy
-- Tu bud pouzivam AlarmClock, alebo worker alebo exact alarm
-- Tak nechaj AlarmClock a worker a exact alarm sprav cez Executor
-
 No a este pozri vsetky HandlerThread, ktore su s postDelay a zmen ich na Exexutor.
 Ak Executor bude volany aj pri sleepe.
 PPApplication.updateGUI()
 StartLauncherFromNotificationReceiver.onReceive()
 
-No a vsetky workery, ktore som preprobil na Executory a ich viac nepouzijem sprav przdne. Uz take mam.
+No a vsetky workery, ktore som preprobil na Executory a ich viac nepouzijem sprav prazdne. Uz take mam.
+
 Prerobene:
-ShowProfileNotificationWorker.WORK_TAG - 1 sekunda -
- -> PhoneProfilesService.drawProfileNotification cele prerob na Executor, mas tam aj handeleThread pre drawImmediatelly
- -> uz testujem
-MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG - 5 sekund -> uz testujem
-MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG - 5 sekund  -> uz testujem
-MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG - 5 sekund  -> uz testujem
-WifiScanWorker.WORK_TAG_START_SCAN - 5 sekund -> uz testujem
+ShowProfileNotificationWorker.WORK_TAG -> uz testujem
+MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG -> uz testujem
+MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG -> uz testujem
+MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG -> uz testujem
+WifiScanWorker.WORK_TAG_START_SCAN -> uz testujem
 tag, delay - parametre DataWrapper.restartEventsWithDelay() -> uz testujem
+
+MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK -> este netestujem
+MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK -> este netestujem
+MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG 5 sekund -> este netestujem
+MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG -> este netestujem
+MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG -> este netestujem
+MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG -> este netestujem
+MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG -> este netestujem
+MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG -> este netestujem
+MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG -> este netestujem
+MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG -> este netestujem
+MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG -> este netestujem
+MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG -> este netestujem
+MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG -> este netestujem
+MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG -> este netestujem
+MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG -> este netestujem
+
+
 
 Mohol by si logovat dlzku toho executora ako pro workoch. Aspon teda tie, co volaju EventHandler.
 

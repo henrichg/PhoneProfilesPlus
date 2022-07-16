@@ -14,6 +14,7 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
 
     static final String WORK_TAG = "disableScreenTimeoutInternalChangeWork";
 
+    @SuppressWarnings("unused")
     public DisableScreenTimeoutInternalChangeWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
@@ -23,9 +24,9 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        try {
+        /*try {
             long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- START");
+            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- START");*/
 
             /*if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -57,37 +58,34 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
             //PPApplication.logE("DisableScreenTimeoutInternalChangeWorker.doWork", "foundEnqueued="+foundEnqueued);
 
             if (!foundEnqueued)*/
-                ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
+            /*    ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
 
             long finish = System.currentTimeMillis();
             long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);*/
             return Result.success();
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             //Log.e("DisableScreenTimeoutInternalChangeWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(PPApplication.pid);
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
+            //Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            //Runnable r = new Runnable() {
+            //    public void run() {
+            //        android.os.Process.killProcess(PPApplication.pid);
+            //    }
+            //};
+            //_handler.postDelayed(r, 1000);
             return Result.failure();
-        }
+        }*/
     }
 
     static void enqueueWork() {
         PPApplication.logE("[EXECUTOR_CALL]  ***** DisableScreenTimeoutInternalChangeWorker.enqueueWork", "schedule");
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- START");
-                ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
-                PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- END");
-            }
+        Runnable runnable = () -> {
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- START");
+            ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- END");
         };
         worker.schedule(runnable, 5, TimeUnit.SECONDS);
         worker.shutdown();

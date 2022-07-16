@@ -40,13 +40,14 @@ public class MainWorker extends Worker {
     static final String SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG = "scheduleLongIntervalPeriodicEventsHandlerWork";
     static final String SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG = "scheduleLongIntervalSearchCalendarWork";
 
+    static final String ORIENTATION_SCANNER_WORK_TAG = "handleEventsOrientationScannerWork";
+
     static final String HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG = "handleEventsBluetoothLEScannerWork";
     static final String HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG = "handleEventsBluetoothCLScannerWork";
     static final String HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG = "handleEventsWifiScannerFromReceiverWork";
     static final String HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG = "handleEventsWifiScannerFromScannerWork";
     static final String HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG = "handleEventsTwilightScannerWork";
     static final String HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG = "handleEventsMobileCellsScannerWork";
-    static final String HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG = "handleEventsOrientationScannerWork";
     static final String HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG = "handleEventsNotificationPostedScannerWork";
     static final String HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG = "handleEventsNotificationRemovedScannerWork";
     static final String HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG = "handleEventsNotificationRescanScannerWork";
@@ -88,33 +89,28 @@ public class MainWorker extends Worker {
                     PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
 
                 switch (tag) {
-                    case WifiScanWorker.WORK_TAG_START_SCAN:
-                        WifiScanWorker.startScan(appContext);
-                        break;
-                    case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:
-                    case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG:
-                    case HANDLE_EVENTS_PERIODIC_WORK_TAG:
+                    //case WifiScanWorker.WORK_TAG_START_SCAN:
+                    //    WifiScanWorker.startScan(appContext);
+                    //    break;
+                    case ORIENTATION_SCANNER_WORK_TAG:
+                    //case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:
+                    //case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:
+                    //case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
+                    //case HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG:
+                    //case HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG:
+                    //case HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG:
+                    //case HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG:
+                    //case HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG:
+                    //case HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG:
+                    //case HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG:
+                    //case HANDLE_EVENTS_PERIODIC_WORK_TAG:
                         int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
                         if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
-                            //PPApplication.logE("MainWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
                             //PPApplication.logE("MainWorker.doWork", "sensorType="+sensorType);
                             // start events handler
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.doWork (DELAYED_WORK_HANDLE_EVENTS): sensorType="+sensorType);
-
-//                            if (tag.equals(HANDLE_EVENTS_PERIODIC_WORK_TAG))
-//                                PPApplication.logE("[EVENTS_HANDLER_CALL] MainWorker.doWork", "sensorType="+sensorType);
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.doWork: sensorType="+sensorType);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
-
                             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.doWork");
                         }
                         break;
@@ -122,35 +118,35 @@ public class MainWorker extends Worker {
 //                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
                         LocationScannerSwitchGPSBroadcastReceiver.doWork(appContext);
                         break;
-                    case LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK:
-                        LockDeviceActivityFinishBroadcastReceiver.doWork();
-                        break;
-                    case LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK:
+                    //case LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK:
+                    //    LockDeviceActivityFinishBroadcastReceiver.doWork();
+                    //    break;
+                    //case LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK:
 //                        PPApplication.logE("[WORKER_CALL] MainWorker.doWork", "xxx");
-                        LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
-                        break;
-                    case CLOSE_ALL_APPLICATIONS_WORK_TAG:
+                    //    LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
+                    //    break;
+                    //case CLOSE_ALL_APPLICATIONS_WORK_TAG:
                         //Log.e("DelayedWorksWorker.doWork", "DELAYED_WORK_CLOSE_ALL_APPLICATIONS");
                         //Log.e("DelayedWorksWorker.doWork", "PPApplication.blockProfileEventActions="+PPApplication.blockProfileEventActions);
-                        if (!PPApplication.blockProfileEventActions) {
-                            try {
-                                Intent startMain = new Intent(Intent.ACTION_MAIN);
-                                startMain.addCategory(Intent.CATEGORY_HOME);
-                                startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //    if (!PPApplication.blockProfileEventActions) {
+                    //        try {
+                    //            Intent startMain = new Intent(Intent.ACTION_MAIN);
+                    //            startMain.addCategory(Intent.CATEGORY_HOME);
+                    //            startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                                appContext.startActivity(startMain);
+                    //            appContext.startActivity(startMain);
                             /*} catch (SecurityException e) {
                                 //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                                 String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
                                 ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);*/
-                            } catch (Exception e) {
+                    //        } catch (Exception e) {
                                 //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
-                                String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
-                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
-                            }
-                        }
-                        break;
+                    //            String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
+                    //            ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
+                    //        }
+                    //    }
+                    //    break;
                     case APPLICATION_FULLY_STARTED_WORK_TAG:
 //                        PPApplication.logE("[APP_START] MainWorker.doWork", "setApplicationFullyStarted");
                         PPApplication.setApplicationFullyStarted(appContext);
@@ -228,22 +224,22 @@ public class MainWorker extends Worker {
                     case SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG:
                         AvoidRescheduleReceiverWorker.enqueueWork();
                         break;
-                    case SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG:
-                        BluetoothScanWorker.scheduleWork(appContext, false);
-                        break;
+                    //case SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG:
+                    //    BluetoothScanWorker.scheduleWork(appContext, false);
+                    //    break;
                     //case SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG:
                     //    GeofenceScanWorker.scheduleWork(appContext, false);
                     //    break;
-                    case SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG:
-                        PeriodicEventsHandlerWorker.enqueueWork(appContext);
-                        break;
-                    case SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG:
-                        SearchCalendarEventsWorker.scheduleWork(false);
-                        break;
-                    case SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG:
+                    //case SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG:
+                    //    PeriodicEventsHandlerWorker.enqueueWork(appContext);
+                    //    break;
+                    //case SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG:
+                    //    SearchCalendarEventsWorker.scheduleWork(false);
+                    //    break;
+                    //case SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG:
 //                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
-                        WifiScanWorker.scheduleWork(appContext, false);
-                        break;
+                    //    WifiScanWorker.scheduleWork(appContext, false);
+                    //    break;
                     default:
                         if (tag.startsWith(PROFILE_DURATION_WORK_TAG)) {
                             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
@@ -542,43 +538,40 @@ public class MainWorker extends Worker {
         final int sensorType = _sensorType;
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                long start = System.currentTimeMillis();
-                PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START - " + sensorType);
+        Runnable runnable = () -> {
+            long start = System.currentTimeMillis();
+            PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START - " + sensorType);
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_handleEvents");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_handleEvents_"+sensorType);
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-                    if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
-                        //PPApplication.logE("MainWorker.handleEvents", "sensorType="+sensorType);
-                        // start events handler
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.handleEvents: sensorType="+sensorType);
+                if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
+                    //PPApplication.logE("MainWorker.handleEvents", "sensorType="+sensorType);
+                    // start events handler
+                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.handleEvents: sensorType="+sensorType);
 
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(sensorType);
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(sensorType);
 
 //                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.handleEvents");
-                    }
+                }
 
-                    long finish = System.currentTimeMillis();
-                    long timeElapsed = finish - start;
-                    PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType + " - timeElapsed="+timeElapsed);
-                } catch (Exception e) {
+                long finish = System.currentTimeMillis();
+                long timeElapsed = finish - start;
+                PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType + " - timeElapsed="+timeElapsed);
+            } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
                     }
                 }
             }

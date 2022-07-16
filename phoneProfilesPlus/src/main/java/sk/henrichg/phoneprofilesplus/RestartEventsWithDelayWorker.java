@@ -10,22 +10,23 @@ import androidx.work.WorkerParameters;
 
 public class RestartEventsWithDelayWorker extends Worker {
 
-    private final Context context;
+    //private final Context context;
 
     static final String WORK_TAG_1 = "restartEventsWithDelay1Work";
     static final String WORK_TAG_2 = "restartEventsWithDelay2Work";
 
+    @SuppressWarnings("unused")
     public RestartEventsWithDelayWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
-        this.context = context;
+        //this.context = context;
     }
 
     @NonNull
     @Override
     public Result doWork() {
-        try {
+/*        try {
             long start = System.currentTimeMillis();
             PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "--------------- START");
 
@@ -57,15 +58,17 @@ public class RestartEventsWithDelayWorker extends Worker {
         } catch (Exception e) {
             //Log.e("RestartEventsWithDelayWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(PPApplication.pid);
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
+            //Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            //Runnable r = new Runnable() {
+            //    public void run() {
+            //        android.os.Process.killProcess(PPApplication.pid);
+            //    }
+            //};
+            _handler.postDelayed(r, 1000);
             return Result.failure();
         }
+        */
+        return Result.success();
     }
 
     static void doWork(boolean useHandler, final boolean alsoRescan, final boolean unblockEventsRun, final int logType, Context context) {

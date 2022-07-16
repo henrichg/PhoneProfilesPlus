@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
-import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
@@ -26,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @SuppressLint("MissingPermission")
@@ -103,6 +104,20 @@ public class BluetoothScanWorker extends Worker {
                 startScanner(context, false);
             }
 
+            PPApplication.logE("[EXECUTOR_CALL]  ***** BluetoothScanWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
+            final Context appContext = context;
+            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            Runnable runnable = () -> {
+                long start1 = System.currentTimeMillis();
+                PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
+                BluetoothScanWorker.scheduleWork(appContext, false);
+                long finish = System.currentTimeMillis();
+                long timeElapsed = finish - start1;
+                PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
+            };
+            worker.schedule(runnable, 5, TimeUnit.SECONDS);
+            worker.shutdown();
+            /*
             //PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
             //scheduleWork(context.getApplicationContext(), false);
             OneTimeWorkRequest worker =
@@ -130,6 +145,7 @@ public class BluetoothScanWorker extends Worker {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
             /*
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -1120,6 +1136,9 @@ public class BluetoothScanWorker extends Worker {
 
                 if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
+                    MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
+
+                    /*
                     Data workData = new Data.Builder()
                             .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
                             .build();
@@ -1148,12 +1167,13 @@ public class BluetoothScanWorker extends Worker {
 
 //                                PPApplication.logE("[WORKER_CALL] BluetoothScanWorker.finishCLScan", "xxx");
                                 //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
+                    */
 
                     /*PPApplication.startHandlerThread("BluetoothScanWorker.finishCLScan");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

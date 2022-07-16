@@ -54,10 +54,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.android.internal.telephony.ITelephony;
 import com.noob.noobcameraflash.managers.NoobCameraManager;
@@ -71,6 +67,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -113,7 +111,7 @@ class ActivateProfileHelper {
     private static final String PREF_KEEP_SCREEN_ON_PERMANENT = "keep_screen_on_permanent";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
-    static final String EXTRA_PROFILE_NAME = "profile_name";
+    //static final String EXTRA_PROFILE_NAME = "profile_name";
 
     @SuppressLint("MissingPermission")
     private static void doExecuteForRadios(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences)
@@ -5091,6 +5089,58 @@ class ActivateProfileHelper {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start work for close all applications");
                 // work for first start events or activate profile on boot
 
+                PPApplication.logE("[EXECUTOR_CALL]  ***** ActivateProfileHelper.execute", "schedule - profile._deviceCloseAllApplications");
+
+                final String profileName = profile._name;
+                ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                Runnable runnable = () -> {
+                    long start = System.currentTimeMillis();
+                    PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- START - profile._deviceCloseAllApplications");
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_execute_closeAllApplicaitons");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        if (!PPApplication.blockProfileEventActions) {
+                            try {
+                                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                                startMain.addCategory(Intent.CATEGORY_HOME);
+                                startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                                appContext.startActivity(startMain);
+                            /*} catch (SecurityException e) {
+                                //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                                String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
+                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);*/
+                            } catch (Exception e) {
+                                //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
+                            }
+                        }
+
+                        long finish = System.currentTimeMillis();
+                        long timeElapsed = finish - start;
+                        PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- END - profile._deviceCloseAllApplications -timeElapsed="+timeElapsed);
+                    } catch (Exception e) {
+//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                };
+                worker.schedule(runnable, 1500, TimeUnit.MILLISECONDS);
+                worker.shutdown();
+                /*
                 Data workData = new Data.Builder()
                         .putString(EXTRA_PROFILE_NAME, profile._name)
                         .build();
@@ -5123,6 +5173,7 @@ class ActivateProfileHelper {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
             }
         }
 
@@ -7629,6 +7680,8 @@ class ActivateProfileHelper {
             ApplicationPreferences.prefRingerMode = mode;
 
             if (savedMode != mode) {
+                MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, 5);
+                /*
                 Data workData = new Data.Builder()
                         .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
                         .build();
@@ -7663,6 +7716,7 @@ class ActivateProfileHelper {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
             }
         }
     }
@@ -7691,6 +7745,8 @@ class ActivateProfileHelper {
             ApplicationPreferences.prefZenMode = mode;
 
             if (savedMode != mode) {
+                MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, 5);
+                /*
                 Data workData = new Data.Builder()
                         .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
                         .build();
@@ -7725,6 +7781,7 @@ class ActivateProfileHelper {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
             }
         }
     }

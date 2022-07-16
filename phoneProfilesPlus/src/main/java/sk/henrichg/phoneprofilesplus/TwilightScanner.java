@@ -19,14 +19,8 @@ import android.os.SystemClock;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 class TwilightScanner {
 
@@ -87,6 +81,8 @@ class TwilightScanner {
                 if (Event.getGlobalEventsRunning()) {
                     //PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
 
+                    MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_TIME, 10);
+                    /*
                     Data workData = new Data.Builder()
                             .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_TIME)
                             .build();
@@ -115,12 +111,13 @@ class TwilightScanner {
 
 //                                PPApplication.logE("[WORKER_CALL] TwilightScanner.setTwilightState", "xxx");
                                 //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
+                    */
 
                     /*
                     PPApplication.startHandlerThread();//"TwilightScanner.setTwilightState"

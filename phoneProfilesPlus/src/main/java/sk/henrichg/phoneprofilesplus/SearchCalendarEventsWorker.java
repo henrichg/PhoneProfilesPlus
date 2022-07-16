@@ -15,6 +15,8 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class SearchCalendarEventsWorker extends Worker {
@@ -56,6 +58,20 @@ public class SearchCalendarEventsWorker extends Worker {
                 //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SearchCalendarEventsWorker.doWork");
             }
 
+            PPApplication.logE("[EXECUTOR_CALL]  ***** SearchCalendarEventsWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
+            //final Context appContext = context;
+            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            Runnable runnable = () -> {
+                long start1 = System.currentTimeMillis();
+                PPApplication.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
+                SearchCalendarEventsWorker.scheduleWork(false);
+                long finish = System.currentTimeMillis();
+                long timeElapsed = finish - start1;
+                PPApplication.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG - timeElapsed="+timeElapsed);
+            };
+            worker.schedule(runnable, 5, TimeUnit.SECONDS);
+            worker.shutdown();
+            /*
             //PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
             //scheduleWork(false);
             OneTimeWorkRequest worker =
@@ -83,6 +99,7 @@ public class SearchCalendarEventsWorker extends Worker {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
             /*
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());

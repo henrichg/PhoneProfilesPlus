@@ -1,24 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
-//import android.annotation.SuppressLint;
-//import android.content.BroadcastReceiver;
 import android.content.Context;
-//import android.content.Intent;
-//import android.content.IntentFilter;
-//import android.media.AudioManager;
-//import android.os.Build;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-//import android.text.TextUtils;
 
 import androidx.core.app.NotificationManagerCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class PPNotificationListenerService extends NotificationListenerService {
 
@@ -117,7 +105,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
 //        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
 
-        //final Context appContext = getApplicationContext();
+        final Context appContext = getApplicationContext();
 
 //        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 //        long time = sbn.getPostTime() + gmtOffset;
@@ -193,6 +181,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
             });
             */
 
+            MainWorker.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, 5);
+            /*
             Data workData = new Data.Builder()
                     .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
                     .build();
@@ -227,6 +217,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
         }
     }
 
@@ -272,7 +263,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "is not PPP");
 
-        //final Context appContext = getApplicationContext();
+        final Context appContext = getApplicationContext();
 
         //getNotifiedPackages(context);
         //removeNotifiedPackage(sbn.getPackageName());
@@ -317,6 +308,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
         */
 
+        MainWorker.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, 5);
+        /*
         Data workData = new Data.Builder()
                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
                 .build();
@@ -351,6 +344,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
+        */
 
     }
 

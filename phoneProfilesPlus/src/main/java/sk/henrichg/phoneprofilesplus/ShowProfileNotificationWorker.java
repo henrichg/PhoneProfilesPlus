@@ -6,9 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+// DO NOT REMOVE. MUST EXISTS !!!
+@SuppressWarnings("unused")
 public class ShowProfileNotificationWorker extends Worker {
 
-    final Context context;
+    //final Context context;
 
     static final String WORK_TAG = "showProfileNotificationWork";
 
@@ -16,13 +18,13 @@ public class ShowProfileNotificationWorker extends Worker {
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
-        this.context = context;
+        //this.context = context;
     }
 
     @NonNull
     @Override
     public Result doWork() {
-        try {
+        /*try {
             long start = System.currentTimeMillis();
             PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- START");
 
@@ -47,7 +49,7 @@ public class ShowProfileNotificationWorker extends Worker {
                     if (PhoneProfilesService.getInstance() != null) {
                         synchronized (PPApplication.showPPPNotificationMutex) {
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
-                            PhoneProfilesService.getInstance()._showProfileNotification(/*profile,*/ dataWrapper, false/*, clear*/);
+                            PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
                         }
                     }
                 } catch (Exception e) {
@@ -57,11 +59,11 @@ public class ShowProfileNotificationWorker extends Worker {
 
             long finish = System.currentTimeMillis();
             long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);*/
             return Result.success();
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             PPApplication.recordException(e);
             return Result.failure();
-        }
+        }*/
     }
 }

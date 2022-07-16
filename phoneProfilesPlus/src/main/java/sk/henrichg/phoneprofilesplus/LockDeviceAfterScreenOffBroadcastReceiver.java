@@ -7,13 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.os.SystemClock;
-
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.Calendar;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver {
@@ -76,6 +73,42 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
             } else {
+                PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "schedule");
+
+                ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                Runnable runnable = () -> {
+                    long start = System.currentTimeMillis();
+                    PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- START");
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LockDeviceAfterScreenOffBroadcastReceiver_executor_1");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
+
+                        long finish = System.currentTimeMillis();
+                        long timeElapsed = finish - start;
+                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
+                    } catch (Exception e) {
+//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                };
+                worker.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
+                worker.shutdown();
+
+                /*
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
@@ -98,12 +131,13 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
 //                            PPApplication.logE("[WORKER_CALL] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "xxx");
                             //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
-                            workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                            workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                         }
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
             }
         }
         else {
@@ -135,6 +169,43 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
+
+                    PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "schedule");
+
+                    ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    Runnable runnable = () -> {
+                        long start = System.currentTimeMillis();
+                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- START");
+
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay_2");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
+
+                            long finish = System.currentTimeMillis();
+                            long timeElapsed = finish - start;
+                            PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
+                        } catch (Exception e) {
+//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+                    };
+                    worker.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
+                    worker.shutdown();
+
+                    /*
                     long alarmTime = SystemClock.elapsedRealtime() + lockDelay;
 
 //                        if (PPApplication.logEnabled()) {
@@ -153,6 +224,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else
                     //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+                    */
                 }
             }
         }

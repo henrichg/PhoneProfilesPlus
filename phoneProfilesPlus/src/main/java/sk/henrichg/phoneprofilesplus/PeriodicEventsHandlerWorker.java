@@ -10,6 +10,8 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class PeriodicEventsHandlerWorker extends Worker {
@@ -96,6 +98,20 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     }
                 }
 
+                PPApplication.logE("[EXECUTOR_CALL]  ***** PeriodicEventsHandlerWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
+                final Context appContext = context;
+                ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                Runnable runnable = () -> {
+                    long start1 = System.currentTimeMillis();
+                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
+                    PeriodicEventsHandlerWorker.enqueueWork(appContext);
+                    long finish = System.currentTimeMillis();
+                    long timeElapsed = finish - start1;
+                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - timeElapsed="+timeElapsed);
+                };
+                worker.schedule(runnable, 5, TimeUnit.SECONDS);
+                worker.shutdown();
+                /*
                 //enqueueWork();
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -122,6 +138,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
                 /*
                 PPApplication.startHandlerThreadPPScanners();
                 final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());

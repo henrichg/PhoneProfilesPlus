@@ -5243,6 +5243,9 @@ public class PhoneProfilesService extends Service
 
                                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                                     if (PPApplication.notificationScannerRunning) {
+                                        MainWorker.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, 5);
+
+                                        /*
                                         Data workData = new Data.Builder()
                                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
                                                 .build();
@@ -5277,6 +5280,7 @@ public class PhoneProfilesService extends Service
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);
                                         }
+                                        */
                                     }
                                 }
                             }
@@ -6924,59 +6928,56 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = context.getApplicationContext();
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                long start = System.currentTimeMillis();
-                PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- START");
+        Runnable runnable = () -> {
+            long start = System.currentTimeMillis();
+            PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- START");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_drawProfileNotification");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+            //Context appContext= appContextWeakRef.get();
+            //if (appContext != null) {
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_drawProfileNotification");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-                    boolean doNotShowProfileNotification;
-                    synchronized (PPApplication.applicationPreferencesMutex) {
-                        doNotShowProfileNotification = PPApplication.doNotShowProfileNotification;
-                    }
+                boolean doNotShowProfileNotification;
+                synchronized (PPApplication.applicationPreferencesMutex) {
+                    doNotShowProfileNotification = PPApplication.doNotShowProfileNotification;
+                }
 
-                    if (!doNotShowProfileNotification) {
-                        if (PhoneProfilesService.getInstance() != null) {
+                if (!doNotShowProfileNotification) {
+                    if (PhoneProfilesService.getInstance() != null) {
 //                            PPApplication.logE("PhoneProfilesService.drawProfileNotification", "call of _showProfileNotification()");
 
-                            clearOldProfileNotification();
+                        clearOldProfileNotification();
 
-                            if (PhoneProfilesService.getInstance() != null) {
-                                synchronized (PPApplication.showPPPNotificationMutex) {
-                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
-                                    PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
-                                    //Log.e("PhoneProfilesService.drawProfileNotification", "(1)");
-                                }
+                        if (PhoneProfilesService.getInstance() != null) {
+                            synchronized (PPApplication.showPPPNotificationMutex) {
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+                                PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
+                                //Log.e("PhoneProfilesService.drawProfileNotification", "(1)");
                             }
                         }
                     }
+                }
 
-                    long finish = System.currentTimeMillis();
-                    long timeElapsed = finish - start;
-                    PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- END - timeElapsed="+timeElapsed);
-                } catch (Exception e) {
+                long finish = System.currentTimeMillis();
+                long timeElapsed = finish - start;
+                PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- END - timeElapsed="+timeElapsed);
+            } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.drawProfileNotification", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
                     }
                 }
-                //}
             }
+            //}
         };
         if (drawImmediatelly)
             worker.schedule(runnable, 200, TimeUnit.MILLISECONDS);

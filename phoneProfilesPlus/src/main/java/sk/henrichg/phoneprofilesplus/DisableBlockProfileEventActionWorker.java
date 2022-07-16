@@ -3,9 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -17,6 +14,7 @@ public class DisableBlockProfileEventActionWorker extends Worker {
 
     static final String WORK_TAG = "setBlockProfileEventsActionWork";
 
+    @SuppressWarnings("unused")
     public DisableBlockProfileEventActionWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
@@ -26,7 +24,7 @@ public class DisableBlockProfileEventActionWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        long start = System.currentTimeMillis();
+/*        long start = System.currentTimeMillis();
         PPApplication.logE("[IN_WORKER] DisableBlockProfileEventActionWorker.doWork", "--------------- START");
 
         try {
@@ -39,28 +37,27 @@ public class DisableBlockProfileEventActionWorker extends Worker {
         } catch (Exception e) {
             //Log.e("DisableInternalChangeWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(PPApplication.pid);
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
+            //Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            //Runnable r = new Runnable() {
+            //    public void run() {
+            //        android.os.Process.killProcess(PPApplication.pid);
+            //    }
+            //};
+            //_handler.postDelayed(r, 1000);
             return Result.failure();
         }
-    }
+*/
+        return Result.success();
+}
 
     static void enqueueWork() {
         PPApplication.logE("[EXECUTOR_CALL]  ***** DisableBlockProfileEventActionWorker.enqueueWork", "schedule");
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- START");
-                PPApplication.blockProfileEventActions = false;
-                PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- END");
-            }
+        Runnable runnable = () -> {
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- START");
+            PPApplication.blockProfileEventActions = false;
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- END");
         };
         worker.schedule(runnable, 30, TimeUnit.SECONDS);
         worker.shutdown();

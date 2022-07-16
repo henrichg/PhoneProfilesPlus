@@ -317,7 +317,7 @@ class OrientationScanner implements SensorEventListener {
 
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG)
+                                    .addTag(MainWorker.ORIENTATION_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(interval, TimeUnit.SECONDS)
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
@@ -340,7 +340,7 @@ class OrientationScanner implements SensorEventListener {
 //                                PPApplication.logE("[WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxx");
                                 //workManager.enqueue(worker);
                                 // MUST BE KEEP !!! REPLACE cause to not call worker, because is replaced with delat again !!!
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
+                                workManager.enqueueUniqueWork(MainWorker.ORIENTATION_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
                             }
                         }
                     } catch (Exception e) {

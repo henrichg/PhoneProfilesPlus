@@ -3,9 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -17,6 +14,7 @@ public class DisableInternalChangeWorker extends Worker {
 
     static final String WORK_TAG = "disableInternalChangeWork";
 
+    @SuppressWarnings("unused")
     public DisableInternalChangeWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
@@ -26,7 +24,7 @@ public class DisableInternalChangeWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        try {
+        /*try {
             long start = System.currentTimeMillis();
             PPApplication.logE("[IN_WORKER]  DisableInternalChangeWorker.doWork", "--------------- START");
 
@@ -40,29 +38,27 @@ public class DisableInternalChangeWorker extends Worker {
         } catch (Exception e) {
             //Log.e("DisableInternalChangeWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(PPApplication.pid);
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
+            //Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            //Runnable r = new Runnable() {
+            //    public void run() {
+            //        android.os.Process.killProcess(PPApplication.pid);
+            //    }
+            //};
+            //_handler.postDelayed(r, 1000);
 
             return Result.failure();
-        }
+        }*/
+        return Result.success();
     }
 
     static void enqueueWork() {
         PPApplication.logE("[EXECUTOR_CALL]  ***** DisableInternalChangeWorker.enqueueWork", "schedule");
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- START");
-                RingerModeChangeReceiver.internalChange = false;
-                PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- END");
-            }
+        Runnable runnable = () -> {
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- START");
+            RingerModeChangeReceiver.internalChange = false;
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- END");
         };
         worker.schedule(runnable, 5, TimeUnit.SECONDS);
         worker.shutdown();
