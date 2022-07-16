@@ -6947,13 +6947,13 @@ public class PhoneProfilesService extends Service
     }
 
     static void drawProfileNotification(boolean drawImmediatelly, Context context) {
-//        PPApplication.logE("[EXECUTOR_CALL]  ***** PhoneProfilesService.drawProfileNotification", "schedule");
+        PPApplication.logE("[EXECUTOR_CALL]  ***** PhoneProfilesService.drawProfileNotification", "schedule");
 
         final Context appContext = context.getApplicationContext();
-        ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-//            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- START");
+            long start = System.currentTimeMillis();
+            PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- START");
 
             //Context appContext= appContextWeakRef.get();
             //if (appContext != null) {
@@ -6967,9 +6967,9 @@ public class PhoneProfilesService extends Service
 
                 forceDrawProfileNotification(appContext);
 
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start;
-//                PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- END - timeElapsed="+timeElapsed);
+                long finish = System.currentTimeMillis();
+                long timeElapsed = finish - start;
+                PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- END - timeElapsed="+timeElapsed);
             } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.drawProfileNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
@@ -6980,6 +6980,7 @@ public class PhoneProfilesService extends Service
                     } catch (Exception ignored) {
                     }
                 }
+                worker.shutdown();
             }
             //}
         };
@@ -6987,7 +6988,6 @@ public class PhoneProfilesService extends Service
             worker.schedule(runnable, 200, TimeUnit.MILLISECONDS);
         else
             worker.schedule(runnable, 1, TimeUnit.SECONDS);
-        worker.shutdown();
 
         /*if (drawImmediatelly) {
             final Context appContext = context.getApplicationContext();

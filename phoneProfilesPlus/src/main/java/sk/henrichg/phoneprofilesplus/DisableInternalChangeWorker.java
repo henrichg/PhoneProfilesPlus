@@ -52,16 +52,16 @@ public class DisableInternalChangeWorker extends Worker {
     }
 
     static void enqueueWork() {
-//        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableInternalChangeWorker.enqueueWork", "schedule");
+        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableInternalChangeWorker.enqueueWork", "schedule");
 
-        ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-//            PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- START");
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- START");
             RingerModeChangeReceiver.internalChange = false;
-//            PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- END");
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- END");
+            worker.shutdown();
         };
         worker.schedule(runnable, 5, TimeUnit.SECONDS);
-        worker.shutdown();
 
         /*
         OneTimeWorkRequest disableInternalChangeWorker =

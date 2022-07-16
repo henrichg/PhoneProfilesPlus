@@ -79,16 +79,16 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
     }
 
     static void enqueueWork() {
-//        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableScreenTimeoutInternalChangeWorker.enqueueWork", "schedule");
+        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableScreenTimeoutInternalChangeWorker.enqueueWork", "schedule");
 
-        ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-//            PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- START");
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- START");
             ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
-//            PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- END");
+            PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- END");
+            worker.shutdown();
         };
         worker.schedule(runnable, 5, TimeUnit.SECONDS);
-        worker.shutdown();
 
         /*
         OneTimeWorkRequest disableInternalChangeWorker =

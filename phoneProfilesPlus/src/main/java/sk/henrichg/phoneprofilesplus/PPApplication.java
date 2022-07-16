@@ -181,7 +181,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -236,8 +236,8 @@ public class PPApplication extends Application
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-//                                                +"|[IN_EXECUTOR]"
-//                                                +"|[EXECUTOR_CALL]"
+                                                +"|[IN_EXECUTOR]"
+                                                +"|[EXECUTOR_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
@@ -1923,12 +1923,12 @@ public class PPApplication extends Application
             if (longDelay)
                 delay = 10;
 
-//            PPApplication.logE("[EXECUTOR_CALL]  ***** PPApplication.updateGUI", "schedule");
+            PPApplication.logE("[EXECUTOR_CALL]  ***** PPApplication.updateGUI", "schedule");
 
-            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
-//                long start = System.currentTimeMillis();
-//                PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- START");
+                long start = System.currentTimeMillis();
+                PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- START");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -1945,9 +1945,9 @@ public class PPApplication extends Application
                         PhoneProfilesService.forceDrawProfileNotification(context);
 
 
-//                    long finish = System.currentTimeMillis();
-//                    long timeElapsed = finish - start;
-//                    PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- END - timeElapsed="+timeElapsed);
+                    long finish = System.currentTimeMillis();
+                    long timeElapsed = finish - start;
+                    PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- END - timeElapsed="+timeElapsed);
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
@@ -1958,10 +1958,10 @@ public class PPApplication extends Application
                         } catch (Exception ignored) {
                         }
                     }
+                    worker.shutdown();
                 }
             };
             worker.schedule(runnable, delay, TimeUnit.SECONDS);
-            worker.shutdown();
 
             /*
             PPApplication.startHandlerThread();

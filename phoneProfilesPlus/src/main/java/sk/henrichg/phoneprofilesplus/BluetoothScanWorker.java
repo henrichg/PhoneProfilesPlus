@@ -104,19 +104,19 @@ public class BluetoothScanWorker extends Worker {
                 startScanner(context, false);
             }
 
-//            PPApplication.logE("[EXECUTOR_CALL]  ***** BluetoothScanWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
+            PPApplication.logE("[EXECUTOR_CALL]  ***** BluetoothScanWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
             final Context appContext = context;
-            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
-//                long start1 = System.currentTimeMillis();
-//                PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
+                long start1 = System.currentTimeMillis();
+                PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
                 BluetoothScanWorker.scheduleWork(appContext, false);
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start1;
-//                PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
+                long finish = System.currentTimeMillis();
+                long timeElapsed = finish - start1;
+                PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
+                worker.shutdown();
             };
             worker.schedule(runnable, 5, TimeUnit.SECONDS);
-            worker.shutdown();
             /*
             //PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
             //scheduleWork(context.getApplicationContext(), false);

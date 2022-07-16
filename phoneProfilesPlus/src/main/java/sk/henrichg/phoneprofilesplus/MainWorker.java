@@ -533,15 +533,15 @@ public class MainWorker extends Worker {
     }*/
 
     static void handleEvents(Context context, int _sensorType, int delay) {
-//        PPApplication.logE("[EXECUTOR_CALL]  ***** MainWorker.handleEvents", "schedule - " + _sensorType);
+        PPApplication.logE("[EXECUTOR_CALL]  ***** MainWorker.handleEvents", "schedule - " + _sensorType);
 
         final Context appContext = context.getApplicationContext();
         final int sensorType = _sensorType;
 
-        ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-//            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START - " + sensorType);
+            long start = System.currentTimeMillis();
+            PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START - " + sensorType);
 
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -562,9 +562,9 @@ public class MainWorker extends Worker {
 //                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.handleEvents");
                 }
 
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start;
-//                PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType + " - timeElapsed="+timeElapsed);
+                long finish = System.currentTimeMillis();
+                long timeElapsed = finish - start;
+                PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType + " - timeElapsed="+timeElapsed);
             } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
@@ -575,10 +575,10 @@ public class MainWorker extends Worker {
                     } catch (Exception ignored) {
                     }
                 }
+                worker.shutdown();
             }
         };
         worker.schedule(runnable, delay, TimeUnit.SECONDS);
-        worker.shutdown();
     }
 
 }

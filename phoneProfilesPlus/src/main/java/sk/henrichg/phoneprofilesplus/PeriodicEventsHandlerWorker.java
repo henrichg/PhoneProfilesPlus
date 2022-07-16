@@ -98,19 +98,19 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     }
                 }
 
-//                PPApplication.logE("[EXECUTOR_CALL]  ***** PeriodicEventsHandlerWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
+                PPApplication.logE("[EXECUTOR_CALL]  ***** PeriodicEventsHandlerWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
                 final Context appContext = context;
-                ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
-//                    long start1 = System.currentTimeMillis();
-//                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
+                    long start1 = System.currentTimeMillis();
+                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
                     PeriodicEventsHandlerWorker.enqueueWork(appContext);
-//                    long finish = System.currentTimeMillis();
-//                    long timeElapsed = finish - start1;
-//                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - timeElapsed="+timeElapsed);
+                    long finish = System.currentTimeMillis();
+                    long timeElapsed = finish - start1;
+                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - timeElapsed="+timeElapsed);
+                    worker.shutdown();
                 };
                 worker.schedule(runnable, 5, TimeUnit.SECONDS);
-                worker.shutdown();
                 /*
                 //enqueueWork();
                 OneTimeWorkRequest worker =

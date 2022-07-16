@@ -58,19 +58,19 @@ public class SearchCalendarEventsWorker extends Worker {
                 //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SearchCalendarEventsWorker.doWork");
             }
 
-//            PPApplication.logE("[EXECUTOR_CALL]  ***** SearchCalendarEventsWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
+            PPApplication.logE("[EXECUTOR_CALL]  ***** SearchCalendarEventsWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
             //final Context appContext = context;
-            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
-//                long start1 = System.currentTimeMillis();
-//                PPApplication.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
+                long start1 = System.currentTimeMillis();
+                PPApplication.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
                 SearchCalendarEventsWorker.scheduleWork(false);
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start1;
-//                PPApplication.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG - timeElapsed="+timeElapsed);
+                long finish = System.currentTimeMillis();
+                long timeElapsed = finish - start1;
+                PPApplication.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG - timeElapsed="+timeElapsed);
+                worker.shutdown();
             };
             worker.schedule(runnable, 5, TimeUnit.SECONDS);
-            worker.shutdown();
             /*
             //PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
             //scheduleWork(false);
