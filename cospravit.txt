@@ -667,8 +667,30 @@ SMSEventEndBroadcastReceiver
 Co tak uplne nahradit HandlerThread tymto?
 ExecutorService es = Executors.newFixedThreadPool( 3 ) ;  // Specify number of threads.
 
+Ma to ale malicky problem, ze neviem v ktorom threade sa co spusti. To by mne vadit nemalo.
+
+Existuje podobne a to funguje tak ze si vytvara thready po svojom, mnozstvo nie je dolezite.
+ExecutorService es = Executors.newCachedThreadPool() ;
+
 Otazne ale je, ako to bude, s akou prioritou. Lebo tu som malicko navysoval:
 handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE);
+
+Ze by takto? Zavolat priamo v Runnable?
+Thread.currentThread().setPriority([1..5]);
+
+Alebo zlozitejsie:
+    private ScheduledExecutorService schdExctr = Executors.newSingleThreadScheduledExecutor(new ThreadFactory() {
+        private ThreadFactory defaultThreadFactory = Executors.defaultThreadFactory();
+
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread t = defaultThreadFactory.newThread(r);
+            t.setPriority(Thread.MIN_PRIORITY);
+            return t;
+        }
+    });
+Cize treba custom ThreadFactory priradit.
+Hm, zaujimave. :-)
 
 Vid: https://stackoverflow.com/questions/59100491/short-but-frequent-jobs-handlerthread-or-threadpoolexecutor
 "HandlerThread is a structure that creates a singular thread and uses a queue to execute tasks
