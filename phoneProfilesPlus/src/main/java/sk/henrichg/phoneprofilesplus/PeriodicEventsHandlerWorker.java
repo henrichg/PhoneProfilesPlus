@@ -32,8 +32,8 @@ public class PeriodicEventsHandlerWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER]  PeriodicEventsHandlerWorker.doWork", "--------------- START");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_WORKER]  PeriodicEventsHandlerWorker.doWork", "--------------- START");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -47,10 +47,10 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     if (ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode.equals("2")) {
                         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
                         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
-                        if (PPApplication.logEnabled()) {
-                            PPApplication.logE("[IN_WORKER] PeriodicEventsHandlerWorker.doWork", "return - update in power save mode is not allowed");
-                            PPApplication.logE("[IN_WORKER] PeriodicEventsHandlerWorker.doWork", "---------------------------------------- END");
-                        }
+//                        if (PPApplication.logEnabled()) {
+//                            PPApplication.logE("[IN_WORKER] PeriodicEventsHandlerWorker.doWork", "return - update in power save mode is not allowed");
+//                            PPApplication.logE("[IN_WORKER] PeriodicEventsHandlerWorker.doWork", "---------------------------------------- END");
+//                        }
                         return Result.success();
                     }
                 }
@@ -63,10 +63,10 @@ public class PeriodicEventsHandlerWorker extends Worker {
 //                            PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "-- END - scan in time = 2 -------");
                             PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
                             PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
-                            if (PPApplication.logEnabled()) {
-                                PPApplication.logE("[IN_WORKER] PeriodicEventsHandlerWorker.doWork", "return - update in configured time is not allowed");
-                                PPApplication.logE("[IN_WORKER] PeriodicEventsHandlerWorker.doWork", "---------------------------------------- END");
-                            }
+//                            if (PPApplication.logEnabled()) {
+//                                PPApplication.logE("[IN_WORKER] PeriodicEventsHandlerWorker.doWork", "return - update in configured time is not allowed");
+//                                PPApplication.logE("[IN_WORKER] PeriodicEventsHandlerWorker.doWork", "---------------------------------------- END");
+//                            }
                             return Result.success();
                         }
                     }
@@ -98,16 +98,16 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     }
                 }
 
-                PPApplication.logE("[EXECUTOR_CALL]  ***** PeriodicEventsHandlerWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
+//                PPApplication.logE("[EXECUTOR_CALL]  ***** PeriodicEventsHandlerWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
                 final Context appContext = context;
                 ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
-                    long start1 = System.currentTimeMillis();
-                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
+//                    long start1 = System.currentTimeMillis();
+//                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
                     PeriodicEventsHandlerWorker.enqueueWork(appContext);
-                    long finish = System.currentTimeMillis();
-                    long timeElapsed = finish - start1;
-                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - timeElapsed="+timeElapsed);
+//                    long finish = System.currentTimeMillis();
+//                    long timeElapsed = finish - start1;
+//                    PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - timeElapsed="+timeElapsed);
                 };
                 worker.schedule(runnable, 5, TimeUnit.SECONDS);
                 worker.shutdown();
@@ -151,9 +151,9 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 */
             }
 
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER]  PeriodicEventsHandlerWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER]  PeriodicEventsHandlerWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("PeriodicEventsHandlerWorker.doWork", Log.getStackTraceString(e));

@@ -71,7 +71,7 @@ public class MainWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            long start = System.currentTimeMillis();
+//            long start = System.currentTimeMillis();
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -83,10 +83,11 @@ public class MainWorker extends Worker {
             for (String tag : tags) {
                 // ignore tags with package name
                 if (tag.startsWith(PPApplication.PACKAGE_NAME)) {
-                    PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "PPApplication.PACKAGE_NAME");
+//                    PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "PPApplication.PACKAGE_NAME");
                     continue;
-                } else
-                    PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
+                }
+//                else
+//                    PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
 
                 switch (tag) {
                     //case WifiScanWorker.WORK_TAG_START_SCAN:
@@ -268,12 +269,12 @@ public class MainWorker extends Worker {
                         break;
                 }
 
-                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- END tag=" + tag);
+//                PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- END tag=" + tag);
             }
 
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- timeElapsed="+timeElapsed);
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -532,15 +533,15 @@ public class MainWorker extends Worker {
     }*/
 
     static void handleEvents(Context context, int _sensorType, int delay) {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** MainWorker.handleEvents", "schedule - " + _sensorType);
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** MainWorker.handleEvents", "schedule - " + _sensorType);
 
         final Context appContext = context.getApplicationContext();
         final int sensorType = _sensorType;
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START - " + sensorType);
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START - " + sensorType);
 
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -561,9 +562,9 @@ public class MainWorker extends Worker {
 //                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.handleEvents");
                 }
 
-                long finish = System.currentTimeMillis();
-                long timeElapsed = finish - start;
-                PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType + " - timeElapsed="+timeElapsed);
+//                long finish = System.currentTimeMillis();
+//                long timeElapsed = finish - start;
+//                PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType + " - timeElapsed="+timeElapsed);
             } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 PPApplication.recordException(e);

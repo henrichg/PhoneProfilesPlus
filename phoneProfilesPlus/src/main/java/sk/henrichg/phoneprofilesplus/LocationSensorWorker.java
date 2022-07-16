@@ -31,8 +31,8 @@ public class LocationSensorWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "--------------- START");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "--------------- START");
 
             if (Event.getGlobalEventsRunning()) {
                 EventsHandler eventsHandler = new EventsHandler(context);
@@ -41,9 +41,9 @@ public class LocationSensorWorker extends Worker {
 
             enqueueWork(false, context);
 
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            long finish = System.currentTimeMillis();
+//            long timeElapsed = finish - start;
+//            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("LocationSensorWorker.doWork", Log.getStackTraceString(e));

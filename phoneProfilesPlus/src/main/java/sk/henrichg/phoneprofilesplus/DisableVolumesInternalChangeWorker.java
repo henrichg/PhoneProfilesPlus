@@ -50,13 +50,13 @@ public class DisableVolumesInternalChangeWorker extends Worker {
     }
 
     static void enqueueWork() {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableVolumesInternalChangeWorker.enqueueWork", "schedule");
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableVolumesInternalChangeWorker.enqueueWork", "schedule");
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- START");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- START");
             EventPreferencesVolumes.internalChange = false;
-            PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- END");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** DisableVolumesInternalChangeWorker.executor", "--------------- END");
         };
         worker.schedule(runnable, 5, TimeUnit.SECONDS);
         worker.shutdown();

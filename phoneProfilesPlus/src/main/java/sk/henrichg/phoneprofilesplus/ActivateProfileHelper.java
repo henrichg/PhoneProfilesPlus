@@ -5089,13 +5089,13 @@ class ActivateProfileHelper {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start work for close all applications");
                 // work for first start events or activate profile on boot
 
-                PPApplication.logE("[EXECUTOR_CALL]  ***** ActivateProfileHelper.execute", "schedule - profile._deviceCloseAllApplications");
+//                PPApplication.logE("[EXECUTOR_CALL]  ***** ActivateProfileHelper.execute", "schedule - profile._deviceCloseAllApplications");
 
                 final String profileName = profile._name;
                 ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
-                    long start = System.currentTimeMillis();
-                    PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- START - profile._deviceCloseAllApplications");
+//                    long start = System.currentTimeMillis();
+//                    PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- START - profile._deviceCloseAllApplications");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -5123,9 +5123,9 @@ class ActivateProfileHelper {
                             }
                         }
 
-                        long finish = System.currentTimeMillis();
-                        long timeElapsed = finish - start;
-                        PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- END - profile._deviceCloseAllApplications -timeElapsed="+timeElapsed);
+//                        long finish = System.currentTimeMillis();
+//                        long timeElapsed = finish - start;
+//                        PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- END - profile._deviceCloseAllApplications -timeElapsed="+timeElapsed);
                     } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);

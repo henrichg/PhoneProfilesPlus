@@ -9,7 +9,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","xxx");
+//        PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","xxx");
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
 
         if (intent == null)
@@ -33,10 +33,10 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                 boolean resultsUpdated; // = false;
                 if (intent.hasExtra(WifiManager.EXTRA_RESULTS_UPDATED)) {
-                    PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
+//                    PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
                     resultsUpdated = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true);
                     WifiScanWorker.fillScanResults(appContext);
-                    PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","fillScanResults - end");
+//                    PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","fillScanResults - end");
 
                     /*List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(appContext);
                     if (PPApplication.logEnabled()) {
@@ -54,26 +54,26 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                     resultsUpdated = true;
                 }
 
-                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated=" + resultsUpdated);
+//                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated=" + resultsUpdated);
 
                 if (!resultsUpdated)
                     return;
 
                 final int forceOneScan = ApplicationPreferences.prefForceOneWifiScan;
-                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
+//                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
                 if (Event.getGlobalEventsRunning() || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
                     if (ApplicationPreferences.prefEventWifiWaitForResult) {
 
-                        PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "start Worker");
+//                        PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "start Worker");
 
                         WifiScanWorker.setWaitForResults(appContext, false);
                         WifiScanner.setForceOneWifiScan(appContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
                         if (forceOneScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                         {
-                            PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "handle events");
+//                            PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "handle events");
 
                             MainWorker.handleEvents(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5);
                             /*

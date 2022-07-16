@@ -51,13 +51,13 @@ public class DisableBlockProfileEventActionWorker extends Worker {
 }
 
     static void enqueueWork() {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableBlockProfileEventActionWorker.enqueueWork", "schedule");
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableBlockProfileEventActionWorker.enqueueWork", "schedule");
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- START");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- START");
             PPApplication.blockProfileEventActions = false;
-            PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- END");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** DisableBlockProfileEventActionWorker.doWork", "--------------- END");
         };
         worker.schedule(runnable, 30, TimeUnit.SECONDS);
         worker.shutdown();

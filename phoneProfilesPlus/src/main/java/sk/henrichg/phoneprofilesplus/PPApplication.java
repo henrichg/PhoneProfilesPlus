@@ -264,8 +264,9 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
 
-                                                +"|WifiScanner.doScan"
-                                                +"|WifiScanBroadcastReceiver"
+                                                //+"|WifiScanner.doScan"
+                                                //+"|WifiScanBroadcastReceiver"
+                                                //+"|WifiScanWorker.startScan"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

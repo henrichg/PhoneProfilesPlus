@@ -2731,7 +2731,7 @@ public class DataWrapper {
     void restartEventsWithDelay(int delay, final boolean alsoRescan, final boolean unblockEventsRun,
                                 String tag, final int logType)
     {
-        PPApplication.logE("[EXECUTOR_CALL] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
+//        PPApplication.logE("[EXECUTOR_CALL] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
 
         if (tag.equals(RestartEventsWithDelayWorker.WORK_TAG_1)) {
 
@@ -2774,13 +2774,13 @@ public class DataWrapper {
                 } else {
 //                    PPApplication.logE("DataWrapper.restartEventsWithDelay","(2)");
 
-                    PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
+//                    PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
 
                     final Context appContext = context.getApplicationContext();
                     ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
-                        long start = System.currentTimeMillis();
-                        PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+//                        long start = System.currentTimeMillis();
+//                        PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -2792,9 +2792,9 @@ public class DataWrapper {
 
                             RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
-                            long finish = System.currentTimeMillis();
-                            long timeElapsed = finish - start;
-                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
+//                            long finish = System.currentTimeMillis();
+//                            long timeElapsed = finish - start;
+//                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
                         } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
@@ -2889,13 +2889,13 @@ public class DataWrapper {
                     } else {
 //                        PPApplication.logE("DataWrapper.restartEventsWithDelay","(4)");
 
-                        PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
+//                        PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
 
                         final Context appContext = context.getApplicationContext();
                         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                         Runnable runnable = () -> {
-                            long start = System.currentTimeMillis();
-                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+//                            long start = System.currentTimeMillis();
+//                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
@@ -2907,9 +2907,9 @@ public class DataWrapper {
 
                                 RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
-                                long finish = System.currentTimeMillis();
-                                long timeElapsed = finish - start;
-                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
+//                                long finish = System.currentTimeMillis();
+//                                long timeElapsed = finish - start;
+//                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
                             } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
@@ -2950,13 +2950,13 @@ public class DataWrapper {
             }
 
         } else {
-            PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
+//            PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
 
             final Context appContext = context.getApplicationContext();
             ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
-                long start = System.currentTimeMillis();
-                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+//                long start = System.currentTimeMillis();
+//                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -2968,9 +2968,9 @@ public class DataWrapper {
 
                     RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
 
-                    long finish = System.currentTimeMillis();
-                    long timeElapsed = finish - start;
-                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
+//                    long finish = System.currentTimeMillis();
+//                    long timeElapsed = finish - start;
+//                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
                 } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
