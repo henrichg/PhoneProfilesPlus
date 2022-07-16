@@ -636,6 +636,7 @@ Lebo tu nie je delay. Musi to submitnut hned.
 Vyskusaj.
 Teraz na vsetko toto pouizvam PPApplication.handlerThreadBroadcast.
 
+Len by asi bolo super mat pre kazde z nich vlastny nazov wakelock, ako to mam teraz. Hm.
 
 AirplaneModeStateChangedBroadcastReceiver
 AlarmClockBroadcastReceiver
