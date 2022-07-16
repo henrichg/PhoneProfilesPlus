@@ -630,9 +630,12 @@ Toto by mali byt broadcasty, ktore potrebuje HandlerThread a parioal wakelock na
 EventsHandler.handleEvents(). Nic viac nevolaju vo vnutri, len toto.
 Tak uprav MainWorker.hanldeEvents, aby volal ScheduledExecutorService s worker.submit(runnable);
 Lebo tu nie je delay. Musi to submitnut hned.
+
+!!! Bacha, niektore maju aj parametre !!! Tak tie asi nie.
+
 Vyskusaj.
 Teraz na vsetko toto pouizvam PPApplication.handlerThreadBroadcast.
-Hm zaujimave. :-)
+
 
 AirplaneModeStateChangedBroadcastReceiver
 AlarmClockBroadcastReceiver
