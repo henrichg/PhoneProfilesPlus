@@ -662,3 +662,19 @@ PhoneCallsListener
 PowerSaveModeBroadcastReceiver
 SMSEventEndBroadcastReceiver
 
+------------------
+
+Co tak uplne nahradit HandlerThread tymto?
+ExecutorService es = Executors.newFixedThreadPool( 3 ) ;  // Specify number of threads.
+
+Otazne ale je, ako to bude, s akou prioritou. Lebo tu som malicko navysoval:
+handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE);
+
+Vid: https://stackoverflow.com/questions/59100491/short-but-frequent-jobs-handlerthread-or-threadpoolexecutor
+"HandlerThread is a structure that creates a singular thread and uses a queue to execute tasks
+!!! but always loops and waits for messages which consumes power !!!,
+while ThreadPoolExecutor creates multiple threads for each job and deletes threads when the jobs are done,"
+
+Hm, hm.
+
+-------------------
