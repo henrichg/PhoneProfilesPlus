@@ -592,14 +592,11 @@ Runnable runnable = () -> {
 };
 worker.schedule(runnable, 2000, TimeUnit.MILLISECONDS);
 
-No a este pozri vsetky HandlerThread, ktore su s postDelay a zmen ich na Exexutor.
-Ak Executor bude volany aj pri sleepe.
-PPApplication.updateGUI()
-StartLauncherFromNotificationReceiver.onReceive()
-
 No a vsetky workery, ktore som preprobil na Executory a ich viac nepouzijem sprav prazdne. Uz take mam.
 
 Prerobene:
+
+Work:
 ShowProfileNotificationWorker.WORK_TAG -> uz testujem
 MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG -> uz testujem
 MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG -> uz testujem
@@ -623,10 +620,9 @@ MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG -> este netestujem
 MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG -> este netestujem
 MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG -> este netestujem
 
+HandlerThread:
+PPApplication.updateGUI()
+StartLauncherFromNotificationReceiver.onReceive()
 
-
-Mohol by si logovat dlzku toho executora ako pro workoch. Aspon teda tie, co volaju EventHandler.
-
-Mal by som to potom este testovat na Xiaomi, Huawei, OnePlus - kvoli tym ich killom na setrenie baterie
-Aj na Nexus 5 - Android 7.1.
+---------------
 

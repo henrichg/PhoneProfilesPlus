@@ -73,6 +73,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -178,7 +181,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -231,10 +234,10 @@ public class PPApplication extends Application
                                                 //+"|ImportantInfoNotification"
                                                 //+"|ImportantInfoHelpFragment"
 
-                                                +"|[IN_WORKER]"
+//                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-                                                +"|[IN_EXECUTOR]"
-                                                +"|[EXECUTOR_CALL]"
+//                                                +"|[IN_EXECUTOR]"
+//                                                +"|[EXECUTOR_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
@@ -1919,7 +1922,48 @@ public class PPApplication extends Application
             int delay = 1;
             if (longDelay)
                 delay = 10;
-            PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
+
+//            PPApplication.logE("[EXECUTOR_CALL]  ***** PPApplication.updateGUI", "schedule");
+
+            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            Runnable runnable = () -> {
+//                long start = System.currentTimeMillis();
+//                PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- START");
+
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_updateGUI");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+//                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
+
+                    // for longDelay=true, redraw also notiification
+                    // for longDelay=false, notification redraw is called after this postDelayed()
+                    PPApplication.forceUpdateGUI(appContext, true, longDelay);
+
+//                    long finish = System.currentTimeMillis();
+//                    long timeElapsed = finish - start;
+//                    PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- END - timeElapsed="+timeElapsed);
+                } catch (Exception e) {
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            };
+            worker.schedule(runnable, delay, TimeUnit.SECONDS);
+            worker.shutdown();
+
+            /*
+            PPApplication.startHandlerThread();
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
@@ -1940,7 +1984,7 @@ public class PPApplication extends Application
 
                         // for longDelay=true, redraw also notiification
                         // for longDelay=false, notification redraw is called after this postDelayed()
-                        PPApplication.forceUpdateGUI(appContext, true, longDelay/*, true*/);
+                        PPApplication.forceUpdateGUI(appContext, true, longDelay);
 
     //                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.updateGUI");
                     } catch (Exception e) {
@@ -1956,6 +2000,7 @@ public class PPApplication extends Application
                     }
                 //}
             }, delay * 1000L);
+            */
 
             if (!longDelay)
                 PhoneProfilesService.drawProfileNotification(false, context);
