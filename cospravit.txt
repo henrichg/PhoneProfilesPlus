@@ -666,11 +666,11 @@ SMSEventEndBroadcastReceiver
 
 Co tak uplne nahradit HandlerThread tymto?
 ExecutorService es = Executors.newFixedThreadPool( 3 ) ;  // Specify number of threads.
-
-Ma to ale malicky problem, ze neviem v ktorom threade sa co spusti. To by mne vadit nemalo.
+Thready zostanu zive, pripadne sa replacnu pri chybe.
 
 Existuje podobne a to funguje tak ze si vytvara thready po svojom, mnozstvo nie je dolezite.
 ExecutorService es = Executors.newCachedThreadPool() ;
+Tu thread po asi minute, ak uz nie je treba (nebezi nic v nom) sa zrusi.
 
 Otazne ale je, ako to bude, s akou prioritou. Lebo tu som malicko navysoval:
 handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE);

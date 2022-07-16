@@ -1940,9 +1940,10 @@ public class PPApplication extends Application
 
 //                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
 
-                    // for longDelay=true, redraw also notiification
-                    // for longDelay=false, notification redraw is called after this postDelayed()
-                    PPApplication.forceUpdateGUI(appContext, true, longDelay);
+                    PPApplication.forceUpdateGUI(appContext, true, false);
+                    if (longDelay)
+                        PhoneProfilesService.forceDrawProfileNotification(context);
+
 
 //                    long finish = System.currentTimeMillis();
 //                    long timeElapsed = finish - start;

@@ -6923,6 +6923,29 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    static void forceDrawProfileNotification(final Context appContext) {
+        boolean doNotShowProfileNotification;
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            doNotShowProfileNotification = PPApplication.doNotShowProfileNotification;
+        }
+
+        if (!doNotShowProfileNotification) {
+            if (PhoneProfilesService.getInstance() != null) {
+//                            PPApplication.logE("PhoneProfilesService.drawProfileNotification", "call of _showProfileNotification()");
+
+                clearOldProfileNotification();
+
+                if (PhoneProfilesService.getInstance() != null) {
+                    synchronized (PPApplication.showPPPNotificationMutex) {
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+                        PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
+                        //Log.e("PhoneProfilesService.drawProfileNotification", "(1)");
+                    }
+                }
+            }
+        }
+    }
+
     static void drawProfileNotification(boolean drawImmediatelly, Context context) {
 //        PPApplication.logE("[EXECUTOR_CALL]  ***** PhoneProfilesService.drawProfileNotification", "schedule");
 
@@ -6942,26 +6965,7 @@ public class PhoneProfilesService extends Service
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                boolean doNotShowProfileNotification;
-                synchronized (PPApplication.applicationPreferencesMutex) {
-                    doNotShowProfileNotification = PPApplication.doNotShowProfileNotification;
-                }
-
-                if (!doNotShowProfileNotification) {
-                    if (PhoneProfilesService.getInstance() != null) {
-//                            PPApplication.logE("PhoneProfilesService.drawProfileNotification", "call of _showProfileNotification()");
-
-                        clearOldProfileNotification();
-
-                        if (PhoneProfilesService.getInstance() != null) {
-                            synchronized (PPApplication.showPPPNotificationMutex) {
-                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
-                                PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
-                                //Log.e("PhoneProfilesService.drawProfileNotification", "(1)");
-                            }
-                        }
-                    }
-                }
+                forceDrawProfileNotification(appContext);
 
 //                long finish = System.currentTimeMillis();
 //                long timeElapsed = finish - start;
