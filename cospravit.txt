@@ -664,7 +664,12 @@ SMSEventEndBroadcastReceiver
 
 ------------------
 
-Co tak uplne nahradit HandlerThread tymto?
+Co tak uplne nahradit HandlerThread Executorom?
+!!! Tento mus zostat: OrientationScannerHandlerThread
+!!! Potrebuje ho SensorManager.registerListener(). Vid PhoneProfilesService.startListeningOrientationSensors().
+!!! A mozno aj dalsie HandlerThready bude treba.
+!!! Tak asi nic.
+
 ExecutorService es = Executors.newFixedThreadPool( 3 ) ;  // Specify number of threads.
 Thready zostanu zive, pripadne sa replacnu pri chybe.
 
