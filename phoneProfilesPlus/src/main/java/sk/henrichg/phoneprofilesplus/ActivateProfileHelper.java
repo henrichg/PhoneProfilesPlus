@@ -1189,7 +1189,7 @@ class ActivateProfileHelper {
                         EventPreferencesVolumes.internalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                        PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+                        PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                         audioManager.setRingerMode(ringerMode);
 
@@ -2975,7 +2975,7 @@ class ActivateProfileHelper {
                     }
 
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
-                    PPPExecutors.scheduleDisableInternalChangeExecutor();
+                    PPExecutors.scheduleDisableInternalChangeExecutor();
                     //DisableVolumesInternalChangeWorker.enqueueWork();
 
                     if (noErrorSetTone) {
@@ -5550,7 +5550,7 @@ class ActivateProfileHelper {
         }
         setActivatedProfileScreenTimeoutWhenScreenOff(appContext, 0);
 
-        PPPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor();
+        PPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor();
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -5903,7 +5903,7 @@ class ActivateProfileHelper {
         }
         else
         if (useAssistant && isPPPSetAsDefaultAssistant(context)) {
-            Intent intent = new Intent(PPPVoiceService.ACTION_ASSISTANT);
+            Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
             intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
             intent.putExtra("airplane_mode_enabled", mode);
             context.sendBroadcast(intent);
@@ -7717,7 +7717,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.prefRingerMode = mode;
 
             if (savedMode != mode) {
-                PPPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, "SENSOR_TYPE_SOUND_PROFILE", 5);
+                PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, "SENSOR_TYPE_SOUND_PROFILE", 5);
                 /*
                 Data workData = new Data.Builder()
                         .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
@@ -7782,7 +7782,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.prefZenMode = mode;
 
             if (savedMode != mode) {
-                PPPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, "SENSOR_TYPE_SOUND_PROFILE", 5);
+                PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, "SENSOR_TYPE_SOUND_PROFILE", 5);
                 /*
                 Data workData = new Data.Builder()
                         .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)

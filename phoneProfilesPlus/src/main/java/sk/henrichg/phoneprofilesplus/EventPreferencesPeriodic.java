@@ -429,7 +429,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                     _counter = 0;
                     DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
 
-                    PPPExecutors.handleEvents(dataWrapper.context, EventsHandler.SENSOR_TYPE_PERIODIC, "SENSOR_TYPE_PERIODIC", 5);
+                    PPExecutors.handleEvents(dataWrapper.context, EventsHandler.SENSOR_TYPE_PERIODIC, "SENSOR_TYPE_PERIODIC", 5);
                     /*
                     //enqueueWork();
                     Data workData = new Data.Builder()

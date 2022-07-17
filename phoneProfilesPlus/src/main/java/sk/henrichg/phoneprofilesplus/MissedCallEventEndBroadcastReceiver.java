@@ -27,7 +27,7 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
-            PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END, "SENSOR_TYPE_PHONE_CALL_EVENT_END", 0);
+            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END, "SENSOR_TYPE_PHONE_CALL_EVENT_END", 0);
             /*
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());

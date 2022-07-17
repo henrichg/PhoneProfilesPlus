@@ -523,7 +523,7 @@ class MobileCellsListener extends PhoneStateListener {
                 PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MobileCellsScanner.handleEvents");
             //}*/
 
-            PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_MOBILE_CELLS, "SENSOR_TYPE_MOBILE_CELLS", 5);
+            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_MOBILE_CELLS, "SENSOR_TYPE_MOBILE_CELLS", 5);
             /*
             Data workData = new Data.Builder()
                     .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_MOBILE_CELLS)

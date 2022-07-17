@@ -5278,7 +5278,7 @@ public class PhoneProfilesService extends Service
 
                                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                                     if (PPApplication.notificationScannerRunning) {
-                                        PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 5);
+                                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 5);
 
                                         /*
                                         Data workData = new Data.Builder()
@@ -8126,8 +8126,8 @@ public class PhoneProfilesService extends Service
 //                    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
                     ringingMediaPlayer = null;
 
-                    PPPExecutors.scheduleDisableInternalChangeExecutor();
-                    PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+                    PPExecutors.scheduleDisableInternalChangeExecutor();
+                    PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
                     final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -8194,8 +8194,8 @@ public class PhoneProfilesService extends Service
         ringingCallIsSimulating = false;
 
         if (disableInternalChange) {
-            PPPExecutors.scheduleDisableInternalChangeExecutor();
-            PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+            PPExecutors.scheduleDisableInternalChangeExecutor();
+            PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
             /*PPApplication.startHandlerThreadInternalChangeToFalse();
             final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

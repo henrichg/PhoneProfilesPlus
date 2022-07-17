@@ -715,7 +715,7 @@
                 android:value="true" />
         </service>
 
-        <service android:name="sk.henrichg.phoneprofilesplus.PPPVoiceService"
+        <service android:name="sk.henrichg.phoneprofilesplus.PPVoiceService"
             android:permission="android.permission.BIND_VOICE_INTERACTION"
             tools:ignore="IntentFilterExportedReceiver">
             <meta-data android:name="android.voice_interaction"
@@ -725,7 +725,7 @@
             </intent-filter>
         </service>
 
-        <service android:name="sk.henrichg.phoneprofilesplus.PPPVoiceSessionService"
+        <service android:name="sk.henrichg.phoneprofilesplus.PPVoiceSessionService"
             android:permission="android.permission.BIND_VOICE_INTERACTION"/>
 
         <!-- This service is required, when user needs to configure PPP as default assistant, for -->

@@ -81,7 +81,7 @@ class TwilightScanner {
                 if (Event.getGlobalEventsRunning()) {
                     //PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
 
-                    PPPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_TIME, "SENSOR_TYPE_TIME", 10);
+                    PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_TIME, "SENSOR_TYPE_TIME", 10);
                     /*
                     Data workData = new Data.Builder()
                             .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_TIME)

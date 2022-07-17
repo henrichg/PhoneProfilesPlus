@@ -27,7 +27,7 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             final Context appContext = context.getApplicationContext();
             if (useHandler) {
-                PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_EVENT_DELAY_END, "SENSOR_TYPE_EVENT_DELAY_END", 0);
+                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_EVENT_DELAY_END, "SENSOR_TYPE_EVENT_DELAY_END", 0);
                 /*
                 PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());

@@ -181,7 +181,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -236,8 +236,8 @@ public class PPApplication extends Application
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-//                                                +"|[IN_EXECUTOR]"
-//                                                +"|[EXECUTOR_CALL]"
+                                                +"|[IN_EXECUTOR]"
+                                                +"|[EXECUTOR_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
@@ -270,6 +270,7 @@ public class PPApplication extends Application
                                                 //+"|WifiScanner.doScan"
                                                 //+"|WifiScanBroadcastReceiver"
                                                 //+"|WifiScanWorker.startScan"
+                                                +"|PhoneCallsListener"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -4774,7 +4775,7 @@ public class PPApplication extends Application
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
         PPApplication.blockProfileEventActions = enable;
         if (enable) {
-            PPPExecutors.scheduleDisableBlockProfileEventActionExecutor();
+            PPExecutors.scheduleDisableBlockProfileEventActionExecutor();
         }
         else {
             PPApplication.cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG, false);

@@ -47,7 +47,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (Event.getGlobalEventsRunning()) {
-            PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE, "SENSOR_TYPE_POWER_SAVE_MODE", 0);
+            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE, "SENSOR_TYPE_POWER_SAVE_MODE", 0);
             /*
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());

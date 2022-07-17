@@ -198,7 +198,7 @@ class WifiScanner {
                                     {
 //                                        PPApplication.logE("$$$W WifiScanner.doScan", "not start service for force scan");
 
-                                        PPPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, "SENSOR_TYPE_WIFI_SCANNER", 5);
+                                        PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, "SENSOR_TYPE_WIFI_SCANNER", 5);
                                         /*
                                         Data workData = new Data.Builder()
                                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)

@@ -31,7 +31,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
             if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
             {
-                PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, "SENSOR_TYPE_BLUETOOTH_SCANNER", 5);
+                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, "SENSOR_TYPE_BLUETOOTH_SCANNER", 5);
 
                 /*
                 Data workData = new Data.Builder()

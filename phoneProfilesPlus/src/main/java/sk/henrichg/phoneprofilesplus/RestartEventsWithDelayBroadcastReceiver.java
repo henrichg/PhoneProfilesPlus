@@ -18,7 +18,7 @@ public class RestartEventsWithDelayBroadcastReceiver extends BroadcastReceiver {
             final boolean unblockEventsRun = intent.getBooleanExtra(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, false);
             final int logType = intent.getIntExtra(PhoneProfilesService.EXTRA_LOG_TYPE, PPApplication.ALTYPE_UNDEFINED);
 
-            PPPExecutors.scheduleRestartEventsWithDelayExecutor(alsoRescan, unblockEventsRun, logType, context);
+            PPExecutors.scheduleRestartEventsWithDelayExecutor(alsoRescan, unblockEventsRun, logType, context);
         }
     }
 

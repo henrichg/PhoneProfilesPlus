@@ -52,14 +52,14 @@ public class PhoneCallsListener extends PhoneStateListener {
 
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
-//                    PPApplication.logE("PhoneCallsListener.onCallStateChanged", "state=CALL_STATE_RINGING");
+                    PPApplication.logE("PhoneCallsListener.onCallStateChanged", "state=CALL_STATE_RINGING");
                     //PPPEApplication.logE("PhoneCallsListener.PhoneCallStartEndDetector", "incomingNumber="+incomingNumber);
                     inCall = false;
                     isIncoming = true;
                     onIncomingCallStarted(/*incomingNumber, eventTime*/);
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
-//                    PPApplication.logE("PhoneCallsListener.onCallStateChanged", "state=CALL_STATE_OFFHOOK");
+                    PPApplication.logE("PhoneCallsListener.onCallStateChanged", "state=CALL_STATE_OFFHOOK");
                     //Transition of ringing->off hook are pickups of incoming calls.  Nothing down on them
                     if(lastState != TelephonyManager.CALL_STATE_RINGING){
                         inCall = true;
@@ -74,7 +74,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                     }
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
-//                    PPApplication.logE("PhoneCallsListener.onCallStateChanged", "state=CALL_STATE_IDLE");
+                    PPApplication.logE("PhoneCallsListener.onCallStateChanged", "state=CALL_STATE_IDLE");
                     //Went to idle-  this is the end of a call.  What type depends on previous state(s)
                     if(!inCall){
                         //Ring but no pickup-  a miss
@@ -99,7 +99,7 @@ public class PhoneCallsListener extends PhoneStateListener {
     public void onServiceStateChanged(ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 
-//        Log.e("PhoneCallsListener.onServiceStateChanged", "state="+serviceState.getState());
+        PPApplication.logE("PhoneCallsListener.onServiceStateChanged", "state="+serviceState.getState());
 
         /*
         TelephonyManager telephonyManager;
@@ -202,7 +202,7 @@ public class PhoneCallsListener extends PhoneStateListener {
             if (Event.getGlobalEventsRunning()) {
                 //if (useHandler) {
                 final Context appContext = savedContext.getApplicationContext();
-                PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_ROAMING, "SENSOR_TYPE_ROAMING", 0);
+                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_ROAMING, "SENSOR_TYPE_ROAMING", 0);
                 /*
                 PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -584,8 +584,8 @@ public class PhoneCallsListener extends PhoneStateListener {
             //}
         }
 
-        PPPExecutors.scheduleDisableInternalChangeExecutor();
-        PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+        PPExecutors.scheduleDisableInternalChangeExecutor();
+        PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

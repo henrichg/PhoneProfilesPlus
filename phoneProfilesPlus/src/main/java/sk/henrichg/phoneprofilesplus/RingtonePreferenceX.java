@@ -172,7 +172,7 @@ public class RingtonePreferenceX extends DialogPreference {
                             EventPreferencesVolumes.internalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                            PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+                            PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                         }
                     }
                 }
@@ -324,8 +324,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                     ringtoneIsPlayed = false;
                                     mediaPlayer = null;
 
-                                    PPPExecutors.scheduleDisableInternalChangeExecutor();
-                                    PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+                                    PPExecutors.scheduleDisableInternalChangeExecutor();
+                                    PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                     final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -348,8 +348,8 @@ public class RingtonePreferenceX extends DialogPreference {
                         //PPApplication.recordException(e);
                         RingtonePreferenceX.this.stopPlayRingtone();
 
-                        PPPExecutors.scheduleDisableInternalChangeExecutor();
-                        PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+                        PPExecutors.scheduleDisableInternalChangeExecutor();
+                        PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

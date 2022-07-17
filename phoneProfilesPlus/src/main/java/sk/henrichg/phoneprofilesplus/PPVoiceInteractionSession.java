@@ -17,9 +17,9 @@ import android.service.voice.VoiceInteractionSession;
 
 /* renamed from: com.arlosoft.macrodroid.voiceservice.a */
 /* compiled from: MacroDroidVoiceSession.kt */
-public final class PPPVoiceInteractionSession extends VoiceInteractionSession {
+public final class PPVoiceInteractionSession extends VoiceInteractionSession {
     /* JADX INFO: super call moved to the top of the method (can break code semantics) */
-    public PPPVoiceInteractionSession(Context context) {
+    public PPVoiceInteractionSession(Context context) {
         super(context);
         //C0330j.m960e(context, "context");
     }
