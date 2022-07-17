@@ -662,6 +662,36 @@ PhoneCallsListener
 PowerSaveModeBroadcastReceiver
 SMSEventEndBroadcastReceiver
 
+No vypada to ze:
+Thread 1:
+- PPPExecutors - tie 4 kratucke
+Thread 2:
+- PhoneProfilesService.drawProfileNotification()
+- PPApplication.updateGUI()
+- StartLauncherFromNotificationReceiver.onReceive()
+Thread 3:
+- DataWrapper.restartEventsWithDelay()
+- PPPExecutors.scheduleRestartEventsWithDelayExecutor()
+- BluetoothScanWorkier.doWork() pre sheduleWork()
+- PeriodicEventsHandlerWorker..doWork() pre enqueueWork()
+- SearchCalendarEventsWorker.doWork() pre scheduleWork()
+- WifiScanWorker.doWork() pre scheduleWork()
+- WifiStateChangedBroadcastReceiver.onReceive() pre startScan()
+Thread 4:
+- MainWorker.handleEvents()
++ vsetku hore napisane, co volaju EventsHandler.handleEvents()
+
+No vyapda to blbo veru. 5 threadov navyse. Mozno sa zbavim toho broadcast threadu. Mozno.
+
+Toto strc do handlerThreadProfileActivation:
+- ActivateProfileHelper.execute () pre _deviceCloseAllApplications
+- LockDeviceActivityFinishBroadcastReceiver.setAlarm()
+- LockDeviceAfterScreenOffBroadcastReceiver.setAlarm()
+
+Tohoto sa snaz zbavit:
+public static HandlerThread handlerThreadBroadcast = null;
+
+
 ------------------
 
 Co tak uplne nahradit HandlerThread Executorom?
