@@ -1106,230 +1106,245 @@ public class PhoneProfilesService extends Service
 
     static void registerPhoneCallsListener(boolean register, Context context) {
         //PPApplication.logE("[RJS] PhoneProfilesService.registerPhoneCallsListener", "xxx");
-        if (!register) {
-            if (PPApplication.phoneCallsListenerSIM1 != null) {
-                try {
-                    if (PPApplication.telephonyManagerSIM1 != null)
-                        PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1, PhoneStateListener.LISTEN_NONE);
-                    PPApplication.phoneCallsListenerSIM1 = null;
-                    PPApplication.telephonyManagerSIM1 = null;
-                } catch (Exception ignored) {
+        PPApplication.startHandlerThreadBroadcast();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(() -> {
+            if (!register) {
+                if (PPApplication.phoneCallsListenerSIM1 != null) {
+                    try {
+                        if (PPApplication.telephonyManagerSIM1 != null)
+                            PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1, PhoneStateListener.LISTEN_NONE);
+                        PPApplication.phoneCallsListenerSIM1 = null;
+                        PPApplication.telephonyManagerSIM1 = null;
+                    } catch (Exception ignored) {
+                    }
                 }
-            }
-            if (PPApplication.phoneCallsListenerSIM2 != null) {
-                try {
-                    if (PPApplication.telephonyManagerSIM2 != null)
-                        PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2, PhoneStateListener.LISTEN_NONE);
-                    PPApplication.phoneCallsListenerSIM2 = null;
-                    PPApplication.telephonyManagerSIM2 = null;
-                } catch (Exception ignored) {
+                if (PPApplication.phoneCallsListenerSIM2 != null) {
+                    try {
+                        if (PPApplication.telephonyManagerSIM2 != null)
+                            PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2, PhoneStateListener.LISTEN_NONE);
+                        PPApplication.phoneCallsListenerSIM2 = null;
+                        PPApplication.telephonyManagerSIM2 = null;
+                    } catch (Exception ignored) {
+                    }
                 }
-            }
-            if (PPApplication.phoneCallsListenerDefaul != null) {
-                try {
-                    if (PPApplication.telephonyManagerDefault != null)
-                        PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul, PhoneStateListener.LISTEN_NONE);
-                    PPApplication.phoneCallsListenerDefaul = null;
-                    PPApplication.telephonyManagerDefault = null;
-                } catch (Exception ignored) {
+                if (PPApplication.phoneCallsListenerDefaul != null) {
+                    try {
+                        if (PPApplication.telephonyManagerDefault != null)
+                            PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul, PhoneStateListener.LISTEN_NONE);
+                        PPApplication.phoneCallsListenerDefaul = null;
+                        PPApplication.telephonyManagerDefault = null;
+                    } catch (Exception ignored) {
+                    }
                 }
-            }
-        }
-        else {
-            PPApplication.telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (PPApplication.telephonyManagerDefault != null) {
-                int simCount = PPApplication.telephonyManagerDefault.getPhoneCount();
-                if (simCount > 1) {
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(appContext);
-                    if (mSubscriptionManager != null) {
+            } else {
+                PPApplication.telephonyManagerDefault = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (PPApplication.telephonyManagerDefault != null) {
+                    int simCount = PPApplication.telephonyManagerDefault.getPhoneCount();
+                    if (simCount > 1) {
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        //SubscriptionManager.from(appContext);
+                        if (mSubscriptionManager != null) {
 //                        PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "mSubscriptionManager != null");
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                            List<SubscriptionInfo> subscriptionList = null;
+                            try {
+                                // Loop through the subscription list i.e. SIM list.
+                                subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
 //                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionList=" + subscriptionList);
-                        } catch (SecurityException e) {
-                            //PPApplication.recordException(e);
-                        }
-                        if (subscriptionList != null) {
+                            } catch (SecurityException e) {
+                                //PPApplication.recordException(e);
+                            }
+                            if (subscriptionList != null) {
 //                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionList.size()=" + subscriptionList.size());
-                            for (int i = 0; i < subscriptionList.size(); i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                for (int i = 0; i < subscriptionList.size(); i++) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
 //                                PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionInfo=" + subscriptionInfo);
-                                if (subscriptionInfo != null) {
-                                    int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                    if (subscriptionInfo.getSimSlotIndex() == 0) {
-                                        if (PPApplication.telephonyManagerSIM1 == null) {
+                                    if (subscriptionInfo != null) {
+                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                        if (subscriptionInfo.getSimSlotIndex() == 0) {
+                                            if (PPApplication.telephonyManagerSIM1 == null) {
 //                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
-                                            PPApplication.telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                            PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(context, 1);
-                                            PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1,
-                                                    PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                                                PPApplication.telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                                PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(context, 1);
+                                                PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1,
+                                                        PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                                            }
+                                        }
+                                        if ((subscriptionInfo.getSimSlotIndex() == 1)) {
+                                            if (PPApplication.telephonyManagerSIM2 == null) {
+//                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
+                                                PPApplication.telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                                PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(context, 2);
+                                                PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2,
+                                                        PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                                            }
                                         }
                                     }
-                                    if ((subscriptionInfo.getSimSlotIndex() == 1)) {
-                                        if (PPApplication.telephonyManagerSIM2 == null) {
-//                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
-                                            PPApplication.telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                            PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(context, 2);
-                                            PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2,
-                                                    PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
-                                        }
-                                    }
-                                }
 //                                else
 //                                    PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionInfo == null");
+                                }
                             }
-                        }
 //                        else
 //                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionList == null");
-                    }
+                        }
 //                    else
 //                        PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "mSubscriptionManager == null");
-                }
-                else {
-                    PPApplication.phoneCallsListenerDefaul = new PhoneCallsListener(context, 0);
-                    PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul,
-                            PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                    } else {
+                        PPApplication.phoneCallsListenerDefaul = new PhoneCallsListener(context, 0);
+                        PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul,
+                                PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                    }
                 }
             }
-        }
+        });
     }
 
     void registerAllTheTimeContentObservers(boolean register) {
         final Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeContentObservers", "xxx");
-        if (!register) {
-            if (PPApplication.settingsContentObserver != null) {
-                try {
-                    appContext.getContentResolver().unregisterContentObserver(PPApplication.settingsContentObserver);
-                    PPApplication.settingsContentObserver = null;
-                } catch (Exception e) {
-                    PPApplication.settingsContentObserver = null;
+        PPApplication.startHandlerThreadBroadcast();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(() -> {
+            if (!register) {
+                if (PPApplication.settingsContentObserver != null) {
+                    try {
+                        appContext.getContentResolver().unregisterContentObserver(PPApplication.settingsContentObserver);
+                        PPApplication.settingsContentObserver = null;
+                    } catch (Exception e) {
+                        PPApplication.settingsContentObserver = null;
+                    }
                 }
             }
-        }
-        if (register) {
-            if (PPApplication.settingsContentObserver == null) {
-                try {
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeContentObservers", "REGISTER settings content observer");
-                    //settingsContentObserver = new SettingsContentObserver(appContext, new Handler(getMainLooper()));
-                    PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
-                    appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, PPApplication.settingsContentObserver);
-                } catch (Exception e) {
-                    PPApplication.settingsContentObserver = null;
-                    //PPApplication.recordException(e);
+            if (register) {
+                if (PPApplication.settingsContentObserver == null) {
+                    try {
+                        //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeContentObservers", "REGISTER settings content observer");
+                        //settingsContentObserver = new SettingsContentObserver(appContext, new Handler(getMainLooper()));
+                        PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
+                        appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, PPApplication.settingsContentObserver);
+                    } catch (Exception e) {
+                        PPApplication.settingsContentObserver = null;
+                        //PPApplication.recordException(e);
+                    }
                 }
             }
-        }
+        });
     }
 
     private void registerContactsContentObservers(boolean register) {
         final Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerContentObservers", "xxx");
-        if (!register) {
-            if (PPApplication.contactsContentObserver != null) {
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerContactsContentObservers", "UNREGISTER contacts content observer");
-                try {
-                    appContext.getContentResolver().unregisterContentObserver(PPApplication.contactsContentObserver);
-                    PPApplication.contactsContentObserver = null;
-                } catch (Exception e) {
-                    PPApplication.contactsContentObserver = null;
-                }
-            }
-        }
-        if (register) {
-            if (PPApplication.contactsContentObserver == null) {
-                try {
-                    if (Permissions.checkContacts(appContext)) {
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerContactsContentObservers", "REGISTER contacts content observer");
-                        PPApplication.contactsContentObserver = new ContactsContentObserver(new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
-                        appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, PPApplication.contactsContentObserver);
+        PPApplication.startHandlerThreadBroadcast();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(() -> {
+            if (!register) {
+                if (PPApplication.contactsContentObserver != null) {
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerContactsContentObservers", "UNREGISTER contacts content observer");
+                    try {
+                        appContext.getContentResolver().unregisterContentObserver(PPApplication.contactsContentObserver);
+                        PPApplication.contactsContentObserver = null;
+                    } catch (Exception e) {
+                        PPApplication.contactsContentObserver = null;
                     }
-                } catch (Exception e) {
-                    PPApplication.contactsContentObserver = null;
-                    //PPApplication.recordException(e);
                 }
             }
-        }
+            if (register) {
+                if (PPApplication.contactsContentObserver == null) {
+                    try {
+                        if (Permissions.checkContacts(appContext)) {
+                            //PPApplication.logE("[RJS] PhoneProfilesService.registerContactsContentObservers", "REGISTER contacts content observer");
+                            PPApplication.contactsContentObserver = new ContactsContentObserver(new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
+                            appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, PPApplication.contactsContentObserver);
+                        }
+                    } catch (Exception e) {
+                        PPApplication.contactsContentObserver = null;
+                        //PPApplication.recordException(e);
+                    }
+                }
+            }
+        });
     }
 
     void registerAllTheTimeCallbacks(boolean register) {
         final Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeCallbacks", "xxx");
-        if (!register) {
-            if (PPApplication.wifiConnectionCallback != null) {
-                try {
-                    ConnectivityManager connectivityManager =
-                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                    if (connectivityManager != null) {
-                        connectivityManager.unregisterNetworkCallback(PPApplication.wifiConnectionCallback);
+        PPApplication.startHandlerThreadBroadcast();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(() -> {
+            if (!register) {
+                if (PPApplication.wifiConnectionCallback != null) {
+                    try {
+                        ConnectivityManager connectivityManager =
+                                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                        if (connectivityManager != null) {
+                            connectivityManager.unregisterNetworkCallback(PPApplication.wifiConnectionCallback);
+                        }
+                        PPApplication.wifiConnectionCallback = null;
+                    } catch (Exception e) {
+                        PPApplication.wifiConnectionCallback = null;
                     }
-                    PPApplication.wifiConnectionCallback = null;
-                } catch (Exception e) {
-                    PPApplication.wifiConnectionCallback = null;
+                }
+                if (PPApplication.mobileDataConnectionCallback != null) {
+                    try {
+                        ConnectivityManager connectivityManager =
+                                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                        if (connectivityManager != null) {
+                            connectivityManager.unregisterNetworkCallback(PPApplication.mobileDataConnectionCallback);
+                        }
+                        PPApplication.mobileDataConnectionCallback = null;
+                    } catch (Exception e) {
+                        PPApplication.mobileDataConnectionCallback = null;
+                    }
                 }
             }
-            if (PPApplication.mobileDataConnectionCallback != null) {
-                try {
-                    ConnectivityManager connectivityManager =
-                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                    if (connectivityManager != null) {
-                        connectivityManager.unregisterNetworkCallback(PPApplication.mobileDataConnectionCallback);
-                    }
-                    PPApplication.mobileDataConnectionCallback = null;
-                } catch (Exception e) {
-                    PPApplication.mobileDataConnectionCallback = null;
-                }
-            }
-        }
-        if (register) {
-            if (PPApplication.wifiConnectionCallback == null) {
-                try {
-                    ConnectivityManager connectivityManager =
-                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                    if (connectivityManager != null) {
-                        NetworkRequest networkRequest = new NetworkRequest.Builder()
-                                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                                .build();
+            if (register) {
+                if (PPApplication.wifiConnectionCallback == null) {
+                    try {
+                        ConnectivityManager connectivityManager =
+                                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                        if (connectivityManager != null) {
+                            NetworkRequest networkRequest = new NetworkRequest.Builder()
+                                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                                    .build();
 
-                        PPApplication.wifiConnectionCallback = new WifiNetworkCallback(appContext);
-                        if (Build.VERSION.SDK_INT >= 26)
-                            connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
-                        else
-                            connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback);
+                            PPApplication.wifiConnectionCallback = new WifiNetworkCallback(appContext);
+                            if (Build.VERSION.SDK_INT >= 26)
+                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
+                            else {
+                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback);
+                            }
+                        }
+                    } catch (Exception e) {
+                        PPApplication.wifiConnectionCallback = null;
+                        //PPApplication.recordException(e);
                     }
-                } catch (Exception e) {
-                    PPApplication.wifiConnectionCallback = null;
-                    //PPApplication.recordException(e);
                 }
-            }
-            if (PPApplication.mobileDataConnectionCallback == null) {
-//                PPApplication.logE("PhoneProfilesService.registerAllTheTimeCallbacks", "mobileDataConnectionCallback (1)");
-                try {
-                    ConnectivityManager connectivityManager =
-                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                    if (connectivityManager != null) {
-//                        PPApplication.logE("PhoneProfilesService.registerAllTheTimeCallbacks", "mobileDataConnectionCallback (2)");
-                        NetworkRequest networkRequest = new NetworkRequest.Builder()
-                                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-                                .build();
+                if (PPApplication.mobileDataConnectionCallback == null) {
+    //                PPApplication.logE("PhoneProfilesService.registerAllTheTimeCallbacks", "mobileDataConnectionCallback (1)");
+                    try {
+                        ConnectivityManager connectivityManager =
+                                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                        if (connectivityManager != null) {
+    //                        PPApplication.logE("PhoneProfilesService.registerAllTheTimeCallbacks", "mobileDataConnectionCallback (2)");
+                            NetworkRequest networkRequest = new NetworkRequest.Builder()
+                                    .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                                    .build();
 
-                        PPApplication.mobileDataConnectionCallback = new MobileDataNetworkCallback(appContext);
-                        if (Build.VERSION.SDK_INT >= 26)
-                            connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
-                        else
-                            connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback);
+                            PPApplication.mobileDataConnectionCallback = new MobileDataNetworkCallback(appContext);
+                            if (Build.VERSION.SDK_INT >= 26)
+                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
+                            else
+                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback);
+                        }
+                    } catch (Exception e) {
+    //                    PPApplication.logE("PhoneProfilesService.registerAllTheTimeCallbacks", Log.getStackTraceString(e));
+                        PPApplication.mobileDataConnectionCallback = null;
+                        //PPApplication.recordException(e);
                     }
-                } catch (Exception e) {
-//                    PPApplication.logE("PhoneProfilesService.registerAllTheTimeCallbacks", Log.getStackTraceString(e));
-                    PPApplication.mobileDataConnectionCallback = null;
-                    //PPApplication.recordException(e);
                 }
             }
-        }
+        });
     }
 
     private void registerBatteryLevelChangedReceiver(boolean register, DataWrapper dataWrapper) {
@@ -3145,53 +3160,56 @@ public class PhoneProfilesService extends Service
     void registerVPNCallback(boolean register, DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerVPNCallbacks", "xxx");
-        if (!register) {
-            if (PPApplication.vpnConnectionCallback != null) {
-                try {
-                    ConnectivityManager connectivityManager =
-                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                    if (connectivityManager != null) {
-                        connectivityManager.unregisterNetworkCallback(PPApplication.vpnConnectionCallback);
-                    }
-                    PPApplication.vpnConnectionCallback = null;
-                } catch (Exception e) {
-                    PPApplication.vpnConnectionCallback = null;
-                }
-            }
-        }
-        if (register) {
-            boolean allowed = false;
-
-            dataWrapper.fillEventList();
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_VPN/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
-            if (allowed) {
-                if (PPApplication.vpnConnectionCallback == null) {
+        PPApplication.startHandlerThreadBroadcast();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(() -> {
+            if (!register) {
+                if (PPApplication.vpnConnectionCallback != null) {
                     try {
                         ConnectivityManager connectivityManager =
                                 (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                         if (connectivityManager != null) {
-                            NetworkRequest networkRequest = new NetworkRequest.Builder()
-                                    .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
-                                    .build();
-
-                            PPApplication.vpnConnectionCallback = new VPNNetworkCallback(appContext);
-                            if (Build.VERSION.SDK_INT >= 26)
-                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
-                            else
-                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback);
+                            connectivityManager.unregisterNetworkCallback(PPApplication.vpnConnectionCallback);
                         }
+                        PPApplication.vpnConnectionCallback = null;
                     } catch (Exception e) {
                         PPApplication.vpnConnectionCallback = null;
-                        //PPApplication.recordException(e);
                     }
                 }
             }
-            else
-                registerVPNCallback(false, dataWrapper);
-        }
+            if (register) {
+                boolean allowed = false;
+
+                dataWrapper.fillEventList();
+                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_VPN/*, false*/);
+                if (eventsExists)
+                    allowed = Event.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed ==
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (allowed) {
+                    if (PPApplication.vpnConnectionCallback == null) {
+                        try {
+                            ConnectivityManager connectivityManager =
+                                    (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                            if (connectivityManager != null) {
+                                NetworkRequest networkRequest = new NetworkRequest.Builder()
+                                        .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
+                                        .build();
+
+                                PPApplication.vpnConnectionCallback = new VPNNetworkCallback(appContext);
+                                if (Build.VERSION.SDK_INT >= 26)
+                                    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
+                                else
+                                    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback);
+                            }
+                        } catch (Exception e) {
+                            PPApplication.vpnConnectionCallback = null;
+                            //PPApplication.recordException(e);
+                        }
+                    }
+                } else
+                    registerVPNCallback(false, dataWrapper);
+            }
+        });
     }
 
     private void registerLocationScannerReceiver(boolean register, DataWrapper dataWrapper) {

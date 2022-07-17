@@ -126,7 +126,7 @@ class PPPExecutors {
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
             long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.handleEvents", "--------------- START - " + sensorType);
+            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.handleEvents", "--------------- START - " + sensorName);
 
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -149,7 +149,7 @@ class PPPExecutors {
 
                 long finish = System.currentTimeMillis();
                 long timeElapsed = finish - start;
-                PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.handleEvents", "--------------- END - " + sensorType + " - timeElapsed="+timeElapsed);
+                PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
             } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
