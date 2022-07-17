@@ -238,7 +238,7 @@ public class PPApplication extends Application
 //                                                +"|[WORKER_CALL]"
                                                 +"|[IN_EXECUTOR]"
                                                 +"|[EXECUTOR_CALL]"
-//                                                +"|[IN_THREAD_HANDLER]"
+                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"

@@ -122,7 +122,7 @@ class PPExecutors {
     }
 
     static void handleEvents(Context context, int _sensorType, String _sensorName, int delay) {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEvents", "schedule - " + _sensorType);
+        PPApplication.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEvents", "schedule - " + _sensorName);
 
         final Context appContext = context.getApplicationContext();
         final int sensorType = _sensorType;

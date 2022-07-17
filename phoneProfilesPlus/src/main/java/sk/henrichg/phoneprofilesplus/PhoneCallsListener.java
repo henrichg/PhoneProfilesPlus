@@ -295,7 +295,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
+            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
             //Context appContext= appContextWeakRef.get();
 
