@@ -65,7 +65,7 @@ class WifiScanner {
                 }
             }
 
-            PPApplication.startHandlerThreadPPScanners(/*"WifiScanner.doScan.1"*/);
+            //PPApplication.startHandlerThreadPPScanners(/*"WifiScanner.doScan.1"*/);
             //final Handler wifiChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
 
             //synchronized (PPApplication.radioChangeStateMutex) {
