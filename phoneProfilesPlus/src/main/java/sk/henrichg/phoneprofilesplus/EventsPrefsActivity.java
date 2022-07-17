@@ -557,6 +557,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         // save preferences into profile
         dataWrapper.getEventTimelineList(true);
 
+        //noinspection IfStatementWithIdenticalBranches
         if (event.getStatus() == Event.ESTATUS_STOP)
         {
             //PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);

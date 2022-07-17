@@ -1,5 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.app.Notification.DEFAULT_SOUND;
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -27,9 +30,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static android.app.Notification.DEFAULT_SOUND;
-import static android.app.Notification.DEFAULT_VIBRATE;
 
 class Event {
 

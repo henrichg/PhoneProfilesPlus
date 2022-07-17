@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
@@ -38,7 +40,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-//import androidx.multidex.MultiDex;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
@@ -82,8 +83,6 @@ import java.util.regex.Pattern;
 
 import dev.doubledot.doki.views.DokiContentView;
 import me.drakeet.support.toast.ToastCompat;
-
-import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
 public class PPApplication extends Application
                                         //implements Configuration.Provider

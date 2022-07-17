@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -8,7 +10,6 @@ import java.io.FileOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
-import android.util.Log;
 
 public class ZipManager {
 	private static final int BUFFER = 80000;

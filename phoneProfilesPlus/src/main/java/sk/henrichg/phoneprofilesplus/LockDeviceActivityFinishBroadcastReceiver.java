@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import java.util.Calendar;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver {

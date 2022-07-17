@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 

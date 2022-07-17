@@ -11,7 +11,6 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 
 public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallback {

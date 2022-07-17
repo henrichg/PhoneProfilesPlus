@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
-import android.os.Handler;
 import android.os.PowerManager;
 
 public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {

@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
@@ -34,7 +36,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.os.ServiceManager;
 import android.os.UserHandle;
@@ -68,8 +69,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
-import static android.app.Notification.DEFAULT_VIBRATE;
 
 class ActivateProfileHelper {
 

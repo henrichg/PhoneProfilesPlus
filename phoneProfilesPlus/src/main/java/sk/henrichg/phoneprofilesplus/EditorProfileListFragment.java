@@ -1,5 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -47,9 +50,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 //import me.drakeet.support.toast.ToastCompat;
 

@@ -1,5 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -14,7 +17,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
@@ -22,9 +24,6 @@ import android.widget.RemoteViews;
 
 import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 public class ProfileListWidgetProvider extends AppWidgetProvider {
 

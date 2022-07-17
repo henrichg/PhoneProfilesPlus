@@ -10,7 +10,6 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;

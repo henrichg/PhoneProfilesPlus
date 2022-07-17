@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -8,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.core.app.NotificationCompat;
@@ -16,8 +17,6 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
-
-import static android.app.Notification.DEFAULT_VIBRATE;
 
 public class DonationBroadcastReceiver extends BroadcastReceiver {
 

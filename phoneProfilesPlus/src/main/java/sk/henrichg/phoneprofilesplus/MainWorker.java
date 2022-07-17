@@ -3,10 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -344,21 +341,21 @@ public class MainWorker extends Worker {
             //__handler.post(new PPHandlerThreadRunnable(
             //        appContext, dataWrapper) {
             //__handler.post(() -> {
-            Runnable runnable = () -> {
+            //Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (1)");
-                PPApplication.logE("MainWorker.doAfterFirstStart", "in handler - START");
+//                PPApplication.logE("MainWorker.doAfterFirstStart", "in handler - START");
 
                 //Context appContext= appContextWeakRef.get();
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
 
                 //if ((appContext != null) && (dataWrapper != null)) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_1");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+//                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+//                    PowerManager.WakeLock wakeLock = null;
+//                    try {
+//                        if (powerManager != null) {
+//                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_1");
+//                            wakeLock.acquire(10 * 60 * 1000);
+//                        }
 
                         // This is fix for 2, 3 restarts of events after first start.
                         // Bradcasts, observers, callbacks registration starts events and this is not good
@@ -393,21 +390,21 @@ public class MainWorker extends Worker {
                             }
                         }
 
-                    } catch (Exception eee) {
-                        PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
-                        //PPApplication.recordException(eee);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }
+//                    } catch (Exception eee) {
+//                        PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
+//                        //PPApplication.recordException(eee);
+//                    } finally {
+//                        if ((wakeLock != null) && wakeLock.isHeld()) {
+//                            try {
+//                                wakeLock.release();
+//                            } catch (Exception ignored) {
+//                            }
+//                        }
+//                    }
                 //}
-            }; //);
-            PPApplication.createEventsHandlerExecutor();
-            PPApplication.eventsHandlerExecutor.submit(runnable);
+            //}; //);
+            //PPApplication.createEventsHandlerExecutor();
+            //PPApplication.eventsHandlerExecutor.submit(runnable);
 
             // !!! FOR TESTING NOT STARTED PPP BUG !!!!
 //            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "PPApplication.setApplicationFullyStarted");
@@ -444,21 +441,21 @@ public class MainWorker extends Worker {
             //__handler.post(new PPHandlerThreadRunnable(
             //        appContext, dataWrapper) {
             //__handler.post(() -> {
-            Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (2)");
+//            Runnable runnable = () -> {
+////                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (2)");
                 PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
                 //Context appContext= appContextWeakRef.get();
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
 
                 //if ((appContext != null) && (dataWrapper != null)) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_2");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+//                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+//                    PowerManager.WakeLock wakeLock = null;
+//                    try {
+//                        if (powerManager != null) {
+//                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_2");
+//                            wakeLock.acquire(10 * 60 * 1000);
+//                        }
 
                         // This is fix for 2, 3 restarts of events after first start.
                         // Bradcasts, observers, callbacks registration starts events and this is not good
@@ -468,21 +465,21 @@ public class MainWorker extends Worker {
                         PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
                         PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
 
-                    } catch (Exception eee) {
-                        PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
-                        //PPApplication.recordException(eee);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }
+//                    } catch (Exception eee) {
+//                        PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
+//                        //PPApplication.recordException(eee);
+//                    } finally {
+//                        if ((wakeLock != null) && wakeLock.isHeld()) {
+//                            try {
+//                                wakeLock.release();
+//                            } catch (Exception ignored) {
+//                            }
+//                        }
+//                    }
                 //}
-            }; //);
-            PPApplication.createBasicExecutorPool();
-            PPApplication.basicExecutorPool.submit(runnable);
+//            }; //);
+//            PPApplication.createBasicExecutorPool();
+//            PPApplication.basicExecutorPool.submit(runnable);
 
 //            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "setApplicationFullyStarted");
             PPApplication.setApplicationFullyStarted(appContext);

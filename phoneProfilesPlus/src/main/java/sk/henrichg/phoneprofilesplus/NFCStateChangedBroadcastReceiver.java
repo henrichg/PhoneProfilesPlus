@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 

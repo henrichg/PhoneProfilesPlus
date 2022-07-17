@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.Manifest.permission;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -21,8 +23,6 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
-
-import static android.Manifest.permission;
 
 //import com.google.gson.Gson;
 

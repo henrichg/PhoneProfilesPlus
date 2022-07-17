@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.os.Looper.getMainLooper;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -45,6 +47,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.color.DynamicColors;
+
 import org.xml.sax.XMLReader;
 
 import java.lang.ref.WeakReference;
@@ -57,10 +61,6 @@ import java.util.List;
 import java.util.TimeZone;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
-
-import static android.os.Looper.getMainLooper;
-
-import com.google.android.material.color.DynamicColors;
 
 class GlobalGUIRoutines {
 
