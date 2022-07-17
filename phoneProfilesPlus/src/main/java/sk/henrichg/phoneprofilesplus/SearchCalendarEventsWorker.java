@@ -70,6 +70,7 @@ public class SearchCalendarEventsWorker extends Worker {
                 PPApplication.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG - timeElapsed="+timeElapsed);
                 //worker.shutdown();
             };
+            PPApplication.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             /*
             //PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");

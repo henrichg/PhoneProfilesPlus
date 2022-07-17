@@ -407,6 +407,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //dataWrapper = null;
                 //}
             }; //);
+            PPApplication.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
@@ -450,6 +451,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         //dataWrapper = null;
                     //}
                 }; //);
+                PPApplication.createDelayedGuiExecutor();
                 PPApplication.delayedGuiExecutor.submit(runnable);
             }
         }

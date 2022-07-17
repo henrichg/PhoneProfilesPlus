@@ -406,6 +406,7 @@ public class MainWorker extends Worker {
                     }
                 //}
             }; //);
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
 
             // !!! FOR TESTING NOT STARTED PPP BUG !!!!
@@ -480,6 +481,7 @@ public class MainWorker extends Worker {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
 //            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "setApplicationFullyStarted");

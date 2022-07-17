@@ -69,6 +69,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     }
                 //}
             }; //);
+            PPApplication.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }

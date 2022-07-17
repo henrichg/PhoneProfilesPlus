@@ -114,6 +114,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             }; //);
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
 

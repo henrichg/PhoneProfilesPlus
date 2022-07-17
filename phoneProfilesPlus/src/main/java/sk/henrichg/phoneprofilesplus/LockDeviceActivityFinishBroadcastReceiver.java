@@ -114,6 +114,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                            }
 //                        }
                 };
+                PPApplication.createDelayedProfileActivationExecutor();
                 PPApplication.delayedProfileActivationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                 /*
@@ -190,6 +191,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                         PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
                         //worker.shutdown();
                     };
+                    PPApplication.createDelayedProfileActivationExecutor();
                     PPApplication.delayedProfileActivationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                     /*

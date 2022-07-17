@@ -334,6 +334,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
         }; //);
+        PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
         //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "after start handler");
     }

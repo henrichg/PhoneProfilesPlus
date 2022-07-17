@@ -225,6 +225,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         }
                                     //}
                                 }; //);
+                                PPApplication.createBasicExecutorPool();
                                 PPApplication.basicExecutorPool.submit(runnable);
                             }
                         }
@@ -286,6 +287,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         }
                                     //}
                                 }; //);
+                                PPApplication.createBasicExecutorPool();
                                 PPApplication.basicExecutorPool.submit(runnable);
                             }
                         }
@@ -352,6 +354,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         }
                                     //}
                                 }; //);
+                                PPApplication.createBasicExecutorPool();
                                 PPApplication.basicExecutorPool.submit(runnable);
                             }
                         }

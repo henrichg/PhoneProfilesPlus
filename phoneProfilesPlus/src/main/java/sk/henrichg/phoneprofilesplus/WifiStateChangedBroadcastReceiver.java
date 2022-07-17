@@ -119,6 +119,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END - timeElapsed="+timeElapsed);
                                                 //worker.shutdown();
                                             };
+                                            PPApplication.createDelayedEventsHandlerExecutor();
                                             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 
@@ -193,6 +194,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 }; //);
+                PPApplication.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(__runnable);
             }
         }

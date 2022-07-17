@@ -842,6 +842,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //dataWrapper = null;
                 //}
             }; //);
+            PPApplication.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
@@ -886,6 +887,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             }
                         //}
                     }; //);
+                    PPApplication.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
                 }
             }
@@ -912,6 +914,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             }
                         //}
                     }; //);
+                    PPApplication.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
                 }
             }
@@ -1023,6 +1026,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 //dataWrapper = null;
             //}
         }; //);
+        PPApplication.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
 
         /*

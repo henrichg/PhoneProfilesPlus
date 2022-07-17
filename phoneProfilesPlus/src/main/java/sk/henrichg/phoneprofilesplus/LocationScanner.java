@@ -108,6 +108,7 @@ class LocationScanner
                             }
                         //}
                     }; //);
+                    PPApplication.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);
                 } catch (Exception ee) {
                     //Log.e("##### LocationScanner.onConnected", Log.getStackTraceString(e));

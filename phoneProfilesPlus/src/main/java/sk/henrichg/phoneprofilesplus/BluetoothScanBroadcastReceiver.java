@@ -171,6 +171,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             }; //);
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
 
         }

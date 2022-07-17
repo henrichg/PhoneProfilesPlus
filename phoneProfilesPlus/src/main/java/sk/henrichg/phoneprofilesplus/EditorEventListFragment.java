@@ -739,6 +739,7 @@ public class EditorEventListFragment extends Fragment
                             }
                         //}
                     }; //);
+                    PPApplication.createBasicExecutorPool();
                     PPApplication.basicExecutorPool.submit(runnable);
 
                 }
@@ -787,6 +788,7 @@ public class EditorEventListFragment extends Fragment
                         }
                     //}
                 }; //);
+                PPApplication.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
 
             }

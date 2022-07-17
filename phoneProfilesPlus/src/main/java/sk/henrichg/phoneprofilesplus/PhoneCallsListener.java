@@ -321,6 +321,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallsListener.doCall");
             //}
         }; //);
+        PPApplication.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 

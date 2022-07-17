@@ -67,6 +67,7 @@ class AutostartPermissionNotification {
                         }
                     }
                 }; //);
+                PPApplication.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
             } else {
                 boolean isServiceRunning = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);

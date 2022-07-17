@@ -67,6 +67,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                         }
                     //}
                 }; //);
+                PPApplication.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
             }
         }

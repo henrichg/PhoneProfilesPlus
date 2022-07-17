@@ -62,6 +62,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
                 }
             //}
         }; //);
+        PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
 
 

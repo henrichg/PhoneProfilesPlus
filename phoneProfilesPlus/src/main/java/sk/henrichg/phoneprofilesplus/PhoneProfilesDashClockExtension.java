@@ -152,6 +152,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 }
             }
         }; //);
+        PPApplication.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
     }
 

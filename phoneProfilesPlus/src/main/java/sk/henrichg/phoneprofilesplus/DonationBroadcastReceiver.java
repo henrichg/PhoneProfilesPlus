@@ -205,6 +205,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         /*}
         else {

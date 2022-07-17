@@ -233,6 +233,7 @@ class MobileCellsListener extends PhoneStateListener {
                 }
             //}
         }; //);
+        PPApplication.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
@@ -292,6 +293,7 @@ class MobileCellsListener extends PhoneStateListener {
                 }
             //}
         }; //);
+        PPApplication.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
@@ -439,6 +441,7 @@ class MobileCellsListener extends PhoneStateListener {
                 }
             //}
         }; //);
+        PPApplication.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
@@ -500,6 +503,7 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 //}
             }; //);
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }

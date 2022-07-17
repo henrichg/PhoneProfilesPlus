@@ -77,6 +77,7 @@ class IgnoreBatteryOptimizationNotification {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
         }

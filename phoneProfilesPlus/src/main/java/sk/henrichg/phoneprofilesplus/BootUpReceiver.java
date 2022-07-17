@@ -127,6 +127,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
             //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- end");

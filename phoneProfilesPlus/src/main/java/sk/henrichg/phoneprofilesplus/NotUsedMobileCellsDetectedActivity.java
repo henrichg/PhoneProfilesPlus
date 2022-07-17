@@ -188,6 +188,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
             NotUsedMobileCellsDetectedActivity.this.finish();
@@ -240,6 +241,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
             NotUsedMobileCellsDetectedActivity.this.finish();

@@ -327,6 +327,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
                     }; //);
+                    PPApplication.createBasicExecutorPool();
                     PPApplication.basicExecutorPool.submit(runnable);
                 }
             }

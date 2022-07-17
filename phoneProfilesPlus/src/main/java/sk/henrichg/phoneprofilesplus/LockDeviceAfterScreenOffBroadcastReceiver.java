@@ -106,6 +106,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                         //worker.shutdown();
                     }
                 };
+                PPApplication.createDelayedProfileActivationExecutor();
                 PPApplication.delayedProfileActivationExecutor.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
 
                 /*
@@ -203,6 +204,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                             //worker.shutdown();
                         }
                     };
+                    PPApplication.createDelayedProfileActivationExecutor();
                     PPApplication.delayedProfileActivationExecutor.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
 
                     /*

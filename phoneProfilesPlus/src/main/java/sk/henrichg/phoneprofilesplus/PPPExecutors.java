@@ -17,6 +17,7 @@ class PPPExecutors {
             PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableBlockProfileEventActionExecutor", "--------------- END");
             //worker.smallExecutor.shutdown();
         };
+        PPApplication.createNonBlockedExecutor();
         PPApplication.nonBlockedExecutor.schedule(runnable, 30, TimeUnit.SECONDS);
     }
 
@@ -30,6 +31,7 @@ class PPPExecutors {
             PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
+        PPApplication.createNonBlockedExecutor();
         PPApplication.nonBlockedExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
     }
 
@@ -43,6 +45,7 @@ class PPPExecutors {
             PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
+        PPApplication.createNonBlockedExecutor();
         PPApplication.nonBlockedExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
     }
 
@@ -56,6 +59,7 @@ class PPPExecutors {
             PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableVolumesInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
+        PPApplication.createNonBlockedExecutor();
         PPApplication.nonBlockedExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
     }
 
@@ -113,6 +117,7 @@ class PPPExecutors {
                 //worker.shutdown();
             }
         };
+        PPApplication.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
@@ -163,10 +168,14 @@ class PPPExecutors {
                 //worker.shutdown();
             }
         };
-        if (delay == 0)
+        if (delay == 0) {
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
-        else
+        }
+        else {
+            PPApplication.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+        }
     }
 
 }

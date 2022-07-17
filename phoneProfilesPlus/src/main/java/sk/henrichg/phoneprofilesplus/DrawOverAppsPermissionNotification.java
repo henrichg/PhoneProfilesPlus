@@ -64,6 +64,7 @@ class DrawOverAppsPermissionNotification {
                         }
                     //}
                 }; //);
+                PPApplication.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
             }
             else {

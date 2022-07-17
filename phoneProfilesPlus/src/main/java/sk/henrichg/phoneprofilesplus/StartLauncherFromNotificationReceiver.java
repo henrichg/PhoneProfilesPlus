@@ -44,6 +44,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                             PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- END - timeElapsed="+timeElapsed);
                         //worker.shutdown();
                     };
+                    PPApplication.createDelayedGuiExecutor();
                     if ((Build.VERSION.SDK_INT >= 29) &&
                             ApplicationPreferences.applicationNotificationLauncher.equals("activator")) {
                         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {

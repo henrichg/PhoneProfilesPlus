@@ -86,6 +86,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
 
                     //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
                 }; //);
+                PPApplication.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
 
                 try {

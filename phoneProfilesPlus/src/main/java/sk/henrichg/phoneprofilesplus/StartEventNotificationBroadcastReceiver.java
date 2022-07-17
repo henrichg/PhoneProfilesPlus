@@ -240,6 +240,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     //}
                 }
             }; //);
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
         else {

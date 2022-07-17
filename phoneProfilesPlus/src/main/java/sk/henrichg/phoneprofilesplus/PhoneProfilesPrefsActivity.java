@@ -643,6 +643,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
 

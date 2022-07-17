@@ -149,6 +149,7 @@ class BluetoothScanner {
                                     }
                                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
                                 }; //);
+                                PPApplication.createScannersExecutor();
                                 PPApplication.scannersExecutor.submit(runnable);
                                 //PPApplication.sleep(1000);
                                 if (BluetoothScanWorker.bluetooth == null)
@@ -284,6 +285,7 @@ class BluetoothScanner {
 
                                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
                                 }; //);
+                                PPApplication.createScannersExecutor();
                                 PPApplication.scannersExecutor.submit(runnable);
                             } //else
                             //PPApplication.logE("$$$B BluetoothScanner.doScan", "keep enabled bluetooth");
@@ -402,6 +404,7 @@ class BluetoothScanner {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
                     }; //);
+                    PPApplication.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);
                     return BluetoothAdapter.STATE_TURNING_ON;
                 }

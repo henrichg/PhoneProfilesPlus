@@ -75,6 +75,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                 }
             //}
         }; //);
+        PPApplication.createScannersExecutor();
         PPApplication.scannersExecutor.submit(runnable);
     }
 
@@ -143,6 +144,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                     }
                 //}
             }; //);
+            PPApplication.createScannersExecutor();
             PPApplication.scannersExecutor.submit(runnable);
 
         }

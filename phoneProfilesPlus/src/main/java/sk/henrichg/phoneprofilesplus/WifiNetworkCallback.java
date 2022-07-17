@@ -168,6 +168,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     }
                 //}
             }; //);
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }

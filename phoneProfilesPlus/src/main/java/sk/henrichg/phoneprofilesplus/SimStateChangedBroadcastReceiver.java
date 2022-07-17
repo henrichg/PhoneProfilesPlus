@@ -103,6 +103,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                 }
             //}
         }; //);
+        PPApplication.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 

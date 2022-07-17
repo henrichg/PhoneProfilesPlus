@@ -1801,42 +1801,45 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerReceiverForRadioSwitchMobileDataSensor(boolean register, DataWrapper dataWrapper) {
+    private void registerObserverForRadioSwitchMobileDataSensor(boolean register, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "xxx");
-        if (!register) {
-            if (PPApplication.mobileDataStateChangedContentObserver != null) {
-                try {
-                    appContext.getContentResolver().unregisterContentObserver(PPApplication.mobileDataStateChangedContentObserver);
-                    PPApplication.mobileDataStateChangedContentObserver = null;
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "UNREGISTER");
-                } catch (Exception e) {
-                    PPApplication.mobileDataStateChangedContentObserver = null;
-                }
-            }
-            //else
-            //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "not registered");
-        }
-        if (register) {
-            //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "REGISTER");
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED;
-            if (allowed) {
-                if (PPApplication.mobileDataStateChangedContentObserver == null) {
-                    PPApplication.mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(appContext, new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
-                    appContext.getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, PPApplication.mobileDataStateChangedContentObserver);
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "REGISTER mobileDataStateChangedContentObserver");
+        PPApplication.startHandlerThreadBroadcast();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(() -> {
+            if (!register) {
+                if (PPApplication.mobileDataStateChangedContentObserver != null) {
+                    try {
+                        appContext.getContentResolver().unregisterContentObserver(PPApplication.mobileDataStateChangedContentObserver);
+                        PPApplication.mobileDataStateChangedContentObserver = null;
+                        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "UNREGISTER");
+                    } catch (Exception e) {
+                        PPApplication.mobileDataStateChangedContentObserver = null;
+                    }
                 }
                 //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "registered");
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "not registered");
             }
-            else
-                registerReceiverForRadioSwitchMobileDataSensor(false, dataWrapper);
-        }
+            if (register) {
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "REGISTER");
+                dataWrapper.fillEventList();
+                boolean allowed = false;
+                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA/*, false*/);
+                if (eventsExists)
+                    allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (allowed) {
+                    if (PPApplication.mobileDataStateChangedContentObserver == null) {
+                        PPApplication.mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(appContext, new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
+                        appContext.getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, PPApplication.mobileDataStateChangedContentObserver);
+                        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "REGISTER mobileDataStateChangedContentObserver");
+                    }
+                    //else
+                    //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "registered");
+                } else
+                    registerObserverForRadioSwitchMobileDataSensor(false, dataWrapper);
+            }
+        });
     }
 
     @SuppressLint("InlinedApi")
@@ -3750,7 +3753,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForCalendarSensor(true, dataWrapper);
 
         // required for radio switch sensor
-        registerReceiverForRadioSwitchMobileDataSensor(true, dataWrapper);
+        registerObserverForRadioSwitchMobileDataSensor(true, dataWrapper);
         registerReceiverForRadioSwitchNFCSensor(true, dataWrapper);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, dataWrapper);
         registerReceiverForRadioSwitchDefaultSIMSensor(true, dataWrapper);
@@ -3883,7 +3886,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForAccessoriesSensor(false, null);
         registerReceiverForSMSSensor(false, null);
         registerReceiverForCalendarSensor(false, null);
-        registerReceiverForRadioSwitchMobileDataSensor(false, null);
+        registerObserverForRadioSwitchMobileDataSensor(false, null);
         registerReceiverForRadioSwitchNFCSensor(false, null);
         registerReceiverForRadioSwitchAirplaneModeSensor(false, null);
         registerReceiverForRadioSwitchDefaultSIMSensor(false, null);
@@ -3945,7 +3948,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForAccessoriesSensor(true, dataWrapper);
         registerReceiverForSMSSensor(true, dataWrapper);
         registerReceiverForCalendarSensor(true, dataWrapper);
-        registerReceiverForRadioSwitchMobileDataSensor(true, dataWrapper);
+        registerObserverForRadioSwitchMobileDataSensor(true, dataWrapper);
         registerReceiverForRadioSwitchNFCSensor(true, dataWrapper);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, dataWrapper);
         registerReceiverForRadioSwitchDefaultSIMSensor(true, dataWrapper);
@@ -4545,6 +4548,7 @@ public class PhoneProfilesService extends Service
                 }
             }
         }; //);
+        PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
 
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
@@ -5563,6 +5567,7 @@ public class PhoneProfilesService extends Service
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
 //        else
@@ -7004,6 +7009,7 @@ public class PhoneProfilesService extends Service
             }
             //}
         };
+        PPApplication.createDelayedGuiExecutor();
         if (drawImmediatelly)
             PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
         else
@@ -8636,6 +8642,7 @@ public class PhoneProfilesService extends Service
             }
 
         }; //);
+        PPApplication.createPlayToneExecutor();
         PPApplication.playToneExecutor.submit(runnable);
     }
 

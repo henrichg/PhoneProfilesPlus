@@ -110,6 +110,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     PPApplication.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - timeElapsed="+timeElapsed);
                     //worker.shutdown();
                 };
+                PPApplication.createDelayedEventsHandlerExecutor();
                 PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                 /*
                 //enqueueWork();

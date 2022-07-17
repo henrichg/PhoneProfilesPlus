@@ -114,6 +114,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 }; //);
+                PPApplication.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
@@ -188,6 +189,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     }
                     //}
                 }; //);
+                PPApplication.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable2);
 
                 break;
@@ -257,6 +259,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 //}
                             }; //);
+                            PPApplication.createEventsHandlerExecutor();
                             PPApplication.eventsHandlerExecutor.submit(runnable3);
                         }
                     }
@@ -302,6 +305,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }; //);
+                    PPApplication.createProfileActiationExecutorPool();
                     PPApplication.profileActiationExecutorPool.submit(runnable3);
                 }
                 break;
@@ -395,6 +399,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }; //);
+                    PPApplication.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable3);
                 }
                 break;
@@ -448,6 +453,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }; //);
+                    PPApplication.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable3);
                 }
                 break;

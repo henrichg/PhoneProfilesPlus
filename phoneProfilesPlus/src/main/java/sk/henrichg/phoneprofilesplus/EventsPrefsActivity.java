@@ -614,6 +614,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
         else {
@@ -665,6 +666,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
     }

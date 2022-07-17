@@ -222,6 +222,7 @@ public class PPTileService extends TileService {
                     // save tile profileId into SharedPreferences
                 //}
             }; //);
+            PPApplication.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         } else {
             tile.setLabel(getString(R.string.quick_tile_icon_label));

@@ -120,6 +120,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                     }
                 //}
             }; //);
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }

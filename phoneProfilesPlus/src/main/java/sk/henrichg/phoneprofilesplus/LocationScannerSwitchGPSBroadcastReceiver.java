@@ -246,6 +246,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                 }
             //}
         }; //);
+        PPApplication.createScannersExecutor();
         PPApplication.scannersExecutor.submit(runnable);
     }
 

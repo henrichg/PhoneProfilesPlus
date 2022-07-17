@@ -1060,6 +1060,7 @@ class ActivateProfileHelper {
                 }
             //}
         }; //);
+        PPApplication.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
@@ -2998,6 +2999,7 @@ class ActivateProfileHelper {
                 }
             }
         }; //);
+        PPApplication.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
@@ -3072,6 +3074,7 @@ class ActivateProfileHelper {
                 }
             //}
         }; //);
+        PPApplication.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
@@ -3144,6 +3147,7 @@ class ActivateProfileHelper {
                 }
             //}
         }; //);
+        PPApplication.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
@@ -3215,6 +3219,7 @@ class ActivateProfileHelper {
                 }
             //}
         }; //);
+        PPApplication.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
@@ -3812,6 +3817,7 @@ class ActivateProfileHelper {
                 }
             //}
         }; //);
+        PPApplication.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
@@ -3917,6 +3923,7 @@ class ActivateProfileHelper {
                 }
                 //}
             }; //);
+            PPApplication.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
@@ -3980,6 +3987,7 @@ class ActivateProfileHelper {
                     }
                 //}
             }; //);
+            PPApplication.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
@@ -4250,6 +4258,7 @@ class ActivateProfileHelper {
                 }
             //}
         }; //);
+        PPApplication.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
         //}
     }
@@ -5155,6 +5164,7 @@ class ActivateProfileHelper {
                         //worker.shutdown();
                     }
                 };
+                PPApplication.createDelayedProfileActivationExecutor();
                 PPApplication.delayedProfileActivationExecutor.schedule(runnable, 1500, TimeUnit.MILLISECONDS);
                 /*
                 Data workData = new Data.Builder()
@@ -6888,6 +6898,7 @@ class ActivateProfileHelper {
                     }
                 //}
             }; //);
+            PPApplication.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
@@ -7011,6 +7022,7 @@ class ActivateProfileHelper {
                 }
             //}
         }; //);
+        PPApplication.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
@@ -7459,6 +7471,7 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 }; //);
+                                PPApplication.createProfileActiationExecutorPool();
                                 PPApplication.profileActiationExecutorPool.submit(runnable);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -7503,6 +7516,7 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 }; //);
+                                PPApplication.createProfileActiationExecutorPool();
                                 PPApplication.profileActiationExecutorPool.submit(runnable);
 
                             } catch (Exception e) {

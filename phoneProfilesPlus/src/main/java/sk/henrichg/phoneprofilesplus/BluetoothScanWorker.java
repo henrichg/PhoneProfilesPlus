@@ -116,6 +116,7 @@ public class BluetoothScanWorker extends Worker {
                 PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
                 //worker.shutdown();
             };
+            PPApplication.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             /*
             //PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");

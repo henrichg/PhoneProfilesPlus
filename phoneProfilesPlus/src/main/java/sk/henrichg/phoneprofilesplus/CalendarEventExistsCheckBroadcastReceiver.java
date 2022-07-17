@@ -77,6 +77,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
                     }
                 //}
             }; //);
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
             /*}
             else {

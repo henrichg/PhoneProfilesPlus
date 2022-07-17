@@ -178,6 +178,7 @@ public class RingtonePreferenceX extends DialogPreference {
                     }
                 }
             }; //);
+            PPApplication.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
         }
     }
@@ -364,6 +365,7 @@ public class RingtonePreferenceX extends DialogPreference {
                     }
                 }
             }; //);
+            PPApplication.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
 
         }

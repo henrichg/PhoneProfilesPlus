@@ -44,6 +44,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
                 //}
             }; //);
+            PPApplication.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
@@ -745,6 +746,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             _onUpdate(appContext, appWidgetManager, ids);
                         //}
                     }; //);
+                    PPApplication.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
                 }
             }

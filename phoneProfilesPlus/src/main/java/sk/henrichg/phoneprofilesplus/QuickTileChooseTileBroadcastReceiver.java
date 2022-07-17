@@ -100,6 +100,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
                 }
             //}
         }; //);
+        PPApplication.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
 
     }

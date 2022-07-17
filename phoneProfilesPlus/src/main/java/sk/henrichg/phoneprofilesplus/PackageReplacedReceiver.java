@@ -77,6 +77,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
     }

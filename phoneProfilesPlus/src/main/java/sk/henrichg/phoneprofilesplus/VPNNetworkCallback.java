@@ -168,6 +168,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
                     }
                 //}
             }; //);
+            PPApplication.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }

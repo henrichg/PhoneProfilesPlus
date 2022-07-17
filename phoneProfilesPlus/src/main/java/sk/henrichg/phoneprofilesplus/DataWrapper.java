@@ -1002,6 +1002,7 @@ public class DataWrapper {
                 }
             //}
         }; //);
+        PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
@@ -1170,6 +1171,7 @@ public class DataWrapper {
                 }
             //}
         }; //);
+        PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
@@ -1262,6 +1264,7 @@ public class DataWrapper {
                 }
             //}
         }; //);
+        PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
@@ -1330,6 +1333,7 @@ public class DataWrapper {
                 }
             //}
         }; //);
+        PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
@@ -1969,6 +1973,7 @@ public class DataWrapper {
                 }
             //}
         }; //);
+        PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
 
         // for startActivityForResult
@@ -2557,6 +2562,7 @@ public class DataWrapper {
                     }
                 //}
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
         else
@@ -2818,6 +2824,7 @@ public class DataWrapper {
                             //worker.shutdown();
                         }
                     };
+                    PPApplication.createDelayedEventsHandlerExecutor();
                     PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                     /*
@@ -2933,6 +2940,7 @@ public class DataWrapper {
                                 //worker.shutdown();
                             }
                         };
+                        PPApplication.createDelayedEventsHandlerExecutor();
                         PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                         /*
@@ -2994,6 +3002,7 @@ public class DataWrapper {
                     //worker.shutdown();
                 }
             };
+            PPApplication.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
 

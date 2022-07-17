@@ -228,6 +228,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                 }
             //}
         }; //);
+        PPApplication.createPlayToneExecutor();
         PPApplication.playToneExecutor.submit(runnable);
 
         preference.fragment = null;
@@ -402,6 +403,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                     }
                 //}
             }; //);
+            PPApplication.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
             /*
             try {

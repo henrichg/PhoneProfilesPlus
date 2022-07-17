@@ -140,6 +140,7 @@ class WifiScanner {
                                     PPApplication.recordException(e);
                                 }
                             }; //);
+                            PPApplication.createScannersExecutor();
                             PPApplication.scannersExecutor.submit(runnable);
                             if (WifiScanWorker.wifi == null)
                                 WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -296,6 +297,7 @@ class WifiScanner {
 
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
                         }; //);
+                        PPApplication.createScannersExecutor();
                         PPApplication.scannersExecutor.submit(runnable);
                         //PPApplication.sleep(1000);
                         if (WifiScanWorker.wifi == null)
@@ -425,6 +427,7 @@ class WifiScanner {
                                 PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
                             }*/
                         }; //);
+                        PPApplication.createScannersExecutor();
                         PPApplication.scannersExecutor.submit(runnable);
                         //PPApplication.logE("@@@ WifiScanner.enableWifi","set enabled");
                         return WifiManager.WIFI_STATE_ENABLING;

@@ -873,15 +873,15 @@ public class PPApplication extends Application
     static Location lastLocation = null;
 
     //todo
-    public static ExecutorService basicExecutorPool = Executors.newCachedThreadPool();
-    public static ExecutorService profileActiationExecutorPool = Executors.newCachedThreadPool();
-    public static ExecutorService eventsHandlerExecutor = Executors.newCachedThreadPool();
-    public static ExecutorService scannersExecutor = Executors.newCachedThreadPool();
-    public static ExecutorService playToneExecutor = Executors.newSingleThreadExecutor();
-    public static ScheduledExecutorService nonBlockedExecutor = Executors.newSingleThreadScheduledExecutor();
-    public static ScheduledExecutorService delayedGuiExecutor = Executors.newSingleThreadScheduledExecutor();
-    public static ScheduledExecutorService delayedEventsHandlerExecutor = Executors.newSingleThreadScheduledExecutor();
-    public static ScheduledExecutorService delayedProfileActivationExecutor = Executors.newSingleThreadScheduledExecutor();
+    public static ExecutorService basicExecutorPool = null;
+    public static ExecutorService profileActiationExecutorPool = null;
+    public static ExecutorService eventsHandlerExecutor = null;
+    public static ExecutorService scannersExecutor = null;
+    public static ExecutorService playToneExecutor = null;
+    public static ScheduledExecutorService nonBlockedExecutor = null;
+    public static ScheduledExecutorService delayedGuiExecutor = null;
+    public static ScheduledExecutorService delayedEventsHandlerExecutor = null;
+    public static ScheduledExecutorService delayedProfileActivationExecutor = null;
 
     // required for callbacks, observers, ...
     public static HandlerThread handlerThreadBroadcast = null;
@@ -983,6 +983,35 @@ public class PPApplication extends Application
         }
 
         PPApplication.logE("##### PPApplication.onCreate", "continue onCreate()");
+
+        createBasicExecutorPool();
+        createProfileActiationExecutorPool();
+        createEventsHandlerExecutor();
+        createScannersExecutor();
+        createPlayToneExecutor();
+        createNonBlockedExecutor();
+        createDelayedGuiExecutor();
+        createDelayedEventsHandlerExecutor();
+        createDelayedProfileActivationExecutor();
+
+        startHandlerThreadBroadcast();
+        startHandlerThreadOrientationScanner(); // for seconds interval
+        //startHandlerThread(/*"PPApplication.onCreate"*/);
+        //startHandlerThreadCancelWork();
+        //startHandlerThreadPPScanners(); // for minutes interval
+        //startHandlerThreadPPCommand();
+        startHandlerThreadLocation();
+        //startHandlerThreadWidget();
+        //startHandlerThreadPlayTone();
+        //startHandlerThreadVolumes();
+        //startHandlerThreadRadios();
+        //startHandlerThreadWallpaper();
+        //startHandlerThreadRunApplication();
+        //startHandlerThreadProfileActivation();
+
+        toastHandler = new Handler(getMainLooper());
+        //brightnessHandler = new Handler(getMainLooper());
+        screenTimeoutHandler = new Handler(getMainLooper());
 
         PackageManager packageManager = getPackageManager();
         HAS_FEATURE_BLUETOOTH_LE = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH_LE);
@@ -1164,25 +1193,6 @@ public class PPApplication extends Application
         //resetLog();
 
         //firstStartServiceStarted = false;
-
-        startHandlerThreadBroadcast();
-        startHandlerThreadOrientationScanner(); // for seconds interval
-        //startHandlerThread(/*"PPApplication.onCreate"*/);
-        //startHandlerThreadCancelWork();
-        //startHandlerThreadPPScanners(); // for minutes interval
-        //startHandlerThreadPPCommand();
-        startHandlerThreadLocation();
-        //startHandlerThreadWidget();
-        //startHandlerThreadPlayTone();
-        //startHandlerThreadVolumes();
-        //startHandlerThreadRadios();
-        //startHandlerThreadWallpaper();
-        //startHandlerThreadRunApplication();
-        //startHandlerThreadProfileActivation();
-
-        toastHandler = new Handler(getMainLooper());
-        //brightnessHandler = new Handler(getMainLooper());
-        screenTimeoutHandler = new Handler(getMainLooper());
 
         /*
         JobConfig.setApiEnabled(JobApi.WORK_MANAGER, true);
@@ -1441,6 +1451,7 @@ public class PPApplication extends Application
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
                 _cancelWork(name, forceCancel);
         }; //);
+        PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
@@ -1619,6 +1630,7 @@ public class PPApplication extends Application
                             logType, eventName, profileName, profilesEventsCount);
                 }
             }; //);
+            PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
     }
@@ -4489,6 +4501,7 @@ public class PPApplication extends Application
                         }
                     //}
                 }; //);
+                PPApplication.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
             }
             else
@@ -4594,6 +4607,43 @@ public class PPApplication extends Application
                 dialog.show();
         }
 
+    }
+
+    static void createBasicExecutorPool() {
+        if (basicExecutorPool == null)
+            basicExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createProfileActiationExecutorPool() {
+        if (profileActiationExecutorPool == null)
+            profileActiationExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createEventsHandlerExecutor() {
+        if (eventsHandlerExecutor == null)
+            eventsHandlerExecutor = Executors.newCachedThreadPool();
+    }
+    static void createScannersExecutor() {
+        if (scannersExecutor == null)
+            scannersExecutor = Executors.newCachedThreadPool();
+    }
+    static void createPlayToneExecutor() {
+        if (playToneExecutor == null)
+            playToneExecutor = Executors.newSingleThreadExecutor();
+    }
+    static void createNonBlockedExecutor() {
+        if (nonBlockedExecutor == null)
+            nonBlockedExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
+    static void createDelayedGuiExecutor() {
+        if (delayedGuiExecutor == null)
+            delayedGuiExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
+    static void createDelayedEventsHandlerExecutor() {
+        if (delayedEventsHandlerExecutor == null)
+            delayedEventsHandlerExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
+    static void createDelayedProfileActivationExecutor() {
+        if (delayedProfileActivationExecutor == null)
+            delayedProfileActivationExecutor = Executors.newSingleThreadScheduledExecutor();
     }
 
     /*
