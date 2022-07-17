@@ -876,7 +876,7 @@ public class PPApplication extends Application
     public static ExecutorService eventsHandlerExecutor = null;
     public static ExecutorService scannersExecutor = null;
     public static ExecutorService playToneExecutor = null;
-    public static ScheduledExecutorService nonBlockedExecutor = null;
+    public static ScheduledExecutorService disableInternalChangeExecutor = null;
     public static ScheduledExecutorService delayedGuiExecutor = null;
     public static ScheduledExecutorService delayedEventsHandlerExecutor = null;
     public static ScheduledExecutorService delayedProfileActivationExecutor = null;
@@ -4628,8 +4628,8 @@ public class PPApplication extends Application
             playToneExecutor = Executors.newSingleThreadExecutor();
     }
     static void createNonBlockedExecutor() {
-        if (nonBlockedExecutor == null)
-            nonBlockedExecutor = Executors.newSingleThreadScheduledExecutor();
+        if (disableInternalChangeExecutor == null)
+            disableInternalChangeExecutor = Executors.newSingleThreadScheduledExecutor();
     }
     static void createDelayedGuiExecutor() {
         if (delayedGuiExecutor == null)

@@ -18,7 +18,7 @@ class PPPExecutors {
             //worker.smallExecutor.shutdown();
         };
         PPApplication.createNonBlockedExecutor();
-        PPApplication.nonBlockedExecutor.schedule(runnable, 30, TimeUnit.SECONDS);
+        PPApplication.disableInternalChangeExecutor.schedule(runnable, 30, TimeUnit.SECONDS);
     }
 
     static void scheduleDisableInternalChangeExecutor() {
@@ -32,7 +32,7 @@ class PPPExecutors {
             //worker.shutdown();
         };
         PPApplication.createNonBlockedExecutor();
-        PPApplication.nonBlockedExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+        PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
     }
 
     static void scheduleDisableScreenTimeoutInternalChangeExecutor() {
@@ -46,7 +46,7 @@ class PPPExecutors {
             //worker.shutdown();
         };
         PPApplication.createNonBlockedExecutor();
-        PPApplication.nonBlockedExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+        PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
     }
 
     static void scheduleDisableVolumesInternalChangeExecutor() {
@@ -60,7 +60,7 @@ class PPPExecutors {
             //worker.shutdown();
         };
         PPApplication.createNonBlockedExecutor();
-        PPApplication.nonBlockedExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+        PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
     }
 
     static void doRestartEventsWithDelay(final boolean alsoRescan, final boolean unblockEventsRun, final int logType, Context context) {
