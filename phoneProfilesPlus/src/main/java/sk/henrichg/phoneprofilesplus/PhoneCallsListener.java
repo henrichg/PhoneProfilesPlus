@@ -580,8 +580,8 @@ public class PhoneCallsListener extends PhoneStateListener {
             //}
         }
 
-        DisableInternalChangeWorker.enqueueWork();
-        DisableVolumesInternalChangeWorker.enqueueWork();
+        PPPExecutors.scheduleDisableInternalChangeExecutor();
+        PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

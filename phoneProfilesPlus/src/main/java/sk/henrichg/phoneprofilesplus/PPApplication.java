@@ -4687,7 +4687,7 @@ public class PPApplication extends Application
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
         PPApplication.blockProfileEventActions = enable;
         if (enable) {
-            DisableBlockProfileEventActionWorker.enqueueWork();
+            PPPExecutors.scheduleDisableBlockProfileEventActionExecutor();
         }
         else {
             PPApplication.cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG, false);

@@ -1,13 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.PowerManager;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+// DO NOT REMOVE. MUST EXISTS !!!
 public class RestartEventsWithDelayWorker extends Worker {
 
     //private final Context context;
@@ -71,6 +70,7 @@ public class RestartEventsWithDelayWorker extends Worker {
         return Result.success();
     }
 
+/*
     static void doWork(boolean useHandler, final boolean alsoRescan, final boolean unblockEventsRun, final int logType, Context context) {
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -78,7 +78,7 @@ public class RestartEventsWithDelayWorker extends Worker {
 
         final Context appContext = context.getApplicationContext();
         if (useHandler) {
-            PPApplication.startHandlerThreadBroadcast(/*"RestartEventsWithDelayWorker.doWork"*/);
+            PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
@@ -127,5 +127,5 @@ public class RestartEventsWithDelayWorker extends Worker {
         }
 
     }
-
+*/
 }

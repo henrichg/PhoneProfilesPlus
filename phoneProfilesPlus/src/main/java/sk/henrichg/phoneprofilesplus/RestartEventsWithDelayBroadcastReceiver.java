@@ -14,11 +14,11 @@ public class RestartEventsWithDelayBroadcastReceiver extends BroadcastReceiver {
         if (action != null) {
 //            PPApplication.logE("RestartEventsWithDelayBroadcastReceiver.onReceive", "action=" + action);
 
-            boolean alsoRescan = intent.getBooleanExtra(PhoneProfilesService.EXTRA_ALSO_RESCAN, false);
-            boolean unblockEventsRun = intent.getBooleanExtra(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, false);
-            int logType = intent.getIntExtra(PhoneProfilesService.EXTRA_LOG_TYPE, PPApplication.ALTYPE_UNDEFINED);
+            final boolean alsoRescan = intent.getBooleanExtra(PhoneProfilesService.EXTRA_ALSO_RESCAN, false);
+            final boolean unblockEventsRun = intent.getBooleanExtra(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, false);
+            final int logType = intent.getIntExtra(PhoneProfilesService.EXTRA_LOG_TYPE, PPApplication.ALTYPE_UNDEFINED);
 
-            RestartEventsWithDelayWorker.doWork(true, alsoRescan, unblockEventsRun, logType, context);
+            PPPExecutors.scheduleRestartEventsWithDelayExecutor(alsoRescan, unblockEventsRun, logType, context);
         }
     }
 

@@ -2790,7 +2790,7 @@ public class DataWrapper {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
+                            PPPExecutors.doRestartEventsWithDelay(alsoRescan, unblockEventsRun, logType, context);
 
                             long finish = System.currentTimeMillis();
                             long timeElapsed = finish - start;
@@ -2905,7 +2905,7 @@ public class DataWrapper {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
+                                PPPExecutors.doRestartEventsWithDelay(alsoRescan, unblockEventsRun, logType, context);
 
                                 long finish = System.currentTimeMillis();
                                 long timeElapsed = finish - start;
@@ -2966,7 +2966,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    RestartEventsWithDelayWorker.doWork(false, alsoRescan, unblockEventsRun, logType, context);
+                    PPPExecutors.doRestartEventsWithDelay(alsoRescan, unblockEventsRun, logType, context);
 
                     long finish = System.currentTimeMillis();
                     long timeElapsed = finish - start;

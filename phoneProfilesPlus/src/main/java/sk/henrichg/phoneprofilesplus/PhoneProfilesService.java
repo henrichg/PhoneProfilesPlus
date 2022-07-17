@@ -8088,8 +8088,8 @@ public class PhoneProfilesService extends Service
 //                    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
                     ringingMediaPlayer = null;
 
-                    DisableInternalChangeWorker.enqueueWork();
-                    DisableVolumesInternalChangeWorker.enqueueWork();
+                    PPPExecutors.scheduleDisableInternalChangeExecutor();
+                    PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
                     final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -8156,8 +8156,8 @@ public class PhoneProfilesService extends Service
         ringingCallIsSimulating = false;
 
         if (disableInternalChange) {
-            DisableInternalChangeWorker.enqueueWork();
-            DisableVolumesInternalChangeWorker.enqueueWork();
+            PPPExecutors.scheduleDisableInternalChangeExecutor();
+            PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
             /*PPApplication.startHandlerThreadInternalChangeToFalse();
             final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

@@ -626,7 +626,7 @@ StartLauncherFromNotificationReceiver.onReceive()
 
 ---------------
 
-Toto by mali byt broadcasty, ktore potrebuje HandlerThread a parioal wakelock na zavolanie
+Toto by mali byt broadcasty, ktore potrebuje HandlerThread a partial wakelock na zavolanie
 EventsHandler.handleEvents(). Nic viac nevolaju vo vnutri, len toto.
 Tak uprav MainWorker.hanldeEvents, aby volal ScheduledExecutorService s worker.submit(runnable);
 Lebo tu nie je delay. Musi to submitnut hned.

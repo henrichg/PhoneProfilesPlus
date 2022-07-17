@@ -172,7 +172,7 @@ public class RingtonePreferenceX extends DialogPreference {
                             EventPreferencesVolumes.internalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                            DisableVolumesInternalChangeWorker.enqueueWork();
+                            PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                         }
                     }
                 }
@@ -321,8 +321,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                     ringtoneIsPlayed = false;
                                     mediaPlayer = null;
 
-                                    DisableInternalChangeWorker.enqueueWork();
-                                    DisableVolumesInternalChangeWorker.enqueueWork();
+                                    PPPExecutors.scheduleDisableInternalChangeExecutor();
+                                    PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                     final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -345,8 +345,8 @@ public class RingtonePreferenceX extends DialogPreference {
                         //PPApplication.recordException(e);
                         RingtonePreferenceX.this.stopPlayRingtone();
 
-                        DisableInternalChangeWorker.enqueueWork();
-                        DisableVolumesInternalChangeWorker.enqueueWork();
+                        PPPExecutors.scheduleDisableInternalChangeExecutor();
+                        PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

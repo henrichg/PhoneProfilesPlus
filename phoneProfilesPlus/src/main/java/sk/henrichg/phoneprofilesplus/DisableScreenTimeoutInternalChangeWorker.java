@@ -6,10 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
+// DO NOT REMOVE. MUST EXISTS !!!
 public class DisableScreenTimeoutInternalChangeWorker extends Worker {
 
     static final String WORK_TAG = "disableScreenTimeoutInternalChangeWork";
@@ -78,19 +75,8 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
         }*/
     }
 
+/*
     static void enqueueWork() {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableScreenTimeoutInternalChangeWorker.enqueueWork", "schedule");
-
-        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-        Runnable runnable = () -> {
-            PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- START");
-            ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
-            PPApplication.logE("[IN_EXECUTOR]  ***** DisableScreenTimeoutInternalChangeWorker.executor", "--------------- END");
-            worker.shutdown();
-        };
-        worker.schedule(runnable, 5, TimeUnit.SECONDS);
-
-        /*
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
                         .addTag(DisableInternalChangeWorker.WORK_TAG)
@@ -118,7 +104,6 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        */
     }
-
+*/
 }

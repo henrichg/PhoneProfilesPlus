@@ -1189,7 +1189,7 @@ class ActivateProfileHelper {
                         EventPreferencesVolumes.internalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                        DisableVolumesInternalChangeWorker.enqueueWork();
+                        PPPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                         audioManager.setRingerMode(ringerMode);
 
@@ -2974,7 +2974,7 @@ class ActivateProfileHelper {
                     }
 
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
-                    DisableInternalChangeWorker.enqueueWork();
+                    PPPExecutors.scheduleDisableInternalChangeExecutor();
                     //DisableVolumesInternalChangeWorker.enqueueWork();
 
                     if (noErrorSetTone) {
@@ -5525,7 +5525,7 @@ class ActivateProfileHelper {
         }
         setActivatedProfileScreenTimeoutWhenScreenOff(appContext, 0);
 
-        DisableScreenTimeoutInternalChangeWorker.enqueueWork();
+        PPPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor();
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

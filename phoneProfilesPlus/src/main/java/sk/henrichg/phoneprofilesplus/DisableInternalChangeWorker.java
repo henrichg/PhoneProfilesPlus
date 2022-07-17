@@ -6,10 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
+// DO NOT REMOVE. MUST EXISTS !!!
 public class DisableInternalChangeWorker extends Worker {
 
     static final String WORK_TAG = "disableInternalChangeWork";
@@ -51,19 +48,8 @@ public class DisableInternalChangeWorker extends Worker {
         return Result.success();
     }
 
+/*
     static void enqueueWork() {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** DisableInternalChangeWorker.enqueueWork", "schedule");
-
-        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-        Runnable runnable = () -> {
-            PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- START");
-            RingerModeChangeReceiver.internalChange = false;
-            PPApplication.logE("[IN_EXECUTOR]  ***** DisableInternalChangeWorker.executor", "--------------- END");
-            worker.shutdown();
-        };
-        worker.schedule(runnable, 5, TimeUnit.SECONDS);
-
-        /*
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
                         .addTag(DisableInternalChangeWorker.WORK_TAG)
@@ -91,6 +77,6 @@ public class DisableInternalChangeWorker extends Worker {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        */
     }
+ */
 }
