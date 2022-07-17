@@ -1106,6 +1106,8 @@ public class PhoneProfilesService extends Service
 
     static void registerPhoneCallsListener(boolean register, Context context) {
         //PPApplication.logE("[RJS] PhoneProfilesService.registerPhoneCallsListener", "xxx");
+
+        // keep this: it is required to use handlerThreadBroadcast for cal listener
         PPApplication.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
@@ -1203,6 +1205,8 @@ public class PhoneProfilesService extends Service
     void registerAllTheTimeContentObservers(boolean register) {
         final Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeContentObservers", "xxx");
+
+        // keep this: it is required to use handlerThreadBroadcast observers
         PPApplication.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
@@ -1235,6 +1239,8 @@ public class PhoneProfilesService extends Service
     private void registerContactsContentObservers(boolean register) {
         final Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerContentObservers", "xxx");
+
+        // keep this: it is required to use handlerThreadBroadcast for observers
         PPApplication.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
@@ -1269,6 +1275,8 @@ public class PhoneProfilesService extends Service
     void registerAllTheTimeCallbacks(boolean register) {
         final Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeCallbacks", "xxx");
+
+        // keep this: it is required to use handlerThreadBroadcast for callbacks
         PPApplication.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
@@ -1804,6 +1812,8 @@ public class PhoneProfilesService extends Service
     private void registerObserverForRadioSwitchMobileDataSensor(boolean register, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "xxx");
+
+        // keep this: it is required to use handlerThreadBroadcast for observers
         PPApplication.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
@@ -3163,6 +3173,8 @@ public class PhoneProfilesService extends Service
     void registerVPNCallback(boolean register, DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
         //PPApplication.logE("[RJS] PhoneProfilesService.registerVPNCallbacks", "xxx");
+
+        // keep this: it is required to use handlerThreadBroadcast for callbacks
         PPApplication.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
