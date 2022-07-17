@@ -34,10 +34,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         if (appWidgetIds.length > 0) {
 //            PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
             final Context appContext = context;
-            PPApplication.startHandlerThreadWidget();
-            final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            //PPApplication.startHandlerThreadWidget();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
@@ -46,7 +47,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 //if ((appContext != null) && (appWidgetManager != null)) {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
                 //}
-            });
+            }; //);
+            PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
 
@@ -734,10 +736,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if ((ids != null) && (ids.length > 0)) {
                     final Context appContext = context;
                     final AppWidgetManager appWidgetManager = manager;
-                    PPApplication.startHandlerThreadWidget();
-                    final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+                    //PPApplication.startHandlerThreadWidget();
+                    //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
                     //__handler.post(new PPHandlerThreadRunnable(context, manager) {
-                    __handler.post(() -> {
+                    //__handler.post(() -> {
+                    Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
@@ -746,7 +749,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         //if ((appContext != null) && (appWidgetManager != null)) {
                             _onUpdate(appContext, appWidgetManager, ids);
                         //}
-                    });
+                    }; //);
+                    PPApplication.delayedGuiExecutor.submit(runnable);
                 }
             }
         }

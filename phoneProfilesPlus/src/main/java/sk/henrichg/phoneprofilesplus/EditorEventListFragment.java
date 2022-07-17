@@ -702,10 +702,11 @@ public class EditorEventListFragment extends Fragment
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
                     final DataWrapper dataWrapper = activityDataWrapper;
-                    PPApplication.startHandlerThread();
-                    final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                    //PPApplication.startHandlerThread();
+                    //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                     //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                    __handler.post(() -> {
+                    //__handler.post(() -> {
+                    Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
                         //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -737,7 +738,8 @@ public class EditorEventListFragment extends Fragment
                                 }
                             }
                         //}
-                    });
+                    }; //);
+                    PPApplication.basicExecutorPool.submit(runnable);
 
                 }
                 else {
@@ -748,10 +750,11 @@ public class EditorEventListFragment extends Fragment
                 // stop event
 
                 final DataWrapper dataWrapper = activityDataWrapper;
-                PPApplication.startHandlerThread();
-                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                //PPApplication.startHandlerThread();
+                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                 //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
                     //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -783,7 +786,8 @@ public class EditorEventListFragment extends Fragment
                             }
                         }
                     //}
-                });
+                }; //);
+                PPApplication.basicExecutorPool.submit(runnable);
 
             }
 

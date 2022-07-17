@@ -66,7 +66,7 @@ class WifiScanner {
             }
 
             PPApplication.startHandlerThreadPPScanners(/*"WifiScanner.doScan.1"*/);
-            final Handler wifiChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+            //final Handler wifiChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
 
             //synchronized (PPApplication.radioChangeStateMutex) {
 
@@ -120,7 +120,8 @@ class WifiScanner {
                             // service restarted during scanning (prefEventWifiEnabledForScan is set to false at end of scan),
                             // disable wifi
 //                            PPApplication.logE("$$$W WifiScanner.doScan", "disable wifi - service restarted");
-                            wifiChangeHandler.post(() -> {
+                            //wifiChangeHandler.post(() -> {
+                            Runnable runnable = () -> {
                                 try {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.1");
                                     if (WifiScanWorker.wifi == null)
@@ -138,7 +139,8 @@ class WifiScanner {
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }
-                            });
+                            }; //);
+                            PPApplication.scannersExecutor.submit(runnable);
                             if (WifiScanWorker.wifi == null)
                                 WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                             waitForWifiDisabled(WifiScanWorker.wifi);
@@ -164,7 +166,7 @@ class WifiScanner {
 
                             // enable wifi
                             int wifiState;
-                            wifiState = enableWifi(WifiScanWorker.wifi, wifiChangeHandler);
+                            wifiState = enableWifi(WifiScanWorker.wifi/*, wifiChangeHandler*/);
 //                            PPApplication.logE("$$$W WifiScanner.doScan", "wifiState="+wifiState);
 
 
@@ -196,7 +198,7 @@ class WifiScanner {
                                     {
 //                                        PPApplication.logE("$$$W WifiScanner.doScan", "not start service for force scan");
 
-                                        MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5);
+                                        PPPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, "SENSOR_TYPE_WIFI_SCANNER", 5);
                                         /*
                                         Data workData = new Data.Builder()
                                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
@@ -271,7 +273,8 @@ class WifiScanner {
 
                     if (ApplicationPreferences.prefEventWifiEnabledForScan) {
 //                        PPApplication.logE("$$$W WifiScanner.doScan", "disable wifi - wifi enabled for scan");
-                        wifiChangeHandler.post(() -> {
+                        //wifiChangeHandler.post(() -> {
+                        Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.2");
 
                             try {
@@ -292,7 +295,8 @@ class WifiScanner {
                             }
 
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
-                        });
+                        }; //);
+                        PPApplication.scannersExecutor.submit(runnable);
                         //PPApplication.sleep(1000);
                         if (WifiScanWorker.wifi == null)
                             WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -363,7 +367,7 @@ class WifiScanner {
     }
     */
 
-    private int enableWifi(WifiManager wifi, Handler wifiChangeHandler)
+    private int enableWifi(WifiManager wifi/*, Handler wifiChangeHandler*/)
     {
         //PPApplication.logE("@@@ WifiScanner.enableWifi","xxx");
 
@@ -399,7 +403,8 @@ class WifiScanner {
                         WifiScanWorker.lock(context);
                         final WifiManager _wifi = wifi;
                         //PPApplication.logE("[HANDLER] WifiScanner.enableWifi", "before start handler");
-                        wifiChangeHandler.post(() -> {
+                        //wifiChangeHandler.post(() -> {
+                        Runnable runnable = () -> {
                             //if (PPApplication.logEnabled()) {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.enableWifi");
 
@@ -419,7 +424,8 @@ class WifiScanner {
 
                                 PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
                             }*/
-                        });
+                        }; //);
+                        PPApplication.scannersExecutor.submit(runnable);
                         //PPApplication.logE("@@@ WifiScanner.enableWifi","set enabled");
                         return WifiManager.WIFI_STATE_ENABLING;
                     }

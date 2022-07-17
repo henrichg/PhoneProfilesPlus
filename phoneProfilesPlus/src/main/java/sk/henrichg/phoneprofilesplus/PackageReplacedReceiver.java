@@ -17,11 +17,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"PackageReplacedReceiver.onReceive"*/);
-            final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"PackageReplacedReceiver.onReceive"*/);
+            //final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler2.post(() -> {
+            //__handler2.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
@@ -75,7 +76,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
         }
     }
 

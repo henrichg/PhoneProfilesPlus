@@ -106,7 +106,7 @@ public class BluetoothScanWorker extends Worker {
 
             PPApplication.logE("[EXECUTOR_CALL]  ***** BluetoothScanWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
             final Context appContext = context;
-            final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
                 long start1 = System.currentTimeMillis();
                 PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
@@ -114,9 +114,9 @@ public class BluetoothScanWorker extends Worker {
                 long finish = System.currentTimeMillis();
                 long timeElapsed = finish - start1;
                 PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
-                worker.shutdown();
+                //worker.shutdown();
             };
-            worker.schedule(runnable, 5, TimeUnit.SECONDS);
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             /*
             //PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
             //scheduleWork(context.getApplicationContext(), false);
@@ -1136,7 +1136,7 @@ public class BluetoothScanWorker extends Worker {
 
                 if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
-                    MainWorker.handleEvents(context, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
+                    PPPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, "SENSOR_TYPE_BLUETOOTH_SCANNER", 5);
 
                     /*
                     Data workData = new Data.Builder()

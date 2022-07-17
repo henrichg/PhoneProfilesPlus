@@ -188,10 +188,11 @@ class MobileCellsListener extends PhoneStateListener {
         //PPApplication.logE("MobileCellsScanner.onCellInfoChanged."+simSlot, "telephonyManager="+telephonyManager);
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellInfoChanged"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellInfoChanged"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onCellInfoChanged");
 
             //Context appContext= appContextWeakRef.get();
@@ -231,7 +232,8 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     @Override
@@ -246,10 +248,11 @@ class MobileCellsListener extends PhoneStateListener {
         //PPApplication.logE("MobileCellsScanner.onServiceStateChanged."+simSlot, "telephonyManager=" + telephonyManager);
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onServiceStateChanged"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onServiceStateChanged"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onServiceStateChanged");
 
             //Context appContext= appContextWeakRef.get();
@@ -288,7 +291,8 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     private void getCellLocation(CellLocation location) {
@@ -382,10 +386,11 @@ class MobileCellsListener extends PhoneStateListener {
         //PPApplication.logE("MobileCellsScanner.onCellLocationChanged", "telephonyManager="+telephonyManager);
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellLocationChanged"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellLocationChanged"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onCellLocationChanged");
 
             //Context appContext= appContextWeakRef.get();
@@ -433,7 +438,8 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     void registerCell() {
@@ -450,10 +456,11 @@ class MobileCellsListener extends PhoneStateListener {
             //PPApplication.logE("MobileCellsScanner.rescanMobileCells."+simSlot, "-----");
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.rescanMobileCells"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.rescanMobileCells"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.rescanMobileCells");
 
                 //Context appContext= appContextWeakRef.get();
@@ -492,7 +499,8 @@ class MobileCellsListener extends PhoneStateListener {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }
 
@@ -512,7 +520,7 @@ class MobileCellsListener extends PhoneStateListener {
                 PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MobileCellsScanner.handleEvents");
             //}*/
 
-            MainWorker.handleEvents(appContext, EventsHandler.SENSOR_TYPE_MOBILE_CELLS, 5);
+            PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_MOBILE_CELLS, "SENSOR_TYPE_MOBILE_CELLS", 5);
             /*
             Data workData = new Data.Builder()
                     .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_MOBILE_CELLS)

@@ -385,10 +385,11 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             //final int[] _cocktailIds = cocktailIds;
 
             final Context appContext = context;
-            PPApplication.startHandlerThreadWidget();
-            final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            //PPApplication.startHandlerThreadWidget();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
@@ -405,7 +406,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //    dataWrapper.invalidateDataWrapper();
                     //dataWrapper = null;
                 //}
-            });
+            }; //);
+            PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
 
@@ -423,10 +425,11 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
             if ((cocktailIds != null) && (cocktailIds.length > 0)) {
                 final Context appContext = context;
-                PPApplication.startHandlerThreadWidget();
-                final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+                //PPApplication.startHandlerThreadWidget();
+                //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
                 //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
@@ -446,7 +449,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         //    dataWrapper.invalidateDataWrapper();
                         //dataWrapper = null;
                     //}
-                });
+                }; //);
+                PPApplication.delayedGuiExecutor.submit(runnable);
             }
         }
     }

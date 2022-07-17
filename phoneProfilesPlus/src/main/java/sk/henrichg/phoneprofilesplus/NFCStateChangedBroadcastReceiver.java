@@ -25,7 +25,9 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                 if ((state == NfcAdapter.STATE_ON) || (state == NfcAdapter.STATE_OFF)) {
                     final Context appContext = context.getApplicationContext();
-                    PPApplication.startHandlerThreadBroadcast(/*"NFCStateChangedBroadcastReceiver.onReceive"*/);
+                    PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH, "SENSOR_TYPE_RADIO_SWITCH", 0);
+                    /*
+                    PPApplication.startHandlerThreadBroadcast();
                     final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                     //        context.getApplicationContext()) {
@@ -60,6 +62,7 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         //}
                     });
+                    */
                 }
             }
         }

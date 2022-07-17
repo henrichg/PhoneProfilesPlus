@@ -20,10 +20,11 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
             final int mobileCellId = intent.getIntExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, 0);
             if (mobileCellId != 0) {
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThreadBroadcast(/*"NotUsedMobileCellsNotificationDeletedReceiver.onReceive"*/);
-                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                //PPApplication.startHandlerThreadBroadcast(/*"NotUsedMobileCellsNotificationDeletedReceiver.onReceive"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
@@ -65,7 +66,8 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                             }
                         }
                     //}
-                });
+                }; //);
+                PPApplication.eventsHandlerExecutor.submit(runnable);
             }
         }
 

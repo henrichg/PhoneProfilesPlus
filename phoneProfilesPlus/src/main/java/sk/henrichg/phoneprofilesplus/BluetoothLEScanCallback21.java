@@ -37,10 +37,11 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         }
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadPPScanners();
-        final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        //PPApplication.startHandlerThreadPPScanners();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
 
             //Context appContext= appContextWeakRef.get();
@@ -73,7 +74,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.scannersExecutor.submit(runnable);
     }
 
     public void onBatchScanResults(List<ScanResult> results) {
@@ -98,10 +100,11 @@ class BluetoothLEScanCallback21 extends ScanCallback {
             final BluetoothDevice device = result.getDevice();
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadPPScanners();
-            final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+            //PPApplication.startHandlerThreadPPScanners();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBluetoothLECallback", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
 
                 //Context appContext= appContextWeakRef.get();
@@ -139,7 +142,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.scannersExecutor.submit(runnable);
 
         }
 

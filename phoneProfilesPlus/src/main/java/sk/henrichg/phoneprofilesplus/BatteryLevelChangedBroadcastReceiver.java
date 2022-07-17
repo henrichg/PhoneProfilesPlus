@@ -181,7 +181,9 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
             if (Event.getGlobalEventsRunning()) {
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThreadBroadcast(/*"BatteryLevelChangedBroadcastReceiver.onReceive"*/);
+                PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BATTERY_WITH_LEVEL, "SENSOR_TYPE_BATTERY_WITH_LEVEL", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -217,6 +219,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 });
+                */
             }
         }
     }

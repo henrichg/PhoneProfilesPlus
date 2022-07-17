@@ -115,7 +115,9 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 
             if (Event.getGlobalEventsRunning()) {
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThreadBroadcast(/*"BatteryChargingChangedBroadcastReceiver.onReceive"*/);
+                PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BATTERY, "SENSOR_TYPE_BATTERY", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -154,6 +156,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 });
+                */
             }
         }
     }

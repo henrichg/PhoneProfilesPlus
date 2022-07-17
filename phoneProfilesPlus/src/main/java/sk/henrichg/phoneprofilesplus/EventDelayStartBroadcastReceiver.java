@@ -29,7 +29,9 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             final Context appContext = context.getApplicationContext();
             if (useHandler) {
-                PPApplication.startHandlerThreadBroadcast(/*"EventDelayStartBroadcastReceiver.doWork"*/);
+                PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_EVENT_DELAY_START, "SENSOR_TYPE_EVENT_DELAY_START", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -64,6 +66,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 });
+                */
             } else {
                 //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventDelayStartBroadcastReceiver.doWork (2)");

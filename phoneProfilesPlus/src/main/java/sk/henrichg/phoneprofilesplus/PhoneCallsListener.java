@@ -204,7 +204,9 @@ public class PhoneCallsListener extends PhoneStateListener {
             if (Event.getGlobalEventsRunning()) {
                 //if (useHandler) {
                 final Context appContext = savedContext.getApplicationContext();
-                PPApplication.startHandlerThreadBroadcast(/*"PeriodicEventEndBroadcastReceiver.doWork"*/);
+                PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_ROAMING, "SENSOR_TYPE_ROAMING", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -239,6 +241,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                     }
                     //}
                 });
+                */
             }
         }
 
@@ -289,10 +292,11 @@ public class PhoneCallsListener extends PhoneStateListener {
                         final boolean incoming, final boolean missed/*,
                             final String number, final Date eventTime*/) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast(/*"PhoneCallsListener.doCall"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //PPApplication.startHandlerThreadBroadcast(/*"PhoneCallsListener.doCall"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
             //Context appContext= appContextWeakRef.get();
@@ -316,7 +320,8 @@ public class PhoneCallsListener extends PhoneStateListener {
 
                 //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallsListener.doCall");
             //}
-        });
+        }; //);
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     @SuppressWarnings("UnusedReturnValue")

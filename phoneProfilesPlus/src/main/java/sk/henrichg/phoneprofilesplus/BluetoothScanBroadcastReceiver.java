@@ -54,10 +54,11 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             }*/
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"BluetoothScanBroadcastReceiver.onReceive"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"BluetoothScanBroadcastReceiver.onReceive"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
@@ -169,7 +170,8 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.eventsHandlerExecutor.submit(runnable);
 
         }
 

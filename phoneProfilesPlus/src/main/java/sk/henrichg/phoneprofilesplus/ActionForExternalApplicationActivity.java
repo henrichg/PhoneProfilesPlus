@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -183,11 +182,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 //                            PPApplication.logE("ActionForExternalApplicationActivity.onStart", "event=" + event._name);
                             if (event.getStatus() != Event.ESTATUS_RUNNING) {
                                 final Context appContext = getApplicationContext();
-                                PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
-                                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
+                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                                 //__handler.post(new PPHandlerThreadRunnable(
                                 //        getApplicationContext(), dataWrapper, event) {
-                                __handler.post(() -> {
+                                //__handler.post(() -> {
+                                Runnable runnable = () -> {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
                                     //Context appContext= appContextWeakRef.get();
@@ -224,7 +224,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                });
+                                }; //);
+                                PPApplication.basicExecutorPool.submit(runnable);
                             }
                         }
                         else
@@ -246,11 +247,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 //                            PPApplication.logE("ActionForExternalApplicationActivity.onStart", "event=" + event._name);
                             if (event.getStatus() == Event.ESTATUS_RUNNING) {
                                 final Context appContext = getApplicationContext();
-                                PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.11"*/);
-                                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.11"*/);
+                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                                 //__handler.post(new PPHandlerThreadRunnable(
                                 //        getApplicationContext(), dataWrapper, event) {
-                                __handler.post(() -> {
+                                //__handler.post(() -> {
+                                Runnable runnable = () -> {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.11");
 
                                     //Context appContext= appContextWeakRef.get();
@@ -283,7 +285,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                });
+                                }; //);
+                                PPApplication.basicExecutorPool.submit(runnable);
                             }
                         }
                         else
@@ -305,11 +308,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 //                            PPApplication.logE("ActionForExternalApplicationActivity.onStart", "event=" + event._name);
                             if (event.getStatus() != Event.ESTATUS_STOP) {
                                 final Context appContext = getApplicationContext();
-                                PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.2"*/);
-                                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.2"*/);
+                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                                 //__handler.post(new PPHandlerThreadRunnable(
                                 //        getApplicationContext(), dataWrapper, event) {
-                                __handler.post(() -> {
+                                //__handler.post(() -> {
+                                Runnable runnable = () -> {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
                                     //Context appContext= appContextWeakRef.get();
@@ -347,7 +351,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                });
+                                }; //);
+                                PPApplication.basicExecutorPool.submit(runnable);
                             }
                         }
                         else

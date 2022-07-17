@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 
@@ -22,11 +21,12 @@ class IgnoreBatteryOptimizationNotification {
 
         final Context appContext = context.getApplicationContext();
         if (useHandler) {
-            PPApplication.startHandlerThread(/*"IgnoreBatteryOptimizationNotification.showNotification"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"IgnoreBatteryOptimizationNotification.showNotification"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
                 //Context appContext= appContextWeakRef.get();
@@ -76,7 +76,8 @@ class IgnoreBatteryOptimizationNotification {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
 
         }
         else {

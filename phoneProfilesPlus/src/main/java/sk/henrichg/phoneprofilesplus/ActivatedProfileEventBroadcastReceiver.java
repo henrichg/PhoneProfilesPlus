@@ -36,11 +36,12 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
             final long profileId = _profileId;
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatedProfileEventBroadcastReceiver.doWork");
 
                 //Context appContext= appContextWeakRef.get();
@@ -113,7 +114,8 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }
 

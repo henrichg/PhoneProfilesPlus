@@ -601,11 +601,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast();
+            //final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
             //        appContext) {
-            __handler2.post(() -> {
+            //__handler2.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
 
                 //Context appContext= appContextWeakRef.get();
@@ -641,7 +642,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
         }
 
         /*

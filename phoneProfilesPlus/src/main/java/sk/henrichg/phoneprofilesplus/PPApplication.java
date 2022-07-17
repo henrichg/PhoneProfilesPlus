@@ -73,6 +73,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -871,22 +872,37 @@ public class PPApplication extends Application
 
     static Location lastLocation = null;
 
-    public static HandlerThread handlerThread = null;
-    public static HandlerThread handlerThreadCancelWork = null;
+    //todo
+    public static ExecutorService basicExecutorPool = Executors.newCachedThreadPool();
+    public static ExecutorService profileActiationExecutorPool = Executors.newCachedThreadPool();
+    public static ExecutorService eventsHandlerExecutor = Executors.newCachedThreadPool();
+    public static ExecutorService scannersExecutor = Executors.newCachedThreadPool();
+    public static ExecutorService playToneExecutor = Executors.newSingleThreadExecutor();
+    public static ScheduledExecutorService nonBlockedExecutor = Executors.newSingleThreadScheduledExecutor();
+    public static ScheduledExecutorService delayedGuiExecutor = Executors.newSingleThreadScheduledExecutor();
+    public static ScheduledExecutorService delayedEventsHandlerExecutor = Executors.newSingleThreadScheduledExecutor();
+    public static ScheduledExecutorService delayedProfileActivationExecutor = Executors.newSingleThreadScheduledExecutor();
+
+    // required for callbacks, observers, ...
     public static HandlerThread handlerThreadBroadcast = null;
-    public static HandlerThread handlerThreadWidget = null;
-    public static HandlerThread handlerThreadPlayTone = null;
-    public static HandlerThread handlerThreadPPScanners = null;
+    // required for sensor manager
     public static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
+    // rewuired for location manager
     public static HandlerThread handlerThreadLocation = null;
+
+    //public static HandlerThread handlerThread = null;
+    //public static HandlerThread handlerThreadCancelWork = null;
+    //public static HandlerThread handlerThreadWidget = null;
+    //public static HandlerThread handlerThreadPlayTone = null;
+    //public static HandlerThread handlerThreadPPScanners = null;
     //public static HandlerThread handlerThreadPPCommand = null;
 
-    public static HandlerThread handlerThreadVolumes = null;
-    public static HandlerThread handlerThreadRadios = null;
-    public static HandlerThread handlerThreadWallpaper = null;
-    public static HandlerThread handlerThreadRunApplication = null;
+    //public static HandlerThread handlerThreadVolumes = null;
+    //public static HandlerThread handlerThreadRadios = null;
+    //public static HandlerThread handlerThreadWallpaper = null;
+    //public static HandlerThread handlerThreadRunApplication = null;
 
-    public static HandlerThread handlerThreadProfileActivation = null;
+    //public static HandlerThread handlerThreadProfileActivation = null;
 
     public static Handler toastHandler;
     //public static Handler brightnessHandler;
@@ -1149,20 +1165,20 @@ public class PPApplication extends Application
 
         //firstStartServiceStarted = false;
 
-        startHandlerThread(/*"PPApplication.onCreate"*/);
-        startHandlerThreadCancelWork();
         startHandlerThreadBroadcast();
-        startHandlerThreadPPScanners(); // for minutes interval
         startHandlerThreadOrientationScanner(); // for seconds interval
+        //startHandlerThread(/*"PPApplication.onCreate"*/);
+        //startHandlerThreadCancelWork();
+        //startHandlerThreadPPScanners(); // for minutes interval
         //startHandlerThreadPPCommand();
         startHandlerThreadLocation();
-        startHandlerThreadWidget();
-        startHandlerThreadPlayTone();
-        startHandlerThreadVolumes();
-        startHandlerThreadRadios();
-        startHandlerThreadWallpaper();
-        startHandlerThreadRunApplication();
-        startHandlerThreadProfileActivation();
+        //startHandlerThreadWidget();
+        //startHandlerThreadPlayTone();
+        //startHandlerThreadVolumes();
+        //startHandlerThreadRadios();
+        //startHandlerThreadWallpaper();
+        //startHandlerThreadRunApplication();
+        //startHandlerThreadProfileActivation();
 
         toastHandler = new Handler(getMainLooper());
         //brightnessHandler = new Handler(getMainLooper());
@@ -1416,17 +1432,16 @@ public class PPApplication extends Application
         }
     }
 
-    static void cancelWork(final String name, final boolean forceCancel/*, final boolean useHander*/) {
+    static void cancelWork(final String name, final boolean forceCancel) {
         // cancel only enqueued works
-        //if (useHander) {
-            PPApplication.startHandlerThreadCancelWork();
-            final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
-            __handler.post(() -> {
+        //PPApplication.startHandlerThreadCancelWork();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
                 _cancelWork(name, forceCancel);
-            });
-        //} else
-        //    _cancelWork(name, forceCancel);
+        }; //);
+        PPApplication.basicExecutorPool.submit(runnable);
     }
 
     // is called from ThreadHandler
@@ -1588,10 +1603,11 @@ public class PPApplication extends Application
                                final String profileName, final String profilesEventsCount) {
         if (PPApplication.prefActivityLogEnabled) {
             final Context appContext = context;
-            PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
 
                 //Context context= appContextWeakRef.get();
@@ -1602,7 +1618,8 @@ public class PPApplication extends Application
                     DatabaseHandler.getInstance(appContext).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
                             logType, eventName, profileName, profilesEventsCount);
                 }
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
         }
     }
 
@@ -1925,7 +1942,7 @@ public class PPApplication extends Application
 
             PPApplication.logE("[EXECUTOR_CALL]  ***** PPApplication.updateGUI", "schedule");
 
-            final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
                 long start = System.currentTimeMillis();
                 PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- START");
@@ -1958,10 +1975,10 @@ public class PPApplication extends Application
                         } catch (Exception ignored) {
                         }
                     }
-                    worker.shutdown();
+                    //worker.shutdown();
                 }
             };
-            worker.schedule(runnable, delay, TimeUnit.SECONDS);
+            PPApplication.delayedGuiExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
             /*
             PPApplication.startHandlerThread();
@@ -4430,10 +4447,11 @@ public class PPApplication extends Application
                                  final boolean shutdown, boolean removeNotifications) {
         try {
             if (useHandler) {
-                PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
-                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                //PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                 //__handler.post(new ExitAppRunnable(context.getApplicationContext(), dataWrapper, activity) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
                     //Context appContext= appContextWeakRef.get();
@@ -4470,7 +4488,8 @@ public class PPApplication extends Application
                             }
                         }
                     //}
-                });
+                }; //);
+                PPApplication.basicExecutorPool.submit(runnable);
             }
             else
                 _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
@@ -4577,14 +4596,17 @@ public class PPApplication extends Application
 
     }
 
-    static void startHandlerThread(/*String from*/) {
+    /*
+    static void startHandlerThread() {
         //PPApplication.logE("PPApplication.startHandlerThread", "from="+from);
         if (handlerThread == null) {
             handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThread.start();
         }
     }
+    */
 
+    /*
     static void startHandlerThreadCancelWork() {
         //PPApplication.logE("PPApplication.startHandlerThreadCancelWork", "from="+from);
         if (handlerThreadCancelWork == null) {
@@ -4592,6 +4614,7 @@ public class PPApplication extends Application
             handlerThreadCancelWork.start();
         }
     }
+    */
 
     static void startHandlerThreadBroadcast(/*String from*/) {
         if (handlerThreadBroadcast == null) {
@@ -4600,12 +4623,14 @@ public class PPApplication extends Application
         }
     }
 
+    /*
     static void startHandlerThreadPPScanners() {
         if (handlerThreadPPScanners == null) {
             handlerThreadPPScanners = new HandlerThread("PPHandlerThreadPPScanners", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadPPScanners.start();
         }
     }
+    */
 
     static void startHandlerThreadOrientationScanner() {
         if (handlerThreadOrientationScanner == null) {
@@ -4634,54 +4659,68 @@ public class PPApplication extends Application
         }
     }
 
+    /*
     static void startHandlerThreadWidget() {
         if (handlerThreadWidget == null) {
             handlerThreadWidget = new HandlerThread("PPHandlerThreadWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadWidget.start();
         }
     }
+    */
 
+    /*
     static void startHandlerThreadPlayTone() {
         if (handlerThreadPlayTone == null) {
             handlerThreadPlayTone = new HandlerThread("PPHandlerThreadPlayTone", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadPlayTone.start();
         }
     }
+    */
 
+    /*
     static void startHandlerThreadVolumes() {
         if (handlerThreadVolumes == null) {
             handlerThreadVolumes = new HandlerThread("handlerThreadVolumes", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadVolumes.start();
         }
     }
+    */
 
+    /*
     static void startHandlerThreadRadios() {
         if (handlerThreadRadios == null) {
             handlerThreadRadios = new HandlerThread("handlerThreadRadios", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadRadios.start();
         }
     }
+    */
 
+    /*
     static void startHandlerThreadWallpaper() {
         if (handlerThreadWallpaper == null) {
             handlerThreadWallpaper = new HandlerThread("handlerThreadWallpaper", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadWallpaper.start();
         }
     }
+    */
 
+    /*
     static void startHandlerThreadRunApplication() {
         if (handlerThreadRunApplication == null) {
             handlerThreadRunApplication = new HandlerThread("handlerThreadRunApplication", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadRunApplication.start();
         }
     }
+    */
 
+    /*
     static void startHandlerThreadProfileActivation() {
         if (handlerThreadProfileActivation == null) {
             handlerThreadProfileActivation = new HandlerThread("handlerThreadProfileActivation", THREAD_PRIORITY_MORE_FAVORABLE); //);;
             handlerThreadProfileActivation.start();
         }
     }
+    */
 
     static void setBlockProfileEventActions(boolean enable) {
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()

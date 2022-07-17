@@ -41,10 +41,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 //                PPApplication.logE("[APP_START] WifiStateChangedBroadcastReceiver.onReceive", "wifiState="+wifiState);
 
-                PPApplication.startHandlerThreadBroadcast(/*"WifiStateChangedBroadcastReceiver.onReceive.1"*/);
-                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                //PPApplication.startHandlerThreadBroadcast(/*"WifiStateChangedBroadcastReceiver.onReceive.1"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable __runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
 
                     //Context appContext= appContextWeakRef.get();
@@ -108,7 +109,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         if (ApplicationPreferences.prefEventWifiScanRequest) {
                                             PPApplication.logE("[EXECUTOR_CALL]  ***** WifiStateChangedBroadcastReceiver.onReceive", "schedule");
 
-                                            final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                                            //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                                             Runnable runnable = () -> {
                                                 long start = System.currentTimeMillis();
                                                 PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- START");
@@ -116,9 +117,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 long finish = System.currentTimeMillis();
                                                 long timeElapsed = finish - start;
                                                 PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END - timeElapsed="+timeElapsed);
-                                                worker.shutdown();
+                                                //worker.shutdown();
                                             };
-                                            worker.schedule(runnable, 5, TimeUnit.SECONDS);
+                                            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 
                                             /*
@@ -191,7 +192,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     //}
-                });
+                }; //);
+                PPApplication.eventsHandlerExecutor.submit(__runnable);
             }
         }
 

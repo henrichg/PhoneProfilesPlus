@@ -29,11 +29,12 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CalendarEventExistsCheckBroadcastReceiver.doWork");
 
                 //Context appContext= appContextWeakRef.get();
@@ -75,7 +76,8 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.eventsHandlerExecutor.submit(runnable);
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {

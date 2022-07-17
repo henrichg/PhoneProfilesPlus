@@ -29,7 +29,9 @@ public class PeriodicEventEndBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"PeriodicEventEndBroadcastReceiver.doWork"*/);
+            PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_PERIODIC_EVENT_END, "SENSOR_TYPE_PERIODIC_EVENT_END", 0);
+            /*
+            PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
@@ -64,6 +66,7 @@ public class PeriodicEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             });
+            */
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {

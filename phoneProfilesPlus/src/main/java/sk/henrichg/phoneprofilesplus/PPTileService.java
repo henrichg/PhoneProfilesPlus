@@ -159,10 +159,11 @@ public class PPTileService extends TileService {
 //        PPApplication.logE("PPTileService.updateTile", "tileId="+tileId);
 
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
-            PPApplication.startHandlerThreadWidget();
-            final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            //PPApplication.startHandlerThreadWidget();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(getApplicationContext(), tile) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
@@ -220,7 +221,8 @@ public class PPTileService extends TileService {
 
                     // save tile profileId into SharedPreferences
                 //}
-            });
+            }; //);
+            PPApplication.delayedGuiExecutor.submit(runnable);
         } else {
             tile.setLabel(getString(R.string.quick_tile_icon_label));
             tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_default));

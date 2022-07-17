@@ -185,11 +185,12 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
     static void doWork(final Context appContext) {
 //        PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
 
-        PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
-        final Handler __handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        //PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
+        //final Handler __handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
         //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
         //        appContext) {
-        __handler2.post(() -> {
+        //__handler2.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationScannerSwitchGPSBroadcastReceiver.doWork");
 
             //Context appContext= appContextWeakRef.get();
@@ -244,7 +245,8 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.scannersExecutor.submit(runnable);
     }
 
 }

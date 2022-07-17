@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Handler;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -302,9 +301,10 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                     Settings.System.putFloat(context.getContentResolver(),
                             Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, value);
                 } catch (Exception ee) {
-                    PPApplication.startHandlerThread(/*"BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness"*/);
-                    final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                    __handler.post(() -> {
+                    //PPApplication.startHandlerThread(/*"BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness"*/);
+                    //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                    //__handler.post(() -> {
+                    Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
 
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -326,7 +326,8 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                         }
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
-                    });
+                    }; //);
+                    PPApplication.basicExecutorPool.submit(runnable);
                 }
             }
         }

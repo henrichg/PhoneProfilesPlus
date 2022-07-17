@@ -17,9 +17,6 @@ import androidx.work.WorkerParameters;
 
 import java.util.Calendar;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class MainWorker extends Worker {
 
@@ -342,11 +339,12 @@ public class MainWorker extends Worker {
             //	at sk.henrichg.phoneprofilesplus.MainWorker.doAfterFirstStart(MainWorker.java:707)
             //
             // !!! Worker do not have Looper !!!
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(
             //        appContext, dataWrapper) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (1)");
                 PPApplication.logE("MainWorker.doAfterFirstStart", "in handler - START");
 
@@ -407,7 +405,8 @@ public class MainWorker extends Worker {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.eventsHandlerExecutor.submit(runnable);
 
             // !!! FOR TESTING NOT STARTED PPP BUG !!!!
 //            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "PPApplication.setApplicationFullyStarted");
@@ -439,11 +438,12 @@ public class MainWorker extends Worker {
             //	at sk.henrichg.phoneprofilesplus.MainWorker.doAfterFirstStart(MainWorker.java:707)
             //
             // !!! Worker do not have Looper !!!
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(
             //        appContext, dataWrapper) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (2)");
                 PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
@@ -479,7 +479,8 @@ public class MainWorker extends Worker {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
 
 //            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "setApplicationFullyStarted");
             PPApplication.setApplicationFullyStarted(appContext);
@@ -531,54 +532,5 @@ public class MainWorker extends Worker {
         }
 
     }*/
-
-    static void handleEvents(Context context, int _sensorType, int delay) {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** MainWorker.handleEvents", "schedule - " + _sensorType);
-
-        final Context appContext = context.getApplicationContext();
-        final int sensorType = _sensorType;
-
-        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-        Runnable runnable = () -> {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- START - " + sensorType);
-
-            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = null;
-            try {
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_handleEvents_"+sensorType);
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
-                    //PPApplication.logE("MainWorker.handleEvents", "sensorType="+sensorType);
-                    // start events handler
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.handleEvents: sensorType="+sensorType);
-
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(sensorType);
-
-//                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.handleEvents");
-                }
-
-                long finish = System.currentTimeMillis();
-                long timeElapsed = finish - start;
-                PPApplication.logE("[IN_EXECUTOR]  ***** MainWorker.handleEvents", "--------------- END - " + sensorType + " - timeElapsed="+timeElapsed);
-            } catch (Exception e) {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            } finally {
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
-                    }
-                }
-                worker.shutdown();
-            }
-        };
-        worker.schedule(runnable, delay, TimeUnit.SECONDS);
-    }
 
 }

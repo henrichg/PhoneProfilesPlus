@@ -75,7 +75,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
             } else {
                 PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "schedule");
 
-                final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
                     long start = System.currentTimeMillis();
                     PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- START");
@@ -103,10 +103,10 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                             } catch (Exception ignored) {
                             }
                         }
-                        worker.shutdown();
+                        //worker.shutdown();
                     }
                 };
-                worker.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
+                PPApplication.delayedProfileActivationExecutor.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
 
                 /*
                 OneTimeWorkRequest worker =
@@ -172,7 +172,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
                     PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "schedule");
 
-                    final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
                         long start = System.currentTimeMillis();
                         PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- START");
@@ -200,10 +200,10 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                                 } catch (Exception ignored) {
                                 }
                             }
-                            worker.shutdown();
+                            //worker.shutdown();
                         }
                     };
-                    worker.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
+                    PPApplication.delayedProfileActivationExecutor.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
 
                     /*
                     long alarmTime = SystemClock.elapsedRealtime() + lockDelay;
@@ -238,7 +238,9 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
         if (Event.getGlobalEventsRunning()) {
             final Context appContext = context.getApplicationContext();
             if (useHandler) {
-                PPApplication.startHandlerThreadBroadcast(/*"LockDeviceAfterScreenOffBroadcastReceiver.doWork"*/);
+                PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_SCREEN, "SENSOR_TYPE_SCREEN", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -273,6 +275,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                         }
                     //}
                 });
+                */
             } else {
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (2)");
 

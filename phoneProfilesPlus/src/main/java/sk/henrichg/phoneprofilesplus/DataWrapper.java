@@ -32,8 +32,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 //import me.drakeet.support.toast.ToastCompat;
@@ -966,11 +964,12 @@ public class DataWrapper {
         final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
-        PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+        //PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context, dataWrapper, null, null) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
 
             //Context appContext= appContextWeakRef.get();
@@ -1002,7 +1001,8 @@ public class DataWrapper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.basicExecutorPool.submit(runnable);
     }
 
 //---------------------------------------------------
@@ -1132,11 +1132,12 @@ public class DataWrapper {
         final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
-        PPApplication.startHandlerThread(/*"DataWrapper.stopEventsForProfileFromMainThread"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+        //PPApplication.startHandlerThread(/*"DataWrapper.stopEventsForProfileFromMainThread"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context, dataWrapper, profile, null) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopEventsForProfileFromMainThread");
 
             //Context appContext= appContextWeakRef.get();
@@ -1168,7 +1169,8 @@ public class DataWrapper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.basicExecutorPool.submit(runnable);
     }
 
     // pauses all events
@@ -1220,11 +1222,12 @@ public class DataWrapper {
         final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
-        PPApplication.startHandlerThread(/*"DataWrapper.pauseAllEventsForGlobalStopEvents"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+        //PPApplication.startHandlerThread(/*"DataWrapper.pauseAllEventsForGlobalStopEvents"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context, dataWrapper, null, null) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
 
             //Context appContext= appContextWeakRef.get();
@@ -1258,7 +1261,8 @@ public class DataWrapper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.basicExecutorPool.submit(runnable);
     }
 
     // stops all events
@@ -1288,11 +1292,12 @@ public class DataWrapper {
         final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
-        PPApplication.startHandlerThread(/*"DataWrapper.stopAllEventsFromMainThread"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+        //PPApplication.startHandlerThread(/*"DataWrapper.stopAllEventsFromMainThread"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context, dataWrapper, null, null) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
 
             //Context appContext= appContextWeakRef.get();
@@ -1324,7 +1329,8 @@ public class DataWrapper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.basicExecutorPool.submit(runnable);
     }
 
     private void unlinkEventsFromProfile(Profile profile)
@@ -1911,11 +1917,12 @@ public class DataWrapper {
         final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
-        PPApplication.startHandlerThread(/*"DataWrapper.activateProfileFromMainThread"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+        //PPApplication.startHandlerThread(/*"DataWrapper.activateProfileFromMainThread"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context, dataWrapper, profile, _activity) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
             //Context appContext= appContextWeakRef.get();
@@ -1961,7 +1968,8 @@ public class DataWrapper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.basicExecutorPool.submit(runnable);
 
         // for startActivityForResult
         if (activity != null)
@@ -2511,11 +2519,12 @@ public class DataWrapper {
             final DataWrapper dataWrapper = copyDataWrapper();
 
             final Context appContext = context;
-            PPApplication.startHandlerThread(/*"DataWrapper.restartEventsWithRescan"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"DataWrapper.restartEventsWithRescan"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(
             //        context, dataWrapper, null, null) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 
                 //Context appContext= appContextWeakRef.get();
@@ -2547,7 +2556,8 @@ public class DataWrapper {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
         }
         else
             _restartEventsWithRescan(alsoRescan, unblockEventsRun, manualRestart, logRestart);
@@ -2777,7 +2787,7 @@ public class DataWrapper {
                     PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
 
                     final Context appContext = context.getApplicationContext();
-                    final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
                         long start = System.currentTimeMillis();
                         PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
@@ -2805,10 +2815,10 @@ public class DataWrapper {
                                 } catch (Exception ignored) {
                                 }
                             }
-                            worker.shutdown();
+                            //worker.shutdown();
                         }
                     };
-                    worker.schedule(runnable, delay, TimeUnit.SECONDS);
+                    PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                     /*
                     Data workData = new Data.Builder()
@@ -2892,7 +2902,7 @@ public class DataWrapper {
                         PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
 
                         final Context appContext = context.getApplicationContext();
-                        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                        //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                         Runnable runnable = () -> {
                             long start = System.currentTimeMillis();
                             PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
@@ -2920,10 +2930,10 @@ public class DataWrapper {
                                     } catch (Exception ignored) {
                                     }
                                 }
-                                worker.shutdown();
+                                //worker.shutdown();
                             }
                         };
-                        worker.schedule(runnable, delay, TimeUnit.SECONDS);
+                        PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                         /*
                         long alarmTime = SystemClock.elapsedRealtime() + delay * 1000L;
@@ -2953,7 +2963,7 @@ public class DataWrapper {
             PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
 
             final Context appContext = context.getApplicationContext();
-            final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
                 long start = System.currentTimeMillis();
                 PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
@@ -2981,10 +2991,10 @@ public class DataWrapper {
                         } catch (Exception ignored) {
                         }
                     }
-                    worker.shutdown();
+                    //worker.shutdown();
                 }
             };
-            worker.schedule(runnable, delay, TimeUnit.SECONDS);
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
 
             /*

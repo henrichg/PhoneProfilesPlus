@@ -48,11 +48,12 @@ public class BootUpReceiver extends BroadcastReceiver {
             //PPApplication.setApplicationStarted(context, false);
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"BootUpReceiver.onReceive2"*/);
-            final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"BootUpReceiver.onReceive2"*/);
+            //final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler2.post(() -> {
+            //__handler2.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
                 //Context appContext= appContextWeakRef.get();
@@ -125,7 +126,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
 
             //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- end");
 

@@ -26,7 +26,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                     PPApplication.logE("[EXECUTOR_CALL]  ***** StartLauncherFromNotificationReceiver.onReceive", "schedule");
 
                     final Context appContext = context.getApplicationContext();
-                    final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
                         long start = System.currentTimeMillis();
                         PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- START");
@@ -42,21 +42,21 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                             long finish = System.currentTimeMillis();
                             long timeElapsed = finish - start;
                             PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- END - timeElapsed="+timeElapsed);
-                        worker.shutdown();
+                        //worker.shutdown();
                     };
                     if ((Build.VERSION.SDK_INT >= 29) &&
                             ApplicationPreferences.applicationNotificationLauncher.equals("activator")) {
                         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                             if (Build.VERSION.SDK_INT >= 30)
-                                worker.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
                             else
-                                worker.schedule(runnable, 1000, TimeUnit.MILLISECONDS);
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 1000, TimeUnit.MILLISECONDS);
                         }
                         else
-                            worker.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+                            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
                     }
                     else
-                        worker.submit(runnable);
+                        PPApplication.delayedGuiExecutor.submit(runnable);
 
                     /*
                     final Context appContext = context.getApplicationContext();

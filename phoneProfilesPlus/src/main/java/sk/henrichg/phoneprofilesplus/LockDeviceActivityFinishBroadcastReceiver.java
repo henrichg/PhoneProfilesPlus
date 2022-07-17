@@ -82,7 +82,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             } else {
                 PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
 
-                final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
                     long start = System.currentTimeMillis();
                     PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
@@ -101,7 +101,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                         long finish = System.currentTimeMillis();
                         long timeElapsed = finish - start;
                         PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
-                        worker.shutdown();
+                        //worker.shutdown();
 //                        } catch (Exception e) {
 ////                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
 //                            PPApplication.recordException(e);
@@ -114,7 +114,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                            }
 //                        }
                 };
-                worker.schedule(runnable, delay, TimeUnit.SECONDS);
+                PPApplication.delayedProfileActivationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                 /*
                 OneTimeWorkRequest worker =
@@ -177,7 +177,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 } else {
                     PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
 
-                    final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
                         long start = System.currentTimeMillis();
                         PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
@@ -188,9 +188,9 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                         long finish = System.currentTimeMillis();
                         long timeElapsed = finish - start;
                         PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
-                        worker.shutdown();
+                        //worker.shutdown();
                     };
-                    worker.schedule(runnable, delay, TimeUnit.SECONDS);
+                    PPApplication.delayedProfileActivationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                     /*
                     long alarmTime = SystemClock.elapsedRealtime() + delay * 1000;

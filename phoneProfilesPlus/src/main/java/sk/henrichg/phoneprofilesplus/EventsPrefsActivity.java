@@ -559,10 +559,11 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         if (event.getStatus() == Event.ESTATUS_STOP)
         {
-            PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -612,13 +613,15 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
         }
         else {
-            PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -661,7 +664,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
         }
     }
 

@@ -77,8 +77,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class PhoneProfilesService extends Service
@@ -4035,10 +4033,11 @@ public class PhoneProfilesService extends Service
         final int _startForExternalAppDataType = startForExternalAppDataType;
         final String _startForExternalAppDataValue = startForExternalAppDataValue;
 
-        PPApplication.startHandlerThread(/*"PhoneProfilesService.doForFirstStart"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+        //PPApplication.startHandlerThread(/*"PhoneProfilesService.doForFirstStart"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(appContext) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
             PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart START");
 
             //Context appContext= appContextWeakRef.get();
@@ -4527,7 +4526,8 @@ public class PhoneProfilesService extends Service
                     }
                 }
             }
-        });
+        }; //);
+        PPApplication.basicExecutorPool.submit(runnable);
 
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
     }
@@ -5082,11 +5082,12 @@ public class PhoneProfilesService extends Service
             final Context appContext = getApplicationContext();
             final Intent intent = _intent;
 
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
 //            __handler.post(new DoCommandRunnable(
 //                    getApplicationContext(), _intent) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doCommand (1)");
 
                 //Context appContext= appContextWeakRef.get();
@@ -5243,7 +5244,7 @@ public class PhoneProfilesService extends Service
 
                                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                                     if (PPApplication.notificationScannerRunning) {
-                                        MainWorker.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, 5);
+                                        PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 5);
 
                                         /*
                                         Data workData = new Data.Builder()
@@ -5543,7 +5544,8 @@ public class PhoneProfilesService extends Service
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.basicExecutorPool.submit(runnable);
         }
 //        else
 //            PPApplication.logE("*************** PhoneProfilesService.doCommand", "intent=null");
@@ -6950,7 +6952,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("[EXECUTOR_CALL]  ***** PhoneProfilesService.drawProfileNotification", "schedule");
 
         final Context appContext = context.getApplicationContext();
-        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
             long start = System.currentTimeMillis();
             PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- START");
@@ -6980,14 +6982,14 @@ public class PhoneProfilesService extends Service
                     } catch (Exception ignored) {
                     }
                 }
-                worker.shutdown();
+                //worker.shutdown();
             }
             //}
         };
         if (drawImmediatelly)
-            worker.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+            PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
         else
-            worker.schedule(runnable, 1, TimeUnit.SECONDS);
+            PPApplication.delayedGuiExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
 
         /*if (drawImmediatelly) {
             final Context appContext = context.getApplicationContext();
@@ -8480,11 +8482,12 @@ public class PhoneProfilesService extends Service
                                        final boolean playAlsoInSilentMode*/) {
 
         //final Context appContext = getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast();
-        final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+        //PPApplication.startHandlerThreadBroadcast();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(
         //        context.getApplicationContext()) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -8614,7 +8617,8 @@ public class PhoneProfilesService extends Service
                 }
             }
 
-        });
+        }; //);
+        PPApplication.playToneExecutor.submit(runnable);
     }
 
 

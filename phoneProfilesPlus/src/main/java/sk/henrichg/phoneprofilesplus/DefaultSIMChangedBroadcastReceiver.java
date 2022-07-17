@@ -22,6 +22,8 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
             return;
 
         final Context appContext = context.getApplicationContext();
+        PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH, "SENSOR_TYPE_RADIO_SWITCH", 0);
+        /*
         PPApplication.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(
@@ -78,6 +80,7 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
                 }
             //}
         });
+        */
     }
 
 }

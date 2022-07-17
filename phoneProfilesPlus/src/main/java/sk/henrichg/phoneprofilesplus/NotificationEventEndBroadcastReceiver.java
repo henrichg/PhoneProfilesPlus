@@ -31,7 +31,9 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"NotificationEventEndBroadcastReceiver.doWork"*/);
+            PPPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 0);
+            /*
+            PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
@@ -66,6 +68,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             });
+            */
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {

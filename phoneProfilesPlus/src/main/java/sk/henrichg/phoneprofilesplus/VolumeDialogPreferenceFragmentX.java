@@ -193,11 +193,12 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         final Context appContext = context.getApplicationContext();
         final AudioManager audioManager = preference.audioManager;
-        PPApplication.startHandlerThreadPlayTone();
-        final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+        //PPApplication.startHandlerThreadPlayTone();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
         //__handler.post(new StopPlayRingtoneRunnable(
         //        context.getApplicationContext(), preference.audioManager) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onDialogClosed");
 
             //Context appContext = appContextWeakRef.get();
@@ -226,7 +227,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.playToneExecutor.submit(runnable);
 
         preference.fragment = null;
     }
@@ -310,11 +312,12 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
             final Context appContext = context.getApplicationContext();
             //final AudioManager audioManager = preference.audioManager;
-            PPApplication.startHandlerThreadPlayTone();
-            final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+            //PPApplication.startHandlerThreadPlayTone();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
             //__handler.post(new PlayRingtoneRunnable(
             //        context.getApplicationContext(), preference.audioManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onStopTrackingTouch");
 
                 //Context appContext = appContextWeakRef.get();
@@ -398,7 +401,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                         PPApplication.recordException(e);
                     }
                 //}
-            });
+            }; //);
+            PPApplication.playToneExecutor.submit(runnable);
             /*
             try {
                 preference.mediaPlayer.start();

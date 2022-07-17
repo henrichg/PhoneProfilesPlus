@@ -84,7 +84,7 @@ class BluetoothScanner {
             }
 
             PPApplication.startHandlerThreadPPScanners(/*"BluetoothScanner.doScan.1"*/);
-            final Handler bluetoothChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+            //final Handler bluetoothChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
 
             //synchronized (PPApplication.radioChangeStateMutex) {
 
@@ -130,7 +130,8 @@ class BluetoothScanner {
                                 // service restarted during scanning (prefEventBluetoothEnabledForScan is set to false at end of scan),
                                 // dislabe Bluetooth
 //                                PPApplication.logE("$$$B BluetoothScanner.doScan", "disable BT - service restarted");
-                                bluetoothChangeHandler.post(() -> {
+                                //bluetoothChangeHandler.post(() -> {
+                                Runnable runnable = () -> {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
                                     if (Permissions.checkBluetoothForEMUI(context)) {
                                         try {
@@ -147,7 +148,8 @@ class BluetoothScanner {
                                         }
                                     }
                                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
-                                });
+                                }; //);
+                                PPApplication.scannersExecutor.submit(runnable);
                                 //PPApplication.sleep(1000);
                                 if (BluetoothScanWorker.bluetooth == null)
                                     BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
@@ -177,7 +179,7 @@ class BluetoothScanner {
 
                                     // enable bluetooth
                                     bluetoothState = enableBluetooth(BluetoothScanWorker.bluetooth,
-                                                                    bluetoothChangeHandler,
+                                                                    //bluetoothChangeHandler,
                                                                     false);
                                     //PPApplication.logE("$$$BCL BluetoothScanner.doScan", "bluetoothState=" + bluetoothState);
 
@@ -220,7 +222,7 @@ class BluetoothScanner {
 
                                     // enable bluetooth
                                     bluetoothState = enableBluetooth(BluetoothScanWorker.bluetooth,
-                                                                    bluetoothChangeHandler,
+                                                                    //bluetoothChangeHandler,
                                                                     true);
 
                                     if (bluetoothState == BluetoothAdapter.STATE_ON) {
@@ -260,7 +262,8 @@ class BluetoothScanner {
                             }
 
                             if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
-                                bluetoothChangeHandler.post(() -> {
+                                //bluetoothChangeHandler.post(() -> {
+                                Runnable runnable = () -> {
     //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
 
     //                                    PPApplication.logE("$$$B BluetoothScanner.doScan", "disable bluetooth");
@@ -280,7 +283,8 @@ class BluetoothScanner {
                                         }
 
                                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
-                                });
+                                }; //);
+                                PPApplication.scannersExecutor.submit(runnable);
                             } //else
                             //PPApplication.logE("$$$B BluetoothScanner.doScan", "keep enabled bluetooth");
                             //PPApplication.sleep(1000);
@@ -351,7 +355,7 @@ class BluetoothScanner {
     }
 
     private int enableBluetooth(BluetoothAdapter bluetooth,
-                                Handler bluetoothChangeHandler,
+                                /*Handler bluetoothChangeHandler,*/
                                 boolean forLE)
     {
         //PPApplication.logE("$$$B BluetoothScanner.enableBluetooth","xxx");
@@ -384,7 +388,8 @@ class BluetoothScanner {
                     else
                         BluetoothScanWorker.setLEScanRequest(context, true);
                     final BluetoothAdapter _bluetooth = bluetooth;
-                    bluetoothChangeHandler.post(() -> {
+                    //bluetoothChangeHandler.post(() -> {
+                    Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.enableBluetooth");
 
                         if (Permissions.checkBluetoothForEMUI(context)) {
@@ -396,7 +401,8 @@ class BluetoothScanner {
                         }
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
-                    });
+                    }; //);
+                    PPApplication.scannersExecutor.submit(runnable);
                     return BluetoothAdapter.STATE_TURNING_ON;
                 }
             }

@@ -73,11 +73,12 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 PPApplication._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
 
                 PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
-                PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
-                final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                //PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
+                //final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler0.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
-                __handler0.post(() -> {
+                //__handler0.post(() -> {
+                Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
                     //Context appContext= appContextWeakRef.get();
@@ -112,7 +113,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     //}
-                });
+                }; //);
+                PPApplication.eventsHandlerExecutor.submit(runnable);
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND");
@@ -122,11 +124,12 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                 PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
 
-                PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND"*/);
-                final Handler __handler1 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                //PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND"*/);
+                //final Handler __handler1 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler1.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
-                __handler1.post(() -> {
+                //__handler1.post(() -> {
+                Runnable runnable2 = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
 
                     //Context appContext= appContextWeakRef.get();
@@ -184,7 +187,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                     //}
-                });
+                }; //);
+                PPApplication.eventsHandlerExecutor.submit(runnable2);
 
                 break;
             case PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED:
@@ -207,11 +211,12 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         setApplicationInForeground(appContext, packageName);
 
                         if (Event.getGlobalEventsRunning()) {
-                            PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED"*/);
-                            final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                            //PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED"*/);
+                            //final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                             //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
                             //        context.getApplicationContext()) {
-                            __handler2.post(() -> {
+                            //__handler2.post(() -> {
+                            Runnable runnable3 = () -> {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
 
                                 //Context appContext= appContextWeakRef.get();
@@ -251,7 +256,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                         }
                                     }
                                 //}
-                            });
+                            }; //);
+                            PPApplication.eventsHandlerExecutor.submit(runnable3);
                         }
                     }
                 } catch (Exception e) {
@@ -262,9 +268,10 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             case PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END:
                 final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
                 if (profileId != 0) {
-                    PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FORCE_STOP_APPLICATIONS_END"*/);
-                    final Handler handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                    handler2.post(() -> {
+                    //PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FORCE_STOP_APPLICATIONS_END"*/);
+                    //final Handler handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                    //handler2.post(() -> {
+                    Runnable runnable3 = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FORCE_STOP_APPLICATIONS_END");
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -294,7 +301,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    });
+                    }; //);
+                    PPApplication.profileActiationExecutorPool.submit(runnable3);
                 }
                 break;
             case PPApplication.ACTION_SMS_MMS_RECEIVED:
@@ -353,9 +361,10 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 }*/
 
                 if (Event.getGlobalEventsRunning()) {
-                    PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED"*/);
-                    final Handler handler3 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                    handler3.post(() -> {
+                    //PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED"*/);
+                    //final Handler handler3 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                    //handler3.post(() -> {
+                    Runnable runnable3 = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED");
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -385,7 +394,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    });
+                    }; //);
+                    PPApplication.eventsHandlerExecutor.submit(runnable3);
                 }
                 break;
             case PPApplication.ACTION_CALL_RECEIVED:
@@ -404,9 +414,10 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 //                }
 
                 if (Event.getGlobalEventsRunning()) {
-                    PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED"*/);
-                    final Handler handler4 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                    handler4.post(() -> {
+                    //PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED"*/);
+                    //final Handler handler4 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                    //handler4.post(() -> {
+                    Runnable runnable3 = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED");
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -436,7 +447,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    });
+                    }; //);
+                    PPApplication.eventsHandlerExecutor.submit(runnable3);
                 }
                 break;
         }

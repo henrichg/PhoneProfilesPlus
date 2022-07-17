@@ -137,10 +137,11 @@ public class RingtonePreferenceX extends DialogPreference {
         final AudioManager audioManager = (AudioManager) prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
             final Context appContext = prefContext.getApplicationContext();
-            PPApplication.startHandlerThreadPlayTone();
-            final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+            //PPApplication.startHandlerThreadPlayTone();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
             //__handler.post(new StopPlayRingtoneRunnable(prefContext.getApplicationContext(), audioManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragmentX.stopPlayRingtone");
 
                 //Context appContext = appContextWeakRef.get();
@@ -176,7 +177,8 @@ public class RingtonePreferenceX extends DialogPreference {
                         }
                     }
                 }
-            });
+            }; //);
+            PPApplication.playToneExecutor.submit(runnable);
         }
     }
 
@@ -192,11 +194,12 @@ public class RingtonePreferenceX extends DialogPreference {
             final Uri _ringtoneUri = Uri.parse(ringtoneUri);
 
             final Context appContext = prefContext.getApplicationContext();
-            PPApplication.startHandlerThreadPlayTone();
-            final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+            //PPApplication.startHandlerThreadPlayTone();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
             //__handler.post(new PlayRingtoneRunnable(prefContext.getApplicationContext(),
             //                        audioManager, _ringtoneUri) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
                 //Context appContext = appContextWeakRef.get();
                 //AudioManager audioManager = audioManagerWeakRef.get();
                 //Uri ringtoneUri = ringtoneUriWeakRef.get();
@@ -360,7 +363,8 @@ public class RingtonePreferenceX extends DialogPreference {
                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     }
                 }
-            });
+            }; //);
+            PPApplication.playToneExecutor.submit(runnable);
 
         }
     }

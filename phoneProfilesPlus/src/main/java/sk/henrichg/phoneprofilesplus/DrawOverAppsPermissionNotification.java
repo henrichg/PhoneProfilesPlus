@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 
@@ -24,11 +23,12 @@ class DrawOverAppsPermissionNotification {
 
             if (useHandler) {
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThread(/*"DrawOverAppsPermissionNotification.showNotification"*/);
-                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                //PPApplication.startHandlerThread(/*"DrawOverAppsPermissionNotification.showNotification"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
 
                     //Context appContext= appContextWeakRef.get();
@@ -63,7 +63,8 @@ class DrawOverAppsPermissionNotification {
                             }
                         }
                     //}
-                });
+                }; //);
+                PPApplication.basicExecutorPool.submit(runnable);
             }
             else {
                 try {
