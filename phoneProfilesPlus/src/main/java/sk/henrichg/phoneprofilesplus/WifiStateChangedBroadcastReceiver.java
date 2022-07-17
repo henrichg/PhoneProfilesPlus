@@ -104,16 +104,16 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                         // start scan
                                         if (ApplicationPreferences.prefEventWifiScanRequest) {
-                                            PPApplication.logE("[EXECUTOR_CALL]  ***** WifiStateChangedBroadcastReceiver.onReceive", "schedule");
+//                                            PPApplication.logE("[EXECUTOR_CALL]  ***** WifiStateChangedBroadcastReceiver.onReceive", "schedule");
 
                                             //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                                             Runnable runnable = () -> {
-                                                long start = System.currentTimeMillis();
-                                                PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- START");
+//                                                long start = System.currentTimeMillis();
+//                                                PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- START");
                                                 WifiScanWorker.startScan(appContext);
-                                                long finish = System.currentTimeMillis();
-                                                long timeElapsed = finish - start;
-                                                PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END - timeElapsed="+timeElapsed);
+//                                                long finish = System.currentTimeMillis();
+//                                                long timeElapsed = finish - start;
+//                                                PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END - timeElapsed="+timeElapsed);
                                                 //worker.shutdown();
                                             };
                                             PPApplication.createDelayedEventsHandlerExecutor();

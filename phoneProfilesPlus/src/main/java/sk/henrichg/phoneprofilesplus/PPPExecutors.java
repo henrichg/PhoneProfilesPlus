@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 class PPPExecutors {
 
     static void scheduleDisableBlockProfileEventActionExecutor() {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleDisableBlockProfileEventActionExecutor", "schedule");
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleDisableBlockProfileEventActionExecutor", "schedule");
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableBlockProfileEventActionExecutor", "--------------- START");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableBlockProfileEventActionExecutor", "--------------- START");
             PPApplication.blockProfileEventActions = false;
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableBlockProfileEventActionExecutor", "--------------- END");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableBlockProfileEventActionExecutor", "--------------- END");
             //worker.smallExecutor.shutdown();
         };
         PPApplication.createNonBlockedExecutor();
@@ -22,13 +22,13 @@ class PPPExecutors {
     }
 
     static void scheduleDisableInternalChangeExecutor() {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleDisableInternalChangeExecutor", "schedule");
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleDisableInternalChangeExecutor", "schedule");
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableInternalChangeExecutor", "--------------- START");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableInternalChangeExecutor", "--------------- START");
             RingerModeChangeReceiver.internalChange = false;
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableInternalChangeExecutor", "--------------- END");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
         PPApplication.createNonBlockedExecutor();
@@ -36,13 +36,13 @@ class PPPExecutors {
     }
 
     static void scheduleDisableScreenTimeoutInternalChangeExecutor() {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor", "schedule");
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor", "schedule");
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor", "--------------- START");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor", "--------------- START");
             ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor", "--------------- END");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
         PPApplication.createNonBlockedExecutor();
@@ -50,13 +50,13 @@ class PPPExecutors {
     }
 
     static void scheduleDisableVolumesInternalChangeExecutor() {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleDisableVolumesInternalChangeExecutor", "schedule");
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleDisableVolumesInternalChangeExecutor", "schedule");
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableVolumesInternalChangeExecutor", "--------------- START");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableVolumesInternalChangeExecutor", "--------------- START");
             EventPreferencesVolumes.internalChange = false;
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableVolumesInternalChangeExecutor", "--------------- END");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleDisableVolumesInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
         PPApplication.createNonBlockedExecutor();
@@ -83,13 +83,13 @@ class PPPExecutors {
             // application is not started
             return;
 
-        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleRestartEventsWithDelayExecutor", "schedule");
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.scheduleRestartEventsWithDelayExecutor", "schedule");
 
         final Context appContext = context.getApplicationContext();
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleRestartEventsWithDelayExecutor", "--------------- START");
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleRestartEventsWithDelayExecutor", "--------------- START");
 
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -101,9 +101,9 @@ class PPPExecutors {
 
                 doRestartEventsWithDelay(alsoRescan, unblockEventsRun, logType, context);
 
-                long finish = System.currentTimeMillis();
-                long timeElapsed = finish - start;
-                PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleRestartEventsWithDelayExecutor", "--------------- END - timeElapsed="+timeElapsed);
+//                long finish = System.currentTimeMillis();
+//                long timeElapsed = finish - start;
+//                PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.scheduleRestartEventsWithDelayExecutor", "--------------- END - timeElapsed="+timeElapsed);
             } catch (Exception e) {
 //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
@@ -122,7 +122,7 @@ class PPPExecutors {
     }
 
     static void handleEvents(Context context, int _sensorType, String _sensorName, int delay) {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.handleEvents", "schedule - " + _sensorType);
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPExecutors.handleEvents", "schedule - " + _sensorType);
 
         final Context appContext = context.getApplicationContext();
         final int sensorType = _sensorType;
@@ -130,8 +130,8 @@ class PPPExecutors {
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.handleEvents", "--------------- START - " + sensorName);
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.handleEvents", "--------------- START - " + sensorName);
 
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -152,9 +152,9 @@ class PPPExecutors {
 //                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPPExecutors.handleEvents");
                 }
 
-                long finish = System.currentTimeMillis();
-                long timeElapsed = finish - start;
-                PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
+//                long finish = System.currentTimeMillis();
+//                long timeElapsed = finish - start;
+//                PPApplication.logE("[IN_EXECUTOR]  ***** PPPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
             } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 PPApplication.recordException(e);

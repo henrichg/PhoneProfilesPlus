@@ -236,8 +236,8 @@ public class PPApplication extends Application
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-                                                +"|[IN_EXECUTOR]"
-                                                +"|[EXECUTOR_CALL]"
+//                                                +"|[IN_EXECUTOR]"
+//                                                +"|[EXECUTOR_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
@@ -871,7 +871,6 @@ public class PPApplication extends Application
 
     static Location lastLocation = null;
 
-    //todo
     public static ExecutorService basicExecutorPool = null;
     public static ExecutorService profileActiationExecutorPool = null;
     public static ExecutorService eventsHandlerExecutor = null;
@@ -1951,12 +1950,12 @@ public class PPApplication extends Application
             if (longDelay)
                 delay = 10;
 
-            PPApplication.logE("[EXECUTOR_CALL]  ***** PPApplication.updateGUI", "schedule");
+//            PPApplication.logE("[EXECUTOR_CALL]  ***** PPApplication.updateGUI", "schedule");
 
             //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
-                long start = System.currentTimeMillis();
-                PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- START");
+//                long start = System.currentTimeMillis();
+//                PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- START");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -1973,9 +1972,9 @@ public class PPApplication extends Application
                         PhoneProfilesService.forceDrawProfileNotification(context);
 
 
-                    long finish = System.currentTimeMillis();
-                    long timeElapsed = finish - start;
-                    PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- END - timeElapsed="+timeElapsed);
+//                    long finish = System.currentTimeMillis();
+//                    long timeElapsed = finish - start;
+//                    PPApplication.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- END - timeElapsed="+timeElapsed);
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);

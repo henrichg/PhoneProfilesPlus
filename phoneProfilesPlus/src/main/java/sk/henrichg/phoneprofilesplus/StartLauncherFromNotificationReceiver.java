@@ -21,13 +21,13 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
                 if (action.equals(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
 
-                    PPApplication.logE("[EXECUTOR_CALL]  ***** StartLauncherFromNotificationReceiver.onReceive", "schedule");
+//                    PPApplication.logE("[EXECUTOR_CALL]  ***** StartLauncherFromNotificationReceiver.onReceive", "schedule");
 
                     final Context appContext = context.getApplicationContext();
                     //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
-                        long start = System.currentTimeMillis();
-                        PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- START");
+//                        long start = System.currentTimeMillis();
+//                        PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- START");
 
                             // intent to LauncherActivity, for click on notification
                             Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
@@ -37,9 +37,9 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                             launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
                             appContext.startActivity(launcherIntent);
 
-                            long finish = System.currentTimeMillis();
-                            long timeElapsed = finish - start;
-                            PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- END - timeElapsed="+timeElapsed);
+//                            long finish = System.currentTimeMillis();
+//                            long timeElapsed = finish - start;
+//                            PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- END - timeElapsed="+timeElapsed);
                         //worker.shutdown();
                     };
                     PPApplication.createDelayedGuiExecutor();
