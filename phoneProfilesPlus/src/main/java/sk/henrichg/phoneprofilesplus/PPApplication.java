@@ -236,9 +236,9 @@ public class PPApplication extends Application
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-                                                +"|[IN_EXECUTOR]"
-                                                +"|[EXECUTOR_CALL]"
-                                                +"|[IN_THREAD_HANDLER]"
+//                                                +"|[IN_EXECUTOR]"
+//                                                +"|[EXECUTOR_CALL]"
+//                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
@@ -270,7 +270,7 @@ public class PPApplication extends Application
                                                 //+"|WifiScanner.doScan"
                                                 //+"|WifiScanBroadcastReceiver"
                                                 //+"|WifiScanWorker.startScan"
-                                                +"|PhoneCallsListener"
+                                                //+"|PhoneCallsListener"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

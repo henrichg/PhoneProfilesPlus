@@ -122,7 +122,7 @@ class PPExecutors {
     }
 
     static void handleEvents(Context context, int _sensorType, String _sensorName, int delay) {
-        PPApplication.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEvents", "schedule - " + _sensorName);
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEvents", "schedule - " + _sensorName);
 
         final Context appContext = context.getApplicationContext();
         final int sensorType = _sensorType;
@@ -130,8 +130,8 @@ class PPExecutors {
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- START - " + sensorName);
+//            long start = System.currentTimeMillis();
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- START - " + sensorName);
 
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -152,9 +152,9 @@ class PPExecutors {
 //                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPExecutors.handleEvents");
                 }
 
-                long finish = System.currentTimeMillis();
-                long timeElapsed = finish - start;
-                PPApplication.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
+//                long finish = System.currentTimeMillis();
+//                long timeElapsed = finish - start;
+//                PPApplication.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
             } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
