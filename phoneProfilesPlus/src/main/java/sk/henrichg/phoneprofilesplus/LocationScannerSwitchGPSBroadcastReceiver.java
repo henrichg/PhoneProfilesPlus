@@ -222,8 +222,10 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                                         (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
                                     // force useGPS
                                     LocationScanner.useGPS = true;
-                                else
-                                    LocationScanner.useGPS = !LocationScanner.useGPS;
+                                else {
+                                    boolean useGPS = LocationScanner.useGPS;
+                                    LocationScanner.useGPS = !useGPS;
+                                }
 
                                 // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
                                 String provider = locationScanner.startLocationUpdates();

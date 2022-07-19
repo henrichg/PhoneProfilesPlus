@@ -1225,8 +1225,8 @@ public final class RootToolsInternalMethods {
                             if (psMatcher.find()) {
                                 String pid = psMatcher.group(1);
 
-                                InternalVariables.pid_list += " " + pid;
-                                InternalVariables.pid_list = InternalVariables.pid_list.trim();
+                                String pid_list = InternalVariables.pid_list + " " + pid;
+                                InternalVariables.pid_list = pid_list.trim();
 
                                 RootTools.log("Found pid: " + pid);
                             } else {
