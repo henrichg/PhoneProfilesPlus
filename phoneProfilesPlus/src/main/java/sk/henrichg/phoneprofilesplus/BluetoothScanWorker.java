@@ -35,9 +35,9 @@ public class BluetoothScanWorker extends Worker {
     static final String WORK_TAG  = "BluetoothScanJob";
     static final String WORK_TAG_SHORT  = "BluetoothScanJobShort";
 
-    public static BluetoothAdapter bluetooth = null;
+    public static volatile BluetoothAdapter bluetooth = null;
 
-    private static List<BluetoothDeviceData> tmpScanLEResults = null;
+    private static volatile List<BluetoothDeviceData> tmpScanLEResults = null;
 
     private static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
     private static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";

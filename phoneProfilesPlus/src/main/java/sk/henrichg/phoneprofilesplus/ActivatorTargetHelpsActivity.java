@@ -12,7 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ActivatorTargetHelpsActivity extends AppCompatActivity {
 
-    public static ActivatorTargetHelpsActivity activity;
+    public static volatile ActivatorTargetHelpsActivity activity;
     //public static ActivatorActivity activatorActivity;
 
     @Override

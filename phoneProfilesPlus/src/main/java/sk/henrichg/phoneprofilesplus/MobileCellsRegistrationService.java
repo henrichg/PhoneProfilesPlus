@@ -33,8 +33,8 @@ public class MobileCellsRegistrationService extends Service {
 
     private CountDownTimer countDownTimer = null;
 
-    static boolean serviceStarted = false;
-    static boolean forceStart;
+    static volatile boolean serviceStarted = false;
+    static volatile boolean forceStart;
     private Context context;
 
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";

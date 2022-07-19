@@ -28,14 +28,14 @@ class MobileCellsScanner {
     MobileCellsListener mobileCellsListenerSIM1 = null;
     MobileCellsListener mobileCellsListenerSIM2 = null;
 
-    static String lastRunningEventsNotOutside = "";
-    static String lastPausedEventsOutside = "";
+    static volatile String lastRunningEventsNotOutside = "";
+    static volatile String lastPausedEventsOutside = "";
 
-    //static boolean forceStart = false;
+    //static volatile boolean forceStart = false;
 
-    static boolean enabledAutoRegistration = false;
-    static int durationForAutoRegistration = 0;
-    static String cellsNameForAutoRegistration = "";
+    static volatile boolean enabledAutoRegistration = false;
+    static volatile int durationForAutoRegistration = 0;
+    static volatile String cellsNameForAutoRegistration = "";
     @SuppressWarnings("Convert2Diamond")
     static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 

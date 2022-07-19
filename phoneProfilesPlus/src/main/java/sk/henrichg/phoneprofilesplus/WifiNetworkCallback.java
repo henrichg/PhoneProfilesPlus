@@ -10,7 +10,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     private final Context context;
 
-    static boolean connected = false;
+    static volatile boolean connected = false;
 
     WifiNetworkCallback(Context context) {
         this.context = context.getApplicationContext();

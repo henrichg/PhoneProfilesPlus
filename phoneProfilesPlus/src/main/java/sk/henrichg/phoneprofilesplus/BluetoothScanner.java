@@ -20,13 +20,13 @@ class BluetoothScanner {
     static final int CLASSIC_BT_SCAN_DURATION = 25; // 25 seconds for classic bluetooth scan
 
     //static boolean bluetoothEnabledForScan;
-    static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
-    static boolean bluetoothDiscoveryStarted = false;
-    static BluetoothLeScanner bluetoothLEScanner = null;
+    static volatile List<BluetoothDeviceData> tmpBluetoothScanResults = null;
+    static volatile boolean bluetoothDiscoveryStarted = false;
+    static volatile BluetoothLeScanner bluetoothLEScanner = null;
 
     // this is OK, because this callback will be set to null after stop of LE scan
     @SuppressLint("StaticFieldLeak")
-    static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
+    static volatile BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
 
     //static BluetoothLEScanCallback18 bluetoothLEScanCallback18 = null;
     //static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;

@@ -7,8 +7,8 @@ import android.media.AudioManager;
 
 public class RingerModeChangeReceiver extends BroadcastReceiver {
 
-    public static boolean internalChange = false;
-    public static boolean notUnlinkVolumes = false;
+    public static volatile boolean internalChange = false;
+    public static volatile boolean notUnlinkVolumes = false;
 
     @Override
     public void onReceive(Context context, Intent intent) {

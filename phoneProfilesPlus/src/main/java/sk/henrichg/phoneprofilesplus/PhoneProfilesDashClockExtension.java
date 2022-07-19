@@ -9,7 +9,7 @@ import com.google.android.apps.dashclock.api.ExtensionData;
 public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     private DataWrapper dataWrapper;
-    private static PhoneProfilesDashClockExtension instance;
+    private static volatile PhoneProfilesDashClockExtension instance;
 
     public PhoneProfilesDashClockExtension()
     {

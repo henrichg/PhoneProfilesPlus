@@ -10,7 +10,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     private final Context context;
 
-    static boolean connected = false;
+    static volatile boolean connected = false;
 
     VPNNetworkCallback(Context context) {
         this.context = context.getApplicationContext();

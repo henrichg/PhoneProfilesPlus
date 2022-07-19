@@ -72,8 +72,8 @@ import java.util.concurrent.TimeUnit;
 
 class ActivateProfileHelper {
 
-    static boolean disableScreenTimeoutInternalChange = false;
-    static boolean brightnessDialogInternalChange = false;
+    static volatile boolean disableScreenTimeoutInternalChange = false;
+    static volatile boolean brightnessDialogInternalChange = false;
 
     // bluetooth calls volume stream
     static final int STREAM_BLUETOOTH_SCO = 6;

@@ -21,10 +21,10 @@ public class PhoneCallsListener extends PhoneStateListener {
 
     final int simSlot;
 
-    private static AudioManager audioManager = null;
+    private static volatile AudioManager audioManager = null;
 
-    private static boolean savedSpeakerphone = false;
-    private static boolean speakerphoneSelected = false;
+    private static volatile boolean savedSpeakerphone = false;
+    private static volatile boolean speakerphoneSelected = false;
 
     //static boolean linkUnlinkExecuted = false;
     //static boolean speakerphoneOnExecuted = false;

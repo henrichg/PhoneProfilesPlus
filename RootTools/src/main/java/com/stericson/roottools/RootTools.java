@@ -60,7 +60,7 @@ public final class RootTools {
      * here.For examples of this being done, look at the remount functionality.
      */
 
-    private static RootToolsInternalMethods rim = null;
+    private static volatile RootToolsInternalMethods rim = null;
 
     public static void setRim(RootToolsInternalMethods rim) {
         RootTools.rim = rim;
@@ -80,7 +80,7 @@ public final class RootTools {
     // --------------------
 
     public static final boolean debugMode = false;
-    public static String utilPath;
+    public static volatile String utilPath;
 
     /**
      * Setting this to false will disable the handler that is used
@@ -89,7 +89,7 @@ public final class RootTools {
      * By disabling this all callbacks will be called from a thread other than
      * the main UI thread.
      */
-    public static boolean handlerEnabled = true;
+    public static volatile boolean handlerEnabled = true;
 
 
     /**
@@ -97,7 +97,7 @@ public final class RootTools {
      * <p/>
      * The default is 20000ms
      */
-    public static int default_Command_Timeout = 20000;
+    public static volatile int default_Command_Timeout = 20000;
 
 
     // ---------------------------

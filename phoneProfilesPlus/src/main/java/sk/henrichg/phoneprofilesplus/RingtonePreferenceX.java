@@ -44,11 +44,11 @@ public class RingtonePreferenceX extends DialogPreference {
 
     private final Context prefContext;
 
-    private static MediaPlayer mediaPlayer = null;
-    private static int oldMediaVolume = -1;
-    private static boolean oldMediaMuted = false;
-    private static Timer playTimer = null;
-    private static boolean ringtoneIsPlayed = false;
+    private static volatile MediaPlayer mediaPlayer = null;
+    private static volatile int oldMediaVolume = -1;
+    private static volatile boolean oldMediaMuted = false;
+    private static volatile Timer playTimer = null;
+    private static volatile boolean ringtoneIsPlayed = false;
 
     public RingtonePreferenceX(Context context, AttributeSet attrs)
     {

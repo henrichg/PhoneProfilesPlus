@@ -13,22 +13,22 @@ class SettingsContentObserver  extends ContentObserver {
 
     //public static boolean internalChange = false;
 
-    private static int previousVolumeRing = 0;
-    private static int previousVolumeNotification = 0;
-    //private static int previousVolumeMusic = 0;
-    //private static int previousVolumeAlarm = 0;
-    //private static int previousVolumeSystem = 0;
-    //private static int previousVolumeVoice = 0;
-    //private static int previousVolumeBluetoothCall = 0;
-    //private static int previousVolumeDTMFTones = 0;
-    //private static int previousVolumeAccessibilityPrompt = 0;
+    private static volatile int previousVolumeRing = 0;
+    private static volatile int previousVolumeNotification = 0;
+    //private static volatile int previousVolumeMusic = 0;
+    //private static volatile int previousVolumeAlarm = 0;
+    //private static volatile int previousVolumeSystem = 0;
+    //private static volatile int previousVolumeVoice = 0;
+    //private static volatile int previousVolumeBluetoothCall = 0;
+    //private static volatile int previousVolumeDTMFTones = 0;
+    //private static volatile int previousVolumeAccessibilityPrompt = 0;
 
     //private int defaultRingerMode = 0;
-    private static int previousScreenTimeout = 0;
+    private static volatile int previousScreenTimeout = 0;
 
-    static int savedBrightness;
-    static float savedAdaptiveBrightness;
-    static int savedBrightnessMode;
+    static volatile int savedBrightness;
+    static volatile float savedAdaptiveBrightness;
+    static volatile int savedBrightnessMode;
 
     private final Context context;
 

@@ -457,7 +457,7 @@ public class EditorProfileListFragment extends Fragment
         @Override
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
-            if ((_dataWrapper.profileList.size() == 0) && PPApplication.restoreFinished)
+            if ((_dataWrapper.profileList.size() == 0) /*&& PPApplication.restoreFinished*/)
             {
                 if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_PROFILES_FIRST_START, true)) {
                     // no profiles in DB, generate default profiles

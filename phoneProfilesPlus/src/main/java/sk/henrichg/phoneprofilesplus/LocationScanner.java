@@ -26,10 +26,10 @@ class LocationScanner
     final Context context;
     //private final DataWrapper dataWrapper;
 
-    static boolean useGPS = true; // must be static
-    static boolean mUpdatesStarted = false; // must be static
+    static volatile boolean useGPS = true; // must be static
+    static volatile boolean mUpdatesStarted = false; // must be static
 
-    static boolean mTransitionsUpdated = false;
+    static volatile boolean mTransitionsUpdated = false;
 
     static final int INTERVAL_DIVIDE_VALUE = 6;
     static final int INTERVAL_DIVIDE_VALUE_FOR_GPS = 3;

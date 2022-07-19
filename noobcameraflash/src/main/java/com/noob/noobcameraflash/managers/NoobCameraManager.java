@@ -15,7 +15,7 @@ import com.noob.noobcameraflash.utilities.CameraUtilMarshMallow;
 public class NoobCameraManager {
     private CameraFlashUtility mCameraUtil;
     //region singleton
-    private static NoobCameraManager mInstance;
+    private static volatile NoobCameraManager mInstance;
 
     public static NoobCameraManager getInstance() {
         if (mInstance == null) {

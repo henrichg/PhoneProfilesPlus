@@ -26,7 +26,7 @@ public class BluetoothNamePreferenceX extends DialogPreference {
     List<BluetoothDeviceData> bluetoothList;
     final List<BluetoothDeviceData> customBluetoothList;
 
-    static boolean forceRegister = false;
+    static volatile boolean forceRegister = false;
 
     public BluetoothNamePreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);

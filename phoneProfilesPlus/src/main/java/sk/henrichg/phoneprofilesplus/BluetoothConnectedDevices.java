@@ -18,11 +18,11 @@ import java.util.List;
 @SuppressLint("MissingPermission")
 class BluetoothConnectedDevices {
 
-    private static BluetoothHeadset bluetoothHeadset = null;
-    private static BluetoothHealth bluetoothHealth = null;
-    private static BluetoothA2dp bluetoothA2dp = null;
+    private static volatile BluetoothHeadset bluetoothHeadset = null;
+    private static volatile BluetoothHealth bluetoothHealth = null;
+    private static volatile BluetoothA2dp bluetoothA2dp = null;
 
-    private static BluetoothProfile.ServiceListener profileListener = null;
+    private static volatile BluetoothProfile.ServiceListener profileListener = null;
 
     static void getConnectedDevices(final Context context) {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);

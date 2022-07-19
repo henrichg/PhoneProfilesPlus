@@ -77,11 +77,11 @@ public class Shell {
     //Statics -- visible to all
     private static final String token = "F*D^W@#FGF";
 
-    private static Shell rootShell = null;
+    private volatile static Shell rootShell = null;
 
-    private static Shell shell = null;
+    private volatile static Shell shell = null;
 
-    private static Shell customShell = null;
+    private volatile static Shell customShell = null;
 
     private static final String[] suVersion = new String[]{
             null, null

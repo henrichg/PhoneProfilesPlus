@@ -110,12 +110,12 @@ public class PPApplication extends Application
     static final String SHARED_EXPORT_FILENAME = "phoneProfilesPlus_backup";
     static final String SHARED_EXPORT_FILEEXTENSION = ".zip";
 
-    private static PPApplication instance;
-    private static WorkManager workManagerInstance;
+    private static volatile PPApplication instance;
+    private static volatile WorkManager workManagerInstance;
 
-    static boolean applicationFullyStarted = false;
-    static boolean normalServiceStart = false;
-    static boolean showToastForProfileActivation = false;
+    static volatile boolean applicationFullyStarted = false;
+    static volatile boolean normalServiceStart = false;
+    static volatile boolean showToastForProfileActivation = false;
 
     // this for display of alert dialog when works not started at start of app
     //static long startTimeOfApplicationStart = 0;
@@ -342,19 +342,19 @@ public class PPApplication extends Application
     static final int ALTYPE_PROFILE_ADDED = 108;
     static final int ALTYPE_EVENT_ADDED = 109;
 
-    static boolean doNotShowProfileNotification = false;
-    private static boolean applicationStarted = false;
-    static boolean globalEventsRunStop = true;
-    //static boolean applicationPackageReplaced = false;
-    static boolean deviceBoot = false;
+    static volatile boolean doNotShowProfileNotification = false;
+    private volatile static boolean applicationStarted = false;
+    static volatile boolean globalEventsRunStop = true;
+    //static volatile boolean applicationPackageReplaced = false;
+    static volatile boolean deviceBoot = false;
 
-    static final boolean restoreFinished = true;
+    //static final boolean restoreFinished = true;
 
-    static Collator collator = null;
+    static volatile Collator collator = null;
 
-    static boolean lockRefresh = false;
-    //static long lastRefreshOfGUI = 0;
-    //static long lastRefreshOfProfileNotification = 0;
+    static volatile boolean lockRefresh = false;
+    //static volatile long lastRefreshOfGUI = 0;
+    //static volatile long lastRefreshOfProfileNotification = 0;
 
     //static final int DURATION_FOR_GUI_REFRESH = 500;
     //static final String EXTRA_REFRESH_ALSO_EDITOR = "refresh_also_editor";
@@ -415,14 +415,14 @@ public class PPApplication extends Application
     static final boolean romIsEMUI = isEMUIROM();
     static final boolean romIsGalaxy = isGalaxyROM();
 
-    static boolean HAS_FEATURE_BLUETOOTH_LE = false;
-    static boolean HAS_FEATURE_WIFI = false;
-    static boolean HAS_FEATURE_BLUETOOTH = false;
-    static boolean HAS_FEATURE_TELEPHONY = false;
-    static boolean HAS_FEATURE_NFC = false;
-    static boolean HAS_FEATURE_LOCATION = false;
-    static boolean HAS_FEATURE_LOCATION_GPS = false;
-    static boolean HAS_FEATURE_CAMERA_FLASH = false;
+    static volatile boolean HAS_FEATURE_BLUETOOTH_LE = false;
+    static volatile boolean HAS_FEATURE_WIFI = false;
+    static volatile boolean HAS_FEATURE_BLUETOOTH = false;
+    static volatile boolean HAS_FEATURE_TELEPHONY = false;
+    static volatile boolean HAS_FEATURE_NFC = false;
+    static volatile boolean HAS_FEATURE_LOCATION = false;
+    static volatile boolean HAS_FEATURE_LOCATION_GPS = false;
+    static volatile boolean HAS_FEATURE_CAMERA_FLASH = false;
 
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
@@ -714,9 +714,9 @@ public class PPApplication extends Application
     //public static long lastUptimeTime;
     //public static long lastEpochTime;
 
-    static KeyguardManager keyguardManager = null;
+    static volatile KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")
-    static KeyguardManager.KeyguardLock keyguardLock = null;
+    static volatile KeyguardManager.KeyguardLock keyguardLock = null;
 
     //BrightnessView brightnessView = null;
     //BrightnessView screenTimeoutAlwaysOnView = null;
@@ -724,14 +724,14 @@ public class PPApplication extends Application
     // this is OK, ActivateProfileHelper.removeKeepScreenOnView()
     // set it to null
     @SuppressLint("StaticFieldLeak")
-    static BrightnessView keepScreenOnView = null;
+    static volatile BrightnessView keepScreenOnView = null;
 
     // this is OK, activity will be removed and lockDeviceActivity set to null after destroy of
     // LockDeviceActivity
     @SuppressLint("StaticFieldLeak")
-    static LockDeviceActivity lockDeviceActivity = null;
+    static volatile LockDeviceActivity lockDeviceActivity = null;
 
-    static int screenTimeoutWhenLockDeviceActivityIsDisplayed = 0;
+    static volatile int screenTimeoutWhenLockDeviceActivityIsDisplayed = 0;
 
 //    static int brightnessBeforeScreenOff;
 //    static float adaptiveBrightnessBeforeScreenOff;
@@ -740,7 +740,7 @@ public class PPApplication extends Application
     // 0 = wait for answer from Extender;
     // 1 = Extender is connected,
     // 2 = Extender is disconnected
-    static int accessibilityServiceForPPPExtenderConnected = 2;
+    static volatile int accessibilityServiceForPPPExtenderConnected = 2;
 
     //boolean willBeDoRestartEvents = false;
 
@@ -754,140 +754,140 @@ public class PPApplication extends Application
     static final ProfileListWidgetProvider listWidgetBroadcastReceiver = new ProfileListWidgetProvider();
     static final SamsungEdgeProvider edgePanelBroadcastReceiver = new SamsungEdgeProvider();
 
-    static TimeChangedReceiver timeChangedReceiver = null;
-    static StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
-    static NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
-    static ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
-    static ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
-    static InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
+    static volatile TimeChangedReceiver timeChangedReceiver = null;
+    static volatile StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
+    static volatile NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
+    static volatile ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
+    static volatile ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
+    static volatile InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
 
-    static PhoneCallsListener phoneCallsListenerSIM1 = null;
-    static PhoneCallsListener phoneCallsListenerSIM2 = null;
-    static PhoneCallsListener phoneCallsListenerDefaul = null;
-    static TelephonyManager telephonyManagerSIM1 = null;
-    static TelephonyManager telephonyManagerSIM2 = null;
-    static TelephonyManager telephonyManagerDefault = null;
+    static volatile PhoneCallsListener phoneCallsListenerSIM1 = null;
+    static volatile PhoneCallsListener phoneCallsListenerSIM2 = null;
+    static volatile PhoneCallsListener phoneCallsListenerDefaul = null;
+    static volatile TelephonyManager telephonyManagerSIM1 = null;
+    static volatile TelephonyManager telephonyManagerSIM2 = null;
+    static volatile TelephonyManager telephonyManagerDefault = null;
 
 
-    static RingerModeChangeReceiver ringerModeChangeReceiver = null;
-    static WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
-    static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
-    static DonationBroadcastReceiver donationBroadcastReceiver = null;
-    static CheckPPPReleasesBroadcastReceiver checkPPPReleasesBroadcastReceiver = null;
-    static CheckCriticalPPPReleasesBroadcastReceiver checkCriticalPPPReleasesBroadcastReceiver = null;
-    static CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
-    static SimStateChangedBroadcastReceiver simStateChangedBroadcastReceiver = null;
-    static CheckRequiredExtenderReleasesBroadcastReceiver checkRequiredExtenderReleasesBroadcastReceiver = null;
+    static volatile RingerModeChangeReceiver ringerModeChangeReceiver = null;
+    static volatile WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
+    static volatile NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
+    static volatile DonationBroadcastReceiver donationBroadcastReceiver = null;
+    static volatile CheckPPPReleasesBroadcastReceiver checkPPPReleasesBroadcastReceiver = null;
+    static volatile CheckCriticalPPPReleasesBroadcastReceiver checkCriticalPPPReleasesBroadcastReceiver = null;
+    static volatile CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
+    static volatile SimStateChangedBroadcastReceiver simStateChangedBroadcastReceiver = null;
+    static volatile CheckRequiredExtenderReleasesBroadcastReceiver checkRequiredExtenderReleasesBroadcastReceiver = null;
 
-    static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
-    static BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;
-    static HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
-    static NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
-    static DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
-    //static WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
-    static WifiNetworkCallback wifiConnectionCallback = null;
-    static MobileDataNetworkCallback mobileDataConnectionCallback = null;
-    static BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
-    static BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
-    static WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
-    static LocationModeChangedBroadcastReceiver locationModeChangedBroadcastReceiver = null;
-    static AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
-    //static SMSBroadcastReceiver smsBroadcastReceiver = null;
-    //static SMSBroadcastReceiver mmsBroadcastReceiver = null;
-    static CalendarProviderChangedBroadcastReceiver calendarProviderChangedBroadcastReceiver = null;
-    static WifiScanBroadcastReceiver wifiScanReceiver = null;
-    static BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
-    static BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
-    static PPPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
-    static PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
-    static PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
-    static PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
-    static PPPExtenderBroadcastReceiver pppExtenderCallBroadcastReceiver = null;
-    static EventTimeBroadcastReceiver eventTimeBroadcastReceiver = null;
-    static EventCalendarBroadcastReceiver eventCalendarBroadcastReceiver = null;
-    static EventDelayStartBroadcastReceiver eventDelayStartBroadcastReceiver = null;
-    static EventDelayEndBroadcastReceiver eventDelayEndBroadcastReceiver = null;
-    static ProfileDurationAlarmBroadcastReceiver profileDurationAlarmBroadcastReceiver = null;
-    static SMSEventEndBroadcastReceiver smsEventEndBroadcastReceiver = null;
-    static NFCEventEndBroadcastReceiver nfcEventEndBroadcastReceiver = null;
-    static RunApplicationWithDelayBroadcastReceiver runApplicationWithDelayBroadcastReceiver = null;
-    static MissedCallEventEndBroadcastReceiver missedCallEventEndBroadcastReceiver = null;
-    static StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
-    static LocationScannerSwitchGPSBroadcastReceiver locationScannerSwitchGPSBroadcastReceiver = null;
-    static LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
-    static AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
-    static AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
-    static NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
-    static LockDeviceAfterScreenOffBroadcastReceiver lockDeviceAfterScreenOffBroadcastReceiver = null;
-    //static OrientationEventBroadcastReceiver orientationEventBroadcastReceiver = null;
-    static PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
-    static DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
-    static DeviceBootEventEndBroadcastReceiver deviceBootEventEndBroadcastReceiver = null;
-    static CalendarEventExistsCheckBroadcastReceiver calendarEventExistsCheckBroadcastReceiver = null;
-    static PeriodicEventEndBroadcastReceiver periodicEventEndBroadcastReceiver = null;
-    static DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
-    static RestartEventsWithDelayBroadcastReceiver restartEventsWithDelayBroadcastReceiver = null;
-    static ActivatedProfileEventBroadcastReceiver activatedProfileEventBroadcastReceiver = null;
-    static VPNNetworkCallback vpnConnectionCallback = null;
+    static volatile BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
+    static volatile BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;
+    static volatile HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
+    static volatile NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
+    static volatile DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
+    //static volatile WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
+    static volatile WifiNetworkCallback wifiConnectionCallback = null;
+    static volatile MobileDataNetworkCallback mobileDataConnectionCallback = null;
+    static volatile BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
+    static volatile BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
+    static volatile WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
+    static volatile LocationModeChangedBroadcastReceiver locationModeChangedBroadcastReceiver = null;
+    static volatile AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
+    //static volatile SMSBroadcastReceiver smsBroadcastReceiver = null;
+    //static volatile SMSBroadcastReceiver mmsBroadcastReceiver = null;
+    static volatile CalendarProviderChangedBroadcastReceiver calendarProviderChangedBroadcastReceiver = null;
+    static volatile WifiScanBroadcastReceiver wifiScanReceiver = null;
+    static volatile BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
+    static volatile BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
+    static volatile PPPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
+    static volatile PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
+    static volatile PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
+    static volatile PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
+    static volatile PPPExtenderBroadcastReceiver pppExtenderCallBroadcastReceiver = null;
+    static volatile EventTimeBroadcastReceiver eventTimeBroadcastReceiver = null;
+    static volatile EventCalendarBroadcastReceiver eventCalendarBroadcastReceiver = null;
+    static volatile EventDelayStartBroadcastReceiver eventDelayStartBroadcastReceiver = null;
+    static volatile EventDelayEndBroadcastReceiver eventDelayEndBroadcastReceiver = null;
+    static volatile ProfileDurationAlarmBroadcastReceiver profileDurationAlarmBroadcastReceiver = null;
+    static volatile SMSEventEndBroadcastReceiver smsEventEndBroadcastReceiver = null;
+    static volatile NFCEventEndBroadcastReceiver nfcEventEndBroadcastReceiver = null;
+    static volatile RunApplicationWithDelayBroadcastReceiver runApplicationWithDelayBroadcastReceiver = null;
+    static volatile MissedCallEventEndBroadcastReceiver missedCallEventEndBroadcastReceiver = null;
+    static volatile StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
+    static volatile LocationScannerSwitchGPSBroadcastReceiver locationScannerSwitchGPSBroadcastReceiver = null;
+    static volatile LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
+    static volatile AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
+    static volatile AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
+    static volatile NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
+    static volatile LockDeviceAfterScreenOffBroadcastReceiver lockDeviceAfterScreenOffBroadcastReceiver = null;
+    //static volatile OrientationEventBroadcastReceiver orientationEventBroadcastReceiver = null;
+    static volatile PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
+    static volatile DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
+    static volatile DeviceBootEventEndBroadcastReceiver deviceBootEventEndBroadcastReceiver = null;
+    static volatile CalendarEventExistsCheckBroadcastReceiver calendarEventExistsCheckBroadcastReceiver = null;
+    static volatile PeriodicEventEndBroadcastReceiver periodicEventEndBroadcastReceiver = null;
+    static volatile DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
+    static volatile RestartEventsWithDelayBroadcastReceiver restartEventsWithDelayBroadcastReceiver = null;
+    static volatile ActivatedProfileEventBroadcastReceiver activatedProfileEventBroadcastReceiver = null;
+    static volatile VPNNetworkCallback vpnConnectionCallback = null;
 
-    static SettingsContentObserver settingsContentObserver = null;
+    static volatile SettingsContentObserver settingsContentObserver = null;
 
     // this is OK, mobileDataStateChangedContentObserver will set to null when
     // observer will be unregistered
     @SuppressLint("StaticFieldLeak")
-    static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
+    static volatile MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
 
-    static ContactsContentObserver contactsContentObserver = null;
+    static volatile ContactsContentObserver contactsContentObserver = null;
 
-    static SensorManager sensorManager = null;
-    static Sensor accelerometerSensor = null;
-    static Sensor magneticFieldSensor = null;
-    static Sensor lightSensor = null;
-    static Sensor proximitySensor = null;
+    static volatile SensorManager sensorManager = null;
+    static volatile Sensor accelerometerSensor = null;
+    static volatile Sensor magneticFieldSensor = null;
+    static volatile Sensor lightSensor = null;
+    static volatile Sensor proximitySensor = null;
 
-    static OrientationScanner orientationScanner = null;
-    static boolean mStartedOrientationSensors = false;
+    static volatile OrientationScanner orientationScanner = null;
+    static volatile boolean mStartedOrientationSensors = false;
 
     // this is OK, locationScanner will bet to null, when location scanner will be stopped
     @SuppressLint("StaticFieldLeak")
-    static LocationScanner locationScanner = null;
+    static volatile LocationScanner locationScanner = null;
 
     // this is OK, mobileCellsScanner will bet to null, when mobile cells scanner will be stopped
     @SuppressLint("StaticFieldLeak")
-    static MobileCellsScanner mobileCellsScanner = null;
+    static volatile MobileCellsScanner mobileCellsScanner = null;
 
 
     // this is OK, twilightScanner will bet to null, when twilight scanner will be stopped
     @SuppressLint("StaticFieldLeak")
-    static TwilightScanner twilightScanner = null;
+    static volatile TwilightScanner twilightScanner = null;
 
-    static boolean notificationScannerRunning = false;
+    static volatile boolean notificationScannerRunning = false;
 
-    static boolean isCharging = false;
-    static int batteryPct = -100;
-    static int plugged = -1;
+    static volatile boolean isCharging = false;
+    static volatile int batteryPct = -100;
+    static volatile int plugged = -1;
 
-    public static boolean isScreenOn;
+    public volatile static boolean isScreenOn;
     //public static boolean isPowerSaveMode;
 
-    static Location lastLocation = null;
+    static volatile Location lastLocation = null;
 
-    public static ExecutorService basicExecutorPool = null;
-    public static ExecutorService profileActiationExecutorPool = null;
-    public static ExecutorService eventsHandlerExecutor = null;
-    public static ExecutorService scannersExecutor = null;
-    public static ExecutorService playToneExecutor = null;
-    public static ScheduledExecutorService disableInternalChangeExecutor = null;
-    public static ScheduledExecutorService delayedGuiExecutor = null;
-    public static ScheduledExecutorService delayedEventsHandlerExecutor = null;
-    public static ScheduledExecutorService delayedProfileActivationExecutor = null;
+    public volatile static ExecutorService basicExecutorPool = null;
+    public volatile static ExecutorService profileActiationExecutorPool = null;
+    public volatile static ExecutorService eventsHandlerExecutor = null;
+    public volatile static ExecutorService scannersExecutor = null;
+    public volatile static ExecutorService playToneExecutor = null;
+    public volatile static ScheduledExecutorService disableInternalChangeExecutor = null;
+    public volatile static ScheduledExecutorService delayedGuiExecutor = null;
+    public volatile static ScheduledExecutorService delayedEventsHandlerExecutor = null;
+    public volatile static ScheduledExecutorService delayedProfileActivationExecutor = null;
 
     // required for callbacks, observers, ...
-    public static HandlerThread handlerThreadBroadcast = null;
+    public volatile static HandlerThread handlerThreadBroadcast = null;
     // required for sensor manager
-    public static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
+    public volatile static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
     // rewuired for location manager
-    public static HandlerThread handlerThreadLocation = null;
+    public volatile static HandlerThread handlerThreadLocation = null;
 
     //public static HandlerThread handlerThread = null;
     //public static HandlerThread handlerThreadCancelWork = null;
@@ -903,20 +903,20 @@ public class PPApplication extends Application
 
     //public static HandlerThread handlerThreadProfileActivation = null;
 
-    public static Handler toastHandler;
+    public volatile static Handler toastHandler;
     //public static Handler brightnessHandler;
-    public static Handler screenTimeoutHandler;
+    public volatile static Handler screenTimeoutHandler;
 
     public static final PPNotificationListenerService ppNotificationListenerService = new PPNotificationListenerService();
 
     //public static boolean isPowerSaveMode = false;
 
     // !! this must be here
-    public static boolean blockProfileEventActions = false;
+    public volatile static boolean blockProfileEventActions = false;
 
     // Samsung Look instance
-    public static Slook sLook = null;
-    public static boolean sLookCocktailPanelEnabled = false;
+    public volatile static Slook sLook = null;
+    public volatile static boolean sLookCocktailPanelEnabled = false;
     //public static boolean sLookCocktailBarEnabled = false;
 
     //public static final Random requestCodeForAlarm = new Random();

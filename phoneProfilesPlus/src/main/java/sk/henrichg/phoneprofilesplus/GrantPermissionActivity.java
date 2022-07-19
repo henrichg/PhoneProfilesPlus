@@ -30,7 +30,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private int grantType;
     private ArrayList<Permissions.PermissionType> permissions;
-    static private ArrayList<Permissions.PermissionType> permissionsForRecheck;
+    static private volatile ArrayList<Permissions.PermissionType> permissionsForRecheck;
     private boolean mergedProfile;
     private boolean forceGrant;
     //private boolean mergedNotification;

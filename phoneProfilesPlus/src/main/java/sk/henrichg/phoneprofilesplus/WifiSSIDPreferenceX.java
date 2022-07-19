@@ -26,7 +26,7 @@ public class WifiSSIDPreferenceX extends DialogPreference {
     List<WifiSSIDData> SSIDList;
     final List<WifiSSIDData> customSSIDList;
 
-    static boolean forceRegister = false;
+    static volatile boolean forceRegister = false;
 
     public WifiSSIDPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);

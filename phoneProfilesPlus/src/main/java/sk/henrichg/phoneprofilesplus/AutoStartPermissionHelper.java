@@ -17,7 +17,7 @@ import java.util.Locale;
 @SuppressWarnings("FieldCanBeLocal")
 class AutoStartPermissionHelper  {
 
-    static AutoStartPermissionHelper instance = null;
+    private static volatile AutoStartPermissionHelper instance = null;
 
     /***
      * Xiaomi

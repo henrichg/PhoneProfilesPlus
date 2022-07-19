@@ -40,7 +40,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
 
     private final Context prefContext;
 
-    static boolean forceStart;
+    static volatile boolean forceStart;
 
     public MobileCellsPreferenceX(Context prefContext, AttributeSet attrs) {
         super(prefContext, attrs);

@@ -90,9 +90,9 @@ public class EditorActivity extends AppCompatActivity
 
     private ImageView eventsRunStopIndicator;
 
-    private static boolean savedInstanceStateChanged;
+    private static volatile boolean savedInstanceStateChanged;
 
-    private static ApplicationsCache applicationsCache;
+    private static volatile ApplicationsCache applicationsCache;
 
     @SuppressWarnings("rawtypes")
     private AsyncTask importAsyncTask = null;
@@ -105,13 +105,13 @@ public class EditorActivity extends AppCompatActivity
     @SuppressWarnings("rawtypes")
     private AsyncTask restoreAsyncTask = null;
 
-    static boolean doImport = false;
+    static volatile boolean doImport = false;
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
     private AlertDialog backupProgressDialog = null;
     private AlertDialog restoreProgressDialog = null;
 
-    static boolean importFromPPStopped = false;
+    static volatile boolean importFromPPStopped = false;
 
     private static final int DSI_PROFILES_ALL = 0;
     private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;

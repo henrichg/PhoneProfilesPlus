@@ -11,9 +11,9 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
     //public static boolean internalChange = false;
 
-    private static boolean previousState = false;
-    private static boolean previousStateSIM1 = false;
-    private static boolean previousStateSIM2 = false;
+    private static volatile boolean previousState = false;
+    private static volatile boolean previousStateSIM1 = false;
+    private static volatile boolean previousStateSIM2 = false;
 
     private final Context context;
 

@@ -10,7 +10,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
     private final Context context;
 
-    static boolean connected = false;
+    static volatile boolean connected = false;
 
     MobileDataNetworkCallback(Context context) {
         this.context = context.getApplicationContext();

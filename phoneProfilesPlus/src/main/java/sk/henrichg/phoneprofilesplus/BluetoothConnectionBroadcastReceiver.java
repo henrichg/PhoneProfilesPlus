@@ -18,7 +18,7 @@ import java.util.List;
 @SuppressLint("MissingPermission")
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
-    private static List<BluetoothDeviceData> connectedDevices = null;
+    private static volatile List<BluetoothDeviceData> connectedDevices = null;
 
     @Override
     public void onReceive(Context context, Intent intent) {

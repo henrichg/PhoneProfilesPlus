@@ -165,7 +165,7 @@ class Permissions {
     private static final String PREF_WRITE_STORAGE_PERMISSION = "writeStoragePermission";
     //private static final String PREF_CALL_LOGS_PERMISSION = "callLogsPermission";
 
-    static boolean grantRootChanged = false;
+    static volatile boolean grantRootChanged = false;
 
     static class PermissionType implements Parcelable {
         final int type;

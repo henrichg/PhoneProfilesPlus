@@ -18,7 +18,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     private final Context _context;
 
     final AudioManager audioManager;
-    static MediaPlayer mediaPlayer = null;
+    static volatile MediaPlayer mediaPlayer = null;
 
     // Custom xml attributes.
     final int forVolumesSensor;

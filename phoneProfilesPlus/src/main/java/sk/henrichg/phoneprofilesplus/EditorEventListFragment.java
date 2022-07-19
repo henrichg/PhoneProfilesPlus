@@ -521,7 +521,7 @@ public class EditorEventListFragment extends Fragment
             _dataWrapper.fillEventList();
             //Log.e("EditorEventListFragment.LoadEventListAsyncTask","_dataWrapper.eventList.size()="+_dataWrapper.eventList.size());
 
-            if ((_dataWrapper.eventList.size() == 0) && PPApplication.restoreFinished)
+            if ((_dataWrapper.eventList.size() == 0) /*&& PPApplication.restoreFinished*/)
             {
                 if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_EVENTS_FIRST_START, true)) {
                     // no events in DB, generate default events

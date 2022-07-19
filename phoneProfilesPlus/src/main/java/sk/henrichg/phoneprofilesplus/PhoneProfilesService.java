@@ -177,17 +177,17 @@ public class PhoneProfilesService extends Service
 
     //------------------------
 
-    private static ContactsCache contactsCache;
-    private static ContactGroupsCache contactGroupsCache;
+    static private volatile ContactsCache contactsCache;
+    static private volatile ContactGroupsCache contactGroupsCache;
 
     private AudioManager audioManager = null;
-    static private boolean ringingCallIsSimulating = false;
+    static private volatile boolean ringingCallIsSimulating = false;
     //private boolean notificationToneIsSimulating = false;
     int ringingVolume = 0;
-    static int ringingMuted = 0;
+    static volatile int ringingMuted = 0;
     //public static int notificationVolume = 0;
-    static private int oldVolumeForRingingSimulation = -1;
-    static private MediaPlayer ringingMediaPlayer = null;
+    static private volatile int oldVolumeForRingingSimulation = -1;
+    static private volatile MediaPlayer ringingMediaPlayer = null;
     //private MediaPlayer notificationMediaPlayer = null;
     //private int mediaRingingVolume = 0;
     //private int mediaNotificationVolume = 0;
