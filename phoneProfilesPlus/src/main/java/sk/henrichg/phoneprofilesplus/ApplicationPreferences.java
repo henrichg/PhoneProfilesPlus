@@ -742,8 +742,6 @@ class ApplicationPreferences {
     }
     static void notificationStatusBarStyle(Context context) {
         notificationStatusBarStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_STATUS_BAR_STYLE, notificationStatusBarStyleDefaultValue());
-        // Native (1) is OK, becuse in Pixel 5 with Android 12, Colorful (0) not working, icon is not displayed.
-        // But by me, it is bug in Pixel 5, because in my Pixel 3a working also Colorful.
         if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31) &&
                 notificationStatusBarStyle.equals("0")) {
             SharedPreferences prefs = getSharedPreferences(context);
@@ -863,7 +861,6 @@ class ApplicationPreferences {
     }
     static void notificationPrefIndicator(Context context) {
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
-            // default value for One UI 4 is better 1 (native)
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_PREF_INDICATOR)) {
                 // not contains this preference set to false
                 SharedPreferences prefs = getSharedPreferences(context);
@@ -1393,9 +1390,8 @@ class ApplicationPreferences {
     }
     */
 
-    static final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE = true;
+    static final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE = false;
     static void notificationUseDecoration(Context context) {
-        // default value for Pixel (Android 12+) -> true
         notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE);
     }
 
@@ -1448,9 +1444,9 @@ class ApplicationPreferences {
     }
 
     static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS = "0"; // custom
-    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P = "0"; //"1"; // native
+    static private final String PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P = "0"; // custom //"1"; // native
     static String notificationNotificationStyleDefaultValue() {
-        // change: for all devices with Android 12 set "native"
+        // change: for all devices with Android 12 set "custom"
         String defaultValue;
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
@@ -1461,7 +1457,7 @@ class ApplicationPreferences {
         return defaultValue;
     }
     static void notificationNotificationStyle(Context context) {
-        // change: for all devices with Android 12 set "native"
+        // change: for all devices with Android 12 set "custom"
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_NOTIFICATION_STYLE)) {
@@ -1489,7 +1485,6 @@ class ApplicationPreferences {
     }
     static void notificationShowProfileIcon(Context context) {
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
-            // default value for One UI 4 is better 1 (native)
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_SHOW_PROFILE_ICON)) {
                 // not contains this preference set to false
                 SharedPreferences prefs = getSharedPreferences(context);
