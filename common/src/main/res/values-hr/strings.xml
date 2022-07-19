@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Datoteke sigurnosne kopije bit će spremljene u direktorij koji definira korisnik.</string>
     <string name="export_profiles_alert_message_note">Napomena: Rezervna kopija sadržava osetljive privatne podatke. Dijelite ove podatke sa drugim licima u Zip formatu zaštićene šifrom.</string>
     <string name="alert_button_backup">Izvezi podatke</string>
-    <string name="important_info_privacy_policy_backup_files">Politika privatnosti je promjenjena. Naročito za kopiju podataka kreiranu sa funkcijom za rezervne kopije.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Klikni ovdje za prikaz Politike privatnosti.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Postavke Sustava</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Postavke za kategorije obavijesti:</string>
     <string name="array_pref_auto_rotate_on">Automatska rotacija Uključeno</string>

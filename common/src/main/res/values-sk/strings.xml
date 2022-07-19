@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Súbory obnovy nastavení budú uložené do adresára definovaného užívateľom.</string>
     <string name="export_profiles_alert_message_note">Poznámka: Zálohovacie súbory obsahujú citlivé súkromné údaje. Distribuujte súbory tretím stranám, napríklad v zipovom súbore s heslom.</string>
     <string name="alert_button_backup">Urob export</string>
-    <string name="important_info_privacy_policy_backup_files">Pravidlá ochrany osobných údajov sa zmenili. Najmä o zálohovaných súboroch generovaných funkciou zálohovania.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Kliknite sem, ak chcete zobraziť zásady ochrany osobných údajov.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Systémové nastavenia</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Konfigurácia pre notifikačnú kategóriu:</string>
     <string name="array_pref_auto_rotate_on">Zapnúť automatickú orientáciu</string>
@@ -1944,7 +1942,7 @@
     <string name="important_info_notification_settings_text1">Odporúčanie pre konfiguráciu parametrov \"Nastavenia\"/\"Notifikácia aplikácie\":</string>
     <string name="important_info_notification_settings_text2">Nakonfigurujte parameter \"Štýl notifikácie\" na \"Vlastný\", \"Použiť dekoráciu\" vypnuté, \"Zobraziť ikonu profilu“ zapnuté, \"Zobraziť 
 indikátor parametrov“ zapnuté.</string>
-    <string name="important_info_notification_settings_text3">Pri tejto konfigurácii sa notifikácia zobrazí s ikonou profilu, indikátor parametrov s ikonami (ako v Editore), ikona \"Reštart udalosti\" a upozornenie bude menšie.</string>
+    <string name="important_info_notification_settings_text3">Pri tejto konfigurácii sa notifikácia zobrazí s ikonou profilu, indikátor parametrov s ikonami (ako v Editore), ikona \"Reštart udalosti\" a notifikácia bude menšia.</string>
     <string name="important_info_notification_settings_text4">Notifikáciu, ktorá je bez dekorácie, je možné rozbaliť gestom: potiahnutím dvoma prstami nadol.</string>
     <string name="important_info_notification_settings_configure">Kliknutím sem nakonfigurujete \"Notifikácia aplikácie\" s týmito parametrami.</string>
     <string name="important_info_notification_settings_toast">Nakonfigurované</string>

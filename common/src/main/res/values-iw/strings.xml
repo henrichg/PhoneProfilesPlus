@@ -515,7 +515,7 @@
     <string name="phone_profiles_pref_category_orientation_scanning">סריקת כיוון המכשיר</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">מרווח סריקת כיוון המכשיר (שניות)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">סריקת כיוון המכשיר במצב חיסכון בצריכת חשמל</string>
-    <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_eventOrientationAppSettings_summary">הגדר פרמטרים של סריקת כיוון בהגדרות היישום.</string>
     <string name="profile_preferences_vibrateWhenRinging">רטט בעת צלצול</string>
     <string name="permissions_for_play_ringtone_notification_text1">נבחר צליל צלצול/הודעות מכרטיס sdcard. הצליל לא יושמע כיוון שפעולה זו דורשת הרשאות מסוימות.</string>
     <string name="permissions_for_play_ringtone_notification_text2">אנא התירו אותן בתיבות דו-שיח הבאות, ואז הצליל יושמע.</string>
@@ -537,7 +537,7 @@
     <string name="array_pref_device_wallpaper_lockscreen">מסך הנעילה</string>
     <string name="array_pref_device_wallpaper_all">מסכי הבית והנעילה</string>
     <string name="event_type_mobile_cells">תאים סלולריים</string>
-    <string name="event_preferences_category_eventMobileCellsParameters">Mobile cell sensor</string>
+    <string name="event_preferences_category_eventMobileCellsParameters">חיישן שיחות סלולר</string>
     <string name="event_preferences_mobile_cells_cells">תאים</string>
     <string name="event_preferences_mobile_cells_when_outside_pref_name">הפעלה כשמחוץ לתא הסלולרי</string>
     <string name="event_preferences_mobile_cells_when_outside_description">כאשר מחוץ</string>
@@ -589,7 +589,7 @@
     <string name="phone_profiles_pref_eventRunUsePriority">שימוש בפרמטר \"עדיפות\" של אירוע</string>
     <string name="event_preferences_priority_notUse">ללא שימוש</string>
     <string name="event_type_nfc">NFC</string>
-    <string name="event_preferences_category_eventNFCParameters">NFC sensor</string>
+    <string name="event_preferences_category_eventNFCParameters">חיישן NFC</string>
     <string name="event_preferences_nfc_nfcTags">תגיות NFC</string>
     <string name="nfc_tag_pref_dlg_hint">שם התגית</string>
     <string name="nfc_tag_pref_dlg_help">עליך לכתוב שם תגית לתוך תגית NFC. \"כתיבה לתגית NFC\" מופיעה בתפריט עבור כל שם תגית.</string>
@@ -597,9 +597,9 @@
     <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">צירוף המכשיר שלך לתגית NFC. הכתיבה תחל.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC חייב להיות מאופשר. נדרש לאפשר אותו ולנסות שוב.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">כתיבה לתגית NFC</string>
-    <string name="write_nfc_tag_written">Tag written</string>
+    <string name="write_nfc_tag_written">כתיבת תג</string>
     <string name="write_nfc_tag_error">שגיאה בכתיבת התגית</string>
-    <string name="read_nfc_tag_read">Tag read</string>
+    <string name="read_nfc_tag_read">קורא תג</string>
     <string name="pref_event_permanentRun">הפעלה קבועה</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">התגית ניתנת לכתיבה</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">התגית אינה ניתנת לכתיבה</string>
@@ -607,7 +607,7 @@
     <string name="donation_activity_title">תרומה</string>
     <string name="donation_description">האם יישום זה שימושי לך?\nהביעו תמיכה בפיתוח ע\"י שליחת תרומה למפתח.</string>
     <string name="about_application_releases">מהדורות:</string>
-    <string name="permission_group_name_draw_overlays">Draw over apps</string>
+    <string name="permission_group_name_draw_overlays">ציור מעל האפליקציות</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">לא התרת \"הצגה מעל יישומים אחרים\". לא לבקש זאת שוב בכלל?</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions">הצגה מעל יישומים אחרים</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions_summary">אנא חפשו את היישום \"PhoneProfilesPlus\", והתירו אותו.</string>
@@ -712,7 +712,7 @@
     <string name="lockDevice_screenOff_text">נעילת כיבוי מסך מהיר</string>
     <string name="event_preferences_calendar_start_before_event">התחלה לפני האירוע</string>
     <string name="event_preferences_startBeforeEvent">התחלה לפני האירוע</string>
-    <string name="event_preferences_category_eventRadioSwitchParameters">Radio sensor</string>
+    <string name="event_preferences_category_eventRadioSwitchParameters">חיישן רדיו</string>
     <string name="event_type_radioSwitch">רדיו</string>
     <string name="array_pref_radioSwitch_notDetect">לא מאותר</string>
     <string name="array_pref_radioSwitch_on">פעיל</string>
@@ -725,10 +725,10 @@
     <string name="event_preferences_radioSwitch_airplaneMode">מצב טיסה</string>
     <string name="event_preferences_radioSwitch_info_title">תצורת חיישנים</string>
     <string name="event_preferences_radioSwitch_info_summary">מצב כל משדרי/מקלטי הרדיו חייב להיות מוגדר כדי להפעיל אירוע. הגדירו רק את הרדיו הדרושים.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">כל SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">התחבר ל-SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">מיזוג עוצמות הקול</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">השתמש בזיהוי</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">עוצמות הקול ממוזגות</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">עוצמות הקול מופרדות</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">התשמש באפשרות זו אם זיהוי מיזוג עצמת קול שגוי.</string>
@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">Note: Backup files contains sensitive private data. Distribute files to third parties, for example in zip file with password.</string>
     <string name="alert_button_backup">Do export</string>
-    <string name="important_info_privacy_policy_backup_files">Privacy policy is changed. Especially about backup files generated by Backup function.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Click this to show Privacy policy.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">System settings</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuration for notification category:</string>
     <string name="array_pref_auto_rotate_on">Automatic rotation on</string>

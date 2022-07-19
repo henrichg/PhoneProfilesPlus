@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Soubory obnovy nastavení budou uloženy do adresáře definovaného uživatelem.</string>
     <string name="export_profiles_alert_message_note">Poznámka: Zálohovací soubory obsahují citlivé soukromé údaje. Distribuujte soubory třetím stranám, například v Zip souboru s heslem.</string>
     <string name="alert_button_backup">Udělej export</string>
-    <string name="important_info_privacy_policy_backup_files">Zásady ochrany osobních údajů se změnily. Zejména o zálohovaných souborech generovaných funkcí zálohování.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Klikněte zde, pokud chcete zobrazit zásady ochrany osobních údajů.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Systémová nastavení</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Konfigurace pro oznamovací kategorii:</string>
     <string name="array_pref_auto_rotate_on">Zapnout automatickou orientaci</string>
@@ -1942,9 +1940,8 @@
     <string name="activity_log_help_message_colors_others">Ostatní situace</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Barva ikony \"Restart událostí\"</string>
     <string name="important_info_notification_settings_text1">Doporučení pro konfiguraci parametrů \"Nastavení\"/\"Notifikace aplikace\":</string>
-    <string name="important_info_notification_settings_text2">Nakonfigurujte parametr \"Styl oznámení\" na \"Vlastní\", \"Použít dekoraci\" vypnuto, \"Zobrazit ikonu profilu\" zapnuto, \"Zobrazit
- indikátor parametrů“ zapnuto.</string>
-    <string name="important_info_notification_settings_text3">Při této konfiguraci se upozornění zobrazí s ikonou profilu, indikátor parametrů s ikonami (jako v Editoru), ikona \"Restart události\" a upozornění bude menší.</string>
+    <string name="important_info_notification_settings_text2">Nakonfigurujte parametr \"Styl oznámení\" na \"Vlastní\", \"Použít dekoraci\" vypnuto, \"Zobrazit ikonu profilu\" zapnuto, \"Zobrazit indikátor parametrů“ zapnuto.</string>
+    <string name="important_info_notification_settings_text3">Při této konfiguraci se upozornění zobrazí s ikonou profilu, indikátor parametrů s ikonami (jako v Editoru), ikona \"Restart události\" a notifikace bude menší.</string>
     <string name="important_info_notification_settings_text4">Notifikaci, která je bez dekorace, lze rozbalit gestem: potažením dvěma prsty dolů.</string>
     <string name="important_info_notification_settings_configure">Klepnutím sem nakonfigurujete \"Notifikace aplikace\" s těmito parametry.</string>
     <string name="important_info_notification_settings_toast">Nakonfigurováno</string>

@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Los archivos de copia de seguridad se guardarán en el directorio definido por el usuario.</string>
     <string name="export_profiles_alert_message_note">Nota: Los archivos de copia de seguridad contienen datos privados confidenciales. Distribuye archivos a terceros, por ejemplo en archivos comprimidos con contraseña.</string>
     <string name="alert_button_backup">Realizar la exportación</string>
-    <string name="important_info_privacy_policy_backup_files">La política de privacidad ha cambiado. Especialmente para los archivos de copia de seguridad generados por la función Copia de Seguridad.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Haz clic aquí para ver la política de privacidad.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Ajustes de sistema</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuración para la categoría de notificaciones:</string>
     <string name="array_pref_auto_rotate_on">Rotación automática activada</string>

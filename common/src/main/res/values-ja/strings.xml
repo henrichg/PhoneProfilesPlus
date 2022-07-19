@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">バックアップファイルは、ユーザーが設定したディレクトリに保存されます。</string>
     <string name="export_profiles_alert_message_note">注意: バックアップファイルには機密性の高いプライベートデータが含まれています。例えば、パスワード付きのzipファイルなどでサードパーティーにファイルをアップロードしてください。</string>
     <string name="alert_button_backup">エクスポートする</string>
-    <string name="important_info_privacy_policy_backup_files">特にバックアップ機能によって生成されたバックアップファイルについて、プライバシーポリシーが更新されました。</string>
-    <string name="important_info_privacy_policy_backup_files_2">ここをクリックするとプライバシーポリシーが表示されます。</string>
     <string name="phone_profiles_pref_notificationSystemSettings">システム設定</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">通知のカテゴリの設定:</string>
     <string name="array_pref_auto_rotate_on">自動回転オン</string>

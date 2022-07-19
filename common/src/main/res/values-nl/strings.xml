@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Backup bestanden worden bewaard in door gebruiker bepaalde map.</string>
     <string name="export_profiles_alert_message_note">Opmerking: Back-up bestanden bevatte gevoelige persoonlijke gegevens. Distribueer deze bestanden aan derden, bijvoorbeeld in zip-bestand met een wachtwoord.</string>
     <string name="alert_button_backup">Exporteer</string>
-    <string name="important_info_privacy_policy_backup_files">Privacybeleid is gewijzigd. Vooral over backup bestanden gegenereerd door de backup functie.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Klik hierop om de Privacy Policy te tonen.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Systeeminstellingen</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuratie voor meldingscategorie:</string>
     <string name="array_pref_auto_rotate_on">Automatische rotatie aan</string>

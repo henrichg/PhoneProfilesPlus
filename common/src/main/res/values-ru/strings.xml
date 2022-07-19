@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Резервная копия будет сохранена в указанную пользователем папку.</string>
     <string name="export_profiles_alert_message_note">Примечание: Файлы резервной копии содержат конфиденциальные личные данные. Передавайте файлы, например, в zip-архиве с паролем.</string>
     <string name="alert_button_backup">Экспортировать</string>
-    <string name="important_info_privacy_policy_backup_files">Политика конфиденциальности изменена, особенно в отношении файлов, создаваемых функцией Резервного копирования.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Нажмите сюда для просмотра Политики конфиденциальности.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Настройки системы</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Конфигурация для категории уведомлений:</string>
     <string name="array_pref_auto_rotate_on">Автоповорот вкл.</string>
@@ -1999,5 +1997,5 @@
     <string name="pref_event_vpn_connection_status">Статус подключения</string>
     <string name="array_pref_vpn_connected">Подключено</string>
     <string name="array_pref_vpn_disconnected">Отключено</string>
-    <string name="vpn_not_set_when_is_in_state_pref_dlg">Do not set when VPN is already in state</string>
+    <string name="vpn_not_set_when_is_in_state_pref_dlg">Не применять, если VPN уже находится в состоянии</string>
 </resources>

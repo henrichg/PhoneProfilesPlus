@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">Megjegyzés: A biztonsági másolat-fájlok érzékeny személyes adatokat tartalmazhatnak. Terjeszteni a harmadik félnek, például a titkosított tömörített fájlként.</string>
     <string name="alert_button_backup">Do export</string>
-    <string name="important_info_privacy_policy_backup_files">Adatvédelmi politika megváltozik. Különösen a biztonsági másolat fájlokra melyeket a biztonsági másolat funkció generál.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Ide kattintva adatvédelmi politikát mutatja.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Rendszerbeállítások</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Konfiguráció értesítési kategória:</string>
     <string name="array_pref_auto_rotate_on">Automatikus forgatás be</string>

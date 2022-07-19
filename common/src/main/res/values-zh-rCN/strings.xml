@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">备份文件将被保存到用户定义的目录。</string>
     <string name="export_profiles_alert_message_note">注意：备份文件包含敏感的私有数据。将文件分发给第三方，例如在带有密码的zip文件中。</string>
     <string name="alert_button_backup">正在导出</string>
-    <string name="important_info_privacy_policy_backup_files">隐私政策已更改。特别是备份功能生成的备份文件。</string>
-    <string name="important_info_privacy_policy_backup_files_2">单击此按钮显示隐私政策。</string>
     <string name="phone_profiles_pref_notificationSystemSettings">系统设置</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">通知类别的配置：</string>
     <string name="array_pref_auto_rotate_on">自动旋转开启</string>

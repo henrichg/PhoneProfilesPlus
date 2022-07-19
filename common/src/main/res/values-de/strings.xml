@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Sicherungsdateien werden in einem vom Benutzer definierten Ordner gespeichert.</string>
     <string name="export_profiles_alert_message_note">Hinweis: Backup enthält vertrauliche Daten. Versand sollte verschlüsselt oder als zip mit Passwort erfolgen.</string>
     <string name="alert_button_backup">Jetzt exportieren</string>
-    <string name="important_info_privacy_policy_backup_files">Geänderte Datenschutzbestimmungen beachten. Betrifft Backup Files.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Hier klicken, um die Datenschutzerklärung anzuzeigen.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Systemeinstellungen</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Benachrichtigungskategorie konfigurieren:</string>
     <string name="array_pref_auto_rotate_on">Bildschirm drehen an</string>

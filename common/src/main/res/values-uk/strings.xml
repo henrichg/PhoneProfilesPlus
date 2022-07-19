@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Файли резервної копії будуть збережені до теки визначеної користувачем.</string>
     <string name="export_profiles_alert_message_note">Примітка: Файли резервного копіювання містять особисті дані. Використовуйте пароль при збережені, наприклад у zip-файл.</string>
     <string name="alert_button_backup">Експортувати</string>
-    <string name="important_info_privacy_policy_backup_files">Політику конфіденційності змінено, особливо щодо резервного копіювання файлів, згенерованих за допомогою функції резервного копіювання.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Натисніть тут, щоб переглянути політику конфіденційності.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Налаштування системи</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Налаштування категорії сповіщень:</string>
     <string name="array_pref_auto_rotate_on">Автоматичне обертання увімкнуто</string>
@@ -1992,13 +1990,13 @@
     <string name="profile_preferences_deviceVPNInfo_summary2">Увімкнути\/вимкнути VPN для OpenVPN переміщено з \"Інші\"\/\"Запустити застосунки, ярлики, intents\" до параметра \"VPN\".</string>
     <string name="permission_why_profile_wireguard">для налаштування вмикання\/вимикання тунелю програмою WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard не встановлено або версія не підтримується.</string>
-    <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect is not installed.</string>
-    <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android is not installed.</string>
+    <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN з\'єднання не встановлено.</string>
+    <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN для Android не встановлено.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to\/disconnected from VPN. Parameters: Connection status.</string>
-    <string name="event_preferences_category_eventVPNParameters">VPN sensor</string>
-    <string name="pref_event_vpn_connection_status">Connection status</string>
-    <string name="array_pref_vpn_connected">Connected</string>
-    <string name="array_pref_vpn_disconnected">Disconnected</string>
-    <string name="vpn_not_set_when_is_in_state_pref_dlg">Do not set when VPN is already in state</string>
+    <string name="event_preference_sensor_vpn_summary">Цей датчик запускає подію, коли пристрій під\'єднано до\/від\'єднано від VPN. Параметри: стан з\'єднання.</string>
+    <string name="event_preferences_category_eventVPNParameters">Датчик VPN</string>
+    <string name="pref_event_vpn_connection_status">Статус з`єднання</string>
+    <string name="array_pref_vpn_connected">З\'єднано</string>
+    <string name="array_pref_vpn_disconnected">Від’єднано</string>
+    <string name="vpn_not_set_when_is_in_state_pref_dlg">Не встановлювати, якщо VPN вже під\'єднано</string>
 </resources>

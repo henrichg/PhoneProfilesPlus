@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Pliki kopii zapasowej zostaną zapisane w folderze zdefiniowanym przez użytkownika.</string>
     <string name="export_profiles_alert_message_note">Ważne: pliki kopii zapasowych zawierają wrażliwe dane prywatne. Udostępniaj je innym, używając na przykład archiwum ZIP zabezpieczonego hasłem.</string>
     <string name="alert_button_backup">Eksportuj</string>
-    <string name="important_info_privacy_policy_backup_files">Zmiana Polityki Prywatności. Dotyczy szczególnie plików kopii zapasowych tworzonych za pomocą funkcji backup\'u.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Kliknij tu aby zobaczyć Politykę Prywatności.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Ustawienia systemowe</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Konfiguracja powiadomień o:</string>
     <string name="array_pref_auto_rotate_on">Automatyczny obrót ekranu włączony</string>

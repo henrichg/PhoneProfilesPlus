@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">ملاحظة: تحتوي ملفات النسخ الاحتياطي على بيانات خاصة بك قد تكون حساسة. قم بحماية الملفات ، على سبيل المثال في ملف مضغوط محمي بكلمة مرور.</string>
     <string name="alert_button_backup">Do export</string>
-    <string name="important_info_privacy_policy_backup_files">تم تغيير سياسة الخصوصية. خاصة حول ملفات النسخ الاحتياطي التي تم إنشاؤها بواسطة وظيفة النسخ الاحتياطي.</string>
-    <string name="important_info_privacy_policy_backup_files_2">انقر هنا لعرض سياسة الخصوصية.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">اعدادات النظام</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">تكوين فئة الإشعار:</string>
     <string name="array_pref_auto_rotate_on">فتح التناوب التلقائي</string>

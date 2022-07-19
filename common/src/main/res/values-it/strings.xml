@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">I file di backup saranno salvati nella directory definita dall\'utente.</string>
     <string name="export_profiles_alert_message_note">Nota: I file di backup contengono dati privati sensibili. Distribuisci i file a terze parti, per esempio in file zip con password.</string>
     <string name="alert_button_backup">Esporta</string>
-    <string name="important_info_privacy_policy_backup_files">L\'informativa sulla privacy è cambiata. Soprattutto sui file di backup generati dalla funzione di Backup.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Fare clic per visualizzare l\'informativa sulla privacy.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Impostazioni sistema</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Configurazione per categoria di notifica:</string>
     <string name="array_pref_auto_rotate_on">Rotazione automatica attivata</string>

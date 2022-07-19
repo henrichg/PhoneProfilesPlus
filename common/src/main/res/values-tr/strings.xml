@@ -907,8 +907,6 @@
     <string name="export_profiles_alert_message">Yedek dosyalar, kullanıcı tarafından tayin edilen klasöre kaydedilecektir.</string>
     <string name="export_profiles_alert_message_note">Not: Yedekleme dosyaları gizli özel veri içerir. Dosyaları 3. parti olan bir uygulama ile açın, Misalen şifreli zip dosyasında.</string>
     <string name="alert_button_backup">Dışa aktar</string>
-    <string name="important_info_privacy_policy_backup_files">Mahremiyet düsturları değişti. Hususen yedekleme hizmeti kullanılarak üretilen yedek dosyaları hakkında.</string>
-    <string name="important_info_privacy_policy_backup_files_2">Mahremiyet hareket tarzını göstermek için buna dokunun.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Sistem ayarları</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Bildirim kategorisi için ayarlama:</string>
     <string name="array_pref_auto_rotate_on">Otomatik ekran döndürme açık</string>
