@@ -5915,6 +5915,27 @@ public class PhoneProfilesService extends Service
                     //profileIconExists = false;
                 }
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "samsung");
+            } else if (PPApplication.deviceIsOnePlus) {
+                if (!useDecorator) {
+                    if (notificationPrefIndicator)
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
+                    else
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator_no_indicators);
+                }
+                else {
+                    if (notificationPrefIndicator)
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
+                    else
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_indicators);
+                }
+                if (!useDecorator) {
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_oneplus_no_decorator);
+                }
+                else {
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
+                    //profileIconExists = false;
+                }
+//                PPApplication.logE("PhoneProfilesService._showProfileNotification", "onePlus");
             } else {
                     //PPApplication.logE("PhoneProfilesService._showProfileNotification", "useDecorator="+useDecorator);
                 if (!useDecorator) {
