@@ -4207,7 +4207,7 @@ public class PhoneProfilesService extends Service
                 //GlobalGUIRoutines.setLanguage(appContext);
                 GlobalGUIRoutines.switchNightMode(appContext, true);
 
-                dataWrapper.setDynamicLauncherShortcuts();
+                DataWrapper.setDynamicLauncherShortcuts(appContext);
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application not started, start it");
 
@@ -6483,6 +6483,21 @@ public class PhoneProfilesService extends Service
 
             startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
         }
+
+        /*
+        if (profile != null) {
+            profile.releaseIconBitmap();
+            profile.releasePreferencesIndicator();
+        }
+        if (iconBitmap != null) {
+            if (!iconBitmap.isRecycled())
+                iconBitmap.recycle();
+        }
+        if (preferencesIndicatorBitmap != null) {
+            if (!preferencesIndicatorBitmap.isRecycled())
+                preferencesIndicatorBitmap.recycle();
+        }
+        */
     }
 
     private void _addRestartEventsToProfileNotification(boolean forFirstStart,
@@ -6989,15 +7004,17 @@ public class PhoneProfilesService extends Service
 
         if (!doNotShowProfileNotification) {
             if (PhoneProfilesService.getInstance() != null) {
-//                            PPApplication.logE("PhoneProfilesService.drawProfileNotification", "call of _showProfileNotification()");
+//                PPApplication.logE("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
+                Log.e("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
 
                 clearOldProfileNotification();
 
                 if (PhoneProfilesService.getInstance() != null) {
                     synchronized (PPApplication.showPPPNotificationMutex) {
+                        Log.e("PhoneProfilesService.forceDrawProfileNotification", "(2))");
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
                         PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
-                        //Log.e("PhoneProfilesService.drawProfileNotification", "(1)");
+                        dataWrapper.invalidateDataWrapper();
                     }
                 }
             }
@@ -7153,7 +7170,7 @@ public class PhoneProfilesService extends Service
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "drawEmptyFirst="+drawEmptyFirst);
                 _showProfileNotification(/*null,*/ dataWrapper, true/*, true*/);
-                //dataWrapper.invalidateDataWrapper();
+                dataWrapper.invalidateDataWrapper();
                 //return; // do not return, dusplay activated profile immediatelly
             }
         //}

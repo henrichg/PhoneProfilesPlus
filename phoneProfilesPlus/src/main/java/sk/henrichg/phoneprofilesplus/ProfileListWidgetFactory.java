@@ -537,7 +537,10 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);
         }
+        _dataWrapper.invalidateDataWrapper();
 
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
         createProfilesDataWrapper(false,
                                     applicationWidgetListIconLightness,
                                     applicationWidgetListIconColor,

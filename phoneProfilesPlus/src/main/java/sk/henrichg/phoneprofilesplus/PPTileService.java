@@ -215,6 +215,7 @@ public class PPTileService extends TileService {
                             else
                                 tile.setState(Tile.STATE_INACTIVE);
                         }
+                        dataWrapper.invalidateDataWrapper();
                     }
                     tile.updateTile();
 

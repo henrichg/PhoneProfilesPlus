@@ -476,9 +476,8 @@ public class ActivatorListFragment extends Fragment {
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        //if (activityDataWrapper != null)
-        //    activityDataWrapper.invalidateDataWrapper();
-        //activityDataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
     }
 
     private void updateHeader(Profile profile)

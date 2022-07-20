@@ -713,7 +713,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             //PPApplication.logE("IconWidgetProvider.onUpdate", Log.getStackTraceString(e));
         //}
 
-        //dataWrapper.invalidateDataWrapper();
+        dataWrapper.invalidateDataWrapper();
     }
 
     @Override

@@ -205,9 +205,8 @@ public class TileChooserListFragment extends Fragment {
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        //if (activityDataWrapper != null)
-        //    activityDataWrapper.invalidateDataWrapper();
-        activityDataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
     }
 
     void chooseTile(final int position)

@@ -718,7 +718,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         //    PPApplication.recordException(ee);
         //}
 
-        //dataWrapper.invalidateDataWrapper();
+        /*if (profile != null) {
+            profile.releaseIconBitmap();
+            profile.releasePreferencesIndicator();
+        }*/
+        dataWrapper.invalidateDataWrapper();
     }
 
     @Override

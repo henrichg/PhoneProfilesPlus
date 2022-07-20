@@ -19,6 +19,7 @@ import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -203,6 +204,9 @@ public class EditorEventListFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Log.e("EditorEventListFragment.onViewCreated", "xxxxx");
+
         doOnViewCreated(view, true);
 
         //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
@@ -627,6 +631,9 @@ public class EditorEventListFragment extends Fragment
     {
         super.onDestroy();
 
+        Log.e("EditorEventListFragment.onDestroy", "xxxxx");
+
+
         if (isAsyncTaskPendingOrRunning()) {
             stopRunningAsyncTask();
         }
@@ -636,9 +643,8 @@ public class EditorEventListFragment extends Fragment
         if (eventListAdapter != null)
             eventListAdapter.release();
 
-        //if (activityDataWrapper != null)
-        //    activityDataWrapper.invalidateDataWrapper();
-        //activityDataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
     }
 
     @Override

@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -170,6 +171,8 @@ public class EditorProfileListFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Log.e("EditorProfileListFragment.onViewCreated", "xxxxx");
 
         doOnViewCreated(view, true);
 
@@ -564,6 +567,8 @@ public class EditorProfileListFragment extends Fragment
     {
         super.onDestroy();
 
+        Log.e("EditorProfileListFragment.onDestroy", "xxxxx");
+
         if (isAsyncTaskPendingOrRunning()) {
             stopRunningAsyncTask();
         }
@@ -573,9 +578,8 @@ public class EditorProfileListFragment extends Fragment
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        //if (activityDataWrapper != null)
-        //    activityDataWrapper.invalidateDataWrapper();
-        //activityDataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
     }
 
     @Override

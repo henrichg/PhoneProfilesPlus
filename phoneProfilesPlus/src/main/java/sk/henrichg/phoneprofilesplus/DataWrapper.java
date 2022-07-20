@@ -492,13 +492,14 @@ public class DataWrapper {
         }
     }
 
-    /*void invalidateProfileList()
+    void invalidateProfileList()
     {
         synchronized (profileList) {
             if (profileListFilled)
             {
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
+//                    Log.e("DataWrapper.invalidateProfileList", "profile="+profile._name);
                     profile.releaseIconBitmap();
                     profile.releasePreferencesIndicator();
                     it.remove();
@@ -506,7 +507,7 @@ public class DataWrapper {
             }
             profileListFilled = false;
         }
-    }*/
+    }
 
     Profile getActivatedProfileFromDB(boolean generateIcon, boolean generateIndicators)
     {
@@ -770,7 +771,7 @@ public class DataWrapper {
     }
 
     @TargetApi(Build.VERSION_CODES.N_MR1)
-    private ShortcutInfo createShortcutInfo(Profile profile, boolean restartEvents) {
+    static private ShortcutInfo createShortcutInfo(Profile profile, boolean restartEvents, Context context) {
         boolean isIconResourceID;
         String iconIdentifier;
         Bitmap profileBitmap;
@@ -891,7 +892,7 @@ public class DataWrapper {
                 .build();
     }
 
-    void setDynamicLauncherShortcuts() {
+    static void setDynamicLauncherShortcuts(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
             try {
                 ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
@@ -908,15 +909,15 @@ public class DataWrapper {
                     //Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
                     Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
                             "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
-                    _profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
+                    _profile.generateIconBitmap(context, false, 0, false);
                     // first profile is restart events
-                    shortcuts.add(createShortcutInfo(_profile, true));
+                    shortcuts.add(createShortcutInfo(_profile, true, context));
 
                     int shortcutsCount = 0;
                     for (Profile profile : countedProfiles) {
 //                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name + " count="+profile._activationByUserCount);
-                        profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
-                        shortcuts.add(createShortcutInfo(profile, false));
+                        profile.generateIconBitmap(context, false, 0, false);
+                        shortcuts.add(createShortcutInfo(profile, false, context));
                         ++shortcutsCount;
                         if (shortcutsCount == limit)
                             break;
@@ -926,8 +927,8 @@ public class DataWrapper {
                     if (shortcutsCount < limit) {
                         for (Profile profile : notCountedProfiles) {
 //                            PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
-                            profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
-                            shortcuts.add(createShortcutInfo(profile, false));
+                            profile.generateIconBitmap(context, false, 0, false);
+                            shortcuts.add(createShortcutInfo(profile, false, context));
                             ++shortcutsCount;
                             if (shortcutsCount == limit)
                                 break;
@@ -961,7 +962,7 @@ public class DataWrapper {
     void setDynamicLauncherShortcutsFromMainThread()
     {
         //PPApplication.logE("DataWrapper.setDynamicLauncherShortcutsFromMainThread", "start");
-        final DataWrapper dataWrapper = copyDataWrapper();
+        //final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
         //PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
@@ -986,7 +987,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    dataWrapper.setDynamicLauncherShortcuts();
+                    setDynamicLauncherShortcuts(context);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
                 } catch (Exception e) {
@@ -1042,14 +1043,14 @@ public class DataWrapper {
         }
     }
 
-    /*void invalidateEventList()
+    void invalidateEventList()
     {
         synchronized (eventList) {
             if (eventListFilled)
                 eventList.clear();
             eventListFilled = false;
         }
-    }*/
+    }
 
     Event getEventById(long id)
     {
@@ -1734,12 +1735,12 @@ public class DataWrapper {
 
 //-------------------------------------------------------------------------------------------------------------------
 
-    /*public void invalidateDataWrapper()
+    public void invalidateDataWrapper()
     {
         invalidateProfileList();
         invalidateEventList();
         invalidateEventTimelineList();
-    }*/
+    }
 
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
@@ -1953,7 +1954,7 @@ public class DataWrapper {
                             dataWrapper._activateProfile(profile, merged, startupSource, false);
                             if (interactive) {
                                 DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
-                                dataWrapper.setDynamicLauncherShortcuts();
+                                setDynamicLauncherShortcuts(context);
                             }
                         }
 

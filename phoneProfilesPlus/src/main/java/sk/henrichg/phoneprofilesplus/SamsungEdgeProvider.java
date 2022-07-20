@@ -302,6 +302,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }
             */
 
+            dataWrapper.invalidateDataWrapper();
         }
         ////////////////////////////////////////////////
 
