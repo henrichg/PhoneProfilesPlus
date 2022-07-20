@@ -1036,6 +1036,7 @@ class EventsHandler {
                 LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
             }
 
+            dataWrapper.invalidateDataWrapper();
 //            if (isRestart)
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "-- end --------------------------------");
 

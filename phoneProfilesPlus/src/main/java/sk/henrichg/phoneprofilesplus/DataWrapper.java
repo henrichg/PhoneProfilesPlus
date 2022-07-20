@@ -495,8 +495,8 @@ public class DataWrapper {
     void invalidateProfileList()
     {
         synchronized (profileList) {
-            if (profileListFilled)
-            {
+            //if (profileListFilled)
+            //{
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
 //                    Log.e("DataWrapper.invalidateProfileList", "profile="+profile._name);
@@ -504,7 +504,7 @@ public class DataWrapper {
                     profile.releasePreferencesIndicator();
                     it.remove();
                 }
-            }
+            //}
             profileListFilled = false;
         }
     }
@@ -1046,7 +1046,7 @@ public class DataWrapper {
     void invalidateEventList()
     {
         synchronized (eventList) {
-            if (eventListFilled)
+            //if (eventListFilled)
                 eventList.clear();
             eventListFilled = false;
         }
@@ -1716,7 +1716,7 @@ public class DataWrapper {
     private void invalidateEventTimelineList()
     {
         synchronized (eventTimelines) {
-            if (eventTimelineListFilled)
+            //if (eventTimelineListFilled)
                 eventTimelines.clear();
             eventTimelineListFilled = false;
         }
