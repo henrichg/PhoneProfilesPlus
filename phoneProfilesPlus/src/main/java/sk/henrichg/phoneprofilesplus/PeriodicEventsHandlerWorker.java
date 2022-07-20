@@ -40,7 +40,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
             if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
 
                 //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
                 if (isPowerSaveMode) {
                     if (ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode.equals("2")) {
                         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
@@ -171,7 +171,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
     static void enqueueWork(Context appContext) {
         int interval = ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
+        boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(appContext);
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode.equals("1"))
                 interval = 2 * interval;

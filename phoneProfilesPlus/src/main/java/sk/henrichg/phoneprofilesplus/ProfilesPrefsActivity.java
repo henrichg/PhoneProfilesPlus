@@ -271,7 +271,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         {
             // create new profile
             if (predefinedProfileIndex == 0) {
-                profile = DataWrapper.getNonInitializedProfile(
+                profile = DataWrapperStatic.getNonInitializedProfile(
                         getBaseContext().getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
             }
@@ -639,7 +639,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 //                PPApplication.logE("[BLOCK_ACTIONS] ProfilesPrefsActivity.savePreferences", "true");
                 PPApplication.setBlockProfileEventActions(true);
                 if (Event.getGlobalEventsRunning()) {
-                    if (!DataWrapper.getIsManualProfileActivation(false, getApplicationContext())) {
+                    if (!DataWrapperStatic.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
 //                        PPApplication.logE("[APP_START] ProfilesPrefsActivity.savePreferences", "xxx");
                         dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);

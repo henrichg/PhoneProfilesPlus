@@ -221,7 +221,7 @@ class LocationScanner
     String getProvider() {
         String provider;
 
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+        boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
         if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
 //            PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER");
             provider = LocationManager.NETWORK_PROVIDER;
@@ -325,7 +325,7 @@ class LocationScanner
                                 try {
                                     // check power save mode
                                     String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
-                                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                                    boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
                                     boolean canScan = true;
                                     if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
                                         canScan = false;

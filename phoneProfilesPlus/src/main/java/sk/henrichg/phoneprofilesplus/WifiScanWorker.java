@@ -74,7 +74,7 @@ public class WifiScanWorker extends Worker {
             }
 
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("2")) {
                 cancelWork(context, false/*, null*/);
 //                if (PPApplication.logEnabled()) {
@@ -206,7 +206,7 @@ public class WifiScanWorker extends Worker {
 
                     int interval = ApplicationPreferences.applicationEventWifiScanInterval;
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                    boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
                     if (isPowerSaveMode) {
                         if (ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("1"))
                             interval = 2 * interval;

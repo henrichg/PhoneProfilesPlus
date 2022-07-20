@@ -262,7 +262,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             }
             if ((!applicationSamsungEdgeHeader) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
-                Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper);
+                Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper);
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_samsung_edge_item_profile_name, sb);
@@ -340,7 +340,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         Profile restartEvents = null;
         if (Event.getGlobalEventsRunning()) {
             //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
-            restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
+            restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
                     "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);

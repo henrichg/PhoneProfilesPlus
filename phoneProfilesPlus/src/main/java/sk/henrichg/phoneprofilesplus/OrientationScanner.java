@@ -279,7 +279,7 @@ class OrientationScanner implements SensorEventListener {
 
                     String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
 
-                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                    boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
                     if (isPowerSaveMode) {
                         if (applicationEventOrientationScanInPowerSaveMode.equals("2"))
                             // start scanning in power save mode is not allowed

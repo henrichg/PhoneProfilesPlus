@@ -450,7 +450,7 @@ class EventPreferencesBattery extends EventPreferences {
 
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(eventsHandler.context);
+                boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(eventsHandler.context);
 //                PPApplication.logE("EventPreferencesBattery.doHandleEvent", "isPowerSaveMode=" + isPowerSaveMode);
 
                 boolean isCharging = false;

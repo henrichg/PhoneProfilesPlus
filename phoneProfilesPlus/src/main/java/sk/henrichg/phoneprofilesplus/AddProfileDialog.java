@@ -157,7 +157,7 @@ class AddProfileDialog
             if (activity != null) {
                 boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 Profile profile;
-                profile = DataWrapper.getNonInitializedProfile(
+                profile = DataWrapperStatic.getNonInitializedProfile(
                         activity.getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
                 profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);

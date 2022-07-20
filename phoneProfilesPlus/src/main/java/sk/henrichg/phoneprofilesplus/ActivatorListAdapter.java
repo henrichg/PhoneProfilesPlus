@@ -221,7 +221,7 @@ class ActivatorListAdapter extends BaseAdapter
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeWhiteTextColor(fragment.getActivity()));
             }
 
-            Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
+            Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile,
                     false, "", true, false, applicationActivatorGridLayout,
                     activityDataWrapper);
             holder.profileName.setText(profileName);

@@ -4207,7 +4207,7 @@ public class PhoneProfilesService extends Service
                 //GlobalGUIRoutines.setLanguage(appContext);
                 GlobalGUIRoutines.switchNightMode(appContext, true);
 
-                DataWrapper.setDynamicLauncherShortcuts(appContext);
+                DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application not started, start it");
 
@@ -6009,7 +6009,7 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService.showProfileNotification", "profile != null");
             isIconResourceID = profile.getIsIconResourceID();
             iconIdentifier = profile.getIconIdentifier();
-            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
+            profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
             // get string from spannable
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
@@ -7473,7 +7473,7 @@ public class PhoneProfilesService extends Service
 
             String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
 
-            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+            boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(getApplicationContext());
             if (isPowerSaveMode) {
                 if (applicationEventOrientationScanInPowerSaveMode.equals("2"))
                     // start scanning in power save mode is not allowed
@@ -8954,6 +8954,61 @@ public class PhoneProfilesService extends Service
     }
 
     //--------------------------
+
+    static boolean isPowerSaveMode(Context context) {
+
+        /*String applicationPowerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
+
+        if (applicationPowerSaveModeInternal.equals("1") || applicationPowerSaveModeInternal.equals("2")) {
+            Intent batteryStatus = null;
+            try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
+                IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                batteryStatus = context.registerReceiver(null, filter);
+            } catch (Exception ignored) {
+            }
+            if (batteryStatus != null) {
+                boolean isCharging;
+                int batteryPct;
+
+                //int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                //PPApplication.logE("DataWrapper.isPowerSaveMode", "status=" + status);
+                int plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+                isCharging = plugged == BatteryManager.BATTERY_PLUGGED_AC
+                        || plugged == BatteryManager.BATTERY_PLUGGED_USB
+                        || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
+                //isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                //             status == BatteryManager.BATTERY_STATUS_FULL;
+                //PPApplication.logE("DataWrapper.isPowerSaveMode", "isCharging=" + isCharging);
+                if (!isCharging) {
+                    int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                    int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                    //if (PPApplication.logEnabled()) {
+                    //    PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
+                    //    PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
+                    //}
+
+                    batteryPct = Math.round(level / (float) scale * 100);
+                    //PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);
+
+                    if (applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5))
+                        return true;
+                    if (applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))
+                        return true;
+                }
+            }
+        }
+        else
+        if (applicationPowerSaveModeInternal.equals("3")) {*/
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (powerManager != null)
+            return powerManager.isPowerSaveMode();
+        //}
+        //return isPowerSaveMode;
+        //}
+
+        return false;
+    }
 
 /*
     private static abstract class DoCommandRunnable implements Runnable {

@@ -311,7 +311,7 @@ public class MainWorker extends Worker {
             PPApplication.logE("MainWorker.doAfterFirstStart", "global event run is enabled, first start events");
 
             if (activateProfiles) {
-                if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+                if (!DataWrapperStatic.getIsManualProfileActivation(false, appContext)) {
                     PPApplication.logE("MainWorker.doAfterFirstStart", "pause all events");
                     ////// unblock all events for first start
                     //     that may be blocked in previous application run

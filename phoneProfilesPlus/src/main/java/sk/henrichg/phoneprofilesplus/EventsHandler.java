@@ -456,7 +456,7 @@ class EventsHandler {
             // no refresh notification and widgets
             PPApplication.lockRefresh = true;
 
-            Profile mergedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
+            Profile mergedProfile = DataWrapperStatic.getNonInitializedProfile("", "", 0);
 
             int mergedProfilesCount = 0;
             int usedEventsCount = 0;
@@ -746,7 +746,7 @@ class EventsHandler {
 
 //            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (6)");
 
-            if (!DataWrapper.getIsManualProfileActivation(false, context)) {
+            if (!DataWrapperStatic.getIsManualProfileActivation(false, context)) {
                 // no manual profile activation
 //                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (7)");
 
@@ -968,7 +968,7 @@ class EventsHandler {
                     // log only when merged profile is not the same as last activated or for restart events
                     PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
                             null,
-                            DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
+                            DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfilesCount + " [" + usedEventsCount + "]");
 
 //                    if (isRestart)

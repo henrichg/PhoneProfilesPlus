@@ -113,7 +113,7 @@ class MobileCellsScanner {
 
     void connect() {
 //        PPApplication.logE("MobileCellsScanner.connect", "xxx");
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+        boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
         if (/*PPApplication.*/isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
                 // start scanning in power save mode is not allowed

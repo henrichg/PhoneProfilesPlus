@@ -577,6 +577,7 @@ public class EditorEventListFragment extends Fragment
                 // set local event list into activity dataWrapper
                 fragment.activityDataWrapper.copyEventList(_dataWrapper);
 
+
                 synchronized (fragment.activityDataWrapper.eventList) {
                     if (fragment.activityDataWrapper.eventList.size() == 0)
                         fragment.textViewNoData.setVisibility(VISIBLE);
@@ -587,6 +588,10 @@ public class EditorEventListFragment extends Fragment
                 // set copy local event timeline list into activity dataWrapper
                 fragment.activityDataWrapper.copyEventTimelineList(_dataWrapper);
 
+                _dataWrapper.clearProfileList();
+                _dataWrapper.clearEventList();
+                _dataWrapper.clearEventTimelineList();
+
                 fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
                 // added touch helper for drag and drop items
@@ -596,7 +601,7 @@ public class EditorEventListFragment extends Fragment
 
                 fragment.listView.setAdapter(fragment.eventListAdapter);
 
-                Profile profile = _dataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
+                Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
 
                 fragment.eventListAdapter.notifyDataSetChanged(false);
@@ -604,7 +609,7 @@ public class EditorEventListFragment extends Fragment
                 if (defaultEventsGenerated)
                 {
                     if ((fragment.getActivity() != null ) && (!fragment.getActivity().isFinishing()))
-                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
+                        PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
                                 fragment.getString(R.string.toast_predefined_events_generated),
                                 Toast.LENGTH_SHORT);
                 }
@@ -1101,7 +1106,7 @@ public class EditorEventListFragment extends Fragment
         }
         else
         {
-            Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
+            Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
             //Log.e("EditorEventListFragment.updateHeader", "profileName="+profileName);
             //Log.e("EditorEventListFragment.updateHeader", "activityDataWrapper="+activityDataWrapper);
             //String eventName1 = DataWrapper._getLastStartedEventName(activityDataWrapper, profile);

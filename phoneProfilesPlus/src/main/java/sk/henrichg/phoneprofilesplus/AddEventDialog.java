@@ -161,7 +161,7 @@ class AddEventDialog
             Activity activity = activityWeakRef.get();
             if (activity != null) {
                 Event event;
-                event = DataWrapper.getNonInitializedEvent(activity.getString(R.string.event_name_default), 0);
+                event = DataWrapperStatic.getNonInitializedEvent(activity.getString(R.string.event_name_default), 0);
                 eventList.add(event);
                 for (int index = 0; index < 6; index++) {
                     event = dataWrapper.getPredefinedEvent(index, false, activity);

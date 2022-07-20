@@ -90,7 +90,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //boolean isAccessibilityServiceEnabled = (event.isAccessibilityServiceEnabled(context, true) == 1);
 
             //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-            boolean manualProfileActivation = DataWrapper.getIsManualProfileActivation(false, context.getApplicationContext());
+            boolean manualProfileActivation = DataWrapperStatic.getIsManualProfileActivation(false, context.getApplicationContext());
             //dataWrapper.invalidateDataWrapper();
 
             int statusRes = R.drawable.ic_event_status_stop; //GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);

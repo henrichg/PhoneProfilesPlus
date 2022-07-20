@@ -72,7 +72,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+        boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(getApplicationContext());
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
                 return;
@@ -230,7 +230,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+        boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(getApplicationContext());
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
                 return;

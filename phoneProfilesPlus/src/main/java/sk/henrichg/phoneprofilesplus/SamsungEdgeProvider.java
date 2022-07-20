@@ -193,7 +193,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         applicationSamsungEdgeCustomIconLightness);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, true, true, dataWrapper);
+                profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, true, true, dataWrapper);
             }
             else
             {

@@ -345,7 +345,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         {
             // create new event - default is TIME
             if (predefinedEventIndex == 0)
-                event = DataWrapper.getNonInitializedEvent(context.getString(R.string.event_name_default), 0);
+                event = DataWrapperStatic.getNonInitializedEvent(context.getString(R.string.event_name_default), 0);
             else
                 event = dataWrapper.getPredefinedEvent(predefinedEventIndex-1, false, getBaseContext());
             showSaveMenu = true;

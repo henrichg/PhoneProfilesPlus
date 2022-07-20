@@ -98,7 +98,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         String indicators = "";
         //if (profile._showInActivator)
         //    indicators = "[A]";
-        Spannable _profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
+        Spannable _profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile,
                                     false, indicators, true, true, false,
                                     editorFragment.activityDataWrapper);
 

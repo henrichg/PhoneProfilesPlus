@@ -257,7 +257,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             }
             if ((!applicationWidgetListHeader) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
-                Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
+                Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
                                             "", true, true, applicationWidgetListGridLayout, dataWrapper);
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -532,7 +532,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         if ((!applicationWidgetListHeader) &&
                 Event.getGlobalEventsRunning()) {
             //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
-            restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
+            restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
                     "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);

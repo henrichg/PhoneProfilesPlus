@@ -95,7 +95,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     if (profile != null) {
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
-                        profileName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, dataWrapper);
+                        profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, dataWrapper);
                     } else {
                         isIconResourceID = true;
                         iconIdentifier = Profile.PROFILE_ICON_DEFAULT;

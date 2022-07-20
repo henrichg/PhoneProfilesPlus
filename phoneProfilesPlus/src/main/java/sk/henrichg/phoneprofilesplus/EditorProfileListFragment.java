@@ -506,6 +506,7 @@ public class EditorProfileListFragment extends Fragment
                 _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.copyProfileList(_dataWrapper);
+                _dataWrapper.clearProfileList();
 
                 synchronized (fragment.activityDataWrapper.profileList) {
                     if (fragment.activityDataWrapper.profileList.size() == 0)
@@ -533,7 +534,7 @@ public class EditorProfileListFragment extends Fragment
 //                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.LoadProfileListAsyncTask.onPostExecute");
                     PPApplication.updateGUI(true, false, _dataWrapper.context);
                     if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
-                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
+                        PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
                                 fragment.getString(R.string.toast_predefined_profiles_generated),
                                 Toast.LENGTH_SHORT);
                 }
@@ -884,7 +885,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else
         {
-            Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
+            Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
             for (Object span : spansToRemove) {

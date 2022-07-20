@@ -71,7 +71,7 @@ public class LocationSensorWorker extends Worker {
                             .build();
         }
         else {
-            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
 
             // check power save mode
             String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;

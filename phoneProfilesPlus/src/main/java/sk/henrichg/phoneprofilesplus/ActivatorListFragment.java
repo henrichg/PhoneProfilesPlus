@@ -304,7 +304,7 @@ public class ActivatorListFragment extends Fragment {
             if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
                 if (Event.getGlobalEventsRunning()) {
                     //Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
-                    Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
+                    Profile restartEvents = DataWrapperStatic.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
                             "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
                     restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
                     restartEvents._showInActivator = true;
@@ -328,7 +328,7 @@ public class ActivatorListFragment extends Fragment {
                     int modulo = count % numColumns;
                     if (modulo > 0) {
                         for (int i = 0; i < numColumns - modulo; i++) {
-                            Profile profile = DataWrapper.getNonInitializedProfile(
+                            Profile profile = DataWrapperStatic.getNonInitializedProfile(
                                     dataWrapper.context.getString(R.string.profile_name_default),
                                     Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
                             profile._showInActivator = true;
@@ -500,9 +500,9 @@ public class ActivatorListFragment extends Fragment {
         }
         else
         {
-            activatedProfileHeader.setTag(DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper));
+            activatedProfileHeader.setTag(DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper));
 
-            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper));
+            activeProfileName.setText(DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper));
             if (profile.getIsIconResourceID())
             {
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);

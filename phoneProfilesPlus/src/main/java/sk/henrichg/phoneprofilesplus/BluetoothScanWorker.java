@@ -73,7 +73,7 @@ public class BluetoothScanWorker extends Worker {
             }
 
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("2")) {
                 //PPApplication.logE("BluetoothScanWorker.doWork", "update in power save mode is not allowed");
                 cancelWork(context, false/*, null*/);
@@ -201,7 +201,7 @@ public class BluetoothScanWorker extends Worker {
 
                     int interval = ApplicationPreferences.applicationEventBluetoothScanInterval;
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                    boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
                     if (isPowerSaveMode) {
                         if (ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
                             interval = 2 * interval;

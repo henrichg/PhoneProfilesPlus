@@ -1831,7 +1831,7 @@ class Event {
             if (mergedProfile == null) {
                 if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
                     (!this._ignoreManualActivation) ||
-                    (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
+                    (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
                     long activatedProfileId = 0;
                     Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
                     if (activatedProfile != null)
@@ -1852,7 +1852,7 @@ class Event {
             } else {
                 if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
                     (!this._ignoreManualActivation) ||
-                    (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
+                    (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
                     mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
 
                     //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
@@ -1913,7 +1913,7 @@ class Event {
         boolean profileActivated = false;
         if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
             (!this._ignoreManualActivation) ||
-            (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
+            (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
             if (activateReturnProfile/* && canActivateReturnProfile()*/) {
                 if (mergedProfile == null) {
                     Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
