@@ -8600,11 +8600,10 @@ public class PhoneProfilesService extends Service
                 if ((vibrator != null) && vibrator.hasVibrator()) {
                     //PPApplication.logE("PhoneProfilesService.playNotificationSound", "vibration");
                     try {
-                        if (Build.VERSION.SDK_INT >= 26) {
+                        if (Build.VERSION.SDK_INT >= 26)
                             vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
-                        } else {
+                        else
                             vibrator.vibrate(300);
-                        }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
