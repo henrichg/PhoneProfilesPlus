@@ -169,11 +169,15 @@ public class VPNDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         if (mDialog != null) {
             Button okButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             boolean ok = false;
+            if (preference.vpnApplication == 0)
+                ok = true;
+            else
             if (((preference.vpnApplication == 1) ||
                     (preference.vpnApplication == 2) ||
                     (preference.vpnApplication == 3)) &&
                     (!preference.profileName.isEmpty()))
                 ok = true;
+            else
             if ((preference.vpnApplication == 4) &&
                     (!preference.tunnelName.isEmpty()))
                 ok = true;
