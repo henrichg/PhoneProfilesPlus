@@ -51,8 +51,8 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
         this.application = application;
 
         if (this.application.type != Application.TYPE_INTENT) {
-            if (EditorActivity.getApplicationsCache() != null)
-                imageViewIcon.setImageBitmap(EditorActivity.getApplicationsCache().getApplicationIcon(application, false));
+            if (PhoneProfilesService.getApplicationsCache() != null)
+                imageViewIcon.setImageBitmap(PhoneProfilesService.getApplicationsCache().getApplicationIcon(application, false));
         }
         else
             imageViewIcon.setImageResource(R.drawable.ic_profile_pref_run_application);

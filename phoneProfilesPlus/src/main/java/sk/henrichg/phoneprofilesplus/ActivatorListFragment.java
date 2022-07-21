@@ -567,7 +567,7 @@ public class ActivatorListFragment extends Fragment {
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
             }
             else
-                EditorActivity.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
+                GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
         }
     }
 

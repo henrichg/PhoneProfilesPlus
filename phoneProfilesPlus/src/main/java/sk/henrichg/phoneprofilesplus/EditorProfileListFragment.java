@@ -970,7 +970,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         }
         else
-            EditorActivity.showDialogAboutRedText(profile, null, true, false, false, false, getActivity());
+            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, false, false, getActivity());
     }
 
     /*private void setProfileSelection(Profile profile) {
@@ -1354,7 +1354,7 @@ public class EditorProfileListFragment extends Fragment
                 popup.show();
         }
         else
-            EditorActivity.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
+            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
     }
 
     /*

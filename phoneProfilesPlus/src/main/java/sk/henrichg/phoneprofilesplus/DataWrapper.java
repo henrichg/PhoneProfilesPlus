@@ -375,7 +375,8 @@ public class DataWrapper {
     void clearProfileList() {
         synchronized (profileList) {
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
-//                Profile profile = it.next();
+                //noinspection unused
+                Profile profile = it.next(); // this must be called
 //                  Log.e("DataWrapper.invalidateProfileList", "profile="+profile._name);
                 it.remove();
             }

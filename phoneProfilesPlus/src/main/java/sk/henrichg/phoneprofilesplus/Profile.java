@@ -11,7 +11,6 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
@@ -3623,12 +3622,12 @@ public class Profile {
 
     void releaseIconBitmap()
     {
-        Log.e("Profile.releaseIconBitmap", "profile="+_name);
+//        Log.e("Profile.releaseIconBitmap", "profile="+_name);
         if (_iconBitmap != null)
         {
-            Log.e("Profile.releaseIconBitmap", "_iconBitmap");
+//            Log.e("Profile.releaseIconBitmap", "_iconBitmap");
             if (!_iconBitmap.isRecycled()) {
-                Log.e("Profile.releaseIconBitmap", "not recycled");
+//                Log.e("Profile.releaseIconBitmap", "not recycled");
                 _iconBitmap.recycle();
             }
             _iconBitmap = null;

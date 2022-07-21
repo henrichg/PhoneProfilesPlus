@@ -755,7 +755,7 @@ public class EditorEventListFragment extends Fragment
 
                 }
                 else {
-                    EditorActivity.showDialogAboutRedText(null, event, false, false, false, true, getActivity());
+                    GlobalGUIRoutines.showDialogAboutRedText(null, event, false, false, false, true, getActivity());
                     return false;
                 }
             } else {

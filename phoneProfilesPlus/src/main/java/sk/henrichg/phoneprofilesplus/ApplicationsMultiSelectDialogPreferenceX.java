@@ -62,8 +62,8 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
 
         setWidgetLayoutResource(R.layout.preference_widget_applications_preference); // resource na layout custom preference - TextView-ImageView
 
-        if (EditorActivity.getApplicationsCache() == null)
-            EditorActivity.createApplicationsCache();
+        if (PhoneProfilesService.getApplicationsCache() == null)
+            PhoneProfilesService.createApplicationsCache(false);
 
         //applicationsCache = EditorActivity.getApplicationsCache();
     }
@@ -98,8 +98,8 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
         applicationList.clear();
 
         // change checked state by value
-        if (EditorActivity.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = EditorActivity.getApplicationsCache().getApplicationList(true);
+        if (PhoneProfilesService.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = PhoneProfilesService.getApplicationsCache().getApplicationList(true);
             if (cachedApplicationList != null) {
                 String[] splits = value.split("\\|");
                 for (Application application : cachedApplicationList) {

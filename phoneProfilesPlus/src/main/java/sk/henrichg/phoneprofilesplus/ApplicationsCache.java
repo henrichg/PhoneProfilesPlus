@@ -16,24 +16,6 @@ import java.util.List;
 
 class ApplicationsCache {
 
-    private static class SortList implements Comparator<Application> {
-
-        public int compare(Application lhs, Application rhs) {
-            if (PPApplication.collator != null) {
-                if (lhs == null)
-                    return -1;
-                else
-                if (rhs == null)
-                    return 1;
-                else
-                    return PPApplication.collator.compare(lhs.appLabel, rhs.appLabel);
-            }
-            else
-                return 0;
-        }
-
-    }
-
     private ArrayList<Application> applicationsList;
     private LruCache<Object, Object> applicationIconsLru;
     private ArrayList<Application> applicationsNoShortcutsList;
@@ -224,6 +206,24 @@ class ApplicationsCache {
     void cancelCaching()
     {
         cancelled = true;
+    }
+
+    private static class SortList implements Comparator<Application> {
+
+        public int compare(Application lhs, Application rhs) {
+            if (PPApplication.collator != null) {
+                if (lhs == null)
+                    return -1;
+                else
+                if (rhs == null)
+                    return 1;
+                else
+                    return PPApplication.collator.compare(lhs.appLabel, rhs.appLabel);
+            }
+            else
+                return 0;
+        }
+
     }
 
 }

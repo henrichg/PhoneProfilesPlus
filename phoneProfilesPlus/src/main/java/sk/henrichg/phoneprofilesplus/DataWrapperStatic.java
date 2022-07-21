@@ -8,7 +8,6 @@ import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Icon;
 import android.os.Build;
-import android.os.PowerManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;

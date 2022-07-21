@@ -177,6 +177,7 @@ public class PhoneProfilesService extends Service
 
     //------------------------
 
+    private static volatile ApplicationsCache applicationsCache;
     static private volatile ContactsCache contactsCache;
     static private volatile ContactGroupsCache contactGroupsCache;
 
@@ -5616,6 +5617,26 @@ public class PhoneProfilesService extends Service
 
     //------------------------
 
+    // application cache -----------------
+
+    public static void createApplicationsCache(boolean clear)
+    {
+        if (clear) {
+            if (applicationsCache != null) {
+                applicationsCache.clearCache(true);
+            }
+            applicationsCache = null;
+        }
+        if (applicationsCache != null)
+            applicationsCache.clearCache(true);
+        applicationsCache =  new ApplicationsCache();
+    }
+
+    public static ApplicationsCache getApplicationsCache()
+    {
+        return applicationsCache;
+    }
+
     // contacts and contact groups cache -----------------
 
     public static void createContactsCache(Context context, boolean clear)
@@ -7005,13 +7026,13 @@ public class PhoneProfilesService extends Service
         if (!doNotShowProfileNotification) {
             if (PhoneProfilesService.getInstance() != null) {
 //                PPApplication.logE("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
-                Log.e("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
+//                Log.e("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
 
                 clearOldProfileNotification();
 
                 if (PhoneProfilesService.getInstance() != null) {
                     synchronized (PPApplication.showPPPNotificationMutex) {
-                        Log.e("PhoneProfilesService.forceDrawProfileNotification", "(2))");
+//                        Log.e("PhoneProfilesService.forceDrawProfileNotification", "(2))");
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
                         PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
                         dataWrapper.invalidateDataWrapper();

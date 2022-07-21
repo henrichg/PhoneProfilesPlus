@@ -224,10 +224,10 @@ class RunApplicationEditorDialogX
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
-        if (EditorActivity.getApplicationsCache() == null)
-            EditorActivity.createApplicationsCache();
+        if (PhoneProfilesService.getApplicationsCache() == null)
+            PhoneProfilesService.createApplicationsCache(false);
 
-        cachedApplicationList = EditorActivity.getApplicationsCache().getApplicationList(false);
+        cachedApplicationList = PhoneProfilesService.getApplicationsCache().getApplicationList(false);
 
         fillApplicationList();
         updateSelectedAppViews();
@@ -346,7 +346,7 @@ class RunApplicationEditorDialogX
         if (selectedPosition != -1) {
             selectedApplication = getSelectedApplication();
             if (selectedApplication != null) {
-                applicationIcon = EditorActivity.getApplicationsCache().getApplicationIcon(selectedApplication, false);
+                applicationIcon = PhoneProfilesService.getApplicationsCache().getApplicationIcon(selectedApplication, false);
             }
         }
         if (selectedApplication != null) {

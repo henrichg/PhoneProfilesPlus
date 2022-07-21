@@ -43,6 +43,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -1419,6 +1420,173 @@ class GlobalGUIRoutines {
                     Settings.System.TRANSITION_ANIMATION_SCALE, 1);
         }*/
         return (duration != 0 && transition != 0);
+    }
+
+    static void showDialogAboutRedText(final Profile profile, final Event event,
+                                       final boolean forProfile,
+                                       final boolean forActivator,
+                                       final boolean forShowInActivator,
+                                       final boolean forRunStopEvent,
+                                       final Activity activity) {
+        if (activity == null)
+            return;
+
+        String nTitle = "";
+        String nText = "";
+
+        if (profile != null) {
+            nTitle = activity.getString(R.string.profile_preferences_red_texts_title);
+            nText = activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                    "\"" + profile._name + "\" " +
+                    activity.getString(R.string.preferences_red_texts_text_2);
+//            if (android.os.Build.VERSION.SDK_INT < 24) {
+//                nTitle = activity.getString(R.string.ppp_app_name);
+//                nText = activity.getString(R.string.profile_preferences_red_texts_title) + ": " +
+//                        activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+//                        "\"" + profile._name + "\" " +
+//                        activity.getString(R.string.preferences_red_texts_text_2);
+//            }
+            if (forShowInActivator)
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3_new);
+            else
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+
+            nText = nText + "\n\n" + activity.getString(R.string.profile_preferences_red_texts_text_4);
+        }
+
+        if (event != null) {
+            nTitle = activity.getString(R.string.event_preferences_red_texts_title);
+            nText = activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                    "\"" + event._name + "\" " +
+                    activity.getString(R.string.preferences_red_texts_text_2);
+//            if (android.os.Build.VERSION.SDK_INT < 24) {
+//                nTitle = activity.getString(R.string.ppp_app_name);
+//                nText = activity.getString(R.string.event_preferences_red_texts_title) + ": " +
+//                        activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
+//                        "\"" + event._name + "\" " +
+//                        activity.getString(R.string.preferences_red_texts_text_2);
+//            }
+            if (forRunStopEvent)
+                nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
+            else
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+
+            nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
+        }
+
+        if ((profile != null) || (event != null)) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setTitle(nTitle);
+            dialogBuilder.setMessage(nText);
+            if (forProfile) {
+                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_profile_preferences,
+                        (dialog, which) -> {
+                            Intent intent;
+                            if (profile != null) {
+                                intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                                intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                            }
+                            else {
+                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                            }
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                if (forActivator)
+                                    activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        });
+                if (forActivator) {
+                    dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                            (dialog, which) -> {
+                                Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                                activity.startActivity(intent);
+
+                                try {
+                                    // close Activator
+                                    activity.finish();
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+                            });
+                }
+            }
+            else {
+                //    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_event_preferences,
+                        (dialog, which) -> {
+                            Intent intent;
+                            if (event != null) {
+                                intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                                intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                            }
+                            else {
+                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
+                            }
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                if (forActivator)
+                                    activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        });
+                /*
+                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                        (dialog, which) -> {
+                            Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                            if (forActivator)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                if (forActivator)
+                                    activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        });
+                 */
+            }
+            dialogBuilder.setCancelable(!forActivator);
+            AlertDialog dialog = dialogBuilder.create();
+
+//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                @Override
+//                public void onShow(DialogInterface dialog) {
+//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                    if (positive != null) positive.setAllCaps(false);
+//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                    if (negative != null) negative.setAllCaps(false);
+//                }
+//            });
+
+            if (!activity.isFinishing())
+                dialog.show();
+        }
     }
 
 }

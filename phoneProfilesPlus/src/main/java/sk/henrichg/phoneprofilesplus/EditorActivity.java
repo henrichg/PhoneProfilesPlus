@@ -90,9 +90,7 @@ public class EditorActivity extends AppCompatActivity
 
     private ImageView eventsRunStopIndicator;
 
-    private static volatile boolean savedInstanceStateChanged;
-
-    private static volatile ApplicationsCache applicationsCache;
+    //private static volatile boolean savedInstanceStateChanged;
 
     @SuppressWarnings("rawtypes")
     private AsyncTask importAsyncTask = null;
@@ -256,9 +254,9 @@ public class EditorActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        savedInstanceStateChanged = (savedInstanceState != null);
+        //savedInstanceStateChanged = (savedInstanceState != null);
 
-        createApplicationsCache();
+        PhoneProfilesService.createApplicationsCache(true);
 
         /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             setContentView(R.layout.activity_editor_list_onepane_19);
@@ -820,6 +818,7 @@ public class EditorActivity extends AppCompatActivity
             restoreAsyncTask.cancel(true);
         }
 
+        /*
         if (!savedInstanceStateChanged)
         {
             // no destroy caches on orientation change
@@ -827,6 +826,7 @@ public class EditorActivity extends AppCompatActivity
                 applicationsCache.clearCache(true);
             applicationsCache = null;
         }
+        */
 
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
@@ -3000,7 +3000,7 @@ public class EditorActivity extends AppCompatActivity
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        savedInstanceStateChanged = true;
+        //savedInstanceStateChanged = true;
     }
 
      @Override
@@ -3290,21 +3290,6 @@ public class EditorActivity extends AppCompatActivity
                     }, 200);
                 }
             }
-        }
-    }
-
-    public static ApplicationsCache getApplicationsCache()
-    {
-        return applicationsCache;
-    }
-
-    public static void createApplicationsCache()
-    {
-        if ((!savedInstanceStateChanged) || (applicationsCache == null))
-        {
-            if (applicationsCache != null)
-                applicationsCache.clearCache(true);
-            applicationsCache =  new ApplicationsCache();
         }
     }
 
@@ -3959,173 +3944,6 @@ public class EditorActivity extends AppCompatActivity
         }
     }
 
-    static void showDialogAboutRedText(final Profile profile, final Event event,
-                                       final boolean forProfile,
-                                       final boolean forActivator,
-                                       final boolean forShowInActivator,
-                                       final boolean forRunStopEvent,
-                                       final Activity activity) {
-        if (activity == null)
-            return;
-
-        String nTitle = "";
-        String nText = "";
-
-        if (profile != null) {
-            nTitle = activity.getString(R.string.profile_preferences_red_texts_title);
-            nText = activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-                    "\"" + profile._name + "\" " +
-                    activity.getString(R.string.preferences_red_texts_text_2);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = activity.getString(R.string.ppp_app_name);
-//                nText = activity.getString(R.string.profile_preferences_red_texts_title) + ": " +
-//                        activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-//                        "\"" + profile._name + "\" " +
-//                        activity.getString(R.string.preferences_red_texts_text_2);
-//            }
-            if (forShowInActivator)
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3_new);
-            else
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
-
-            nText = nText + "\n\n" + activity.getString(R.string.profile_preferences_red_texts_text_4);
-        }
-
-        if (event != null) {
-            nTitle = activity.getString(R.string.event_preferences_red_texts_title);
-            nText = activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
-                    "\"" + event._name + "\" " +
-                    activity.getString(R.string.preferences_red_texts_text_2);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = activity.getString(R.string.ppp_app_name);
-//                nText = activity.getString(R.string.event_preferences_red_texts_title) + ": " +
-//                        activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
-//                        "\"" + event._name + "\" " +
-//                        activity.getString(R.string.preferences_red_texts_text_2);
-//            }
-            if (forRunStopEvent)
-                nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
-            else
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
-
-            nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
-        }
-
-        if ((profile != null) || (event != null)) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(nTitle);
-            dialogBuilder.setMessage(nText);
-            if (forProfile) {
-                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_profile_preferences,
-                        (dialog, which) -> {
-                            Intent intent;
-                            if (profile != null) {
-                                intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                                intent.putExtra(EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                                intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-                            }
-                            else {
-                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                            }
-                            activity.startActivity(intent);
-
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                if (forActivator) {
-                    dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
-                            (dialog, which) -> {
-                                Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                                activity.startActivity(intent);
-
-                                try {
-                                    // close Activator
-                                    activity.finish();
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                            });
-                }
-            }
-            else {
-                //    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_event_preferences,
-                        (dialog, which) -> {
-                            Intent intent;
-                            if (event != null) {
-                                intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                                intent.putExtra(EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                                intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, 0);
-                            }
-                            else {
-                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
-                            }
-                            activity.startActivity(intent);
-
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                /*
-                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
-                        (dialog, which) -> {
-                            Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                            if (forActivator)
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
-                            activity.startActivity(intent);
-
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                 */
-            }
-            dialogBuilder.setCancelable(!forActivator);
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
-
-            if (!activity.isFinishing())
-                dialog.show();
-        }
-    }
-
     String getEmailBodyText() {
         String body;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
@@ -4142,151 +3960,6 @@ public class EditorActivity extends AppCompatActivity
         }
         body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
         return body;
-    }
-
-    private static int copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
-        DocumentFile oldFile = pickedDir.findFile(fileName);
-        if (oldFile != null) {
-            // delete old file
-            if (!oldFile.delete()) {
-                // cannot delete existed file
-                //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot delete existed file");
-                return 0;
-            }
-        }
-        // copy file
-        DocumentFile newFile = pickedDir.createFile("application/x-binary", fileName);
-        if (newFile != null) {
-            try {
-                File exportFile = new File(applicationDir, fileName);
-                FileInputStream inStream = new FileInputStream(exportFile);
-                OutputStream outStream = context.getContentResolver().openOutputStream(newFile.getUri());
-                if (outStream != null) {
-                    try {
-                        byte[] buf = new byte[1024];
-                        int len;
-                        while ((len = inStream.read(buf)) > 0) {
-                            outStream.write(buf, 0, len);
-                        }
-                    } finally {
-                        inStream.close();
-                        outStream.close();
-                    }
-                }
-                else {
-                    // cannot open fileName stream
-                    //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot open fileName stream");
-                    return 0;
-                }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-                //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", Log.getStackTraceString(e));
-                return 0;
-            }
-        }
-        else {
-            // cannot create fileName
-            //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot create fileName");
-            return 0;
-        }
-        return 1;
-    }
-
-    private static int copyFromBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
-        File importFile = new File(applicationDir, fileName);
-        if (importFile.exists()) {
-            // delete old file
-            if (!importFile.delete()) {
-                // cannot delete existed file
-                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot delete existed file");
-                return 0;
-            }
-        }
-        // copy file
-        DocumentFile inputFile = pickedDir.findFile(fileName);
-        if (inputFile != null) {
-            try {
-                FileOutputStream outStream = new FileOutputStream(importFile);
-                InputStream inStream = context.getContentResolver().openInputStream(inputFile.getUri());
-                if (inStream != null) {
-                    try {
-                        byte[] buf = new byte[1024];
-                        int len;
-                        while ((len = inStream.read(buf)) > 0) {
-                            outStream.write(buf, 0, len);
-                        }
-                    } finally {
-                        inStream.close();
-                        outStream.close();
-                    }
-                }
-                else {
-                    // cannot open fileName stream
-                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot open fileName stream");
-                    return 0;
-                }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
-                return 0;
-            }
-        }
-        else {
-            // cannot create fileName
-            //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot create fileName");
-            return 0;
-        }
-        return 1;
-    }
-
-    private static int copySharedFile(DocumentFile pickedFile, File applicationDir, Context context) {
-        // delete all zip files in local storage
-        File sd = context.getApplicationContext().getExternalFilesDir(null);
-        File[] oldZipFiles = sd.listFiles();
-        if (oldZipFiles != null) {
-            for (File f : oldZipFiles) {
-                if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
-                    if (!f.delete())
-                        return 0;
-                }
-            }
-        }
-        // copy file
-        //DocumentFile inputFile = pickedFile;
-        if (pickedFile != null) {
-            try {
-                File importFile = new File(applicationDir, PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION);
-                FileOutputStream outStream = new FileOutputStream(importFile);
-                InputStream inStream = context.getContentResolver().openInputStream(pickedFile.getUri());
-                if (inStream != null) {
-                    try {
-                        byte[] buf = new byte[1024];
-                        int len;
-                        while ((len = inStream.read(buf)) > 0) {
-                            outStream.write(buf, 0, len);
-                        }
-                    } finally {
-                        inStream.close();
-                        outStream.close();
-                    }
-                }
-                else {
-                    // cannot open fileName stream
-                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot open fileName stream");
-                    return 0;
-                }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
-                return 0;
-            }
-        }
-        else {
-            // cannot create fileName
-            //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot create fileName");
-            return 0;
-        }
-        return 1;
     }
 
     private static class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -4420,6 +4093,55 @@ public class EditorActivity extends AppCompatActivity
                 }
             }
         }
+
+        private int copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
+            DocumentFile oldFile = pickedDir.findFile(fileName);
+            if (oldFile != null) {
+                // delete old file
+                if (!oldFile.delete()) {
+                    // cannot delete existed file
+                    //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot delete existed file");
+                    return 0;
+                }
+            }
+            // copy file
+            DocumentFile newFile = pickedDir.createFile("application/x-binary", fileName);
+            if (newFile != null) {
+                try {
+                    File exportFile = new File(applicationDir, fileName);
+                    FileInputStream inStream = new FileInputStream(exportFile);
+                    OutputStream outStream = context.getContentResolver().openOutputStream(newFile.getUri());
+                    if (outStream != null) {
+                        try {
+                            byte[] buf = new byte[1024];
+                            int len;
+                            while ((len = inStream.read(buf)) > 0) {
+                                outStream.write(buf, 0, len);
+                            }
+                        } finally {
+                            inStream.close();
+                            outStream.close();
+                        }
+                    }
+                    else {
+                        // cannot open fileName stream
+                        //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot open fileName stream");
+                        return 0;
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                    //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", Log.getStackTraceString(e));
+                    return 0;
+                }
+            }
+            else {
+                // cannot create fileName
+                //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot create fileName");
+                return 0;
+            }
+            return 1;
+        }
+
     }
 
     private static class RestoreAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -4608,6 +4330,104 @@ public class EditorActivity extends AppCompatActivity
                 }
             }
         }
+
+        private int copyFromBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
+            File importFile = new File(applicationDir, fileName);
+            if (importFile.exists()) {
+                // delete old file
+                if (!importFile.delete()) {
+                    // cannot delete existed file
+                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot delete existed file");
+                    return 0;
+                }
+            }
+            // copy file
+            DocumentFile inputFile = pickedDir.findFile(fileName);
+            if (inputFile != null) {
+                try {
+                    FileOutputStream outStream = new FileOutputStream(importFile);
+                    InputStream inStream = context.getContentResolver().openInputStream(inputFile.getUri());
+                    if (inStream != null) {
+                        try {
+                            byte[] buf = new byte[1024];
+                            int len;
+                            while ((len = inStream.read(buf)) > 0) {
+                                outStream.write(buf, 0, len);
+                            }
+                        } finally {
+                            inStream.close();
+                            outStream.close();
+                        }
+                    }
+                    else {
+                        // cannot open fileName stream
+                        //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot open fileName stream");
+                        return 0;
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
+                    return 0;
+                }
+            }
+            else {
+                // cannot create fileName
+                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot create fileName");
+                return 0;
+            }
+            return 1;
+        }
+
+        private int copySharedFile(DocumentFile pickedFile, File applicationDir, Context context) {
+            // delete all zip files in local storage
+            File sd = context.getApplicationContext().getExternalFilesDir(null);
+            File[] oldZipFiles = sd.listFiles();
+            if (oldZipFiles != null) {
+                for (File f : oldZipFiles) {
+                    if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
+                        if (!f.delete())
+                            return 0;
+                    }
+                }
+            }
+            // copy file
+            //DocumentFile inputFile = pickedFile;
+            if (pickedFile != null) {
+                try {
+                    File importFile = new File(applicationDir, PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION);
+                    FileOutputStream outStream = new FileOutputStream(importFile);
+                    InputStream inStream = context.getContentResolver().openInputStream(pickedFile.getUri());
+                    if (inStream != null) {
+                        try {
+                            byte[] buf = new byte[1024];
+                            int len;
+                            while ((len = inStream.read(buf)) > 0) {
+                                outStream.write(buf, 0, len);
+                            }
+                        } finally {
+                            inStream.close();
+                            outStream.close();
+                        }
+                    }
+                    else {
+                        // cannot open fileName stream
+                        //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot open fileName stream");
+                        return 0;
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
+                    return 0;
+                }
+            }
+            else {
+                // cannot create fileName
+                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot create fileName");
+                return 0;
+            }
+            return 1;
+        }
+
     }
 
     private static class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
