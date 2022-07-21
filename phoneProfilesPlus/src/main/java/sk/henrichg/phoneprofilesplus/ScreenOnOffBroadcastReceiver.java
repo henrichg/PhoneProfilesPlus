@@ -60,10 +60,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                     switch (action) {
                         case Intent.ACTION_SCREEN_ON: {
-//                            if (PPApplication.logEnabled()) {
-//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
-//                                PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
-//                            }
+//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
 
                             PPApplication.isScreenOn = true;
 

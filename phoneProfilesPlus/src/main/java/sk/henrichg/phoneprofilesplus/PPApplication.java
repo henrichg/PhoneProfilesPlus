@@ -194,6 +194,7 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.isEMUIROM"
                                                 //+"|PPApplication.isMIUIROM"
                                                 +"|PPApplication.attachBaseContext"
+                                                +"|PPApplication.startPPServiceWhenNotStarted"
                                                 +"|PPApplication.exitApp"
                                                 +"|PPApplication._exitApp"
                                                 //+"|PPApplication.createProfileNotificationChannel"
@@ -267,10 +268,7 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
 
-                                                //+"|WifiScanner.doScan"
-                                                //+"|WifiScanBroadcastReceiver"
-                                                //+"|WifiScanWorker.startScan"
-                                                //+"|PhoneCallsListener"
+                                                +"|ScreenOnOffBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1232,32 +1230,7 @@ public class PPApplication extends Application
             sLook = null;
         }
 
-        // do not start service - is started itself, when system restarts it
-        // or from Default activity (LauncherActivity) when PPP is started from Android Studio
-        // or another activities or BotUpReceiver or PackageReplacedReceiver.
-        // !!! Must be in Android Studio configured in Edit configuration:
-        //     - General/Launch: Default activity
-        //     - Miscellaneous/Skip installation when APK has not chabger = DISABLED
-        //     - Miscellaneous/Force stop running application before launching activity
-        //    This configuration force call of PackageReplacedReceiver even when verson cocde is not changed
-        /*if (PPApplication.getApplicationStarted(false)) {
-            try {
-                PPApplication.logE("##### PPApplication.onCreate", "start service");
-                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-                //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, false);
-                serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                startPPService(getApplicationContext(), serviceIntent);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }*/
-        //}
-        //else
-        if (!PPApplication.getApplicationStarted(false))
-            PPApplication.logE("##### PPApplication.onCreate", "application is not started");
+        startPPServiceWhenNotStarted(this);
     }
 
     static PPApplication getInstance() {
@@ -1381,6 +1354,45 @@ public class PPApplication extends Application
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
 
+    }
+
+    private void startPPServiceWhenNotStarted(Context appContext) {
+        // this is for list widget header
+
+        boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+        if (!serviceStarted) {
+//            if (PPApplication.logEnabled()) {
+            PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "application is not started");
+//                PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "service instance=" + PhoneProfilesService.getInstance());
+//                if (PhoneProfilesService.getInstance() != null)
+//                    PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+//            }
+
+            //if (!PPApplication.getApplicationStarted(false)) {
+                if (ApplicationPreferences.applicationStartOnBoot) {
+                    //AutostartPermissionNotification.showNotification(appContext, true);
+
+                    // start PhoneProfilesService
+                    PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "start PPService");
+                    //PPApplication.firstStartServiceStarted = false;
+                    PPApplication.setApplicationStarted(appContext, true);
+                    Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                    serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+//                    PPApplication.logE("[START_PP_SERVICE] PPApplication.startPPServiceWhenNotStarted", "(1)");
+                    PPApplication.startPPService(appContext, serviceIntent);
+                } else {
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "ApplicationPreferences.applicationStartOnBoot=false");
+                        //PPApplication.logE("PPApplication.exitApp", "from ScreenOnOffBroadcastReceiver.startPPServiceWhenNotStarted shutdown=false");
+                    }
+                }
+            //}
+        }
     }
 
 //    @NonNull
