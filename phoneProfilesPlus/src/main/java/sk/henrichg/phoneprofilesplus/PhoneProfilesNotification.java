@@ -36,10 +36,10 @@ public class PhoneProfilesNotification {
     {
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
-        synchronized (PPApplication.applicationPreferencesMutex) {
-            if (PPApplication.doNotShowProfileNotification)
-                return;
-        }
+        //synchronized (PPApplication.applicationPreferencesMutex) {
+        //    if (PPApplication.doNotShowProfileNotification)
+        //        return;
+        //}
 
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "!PPApplication.doNotShowProfileNotification");
 
@@ -1388,12 +1388,12 @@ public class PhoneProfilesNotification {
     }
 
     static void forceDrawProfileNotification(final Context appContext) {
-        boolean doNotShowProfileNotification;
-        synchronized (PPApplication.applicationPreferencesMutex) {
-            doNotShowProfileNotification = PPApplication.doNotShowProfileNotification;
-        }
+        //boolean doNotShowProfileNotification;
+        //synchronized (PPApplication.applicationPreferencesMutex) {
+        //    doNotShowProfileNotification = PPApplication.doNotShowProfileNotification;
+        //}
 
-        if (!doNotShowProfileNotification) {
+        //if (!doNotShowProfileNotification) {
             //if (PhoneProfilesService.getInstance() != null) {
 //                PPApplication.logE("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
 //                Log.e("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
@@ -1409,7 +1409,7 @@ public class PhoneProfilesNotification {
             }
             //}
             //}
-        }
+        //}
     }
 
     static void drawProfileNotification(boolean drawImmediatelly, Context context) {
@@ -1572,10 +1572,10 @@ public class PhoneProfilesNotification {
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
 
 //        PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "PPApplication.doNotShowProfileNotification="+PPApplication.doNotShowProfileNotification);
-        synchronized (PPApplication.applicationPreferencesMutex) {
-            if (PPApplication.doNotShowProfileNotification)
-                return;
-        }
+        //synchronized (PPApplication.applicationPreferencesMutex) {
+        //    if (PPApplication.doNotShowProfileNotification)
+        //        return;
+        //}
 
         if (!drawActivatedProfle)
             return;
