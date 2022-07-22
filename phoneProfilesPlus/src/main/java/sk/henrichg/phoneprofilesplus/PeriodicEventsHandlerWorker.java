@@ -40,7 +40,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
             if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
 
                 //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
+                boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
                 if (isPowerSaveMode) {
                     if (ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode.equals("2")) {
                         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
@@ -54,7 +54,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 }
                 else {
                     if (ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("2")) {
-                        if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        if (GlobalUtils.isNowTimeBetweenTimes(
                                 ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo)) {
                             // not scan in configured time
@@ -171,14 +171,14 @@ public class PeriodicEventsHandlerWorker extends Worker {
     static void enqueueWork(Context appContext) {
         int interval = ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(appContext);
+        boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(appContext);
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode.equals("1"))
                 interval = 2 * interval;
         }
         else {
             if (ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("1")) {
-                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                if (GlobalUtils.isNowTimeBetweenTimes(
                         ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo)) {
                     interval = 2 * interval;

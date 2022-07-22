@@ -706,7 +706,7 @@ public class EditorActivity extends AppCompatActivity
 
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorActivity.onStart", "application is not started");
@@ -2401,7 +2401,7 @@ public class EditorActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
-            PhoneProfilesService.drawProfileNotification(true, getApplicationContext());
+            PhoneProfilesNotification.drawProfileNotification(true, getApplicationContext());
             DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
             IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
         }
@@ -4766,7 +4766,7 @@ public class EditorActivity extends AppCompatActivity
                                 importPPDataBroadcastReceiver.importEndeed)
                             break;
 
-                        PPApplication.sleep(200);
+                        GlobalUtils.sleep(200);
                     } while (SystemClock.uptimeMillis() - start < 30 * 1000);
 
                     if (!importFromPPStopped) {
@@ -5506,7 +5506,7 @@ public class EditorActivity extends AppCompatActivity
                     PPApplication.exitApp(false, activity.getApplicationContext(), this.dataWrapper, null, false, false);
 
                     // wait for end of PPService
-                    PPApplication.sleep(3000);
+                    GlobalUtils.sleep(3000);
 
                     File sd = activity.getApplicationContext().getExternalFilesDir(null);
 

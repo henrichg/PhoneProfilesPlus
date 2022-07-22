@@ -304,7 +304,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
                     }
 
-                    PhoneProfilesService.drawProfileNotification(false, appContext);
+                    PhoneProfilesNotification.drawProfileNotification(false, appContext);
 
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "end of handler post");

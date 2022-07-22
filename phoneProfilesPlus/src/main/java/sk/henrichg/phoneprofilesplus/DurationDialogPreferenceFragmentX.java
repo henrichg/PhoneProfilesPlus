@@ -64,7 +64,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
         hours = preference.mMax / 3600;
         minutes = (preference.mMax % 3600) / 60;
         seconds = preference.mMax % 60;
-        final String sMax = GlobalGUIRoutines.getDurationString(preference.mMax);
+        final String sMax = StringFormatUtils.getDurationString(preference.mMax);
         mSeekBarHours.setMax(hours);
         if (hours == 0)
             mSeekBarMinutes.setMax(minutes);
@@ -74,7 +74,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
             mSeekBarSeconds.setMax(seconds);
         else
             mSeekBarSeconds.setMax(59);
-        final String sMin = GlobalGUIRoutines.getDurationString(preference.mMin);
+        final String sMin = StringFormatUtils.getDurationString(preference.mMin);
         int iValue = Integer.parseInt(preference.value);
         hours = iValue / 3600;
         minutes = (iValue % 3600) / 60;
@@ -83,7 +83,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
         mSeekBarMinutes.setProgress(minutes);
         mSeekBarSeconds.setProgress(seconds);
 
-        mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+        mValue.setText(StringFormatUtils.getDurationString(iValue));
 
         mValueDialog = new TimeDurationPickerDialog(prefContext, (view1, duration) -> {
             int iValue1 = (int) duration / 1000;
@@ -95,7 +95,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
 
             preference.value = String.valueOf(iValue1);
 
-            mValue.setText(GlobalGUIRoutines.getDurationString(iValue1));
+            mValue.setText(StringFormatUtils.getDurationString(iValue1));
 
             int hours1 = iValue1 / 3600;
             int minutes1 = (iValue1 % 3600) / 60;
@@ -168,7 +168,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
 
             preference.value = String.valueOf(iValue);
 
-            mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+            mValue.setText(StringFormatUtils.getDurationString(iValue));
         }
     }
 

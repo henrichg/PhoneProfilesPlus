@@ -48,7 +48,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
     }
 
     void setSummaryDDP() {
-        setSummary(GlobalGUIRoutines.getDurationString(Integer.parseInt(value)));
+        setSummary(StringFormatUtils.getDurationString(Integer.parseInt(value)));
     }
 
     void persistValue(String value)

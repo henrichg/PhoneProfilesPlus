@@ -221,7 +221,7 @@ class LocationScanner
     String getProvider() {
         String provider;
 
-        boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
+        boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
         if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
 //            PPApplication.logE("##### LocationScanner.getProvider","NETWORK_PROVIDER");
             provider = LocationManager.NETWORK_PROVIDER;
@@ -325,14 +325,14 @@ class LocationScanner
                                 try {
                                     // check power save mode
                                     String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
-                                    boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
+                                    boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
                                     boolean canScan = true;
                                     if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
                                         canScan = false;
                                     }
                                     else {
                                         if (ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2")) {
-                                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                            if (GlobalUtils.isNowTimeBetweenTimes(
                                                     ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
                                                     ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
                                                 // not scan wi-fi in configured time
@@ -551,7 +551,7 @@ class LocationScanner
 
                         scanner.stopLocationUpdates();
 
-                        PPApplication.sleep(1000);
+                        GlobalUtils.sleep(1000);
 
                         // force useGPS
                         LocationScanner.useGPS = true;
@@ -566,7 +566,7 @@ class LocationScanner
 
                         scanner.stopLocationUpdates();
 
-                        PPApplication.sleep(1000);
+                        GlobalUtils.sleep(1000);
 
                         // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
                         String provider = scanner.startLocationUpdates();

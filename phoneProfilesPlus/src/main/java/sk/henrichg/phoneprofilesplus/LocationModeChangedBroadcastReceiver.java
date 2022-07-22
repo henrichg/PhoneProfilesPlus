@@ -60,7 +60,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                             PhoneProfilesService.getInstance().getLocationScanner().updateTransitionsByLastKnownLocation(provider);
                         }
 
-                        PPApplication.sleep(10000);
+                        GlobalUtils.sleep(10000);
 
 //                        PPApplication.logE("[EVENTS_HANDLER_CALL] LocationScanner.LocationCallback", "sensorType=SENSOR_TYPE_LOCATION_MODE");
                         EventsHandler eventsHandler = new EventsHandler(appContext);

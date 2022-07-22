@@ -322,11 +322,11 @@ public class DataWrapper {
                 profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 2;
-                if (PPApplication.isRooted(true))
+                if (RootUtils.isRooted(true))
                     profile._deviceMobileData = 2;
                 profile._deviceWiFi = 2;
                 profile._deviceBluetooth = 2;
-                if (PPApplication.isRooted(true) ||
+                if (RootUtils.isRooted(true) ||
                         Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
                     profile._deviceGPS = 2;
                 break;
@@ -334,11 +334,11 @@ public class DataWrapper {
                 profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_ok), "ic_profile_battery_3", index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 1;
-                if (PPApplication.isRooted(true))
+                if (RootUtils.isRooted(true))
                     profile._deviceMobileData = 1;
                 profile._deviceWiFi = 1;
                 profile._deviceBluetooth = 1;
-                if (PPApplication.isRooted(true) ||
+                if (RootUtils.isRooted(true) ||
                         Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
                     profile._deviceGPS = 1;
                 break;
@@ -2329,7 +2329,7 @@ public class DataWrapper {
                 if (finish)
                     activity.finish();
 
-                boolean serviceStarted = PhoneProfilesService.isServiceRunning(context, PhoneProfilesService.class, false);
+                boolean serviceStarted = GlobalUtils.isServiceRunning(context, PhoneProfilesService.class, false);
                 if (!serviceStarted) {
 
                     AutostartPermissionNotification.showNotification(context, true);

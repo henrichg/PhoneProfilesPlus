@@ -99,7 +99,7 @@ class RunApplicationEditorDialogX
         mDialog = dialogBuilder.create();
 
         mDelayValue = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay);
-        mDelayValue.setText(GlobalGUIRoutines.getDurationString(startApplicationDelay));
+        mDelayValue.setText(StringFormatUtils.getDurationString(startApplicationDelay));
 
         mSelectedAppIcon = layout.findViewById(R.id.run_applications_editor_dialog_selectedIcon);
         mSelectedAppName = layout.findViewById(R.id.run_applications_editor_dialog_selectedAppName);
@@ -114,7 +114,7 @@ class RunApplicationEditorDialogX
             if (iValue > 86400)
                 iValue = 86400;
 
-            mDelayValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+            mDelayValue.setText(StringFormatUtils.getDurationString(iValue));
 
             startApplicationDelay = iValue;
         }, startApplicationDelay * 1000L, TimeDurationPicker.HH_MM_SS);

@@ -222,7 +222,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         hours = mMax / 3600;
         //minutes = (mMax % 3600) / 60;
         //seconds = mMax % 60;
-        final String sMax = GlobalGUIRoutines.getDurationString(mMax);
+        final String sMax = StringFormatUtils.getDurationString(mMax);
         mSeekBarHours.setMax(hours);
         //if (hours == 0)
         //    mSeekBarMinutes.setMax(minutes);
@@ -232,7 +232,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         //    mSeekBarSeconds.setMax(seconds);
         //else
             mSeekBarSeconds.setMax(59);
-        final String sMin = GlobalGUIRoutines.getDurationString(mMin);
+        final String sMin = StringFormatUtils.getDurationString(mMin);
         int iValue = mProfile._duration;
         hours = iValue / 3600;
         minutes = (iValue % 3600) / 60;
@@ -241,8 +241,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mSeekBarMinutes.setProgress(minutes);
         mSeekBarSeconds.setProgress(seconds);
 
-        mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
-        mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
+        mValue.setText(StringFormatUtils.getDurationString(iValue));
+        mEnds.setText(StringFormatUtils.getEndsAsString(iValue));
 
         mValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
             int iValue1 = (int) duration / 1000;
@@ -252,7 +252,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             if (iValue1 > mMax)
                 iValue1 = mMax;
 
-            mValue.setText(GlobalGUIRoutines.getDurationString(iValue1));
+            mValue.setText(StringFormatUtils.getDurationString(iValue1));
 
             int hours1 = iValue1 / 3600;
             int minutes1 = (iValue1 % 3600) / 60;
@@ -421,7 +421,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         if (iValue > mMax) iValue = mMax;
 
         if(mDialog!=null && mDialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled()) {
-            mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
+            mEnds.setText(StringFormatUtils.getEndsAsString(iValue));
         } else {
             mEnds.setText("--");
         }
@@ -435,7 +435,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         }
 
         if(updateValueField) {
-            mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+            mValue.setText(StringFormatUtils.getDurationString(iValue));
         }
     }
 

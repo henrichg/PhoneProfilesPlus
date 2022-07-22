@@ -181,7 +181,7 @@ public class LauncherActivity extends AppCompatActivity {
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
 
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
 //            if (PPApplication.logEnabled()) {
 //                PPApplication.logE("LauncherActivity.startPPServiceWhenNotStarted", "application is not started");

@@ -214,7 +214,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 descr = descr + context.getString(R.string.event_preference_calendar_status) + ": <b>" +statuses[this._status] + "</b>";
 
                 if (this._startBeforeEvent > 0)
-                    descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + GlobalGUIRoutines.getDurationString(this._startBeforeEvent) + "</b>";
+                    descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + StringFormatUtils.getDurationString(this._startBeforeEvent) + "</b>";
 
                 if (addBullet) {
                     if (Event.getGlobalEventsRunning()) {
@@ -469,7 +469,7 @@ class EventPreferencesCalendar extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_CALENDAR).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
                 else
                     preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }

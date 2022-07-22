@@ -932,7 +932,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean rooted;
         synchronized (PPApplication.rootMutex) {
             PPApplication.rootMutex.rootChecked = false;
-            rooted = PPApplication._isRooted();
+            rooted = RootUtils._isRooted();
         }
         if (!rooted) {
             preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
@@ -1987,7 +1987,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(PREF_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
         }
         if (requestCode == RESULT_LOCATION_SYSTEM_SETTINGS) {
-            final boolean enabled = PhoneProfilesService.isLocationEnabled(getContext());
+            final boolean enabled = GlobalUtils.isLocationEnabled(getContext());
             Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
             if (preference != null)
                 preference.setEnabled(enabled);
@@ -2360,7 +2360,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(false);
         }
 
-        if (!PhoneProfilesService.isLocationEnabled(getActivity().getApplicationContext())) {
+        if (!GlobalUtils.isLocationEnabled(getActivity().getApplicationContext())) {
             Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
             if (preference != null)
                 preference.setEnabled(false);
@@ -3233,7 +3233,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //}
         if (key.equals(PREF_LOCATION_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventLocationSystemSettings_summary);
-            if (!PhoneProfilesService.isLocationEnabled(context)) {
+            if (!GlobalUtils.isLocationEnabled(context)) {
                 summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" +
                         summary;
             }
@@ -3245,7 +3245,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_WIFI_LOCATION_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
-            if (!PhoneProfilesService.isLocationEnabled(context)) {
+            if (!GlobalUtils.isLocationEnabled(context)) {
                 summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" +
                         summary;
             }
@@ -3257,7 +3257,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventBluetoothLocationSystemSettings_summary);
-            if (!PhoneProfilesService.isLocationEnabled(context)) {
+            if (!GlobalUtils.isLocationEnabled(context)) {
                 summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" +
                         summary;
             }
@@ -3273,7 +3273,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary);
             else
                 summary = getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
-            if (!PhoneProfilesService.isLocationEnabled(context)) {
+            if (!GlobalUtils.isLocationEnabled(context)) {
                 summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" +
                         summary;
             }
@@ -3286,7 +3286,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS)) {
             if (Build.VERSION.SDK_INT < 27) {
                 String summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
-                if (PhoneProfilesService.isWifiSleepPolicySetToNever(context)) {
+                if (GlobalUtils.isWifiSleepPolicySetToNever(context)) {
                     summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
                             summary;
                 } else {
@@ -3310,7 +3310,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_GRANT_ROOT_PERMISSION)) {
             String summary;
-            boolean rooted = PPApplication.isRooted(true);
+            boolean rooted = RootUtils.isRooted(true);
             if (rooted) {
                 summary = getString(R.string.phone_profiles_pref_grantRootPermission_summary);
                 if (ApplicationPreferences.applicationNeverAskForGrantRoot)
@@ -3451,7 +3451,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //}
         }
         if (key.equals("categoryPermissionsRoot")) {
-            if (PPApplication.isRooted(true)) {
+            if (RootUtils.isRooted(true)) {
                 summary = summary + getString(R.string.phone_profiles_pref_grantRootPermission);
             }
             //if (Build.VERSION.SDK_INT >= 23) {
@@ -3545,7 +3545,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationEnableScanning) + ": ";
             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                 summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_enabled) + "</b>";
-                if (!PhoneProfilesService.isLocationEnabled(context)) {
+                if (!GlobalUtils.isLocationEnabled(context)) {
                     summary = summary + "<br>";
                     summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                             "<b>" +getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "</b>";
@@ -3586,7 +3586,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventWifiEnableScanning) {
                     summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_enabled) + "</b>";
-                    if (!PhoneProfilesService.isLocationEnabled(context)) {
+                    if (!GlobalUtils.isLocationEnabled(context)) {
                         summary = summary + "<br>";
                         summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                                 "<b>" + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "</b>";
@@ -3596,7 +3596,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 "<b>" + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + "</b>";
                     }
                     if (Build.VERSION.SDK_INT < 27) {
-                        if (PhoneProfilesService.isWifiSleepPolicySetToNever(context)) {
+                        if (GlobalUtils.isWifiSleepPolicySetToNever(context)) {
                             summary = summary + "<br>";
                             summary = summary + getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings) + ": " +
                                     "<b>" + getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + "</b>";
@@ -3635,7 +3635,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                     summary = summary + "<b>" +getString(R.string.array_pref_applicationDisableScanning_enabled) + "</b>";
-                    if (!PhoneProfilesService.isLocationEnabled(context)) {
+                    if (!GlobalUtils.isLocationEnabled(context)) {
                         summary = summary + "<br>";
                         summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                                 "<b>" + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "</b<";
@@ -3675,7 +3675,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
                     summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_enabled) + "</b>";
-                    if (!PhoneProfilesService.isLocationEnabled(context)) {
+                    if (!GlobalUtils.isLocationEnabled(context)) {
                         summary = summary + "<br>";
                         summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                                 "<b>" + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "</b>";
@@ -3882,7 +3882,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + "…";
         }*/
 
-        preferenceCategory.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
+        preferenceCategory.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
         //preferenceCategory.setSummary(summary);
     }
 

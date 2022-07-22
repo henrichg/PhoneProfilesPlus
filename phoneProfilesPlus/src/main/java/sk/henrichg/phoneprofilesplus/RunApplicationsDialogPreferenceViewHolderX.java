@@ -77,7 +77,7 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
         setTextStyle(textViewAppName, errorColor);
 
         text = context.getString(R.string.applications_editor_dialog_startApplicationDelay);
-        text = text + " " + GlobalGUIRoutines.getDurationString(application.startApplicationDelay);
+        text = text + " " + StringFormatUtils.getDurationString(application.startApplicationDelay);
         textViewStartApplicationDelay.setText(text);
         setTextStyle(textViewStartApplicationDelay, errorColor);
 

@@ -19,6 +19,7 @@ import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -184,7 +185,7 @@ public class PPApplication extends Application
     static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
-    private static final boolean rootToolsDebug = false;
+    static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                                 //+"|PPApplication.isXiaomi"
                                                 //+"|PPApplication.isHuawei"
@@ -204,7 +205,7 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesService.doForFirstStart"
                                                 +"|PhoneProfilesService.doForPackageReplaced"
                                                 +"|MainWorker.doAfterFirstStart"
-                                                //+"|PhoneProfilesService.getServiceInfo"
+                                                //+"|GlobalUtils.getServiceInfo"
                                                 //+"|PhoneProfilesService.isServiceRunning"
                                                 +"|PackageReplacedReceiver.onReceive"
                                                 //+"|PhoneProfilesService.doCommand"
@@ -1199,7 +1200,7 @@ public class PPApplication extends Application
         JobManager.create(this).addJobCreator(new PPJobsCreator());
         */
 
-        initRoot();
+        RootUtils.initRoot();
 
         /*
         try {
@@ -1254,7 +1255,7 @@ public class PPApplication extends Application
             return;
         }
 
-        collator = getCollator();
+        collator = GlobalUtils.getCollator();
         //MultiDex.install(this);
 
 //        PPApplication.logE("################# PPApplication.attachBaseContext", "actualVersionCode="+actualVersionCode);
@@ -1359,7 +1360,7 @@ public class PPApplication extends Application
     private void startPPServiceWhenNotStarted(Context appContext) {
         // this is for list widget header
 
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
         if (!serviceStarted) {
 //            if (PPApplication.logEnabled()) {
             PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "application is not started");
@@ -1940,7 +1941,7 @@ public class PPApplication extends Application
         TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
         if (alsoNotification) {
-            PhoneProfilesService.drawProfileNotification(true, context);
+            PhoneProfilesNotification.drawProfileNotification(true, context);
         }
     }
 
@@ -1982,7 +1983,7 @@ public class PPApplication extends Application
 
                     PPApplication.forceUpdateGUI(appContext, true, false);
                     if (longDelay)
-                        PhoneProfilesService.forceDrawProfileNotification(appContext);
+                        PhoneProfilesNotification.forceDrawProfileNotification(appContext);
 
 
 //                    long finish = System.currentTimeMillis();
@@ -2044,7 +2045,7 @@ public class PPApplication extends Application
             */
 
             if (!longDelay)
-                PhoneProfilesService.drawProfileNotification(false, context);
+                PhoneProfilesNotification.drawProfileNotification(false, context);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -3037,661 +3038,6 @@ public class PPApplication extends Application
 
     // -----------------------------------------------
 
-    // root ------------------------------------------
-
-    static synchronized void initRoot() {
-        synchronized (PPApplication.rootMutex) {
-            rootMutex.rootChecked = false;
-            rootMutex.rooted = false;
-            //rootMutex.grantRootChecked = false;
-            //rootMutex.rootGranted = false;
-            rootMutex.settingsBinaryChecked = false;
-            rootMutex.settingsBinaryExists = false;
-            //rootMutex.isSELinuxEnforcingChecked = false;
-            //rootMutex.isSELinuxEnforcing = false;
-            //rootMutex.suVersion = null;
-            //rootMutex.suVersionChecked = false;
-            rootMutex.serviceBinaryChecked = false;
-            rootMutex.serviceBinaryExists = false;
-        }
-    }
-
-    static boolean _isRooted()
-    {
-        RootShell.debugMode = rootToolsDebug;
-
-        if (rootMutex.rootChecked) {
-            try {
-                PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
-                if (PPApplication.rootMutex.rooted) {
-                    PackageManager packageManager = PPApplication.getInstance().getPackageManager();
-                    // SuperSU
-                    Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
-                    if (intent != null)
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
-                    else {
-                        intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
-                        if (intent != null)
-                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
-                        else
-                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
-                    }
-                }
-            } catch (Exception e) {
-                // https://github.com/firebase/firebase-android-sdk/issues/1226
-                //PPApplication.recordException(e);
-            }
-            return rootMutex.rooted;
-        }
-
-        try {
-//            PPApplication.logE("[ROOT] PPApplication._isRooted", "start RootToolsSmall.isRooted()");
-            //if (roottools.isRootAvailable()) {
-            if (RootToolsSmall.isRooted()) {
-                // device is rooted
-//                PPApplication.logE("[ROOT] PPApplication._isRooted", "root available");
-                rootMutex.rooted = true;
-            } else {
-//                PPApplication.logE("[ROOT] PPApplication._isRooted", "root NOT available");
-                rootMutex.rooted = false;
-                //rootMutex.settingsBinaryExists = false;
-                //rootMutex.settingsBinaryChecked = false;
-                //rootMutex.isSELinuxEnforcingChecked = false;
-                //rootMutex.isSELinuxEnforcing = false;
-                //rootMutex.suVersionChecked = false;
-                //rootMutex.suVersion = null;
-                //rootMutex.serviceBinaryExists = false;
-                //rootMutex.serviceBinaryChecked = false;
-            }
-            rootMutex.rootChecked = true;
-            try {
-                PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
-                if (PPApplication.rootMutex.rooted) {
-                    PackageManager packageManager = PPApplication.getInstance().getPackageManager();
-                    // SuperSU
-                    Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
-                    if (intent != null)
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
-                    else {
-                        intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
-                        if (intent != null)
-                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
-                        else
-                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
-                    }
-                }
-            } catch (Exception e) {
-                // https://github.com/firebase/firebase-android-sdk/issues/1226
-                //PPApplication.recordException(e);
-            }
-        } catch (Exception e) {
-            //Log.e("PPApplication._isRooted", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
-        }
-        //if (rooted)
-        //	getSUVersion();
-        return rootMutex.rooted;
-    }
-
-    static boolean isRooted(@SuppressWarnings("unused") boolean fromUIThread) {
-//        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rootChecked="+rootMutex.rootChecked);
-//        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rooted="+rootMutex.rooted);
-
-        if (rootMutex.rootChecked)
-            return rootMutex.rooted;
-
-        //if (fromUIThread)
-        //    return false;
-
-        synchronized (PPApplication.rootMutex) {
-//            PPApplication.logE("[ROOT] PPApplication.isRooted", "start check");
-            return _isRooted();
-        }
-    }
-
-    static void isRootGranted(/*boolean onlyCheck*/)
-    {
-        RootShell.debugMode = rootToolsDebug;
-
-        /*if (onlyCheck && rootMutex.grantRootChecked)
-            return rootMutex.rootGranted;*/
-
-        if (isRooted(false)) {
-            synchronized (PPApplication.rootMutex) {
-                try {
-//                    PPApplication.logE("[ROOT] PPApplication.isRootGranted", "start isAccessGiven");
-                    //noinspection StatementWithEmptyBody
-                    if (RootTools.isAccessGiven()) {
-                        // root is granted
-                        //PPApplication.logE("PPApplication.isRootGranted", "root granted");
-                        //rootMutex.rootGranted = true;
-                        //rootMutex.grantRootChecked = true;
-                    }/* else {
-                        // grant denied
-                        PPApplication.logE("PPApplication.isRootGranted", "root NOT granted");
-                        //rootMutex.rootGranted = false;
-                        //rootMutex.grantRootChecked = true;
-                    }*/
-                } catch (Exception e) {
-                    //Log.e("PPApplication.isRootGranted", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                    //rootMutex.rootGranted = false;
-                }
-                //return rootMutex.rootGranted;
-            }
-        } /*else {
-            PPApplication.logE("PPApplication.isRootGranted", "not rooted");
-        }*/
-        //return false;
-    }
-
-    static boolean settingsBinaryExists(boolean fromUIThread)
-    {
-        RootShell.debugMode = rootToolsDebug;
-
-        if (rootMutex.settingsBinaryChecked)
-            return rootMutex.settingsBinaryExists;
-
-        if (fromUIThread)
-            return false;
-
-        synchronized (PPApplication.rootMutex) {
-            if (!rootMutex.settingsBinaryChecked) {
-//                PPApplication.logE("[ROOT] PPApplication.settingsBinaryExists", "start check");
-                rootMutex.settingsBinaryExists = RootToolsSmall.hasSettingBin();
-                rootMutex.settingsBinaryChecked = true;
-            }
-            //PPApplication.logE("PPApplication.settingsBinaryExists", "settingsBinaryExists=" + rootMutex.settingsBinaryExists);
-            return rootMutex.settingsBinaryExists;
-        }
-    }
-
-    static boolean serviceBinaryExists(boolean fromUIThread)
-    {
-        RootShell.debugMode = rootToolsDebug;
-
-        if (rootMutex.serviceBinaryChecked)
-            return rootMutex.serviceBinaryExists;
-
-        if (fromUIThread)
-            return false;
-
-        synchronized (PPApplication.rootMutex) {
-            if (!rootMutex.serviceBinaryChecked) {
-//                PPApplication.logE("[ROOT] PPApplication.serviceBinaryExists", "start check");
-                rootMutex.serviceBinaryExists = RootToolsSmall.hasServiceBin();
-                rootMutex.serviceBinaryChecked = true;
-            }
-            //PPApplication.logE("PPApplication.serviceBinaryExists", "serviceBinaryExists=" + rootMutex.serviceBinaryExists);
-            return rootMutex.serviceBinaryExists;
-        }
-    }
-
-    /**
-     * Detect if SELinux is set to enforcing, caches result
-     * 
-     * @return true if SELinux set to enforcing, or false in the case of
-     *         permissive or not present
-     */
-    /*public static boolean isSELinuxEnforcing()
-    {
-        rootshell.debugMode = rootToolsDebug;
-
-        synchronized (PPApplication.rootMutex) {
-            if (!isSELinuxEnforcingChecked)
-            {
-                boolean enforcing = false;
-
-                // First known firmware with SELinux built-in was a 4.2 (17)
-                // leak
-                //if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    // Detect enforcing through sysfs, not always present
-                    File f = new File("/sys/fs/selinux/enforce");
-                    if (f.exists()) {
-                        try {
-                            InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
-                            try {
-                                enforcing = (is.read() == '1');
-                            } finally {
-                                is.close();
-                            }
-                        } catch (Exception ignored) {
-                        }
-                    }
-                //}
-
-                isSELinuxEnforcing = enforcing;
-                isSELinuxEnforcingChecked = true;
-            }
-
-            PPApplication.logE("PPApplication.isSELinuxEnforcing", "isSELinuxEnforcing="+isSELinuxEnforcing);
-
-            return isSELinuxEnforcing;
-        }
-    }*/
-
-    /*
-    public static String getSELinuxEnforceCommand(String command, Shell.ShellContext context)
-    {
-        if ((suVersion != null) && suVersion.contains("SUPERSU"))
-            return "su --context " + context.getValue() + " -c \"" + command + "\"  < /dev/null";
-        else
-            return command;
-    }
-
-    public static String getSUVersion()
-    {
-        if (!suVersionChecked)
-        {
-            Command command = new Command(0, false, "su -v")
-            {
-                @Override
-                public void commandOutput(int id, String line) {
-                    suVersion = line;
-
-                    super.commandOutput(id, line);
-                }
-            }
-            ;
-            try {
-                roottools.getShell(false).add(command);
-                commandWait(command);
-                suVersionChecked = true;
-            } catch (Exception e) {
-                Log.e("PPApplication.getSUVersion", Log.getStackTraceString(e));
-            }
-        }
-        return suVersion;
-    }
-    */
-
-    public static String getJavaCommandFile(Class<?> mainClass, String fileName, Context context, Object cmdParam) {
-        try {
-            String cmd =
-                    "#!/system/bin/sh\n" +
-                            "base=/system\n" +
-                            "export CLASSPATH=" + context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0).applicationInfo.sourceDir + "\n" +
-                            "exec app_process $base/bin " + mainClass.getName() + " " + cmdParam + " \"$@\"\n";
-            //Log.e("PPApplication.getJavaCommandFile", "cmd="+cmd);
-
-            /*String dir = context.getPackageManager().getApplicationInfo(context.PPApplication.PACKAGE_NAME, 0).dataDir;
-            File fDir = new File(dir);
-            File file = new File(fDir, name);
-            OutputStream out = new FileOutputStream(file);
-            out.write(cmd.getBytes());
-            out.close();*/
-
-            FileOutputStream fos = context.getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE);
-            fos.write(cmd.getBytes());
-            fos.close();
-
-            File file = context.getFileStreamPath(fileName);
-            if (!file.setExecutable(true))
-                return null;
-
-            return file.getAbsolutePath();
-
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    static void getServicesList() {
-        synchronized (PPApplication.serviceListMutex) {
-            if (serviceListMutex.serviceList == null)
-                serviceListMutex.serviceList = new ArrayList<>();
-            else
-                serviceListMutex.serviceList.clear();
-        }
-
-        if (isRooted(false)) {
-            synchronized (PPApplication.rootMutex) {
-                //noinspection RegExpRedundantEscape
-                final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
-
-                Command command = new Command(0, false, "service list") {
-                    @Override
-                    public void commandOutput(int id, String line) {
-//                        PPApplication.logE("PPApplication.getServicesList", "line=" + line);
-                        Matcher matcher = compile.matcher(line);
-                        if (matcher.find()) {
-                            synchronized (PPApplication.serviceListMutex) {
-                                //serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
-                                serviceListMutex.serviceList.add(Pair.create(matcher.group(1), matcher.group(2)));
-//                                PPApplication.logE("PPApplication.getServicesList", "matcher.group(1)=" + matcher.group(1));
-//                                PPApplication.logE("PPApplication.getServicesList", "matcher.group(2)=" + matcher.group(2));
-                            }
-                        }
-                        super.commandOutput(id, line);
-                    }
-
-                    /*
-                    @Override
-                    public void commandCompleted(int id, int exitCode) {
-                        super.commandCompleted(id, exitCode);
-                        synchronized (PPApplication.rootMutex) {
-                            PPApplication.rootMutex.serviceManagerPhone = getServiceManager("phone");
-                            PPApplication.rootMutex.serviceManagerWifi = getServiceManager("wifi");
-                            PPApplication.rootMutex.serviceManagerIsub = getServiceManager("isub");
-
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerPhone=" + PPApplication.rootMutex.serviceManagerPhone);
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerWifi=" + PPApplication.rootMutex.serviceManagerWifi);
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerIsub=" + PPApplication.rootMutex.serviceManagerIsub);
-
-                            PPApplication.rootMutex.transactionCode_setUserDataEnabled = -1;
-                            PPApplication.rootMutex.transactionCode_setDataEnabled = -1;
-                            if (PPApplication.rootMutex.serviceManagerPhone != null) {
-                                if (Build.VERSION.SDK_INT >= 28)
-                                    PPApplication.rootMutex.transactionCode_setUserDataEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setUserDataEnabled");
-                                else
-                                    PPApplication.rootMutex.transactionCode_setDataEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setDataEnabled");
-                            }
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setUserDataEnabled=" + PPApplication.rootMutex.transactionCode_setUserDataEnabled);
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDataEnabled=" + PPApplication.rootMutex.transactionCode_setDataEnabled);
-
-                            PPApplication.rootMutex.transactionCode_setPreferredNetworkType = -1;
-                            if (PPApplication.rootMutex.serviceManagerPhone != null) {
-                                PPApplication.rootMutex.transactionCode_setPreferredNetworkType = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setPreferredNetworkType");
-                            }
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setPreferredNetworkType=" + PPApplication.rootMutex.transactionCode_setPreferredNetworkType);
-
-                            PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = -1;
-                            PPApplication.rootMutex.transactionCode_setDefaultSmsSubId = -1;
-                            PPApplication.rootMutex.transactionCode_setDefaultDataSubId = -1;
-                            if (PPApplication.rootMutex.serviceManagerIsub != null) {
-                                PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultVoiceSubId");
-                                PPApplication.rootMutex.transactionCode_setDefaultSmsSubId = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultSmsSubId");
-                                PPApplication.rootMutex.transactionCode_setDefaultDataSubId = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultDataSubId");
-                            }
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultVoiceSubId=" + PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId);
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultSmsSubId=" + PPApplication.rootMutex.transactionCode_setDefaultSmsSubId);
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultDataSubId=" + PPApplication.rootMutex.transactionCode_setDefaultDataSubId);
-
-                            PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = -1;
-                            if (PPApplication.rootMutex.serviceManagerIsub != null) {
-                                PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setSubscriptionEnabled");
-                            }
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setSubscriptionEnabled=" + PPApplication.rootMutex.transactionCode_setSubscriptionEnabled);
-
-                            PPApplication.rootMutex.transactionCode_setWifiApEnabled = -1;
-                            if (PPApplication.rootMutex.serviceManagerWifi != null) {
-                                PPApplication.rootMutex.transactionCode_setWifiApEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerWifi), "setWifiApEnabled");
-                            }
-                            PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setWifiApEnabled=" + PPApplication.rootMutex.transactionCode_setWifiApEnabled);
-                        }
-                    }
-                    */
-                };
-
-                try {
-                    //roottools.getShell(false).add(command);
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command, "PPApplication.getServicesList");
-
-                    synchronized (PPApplication.rootMutex) {
-                        PPApplication.rootMutex.serviceManagerPhone = getServiceManager("phone");
-                        PPApplication.rootMutex.serviceManagerWifi = getServiceManager("wifi");
-                        PPApplication.rootMutex.serviceManagerIsub = getServiceManager("isub");
-
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerPhone=" + PPApplication.rootMutex.serviceManagerPhone);
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerWifi=" + PPApplication.rootMutex.serviceManagerWifi);
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerIsub=" + PPApplication.rootMutex.serviceManagerIsub);
-
-                        PPApplication.rootMutex.transactionCode_setUserDataEnabled = -1;
-                        PPApplication.rootMutex.transactionCode_setDataEnabled = -1;
-                        if (PPApplication.rootMutex.serviceManagerPhone != null) {
-                            if (Build.VERSION.SDK_INT >= 28)
-                                PPApplication.rootMutex.transactionCode_setUserDataEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setUserDataEnabled");
-                            else
-                                PPApplication.rootMutex.transactionCode_setDataEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setDataEnabled");
-                        }
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setUserDataEnabled=" + PPApplication.rootMutex.transactionCode_setUserDataEnabled);
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDataEnabled=" + PPApplication.rootMutex.transactionCode_setDataEnabled);
-
-                        PPApplication.rootMutex.transactionCode_setPreferredNetworkType = -1;
-                        if (PPApplication.rootMutex.serviceManagerPhone != null) {
-                            PPApplication.rootMutex.transactionCode_setPreferredNetworkType = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setPreferredNetworkType");
-                        }
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setPreferredNetworkType=" + PPApplication.rootMutex.transactionCode_setPreferredNetworkType);
-
-                        PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = -1;
-                        PPApplication.rootMutex.transactionCode_setDefaultSmsSubId = -1;
-                        PPApplication.rootMutex.transactionCode_setDefaultDataSubId = -1;
-                        if (PPApplication.rootMutex.serviceManagerIsub != null) {
-                            PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultVoiceSubId");
-                            PPApplication.rootMutex.transactionCode_setDefaultSmsSubId = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultSmsSubId");
-                            PPApplication.rootMutex.transactionCode_setDefaultDataSubId = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultDataSubId");
-                        }
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultVoiceSubId=" + PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId);
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultSmsSubId=" + PPApplication.rootMutex.transactionCode_setDefaultSmsSubId);
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultDataSubId=" + PPApplication.rootMutex.transactionCode_setDefaultDataSubId);
-
-                        PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = -1;
-                        if (PPApplication.rootMutex.serviceManagerIsub != null) {
-                            PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setSubscriptionEnabled");
-                        }
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setSubscriptionEnabled=" + PPApplication.rootMutex.transactionCode_setSubscriptionEnabled);
-
-                        PPApplication.rootMutex.transactionCode_setWifiApEnabled = -1;
-                        if (PPApplication.rootMutex.serviceManagerWifi != null) {
-                            PPApplication.rootMutex.transactionCode_setWifiApEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerWifi), "setWifiApEnabled");
-                        }
-//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setWifiApEnabled=" + PPApplication.rootMutex.transactionCode_setWifiApEnabled);
-                    }
-
-                } catch (Exception e) {
-                    //Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
-                }
-            }
-        }
-    }
-
-    private static Object getServiceManager(String serviceType) {
-        synchronized (PPApplication.serviceListMutex) {
-            if (PPApplication.serviceListMutex.serviceList != null) {
-                //noinspection rawtypes
-                for (Pair pair : PPApplication.serviceListMutex.serviceList) {
-                    if (serviceType.equals(pair.first)) {
-                        return pair.second;
-                    }
-                }
-            }
-            return null;
-        }
-    }
-
-    private static int getTransactionCode(String serviceManager, String method) {
-        int code = -1;
-        try {
-            //noinspection rawtypes
-            for (Class declaredFields : Class.forName(serviceManager).getDeclaredClasses()) {
-                Field[] declaredFields2 = declaredFields.getDeclaredFields();
-                int length = declaredFields2.length;
-                int iField = 0;
-                while (iField < length) {
-                    Field field = declaredFields2[iField];
-                    String name = field.getName();
-                    if (method.isEmpty()) {
-                        //if (name.contains("TRANSACTION_"))
-                        //    PPApplication.logE("[LIST] PPApplication.getTransactionCode", "field.getName()="+name);
-                        iField++;
-                    }
-                    else {
-                        if (/*name == null ||*/ !name.equals("TRANSACTION_" + method)) {
-                            iField++;
-                        } else {
-                            try {
-                                field.setAccessible(true);
-                                code = field.getInt(field);
-                                //PPApplication.logE("[DUAL_SIM] PPApplication.getTransactionCode", "name="+name+",  code="+code);
-                                break;
-                            } catch (Exception e) {
-                                //Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            //Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
-        }
-        return code;
-    }
-
-    static String getServiceCommand(String serviceType, int transactionCode, Object... params) {
-        if (params.length > 0) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("service").append(" ").append("call").append(" ").append(serviceType).append(" ").append(transactionCode);
-            for (Object param : params) {
-                if (param != null) {
-                    stringBuilder.append(" ");
-                    if (param instanceof Integer) {
-                        stringBuilder.append("i32").append(" ").append(param);
-                    } else if (param instanceof String) {
-                        stringBuilder.append("s16").append(" ").append("'").append(((String) param).replace("'", "'\\''")).append("'");
-                    }
-                }
-            }
-            return stringBuilder.toString();
-        }
-        else
-            return null;
-    }
-
-    static void commandWait(Command cmd, String calledFrom) /*throws Exception*/ {
-        int waitTill = 50;
-        int waitTillMultiplier = 2;
-        int waitTillLimit = 6400; // 12850 milliseconds (6400 * 2 - 50)
-        // 1.              50
-        // 2. 2 * 50 =    100
-        // 3. 2 * 100 =   200
-        // 4. 2 * 200 =   400
-        // 5. 2 * 400 =   800
-        // 6. 2 * 800 =  1600
-        // 7. 2 * 1600 = 3200
-        // 8. 2 * 3200 = 6400
-        // ------------------
-        //              12850
-
-        //noinspection SynchronizationOnLocalVariableOrMethodParameter
-        synchronized (cmd) {
-            while (!cmd.isFinished() && waitTill<=waitTillLimit) {
-                try {
-                    //if (!cmd.isFinished()) {
-                        cmd.wait(waitTill);
-                        waitTill *= waitTillMultiplier;
-                    //}
-                } catch (InterruptedException e) {
-                    //Log.e("PPApplication.commandWait", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                }
-            }
-        }
-        if (!cmd.isFinished()){
-            //Log.e("PPApplication.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
-            PPApplication.logToACRA("E/PPApplication.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
-        }
-    }
-
-    //------------------------------------------------------------
-
-    // dual SIM --------------------------------------------
-
-    static boolean hasSIMCard(Context appContext, int simCard) {
-        TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManager != null) {
-            if ((Build.VERSION.SDK_INT < 26) || (simCard == 0)) {
-                return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
-            } else {
-                boolean hasSIM = false;
-                if (Permissions.checkPhone(appContext)) {
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(context);
-                    if (mSubscriptionManager != null) {
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                        } catch (SecurityException e) {
-                            PPApplication.recordException(e);
-                        }
-                        if (subscriptionList != null) {
-                            for (int i = 0; i < subscriptionList.size(); i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                if (subscriptionInfo != null) {
-                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                //if (simCard == 0) {
-                                //    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                //        // sim card is ready
-                                //        hasSIM = true;
-                                //        break;
-                                //    }
-                                //}
-                                //else {
-                                    if (simCard == (slotIndex + 1)) {
-                                        if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                            // sim card is ready
-                                            hasSIM = true;
-                                            break;
-                                        }
-                                    }
-                                    //}
-                                }
-                            }
-                        }
-                    }
-                }
-                return hasSIM;
-            }
-        }
-        return false;
-    }
-
-   static int getSIMCardFromSubscriptionId(Context appContext, int subscriptionId) {
-       TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-       if (telephonyManager != null) {
-           if (Build.VERSION.SDK_INT < 26) {
-               return 0;
-           } else {
-               if (Permissions.checkPhone(appContext)) {
-                   SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                   //SubscriptionManager.from(context);
-                   if (mSubscriptionManager != null) {
-                       List<SubscriptionInfo> subscriptionList = null;
-                       try {
-                           // Loop through the subscription list i.e. SIM list.
-                           subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                       } catch (SecurityException e) {
-                           PPApplication.recordException(e);
-                       }
-                       if (subscriptionList != null) {
-                           int simCard = 0;
-                           for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
-                               // Get the active subscription ID for a given SIM card.
-                               SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                               if ((subscriptionInfo != null) &&
-                                       (subscriptionInfo.getSubscriptionId() == subscriptionId)) {
-                                   simCard = subscriptionInfo.getSimSlotIndex() + 1;
-                                   break;
-                               }
-                           }
-                           return simCard;
-                       } else
-                           return 0;
-                   } else
-                       return 0;
-               } else
-                   return -1;
-           }
-       }
-       return -1;
-   }
-
-    //------------------------------------------------------
-
     // scanners ------------------------------------------
 
     public static void registerContentObservers(Context context) {
@@ -4065,15 +3411,6 @@ public class PPApplication extends Application
     }
     */
 
-    public static void sleep(long ms) {
-        /*long start = SystemClock.uptimeMillis();
-        do {
-            SystemClock.sleep(100);
-        } while (SystemClock.uptimeMillis() - start < ms);*/
-        //SystemClock.sleep(ms);
-        try{ Thread.sleep(ms); }catch(InterruptedException ignored){ }
-    }
-
     /*
     private static String getROMManufacturer() {
         String line;
@@ -4312,7 +3649,7 @@ public class PPApplication extends Application
         return line;
     }
 
-    static boolean hasSystemFeature(PackageManager packageManager, String feature) {
+    private static boolean hasSystemFeature(PackageManager packageManager, String feature) {
         try {
             return packageManager.hasSystemFeature(feature);
         } catch (Exception e) {
@@ -4820,72 +4157,6 @@ public class PPApplication extends Application
 
     //--------------------
 
-    static Collator getCollator(/*Context context*/)
-    {
-        //if (android.os.Build.VERSION.SDK_INT < 24) {
-        // get application Locale
-//            String lang = ApplicationPreferences.applicationLanguage(context);
-        Locale appLocale;
-//            if (!lang.equals("system")) {
-//                String[] langSplit = lang.split("-");
-//                if (langSplit.length == 1)
-//                    appLocale = new Locale(lang);
-//                else
-//                    appLocale = new Locale(langSplit[0], langSplit[1]);
-//            } else {
-        //if (Build.VERSION.SDK_INT >= 24) {
-            appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
-        //} else {
-        //    appLocale = Resources.getSystem().getConfiguration().locale;
-        //}
-//            }
-        // get collator for application locale
-        return Collator.getInstance(appLocale);
-//        }
-//        else {
-//            //Log.d("GlobalGUIRoutines.getCollator", java.util.Locale.getDefault().toString());
-//            return Collator.getInstance();
-//        }
-    }
-
-    // ----------------------
-
-    static String getRealPath(Uri treeUri)
-    {
-        if (treeUri == null)
-            return "";
-        String path1 = treeUri.getPath();
-        if (path1.startsWith("/tree/"))
-        {
-            String path2 = path1.substring("/tree/".length());
-//            Log.e("PPApplication.getRealPath", "path2="+path2);
-            if (path2.startsWith("primary:"))
-            {
-                String primary = path2.substring(0, "primary:".length());
-//                Log.e("PPApplication.getRealPath", "primary="+primary);
-                if (primary.contains(":"))
-                {
-                    String storeName = "/storage/emulated/0/";
-                    String[] splits = path2.split(":");
-                    String last = splits[splits.length-1];
-                    return storeName + last;
-                }
-            }
-            else
-            {
-                if (path2.contains(":"))
-                {
-                    String[] splits = path2.split(":");
-                    String storeName = splits[0];
-                    String last = splits[splits.length-1];
-                    return  "/" + storeName + "/" + last;
-                }
-            }
-        }
-        return path1;
-    }
-
-
 /*    //-----------------------------
 
     private static WeakReference<Activity> foregroundEditorActivity;
@@ -5017,65 +4288,6 @@ public class PPApplication extends Application
         }
         else
             return null;
-    }
-
-    // get phone state --------------------------------------------------------------
-
-    static int getCallState(Context context) {
-        TelephonyManager telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManagerDefault != null) {
-            int simCount = telephonyManagerDefault.getPhoneCount();
-            if (simCount > 1) {
-                SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                //SubscriptionManager.from(appContext);
-                if (mSubscriptionManager != null) {
-                    List<SubscriptionInfo> subscriptionList = null;
-                    try {
-                        // Loop through the subscription list i.e. SIM list.
-                        subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                    } catch (SecurityException e) {
-                        //PPApplication.recordException(e);
-                    }
-                    if (subscriptionList != null) {
-                        int callStateSIM1 = TelephonyManager.CALL_STATE_IDLE;
-                        int callStateSIM2 = TelephonyManager.CALL_STATE_IDLE;
-                        for (int i = 0; i < subscriptionList.size(); i++) {
-                            // Get the active subscription ID for a given SIM card.
-                            SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                            if (subscriptionInfo != null) {
-                                int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                if (subscriptionInfo.getSimSlotIndex() == 0) {
-                                    TelephonyManager telephonyManagerSIM1 = telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                    callStateSIM1 = telephonyManagerSIM1.getCallState(subscriptionId);
-                                }
-                                if ((subscriptionInfo.getSimSlotIndex() == 1)) {
-                                    TelephonyManager telephonyManagerSIM2 = telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                    callStateSIM2 = telephonyManagerSIM2.getCallState(subscriptionId);
-                                }
-                            }
-                        }
-//                        PPApplication.logE("PPApplication.getCallState", "callStateSIM1="+callStateSIM1);
-//                        PPApplication.logE("PPApplication.getCallState", "callStateSIM2="+callStateSIM2);
-
-                        if ((callStateSIM1 == TelephonyManager.CALL_STATE_RINGING) ||
-                                (callStateSIM2 == TelephonyManager.CALL_STATE_RINGING))
-                            return TelephonyManager.CALL_STATE_RINGING;
-
-                        if ((callStateSIM1 == TelephonyManager.CALL_STATE_OFFHOOK) ||
-                                (callStateSIM2 == TelephonyManager.CALL_STATE_OFFHOOK))
-                            return TelephonyManager.CALL_STATE_OFFHOOK;
-
-                        /*if (callStateSIM1 != TelephonyManager.CALL_STATE_IDLE)
-                            return callStateSIM1;
-                        return callStateSIM2;*/
-                    }
-                }
-            }
-            else {
-                return telephonyManagerDefault.getCallState();
-            }
-        }
-        return TelephonyManager.CALL_STATE_IDLE;
     }
 
     // check if Pixel Launcher is default --------------------------------------------------

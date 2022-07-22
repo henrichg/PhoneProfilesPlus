@@ -282,7 +282,7 @@ public class SearchCalendarEventsWorker extends Worker {
                             break;
                         }
 
-                        PPApplication.sleep(200);
+                        GlobalUtils.sleep(200);
                     } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
                     //PPApplication.logE("SearchCalendarEventsWorker.waitForFinish", "END WAIT FOR FINISH");

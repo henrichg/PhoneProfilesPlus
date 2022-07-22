@@ -392,7 +392,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             if (activity != null) {
                 activity.cellIdTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
                 activity.lastConnectTimeTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
-                        GlobalGUIRoutines.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
+                        StringFormatUtils.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
                 if (!cellName.isEmpty())
                     activity.cellNameTextView.setText(cellName);
 

@@ -30,7 +30,7 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
 
         TextView textView = popupView.findViewById(R.id.dialog_help_popup_window_text);
         if (helpIsHtml) {
-            textView.setText(GlobalGUIRoutines.fromHtml(helpString, true, false, 0, 0));
+            textView.setText(StringFormatUtils.fromHtml(helpString, true, false, 0, 0));
             textView.setClickable(true);
             textView.setMovementMethod(LinkMovementMethod.getInstance());
         }

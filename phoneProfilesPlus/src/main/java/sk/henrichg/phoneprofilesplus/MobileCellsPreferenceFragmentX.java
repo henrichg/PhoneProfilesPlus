@@ -368,8 +368,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         boolean sim2Exists;
         if (getActivity() != null) {
             Context appContext = getActivity().getApplicationContext();
-            sim1Exists = PPApplication.hasSIMCard(appContext, 1);
-            sim2Exists = PPApplication.hasSIMCard(appContext, 2);
+            sim1Exists = GlobalUtils.hasSIMCard(appContext, 1);
+            sim2Exists = GlobalUtils.hasSIMCard(appContext, 2);
         } else {
             sim1Exists = false;
             sim2Exists = false;
@@ -444,7 +444,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     void setLocationEnableStatus() {
         if (Build.VERSION.SDK_INT >= 28) {
             String statusText;
-            if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
+            if (!GlobalUtils.isLocationEnabled(prefContext)) {
                 /*if (Build.VERSION.SDK_INT < 28)
                     statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
                             prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
@@ -749,8 +749,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
                 if (fragment.getActivity() != null) {
                     Context appContext = fragment.getActivity().getApplicationContext();
-                    sim1Exists = PPApplication.hasSIMCard(appContext, 1);
-                    sim2Exists = PPApplication.hasSIMCard(appContext, 2);
+                    sim1Exists = GlobalUtils.hasSIMCard(appContext, 1);
+                    sim2Exists = GlobalUtils.hasSIMCard(appContext, 2);
                 } else {
                     sim1Exists = false;
                     sim2Exists = false;

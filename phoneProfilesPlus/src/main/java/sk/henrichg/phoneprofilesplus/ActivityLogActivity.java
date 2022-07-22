@@ -256,7 +256,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b><br>";
             message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes);
 
-            infoTextView.setText(GlobalGUIRoutines.fromHtml(message, true, false, 0, 0));
+            infoTextView.setText(StringFormatUtils.fromHtml(message, true, false, 0, 0));
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
 

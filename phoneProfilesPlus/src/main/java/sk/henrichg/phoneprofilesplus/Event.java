@@ -1159,7 +1159,7 @@ class Event {
                     if (delayStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + GlobalGUIRoutines.getDurationString(delayStart);
+                        summary = summary + StringFormatUtils.getDurationString(delayStart);
                     }
                     if (notificationSoundStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1195,7 +1195,7 @@ class Event {
                     if (delayEndChanged) {
                         /*if (!summary.isEmpty())*/ summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + GlobalGUIRoutines.getDurationString(delayEnd);
+                        summary = summary + StringFormatUtils.getDurationString(delayEnd);
                     }
                     if (notificationSoundEndChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -2676,7 +2676,7 @@ class Event {
 
         if (_isInDelayStart) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_start_acronym) +
-                    ": " + GlobalGUIRoutines.getDurationString(_delayStart) +")";
+                    ": " + StringFormatUtils.getDurationString(_delayStart) +")";
             PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, evenName, null, "");
         }
 
@@ -2946,7 +2946,7 @@ class Event {
 
         if (_isInDelayEnd) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_end_acronym) +
-                    ": " + GlobalGUIRoutines.getDurationString(_delayEnd) +")";
+                    ": " + StringFormatUtils.getDurationString(_delayEnd) +")";
             PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, evenName, null, "");
         }
 
@@ -3149,7 +3149,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
-                        boolean simExists = PPApplication.hasSIMCard(context, 0);
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -3194,7 +3194,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
-                        boolean simExists = PPApplication.hasSIMCard(context, 0);
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -3227,7 +3227,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
-                        boolean simExists = PPApplication.hasSIMCard(context, 0);
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -3285,7 +3285,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED)) {
-                        boolean simExists = PPApplication.hasSIMCard(context, 0);
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {

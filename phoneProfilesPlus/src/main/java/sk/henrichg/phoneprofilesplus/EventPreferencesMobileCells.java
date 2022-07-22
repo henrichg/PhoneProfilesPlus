@@ -104,7 +104,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
                 else
-                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     if (Build.VERSION.SDK_INT < 28)
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".<br>";
                     else
@@ -128,8 +128,8 @@ class EventPreferencesMobileCells extends EventPreferences {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
                             boolean simExists;
-                            boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
-                            boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
+                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
 
                             simExists = sim1Exists;
                             simExists = simExists && sim2Exists;
@@ -214,7 +214,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary);
                 else
                     summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
-                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     if (Build.VERSION.SDK_INT < 28)
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" + summary;
                     else
@@ -244,8 +244,8 @@ class EventPreferencesMobileCells extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
-                        boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
-                        boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
+                        boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                        boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
 
                         simExists = sim1Exists;
                         simExists = simExists && sim2Exists;
@@ -342,7 +342,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_MOBILE_CELLS).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
                 else
                     preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
@@ -386,8 +386,8 @@ class EventPreferencesMobileCells extends EventPreferences {
                         boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
-                            boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
-                            boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
+                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
 
                             showPreferences = true;
                             //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");

@@ -39,7 +39,7 @@ class WifiScanner {
 
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-            boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
+            boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
             int forceScan = ApplicationPreferences.prefForceOneWifiScan;
             if (isPowerSaveMode) {
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
@@ -53,7 +53,7 @@ class WifiScanner {
             else {
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2")) {
-                        if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        if (GlobalUtils.isNowTimeBetweenTimes(
                                 ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
                             // not scan wi-fi in configured time
@@ -474,7 +474,7 @@ class WifiScanner {
                     break;
             }*/
 
-            PPApplication.sleep(200);
+            GlobalUtils.sleep(200);
         } while (SystemClock.uptimeMillis() - start < 5 * 1000);
     }
 
@@ -492,7 +492,7 @@ class WifiScanner {
                     break;
             }*/
 
-            PPApplication.sleep(200);
+            GlobalUtils.sleep(200);
         } while (SystemClock.uptimeMillis() - start < WIFI_SCAN_DURATION * 1000);
     }
 
@@ -509,7 +509,7 @@ class WifiScanner {
             isScanAlwaysAvailable = isWifiEnabled || WifiScanWorker.wifi.isScanAlwaysAvailable();
             */
 
-            if (!PhoneProfilesService.isLocationEnabled(context)/* || (!isScanAlwaysAvailable)*/) {
+            if (!GlobalUtils.isLocationEnabled(context)/* || (!isScanAlwaysAvailable)*/) {
                 // Location settings are not properly set, show notification about it
 
                 /*

@@ -306,7 +306,7 @@ class EventPreferencesBattery extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BATTERY).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
                 else
                     preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
@@ -450,7 +450,7 @@ class EventPreferencesBattery extends EventPreferences {
 
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(eventsHandler.context);
+                boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(eventsHandler.context);
 //                PPApplication.logE("EventPreferencesBattery.doHandleEvent", "isPowerSaveMode=" + isPowerSaveMode);
 
                 boolean isCharging = false;

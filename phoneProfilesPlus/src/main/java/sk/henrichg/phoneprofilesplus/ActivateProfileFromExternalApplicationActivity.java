@@ -58,7 +58,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
     {
         super.onStart();
 
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
 //            PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onStart", "application not started");
 

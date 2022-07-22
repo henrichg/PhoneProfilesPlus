@@ -3675,7 +3675,7 @@ public class Profile {
                     }
                 }
                 if (!showEndTime) {
-                    durationString = "[" + context.getString(R.string.end_of_activation_duration_acronym) + ":" + GlobalGUIRoutines.getDurationString(_duration) + "]";
+                    durationString = "[" + context.getString(R.string.end_of_activation_duration_acronym) + ":" + StringFormatUtils.getDurationString(_duration) + "]";
                 }
             }
         }
@@ -3699,14 +3699,14 @@ public class Profile {
                         if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
                             // configured time is not expired
                             durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + ": " +
-                                    GlobalGUIRoutines.getTimeString(endOfActivationTime) + ")";
+                                    StringFormatUtils.getTimeString(endOfActivationTime) + ")";
                             showEndTime = true;
                         }
                     }
                 }
                 if (!showEndTime) {
                     if (!_checked)
-                        durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + GlobalGUIRoutines.getTimeString(_endOfActivationTime) + "]";
+                        durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
                 }
             }
         }

@@ -1141,7 +1141,7 @@ class EventsHandler {
             // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
             boolean inRinging = false;
             if (telephony != null) {
-                int callState = PPApplication.getCallState(context);
+                int callState = GlobalUtils.getCallState(context);
 //                PPApplication.logE("EventsHandler.doEndHandler", "callState="+callState);
                 inRinging = (callState == TelephonyManager.CALL_STATE_RINGING);
             }
@@ -1212,7 +1212,7 @@ class EventsHandler {
 
             boolean inCall = false;
             if (telephony != null) {
-                int callState = PPApplication.getCallState(context);
+                int callState = GlobalUtils.getCallState(context);
 
                 inCall = (callState == TelephonyManager.CALL_STATE_RINGING) || (callState == TelephonyManager.CALL_STATE_OFFHOOK);
             }

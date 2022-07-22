@@ -256,7 +256,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             {
                 if (eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(context, true);
-                    eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription, true, false, 0, 0));
+                    eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, false, 0, 0));
                 }
             }
 
@@ -275,7 +275,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (event._manualProfileActivation)
                     profileName = "[M] " + profileName;
                 if (event._delayStart > 0)
-                    profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayStart) + "] " + profileName;
+                    profileName = "[" + StringFormatUtils.getDurationString(event._delayStart) + "] " + profileName;
                 profileStartName.setText(profileName);
                 if (profile.getIsIconResourceID())
                 {
@@ -374,7 +374,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         else
                             profileName = profile._name;
                         if (event._delayEnd > 0)
-                            profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
+                            profileName = "[" + StringFormatUtils.getDurationString(event._delayEnd) + "] " + profileName;
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                             profileName = profileName + " + " + context.getString(R.string.event_preference_profile_undone);
                         else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
@@ -426,7 +426,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 } else {
                     String profileName = "";
                     if (event._delayEnd > 0)
-                        profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] ";
+                        profileName = "[" + StringFormatUtils.getDurationString(event._delayEnd) + "] ";
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) {
                         if (event._manualProfileActivationAtEnd)
                             profileName = "[M] ";

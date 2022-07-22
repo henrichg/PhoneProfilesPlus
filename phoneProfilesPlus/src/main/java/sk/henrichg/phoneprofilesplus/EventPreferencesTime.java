@@ -178,7 +178,7 @@ class EventPreferencesTime extends EventPreferences {
                 }
 
                 if (_timeType != TIME_TYPE_EXACT) {
-                    if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                         descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
                     }
                 }
@@ -428,7 +428,7 @@ class EventPreferencesTime extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String summary = context.getString(R.string.event_preference_sensor_time_locationSystemSettings_summary);
-                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n"+
                             summary;
                 }
@@ -504,7 +504,7 @@ class EventPreferencesTime extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_TIME).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
                 else
                     preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }

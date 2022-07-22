@@ -138,7 +138,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
 
     private void setSummary() {
         if (onlyEdit == 0) {
-            if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+            if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                 setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
             }

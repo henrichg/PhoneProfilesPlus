@@ -70,7 +70,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 //                    }
 
                     PhoneProfilesService.registerPhoneCallsListener(false, appContext);
-                    PPApplication.sleep(1000);
+                    GlobalUtils.sleep(1000);
                     PhoneProfilesService.registerPhoneCallsListener(true, appContext);
 
                     PPApplication.restartMobileCellsScanner(appContext);

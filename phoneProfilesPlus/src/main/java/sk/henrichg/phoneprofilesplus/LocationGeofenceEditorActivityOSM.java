@@ -556,7 +556,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY)) {
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "permission granted");
             stopLocationUpdates();
-            PPApplication.sleep(1000);
+            GlobalUtils.sleep(1000);
             startLocationUpdates(true);
             refreshActivity(false, false);
         }
@@ -564,7 +564,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         if (requestCode == RESULT_LOCATION_SETTINGS) {
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "Location settngs");
             stopLocationUpdates();
-            PPApplication.sleep(1000);
+            GlobalUtils.sleep(1000);
             startLocationUpdates(true);
         }
     }

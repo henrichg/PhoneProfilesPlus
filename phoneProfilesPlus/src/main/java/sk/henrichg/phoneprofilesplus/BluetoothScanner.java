@@ -57,7 +57,7 @@ class BluetoothScanner {
 
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-            boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
+            boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
             int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
             if (isPowerSaveMode) {
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
@@ -71,7 +71,7 @@ class BluetoothScanner {
             else {
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2")) {
-                        if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        if (GlobalUtils.isNowTimeBetweenTimes(
                                 ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                             // not scan bluetooth in configured time
@@ -431,7 +431,7 @@ class BluetoothScanner {
                     break;
             }*/
 
-            PPApplication.sleep(200);
+            GlobalUtils.sleep(200);
         } while (SystemClock.uptimeMillis() - start < 5 * 1000);
     }
 
@@ -442,7 +442,7 @@ class BluetoothScanner {
             if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
                     ApplicationPreferences.prefEventBluetoothWaitForResult))
                 break;
-            PPApplication.sleep(200);
+            GlobalUtils.sleep(200);
         } while (SystemClock.uptimeMillis() - start < CLASSIC_BT_SCAN_DURATION * 1000);
 
         BluetoothScanWorker.finishCLScan(context);
@@ -459,7 +459,7 @@ class BluetoothScanner {
                         ApplicationPreferences.prefEventBluetoothLEWaitForResult))
                     break;
 
-                PPApplication.sleep(200);
+                GlobalUtils.sleep(200);
             } while (SystemClock.uptimeMillis() - start < (applicationEventBluetoothLEScanDuration * 5L) * 1000);
             //PPApplication.logE("%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd", "do finishLEScan");
             BluetoothScanWorker.finishLEScan(context);
@@ -470,7 +470,7 @@ class BluetoothScanner {
             // wait for ScanCallback.onBatchScanResults after stop scan
             start = SystemClock.uptimeMillis();
             do {
-                PPApplication.sleep(200);
+                GlobalUtils.sleep(200);
             } while (SystemClock.uptimeMillis() - start < 10 * 1000);
             // save ScanCallback.onBatchScanResults
             BluetoothScanWorker.finishLEScan(context);
@@ -487,7 +487,7 @@ class BluetoothScanner {
         //if (Build.VERSION.SDK_INT >= 23) {
             // check for Location Settings
 
-            if (!PhoneProfilesService.isLocationEnabled(context)/* || (!isScanAlwaysAvailable)*/) {
+            if (!GlobalUtils.isLocationEnabled(context)/* || (!isScanAlwaysAvailable)*/) {
                 // Location settings are not properly set, show notification about it
 
                 /*

@@ -29,7 +29,7 @@ class AutostartPermissionNotification {
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
 
-                    boolean isServiceRunning = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                    boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                     if (!isServiceRunning) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -70,7 +70,7 @@ class AutostartPermissionNotification {
                 PPApplication.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
             } else {
-                boolean isServiceRunning = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                 if (!isServiceRunning) {
                     try {
                         //PPApplication.logE("AutostartPermissionNotification.showNotification", "pm="+pm);

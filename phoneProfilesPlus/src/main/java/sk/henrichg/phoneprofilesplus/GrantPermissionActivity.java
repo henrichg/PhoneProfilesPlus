@@ -607,7 +607,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.permissions_alert_title);
-            dialogBuilder.setMessage(GlobalGUIRoutines.fromHtml(showRequestString, true, false, 0, 0));
+            dialogBuilder.setMessage(StringFormatUtils.fromHtml(showRequestString, true, false, 0, 0));
             dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 int iteration = 4;
                 if (showRequestWriteSettings)

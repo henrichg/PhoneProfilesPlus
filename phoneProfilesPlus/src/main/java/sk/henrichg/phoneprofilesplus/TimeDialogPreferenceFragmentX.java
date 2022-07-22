@@ -66,7 +66,7 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
         mSeekBarHours.setProgress(hours);
         mSeekBarMinutes.setProgress(minutes);
 
-        mValue.setText(GlobalGUIRoutines.getTimeString(iValue));
+        mValue.setText(StringFormatUtils.getTimeString(iValue));
 
         mValueDialog = new TimeDurationPickerDialog(prefContext, (view1, duration) -> {
             int iValue1 = (int) duration / 1000 / 60;
@@ -78,7 +78,7 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
             preference.value = iValue1;
 
-            mValue.setText(GlobalGUIRoutines.getTimeString(iValue1));
+            mValue.setText(StringFormatUtils.getTimeString(iValue1));
 
             int hours1 = iValue1 / 60;
             int minutes1 = (iValue1 % 60);
@@ -142,7 +142,7 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
             preference.value = iValue;
 
-            mValue.setText(GlobalGUIRoutines.getTimeString(iValue));
+            mValue.setText(StringFormatUtils.getTimeString(iValue));
         }
     }
 

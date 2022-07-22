@@ -184,7 +184,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
         //noinspection ConstantConditions
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
-        rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
 
         int logType = cursor.getInt(KEY_AL_LOG_TYPE);
         //noinspection ConstantConditions
@@ -224,7 +224,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
         //noinspection ConstantConditions
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
-        rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
 
         int logType = cursor.getInt(KEY_AL_LOG_TYPE);
         //noinspection ConstantConditions

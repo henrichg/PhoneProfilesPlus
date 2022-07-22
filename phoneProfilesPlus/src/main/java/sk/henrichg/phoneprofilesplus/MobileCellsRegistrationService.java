@@ -194,7 +194,7 @@ public class MobileCellsRegistrationService extends Service {
             text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
             String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
             long iValue = millisUntilFinished / 1000;
-            time = time + ": " + GlobalGUIRoutines.getDurationString((int) iValue);
+            time = time + ": " + StringFormatUtils.getDurationString((int) iValue);
             text = text + "; " + time;
 //            if (android.os.Build.VERSION.SDK_INT < 24) {
 //                text = text + " (" + getString(R.string.ppp_app_name) + ")";
@@ -247,7 +247,7 @@ public class MobileCellsRegistrationService extends Service {
         //PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
 
         showNotification(0);
-        PPApplication.sleep(500);
+        GlobalUtils.sleep(500);
 
         //PPApplication.logE("[REG] MobileCellsRegistrationService.stopRegistration", "setMobileCellsAutoRegistration(true)");
         setMobileCellsAutoRegistration(context, true);

@@ -216,7 +216,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //                                PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "LocationScanner.useGPS="+LocationScanner.useGPS);
                                 locationScanner.stopLocationUpdates();
 
-                                PPApplication.sleep(1000);
+                                GlobalUtils.sleep(1000);
 
                                 if (ApplicationPreferences.applicationEventLocationUseGPS &&
                                         (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))

@@ -72,14 +72,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(getApplicationContext());
+        boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(getApplicationContext());
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
                 return;
         }
         else {
             if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
-                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                if (GlobalUtils.isNowTimeBetweenTimes(
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time
@@ -230,14 +230,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(getApplicationContext());
+        boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(getApplicationContext());
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
                 return;
         }
         else {
             if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
-                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                if (GlobalUtils.isNowTimeBetweenTimes(
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time

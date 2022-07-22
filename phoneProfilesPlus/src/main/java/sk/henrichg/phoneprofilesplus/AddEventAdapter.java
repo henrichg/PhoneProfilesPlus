@@ -186,7 +186,7 @@ class AddEventAdapter extends BaseAdapter {
                     else {
                         holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
                         String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
-                        holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription, true, false, 0, 0));
+                        holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, false, 0, 0));
 
                         RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
                         parameter.setMargins(0, -GlobalGUIRoutines.dpToPx(14), 0, 0); // left, top, right, bottom
@@ -203,7 +203,7 @@ class AddEventAdapter extends BaseAdapter {
                 if (event._manualProfileActivation)
                     profileName = "[M] " + profileName;
                 if (event._delayStart > 0)
-                    profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayStart) + "] " + profileName;
+                    profileName = "[" + StringFormatUtils.getDurationString(event._delayStart) + "] " + profileName;
                 holder.profileStartName.setText(profileName);
                 holder.profileStartName.setTextColor(defaultColor);
                 if (profile.getIsIconResourceID())

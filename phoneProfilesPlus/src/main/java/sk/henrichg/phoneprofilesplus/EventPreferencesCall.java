@@ -186,8 +186,8 @@ class EventPreferencesCall extends EventPreferences {
                             int phoneCount = telephonyManager.getPhoneCount();
                             if (phoneCount > 1) {
                                 boolean simExists;
-                                boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
-                                boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
+                                boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                                boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
 
                                 simExists = sim1Exists;
                                 simExists = simExists && sim2Exists;
@@ -207,7 +207,7 @@ class EventPreferencesCall extends EventPreferences {
                         if (this._permanentRun)
                             descr = descr + " • <b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
                         else
-                            descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
+                            descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": <b>" + StringFormatUtils.getDurationString(this._duration) + "</b>";
                     }
                 }
             }
@@ -299,8 +299,8 @@ class EventPreferencesCall extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
-                        boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
-                        boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
+                        boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                        boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
 
                         simExists = sim1Exists;
                         simExists = simExists && sim2Exists;
@@ -458,7 +458,7 @@ class EventPreferencesCall extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_PHONE_CALL).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted));
                 if (enabled)
-                    preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
                 else
                     preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
@@ -523,8 +523,8 @@ class EventPreferencesCall extends EventPreferences {
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
-                            boolean sim1Exists = PPApplication.hasSIMCard(context, 1);
-                            boolean sim2Exists = PPApplication.hasSIMCard(context, 2);
+                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
 
                             showPreferences = true;
                             //preference = prefMng.findPreference("eventCallDualSIMInfo");

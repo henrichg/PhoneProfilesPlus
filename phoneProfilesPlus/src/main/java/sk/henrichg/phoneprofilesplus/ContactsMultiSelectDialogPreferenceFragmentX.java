@@ -136,14 +136,14 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
                 ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
                 if (contactsCache != null) {
                     while (contactsCache.getCaching())
-                        PPApplication.sleep(100);
+                        GlobalUtils.sleep(100);
                 }
                 //must be seconds, this ads groups int contacts
                 PhoneProfilesService.createContactGroupsCache(prefContext.getApplicationContext(), false);
                 ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
                 if (contactGroupsCache != null) {
                     while (contactGroupsCache.getCaching())
-                        PPApplication.sleep(100);
+                        GlobalUtils.sleep(100);
                 }
 
                 preference.getValueCMSDP();

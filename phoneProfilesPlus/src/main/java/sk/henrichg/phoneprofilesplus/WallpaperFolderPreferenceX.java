@@ -62,7 +62,7 @@ public class WallpaperFolderPreferenceX extends Preference {
 
             try {
                 String path;
-                path = PPApplication.getRealPath(folderUri);
+                path = GlobalUtils.getRealPath(folderUri);
                 setSummary(path);
             } catch (Exception e) {
                 setSummary(R.string.preference_profile_no_change);
@@ -107,7 +107,7 @@ public class WallpaperFolderPreferenceX extends Preference {
 
             try {
                 String path;
-                path = PPApplication.getRealPath(folderUri);
+                path = GlobalUtils.getRealPath(folderUri);
                 setSummary(path);
             } catch (Exception e) {
                 setSummary(R.string.preference_profile_no_change);
@@ -130,7 +130,7 @@ public class WallpaperFolderPreferenceX extends Preference {
             Uri folderUri = Uri.parse(wallpaperFolder);
             try {
                 String path;
-                path = PPApplication.getRealPath(folderUri);
+                path = GlobalUtils.getRealPath(folderUri);
                 setSummary(path);
             } catch (Exception e) {
                 setSummary(R.string.preference_profile_no_change);

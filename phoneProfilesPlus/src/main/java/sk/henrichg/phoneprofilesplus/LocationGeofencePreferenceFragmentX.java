@@ -161,7 +161,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
     void setLocationEnableStatus() {
         String statusText;
-        if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
+        if (!GlobalUtils.isLocationEnabled(prefContext)) {
             statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
                     "* " + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
 

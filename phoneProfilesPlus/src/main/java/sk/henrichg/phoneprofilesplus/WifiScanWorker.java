@@ -74,7 +74,7 @@ public class WifiScanWorker extends Worker {
             }
 
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-            boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
+            boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("2")) {
                 cancelWork(context, false/*, null*/);
 //                if (PPApplication.logEnabled()) {
@@ -85,7 +85,7 @@ public class WifiScanWorker extends Worker {
             }
             else {
                 if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2")) {
-                    if (PhoneProfilesService.isNowTimeBetweenTimes(
+                    if (GlobalUtils.isNowTimeBetweenTimes(
                             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
                         // not scan wi-fi in configured time
@@ -206,14 +206,14 @@ public class WifiScanWorker extends Worker {
 
                     int interval = ApplicationPreferences.applicationEventWifiScanInterval;
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                    boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
+                    boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
                     if (isPowerSaveMode) {
                         if (ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("1"))
                             interval = 2 * interval;
                     }
                     else {
                         if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("1")) {
-                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
@@ -382,7 +382,7 @@ public class WifiScanWorker extends Worker {
                             break;
                         }
 
-                        PPApplication.sleep(200);
+                        GlobalUtils.sleep(200);
                     } while (SystemClock.uptimeMillis() - start < WifiScanner.WIFI_SCAN_DURATION * 1000);
                     //PPApplication.logE("WifiScanWorker.waitForFinish", "END WAIT FOR FINISH");
                 }

@@ -143,7 +143,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
 //                                PPApplication.logE("[WIFI_ENABLED] ConnectToSSIDDialogPreferenceFragmentX.refreshListView", "true");
                             wifi.setWifiEnabled(true);
 
-                            PPApplication.sleep(3000);
+                            GlobalUtils.sleep(3000);
                         } else
                             WifiScanWorker.fillWifiConfigurationList(prefContext.getApplicationContext());
                     }

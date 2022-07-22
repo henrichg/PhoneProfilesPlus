@@ -279,7 +279,7 @@ class OrientationScanner implements SensorEventListener {
 
                     String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
 
-                    boolean isPowerSaveMode = PhoneProfilesService.isPowerSaveMode(context);
+                    boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
                     if (isPowerSaveMode) {
                         if (applicationEventOrientationScanInPowerSaveMode.equals("2"))
                             // start scanning in power save mode is not allowed
@@ -287,7 +287,7 @@ class OrientationScanner implements SensorEventListener {
                     }
                     else {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2")) {
-                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                                 // not scan in configured time
@@ -304,7 +304,7 @@ class OrientationScanner implements SensorEventListener {
                     }
                     else {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("1")) {
-                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
