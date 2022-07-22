@@ -280,7 +280,8 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {}
         }*/
         // show notification to avoid ANR in api level 26+
-        showProfileNotification(!isServiceRunning, isServiceRunning, true);
+        showProfileNotification(getApplicationContext(),
+                !isServiceRunning, isServiceRunning, true);
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -4987,7 +4988,7 @@ public class PhoneProfilesService extends Service
         //startForegroundNotification = true;
 
         boolean isServiceRunning = isServiceRunning(appContext, PhoneProfilesService.class, true);
-        showProfileNotification(!isServiceRunning, true, true);
+        showProfileNotification(appContext, !isServiceRunning, true, true);
 
         PPApplication.normalServiceStart = (intent != null);
         PPApplication.showToastForProfileActivation = (intent != null);
@@ -5675,7 +5676,7 @@ public class PhoneProfilesService extends Service
 
     // profile notification -------------------
 
-    void _showProfileNotification(final DataWrapper dataWrapper, boolean forFirstStart)
+    static private void _showProfileNotification(final DataWrapper dataWrapper, boolean forFirstStart)
     {
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
@@ -5686,7 +5687,7 @@ public class PhoneProfilesService extends Service
 
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "!PPApplication.doNotShowProfileNotification");
 
-        final Context appContext = this; //dataWrapper.context.getApplicationContext();
+        final Context appContext = dataWrapper.context;
 
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "forFirstStart="+forFirstStart);
 
@@ -5844,7 +5845,7 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
 
             boolean powerShadeInstalled = false;
-            PackageManager pm = getPackageManager();
+            PackageManager pm = dataWrapper.context.getPackageManager();
             try {
                 pm.getPackageInfo("com.treydev.pns", PackageManager.GET_ACTIVITIES);
                 powerShadeInstalled = true;
@@ -6225,7 +6226,7 @@ public class PhoneProfilesService extends Service
         // decorator colot change by iocn is removed, becouse this cause problems with
         // custom icons.
         NotificationIconData notificationIconData =
-            _addProfileIconToProfileNotification(forFirstStart,
+            _addProfileIconToProfileNotification(dataWrapper.context, forFirstStart,
                                                      contentView, contentViewLarge,
                                                      notificationBuilder,
                                                      notificationNotificationStyle, notificationStatusBarStyle,
@@ -6310,14 +6311,14 @@ public class PhoneProfilesService extends Service
             switch (notificationBackgroundColor) {
                 case "3":
                     //if (!notificationNightMode || (useNightColor == 1)) {
-                    int color = ContextCompat.getColor(this, R.color.notificationBlackBackgroundColor);
+                    int color = ContextCompat.getColor(dataWrapper.context, R.color.notificationBlackBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
                 case "1":
                     //if (!notificationNightMode || (useNightColor == 1)) {
-                    color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
+                    color = ContextCompat.getColor(dataWrapper.context, R.color.notificationDarkBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
@@ -6502,7 +6503,8 @@ public class PhoneProfilesService extends Service
             // with this flag, is not possible to colapse this notification
             phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR; //| Notification.FLAG_ONGOING_EVENT;
 
-            startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+            if (PhoneProfilesService.getInstance() != null)
+                PhoneProfilesService.getInstance().startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
         }
 
         /*
@@ -6521,7 +6523,7 @@ public class PhoneProfilesService extends Service
         */
     }
 
-    private void _addRestartEventsToProfileNotification(boolean forFirstStart,
+    static private void _addRestartEventsToProfileNotification(boolean forFirstStart,
                                                         RemoteViews contentView, RemoteViews contentViewLarge,
                                                         NotificationCompat.Builder notificationBuilder,
                                                         String notificationNotificationStyle, boolean notificationShowRestartEventsAsButton,
@@ -6705,7 +6707,8 @@ public class PhoneProfilesService extends Service
         Bitmap imageBitmap;
     }
 
-    private NotificationIconData _addProfileIconToProfileNotification(boolean forFirstStart,
+    static private NotificationIconData _addProfileIconToProfileNotification(Context context,
+                                                     boolean forFirstStart,
                                                      RemoteViews contentView, RemoteViews contentViewLarge,
                                                      NotificationCompat.Builder notificationBuilder,
                                                      String notificationNotificationStyle, String notificationStatusBarStyle,
@@ -6944,7 +6947,7 @@ public class PhoneProfilesService extends Service
                 else {
                     if (notificationShowProfileIcon) {
                         if (iconBitmap == null)
-                            iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_default);
+                            iconBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_default);
                         if (notificationProfileIconColor.equals("1"))
                             iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
                         if (Build.VERSION.SDK_INT < 31)
@@ -6999,7 +7002,7 @@ public class PhoneProfilesService extends Service
             }
             else {
                 if (notificationShowProfileIcon) {
-                    iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_empty);
+                    iconBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_empty);
                     if (Build.VERSION.SDK_INT < 31)
                         notificationBuilder.setLargeIcon(iconBitmap);
                 }
@@ -7011,7 +7014,7 @@ public class PhoneProfilesService extends Service
         return notificationIconData;
     }
 
-    static void clearOldProfileNotification() {
+    static void clearOldProfileNotification(Context context) {
         boolean clear = false;
         if (Build.MANUFACTURER.equals("HMD Global"))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
@@ -7021,10 +7024,10 @@ public class PhoneProfilesService extends Service
             clear = true;
         if (clear) {
             // next show will be with startForeground()
-            if (PhoneProfilesService.getInstance() != null) {
-                PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext(), true*/);
+            //if (PhoneProfilesService.getInstance() != null) {
+                PhoneProfilesService.clearProfileNotification(context/*, true*/);
                 PPApplication.sleep(100);
-            }
+            //}
         }
     }
 
@@ -7035,21 +7038,21 @@ public class PhoneProfilesService extends Service
         }
 
         if (!doNotShowProfileNotification) {
-            if (PhoneProfilesService.getInstance() != null) {
+            //if (PhoneProfilesService.getInstance() != null) {
 //                PPApplication.logE("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
 //                Log.e("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
 
-                clearOldProfileNotification();
+                clearOldProfileNotification(appContext);
 
-                if (PhoneProfilesService.getInstance() != null) {
+                //if (PhoneProfilesService.getInstance() != null) {
                     synchronized (PPApplication.showPPPNotificationMutex) {
 //                        Log.e("PhoneProfilesService.forceDrawProfileNotification", "(2))");
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
-                        PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
+                        PhoneProfilesService._showProfileNotification(dataWrapper, false);
                         dataWrapper.invalidateDataWrapper();
                     }
-                }
-            }
+                //}
+            //}
         }
     }
 
@@ -7187,7 +7190,7 @@ public class PhoneProfilesService extends Service
         */
     }
 
-    void showProfileNotification(boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
+    static void showProfileNotification(Context context, boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
         //if (Build.VERSION.SDK_INT >= 26) {
             //if (DebugVersion.enabled)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
@@ -7199,7 +7202,7 @@ public class PhoneProfilesService extends Service
         //if (!runningInForeground) {
             if (drawEmpty) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+                DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "drawEmptyFirst="+drawEmptyFirst);
                 _showProfileNotification(/*null,*/ dataWrapper, true/*, true*/);
                 dataWrapper.invalidateDataWrapper();
@@ -7226,12 +7229,12 @@ public class PhoneProfilesService extends Service
             delay = 200;
         else
             delay = 1000;*/
-        drawProfileNotification(drawImmediatelly, getApplicationContext());
+        drawProfileNotification(drawImmediatelly, context);
 
         //PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
     }
 
-    void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
+    static void clearProfileNotification(Context context/*, boolean onlyEmpty*/)
     {
         /*if (onlyEmpty) {
             final Context appContext = getApplicationContext();
@@ -7243,9 +7246,10 @@ public class PhoneProfilesService extends Service
             try {
                 //startForegroundNotification = true;
                 //isInForeground = false;
-                stopForeground(true);
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().stopForeground(true);
                 PPApplication.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
-                NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null) {
                     try {
                         synchronized (PPApplication.showPPPNotificationMutex) {

@@ -1982,7 +1982,7 @@ public class PPApplication extends Application
 
                     PPApplication.forceUpdateGUI(appContext, true, false);
                     if (longDelay)
-                        PhoneProfilesService.forceDrawProfileNotification(context);
+                        PhoneProfilesService.forceDrawProfileNotification(appContext);
 
 
 //                    long finish = System.currentTimeMillis();

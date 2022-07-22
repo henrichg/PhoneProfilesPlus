@@ -778,7 +778,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                         PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
                     }
                 }, 1000);*/
-                PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
+                //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
+                PhoneProfilesService.forceDrawProfileNotification(context.getApplicationContext());
 
                 PPApplication.showToast(context,
                         context.getString(R.string.important_info_notification_settings_toast),
