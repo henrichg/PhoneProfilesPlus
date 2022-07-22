@@ -13,6 +13,7 @@
         android:layout_height="26dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/ic_ppp_icon_for_toast"
         android:contentDescription="@string/app_name" />
 
