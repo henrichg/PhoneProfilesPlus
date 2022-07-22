@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.view.MenuItem;
 
@@ -481,6 +480,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
         dataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
+        /*
         if (PhoneProfilesService.getInstance() != null) {
             synchronized (PPApplication.applicationPreferencesMutex) {
                 PPApplication.doNotShowProfileNotification = true;
@@ -498,7 +498,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 // forServiceStart must be true because of call of clearProfileNotification()
                 PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
             }
-        }, 1000);
+        }, 1000);*/
+        //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 
         //        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.doPreferenceChanges");
         PPApplication.updateGUI(true, false, getApplicationContext());

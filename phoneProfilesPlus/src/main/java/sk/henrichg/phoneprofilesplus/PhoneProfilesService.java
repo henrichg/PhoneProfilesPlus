@@ -6779,6 +6779,7 @@ public class PhoneProfilesService extends Service
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }
+                        notificationBuilder.setLargeIcon(null);
                     }
                     else {
                         if ((Build.VERSION.SDK_INT < 31) && notificationShowProfileIcon)
@@ -6816,14 +6817,19 @@ public class PhoneProfilesService extends Service
 
                     int iconLargeResource = Profile.getIconResource(iconIdentifier);
                     iconBitmap = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
-                    if (notificationProfileIconColor.equals("1"))
-                        iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
-                    else {
-                        if (profile != null) {
-                            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                            if (bitmap != null)
-                                iconBitmap = bitmap;
+                    if (iconBitmap != null) {
+                        if (notificationProfileIconColor.equals("1"))
+                            iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
+                        else {
+                            if (profile != null) {
+                                Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                                if (bitmap != null)
+                                    iconBitmap = bitmap;
+                            }
                         }
+                    }
+                    if (iconBitmap == null) {
+                        iconBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_default, true, appContext);
                     }
 
                     if (notificationNotificationStyle.equals("0")) {
@@ -6832,17 +6838,17 @@ public class PhoneProfilesService extends Service
                             if ((!notificationShowProfileIcon) && useDecorator)
                                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                             //if (profileIconExists) {
-                                if (contentView != null) {
-                                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                                    if ((!notificationShowProfileIcon) && useDecorator)
-                                        contentView.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
-                                }
+                            if (contentView != null) {
+                                contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                                if ((!notificationShowProfileIcon) && useDecorator)
+                                    contentView.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
+                            }
                             //}
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }
-                    }
-                    else {
+                        notificationBuilder.setLargeIcon(null);
+                    } else {
                         if ((Build.VERSION.SDK_INT < 31) && notificationShowProfileIcon)
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
@@ -6894,6 +6900,9 @@ public class PhoneProfilesService extends Service
                     if (bitmap != null)
                         iconBitmap = bitmap;
                 }
+                if (iconBitmap == null) {
+                    iconBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_default, true, appContext);
+                }
 
                 if (notificationNotificationStyle.equals("0")) {
                     try {
@@ -6930,6 +6939,7 @@ public class PhoneProfilesService extends Service
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
+                    notificationBuilder.setLargeIcon(null);
                 }
                 else {
                     if (notificationShowProfileIcon) {
@@ -6985,6 +6995,7 @@ public class PhoneProfilesService extends Service
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                notificationBuilder.setLargeIcon(null);
             }
             else {
                 if (notificationShowProfileIcon) {

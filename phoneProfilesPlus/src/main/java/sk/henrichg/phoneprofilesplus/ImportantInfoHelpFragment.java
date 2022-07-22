@@ -9,7 +9,6 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -760,6 +759,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     editor.apply();
                 }
 
+                /*
                 if (PhoneProfilesService.getInstance() != null) {
                     synchronized (PPApplication.applicationPreferencesMutex) {
                         PPApplication.doNotShowProfileNotification = true;
@@ -777,7 +777,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                         // forServiceStart must be true because of call of clearProfileNotification()
                         PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
                     }
-                }, 1000);
+                }, 1000);*/
+                PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 
                 PPApplication.showToast(context,
                         context.getString(R.string.important_info_notification_settings_toast),
