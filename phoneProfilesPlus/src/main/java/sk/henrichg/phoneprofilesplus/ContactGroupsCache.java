@@ -180,7 +180,7 @@ class ContactGroupsCache {
         caching = true;
         //cancelled = false;
 
-        ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+        ContactsCache contactsCache = PPApplication.getContactsCache();
         if (contactsCache == null) {
             caching = false;
             return;

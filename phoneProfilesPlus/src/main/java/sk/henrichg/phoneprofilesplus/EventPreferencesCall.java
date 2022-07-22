@@ -717,7 +717,7 @@ class EventPreferencesCall extends EventPreferences {
                 if (!split.isEmpty()) {
                     //Log.e("EventPreferencesCall.isPhoneNumberConfigured", "split=" + split);
 
-                    ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                    ContactsCache contactsCache = PPApplication.getContactsCache();
                     if (contactsCache == null)
                         return false;
 
@@ -796,7 +796,7 @@ class EventPreferencesCall extends EventPreferences {
                     }*/
 
                     if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                        ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                        ContactsCache contactsCache = PPApplication.getContactsCache();
                         if (contactsCache == null)
                             return false;
 

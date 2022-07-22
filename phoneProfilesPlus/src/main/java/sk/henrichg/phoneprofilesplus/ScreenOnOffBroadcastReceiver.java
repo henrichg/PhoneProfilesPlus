@@ -68,10 +68,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - start");
                                 // enable/disable keyguard
                                 try {
-                                    PhoneProfilesService ppService = PhoneProfilesService.getInstance();
-                                    if (ppService != null) {
-                                        ppService.switchKeyguard();
-                                    }
+                                    //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                                    //if (ppService != null) {
+                                        GlobalUtils.switchKeyguard(appContext);
+                                    //}
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }
@@ -276,10 +276,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - start");
                                 // enable/disable keyguard
                                 try {
-                                    PhoneProfilesService ppService = PhoneProfilesService.getInstance();
-                                    if (ppService != null) {
-                                        ppService.switchKeyguard();
-                                    }
+                                    //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                                    //if (ppService != null) {
+                                        GlobalUtils.switchKeyguard(appContext);
+                                    //}
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }

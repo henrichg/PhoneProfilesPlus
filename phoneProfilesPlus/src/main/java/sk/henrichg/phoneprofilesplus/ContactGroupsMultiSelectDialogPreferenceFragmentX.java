@@ -133,15 +133,15 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
                 //    EditorActivity.getContactGroupsCache().getContactGroupList(prefContext);
 
                 // must be first
-                PhoneProfilesService.createContactsCache(prefContext.getApplicationContext(), false);
-                ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                PPApplication.createContactsCache(prefContext.getApplicationContext(), false);
+                ContactsCache contactsCache = PPApplication.getContactsCache();
                 if (contactsCache != null) {
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);
                 }
                 //must be seconds, this ads groups int contacts
-                PhoneProfilesService.createContactGroupsCache(prefContext.getApplicationContext(), false);
-                ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+                PPApplication.createContactGroupsCache(prefContext.getApplicationContext(), false);
+                ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
                 if (contactGroupsCache != null) {
                     while (contactGroupsCache.getCaching())
                         GlobalUtils.sleep(100);

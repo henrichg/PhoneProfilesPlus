@@ -692,7 +692,7 @@ class EventPreferencesSMS extends EventPreferences {
                     }*/
 
                         if (!split.isEmpty()) {
-                            ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                            ContactsCache contactsCache = PPApplication.getContactsCache();
                             if (contactsCache == null)
                                 return;
 
@@ -756,7 +756,7 @@ class EventPreferencesSMS extends EventPreferences {
                         }*/
 
                             if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                                ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                                ContactsCache contactsCache = PPApplication.getContactsCache();
                                 if (contactsCache == null)
                                     return;
 

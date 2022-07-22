@@ -4761,10 +4761,10 @@ class ActivateProfileHelper {
                     if (PPApplication.isScreenOn && !keyguardShowing) {
                         try {
 //                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "switch keyguard");
-                            PhoneProfilesService ppService = PhoneProfilesService.getInstance();
-                            if (ppService != null) {
-                                ppService.switchKeyguard();
-                            }
+                            //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                            //if (ppService != null) {
+                                GlobalUtils.switchKeyguard(context);
+                            //}
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }

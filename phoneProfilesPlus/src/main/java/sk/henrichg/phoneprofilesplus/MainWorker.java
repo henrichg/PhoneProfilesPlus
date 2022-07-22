@@ -498,9 +498,9 @@ public class MainWorker extends Worker {
 
 //        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - START");
         // must be first
-        PhoneProfilesService.createContactsCache(appContext, true);
+        PPApplication.createContactsCache(appContext, true);
         //must be seconds, this ads groups int contacts
-        PhoneProfilesService.createContactGroupsCache(appContext, true);
+        PPApplication.createContactGroupsCache(appContext, true);
 //        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - END");
         EventsHandler eventsHandler = new EventsHandler(appContext);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);

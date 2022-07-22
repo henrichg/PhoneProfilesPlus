@@ -256,7 +256,7 @@ public class EditorActivity extends AppCompatActivity
 
         //savedInstanceStateChanged = (savedInstanceState != null);
 
-        PhoneProfilesService.createApplicationsCache(true);
+        PPApplication.createApplicationsCache(true);
 
         /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             setContentView(R.layout.activity_editor_list_onepane_19);

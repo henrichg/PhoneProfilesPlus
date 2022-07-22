@@ -699,6 +699,10 @@ public class PPApplication extends Application
     //public static long lastUptimeTime;
     //public static long lastEpochTime;
 
+    private static volatile ApplicationsCache applicationsCache;
+    static private volatile ContactsCache contactsCache;
+    static private volatile ContactGroupsCache contactGroupsCache;
+
     static volatile KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")
     static volatile KeyguardManager.KeyguardLock keyguardLock = null;
@@ -4274,6 +4278,60 @@ public class PPApplication extends Application
         }
         else
             return null;
+    }
+
+    // application cache -----------------
+
+    public static void createApplicationsCache(boolean clear)
+    {
+        if (clear) {
+            if (applicationsCache != null) {
+                applicationsCache.clearCache(true);
+            }
+            applicationsCache = null;
+        }
+        if (applicationsCache != null)
+            applicationsCache.clearCache(true);
+        applicationsCache =  new ApplicationsCache();
+    }
+
+    public static ApplicationsCache getApplicationsCache()
+    {
+        return applicationsCache;
+    }
+
+    // contacts and contact groups cache -----------------
+
+    public static void createContactsCache(Context context, boolean clear)
+    {
+        if (clear) {
+            if (contactsCache != null)
+                contactsCache.clearCache();
+        }
+        if (contactsCache == null)
+            contactsCache = new ContactsCache();
+        contactsCache.getContactList(context);
+    }
+
+    public static ContactsCache getContactsCache()
+    {
+        return contactsCache;
+    }
+
+    public static void createContactGroupsCache(Context context, boolean clear)
+    {
+        if (clear) {
+            if (contactGroupsCache != null)
+                contactGroupsCache.clearCache();
+        }
+        if (contactGroupsCache == null)
+            contactGroupsCache = new ContactGroupsCache();
+        contactGroupsCache.getContactGroupListX(context);
+    }
+
+    public static ContactGroupsCache getContactGroupsCache()
+    {
+        return contactGroupsCache;
     }
 
     // check if Pixel Launcher is default --------------------------------------------------

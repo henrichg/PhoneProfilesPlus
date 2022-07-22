@@ -62,7 +62,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+        ContactsCache contactsCache = PPApplication.getContactsCache();
         if (contactsCache == null)
             return;
 

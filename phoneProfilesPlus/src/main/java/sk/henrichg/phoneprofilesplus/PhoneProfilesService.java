@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -47,9 +46,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -160,10 +157,6 @@ public class PhoneProfilesService extends Service
     static final int START_FOR_EXTERNAL_APP_EVENT = 2;
 
     //------------------------
-
-    private static volatile ApplicationsCache applicationsCache;
-    static private volatile ContactsCache contactsCache;
-    static private volatile ContactGroupsCache contactGroupsCache;
 
     private AudioManager audioManager = null;
     static private volatile boolean ringingCallIsSimulating = false;
@@ -4994,38 +4987,6 @@ public class PhoneProfilesService extends Service
         return START_STICKY;
     }
 
-    void switchKeyguard() {
-//        PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_SWITCH_KEYGUARD");
-
-        //boolean isScreenOn;
-        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-        //isScreenOn = ((pm != null) && PPApplication.isScreenOn(pm));
-
-        boolean secureKeyguard;
-        //if (PPApplication.keyguardManager == null)
-        //    KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
-        if (PPApplication.keyguardManager != null) {
-            secureKeyguard = PPApplication.keyguardManager.isKeyguardSecure();
-//            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "secureKeyguard=" + secureKeyguard);
-            if (!secureKeyguard) {
-//                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "getLockScreenDisabled=" + ApplicationPreferences.prefLockScreenDisabled);
-
-                if (PPApplication.isScreenOn) {
-//                    PPApplication.logE("$$$ PhoneProfilesService.doCommand", "screen on");
-
-                    if (ApplicationPreferences.prefLockScreenDisabled) {
-//                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "disableKeyguard()");
-                        reenableKeyguard();
-                        disableKeyguard();
-                    } else {
-//                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "reenableKeyguard()");
-                        reenableKeyguard();
-                    }
-                }
-            }
-        }
-    }
-
     private void doCommand(Intent _intent) {
 //        PPApplication.logE("*************** PhoneProfilesService.doCommand", "xxxxxx");
         if (_intent != null) {
@@ -5599,94 +5560,6 @@ public class PhoneProfilesService extends Service
 //        }
 
     }
-
-    //------------------------
-
-    // application cache -----------------
-
-    public static void createApplicationsCache(boolean clear)
-    {
-        if (clear) {
-            if (applicationsCache != null) {
-                applicationsCache.clearCache(true);
-            }
-            applicationsCache = null;
-        }
-        if (applicationsCache != null)
-            applicationsCache.clearCache(true);
-        applicationsCache =  new ApplicationsCache();
-    }
-
-    public static ApplicationsCache getApplicationsCache()
-    {
-        return applicationsCache;
-    }
-
-    // contacts and contact groups cache -----------------
-
-    public static void createContactsCache(Context context, boolean clear)
-    {
-        if (clear) {
-            if (contactsCache != null)
-                contactsCache.clearCache();
-        }
-        if (contactsCache == null)
-            contactsCache = new ContactsCache();
-        contactsCache.getContactList(context);
-    }
-
-    public static ContactsCache getContactsCache()
-    {
-        return contactsCache;
-    }
-
-    public static void createContactGroupsCache(Context context, boolean clear)
-    {
-        if (clear) {
-            if (contactGroupsCache != null)
-                contactGroupsCache.clearCache();
-        }
-        if (contactGroupsCache == null)
-            contactGroupsCache = new ContactGroupsCache();
-        contactGroupsCache.getContactGroupListX(context);
-    }
-
-    public static ContactGroupsCache getContactGroupsCache()
-    {
-        return contactGroupsCache;
-    }
-
-    // switch keyguard ------------------------------------
-
-    private void disableKeyguard()
-    {
-//        PPApplication.logE("$$$ PhoneProfilesService.disableKeyguard","keyguardLock="+PPApplication.keyguardLock);
-
-        if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
-            try {
-                PPApplication.keyguardLock.disableKeyguard();
-            } catch (Exception e) {
-                //Log.e("PhoneProfilesService", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
-        }
-    }
-
-    private void reenableKeyguard()
-    {
-//        PPApplication.logE("$$$ PhoneProfilesService.reenableKeyguard","keyguardLock="+PPApplication.keyguardLock);
-
-        if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
-            try {
-                PPApplication.keyguardLock.reenableKeyguard();
-            } catch (Exception e) {
-                //Log.e("PhoneProfilesService", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
-        }
-    }
-
-    //--------------------------------------
 
     // Location ----------------------------------------------------------------
 

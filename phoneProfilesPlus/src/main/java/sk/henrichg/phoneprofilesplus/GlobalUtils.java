@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.Resources;
@@ -17,6 +18,68 @@ import java.util.List;
 import java.util.Locale;
 
 public class GlobalUtils {
+
+    static void switchKeyguard(Context context) {
+//        PPApplication.logE("[IN_THREAD_HANDLER] GlobalUtils.switchKeyguard", "EXTRA_SWITCH_KEYGUARD");
+
+        //boolean isScreenOn;
+        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+        //isScreenOn = ((pm != null) && PPApplication.isScreenOn(pm));
+
+        boolean secureKeyguard;
+        //if (PPApplication.keyguardManager == null)
+        //    KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
+        if (PPApplication.keyguardManager != null) {
+            secureKeyguard = PPApplication.keyguardManager.isKeyguardSecure();
+//            PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "secureKeyguard=" + secureKeyguard);
+            if (!secureKeyguard) {
+//                PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "getLockScreenDisabled=" + ApplicationPreferences.prefLockScreenDisabled);
+
+                if (PPApplication.isScreenOn) {
+//                    PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "screen on");
+
+                    if (ApplicationPreferences.prefLockScreenDisabled) {
+//                        PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "disableKeyguard()");
+                        reenableKeyguard(context);
+                        disableKeyguard(context);
+                    } else {
+//                        PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "reenableKeyguard()");
+                        reenableKeyguard(context);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void disableKeyguard(Context context)
+    {
+//        PPApplication.logE("$$$ GlobalUtils.disableKeyguard","keyguardLock="+PPApplication.keyguardLock);
+
+        if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(context.getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
+            try {
+                PPApplication.keyguardLock.disableKeyguard();
+            } catch (Exception e) {
+                //Log.e("GlobalUtils.disableKeyguard", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+            }
+        }
+    }
+
+    private static void reenableKeyguard(Context context)
+    {
+//        PPApplication.logE("$$$ GlobalUtils.reenableKeyguard","keyguardLock="+PPApplication.keyguardLock);
+
+        if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(context.getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
+            try {
+                PPApplication.keyguardLock.reenableKeyguard();
+            } catch (Exception e) {
+                //Log.e("GlobalUtils.reenableKeyguard", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+            }
+        }
+    }
+
+    //-------------
 
     static boolean isNowTimeBetweenTimes(int startTime, int endTime) {
         if (startTime == endTime)
