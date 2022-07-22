@@ -1174,7 +1174,7 @@ public class PhoneProfilesNotification {
                     }
                     notificationBuilder.setSmallIcon(iconSmallResource);
 
-                    int iconLargeResource = Profile.getIconResource(iconIdentifier);
+                    int iconLargeResource = ProfileStatic.getIconResource(iconIdentifier);
                     iconBitmap = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
                     if (iconBitmap != null) {
                         if (notificationProfileIconColor.equals("1"))
@@ -1226,7 +1226,7 @@ public class PhoneProfilesNotification {
                         decoratorColor = profile.getIconCustomColor();
                     else {
                         if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                            decoratorColor = Profile.getIconDefaultColor(iconIdentifier);
+                            decoratorColor = ProfileStatic.getIconDefaultColor(iconIdentifier);
                         }
                     }
                 }

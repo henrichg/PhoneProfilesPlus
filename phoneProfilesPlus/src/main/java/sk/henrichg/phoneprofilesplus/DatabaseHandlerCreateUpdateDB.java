@@ -1603,7 +1603,7 @@ class DatabaseHandlerCreateUpdateDB {
                         String[] splits = brightness.split("\\|");
 
                         int percentage = Integer.parseInt(splits[0]);
-                        percentage = (int) Profile.convertBrightnessToPercents(percentage/*, 255, 1*/);
+                        percentage = (int) ProfileStatic.convertBrightnessToPercents(percentage/*, 255, 1*/);
 
                         // hm, found brightness values without default profile :-/
                         if (splits.length == 4)
@@ -2629,7 +2629,7 @@ class DatabaseHandlerCreateUpdateDB {
 
                         // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
                         //profile = Profile.getMappedProfile(profile, sharedProfile);
-                        profile = Profile.removeSharedProfileParameters(profile);
+                        profile = ProfileStatic.removeSharedProfileParameters(profile);
                         if (profile != null) {
                             ContentValues values = new ContentValues();
                             values.put(DatabaseHandler.KEY_NAME, profile._name);

@@ -385,8 +385,8 @@ class DatabaseHandlerImportExport {
                     ContentValues values = new ContentValues();
 
                     String icon = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_ICON));
-                    if (!Profile.getIsIconResourceID(icon)) {
-                        String iconIdentifier = Profile.getIconIdentifier(icon);
+                    if (!ProfileStatic.getIsIconResourceID(icon)) {
+                        String iconIdentifier = ProfileStatic.getIconIdentifier(icon);
                         boolean isGranted = false;
                         Uri uri = Uri.parse(iconIdentifier);
                         if (uri != null) {

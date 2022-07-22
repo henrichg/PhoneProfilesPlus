@@ -240,7 +240,7 @@ class ActivatorListAdapter extends BaseAdapter
                         //holder.profileIcon.setImageBitmap(null);
                         //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                         //        vi.getContext().PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                        int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
                         holder.profileIcon.setImageResource(res); // icon resource
                     }
                 }

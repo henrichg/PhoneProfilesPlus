@@ -206,7 +206,7 @@ class DatabaseHandlerOthers {
                             profile.saveProfileToSharedPreferences(sharedPreferences);
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_AIRPLANE_MODE)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -222,7 +222,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WIFI)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -237,7 +237,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_BLUETOOTH)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -252,7 +252,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -269,7 +269,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -283,7 +283,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -298,7 +298,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_PREFS)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, sharedPreferences, true, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, sharedPreferences, true, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -313,7 +313,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_GPS)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -328,7 +328,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_LOCATION_SERVICE_PREFS)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -343,7 +343,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NFC)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -358,7 +358,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WIFI_AP)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -425,7 +425,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_POWER_SAVE_MODE)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -440,7 +440,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -454,7 +454,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -468,7 +468,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -483,7 +483,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NOTIFICATION_LED)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -498,7 +498,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATE_WHEN_RINGING)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -513,7 +513,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATE_NOTIFICATIONS)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -527,7 +527,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
 
-                            PreferenceAllowed _preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, sharedPreferences, false, instance.context);
+                            PreferenceAllowed _preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, sharedPreferences, false, instance.context);
                             if ((_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                     (_preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                     (_preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -541,7 +541,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -556,7 +556,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -571,7 +571,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -586,7 +586,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -601,7 +601,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_PREFS)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -616,7 +616,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ALWAYS_ON_DISPLAY)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -631,7 +631,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_LOCATION_MODE)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -646,7 +646,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CAMERA_FLASH)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -661,7 +661,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -676,7 +676,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_ONOFF_SIM1)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -690,7 +690,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_ONOFF_SIM2)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -705,7 +705,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_RINGTONE_CHANGE_SIM1)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -719,7 +719,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_RINGTONE_CHANGE_SIM2)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -733,7 +733,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_NOTIFICATION_CHANGE_SIM1)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -747,7 +747,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_NOTIFICATION_CHANGE_SIM2)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -761,7 +761,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)) != 0) {
-                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, sharedPreferences, false, instance.context);
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&

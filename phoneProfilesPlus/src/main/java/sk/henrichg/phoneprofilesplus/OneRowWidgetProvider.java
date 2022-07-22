@@ -629,7 +629,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         else {
                             //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
                             //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                            int iconResource = Profile.getIconResource(iconIdentifier);
+                            int iconResource = ProfileStatic.getIconResource(iconIdentifier);
                             remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
                         }
                     }

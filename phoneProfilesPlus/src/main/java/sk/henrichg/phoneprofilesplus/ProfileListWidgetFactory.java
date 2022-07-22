@@ -168,7 +168,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     else
                         row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
                             /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
-                            Profile.getIconResource(profile.getIconIdentifier()));
+                                ProfileStatic.getIconResource(profile.getIconIdentifier()));
                 }
             } else {
                 if (bitmap != null)

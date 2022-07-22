@@ -2351,7 +2351,7 @@ public class PPApplication extends Application
         ActivateProfileHelper.getKeepScreenOnPermanent(context);
         ActivateProfileHelper.getMergedRingNotificationVolumes(context);
         //Profile.getActivatedProfileForDuration(context);
-        Profile.getActivatedProfileEndDurationTime(context);
+        ProfileStatic.getActivatedProfileEndDurationTime(context);
     }
 
     //--------------------------------------------------------------

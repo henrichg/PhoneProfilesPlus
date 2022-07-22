@@ -485,7 +485,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                             if (afterDoProfile._iconBitmap != null)
                                 profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
                             else {
-                                int res = Profile.getIconResource(afterDoProfile.getIconIdentifier());
+                                int res = ProfileStatic.getIconResource(afterDoProfile.getIconIdentifier());
                                 profileIcon.setImageResource(res); // icon resource
                             }
                         }

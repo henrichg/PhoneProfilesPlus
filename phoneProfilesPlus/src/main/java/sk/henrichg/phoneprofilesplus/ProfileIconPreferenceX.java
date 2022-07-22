@@ -113,7 +113,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
         try {
             customColor = Integer.parseInt(splits[3]);
         } catch (Exception e) {
-            customColor = Profile.getIconDefaultColor(imageIdentifier/*, prefContext*/);
+            customColor = ProfileStatic.getIconDefaultColor(imageIdentifier/*, prefContext*/);
         }
 
         /*if (!isImageResourceID) {
@@ -420,7 +420,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
                 if (preference.isImageResourceID) {
                     // je to resource id
 
-                    int res = Profile.getIconResource(preference.imageIdentifier);
+                    int res = ProfileStatic.getIconResource(preference.imageIdentifier);
                     bitmap = BitmapManipulator.getBitmapFromResource(res, true, prefContext);
 
                     if (preference.useCustomColor)
@@ -431,7 +431,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
                     bitmap = preference.getBitmap();
                 }
 
-                Bitmap _bitmap = Profile.increaseProfileIconBrightnessForPreference(bitmap, preference);
+                Bitmap _bitmap = ProfileStatic.increaseProfileIconBrightnessForPreference(bitmap, preference);
                 if (_bitmap != null)
                     bitmap = _bitmap;
             }

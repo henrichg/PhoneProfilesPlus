@@ -67,7 +67,7 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
         }
         ta.recycle();
 
-        this.defaultColor = Profile.getIconDefaultColor(preference.imageIdentifier/*, prefContext*/);
+        this.defaultColor = ProfileStatic.getIconDefaultColor(preference.imageIdentifier/*, prefContext*/);
 
         // default icon color --------------------------------
 

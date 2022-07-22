@@ -55,7 +55,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
 
             // save alarm for generator of profile name with duration
-            Profile.setActivatedProfileEndDurationTime(context, alarmTime);
+            ProfileStatic.setActivatedProfileEndDurationTime(context, alarmTime);
 
             if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
 
@@ -195,7 +195,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 long alarmTime = configuredTime.getTimeInMillis();
 
                 // save configured end of activation time for generator of profile name with duration
-                Profile.setActivatedProfileEndDurationTime(context, profile._endOfActivationTime);
+                ProfileStatic.setActivatedProfileEndDurationTime(context, profile._endOfActivationTime);
 
                 //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
                 Intent intent = new Intent();
@@ -320,7 +320,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             // moved to cancelWork
             //PPApplication.elapsedAlarmsProfileDurationWork.remove(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int) profile._id);
         }
-        Profile.setActivatedProfileEndDurationTime(context, 0);
+        ProfileStatic.setActivatedProfileEndDurationTime(context, 0);
         //PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.removeAlarm", "removed");
     }
 

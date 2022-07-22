@@ -163,8 +163,8 @@ public class ActivatorActivity extends AppCompatActivity {
 //            Log.e("ActivatorActivity.onCreate", "25%="+Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext()));
             //if (actualBightnessMode != Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
             if (actualBrightness <
-                    Profile.convertPercentsToBrightnessManualValue(15, getApplicationContext())) {
-                layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(35, getApplicationContext()) / (float) 255;
+                    ProfileStatic.convertPercentsToBrightnessManualValue(15, getApplicationContext())) {
+                layoutParams.screenBrightness = ProfileStatic.convertPercentsToBrightnessManualValue(35, getApplicationContext()) / (float) 255;
                 win.setAttributes(layoutParams);
             }
             //}

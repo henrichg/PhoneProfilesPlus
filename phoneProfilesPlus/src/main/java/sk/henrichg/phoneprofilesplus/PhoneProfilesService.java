@@ -2308,11 +2308,11 @@ public class PhoneProfilesService extends Service
             dataWrapper.fillEventList();
             boolean forceStopExists = dataWrapper.profileTypeExists(DatabaseHandler.PTYPE_FORCE_STOP/*, false*/);
             if (forceStopExists)
-                forceStopAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, null, false, appContext).allowed ==
+                forceStopAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, null, false, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean lockDeviceExists = dataWrapper.profileTypeExists(DatabaseHandler.PTYPE_LOCK_DEVICE/*, false*/);
             if (lockDeviceExists)
-                lockDeviceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, false, appContext).allowed ==
+                lockDeviceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, false, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean applicationExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
             if (applicationExists)
@@ -6245,9 +6245,9 @@ public class PhoneProfilesService extends Service
                     int _ringingVolume;
                     String ringtoneVolumeFromProfile = intent.getStringExtra(EXTRA_NEW_RINGER_VOLUME);
 //                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneVolumeFromProfile=" + ringtoneVolumeFromProfile);
-                    if (Profile.getVolumeChange(ringtoneVolumeFromProfile)) {
+                    if (ProfileStatic.getVolumeChange(ringtoneVolumeFromProfile)) {
 //                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing volume from profile");
-                        _ringingVolume = Profile.getVolumeRingtoneValue(ringtoneVolumeFromProfile);
+                        _ringingVolume = ProfileStatic.getVolumeRingtoneValue(ringtoneVolumeFromProfile);
                     }
                     else {
 //                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing volume from system");

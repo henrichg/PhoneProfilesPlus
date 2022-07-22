@@ -212,9 +212,9 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                     if (_automatic == 1)
                         allowed = preference.adaptiveAllowed;
                     if (allowed) {
-                        int __value = Profile.convertPercentsToBrightnessManualValue(_value, context);
+                        int __value = ProfileStatic.convertPercentsToBrightnessManualValue(_value, context);
                         Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
-                        setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(_value, context));
+                        setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(_value, context));
                     }
                 }
             }
@@ -350,9 +350,9 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 if (preference.automatic == 1)
                     allowed = preference.adaptiveAllowed;
                 if (allowed) {
-                    int __value = Profile.convertPercentsToBrightnessManualValue(value, context);
+                    int __value = ProfileStatic.convertPercentsToBrightnessManualValue(value, context);
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
-                    setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(value, context));
+                    setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(value, context));
                 }
             }
         }

@@ -5198,8 +5198,8 @@ public class EditorActivity extends AppCompatActivity
 
                                         // set profile parameters to "Not used" for non-granted Uri premissions
                                         String icon = profile._icon;
-                                        if (!Profile.getIsIconResourceID(icon)) {
-                                            String iconIdentifier = Profile.getIconIdentifier(icon);
+                                        if (!ProfileStatic.getIsIconResourceID(icon)) {
+                                            String iconIdentifier = ProfileStatic.getIconIdentifier(icon);
                                             boolean isGranted = false;
                                             Uri uri = Uri.parse(iconIdentifier);
                                             if (uri != null) {

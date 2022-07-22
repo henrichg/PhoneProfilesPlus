@@ -276,7 +276,7 @@ public class MainWorker extends Worker {
         }
     }
 
-    private static void doAfterFirstStart(Context context,
+    private void doAfterFirstStart(Context context,
                                           boolean activateProfiles,
                                           boolean startForExternalApplication,
                                           String startForExternalAppAction,

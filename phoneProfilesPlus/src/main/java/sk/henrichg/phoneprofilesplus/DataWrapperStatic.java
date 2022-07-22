@@ -536,7 +536,7 @@ public class DataWrapperStatic {
                     profileBitmap = profile._iconBitmap;
                 else {
                     //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                    int iconResource = Profile.getIconResource(iconIdentifier);
+                    int iconResource = ProfileStatic.getIconResource(iconIdentifier);
                     //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
                     profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                 }

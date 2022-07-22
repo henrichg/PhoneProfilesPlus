@@ -1129,7 +1129,7 @@ public class EditorEventListFragment extends Fragment
                     if (profile._iconBitmap != null)
                         activeProfileIcon.setImageBitmap(profile._iconBitmap);
                     else {
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                        int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
                         activeProfileIcon.setImageResource(res); // icon resource
                     }
                 }

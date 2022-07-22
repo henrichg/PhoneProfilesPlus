@@ -203,7 +203,7 @@ public class PPTileService extends TileService {
                                 if (profile._iconBitmap != null)
                                     tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
                                 else {
-                                    int res = Profile.getIconResource(profile.getIconIdentifier());
+                                    int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
                                     tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
                                 }
                             } else {

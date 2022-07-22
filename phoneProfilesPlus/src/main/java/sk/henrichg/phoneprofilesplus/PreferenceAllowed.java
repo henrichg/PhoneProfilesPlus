@@ -1040,7 +1040,7 @@ class PreferenceAllowed {
 
             if (sharedPreferences != null) {
                 String value = sharedPreferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS));
-                if (Profile.getDeviceBrightnessChange(value) && Profile.getDeviceBrightnessAutomatic(value)) {
+                if (ProfileStatic.getDeviceBrightnessChange(value) && ProfileStatic.getDeviceBrightnessAutomatic(value)) {
                     if (applicationNeverAskForGrantRoot) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;

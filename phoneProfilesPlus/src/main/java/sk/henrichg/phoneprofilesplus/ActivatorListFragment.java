@@ -513,7 +513,7 @@ public class ActivatorListFragment extends Fragment {
                         activeProfileIcon.setImageBitmap(profile._iconBitmap);
                     else {
                         //int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
+                        int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
                         activeProfileIcon.setImageResource(res); // icon resource
                     }
                 }

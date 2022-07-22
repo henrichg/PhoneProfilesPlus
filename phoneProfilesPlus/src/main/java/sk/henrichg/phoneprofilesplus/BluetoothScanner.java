@@ -115,7 +115,7 @@ class BluetoothScanner {
                                    //(forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                     //if (scan) {
                         if (leDevicesScan)
-                            leDevicesScan = isLocationEnabled(context/*, scannerType*/);
+                            leDevicesScan = GlobalUtils.isLocationEnabled(context);
                     //}
                     /*if (!scan) {
                         // bluetooth scan events not exists
@@ -481,81 +481,6 @@ class BluetoothScanner {
     static boolean bluetoothLESupported(/*Context context*/) {
         return (/*(android.os.Build.VERSION.SDK_INT >= 18) &&*/
                 PPApplication.HAS_FEATURE_BLUETOOTH_LE);
-    }
-
-    private static boolean isLocationEnabled(Context context/*, String scanType*/) {
-        //if (Build.VERSION.SDK_INT >= 23) {
-            // check for Location Settings
-
-            if (!GlobalUtils.isLocationEnabled(context)/* || (!isScanAlwaysAvailable)*/) {
-                // Location settings are not properly set, show notification about it
-
-                /*
-                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-
-                    if (getShowEnableLocationNotification(context, scanType)) {
-                        //Intent notificationIntent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                        Intent notificationIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                        String notificationText;
-                        String notificationBigText;
-
-                        notificationText = context.getString(R.string.phone_profiles_pref_category_bluetooth_scanning);
-                        notificationBigText = context.getString(R.string.phone_profiles_pref_eventBluetoothLocationSystemSettings_summary);
-
-                        String nTitle = notificationText;
-                        String nText = notificationBigText;
-                        if (android.os.Build.VERSION.SDK_INT < 24) {
-                            nTitle = context.getString(R.string.ppp_app_name);
-                            nText = notificationText + ": " + notificationBigText;
-                        }
-                        PPApplication.createExclamationNotificationChannel(context);
-                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                                .setColor(ContextCompat.getColor(context, R.color.primary))
-                                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                                .setContentTitle(nTitle) // title for notification
-                                .setContentText(nText) // message for notification
-                                .setAutoCancel(true); // clear notification after click
-                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
-
-                        int requestCode;
-                        //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategory");
-                        requestCode = 2;
-
-                        //notificationIntent.putExtra(PhoneProfilesPresActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-
-                        PendingIntent pi = PendingIntent.getActivity(context, requestCode, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        mBuilder.setContentIntent(pi);
-                        mBuilder.setPriority(Notification.PRIORITY_MAX);
-                        mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-                        mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                        if (mNotificationManager != null) {
-                            mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID, mBuilder.build());
-                        }
-
-                        setShowEnableLocationNotification(context, false, scanType);
-                    }
-                }
-                */
-
-                return false;
-            }
-            else {
-                /*NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
-                    notificationManager.cancel(PPApplication.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID);
-                }
-                setShowEnableLocationNotification(context, true, scanType);*/
-                return true;
-            }
-
-        /*}
-        else {
-            //setShowEnableLocationNotification(context, true, scanType);
-            return true;
-        }*/
     }
 
 }
