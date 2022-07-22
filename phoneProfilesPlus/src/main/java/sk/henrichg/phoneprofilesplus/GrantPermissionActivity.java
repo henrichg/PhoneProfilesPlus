@@ -1643,7 +1643,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         PPApplication.registerContentObservers(context);
         PPApplication.registerCallbacks(context);
-        PPApplication.registerPhoneCallsListener(context);
+        PPApplication.registerPhoneCallsListener(true, context);
 
 
         /*

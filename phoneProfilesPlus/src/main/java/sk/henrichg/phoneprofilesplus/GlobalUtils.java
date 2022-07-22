@@ -65,7 +65,7 @@ public class GlobalUtils {
         }
     }
 
-    private static void reenableKeyguard(Context context)
+    static void reenableKeyguard(Context context)
     {
 //        PPApplication.logE("$$$ GlobalUtils.reenableKeyguard","keyguardLock="+PPApplication.keyguardLock);
 

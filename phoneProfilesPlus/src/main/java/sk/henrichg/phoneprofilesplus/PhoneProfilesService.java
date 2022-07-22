@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -134,6 +133,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REGISTER_CONTENT_OBSERVERS = "register_content_observers";
     static final String EXTRA_REGISTER_CALLBACKS = "register_callbacks";
     static final String EXTRA_REGISTER_PHONE_CALLS_LISTENER = "register_phone_calls_listener";
+    static final String EXTRA_UNREGISTER_PHONE_CALLS_LISTENER = "unregister_phone_calls_listener";
     static final String EXTRA_FROM_BATTERY_CHANGE = "from_battery_change";
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
@@ -151,6 +151,9 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE = "start_for_external_app_data_type";
     static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE = "start_for_external_app_data_value";
     static final String EXTRA_RESCAN_SCANNERS = "rescan_scanners";
+    //static final String EXTRA_STOP_SIMULATING_RINGING_CALL = "stop_simulating_ringing_call";
+    //static final String EXTRA_STOP_SIMULATING_RINGING_CALL_NO_DISABLE_INTERNAL_CHANGE = "stop_simulating_ringing_call_no_disable_internal_change";
+
     //static final String EXTRA_SHOW_TOAST = "show_toast";
 
     static final int START_FOR_EXTERNAL_APP_PROFILE = 1;
@@ -428,7 +431,7 @@ public class PhoneProfilesService extends Service
         stopSimulatingRingingCall(/*true*/true, getApplicationContext());
         //stopSimulatingNotificationTone(true);
 
-        reenableKeyguard();
+        GlobalUtils.reenableKeyguard(getApplicationContext());
 
         registerAllTheTimeRequiredPPPBroadcastReceivers(false);
         registerAllTheTimeRequiredSystemReceivers(false);
@@ -1083,7 +1086,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    static void registerPhoneCallsListener(boolean register, Context context) {
+    void registerPhoneCallsListener(boolean register, Context context) {
         //PPApplication.logE("[RJS] PhoneProfilesService.registerPhoneCallsListener", "xxx");
 
         // keep this: it is required to use handlerThreadBroadcast for cal listener
@@ -5178,9 +5181,18 @@ public class PhoneProfilesService extends Service
                             } else if (intent.getBooleanExtra(EXTRA_REGISTER_PHONE_CALLS_LISTENER, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_PHONE_CALLS_LISTENER");
                                 registerPhoneCallsListener(true, appContext);
+                            } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_PHONE_CALLS_LISTENER, false)) {
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_PHONE_CALLS_LISTENER");
+                                registerPhoneCallsListener(false, appContext);
                             } else if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
                                 ppService.doSimulatingRingingCall(intent);
+                            /*} else if (intent.getBooleanExtra(EXTRA_STOP_SIMULATING_RINGING_CALL, false)) {
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
+                                ppService.stopSimulatingRingingCall(true, appContext);
+                            } else if (intent.getBooleanExtra(EXTRA_STOP_SIMULATING_RINGING_CALL_NO_DISABLE_INTERNAL_CHANGE, false)) {
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
+                                ppService.stopSimulatingRingingCall(false, appContext);*/
                             } else if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
@@ -6393,6 +6405,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    // must be sttaic because mus be called immediatelly from PhoneCallListener
     static void stopSimulatingRingingCall(/*boolean abandonFocus*/boolean disableInternalChange, Context context) {
         //if (ringingCallIsSimulating) {
 //            PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "xxx");

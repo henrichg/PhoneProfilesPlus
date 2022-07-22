@@ -3054,12 +3054,15 @@ public class PPApplication extends Application
         }
     }
 
-    public static void registerPhoneCallsListener(Context context) {
+    public static void registerPhoneCallsListener(boolean register, Context context) {
         try {
             //PPApplication.logE("[RJS] PPApplication.registerContentObservers", "xxx");
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_PHONE_CALLS_LISTENER, true);
+            if (register)
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_PHONE_CALLS_LISTENER, true);
+            else
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_PHONE_CALLS_LISTENER, true);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -3388,6 +3391,24 @@ public class PPApplication extends Application
         } catch (Exception ignored) {}
     }
 */
+
+    /*
+    public static void stopSimulatingRingingCall(boolean disableInternalChnage, Context context) {
+        try {
+            //PPApplication.logE("[RJS] PPApplication.restartAllScanners", "xxx");
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            if (disableInternalChnage)
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_STOP_SIMULATING_RINGING_CALL, true);
+            else
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_STOP_SIMULATING_RINGING_CALL_NO_DISABLE_INTERNAL_CHANGE, true);
+            PPApplication.runCommand(context, commandIntent);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+*/
+
     //---------------------------------------------------------------
 
     // others ------------------------------------------------------------------
