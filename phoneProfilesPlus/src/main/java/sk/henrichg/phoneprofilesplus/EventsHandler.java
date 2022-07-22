@@ -1232,7 +1232,7 @@ class EventsHandler {
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                Profile mergedProfile, DataWrapper dataWrapper)
     {
-        if (PhoneProfilesService.displayPreferencesErrorNotification(null, event, true, context)) {
+        if (DataWrapperStatic.displayPreferencesErrorNotification(null, event, true, context)) {
             event.setStatus(Event.ESTATUS_STOP);
             return;
         }

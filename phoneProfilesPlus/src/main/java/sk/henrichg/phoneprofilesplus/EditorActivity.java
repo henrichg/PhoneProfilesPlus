@@ -1968,7 +1968,7 @@ public class EditorActivity extends AppCompatActivity
                         //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
                         //Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                         //        /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
-                        PhoneProfilesService.displayPreferencesErrorNotification(profile, null, false, getApplicationContext());
+                        DataWrapperStatic.displayPreferencesErrorNotification(profile, null, false, getApplicationContext());
                     }
                 }
 
@@ -2008,7 +2008,7 @@ public class EditorActivity extends AppCompatActivity
                     redrawEventListFragment(event, newEventMode);
 
                     //Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
-                    PhoneProfilesService.displayPreferencesErrorNotification(null, event, false, getApplicationContext());
+                    DataWrapperStatic.displayPreferencesErrorNotification(null, event, false, getApplicationContext());
                 }
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);

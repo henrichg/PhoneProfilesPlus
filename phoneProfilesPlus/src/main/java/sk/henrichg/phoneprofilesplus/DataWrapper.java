@@ -493,7 +493,7 @@ public class DataWrapper {
         //if (Permissions.grantProfilePermissions(context, profile, merged, true,
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, false,true, false)) {
-        if (!PhoneProfilesService.displayPreferencesErrorNotification(profile, null, true, context)) {
+        if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
             //PPApplication.logE("&&&&&&& DataWrapper.activateProfileFromEvent", "called is DataWrapper._activateProfile()");
             _activateProfile(profile, merged, startupSource, forRestartEvents);
         }
@@ -1634,7 +1634,7 @@ public class DataWrapper {
 
                         boolean granted = true;
                         if (testGrant)
-                            granted = !PhoneProfilesService.displayPreferencesErrorNotification(profile, null, true, context);
+                            granted = !DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context);
                         if (granted) {
                             //PPApplication.logE("&&&&&&& DataWrapper.activateProfileFromMainThread", "called is DataWrapper._activateProfile()");
                             dataWrapper._activateProfile(profile, merged, startupSource, false);
@@ -1742,7 +1742,7 @@ public class DataWrapper {
                         //if (Permissions.grantProfilePermissions(context, _profile, false, true,
                         //        /*false, monochrome, monochromeValue,*/
                         //        _startupSource, true, true, false))
-                        if (!PhoneProfilesService.displayPreferencesErrorNotification(_profile, null, true, context)) {
+                        if (!DataWrapperStatic.displayPreferencesErrorNotification(_profile, null, true, context)) {
                             //PPApplication.logE("&&&&&&& DataWrapper.activateProfileWithAlert", "(1) called is DataWrapper.activateProfileFromMainThread");
 
                             if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
@@ -1813,7 +1813,7 @@ public class DataWrapper {
                 }
             }
             else {
-                if (!PhoneProfilesService.displayPreferencesErrorNotification(profile, null, true, context)) {
+                if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
                     //PPApplication.logE("&&&&&&& DataWrapper.activateProfileWithAlert", "(2) called is DataWrapper.activateProfileFromMainThread");
                     activateProfileFromMainThread(profile, false, startupSource, true, activity, false);
                 }
@@ -2010,7 +2010,7 @@ public class DataWrapper {
             //if (Permissions.grantProfilePermissions(context, profile, false, true,
             //        /*false, monochrome, monochromeValue,*/
             //        startupSource, true,true, false)) {
-            if (!PhoneProfilesService.displayPreferencesErrorNotification(profile, null, true, context)) {
+            if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
                 // activateProfileAfterDuration is already called from handlerThread
                 //PPApplication.logE("&&&&&&& DataWrapper.activateProfileAfterDuration", "called is DataWrapper._activateProfile()");
                 _activateProfile(profile, false, startupSource, false);

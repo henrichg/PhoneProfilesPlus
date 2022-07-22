@@ -65,7 +65,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         newProfileMode = getIntent().getIntExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
         predefinedProfileIndex = getIntent().getIntExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
-        if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
+        if (getIntent().getBooleanExtra(DataWrapperStatic.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
             if (dataWrapper.getProfileById(profile_id, false, false, false) == null) {
