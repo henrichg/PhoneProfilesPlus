@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -90,7 +91,7 @@ public class EditorActivity extends AppCompatActivity
 
     private ImageView eventsRunStopIndicator;
 
-    //private static volatile boolean savedInstanceStateChanged;
+    private static volatile boolean savedInstanceStateChanged;
 
     @SuppressWarnings("rawtypes")
     private AsyncTask importAsyncTask = null;
@@ -254,7 +255,7 @@ public class EditorActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        //savedInstanceStateChanged = (savedInstanceState != null);
+        savedInstanceStateChanged = (savedInstanceState != null);
 
         PPApplication.createApplicationsCache(true);
 
@@ -818,15 +819,15 @@ public class EditorActivity extends AppCompatActivity
             restoreAsyncTask.cancel(true);
         }
 
-        /*
-        if (!savedInstanceStateChanged)
-        {
+        Log.e("EditorActivity.onDestroy", "savedInstanceStateChanged="+savedInstanceStateChanged);
+        if (!savedInstanceStateChanged) {
             // no destroy caches on orientation change
-            if (applicationsCache != null)
-                applicationsCache.clearCache(true);
-            applicationsCache = null;
+            if (PPApplication.getApplicationsCache() != null) {
+                PPApplication.getApplicationsCache().cancelCaching();
+                if (!PPApplication.getApplicationsCache().cached)
+                    PPApplication.getApplicationsCache().clearCache(false);
+            }
         }
-        */
 
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
@@ -2999,8 +3000,15 @@ public class EditorActivity extends AppCompatActivity
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        savedInstanceStateChanged = true;
+        Log.e("EditorActivity.onSaveInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
+    }
 
-        //savedInstanceStateChanged = true;
+    @Override
+    public void onRestoreInstanceState(@NonNull Bundle outState) {
+        super.onRestoreInstanceState(outState);
+        savedInstanceStateChanged = false;
+        Log.e("EditorActivity.onRestoreInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
     }
 
      @Override

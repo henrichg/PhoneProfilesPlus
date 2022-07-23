@@ -19,7 +19,6 @@ import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -205,7 +204,7 @@ public class EditorEventListFragment extends Fragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.e("EditorEventListFragment.onViewCreated", "xxxxx");
+//        Log.e("EditorEventListFragment.onViewCreated", "xxxxx");
 
         doOnViewCreated(view, true);
 
@@ -636,7 +635,7 @@ public class EditorEventListFragment extends Fragment
     {
         super.onDestroy();
 
-        Log.e("EditorEventListFragment.onDestroy", "xxxxx");
+//        Log.e("EditorEventListFragment.onDestroy", "xxxxx");
 
 
         if (isAsyncTaskPendingOrRunning()) {
