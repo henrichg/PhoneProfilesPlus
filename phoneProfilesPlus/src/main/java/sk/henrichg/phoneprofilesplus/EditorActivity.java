@@ -766,6 +766,14 @@ public class EditorActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Log.e("EditorActivity.onResume", "xxx");
+        savedInstanceStateChanged = false;
+    }
+
+    @Override
     protected void onStop()
     {
         super.onStop();
@@ -822,11 +830,15 @@ public class EditorActivity extends AppCompatActivity
         Log.e("EditorActivity.onDestroy", "savedInstanceStateChanged="+savedInstanceStateChanged);
         if (!savedInstanceStateChanged) {
             // no destroy caches on orientation change
-            if (PPApplication.getApplicationsCache() != null) {
-                PPApplication.getApplicationsCache().cancelCaching();
-                if (!PPApplication.getApplicationsCache().cached)
-                    PPApplication.getApplicationsCache().clearCache(false);
-            }
+            Runnable runnable = () -> {
+                if (PPApplication.getApplicationsCache() != null) {
+                    PPApplication.getApplicationsCache().cancelCaching();
+                    if (!PPApplication.getApplicationsCache().cached)
+                        PPApplication.getApplicationsCache().clearCache(false);
+                }
+            };
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
         }
 
         try {
