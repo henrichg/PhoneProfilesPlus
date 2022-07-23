@@ -4311,9 +4311,8 @@ public class PPApplication extends Application
             }
             applicationsCache = null;
         }
-        if (applicationsCache != null)
-            applicationsCache.clearCache(true);
-        applicationsCache =  new ApplicationsCache();
+        if (applicationsCache == null)
+            applicationsCache =  new ApplicationsCache();
     }
 
     public static ApplicationsCache getApplicationsCache()

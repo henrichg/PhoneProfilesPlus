@@ -190,10 +190,22 @@ class ApplicationsCache {
 
     void clearCache(boolean nullList)
     {
+        for (Application application : applicationsList) {
+            Bitmap icon = getApplicationIcon(application, false);
+            if (!icon.isRecycled())
+                icon.recycle();
+        }
         applicationsList.clear();
         applicationIconsLru.evictAll();
+
+        for (Application application : applicationsNoShortcutsList) {
+            Bitmap icon = getApplicationIcon(application, true);
+            if (!icon.isRecycled())
+                icon.recycle();
+        }
         applicationsNoShortcutsList.clear();
         applicationNoShortcutIconsLru.evictAll();
+
         if (nullList) {
             applicationsList = null;
             applicationIconsLru = null;
