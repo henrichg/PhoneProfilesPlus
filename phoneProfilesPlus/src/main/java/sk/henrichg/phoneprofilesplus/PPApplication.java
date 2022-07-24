@@ -83,7 +83,7 @@ public class PPApplication extends Application
     //static final int VERSION_CODE_EXTENDER_6_2 = 670;
     //static final int VERSION_CODE_EXTENDER_7_0 = 700;
     //static final int VERSION_CODE_EXTENDER_8_0 = 800;
-    static final int VERSION_CODE_EXTENDER_LATEST = 800;
+    static final int VERSION_CODE_EXTENDER_LATEST = 810;
     static final String VERSION_NAME_EXTENDER_LATEST = "8.0";
 
     static final int pid = Process.myPid();
