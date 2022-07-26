@@ -27,7 +27,8 @@
         android:stretchMode="columnWidth"
         android:divider="@android:color/transparent"
         android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay" />
+        android:scrollbarStyle="outsideOverlay"
+        android:listSelector="@drawable/widget_ripple_list_item" />
 
     <TextView
         android:id="@+id/widget_samsung_edge_empty"
