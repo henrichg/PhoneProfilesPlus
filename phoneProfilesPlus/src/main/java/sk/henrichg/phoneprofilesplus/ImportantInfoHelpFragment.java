@@ -122,14 +122,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         //noinspection StatementWithEmptyBody
         if (newsLatest) {
-            // move this to newXXX, for switch off news
-
-            news = true; // news is enabled, news must be also in layout
-
-        }
-        else {
-            // move this to newXXX, for switch off news
-
+            news = PPApplication.SHOW_IMPORTANT_INFO_NEWS; // news is enabled, news must be also in layout
         }
 
         doOnViewCreated(view, this);
