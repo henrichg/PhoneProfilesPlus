@@ -259,7 +259,7 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
 
-                                                +"|ScreenOnOffBroadcastReceiver"
+                                                +"|SettingsContentObserver.onChange"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

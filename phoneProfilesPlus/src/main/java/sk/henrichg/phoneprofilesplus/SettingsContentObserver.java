@@ -176,6 +176,8 @@ class SettingsContentObserver  extends ContentObserver {
                 //(sUri.contains(Settings.System.VOLUME_DTMF)) || -- not received
                 //(sUri.contains(Settings.System.VOLUME_ACCESSIBILITY))) -- not received
             ) {
+                PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
+
                 okSetting = true;
                 volumeChange = true;
             }

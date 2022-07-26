@@ -40,9 +40,8 @@ public class LaunchWidgetListConfigurationActivity extends AppCompatActivity {
             //noinspection deprecation
             startActivityForResult(intent, 100);
         } catch (Exception e) {
-            //finish();
+            finish();
         }
-        finish();
     }
 
     @Override

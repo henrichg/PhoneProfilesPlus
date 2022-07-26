@@ -35,12 +35,14 @@ public class LaunchSamsungEdgeConfigurationActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
+    }
+
+    @Override
     public void finish() {
         // finish is called before of onStop()
-
-        Intent returnIntent = new Intent();
-        setResult(RESULT_OK, returnIntent);
-
         super.finish();
         overridePendingTransition(0, 0);
     }
