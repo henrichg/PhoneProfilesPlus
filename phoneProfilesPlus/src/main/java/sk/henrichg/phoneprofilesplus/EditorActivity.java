@@ -769,7 +769,7 @@ public class EditorActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        Log.e("EditorActivity.onResume", "xxx");
+//        Log.e("EditorActivity.onResume", "xxx");
         savedInstanceStateChanged = false;
     }
 
@@ -827,7 +827,7 @@ public class EditorActivity extends AppCompatActivity
             restoreAsyncTask.cancel(true);
         }
 
-        Log.e("EditorActivity.onDestroy", "savedInstanceStateChanged="+savedInstanceStateChanged);
+//        Log.e("EditorActivity.onDestroy", "savedInstanceStateChanged="+savedInstanceStateChanged);
         if (!savedInstanceStateChanged) {
             // no destroy caches on orientation change
             Runnable runnable = () -> {
@@ -3013,14 +3013,14 @@ public class EditorActivity extends AppCompatActivity
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         savedInstanceStateChanged = true;
-        Log.e("EditorActivity.onSaveInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
+//        Log.e("EditorActivity.onSaveInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
     }
 
     @Override
     public void onRestoreInstanceState(@NonNull Bundle outState) {
         super.onRestoreInstanceState(outState);
         savedInstanceStateChanged = false;
-        Log.e("EditorActivity.onRestoreInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
+//        Log.e("EditorActivity.onRestoreInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
     }
 
      @Override

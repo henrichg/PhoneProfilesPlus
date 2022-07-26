@@ -1033,9 +1033,9 @@ public class PPApplication extends Application
         */
 
         // https://issuetracker.google.com/issues/115575872#comment16
-        PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker START of enqueue");
+//        PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker START of enqueue");
         AvoidRescheduleReceiverWorker.enqueueWork();
-        PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker END of enqueue");
+//        PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker END of enqueue");
 
 //        init() moved to ActivateProfileHelpser.execute();
 //        try {
@@ -1353,7 +1353,7 @@ public class PPApplication extends Application
         boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
         if (!serviceStarted) {
 //            if (PPApplication.logEnabled()) {
-            PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "application is not started");
+//            PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "application is not started");
 //                PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "service instance=" + PhoneProfilesService.getInstance());
 //                if (PhoneProfilesService.getInstance() != null)
 //                    PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
@@ -1364,7 +1364,7 @@ public class PPApplication extends Application
                     //AutostartPermissionNotification.showNotification(appContext, true);
 
                     // start PhoneProfilesService
-                    PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "start PPService");
+//                    PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "start PPService");
                     //PPApplication.firstStartServiceStarted = false;
                     PPApplication.setApplicationStarted(appContext, true);
                     Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
@@ -1376,12 +1376,12 @@ public class PPApplication extends Application
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                    PPApplication.logE("[START_PP_SERVICE] PPApplication.startPPServiceWhenNotStarted", "(1)");
                     PPApplication.startPPService(appContext, serviceIntent);
-                } else {
-                    if (PPApplication.logEnabled()) {
-                        PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "ApplicationPreferences.applicationStartOnBoot=false");
+                } //else {
+//                    if (PPApplication.logEnabled()) {
+//                        PPApplication.logE("PPApplication.startPPServiceWhenNotStarted", "ApplicationPreferences.applicationStartOnBoot=false");
                         //PPApplication.logE("PPApplication.exitApp", "from ScreenOnOffBroadcastReceiver.startPPServiceWhenNotStarted shutdown=false");
-                    }
-                }
+//                    }
+//                }
             //}
         }
     }
