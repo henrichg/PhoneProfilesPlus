@@ -4,14 +4,16 @@
     android:id="@+id/event_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="10dp"
-    android:paddingEnd="0dp"
+    android:layout_marginStart="8dp"
     android:paddingTop="1dp"
     android:paddingBottom="1dp"
     android:orientation="horizontal"
     android:clickable="true"
-    android:background="?attr/selectableItemBackground"
-    android:focusable="true">
+    android:focusable="true"
+    android:background="@drawable/pp_editor_list_item_background_selector">
+<!--    android:background="?attr/selectableItemBackground"-->
+<!--    android:paddingStart="10dp"-->
+<!--    android:paddingEnd="0dp"-->
 
     <LinearLayout
         android:id="@+id/event_list_item_buttons_root"
@@ -62,7 +64,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="5dp"
-            android:layout_marginStart="0dp"
+            android:layout_marginStart="6dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
