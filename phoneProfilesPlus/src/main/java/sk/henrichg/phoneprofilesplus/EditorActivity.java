@@ -191,7 +191,7 @@ public class EditorActivity extends AppCompatActivity
     String defaultLanguage = "";
     String defaultCountry = "";
     String defaultScript = "";
-    final Collator languagesCollator = Collator.getInstance();
+    final Collator languagesCollator = GlobalUtils.getCollator();
 
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
