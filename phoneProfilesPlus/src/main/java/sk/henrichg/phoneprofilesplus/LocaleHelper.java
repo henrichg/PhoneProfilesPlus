@@ -146,6 +146,8 @@ public class LocaleHelper {
             configuration.setLocale(locale);
             configuration.setLayoutDirection(locale);
 
+            GlobalUtils.getCollator();
+
             if (forAttach) {
                 // !!! this must be, without this not working detection of night mode
                 configuration.uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED;

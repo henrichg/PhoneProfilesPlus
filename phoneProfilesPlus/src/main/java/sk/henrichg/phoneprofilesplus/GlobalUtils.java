@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.res.Resources;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -12,6 +11,7 @@ import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
+
 import java.text.Collator;
 import java.util.Calendar;
 import java.util.List;
@@ -352,7 +352,9 @@ public class GlobalUtils {
         //if (android.os.Build.VERSION.SDK_INT < 24) {
         // get application Locale
 //            String lang = ApplicationPreferences.applicationLanguage(context);
+
         Locale appLocale;
+
 //            if (!lang.equals("system")) {
 //                String[] langSplit = lang.split("-");
 //                if (langSplit.length == 1)
@@ -361,11 +363,16 @@ public class GlobalUtils {
 //                    appLocale = new Locale(langSplit[0], langSplit[1]);
 //            } else {
         //if (Build.VERSION.SDK_INT >= 24) {
-        appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
+        //appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
         //} else {
         //    appLocale = Resources.getSystem().getConfiguration().locale;
         //}
 //            }
+
+        // application locale
+        appLocale = Locale.getDefault();
+        //Log.e("GlobalUtils.getCollator", "app default language="+appLocale.getLanguage());
+
         // get collator for application locale
         return Collator.getInstance(appLocale);
 //        }
