@@ -3554,6 +3554,7 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.mobileCellsScannerMutex) {
             final Context appContext = getApplicationContext();
 
+            // keep this: it is required to use handlerThreadBroadcast for cal listener
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             __handler.post(() -> {
