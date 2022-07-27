@@ -1086,7 +1086,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    void registerPhoneCallsListener(boolean register, Context context) {
+    void registerPhoneCallsListener(final boolean register, final Context context) {
         //PPApplication.logE("[RJS] PhoneProfilesService.registerPhoneCallsListener", "xxx");
 
         // keep this: it is required to use handlerThreadBroadcast for cal listener
@@ -3549,59 +3549,64 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void startMobileCellsScanner(boolean start, boolean stop, DataWrapper dataWrapper, boolean forceStart,
-                                         boolean rescan) {
+    private void startMobileCellsScanner(final boolean start, final boolean stop, final DataWrapper dataWrapper,
+                                         final boolean forceStart, final boolean rescan) {
         synchronized (PPApplication.mobileCellsScannerMutex) {
-            Context appContext = getApplicationContext();
-            //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "xxx");
-            if (!forceStart && (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart))
-                return;
-            if (stop) {
-                if (isMobileCellsScannerStarted()) {
-                    stopMobileCellsScanner();
-                    //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "STOP");
-                }
-                //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "not started");
-            }
-            if (start) {
-                //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "START");
-                //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
-                if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
-                        MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
-                    boolean eventAllowed = false;
-                    if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart)
-                        eventAllowed = true;
-                    else {
-                        if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn)) {
-                            // start only for screen On
-                            dataWrapper.fillEventList();
-                            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MOBILE_CELLS/*, false*/);
-                            if (eventsExists)
-                                eventAllowed = (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED);
-                        }
+            final Context appContext = getApplicationContext();
+
+            PPApplication.startHandlerThreadBroadcast();
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            __handler.post(() -> {
+                //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "xxx");
+                if (!forceStart && (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart))
+                    return;
+                if (stop) {
+                    if (isMobileCellsScannerStarted()) {
+                        stopMobileCellsScanner();
+                        //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "STOP");
                     }
-                    //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "eventAllowed="+eventAllowed);
-                    if (eventAllowed) {
+                    //else
+                    //    PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "not started");
+                }
+                if (start) {
+                    //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "START");
+                    //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
+                    if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
+                            MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
+                        boolean eventAllowed = false;
+                        if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart)
+                            eventAllowed = true;
+                        else {
+                            if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn)) {
+                                // start only for screen On
+                                dataWrapper.fillEventList();
+                                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MOBILE_CELLS/*, false*/);
+                                if (eventsExists)
+                                    eventAllowed = (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
+                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                            }
+                        }
+                        //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "eventAllowed="+eventAllowed);
+                        if (eventAllowed) {
                         /*if (PPApplication.logEnabled()) {
                             //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "scanning enabled=" + applicationEventMobileCellEnableScanning);
                             PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "MobileCellsScanner.forceStart=" + MobileCellsScanner.forceStart);
                         }*/
-                        if (!isMobileCellsScannerStarted()) {
-                            startMobileCellsScanner();
-                            //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "START 1");
-                        } else {
-                            if (rescan) {
-                                PPApplication.mobileCellsScanner.rescanMobileCells();
-                                //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "RESCAN");
+                            if (!isMobileCellsScannerStarted()) {
+                                startMobileCellsScanner();
+                                //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "START 1");
+                            } else {
+                                if (rescan) {
+                                    PPApplication.mobileCellsScanner.rescanMobileCells();
+                                    //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "RESCAN");
+                                }
                             }
-                        }
+                        } else
+                            startMobileCellsScanner(false, true, dataWrapper, forceStart, rescan);
                     } else
                         startMobileCellsScanner(false, true, dataWrapper, forceStart, rescan);
-                } else
-                    startMobileCellsScanner(false, true, dataWrapper, forceStart, rescan);
-            }
+                }
+            });
         }
     }
 
