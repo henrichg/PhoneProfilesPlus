@@ -47,6 +47,7 @@ public class MainWorker extends Worker {
     static final String HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG = "handleEventsNotificationRescanScannerWork";
     static final String HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG = "handleEventsSoundProfileWork";
     static final String HANDLE_EVENTS_PERIODIC_WORK_TAG = "handleEventsPeriodicWork";
+    static final String HANDLE_EVENTS_VOLUMES_WORK_TAG = "handleEventsVolumesWork";
 
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
@@ -88,6 +89,7 @@ public class MainWorker extends Worker {
                     //    WifiScanWorker.startScan(appContext);
                     //    break;
                     case ORIENTATION_SCANNER_WORK_TAG:
+                    case HANDLE_EVENTS_VOLUMES_WORK_TAG: // !!! this is required, look at SettingsContentObserver.onChange()
                     //case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:
                     //case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:
                     //case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
@@ -101,7 +103,7 @@ public class MainWorker extends Worker {
                     //case HANDLE_EVENTS_PERIODIC_WORK_TAG:
                         int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
                         if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
-                            //PPApplication.logE("MainWorker.doWork", "sensorType="+sensorType);
+                            PPApplication.logE("MainWorker.doWork", "sensorType="+sensorType);
                             // start events handler
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.doWork: sensorType="+sensorType);
                             EventsHandler eventsHandler = new EventsHandler(appContext);

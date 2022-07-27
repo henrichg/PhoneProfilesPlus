@@ -260,6 +260,7 @@ public class PPApplication extends Application
                                                 //+"|[VOLUMES]"
 
                                                 +"|SettingsContentObserver.onChange"
+                                                +"|MainWorker.doWork"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1533,6 +1534,7 @@ public class PPApplication extends Application
         _cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG, false);
+        _cancelWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG, false);
         _cancelWork(DisableInternalChangeWorker.WORK_TAG, false);
         _cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, false);
         _cancelWork(DisableVolumesInternalChangeWorker.WORK_TAG, false);

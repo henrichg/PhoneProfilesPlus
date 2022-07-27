@@ -9,6 +9,13 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
+import java.util.concurrent.TimeUnit;
+
 class SettingsContentObserver  extends ContentObserver {
 
     //public static boolean internalChange = false;
@@ -258,6 +265,44 @@ class SettingsContentObserver  extends ContentObserver {
                     if (Event.getGlobalEventsRunning()) {
                         //PPApplication.logE("SettingsContentObserver.onChange","xxx");
 
+                        // !!! must be used MainWorker with delay, because is often called this onChange
+                        // for change volumes
+                        Data workData = new Data.Builder()
+                                .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
+                                .build();
+
+                        OneTimeWorkRequest worker =
+                                new OneTimeWorkRequest.Builder(MainWorker.class)
+                                        .addTag(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG)
+                                        .setInputData(workData)
+                                        .setInitialDelay(5, TimeUnit.SECONDS)
+                                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                        .build();
+                        try {
+                            if (PPApplication.getApplicationStarted(true)) {
+                                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                                if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] SettingsContentObserver.onChange", "for=" + MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+//
+//                            PPApplication.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                                    //workManager.enqueue(worker);
+                                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                                }
+                            }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+
+                        /*
                         final Context appContext = context.getApplicationContext();
                         // handler is not needed because is already used:
                         //PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
@@ -296,6 +341,7 @@ class SettingsContentObserver  extends ContentObserver {
                             //}
                         //});
                         //}
+                        */
 
                     }
                 }
