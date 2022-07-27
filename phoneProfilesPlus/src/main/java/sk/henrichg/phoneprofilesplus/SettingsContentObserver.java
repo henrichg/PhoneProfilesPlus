@@ -6,7 +6,6 @@ import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.provider.Settings;
 
 import androidx.work.Data;

@@ -67,7 +67,7 @@
             android:clipToPadding="false"
             android:drawSelectorOnTop="true"
             android:scrollbarStyle="outsideOverlay"
-            android:listSelector="@drawable/pp_activator_list_item_background_selector"
+            android:listSelector="@drawable/pp_activator_list_item_background"
             android:divider="@android:color/transparent" />
 
         <TextView
