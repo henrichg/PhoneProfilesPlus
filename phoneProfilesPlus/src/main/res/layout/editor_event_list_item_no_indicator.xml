@@ -4,7 +4,7 @@
     android:id="@+id/event_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="7dp"
+    android:paddingStart="6dp"
     android:paddingEnd="0dp"
     android:paddingTop="1dp"
     android:paddingBottom="1dp"
