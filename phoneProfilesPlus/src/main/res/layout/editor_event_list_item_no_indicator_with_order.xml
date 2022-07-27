@@ -4,7 +4,7 @@
     android:id="@+id/event_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
+    android:layout_marginStart="10dp"
     android:paddingTop="1dp"
     android:paddingBottom="1dp"
     android:orientation="horizontal"
@@ -87,14 +87,14 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:padding="5dp"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="3dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/editor_event_list_item_event_status"
                 android:scaleType="centerCrop"
                 android:src="?attr/eventStopStatusIndicator"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_event_status" />
 
             <TextView
                 android:id="@+id/event_list_item_event_name"
