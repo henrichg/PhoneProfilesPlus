@@ -12,11 +12,12 @@
         android:id="@+id/editor_events_activated_profile_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginEnd="9dp"
         android:layout_marginTop="-6dp"
         android:layout_marginBottom="5dp"
-        android:padding="6dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         android:layout_alignParentTop="true" >
 
         <RelativeLayout
