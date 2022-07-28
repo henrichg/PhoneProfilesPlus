@@ -35,7 +35,7 @@
     <dimen name="popup_window_corner_radius">10dp</dimen>
     <dimen name="popup_menu_corner_radius">10dp</dimen>
     <dimen name="button_corner_radius">7dp</dimen>
-    <dimen name="profile_icon_corner_radius">3dp</dimen>
+    <dimen name="profile_icon_corner_radius">10dp</dimen>
 
     <dimen name="alert_dialog_top_padding">10dp</dimen>
 
