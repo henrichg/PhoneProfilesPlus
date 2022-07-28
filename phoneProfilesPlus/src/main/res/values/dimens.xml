@@ -29,7 +29,7 @@
     <dimen name="dialog_transparent_padding">15dp</dimen>
     <dimen name="dialog_background_padding">3dp</dimen>
     <dimen name="popup_menu_transparent_padding_width">0dp</dimen>
-    <dimen name="popup_menu_transparent_padding_height">7dp</dimen>
+    <dimen name="popup_menu_transparent_padding_height">0dp</dimen>
 <!--    <dimen name="activatior_transparent_padding">0dp</dimen>-->
 
     <dimen name="popup_window_corner_radius">10dp</dimen>

@@ -4,8 +4,10 @@
     <style name="Theme.PhoneProfilesTheme_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_dayNight">
         <item name="android:popupMenuStyle">@style/PopupMenu_dayNight</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu_dayNight</item>
+        <item name="android:dropDownListViewStyle">@style/PopupMenuItemStyle</item>
+        <item name="dropDownListViewStyle">@style/PopupMenuItemStyle</item>
+
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
         <item name="android:navigationBarColor">@color/navigationBar</item>
     </style>
-
 </resources>
