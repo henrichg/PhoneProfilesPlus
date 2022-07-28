@@ -65,7 +65,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingEnd="15dp"
                 android:layout_marginEnd="5dp"
                 android:scrollbars="none"
                 android:clipToPadding="false"
