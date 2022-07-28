@@ -47,7 +47,8 @@
             android:clipToPadding="false"
             android:choiceMode="singleChoice"
             android:scrollbarStyle="outsideOverlay"
-            android:divider="@android:color/transparent" />
+            android:divider="@android:color/transparent"
+            android:listSelector="@drawable/pp_editor_list_item_background" />
 
         <LinearLayout
             android:id="@+id/mobile_cell_names_dlg_et_btn"

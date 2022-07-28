@@ -25,12 +25,13 @@
         android:id="@+id/configured_profile_preferences_pref_dlg_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
         android:clipToPadding="false"
         android:choiceMode="singleChoice"
         android:scrollbarStyle="outsideOverlay"
         android:fadeScrollbars="false"
-        android:divider="@android:color/transparent" />
+        android:divider="@android:color/transparent"
+        android:listSelector="@drawable/pp_editor_list_item_background" />
 
 </LinearLayout>

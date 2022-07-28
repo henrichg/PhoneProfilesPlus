@@ -46,7 +46,8 @@
             android:clipToPadding="false"
             android:choiceMode="singleChoice"
             android:scrollbarStyle="outsideOverlay"
-            android:divider="@android:color/transparent" />
+            android:divider="@android:color/transparent"
+            android:listSelector="@drawable/pp_editor_list_item_background" />
 
         <View
             android:id="@+id/ringtone_pref_dlg_bottomBarDivider"

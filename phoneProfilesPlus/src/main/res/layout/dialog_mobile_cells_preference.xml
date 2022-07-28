@@ -259,11 +259,15 @@
                 android:id="@+id/mobile_cells_pref_dlg_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:clipToPadding="false"
                 android:choiceMode="singleChoice"
                 android:scrollbarStyle="outsideOverlay"
-                android:divider="@android:color/transparent" />
+                android:divider="@android:color/transparent"
+                android:listSelector="@drawable/pp_editor_list_item_background" />
 
         </LinearLayout>
 

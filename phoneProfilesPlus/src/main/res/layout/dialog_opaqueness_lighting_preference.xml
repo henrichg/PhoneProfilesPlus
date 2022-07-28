@@ -22,12 +22,13 @@
         android:gravity="center"
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:clipToPadding="false"
         android:choiceMode="singleChoice"
         android:scrollbarStyle="outsideOverlay"
-        android:divider="@android:color/transparent" />
+        android:divider="@android:color/transparent"
+        android:listSelector="@drawable/pp_editor_list_item_background" />
 
     <View
         android:id="@+id/opaqueness_lighting_pref_dlg_listview_buttonBarDivider"

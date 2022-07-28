@@ -48,7 +48,8 @@
             android:gravity="center"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
-            android:divider="@android:color/transparent" />
+            android:divider="@android:color/transparent"
+            android:listSelector="@drawable/pp_editor_list_item_background" />
 
         <LinearLayout
             android:id="@+id/calendars_multiselect_pref_dlg_et_btn"

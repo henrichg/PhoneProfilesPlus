@@ -41,12 +41,13 @@
             android:layout_weight="1"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:drawSelectorOnTop="true"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
-            android:divider="@android:color/transparent" />
+            android:divider="@android:color/transparent"
+            android:listSelector="@drawable/pp_editor_list_item_background" />
 
         <TextView
             android:id="@+id/shortcut_profiles_list_empty"
