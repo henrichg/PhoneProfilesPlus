@@ -47,7 +47,7 @@
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:divider="@android:color/transparent"
-            android:listSelector="@drawable/pp_editor_list_item_background" />
+            android:listSelector="?attr/listViewItemBackground" />
 
         <TextView
             android:id="@+id/tile_chooser_profiles_list_empty"

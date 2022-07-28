@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="6dp"
     android:paddingBottom="6dp"
-    android:background="@drawable/pp_editor_list_item_background"  >
+    android:background="?attr/listViewItemBackground"  >
 
     <CheckBox
         android:id="@+id/contacts_multiselect_pref_dlg_item_checkbox"

@@ -47,7 +47,7 @@
             android:choiceMode="singleChoice"
             android:scrollbarStyle="outsideOverlay"
             android:divider="@android:color/transparent"
-            android:listSelector="@drawable/pp_editor_list_item_background" />
+            android:listSelector="?attr/listViewItemBackground" />
 
         <LinearLayout
             android:id="@+id/profile_multiselect_pref_dlg_et_btn"

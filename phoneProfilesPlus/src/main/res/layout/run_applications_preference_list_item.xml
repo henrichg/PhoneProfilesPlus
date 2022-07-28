@@ -10,7 +10,7 @@
     android:paddingBottom="3dp"
     android:clickable="true"
     android:focusable="true"
-    android:background="@drawable/pp_editor_list_item_background">
+    android:background="?attr/listViewItemBackground">
 
     <LinearLayout
         android:id="@+id/run_applications_pref_dlg_item_buttons_root"

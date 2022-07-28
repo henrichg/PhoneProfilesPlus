@@ -237,30 +237,57 @@ class GlobalGUIRoutines {
                 }*/
         }
         if (forActivator) {
-            return R.style.ActivatorTheme_dayNight;
+            if (PPApplication.deviceIsOnePlus)
+                return R.style.ActivatorTheme_dayNight_noRipple;
+            else
+                return R.style.ActivatorTheme_dayNight;
         }
         else
         if (forDialog) {
-            return R.style.DialogTheme_dayNight;
+            if (PPApplication.deviceIsOnePlus)
+                return R.style.DialogTheme_dayNight_noRipple;
+            else
+                return R.style.DialogTheme_dayNight;
         }
         else
         if (forLocationEditor) {
-            return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
+            if (PPApplication.deviceIsOnePlus)
+                return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
+            else
+                return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
         }
         else
         if (forPopup) {
-            if (withToolbar)
-                return R.style.PopupTheme_withToolbar_dayNight;
-            else
-                return R.style.PopupTheme_dayNight;
+            if (PPApplication.deviceIsOnePlus) {
+                if (withToolbar)
+                    return R.style.PopupTheme_withToolbar_dayNight_noRipple;
+                else
+                    return R.style.PopupTheme_dayNight_noRipple;
+
+            } else {
+                if (withToolbar)
+                    return R.style.PopupTheme_withToolbar_dayNight;
+                else
+                    return R.style.PopupTheme_dayNight;
+            }
         } else {
-            if (withToolbar) {
-                //if (withDrawerLayout)
-                //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
-                //else
-                return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
-            } else
-                return R.style.Theme_PhoneProfilesTheme_dayNight;
+            if (PPApplication.deviceIsOnePlus) {
+                if (withToolbar) {
+                    //if (withDrawerLayout)
+                    //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
+                    //else
+                    return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight_noRipple;
+                } else
+                    return R.style.Theme_PhoneProfilesTheme_dayNight_noRipple;
+            } else {
+                if (withToolbar) {
+                    //if (withDrawerLayout)
+                    //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
+                    //else
+                    return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
+                } else
+                    return R.style.Theme_PhoneProfilesTheme_dayNight;
+            }
         }
     }
 

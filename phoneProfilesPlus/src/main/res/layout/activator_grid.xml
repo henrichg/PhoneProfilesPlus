@@ -93,7 +93,7 @@
             android:stretchMode="columnWidth"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
-            android:listSelector="@drawable/pp_activator_list_item_background"
+            android:listSelector="?attr/listViewItemBackground"
             android:drawSelectorOnTop="true"/>
 
         <TextView

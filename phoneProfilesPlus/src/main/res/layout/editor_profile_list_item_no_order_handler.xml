@@ -11,7 +11,7 @@
     android:orientation="horizontal"
     android:clickable="true"
     android:focusable="true"
-    android:background="@drawable/pp_editor_list_item_background">
+    android:background="?attr/listViewItemBackground">
 <!--    android:background="?attr/selectableItemBackground">-->
 <!--    android:paddingStart="10dp"-->
 <!--    android:paddingEnd="0dp"-->

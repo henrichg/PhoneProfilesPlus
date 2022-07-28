@@ -16,7 +16,7 @@
     <color name="activityDisabledTextColor">#4Dffdad3</color>
     <color name="activityCommandBackgroundColor">#1Fffdad3</color>
     <color name="activityPopupMenuBackgroundColor">#FF1a1513</color>
-<!--    <color name="activityPopupMenuClickedItemBackgroundColor">#37ffdad3</color>-->
+    <color name="activityPopupMenuClickedItemBackgroundColor">#37ffdad3</color>
 
 <!--    <color name="notificationDecorationColor">#DC8160</color>-->
     <color name="notificationDecorationColor">#cc893e</color>
