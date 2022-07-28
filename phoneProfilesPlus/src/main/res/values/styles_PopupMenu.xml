@@ -31,13 +31,13 @@
         <item name="android:popupElevation">0dp</item>
         <item name="android:overlapAnchor">true</item>
 
-        <item name="android:dropDownSelector">@drawable/pp_editor_list_item_background</item>
+        <item name="android:dropDownSelector">@drawable/popup_menu_item_background_selector</item>
     </style>
 
     <style name="PopupMenuItemStyle" parent="@android:style/Widget.ListView">
-        <item name="android:listSelector">@drawable/pp_editor_list_item_background</item>
+        <item name="android:listSelector">@drawable/popup_menu_item_background_selector</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:divider">@color/activityPopupMenuBackgroundColor</item>
     </style>
-    <!--    <item name="android:divider">@color/text_color_white</item>-->
-    <!--    <item name="android:dividerHeight">1dp</item>-->
 
 </resources>
