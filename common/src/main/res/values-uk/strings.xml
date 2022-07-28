@@ -7,7 +7,7 @@
     <string name="menu_settings">Налаштування</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">Налаштування профілю</string>
-    <string name="title_activity_event_preferences">Налаштування подій</string>
+    <string name="title_activity_event_preferences">Налаштування події</string>
     <string name="menu_new_profile">Новий профіль</string>
     <string name="menu_delete_all_profiles">Вилучити усі профілі</string>
     <string name="menu_new_event">Нова подія</string>
@@ -93,7 +93,7 @@
     <string name="alert_message_delete_all_profiles">Ви впевнені?</string>
     <string name="alert_title_delete_all_events">Вилучити усі події</string>
     <string name="alert_message_delete_all_events">Ви впевнені?</string>
-    <string name="phone_profiles_pref_applicationTheme">Тема додатку</string>
+    <string name="phone_profiles_pref_applicationTheme">Тема застосунку</string>
     <string name="phone_profiles_pref_applicationTheme_dark">Темна</string>
     <string name="phone_preferences_actionMode_save">Зберегти</string>
     <string name="profile_preferences_showInActivator">Показувати в активаторі</string>
@@ -191,7 +191,7 @@
     <string name="event_preferences_eventProfileEnd">Активувати профіль</string>
     <string name="menu_restart_events">Перезапустити події</string>
     <string name="event_preferences_ForceRun">Ігнорувати ручну активацію</string>
-    <string name="restart_events_alert_title">Перезавантаження подій</string>
+    <string name="restart_events_alert_title">Перезапустити події</string>
     <string name="restart_events_alert_message">Ви впевнені?</string>
     <string name="event_preferences_ForceRun_summary">Розпочати подію, незважаючи на те, що діє вручну активований профіль</string>
     <string name="event_preferences_category_startOfEvent">Початок події</string>
@@ -418,9 +418,9 @@
     <string name="profile_preferences_category_screen">Екран</string>
     <string name="profile_preferences_category_others">Інше</string>
     <string name="event_preferences_category_startOfEventOthers">Інші параметри</string>
-    <string name="event_type_applications">Додатки</string>
-    <string name="event_preferences_category_eventApplicationsParameters">Датчик додатку</string>
-    <string name="event_preferences_applications_applications">Додатки</string>
+    <string name="event_type_applications">Застосунки</string>
+    <string name="event_preferences_category_eventApplicationsParameters">Датчик застосунку</string>
+    <string name="event_preferences_applications_applications">Застосунки</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Налаштування спеціальних можливостей</string>
     <string name="brightness_pref_dialog_adaptive_level_root_required">Для зміни адаптивного рівня потрібні права ROOT.</string>
     <string name="important_info_profile_activation_text1">Профіль може бути активовано у двох режимах:</string>
@@ -1940,8 +1940,7 @@
     <string name="activity_log_help_message_colors_others">Інші випадки</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Колір іконки \"Перезавантажити події\"</string>
     <string name="important_info_notification_settings_text1">Рекомендації щодо налаштувань сповіщень від застосунків.</string>
-    <string name="important_info_notification_settings_text2">Встановіть \"Стиль сповіщень\" - \"Власний\",
-\"Використовувати оформлення\" - Вимк., \"Показувати іконку профілю\", \"Показувати індикатор налаштувань\" - Увімк.</string>
+    <string name="important_info_notification_settings_text2">Встановіть \"Стиль сповіщень\" - \"Власний\", \"Використовувати оформлення\" - Вимк., \"Показувати іконку профілю\", \"Показувати індикатор налаштувань\" - Увімк.</string>
     <string name="important_info_notification_settings_text3">З такими налаштуваннями сповіщення будуть показані з іконкою профілю, індикатор налаштувань з іконками (як в Редакторі), \"Перезапустити події\" як іконка й сповіщення буде менше.</string>
     <string name="important_info_notification_settings_text4">Проведіть двома пальцями вниз аби розгорнути сповіщення без оформлення.</string>
     <string name="important_info_notification_settings_configure">Натисніть тут, щоб налаштувати \"Сповіщення застосунку\" з цими параметрами.</string>
