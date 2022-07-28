@@ -131,6 +131,7 @@
             android:verticalSpacing="0dp"
             android:choiceMode="singleChoice"
             android:clipToPadding="false"
+            android:listSelector="?attr/listViewItemBackground"
             android:scrollbarStyle="outsideOverlay" />
 
     </LinearLayout>
