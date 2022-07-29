@@ -17,7 +17,8 @@
     <RelativeLayout
         android:id="@+id/profile_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
-        android:layout_height="48dp" >
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical" >
 
         <ImageView
             android:id="@+id/profile_pref_dlg_item_icon"
