@@ -46,13 +46,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
                     android:text="@string/info_notification_event_states"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text1" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/info_notification_event_states_manual_profile_activation"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text8"
@@ -61,7 +62,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/info_notification_event_states_running"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text2"
@@ -70,7 +71,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/info_notification_event_states_paused"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text3"
@@ -79,7 +80,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/info_notification_event_states_paused_delay"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text4"
@@ -88,7 +89,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/info_notification_event_states_running_delay"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text5"
