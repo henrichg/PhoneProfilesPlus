@@ -183,7 +183,7 @@
         <View
             android:id="@+id/ask_for_duration_dlg_divider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginStart="0dp"

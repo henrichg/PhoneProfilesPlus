@@ -35,7 +35,7 @@
     <View
         android:id="@+id/nfc_tag_pref_dlg_buttonBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/divider_height"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:background="?attr/dialogDivider" />

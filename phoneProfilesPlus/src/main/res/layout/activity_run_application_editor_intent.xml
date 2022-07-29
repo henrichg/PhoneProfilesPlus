@@ -21,7 +21,7 @@
         <View
             android:id="@+id/application_editor_intent_buttonBarDivider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height"
             android:layout_alignParentTop="true"
             android:background="?attr/dialogDivider" />
 
@@ -78,9 +78,9 @@
     <View
         android:id="@+id/application_editor_intent_titleBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
         android:background="?attr/dialogDivider"
         android:layout_alignParentTop="true" />
 
@@ -122,11 +122,11 @@
             <View
                 android:id="@+id/application_editor_intent_divider1"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <TextView
@@ -151,11 +151,11 @@
             <View
                 android:id="@+id/application_editor_intent_divider2"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <TextView
@@ -200,11 +200,11 @@
             <View
                 android:id="@+id/application_editor_intent_divider3"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <TextView
@@ -239,11 +239,11 @@
             <View
                 android:id="@+id/application_editor_intent_divider4"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <TextView
@@ -288,11 +288,11 @@
             <View
                 android:id="@+id/application_editor_intent_divider5"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <TextView
@@ -337,11 +337,11 @@
             <View
                 android:id="@+id/application_editor_intent_divider6"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <TextView
@@ -386,11 +386,11 @@
             <View
                 android:id="@+id/application_editor_intent_divider7"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <TextView

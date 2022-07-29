@@ -30,9 +30,9 @@
         <View
             android:id="@+id/mobile_cell_names_dlg_titleBarDivider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
             android:background="?attr/dialogDivider" />
 
         <ListView
@@ -59,10 +59,10 @@
             <View
                 android:id="@+id/mobile_cell_names_dlg_buttonBarDivider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <EditText

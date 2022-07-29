@@ -99,7 +99,7 @@
         <View
             android:id="@+id/editor_events_list_divider1"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_gravity="top"
@@ -142,7 +142,7 @@
         <View
             android:id="@+id/editor_events_list_divider2"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="?attr/dialogDivider"

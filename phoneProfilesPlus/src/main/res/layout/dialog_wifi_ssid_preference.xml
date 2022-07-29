@@ -37,10 +37,10 @@
             <View
                 android:id="@+id/wifi_ssid_pref_dlg_buttonBarDivider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <RelativeLayout
@@ -147,7 +147,7 @@
 <!--            <View-->
 <!--                android:id="@+id/wifi_ssid_pref_dlg_buttonBarDivider2"-->
 <!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1dp"-->
+<!--                android:layout_height="@dimen/divider_height"-->
 <!--                android:layout_marginBottom="5dp"-->
 <!--                android:background="?attr/dialogDivider" />-->
 
@@ -165,9 +165,9 @@
             <View
                 android:id="@+id/wifi_ssid_pref_dlg_titleBarDivider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
                 android:background="?attr/dialogDivider" />
 
             <ListView

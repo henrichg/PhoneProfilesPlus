@@ -180,7 +180,7 @@
         <View
             android:id="@+id/donation_paypal_activity_divider"
             android:layout_width="match_parent"
-            android:layout_height="1dip"
+            android:layout_height="@dimen/divider_height"
             android:background="?attr/dialogDivider"/>
 
         <Button
