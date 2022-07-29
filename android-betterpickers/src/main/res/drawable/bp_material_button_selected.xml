@@ -3,7 +3,7 @@
     android:insetBottom="6dp"
     android:insetTop="6dp">
     <shape android:shape="rectangle">
-        <corners android:radius="2dp" />
+        <corners android:radius="10dp" />
         <solid android:color="@color/done_text_color_disabled" />
         <padding
             android:bottom="4dp"

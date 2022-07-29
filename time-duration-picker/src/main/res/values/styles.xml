@@ -75,6 +75,7 @@
         <item name="android:minWidth">@dimen/touchable</item>
         <item name="android:minHeight">@dimen/touchable</item>
         <item name="android:textAppearance">@style/TextAppearance.TimeDurationPicker.Display</item>
-        <item name="android:background">?selectableItemBackground</item>
+        <!-- rounded selector -->
+        <item name="android:background">@drawable/numpad_ripple_background</item>
     </style>
 </resources>
