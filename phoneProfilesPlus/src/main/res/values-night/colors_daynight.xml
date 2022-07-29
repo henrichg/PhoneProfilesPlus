@@ -30,7 +30,8 @@
     <!--<color name="navigationDrawerItemBackgroundPressed">#1FFFFFFF</color>-->
 <!--    <color name="preferenceDialogBackground">#FF000000</color>-->
 <!--    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>-->
-    <color name="dialog_divider">#20ffdad3</color>
+<!--    <color name="dialog_divider">#20ffdad3</color>-->
+    <color name="dialog_divider">#1Fffffff</color>
 
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
     <color name="editorFilterBackgroundColor">#FF272727</color>
