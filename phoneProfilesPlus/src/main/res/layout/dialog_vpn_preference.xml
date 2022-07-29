@@ -11,6 +11,21 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
+<ScrollView
+    android:id="@+id/vpnPrefDialogVPNApplication_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarStyle="outsideOverlay"
+    android:fadeScrollbars="false"
+    tools:ignore="UselessParent">
+
+    <LinearLayout
+        android:id="@+id/vpnPrefDialogVPNApplication_linla0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/vpnPrefDialogVPNApplicationLabel"
         android:layout_width="match_parent"
@@ -94,5 +109,9 @@
         android:text="@string/vpn_not_set_when_is_in_state_pref_dlg"
         app:switchPadding="8dp"
         android:textSize="16sp" />
+
+    </LinearLayout>
+
+</ScrollView>
 
 </LinearLayout>
