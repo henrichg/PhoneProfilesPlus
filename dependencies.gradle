@@ -41,5 +41,5 @@ ext.ppVersions = [
     appcompatXLib: '1.4.2',
     recyclerView: '1.2.1',
 
-    acra: '5.9.5'
+    acra: '5.9.6'
 ]
