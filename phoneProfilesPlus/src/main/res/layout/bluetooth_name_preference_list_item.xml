@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bluetooth_name_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp" >
+    android:layout_height="54dp" >
 
     <LinearLayout
         android:id="@+id/bluetooth_name_pref_dlg_item_buttons_root"
