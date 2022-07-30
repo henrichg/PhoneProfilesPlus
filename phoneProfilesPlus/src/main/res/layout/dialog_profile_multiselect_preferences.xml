@@ -41,6 +41,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:clipToPadding="false"
