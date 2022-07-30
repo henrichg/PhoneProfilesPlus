@@ -16,23 +16,35 @@
         <item name="android:textAllCaps">true</item>
 <!--        <item name="android:fontFamily">sans-serif-condensed</item>-->
     </style>
-    <style name="dialpad" parent="Widget.AppCompat.Button.Borderless">
+
+    <style name="dialpad_text_appearance" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textSize">@dimen/dialpad_font_size</item>
+    </style>
+    <style name="dialpad" parent="Widget.AppCompat.Button.Borderless">
+<!--        <item name="android:textSize">@dimen/dialpad_font_size</item>-->
+        <item name="android:textAppearance">@style/dialpad_text_appearance</item>
         <item name="android:textAllCaps">true</item>
 <!--        <item name="android:fontFamily">sans-serif-light</item>-->
         <!-- rounded selector -->
         <item name="android:background">@drawable/bp_material_button_background</item>
     </style>
+
     <style name="dialpad_text" parent="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size_ampm</item>
     </style>
-    <style name="tablet_dialpad" parent="Widget.AppCompat.Button.Borderless">
+
+    <style name="tablet_dialpad_aappearance" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size</item>
+    </style>
+    <style name="tablet_dialpad" parent="Widget.AppCompat.Button.Borderless">
+<!--        <item name="android:textSize">@dimen/tablet_dialpad_font_size</item>-->
+        <item name="android:textAppearance">@style/tablet_dialpad_aappearance</item>
         <item name="android:textAllCaps">true</item>
 <!--        <item name="android:fontFamily">sans-serif-condensed</item>-->
         <!-- rounded selector -->
         <item name="android:background">@drawable/bp_material_button_background</item>
     </style>
+
     <style name="tablet_dialpad_text" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size_ampm</item>
         <item name="android:textAllCaps">true</item>

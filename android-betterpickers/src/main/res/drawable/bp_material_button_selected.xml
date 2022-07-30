@@ -6,7 +6,7 @@
         <corners android:radius="10dp" />
         <solid android:color="@color/done_text_color_disabled" />
         <padding
-            android:bottom="4dp"
-            android:top="4dp" />
+            android:bottom="0dp"
+            android:top="0dp" />
     </shape>
 </inset>
