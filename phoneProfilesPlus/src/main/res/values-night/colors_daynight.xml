@@ -32,7 +32,7 @@
 <!--    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>-->
 <!--    <color name="dialog_divider">#20ffdad3</color>-->
     <color name="dialog_divider">#1Fffffff</color>
-    <color name="popup_window_divider">#20ffffff</color>
+    <color name="popup_window_divider">#23ffffff</color>
 
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
     <color name="editorFilterBackgroundColor">#FF272727</color>
