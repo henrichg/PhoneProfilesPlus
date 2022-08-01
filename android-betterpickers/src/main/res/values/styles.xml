@@ -27,6 +27,8 @@
 <!--        <item name="android:fontFamily">sans-serif-light</item>-->
         <!-- rounded selector -->
         <item name="android:background">@drawable/bp_material_button_background</item>
+        <item name="android:minWidth">@dimen/touchable</item>
+        <item name="android:minHeight">@dimen/touchable</item>
     </style>
 
     <style name="dialpad_text" parent="dialpad">
@@ -43,6 +45,8 @@
 <!--        <item name="android:fontFamily">sans-serif-condensed</item>-->
         <!-- rounded selector -->
         <item name="android:background">@drawable/bp_material_button_background</item>
+        <item name="android:minWidth">@dimen/touchable</item>
+        <item name="android:minHeight">@dimen/touchable</item>
     </style>
 
     <style name="tablet_dialpad_text" parent="Widget.AppCompat.Button.Borderless">

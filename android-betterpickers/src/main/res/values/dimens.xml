@@ -13,4 +13,7 @@
     <dimen name="bp_material_button_textsize">14sp</dimen>
     <dimen name="bp_material_button_minwidth">64dp</dimen>
     <dimen name="bp_material_button_textpadding_horizontal">8dp</dimen>
+
+    <dimen name="touchable">48dp</dimen>
+
 </resources>

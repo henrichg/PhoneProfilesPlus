@@ -16,6 +16,7 @@
             android:layout_height="1dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_alignParentBottom="true"
             android:layout_above="@id/duration"
             android:background="@color/display_divider"/>

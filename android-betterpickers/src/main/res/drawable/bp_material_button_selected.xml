@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:insetBottom="6dp"
-    android:insetTop="6dp">
+<inset xmlns:android="http://schemas.android.com/apk/res/android">
     <shape android:shape="rectangle">
         <corners android:radius="10dp" />
         <solid android:color="@color/done_text_color_disabled" />
-        <padding
-            android:bottom="0dp"
-            android:top="0dp" />
     </shape>
 </inset>
