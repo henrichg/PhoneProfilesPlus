@@ -284,105 +284,89 @@ public class DataWrapperStatic {
     {
         if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
         {
-            if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
-                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
-                int timeLinelistCount = eventTimelineList.size();
-                if (timeLinelistCount > 0)
-                {
-                    long event_id;
-                    synchronized (dataWrapper.eventTimelines) {
+            synchronized (dataWrapper.eventTimelines) {
+                if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
+                    List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
+                    if (eventTimelineList.size() > 0) {
                         EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size() - 1);
-                        event_id = eventTimeLine._fkEvent;
-                    }
-                    Event event = dataWrapper.getEventById(event_id);
-                    if (event != null)
-                    {
-                        //if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
-                        if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._ignoreManualActivation))
-                        {
-                            //Profile profile;
-                            //profile = dataWrapper.getActivatedProfile(false, false);
-                            //if ((profile != null) && (event._fkProfileStart == profile._id))
-                            // last started event activates activated profile
-                            return event._name;
-                            //else
-                            //    return "?";
-                        }
-                        else
-                            return "?";
-                    }
-                    else
-                        return "?";
-                }
-                else
-                {
-                    long profileId = ApplicationPreferences.applicationDefaultProfile;
-                    //if ((!ApplicationPreferences.prefEventsBlocked) &&
-                    if ((!Event.getEventsBlocked(dataWrapper.context)) &&
-                            (profileId != Profile.PROFILE_NO_ACTIVATE) &&
-                            (profileId == forProfile._id))
-                    {
-                        //Profile profile;
-                        //profile = dataWrapper.getActivatedProfile(false, false);
-                        //if ((profile != null) && (profile._id == profileId))
-                        return dataWrapper.context.getString(R.string.event_name_background_profile);
-                        //else
-                        //    return "?";
-                    }
-                    else
-                        return "?";
-                }
-            }
-            else {
-                String eventName = DatabaseHandler.getInstance(dataWrapper.context).getLastStartedEventName();
-                if (!eventName.equals("?")) {
-                    return eventName;
-                }
-                /*
-                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(true);
-                if (eventTimelineList.size() > 0)
-                {
-                    EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size()-1);
-                    long event_id = eventTimeLine._fkEvent;
-                    Event event = dataWrapper.getEventById(event_id);
-                    if (event != null)
-                    {
-                        if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
-                        {
-                            //Profile profile;
-                            //profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                            //if ((profile != null) && (event._fkProfileStart == profile._id))
+                        long event_id = eventTimeLine._fkEvent;
+                        Event event = dataWrapper.getEventById(event_id);
+                        if (event != null) {
+                            //if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
+                            if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._ignoreManualActivation)) {
+                                //Profile profile;
+                                //profile = dataWrapper.getActivatedProfile(false, false);
+                                //if ((profile != null) && (event._fkProfileStart == profile._id))
                                 // last started event activates activated profile
                                 return event._name;
+                                //else
+                                //    return "?";
+                            } else
+                                return "?";
+                        } else
+                            return "?";
+                    } else {
+                        long profileId = ApplicationPreferences.applicationDefaultProfile;
+                        //if ((!ApplicationPreferences.prefEventsBlocked) &&
+                        if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                                (profileId != Profile.PROFILE_NO_ACTIVATE) &&
+                                (profileId == forProfile._id)) {
+                            //Profile profile;
+                            //profile = dataWrapper.getActivatedProfile(false, false);
+                            //if ((profile != null) && (profile._id == profileId))
+                            return dataWrapper.context.getString(R.string.event_name_background_profile);
                             //else
                             //    return "?";
+                        } else
+                            return "?";
+                    }
+                } else {
+                    String eventName = DatabaseHandler.getInstance(dataWrapper.context).getLastStartedEventName();
+                    if (!eventName.equals("?")) {
+                        return eventName;
+                    }
+                    /*
+                    List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(true);
+                    if (eventTimelineList.size() > 0)
+                    {
+                        EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size()-1);
+                        long event_id = eventTimeLine._fkEvent;
+                        Event event = dataWrapper.getEventById(event_id);
+                        if (event != null)
+                        {
+                            if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
+                            {
+                                //Profile profile;
+                                //profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                                //if ((profile != null) && (event._fkProfileStart == profile._id))
+                                    // last started event activates activated profile
+                                    return event._name;
+                                //else
+                                //    return "?";
+                            }
+                            else
+                                return "?";
                         }
                         else
                             return "?";
+                    }*/
+                    else {
+                        long profileId = ApplicationPreferences.applicationDefaultProfile;
+                        //if ((!ApplicationPreferences.prefEventsBlocked) &&
+                        if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                                (profileId != Profile.PROFILE_NO_ACTIVATE) &&
+                                (profileId == forProfile._id)) {
+                            //Profile profile;
+                            //profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                            //if ((profile != null) && (profile._id == profileId))
+                            return dataWrapper.context.getString(R.string.event_name_background_profile);
+                            //else
+                            //    return "?";
+                        } else
+                            return "?";
                     }
-                    else
-                        return "?";
-                }*/
-                else
-                {
-                    long profileId = ApplicationPreferences.applicationDefaultProfile;
-                    //if ((!ApplicationPreferences.prefEventsBlocked) &&
-                    if ((!Event.getEventsBlocked(dataWrapper.context)) &&
-                            (profileId != Profile.PROFILE_NO_ACTIVATE) &&
-                            (profileId == forProfile._id))
-                    {
-                        //Profile profile;
-                        //profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                        //if ((profile != null) && (profile._id == profileId))
-                        return dataWrapper.context.getString(R.string.event_name_background_profile);
-                        //else
-                        //    return "?";
-                    }
-                    else
-                        return "?";
                 }
             }
-
         }
         else
             return "?";
