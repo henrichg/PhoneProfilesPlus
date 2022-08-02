@@ -3,7 +3,7 @@
 PhoneProfilesPlus
 =================
 
-[![version](https://img.shields.io/badge/version-5.3.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.3.1)
+[![version](https://img.shields.io/badge/version-6.0-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.0)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
@@ -58,30 +58,33 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ##### (HELP) How to disable Wi-Fi scan throttling - useful for Wi-Fi scanning
 - [Show it](docs/wifi_scan_throttling.md)
 
+##### (HELP) How to configure airplane mode radios - useful for profile parameter "Airplane mode"
+- [Show it](docs/airplane_mode_radios_config.md)
+
 ##### Features
 - [Show it](docs/ppp_features.md)
 
 ##### Screenshots
-- [[1]](art/_base/phoneScreenshots/01.png),
-[[2]](art/_base/phoneScreenshots/02.png),
-[[3]](art/_base/phoneScreenshots/03.png),
-[[4]](art/_base/phoneScreenshots/04.png),
-[[5]](art/_base/phoneScreenshots/05.png),
-[[6]](art/_base/phoneScreenshots/06.png),
-[[7]](art/_base/phoneScreenshots/07.png),
-[[8]](art/_base/phoneScreenshots/08.png),
-[[9]](art/_base/phoneScreenshots/09.png),
-[[10]](art/_base/phoneScreenshots/10.png),
-[[11]](art/_base/phoneScreenshots/11.png),
-[[12]](art/_base/phoneScreenshots/12.png),
-[[13]](art/_base/phoneScreenshots/13.png)
+- [[1]](art/phoneScreenshots/01.png),
+[[2]](art/phoneScreenshots/02.png),
+[[3]](art/phoneScreenshots/03.png),
+[[4]](art/phoneScreenshots/04.png),
+[[5]](art/phoneScreenshots/05.png),
+[[6]](art/phoneScreenshots/06.png),
+[[7]](art/phoneScreenshots/07.png),
+[[8]](art/phoneScreenshots/08.png),
+[[9]](art/phoneScreenshots/09.png),
+[[10]](art/phoneScreenshots/10.png),
+[[11]](art/phoneScreenshots/11.png),
+[[12]](art/phoneScreenshots/12.png),
+[[13]](art/phoneScreenshots/13.png)
 
 ##### Supported Android versions
 
 - From Android 7.0
 - minSdkVersion = 24
 - targetSdkVersion = 28
-- compiledSdkVersion = 31
+- compiledSdkVersion = 32
 
 ##### Required external libs - open-source
 
@@ -107,10 +110,12 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - RelativePopupWindow (only modified class RelativePopupWindow) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset) - https://github.com/caarmen/SunriseSunset
 - android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar (original repository: https://github.com/anggrayudi/android-hidden-api)
-- FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/BootstrapClass.java) - https://github.com/tiann/FreeReflection
+- AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat
+- Advance-Android-Tutorials (only modified class ZipManager.java) - https://github.com/stacktipslab/Advance-Android-Tutorials
+- Multi-language_App (only modified class LocaleHelper.java) https://github.com/anurajr1/Multi-language_App
 
 ##### Required external libs - not open-source
 

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
-    android:background="?attr/selectableItemBackground" >
+    android:background="?attr/listViewItemBackground" >
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/run_applications_editor_dlg_item_edit_menu"
@@ -31,6 +31,7 @@
             android:id="@+id/run_applications_editor_dialog_item_radiobutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
             android:layout_centerVertical="true"
             android:checked="false"

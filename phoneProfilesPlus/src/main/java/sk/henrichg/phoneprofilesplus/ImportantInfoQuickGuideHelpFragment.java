@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -34,7 +33,6 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
         return inflater.inflate(R.layout.important_info_fragment_quick_guide, container, false);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -54,14 +52,14 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
         text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_8) + "</li>";
         text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_9) + "</li>";
         text = text + "</ul>";
-        textView.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
+        textView.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
 
         textView = view.findViewById(R.id.activity_info_quick_guide_text_2);
         text = "<ol>";
         text = text + "<li>" + getString(R.string.important_info_quick_guide_2) + "</li>";
         text = text + "<li>" + getString(R.string.important_info_quick_guide_3) + "</li>";
         text = text + "</ol>";
-        textView.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
+        textView.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
 
         AboutApplicationActivity.emailMe(view.findViewById(R.id.activity_info_notification_contact),
                 getString(R.string.important_info_contact),

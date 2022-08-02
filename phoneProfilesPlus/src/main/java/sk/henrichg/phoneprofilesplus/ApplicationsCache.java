@@ -16,24 +16,6 @@ import java.util.List;
 
 class ApplicationsCache {
 
-    private static class SortList implements Comparator<Application> {
-
-        public int compare(Application lhs, Application rhs) {
-            if (PPApplication.collator != null) {
-                if (lhs == null)
-                    return -1;
-                else
-                if (rhs == null)
-                    return 1;
-                else
-                    return PPApplication.collator.compare(lhs.appLabel, rhs.appLabel);
-            }
-            else
-                return 0;
-        }
-
-    }
-
     private ArrayList<Application> applicationsList;
     private LruCache<Object, Object> applicationIconsLru;
     private ArrayList<Application> applicationsNoShortcutsList;
@@ -208,10 +190,22 @@ class ApplicationsCache {
 
     void clearCache(boolean nullList)
     {
+        for (Application application : applicationsList) {
+            Bitmap icon = getApplicationIcon(application, false);
+            if (!icon.isRecycled())
+                icon.recycle();
+        }
         applicationsList.clear();
         applicationIconsLru.evictAll();
+
+        for (Application application : applicationsNoShortcutsList) {
+            Bitmap icon = getApplicationIcon(application, true);
+            if (!icon.isRecycled())
+                icon.recycle();
+        }
         applicationsNoShortcutsList.clear();
         applicationNoShortcutIconsLru.evictAll();
+
         if (nullList) {
             applicationsList = null;
             applicationIconsLru = null;
@@ -224,6 +218,24 @@ class ApplicationsCache {
     void cancelCaching()
     {
         cancelled = true;
+    }
+
+    private static class SortList implements Comparator<Application> {
+
+        public int compare(Application lhs, Application rhs) {
+            if (PPApplication.collator != null) {
+                if (lhs == null)
+                    return -1;
+                else
+                if (rhs == null)
+                    return 1;
+                else
+                    return PPApplication.collator.compare(lhs.appLabel, rhs.appLabel);
+            }
+            else
+                return 0;
+        }
+
     }
 
 }

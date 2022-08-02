@@ -5,13 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
-import java.util.concurrent.TimeUnit;
-
 public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -61,13 +54,13 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                     resultsUpdated = true;
                 }
 
-                //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated=" + resultsUpdated);
+//                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated=" + resultsUpdated);
 
                 if (!resultsUpdated)
                     return;
 
                 final int forceOneScan = ApplicationPreferences.prefForceOneWifiScan;
-                //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
+//                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
                 if (Event.getGlobalEventsRunning() || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
@@ -80,10 +73,12 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                         if (forceOneScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                         {
-                            //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start work");
+//                            PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "handle events");
 
+                            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, "SENSOR_TYPE_WIFI_SCANNER", 5);
+                            /*
                             Data workData = new Data.Builder()
-                                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
+                                    .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
                                     .build();
 
                             OneTimeWorkRequest worker =
@@ -110,12 +105,13 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
 //                                        PPApplication.logE("[WORKER_CALL] WifiScanBroadcastReceiver.onReceive", "xxx");
                                         //workManager.enqueue(worker);
-                                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                                     }
                                 }
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
+                            */
 
                         }
 

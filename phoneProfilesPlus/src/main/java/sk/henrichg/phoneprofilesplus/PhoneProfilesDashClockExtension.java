@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 
 import com.google.android.apps.dashclock.api.DashClockExtension;
 import com.google.android.apps.dashclock.api.ExtensionData;
@@ -10,7 +9,7 @@ import com.google.android.apps.dashclock.api.ExtensionData;
 public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     private DataWrapper dataWrapper;
-    private static PhoneProfilesDashClockExtension instance;
+    private static volatile PhoneProfilesDashClockExtension instance;
 
     public PhoneProfilesDashClockExtension()
     {
@@ -20,6 +19,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     public static PhoneProfilesDashClockExtension getInstance()
     {
         return instance;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
@@ -66,10 +70,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
         final Context appContext = dataWrapper.context;
 
-        PPApplication.startHandlerThreadWidget();
-        final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        //PPApplication.startHandlerThreadWidget();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(dataWrapper.context, dataWrapper) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
 
             //Context appContext= appContextWeakRef.get();
@@ -90,7 +95,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     if (profile != null) {
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
-                        profileName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, dataWrapper);
+                        profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, dataWrapper);
                     } else {
                         isIconResourceID = true;
                         iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
@@ -99,10 +104,10 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     int iconResource;
                     if (isIconResourceID)
                         //iconResource = getResources().getIdentifier(iconIdentifier, "drawable", PPApplication.PACKAGE_NAME);
-                        iconResource = Profile.getIconResource(iconIdentifier);
+                        iconResource = ProfileStatic.getIconResource(iconIdentifier);
                     else
                         //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", PPApplication.PACKAGE_NAME);
-                        iconResource = Profile.getIconResource(Profile.PROFILE_ICON_DEFAULT);
+                        iconResource = ProfileStatic.getIconResource(Profile.PROFILE_ICON_DEFAULT);
 
                     /////////////////////////////////////////////////////////////
 
@@ -137,7 +142,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                                 .icon(iconResource)
                                 .status(status)
                                 .expandedTitle(profileName)
-                                .expandedBody(indicators.getString(profile, 25, instance))
+                                .expandedBody(indicators.getString(profile, /*0,*/ instance))
                                 .contentDescription("PhoneProfilesPlus - " + profileName)
                                 .clickIntent(intent));
                     }
@@ -145,7 +150,9 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     PPApplication.recordException(e);
                 }
             }
-        });
+        }; //);
+        PPApplication.createDelayedGuiExecutor();
+        PPApplication.delayedGuiExecutor.submit(runnable);
     }
 
     public void updateExtension()

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/restart_events__pref_root"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:padding="2dp">
+
+    <ImageView
+        android:id="@+id/restart_events_icon_pref_imageview"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_profile_restart_events"
+        android:contentDescription="@string/phone_profiles_pref_applicationRestartEventsIconColor"/>
+
+</RelativeLayout>

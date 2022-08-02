@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -113,7 +114,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
                 //        /*true, mMonochrome, mMonochromeValue,*/
                 //        mStartupSource, true, true, false))
-                if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
+                if (!DataWrapperStatic.displayPreferencesErrorNotification(mProfile, null, false, mActivity.getApplicationContext())) {
                     //PPApplication.logE("&&&&&&& AskForDurationDialog.onClick", "(1) called is DataWrapper.activateProfileFromMainThread");
 
                     if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
@@ -121,13 +122,12 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
-                        if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                        if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                             if (PhoneProfilesService.getInstance() != null) {
-                                //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
                                 PhoneProfilesService.getInstance().playNotificationSound(
-                                        ApplicationPreferences.applicationApplicationInterfaceNotificationSound,
-                                        ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate,
-                                        false);
+                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                                        false*/);
                                 //PPApplication.sleep(500);
                             }
                         }
@@ -153,7 +153,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
             //        /*true, mMonochrome, mMonochromeValue,*/
             //        mStartupSource, true, true, false))
-            if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
+            if (!DataWrapperStatic.displayPreferencesErrorNotification(mProfile, null, false, mActivity.getApplicationContext())) {
                 //PPApplication.logE("&&&&&&& AskForDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
 
                 if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
@@ -161,13 +161,12 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
-                    if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                    if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                         if (PhoneProfilesService.getInstance() != null) {
-                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
                             PhoneProfilesService.getInstance().playNotificationSound(
-                                    ApplicationPreferences.applicationApplicationInterfaceNotificationSound,
-                                    ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate,
-                                    false);
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                                    false*/);
                             //PPApplication.sleep(500);
                         }
                     }
@@ -185,7 +184,6 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         });
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_ask_for_duration, null);
         dialogBuilder.setView(layout);
 
@@ -224,7 +222,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         hours = mMax / 3600;
         //minutes = (mMax % 3600) / 60;
         //seconds = mMax % 60;
-        final String sMax = GlobalGUIRoutines.getDurationString(mMax);
+        final String sMax = StringFormatUtils.getDurationString(mMax);
         mSeekBarHours.setMax(hours);
         //if (hours == 0)
         //    mSeekBarMinutes.setMax(minutes);
@@ -234,7 +232,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         //    mSeekBarSeconds.setMax(seconds);
         //else
             mSeekBarSeconds.setMax(59);
-        final String sMin = GlobalGUIRoutines.getDurationString(mMin);
+        final String sMin = StringFormatUtils.getDurationString(mMin);
         int iValue = mProfile._duration;
         hours = iValue / 3600;
         minutes = (iValue % 3600) / 60;
@@ -243,8 +241,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mSeekBarMinutes.setProgress(minutes);
         mSeekBarSeconds.setProgress(seconds);
 
-        mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
-        mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
+        mValue.setText(StringFormatUtils.getDurationString(iValue));
+        mEnds.setText(StringFormatUtils.getEndsAsString(iValue));
 
         mValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
             int iValue1 = (int) duration / 1000;
@@ -254,7 +252,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             if (iValue1 > mMax)
                 iValue1 = mMax;
 
-            mValue.setText(GlobalGUIRoutines.getDurationString(iValue1));
+            mValue.setText(StringFormatUtils.getDurationString(iValue1));
 
             int hours1 = iValue1 / 3600;
             int minutes1 = (iValue1 % 3600) / 60;
@@ -423,7 +421,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         if (iValue > mMax) iValue = mMax;
 
         if(mDialog!=null && mDialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled()) {
-            mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
+            mEnds.setText(StringFormatUtils.getEndsAsString(iValue));
         } else {
             mEnds.setText("--");
         }
@@ -437,7 +435,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         }
 
         if(updateValueField) {
-            mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+            mValue.setText(StringFormatUtils.getDurationString(iValue));
         }
     }
 
@@ -477,17 +475,26 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
                 Profile afterDoProfile = mDataWrapper.getProfileById(mAfterDoProfile, true, showIndicators, false);
                 if (afterDoProfile != null) {
-
                     profileName.setText(afterDoProfile._name);
+
                     if (afterDoProfile.getIsIconResourceID()) {
-                        if (afterDoProfile._iconBitmap != null)
-                            profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
+                        Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity, afterDoProfile._iconBitmap);
+                        if (bitmap != null)
+                            profileIcon.setImageBitmap(bitmap);
                         else {
-                            int res = Profile.getIconResource(afterDoProfile.getIconIdentifier());
-                            profileIcon.setImageResource(res); // icon resource
+                            if (afterDoProfile._iconBitmap != null)
+                                profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
+                            else {
+                                int res = ProfileStatic.getIconResource(afterDoProfile.getIconIdentifier());
+                                profileIcon.setImageResource(res); // icon resource
+                            }
                         }
                     } else {
-                        profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
+                        Bitmap bitmap = afterDoProfile.increaseProfileIconBrightnessForActivity(mActivity, afterDoProfile._iconBitmap);
+                        if (bitmap != null)
+                            profileIcon.setImageBitmap(bitmap);
+                        else
+                            profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
                     }
 
                     if (showIndicators) {

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Spannable;
@@ -46,15 +45,14 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
         itemView.setOnClickListener(this);
     }
 
-    @SuppressLint("SetTextI18n")
     void bindApplication(Application application) {
 
         // 4. Bind the data to the ViewHolder
         this.application = application;
 
         if (this.application.type != Application.TYPE_INTENT) {
-            if (EditorActivity.getApplicationsCache() != null)
-                imageViewIcon.setImageBitmap(EditorActivity.getApplicationsCache().getApplicationIcon(application, false));
+            if (PPApplication.getApplicationsCache() != null)
+                imageViewIcon.setImageBitmap(PPApplication.getApplicationsCache().getApplicationIcon(application, false));
         }
         else
             imageViewIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
@@ -72,28 +70,14 @@ class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder
         }
         textViewAppName.setText(text);
         boolean errorColor = false;
-        //noinspection RedundantIfStatement
         if ((application.type == Application.TYPE_SHORTCUT) && (application.shortcutId == 0))
             errorColor = true;
         if ((application.type == Application.TYPE_INTENT) && (application.intentId == 0))
             errorColor = true;
         setTextStyle(textViewAppName, errorColor);
 
-        /*switch (application.type) {
-            case Application.TYPE_APPLICATION:
-                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
-                break;
-            case Application.TYPE_SHORTCUT:
-                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
-                break;
-            case Application.TYPE_INTENT:
-                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_intent));
-                break;
-        }
-        setTextStyle(textViewAppType, errorColor);*/
-
         text = context.getString(R.string.applications_editor_dialog_startApplicationDelay);
-        text = text + " " + GlobalGUIRoutines.getDurationString(application.startApplicationDelay);
+        text = text + " " + StringFormatUtils.getDurationString(application.startApplicationDelay);
         textViewStartApplicationDelay.setText(text);
         setTextStyle(textViewStartApplicationDelay, errorColor);
 

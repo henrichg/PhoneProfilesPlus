@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/one_row_widget_height_higher"
     android:gravity="center"
     android:background="#40000000"
     tools:ignore="Overdraw">
@@ -12,6 +12,7 @@
         android:id="@+id/widget_icon_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
         android:visibility="gone"
@@ -28,10 +29,9 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default"
@@ -44,26 +44,10 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/icon_widget_icon"
             android:text="@string/profile_name_default"
-            android:textColor="#ffffffff"
-            android:textSize="13sp"
+            android:textSize="12dp"
             android:gravity="center_horizontal"
-            android:maxLines="2"/>
-
-        <!--<TextView
-            android:id="@+id/icon_widget_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/icon_widget_icon"
-            android:shadowColor="#ffffffff"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-            android:text="@string/profile_name_default"
-            android:textColor="#ffffffff"
-            android:textSize="13sp"
-            android:gravity="center_horizontal"
-            android:maxLines="2"/>-->
+            android:maxLines="2"
+            tools:ignore="SpUsage" />
 
     </RelativeLayout>
 
@@ -71,6 +55,7 @@
         android:id="@+id/widget_icon_not_rounded_border"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
         android:visibility="gone"
@@ -80,6 +65,7 @@
         android:id="@+id/widget_icon_rounded_border"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
         android:visibility="gone"

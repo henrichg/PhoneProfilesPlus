@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -16,13 +15,8 @@ import android.text.style.ForegroundColorSpan;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 class EventPreferencesPeriodic extends EventPreferences {
 
@@ -101,10 +95,10 @@ class EventPreferencesPeriodic extends EventPreferences {
                 }
 
                 if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
-                    //if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
+                    if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
-                    //else
-                    //    descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                    else
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 } else {
                     descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
                             "<b>" + ApplicationPreferences.applicationEventPeriodicScanningScanInterval + "</b>";
@@ -116,7 +110,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                 int resultingInterval = this._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
                 descr = descr + context.getString(R.string.pref_event_periodic_resulting_interval) + ": <b>" + resultingInterval + "</b>";
                 descr = descr + " • ";
-                descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
+                descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + StringFormatUtils.getDurationString(this._duration) + "</b>";
             }
         }
 
@@ -143,16 +137,16 @@ class EventPreferencesPeriodic extends EventPreferences {
                 String summary;
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
-                    //if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile) {
+                    if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
-                    //}
-                    //else {
-                    //    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
-                    //            context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
-                    //    titleColor = 0;
-                    //}
+                    }
+                    else {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                        titleColor = 0;
+                    }
                 }
                 else {
                     summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n";
@@ -217,9 +211,15 @@ class EventPreferencesPeriodic extends EventPreferences {
 
     }
 
-    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
-                    @SuppressWarnings("unused") Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_PERIODIC_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
@@ -251,12 +251,15 @@ class EventPreferencesPeriodic extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_PERIODIC_CATEGORY);
             if (preference != null) {
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_PERIODIC_ENABLED, false);
+                boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_PERIODIC_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_PERIODIC).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                if (enabled)
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                else
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
         }
         else {
@@ -276,10 +279,14 @@ class EventPreferencesPeriodic extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_PERIODIC_APP_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PERIODIC_RESULTING_INTERVAL, preferences, context);
+        if (!onlyCategory) {
+            if (prefMng.findPreference(PREF_EVENT_PERIODIC_ENABLED) != null) {
+                setSummary(prefMng, PREF_EVENT_PERIODIC_APP_SETTINGS, preferences, context);
+                setSummary(prefMng, PREF_EVENT_PERIODIC_RESULTING_INTERVAL, preferences, context);
+            }
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 
@@ -348,7 +355,6 @@ class EventPreferencesPeriodic extends EventPreferences {
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("EventPreferencesPeriodic.removeAlarm", "alarm found");
@@ -363,7 +369,6 @@ class EventPreferencesPeriodic extends EventPreferences {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_PERIODIC_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(long alarmTime, Context context)
     {
         //PPApplication.logE("EventPreferencesPeriodic.setAlarm","_permanentRun="+_permanentRun);
@@ -381,7 +386,6 @@ class EventPreferencesPeriodic extends EventPreferences {
 
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -389,7 +393,6 @@ class EventPreferencesPeriodic extends EventPreferences {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -426,9 +429,11 @@ class EventPreferencesPeriodic extends EventPreferences {
                     _counter = 0;
                     DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
 
+                    PPExecutors.handleEvents(dataWrapper.context, EventsHandler.SENSOR_TYPE_PERIODIC, "SENSOR_TYPE_PERIODIC", 5);
+                    /*
                     //enqueueWork();
                     Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PERIODIC)
+                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PERIODIC)
                             .build();
 
                     OneTimeWorkRequest worker =
@@ -461,6 +466,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
+                    */
                 }
             } else {
                 _counter = 0;
@@ -523,10 +529,10 @@ class EventPreferencesPeriodic extends EventPreferences {
 //                        PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
 //                    }
 
-                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PERIODIC))
+                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PERIODIC)
                         eventsHandler.periodicPassed = true;
                     else {
-                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PERIODIC_EVENT_END))
+                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PERIODIC_EVENT_END)
                             eventsHandler.periodicPassed = false;
                         else
                             eventsHandler.periodicPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -11,7 +10,6 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
@@ -46,11 +44,11 @@ public class RingtonePreferenceX extends DialogPreference {
 
     private final Context prefContext;
 
-    private static MediaPlayer mediaPlayer = null;
-    private static int oldMediaVolume = -1;
-    private static boolean oldMediaMuted = false;
-    private static Timer playTimer = null;
-    private static boolean ringtoneIsPlayed = false;
+    private static volatile MediaPlayer mediaPlayer = null;
+    private static volatile int oldMediaVolume = -1;
+    private static volatile boolean oldMediaMuted = false;
+    private static volatile Timer playTimer = null;
+    private static volatile boolean ringtoneIsPlayed = false;
 
     public RingtonePreferenceX(Context context, AttributeSet attrs)
     {
@@ -138,10 +136,11 @@ public class RingtonePreferenceX extends DialogPreference {
         final AudioManager audioManager = (AudioManager) prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
             final Context appContext = prefContext.getApplicationContext();
-            PPApplication.startHandlerThreadPlayTone();
-            final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+            //PPApplication.startHandlerThreadPlayTone();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
             //__handler.post(new StopPlayRingtoneRunnable(prefContext.getApplicationContext(), audioManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragmentX.stopPlayRingtone");
 
                 //Context appContext = appContextWeakRef.get();
@@ -173,11 +172,13 @@ public class RingtonePreferenceX extends DialogPreference {
                             EventPreferencesVolumes.internalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                            DisableVolumesInternalChangeWorker.enqueueWork();
+                            PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                         }
                     }
                 }
-            });
+            }; //);
+            PPApplication.createPlayToneExecutor();
+            PPApplication.playToneExecutor.submit(runnable);
         }
     }
 
@@ -193,11 +194,12 @@ public class RingtonePreferenceX extends DialogPreference {
             final Uri _ringtoneUri = Uri.parse(ringtoneUri);
 
             final Context appContext = prefContext.getApplicationContext();
-            PPApplication.startHandlerThreadPlayTone();
-            final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+            //PPApplication.startHandlerThreadPlayTone();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
             //__handler.post(new PlayRingtoneRunnable(prefContext.getApplicationContext(),
             //                        audioManager, _ringtoneUri) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
                 //Context appContext = appContextWeakRef.get();
                 //AudioManager audioManager = audioManagerWeakRef.get();
                 //Uri ringtoneUri = ringtoneUriWeakRef.get();
@@ -322,8 +324,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                     ringtoneIsPlayed = false;
                                     mediaPlayer = null;
 
-                                    DisableInternalChangeWorker.enqueueWork();
-                                    DisableVolumesInternalChangeWorker.enqueueWork();
+                                    PPExecutors.scheduleDisableInternalChangeExecutor();
+                                    PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                     final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -346,8 +348,8 @@ public class RingtonePreferenceX extends DialogPreference {
                         //PPApplication.recordException(e);
                         RingtonePreferenceX.this.stopPlayRingtone();
 
-                        DisableInternalChangeWorker.enqueueWork();
-                        DisableVolumesInternalChangeWorker.enqueueWork();
+                        PPExecutors.scheduleDisableInternalChangeExecutor();
+                        PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -361,7 +363,9 @@ public class RingtonePreferenceX extends DialogPreference {
                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     }
                 }
-            });
+            }; //);
+            PPApplication.createPlayToneExecutor();
+            PPApplication.playToneExecutor.submit(runnable);
 
         }
     }
@@ -450,7 +454,6 @@ public class RingtonePreferenceX extends DialogPreference {
 
         //String oldRingtoneUri;
 
-        @SuppressLint("ParcelClassLoader")
         SavedState(Parcel source) {
             super(source);
             ringtoneUri = source.readString();
@@ -514,8 +517,7 @@ public class RingtonePreferenceX extends DialogPreference {
                 RingtoneManager manager = new RingtoneManager(prefContext);
 
                 Uri uri;// = null;
-                        /*//noinspection ConstantConditions
-                        switch (ringtoneType) {
+                        /*switch (ringtoneType) {
                             case "ringtone":
                                 uri = Settings.System.DEFAULT_RINGTONE_URI;
                                 break;

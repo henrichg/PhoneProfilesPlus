@@ -4,14 +4,13 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 
 public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     private final Context context;
 
-    static boolean connected = false;
+    static volatile boolean connected = false;
 
     WifiNetworkCallback(Context context) {
         this.context = context.getApplicationContext();
@@ -133,11 +132,12 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
         }
         else {
             final Context appContext = context;
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        appContext) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 
                 //Context appContext= appContextWeakRef.get();
@@ -166,7 +166,9 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createEventsHandlerExecutor();
+            PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }
 

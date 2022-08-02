@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -12,16 +14,13 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
@@ -34,10 +33,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         if (appWidgetIds.length > 0) {
 //            PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
             final Context appContext = context;
-            PPApplication.startHandlerThreadWidget();
-            final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            //PPApplication.startHandlerThreadWidget();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
@@ -46,7 +46,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 //if ((appContext != null) && (appWidgetManager != null)) {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
                 //}
-            });
+            }; //);
+            PPApplication.createDelayedGuiExecutor();
+            PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
 
@@ -72,6 +74,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowLayoutHeight;
         //boolean applicationWidgetOneRowHigherLayout;
         boolean applicationWidgetOneRowChangeColorsByNightMode;
+        boolean applicationWidgetOneRowUseDynamicColors;
+        String applicationWidgetOneRowBackgroundColorNightModeOff;
+        String applicationWidgetOneRowBackgroundColorNightModeOn;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
@@ -88,11 +94,23 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
             applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+
+            // "Rounded corners" parameter is removed, is forced to true
+//            PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCorners="+applicationWidgetOneRowRoundedCorners);
+//            PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
+            if (!applicationWidgetOneRowRoundedCorners) {
+                //applicationWidgetOneRowRoundedCorners = true;
+                applicationWidgetOneRowRoundedCornersRadius = 1;
+            }
+
             applicationWidgetOneRowLayoutHeight = ApplicationPreferences.applicationWidgetOneRowLayoutHeight;
             //applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
             applicationWidgetOneRowChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
+            applicationWidgetOneRowUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowUseDynamicColors;
+            applicationWidgetOneRowBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOff;
+            applicationWidgetOneRowBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn;
 
-            if (Build.VERSION.SDK_INT >= 31) {
+            if (Build.VERSION.SDK_INT >= 30) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
@@ -106,37 +124,40 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
                     //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
-                    applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+                    //applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
                     applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
+                if (Build.VERSION.SDK_INT < 31)
+                    applicationWidgetOneRowUseDynamicColors = false;
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetOneRowChangeColorsByNightMode) {
+                        (applicationWidgetOneRowChangeColorsByNightMode &&
+                         (!applicationWidgetOneRowUseDynamicColors))) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            //applicationWidgetOneRowBackground = "100"; // fully opaque
+                            //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(0x2f2f2f); // color of background
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetOneRowBackgroundColorNightModeOn)); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
-                            applicationWidgetOneRowLightnessBorder = "100";
-                            applicationWidgetOneRowLightnessT = "100"; // lightness of text = white
+                            applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                            applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                             //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                            applicationWidgetOneRowIconLightness = "75";
-                            applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
+                            applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                            //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            //applicationWidgetOneRowBackground = "100"; // fully opaque
+                            //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(0xf0f0f0); // color of background
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetOneRowBackgroundColorNightModeOff)); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "0";
-                            applicationWidgetOneRowLightnessT = "0"; // lightness of text = black
+                            applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                             //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                            applicationWidgetOneRowIconLightness = "62";
-                            applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
+                            applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                            //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
                             break;
                     }
                 }
@@ -147,31 +168,31 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         int monochromeValue = 0xFF;
         switch (applicationWidgetOneRowIconLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 monochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 monochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 monochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 monochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 monochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 monochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 monochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 monochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 //noinspection ConstantConditions
                 monochromeValue = 0xFF;
                 break;
@@ -180,53 +201,72 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         float prefIndicatorLightnessValue = 0f;
         int prefIndicatorMonochromeValue = 0x00;
         switch (applicationWidgetOneRowPrefIndicatorLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 prefIndicatorLightnessValue = -128f;
                 //noinspection ConstantConditions
                 prefIndicatorMonochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 prefIndicatorLightnessValue = -96f;
                 prefIndicatorMonochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 prefIndicatorLightnessValue = -64f;
                 prefIndicatorMonochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 prefIndicatorLightnessValue = -32f;
                 prefIndicatorMonochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 prefIndicatorLightnessValue = 0f;
                 prefIndicatorMonochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 prefIndicatorLightnessValue = 32f;
                 prefIndicatorMonochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 prefIndicatorLightnessValue = 64f;
                 prefIndicatorMonochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 prefIndicatorLightnessValue = 96f;
                 prefIndicatorMonochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 prefIndicatorLightnessValue = 128f;
                 prefIndicatorMonochromeValue = 0xFF;
                 break;
         }
 //        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
 
-        //DataWrapper dataWrapper = _dataWrapper;
-        //Profile profile = _profile;
-        //if (dataWrapper == null) {
+        int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
+        if (applicationWidgetOneRowChangeColorsByNightMode &&
+            applicationWidgetOneRowIconColor.equals("0")) {
+            if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowUseDynamicColors)
+                indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
+            else
+                indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;
+        }
+        else
+        if (applicationWidgetOneRowBackgroundType) {
+            if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowBackgroundColor)) < 0.23)
+                indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
+            else
+                indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
+        } else {
+            if (Integer.parseInt(applicationWidgetOneRowBackground) <= 37)
+                indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
+            else
+                indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
+        }
+
+
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                     applicationWidgetOneRowCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
+                    indicatorType, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;
@@ -247,32 +287,32 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 blueBackground = Color.blue(bgColor);
             } else {
                 switch (applicationWidgetOneRowLightnessB) {
-                    case "0":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                         //noinspection ConstantConditions
                         redBackground = 0x00;
                         break;
-                    case "12":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                         redBackground = 0x20;
                         break;
-                    case "25":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                         redBackground = 0x40;
                         break;
-                    case "37":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                         redBackground = 0x60;
                         break;
-                    case "50":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                         redBackground = 0x80;
                         break;
-                    case "62":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                         redBackground = 0xA0;
                         break;
-                    case "75":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                         redBackground = 0xC0;
                         break;
-                    case "87":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                         redBackground = 0xE0;
                         break;
-                    case "100":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                         redBackground = 0xFF;
                         break;
                 }
@@ -282,32 +322,32 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
             int alphaBackground = 0x40;
             switch (applicationWidgetOneRowBackground) {
-                case "0":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                     alphaBackground = 0x00;
                     break;
-                case "12":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                     alphaBackground = 0x20;
                     break;
-                case "25":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                     //noinspection ConstantConditions
                     alphaBackground = 0x40;
                     break;
-                case "37":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                     alphaBackground = 0x60;
                     break;
-                case "50":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                     alphaBackground = 0x80;
                     break;
-                case "62":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                     alphaBackground = 0xA0;
                     break;
-                case "75":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                     alphaBackground = 0xC0;
                     break;
-                case "87":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                     alphaBackground = 0xE0;
                     break;
-                case "100":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                     alphaBackground = 0xFF;
                     break;
             }
@@ -318,31 +358,31 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             if (applicationWidgetOneRowShowBorder) {
                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "");
                 switch (applicationWidgetOneRowLightnessBorder) {
-                    case "0":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                         redBorder = 0x00;
                         break;
-                    case "12":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                         redBorder = 0x20;
                         break;
-                    case "25":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                         redBorder = 0x40;
                         break;
-                    case "37":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                         redBorder = 0x60;
                         break;
-                    case "50":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                         redBorder = 0x80;
                         break;
-                    case "62":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                         redBorder = 0xA0;
                         break;
-                    case "75":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                         redBorder = 0xC0;
                         break;
-                    case "87":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                         redBorder = 0xE0;
                         break;
-                    case "100":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                         //noinspection ConstantConditions
                         redBorder = 0xFF;
                         break;
@@ -354,31 +394,31 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
             int redText = 0xFF;
             switch (applicationWidgetOneRowLightnessT) {
-                case "0":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                     redText = 0x00;
                     break;
-                case "12":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                     redText = 0x20;
                     break;
-                case "25":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                     redText = 0x40;
                     break;
-                case "37":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                     redText = 0x60;
                     break;
-                case "50":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                     redText = 0x80;
                     break;
-                case "62":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                     redText = 0xA0;
                     break;
-                case "75":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                     redText = 0xC0;
                     break;
-                case "87":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                     redText = 0xE0;
                     break;
-                case "100":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                     //noinspection ConstantConditions
                     redText = 0xFF;
                     break;
@@ -394,7 +434,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             if (profile != null) {
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
+                profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
             } else {
                 // create empty profile and set icon resource
                 profile = new Profile();
@@ -416,41 +456,51 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
             for (int widgetId : appWidgetIds) {
 
+                //Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
+                //bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ONE_ROW);
+                //appWidgetManager.updateAppWidgetOptions(widgetId, bundle);
+
 //                AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(widgetId);
 //                PPApplication.logE("OneRowWidgetProvider._onUpdate", "info.updatePeriodMillis="+info.updatePeriodMillis);
 
                 RemoteViews remoteViews;
 
-                if (applicationWidgetOneRowLayoutHeight.equals("0")) {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
+                    if (applicationWidgetOneRowLayoutHeight.equals("0")) {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
+                    } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
+                    } else {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_no_indicator);
+                    }
+                } else {
+                    if (applicationWidgetOneRowLayoutHeight.equals("0")) {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_dn);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator_dn);
+                    } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_dn);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator_dn);
+                    } else {
+                        if (applicationWidgetOneRowPrefIndicator)
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_dn);
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_no_indicator_dn);
+                    }
                 }
-                else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
-                }
-                else {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_no_indicator);
-                }
-                /*if (applicationWidgetOneRowHigherLayout) {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
-                }
-                else {
-                    if (applicationWidgetOneRowPrefIndicator)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
-                }*/
 
 //                PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
                 int roundedBackground = 0;
@@ -458,13 +508,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if (PPApplication.isPixelLauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
-                }
-                else
-                if (PPApplication.isOneUILauncherDefault(context)) {
+                } else if (PPApplication.isOneUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
-                }
-                else {
+                } else {
                     switch (applicationWidgetOneRowRoundedCornersRadius) {
                         case 1:
                             roundedBackground = R.drawable.rounded_widget_background_1;
@@ -537,62 +584,75 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 else
                     remoteViews.setImageViewResource(R.id.widget_one_row_rounded_border, R.drawable.ic_empty);
 
-                if (applicationWidgetOneRowRoundedCorners) {
-                    //PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
-                    remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
-                    remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
-                    if (applicationWidgetOneRowShowBorder) {
-                        //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
-                        remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
-                    }
-                    else {
-                        //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
-                        remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
-                    }
-                    remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
-                    remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
-                    //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                    remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
-                    //else
-                    //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", alpha);
-                    if (applicationWidgetOneRowShowBorder)
-                        remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                } else {
-                    //PPApplication.logE("OneRowWidgetProvider.onUpdate", "NOT rounded corners");
-                    remoteViews.setViewVisibility(R.id.widget_one_row_background, View.GONE);
+//                    PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
+                remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
+                remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
+                if (applicationWidgetOneRowShowBorder) {
+                    //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
+                    remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
+                }
+                else {
+                    //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
                     remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
-                    if (applicationWidgetOneRowShowBorder) {
-                        //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
-                        remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, VISIBLE);
-                    }
-                    else {
-                        //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
-                        remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
-                    }
-                    remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
-                        /*remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", 0x00000000);
-                        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                        remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", 0);
-                        //else
-                        //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", 0);*/
-                    if (applicationWidgetOneRowShowBorder)
-                        remoteViews.setInt(R.id.widget_one_row_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                }
+                remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
+
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
+                    //remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, 0, 0, 0));
+                    remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
                 }
 
+                remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
+
+                if (applicationWidgetOneRowShowBorder) {
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                            applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
+                        remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                }
+
+                Bitmap bitmap = null;
+                if (applicationWidgetOneRowIconColor.equals("0")) {
+                    if (applicationWidgetOneRowChangeColorsByNightMode ||
+                       ((!applicationWidgetOneRowBackgroundType) &&
+                           (Integer.parseInt(applicationWidgetOneRowLightnessB) <= 25)) ||
+                       (applicationWidgetOneRowBackgroundType &&
+                           (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowBackgroundColor)) < 0.23)))
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                }
                 if (isIconResourceID) {
-                    if (profile._iconBitmap != null)
-                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
+                    if (bitmap != null)
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
                     else {
-                        //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                        int iconResource = Profile.getIconResource(iconIdentifier);
-                        remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
+                        if (profile._iconBitmap != null)
+                            remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
+                        else {
+                            //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
+                            //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                            int iconResource = ProfileStatic.getIconResource(iconIdentifier);
+                            remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
+                        }
                     }
                 } else {
-                    remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
+                    if (bitmap != null)
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
+                    else {
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
+                    }
                 }
 
-                remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
+                    remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
+                }
+                else {
+                    // must be removed android:textColor in layout
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                    if (color != 0) {
+                        remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, color);
+                    }
+                }
 
                 remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
                 if (applicationWidgetOneRowPrefIndicator) {
@@ -605,11 +665,24 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     }
                 }
 
-                //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
-                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
-                bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
-                remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
-                //}
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
+                    //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
+                    remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                    //}
+                } else {
+                    // good, color of this is as in notification ;-)
+                    // but must be removed android:tint in layout
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+//                    Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
+                    if (color != 0) {
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                        bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                    }
+                }
 
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running=" + Event.getGlobalEventsRunning(context));
@@ -618,7 +691,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 //remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events_click, pIntentRE);
                 //} else
@@ -629,7 +701,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 // clear all opened activities
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 200, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_profile_root, pendingIntent);
 
@@ -647,7 +718,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         //    PPApplication.recordException(ee);
         //}
 
-        //dataWrapper.invalidateDataWrapper();
+        /*if (profile != null) {
+            profile.releaseIconBitmap();
+            profile.releasePreferencesIndicator();
+        }*/
+        dataWrapper.invalidateDataWrapper();
     }
 
     @Override
@@ -665,10 +740,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if ((ids != null) && (ids.length > 0)) {
                     final Context appContext = context;
                     final AppWidgetManager appWidgetManager = manager;
-                    PPApplication.startHandlerThreadWidget();
-                    final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+                    //PPApplication.startHandlerThreadWidget();
+                    //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
                     //__handler.post(new PPHandlerThreadRunnable(context, manager) {
-                    __handler.post(() -> {
+                    //__handler.post(() -> {
+                    Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
@@ -677,7 +753,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         //if ((appContext != null) && (appWidgetManager != null)) {
                             _onUpdate(appContext, appWidgetManager, ids);
                         //}
-                    });
+                    }; //);
+                    PPApplication.createDelayedGuiExecutor();
+                    PPApplication.delayedGuiExecutor.submit(runnable);
                 }
             }
         }
@@ -729,31 +807,31 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         int monochromeValue = 0xFF;
         switch (applicationWidgetOneRowIconLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 monochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 monochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 monochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 monochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 monochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 monochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 monochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 monochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 monochromeValue = 0xFF;
                 break;
         }

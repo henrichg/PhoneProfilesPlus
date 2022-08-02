@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -22,6 +20,8 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
             return;
 
         final Context appContext = context.getApplicationContext();
+        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH, "SENSOR_TYPE_RADIO_SWITCH", 0);
+        /*
         PPApplication.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(
@@ -78,6 +78,7 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
                 }
             //}
         });
+        */
     }
 
 }

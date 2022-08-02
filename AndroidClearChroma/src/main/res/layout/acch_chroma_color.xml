@@ -17,45 +17,39 @@
         android:clickable="true"
         android:focusable="true"/>
 
-    <!--
-    <TextView
-        android:id="@+id/acch_color_edit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:textSize="17sp"
-        android:textColor="?attr/colorAccent"
-        android:background="@drawable/acch_button_background"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"/>
-    -->
-
-    <EditText
-        android:id="@+id/acch_color_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center_horizontal"
-        android:imeOptions="actionDone|actionGo|actionSend"
-        android:inputType="textCapCharacters|textNoSuggestions"
-        android:textSize="20sp"
-        android:importantForAutofill="no"
-        tools:ignore="LabelFor" />
-<!--    android:digits="0123456789ABCDEF"-->
-<!--    android:maxLength="9"-->
-
-    <LinearLayout
-        android:id="@+id/acch_channel_container"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:fadeScrollbars="false" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/acch_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"
+                android:imeOptions="actionDone|actionGo|actionSend"
+                android:inputType="textCapCharacters|textNoSuggestions"
+                android:textSize="20sp"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor" />
+        <!--    android:digits="0123456789ABCDEF"-->
+        <!--    android:maxLength="9"-->
+
+            <LinearLayout
+                android:id="@+id/acch_channel_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

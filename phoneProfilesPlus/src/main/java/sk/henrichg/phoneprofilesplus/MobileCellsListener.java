@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
 import android.telephony.CellIdentityCdma;
@@ -29,15 +28,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 class MobileCellsListener extends PhoneStateListener {
 
@@ -193,10 +187,11 @@ class MobileCellsListener extends PhoneStateListener {
         //PPApplication.logE("MobileCellsScanner.onCellInfoChanged."+simSlot, "telephonyManager="+telephonyManager);
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellInfoChanged"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellInfoChanged"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onCellInfoChanged");
 
             //Context appContext= appContextWeakRef.get();
@@ -220,7 +215,7 @@ class MobileCellsListener extends PhoneStateListener {
 
                     //if (_cellInfo != null) {
 //                    PPApplication.logE("[TEST BATTERY] MobileCellsListener.onCellInfoChanged."+simSlot, "xxx");
-                    MobileCellsListener.this.handleEvents(/*appContext*/);
+                    MobileCellsListener.this.handleEvents(appContext);
                     //}
 
 //                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileCellsListener.onCellInfoChanged");
@@ -236,7 +231,9 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createEventsHandlerExecutor();
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     @Override
@@ -251,10 +248,11 @@ class MobileCellsListener extends PhoneStateListener {
         //PPApplication.logE("MobileCellsScanner.onServiceStateChanged."+simSlot, "telephonyManager=" + telephonyManager);
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onServiceStateChanged"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onServiceStateChanged"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onServiceStateChanged");
 
             //Context appContext= appContextWeakRef.get();
@@ -278,7 +276,7 @@ class MobileCellsListener extends PhoneStateListener {
     //                }
 
                     //PPApplication.logE("[TEST BATTERY] MobileCellsScanner.onServiceStateChanged()", "xxx");
-                    MobileCellsListener.this.handleEvents(/*appContext*/);
+                    MobileCellsListener.this.handleEvents(appContext);
 
 //                      PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileCellsListener.onServiceStateChanged");
                 } catch (Exception e) {
@@ -293,7 +291,9 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createEventsHandlerExecutor();
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     private void getCellLocation(CellLocation location) {
@@ -387,10 +387,11 @@ class MobileCellsListener extends PhoneStateListener {
         //PPApplication.logE("MobileCellsScanner.onCellLocationChanged", "telephonyManager="+telephonyManager);
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellLocationChanged"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellLocationChanged"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onCellLocationChanged");
 
             //Context appContext= appContextWeakRef.get();
@@ -422,7 +423,7 @@ class MobileCellsListener extends PhoneStateListener {
 
                     //if (_location != null) {
     //                PPApplication.logE("[TEST BATTERY] MobileCellsScanner.onCellLocationChanged."+simSlot, "xxx");
-                    MobileCellsListener.this.handleEvents(/*appContext*/);
+                    MobileCellsListener.this.handleEvents(appContext);
                     //}
 
     //                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileCellsListener.onCellLocationChanged");
@@ -438,7 +439,9 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createEventsHandlerExecutor();
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     void registerCell() {
@@ -455,10 +458,11 @@ class MobileCellsListener extends PhoneStateListener {
             //PPApplication.logE("MobileCellsScanner.rescanMobileCells."+simSlot, "-----");
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.rescanMobileCells"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.rescanMobileCells"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.rescanMobileCells");
 
                 //Context appContext= appContextWeakRef.get();
@@ -482,7 +486,7 @@ class MobileCellsListener extends PhoneStateListener {
     //                    }
 
                         //PPApplication.logE("[TEST BATTERY] MobileCellsScanner.rescanMobileCells()", "xxx");
-                        MobileCellsListener.this.handleEvents(/*appContext*/);
+                        MobileCellsListener.this.handleEvents(appContext);
 
 //                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileCellsListener.rescanMobileCells");
                     } catch (Exception e) {
@@ -497,11 +501,13 @@ class MobileCellsListener extends PhoneStateListener {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createEventsHandlerExecutor();
+            PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }
 
-    void handleEvents(/*final Context appContext*/) {
+    void handleEvents(final Context appContext) {
 //        PPApplication.logE("MobileCellsListener.handleEvents."+simSlot, "xxx");
         if (Event.getGlobalEventsRunning())
         {
@@ -517,8 +523,10 @@ class MobileCellsListener extends PhoneStateListener {
                 PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MobileCellsScanner.handleEvents");
             //}*/
 
+            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_MOBILE_CELLS, "SENSOR_TYPE_MOBILE_CELLS", 5);
+            /*
             Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_MOBILE_CELLS)
+                    .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_MOBILE_CELLS)
                     .build();
 
             OneTimeWorkRequest worker =
@@ -545,12 +553,13 @@ class MobileCellsListener extends PhoneStateListener {
 
 //                        PPApplication.logE("[WORKER_CALL] MobileCellsListener.handleEvents."+simSlot, "xxx");
                         //workManager.enqueue(worker);
-                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
         }
 
         /*
@@ -561,7 +570,6 @@ class MobileCellsListener extends PhoneStateListener {
         */
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void doAutoRegistration(final int _registeredCell) {
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -946,7 +954,6 @@ class MobileCellsListener extends PhoneStateListener {
                         // Android 12 - this do not starts activity - OK
                         Intent deleteIntent = new Intent(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
                         deleteIntent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, _registeredCell, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         mBuilder.setDeleteIntent(deletePendingIntent);
 
@@ -954,10 +961,10 @@ class MobileCellsListener extends PhoneStateListener {
                         // Android 12 - this do not starts activity - OK
                         Intent disableDetectionIntent = new Intent(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
                         disableDetectionIntent.putExtra("notificationId", _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent pDisableDetectionIntent = PendingIntent.getBroadcast(context, 0, disableDetectionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
-                                R.drawable.ic_action_exit_app,
+                                //R.drawable.ic_action_exit_app,
+                                R.drawable.ic_empty,
                                 context.getString(R.string.notification_not_used_mobile_cell_disable),
                                 pDisableDetectionIntent);
                         mBuilder.addAction(actionBuilder.build());
@@ -967,7 +974,6 @@ class MobileCellsListener extends PhoneStateListener {
                         intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_RUNNING_EVENTS, MobileCellsScanner.lastRunningEventsNotOutside);
                         intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_PAUSED_EVENTS, MobileCellsScanner.lastPausedEventsOutside);
 
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent pi = PendingIntent.getActivity(context, _registeredCell, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                         mBuilder.setContentIntent(pi);
                         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
@@ -975,6 +981,8 @@ class MobileCellsListener extends PhoneStateListener {
                         //mBuilder.setOnlyAlertOnce(true);
                         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+                        mBuilder.setGroup(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_GROUP);
 
                         NotificationManagerCompat _mNotificationManager = NotificationManagerCompat.from(context);
                         try {

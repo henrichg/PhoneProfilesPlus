@@ -106,7 +106,7 @@ class EventPreferencesWifi extends EventPreferences {
                             descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                         else
                             descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
-                    } else if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    } else if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                         descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
                     }
                 }
@@ -209,7 +209,7 @@ class EventPreferencesWifi extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
-                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n"+
                             summary;
                 }
@@ -225,7 +225,7 @@ class EventPreferencesWifi extends EventPreferences {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
                     String summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
-                    if (PhoneProfilesService.isWifiSleepPolicySetToNever(context.getApplicationContext())) {
+                    if (GlobalUtils.isWifiSleepPolicySetToNever(context.getApplicationContext())) {
                         summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
                                 summary;
                     } else {
@@ -261,6 +261,13 @@ class EventPreferencesWifi extends EventPreferences {
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_WIFI_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
@@ -306,12 +313,15 @@ class EventPreferencesWifi extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY);
             if (preference != null) {
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false);
+                boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_WIFI_SCANNER).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                if (enabled)
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                else
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
         }
         else {
@@ -331,15 +341,16 @@ class EventPreferencesWifi extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
-        /*final boolean enabled = ApplicationPreferences.applicationEventWifiEnableScanning(context.getApplicationContext());
-        Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
-        if (preference != null) preference.setEnabled(enabled);*/
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        //setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
-        setSummary(prefMng, PREF_EVENT_WIFI_APP_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS, preferences, context);
+        if (!onlyCategory) {
+            if (prefMng.findPreference(PREF_EVENT_WIFI_ENABLED) != null) {
+                //setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
+                setSummary(prefMng, PREF_EVENT_WIFI_APP_SETTINGS, preferences, context);
+                setSummary(prefMng, PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS, preferences, context);
+                setSummary(prefMng, PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS, preferences, context);
+            }
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 

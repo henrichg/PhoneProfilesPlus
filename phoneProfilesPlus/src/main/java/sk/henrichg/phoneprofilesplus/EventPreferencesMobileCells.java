@@ -104,7 +104,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
                 else
-                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     if (Build.VERSION.SDK_INT < 28)
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".<br>";
                     else
@@ -128,11 +128,11 @@ class EventPreferencesMobileCells extends EventPreferences {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
                             boolean simExists;
-                            synchronized (PPApplication.simCardsMutext) {
-                                simExists = PPApplication.simCardsMutext.simCardsDetected;
-                                simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
-                                simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
-                            }
+                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+
+                            simExists = sim1Exists;
+                            simExists = simExists && sim2Exists;
                             hasSIMCard = simExists;
                         }
                     }
@@ -214,7 +214,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary);
                 else
                     summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
-                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     if (Build.VERSION.SDK_INT < 28)
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" + summary;
                     else
@@ -244,11 +244,11 @@ class EventPreferencesMobileCells extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
-                        synchronized (PPApplication.simCardsMutext) {
-                            simExists = PPApplication.simCardsMutext.simCardsDetected;
-                            simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
-                            simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
-                        }
+                        boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                        boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+
+                        simExists = sim1Exists;
+                        simExists = simExists && sim2Exists;
                         hasSIMCard = simExists;
                         ListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
@@ -273,7 +273,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
@@ -293,9 +293,15 @@ class EventPreferencesMobileCells extends EventPreferences {
         }
     }
 
-    void setSummary(PreferenceManager prefMng, String key,
-                    @SuppressWarnings("unused") SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED) ||
             key.equals(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE)) {
             boolean value = preferences.getBoolean(key, false);
@@ -330,12 +336,15 @@ class EventPreferencesMobileCells extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CATEGORY);
             if (preference != null) {
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
+                boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_MOBILE_CELLS).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                if (enabled)
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                else
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
         }
         else {
@@ -360,61 +369,54 @@ class EventPreferencesMobileCells extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
-        //final boolean enabled = ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext());
-        //Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS);
-        //if (preference != null) preference.setEnabled(enabled);
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        //setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_APP_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS, preferences, context);
-        setCategorySummary(prefMng, preferences, context);
+        if (!onlyCategory) {
+            if (prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_ENABLED) != null) {
+                //setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
+                setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_APP_SETTINGS, preferences, context);
+                setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS, preferences, context);
 
-        if (Build.VERSION.SDK_INT >= 26) {
-            Preference preference;
+                if (Build.VERSION.SDK_INT >= 26) {
+                    Preference preference;
 
-            boolean showPreferences = false;
-            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (telephonyManager != null) {
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
-                int phoneCount = telephonyManager.getPhoneCount();
-                if (phoneCount > 1) {
-                    boolean sim1Exists;
-                    boolean sim2Exists;
-                    synchronized (PPApplication.simCardsMutext) {
-                        sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        sim2Exists = sim1Exists;
-                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                    boolean showPreferences = false;
+                    final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
+                        int phoneCount = telephonyManager.getPhoneCount();
+                        if (phoneCount > 1) {
+                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+
+                            showPreferences = true;
+                            //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
+                            //if (preference != null)
+                            //    preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                            preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD);
+                            if (preference != null)
+                                preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                        } else {
+                            //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
+                            //if (preference != null)
+                            //    preference.setEnabled(false);
+                            preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD);
+                            if (preference != null)
+                                preference.setEnabled(false);
+                        }
                     }
-
-                    showPreferences = true;
-                    //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
-                    //if (preference != null)
-                    //    preference.setEnabled(enabled && sim1Exists && sim2Exists);
-                    preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD);
-                    if (preference != null)
-                        preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                    if (!showPreferences) {
+                        //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
+                        //if (preference != null)
+                        //    preference.setVisible(false);
+                        preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD);
+                        if (preference != null)
+                            preference.setVisible(false);
+                    }
                 }
-                else {
-                    //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
-                    //if (preference != null)
-                    //    preference.setEnabled(false);
-                    preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD);
-                    if (preference != null)
-                        preference.setEnabled(false);
-                }
-            }
-            if (!showPreferences) {
-                //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
-                //if (preference != null)
-                //    preference.setVisible(false);
-                preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD);
-                if (preference != null)
-                    preference.setVisible(false);
             }
         }
-
+        setCategorySummary(prefMng, preferences, context);
     }
 
     /*

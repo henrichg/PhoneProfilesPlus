@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
@@ -34,7 +36,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.os.ServiceManager;
 import android.os.UserHandle;
@@ -54,10 +55,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.android.internal.telephony.ITelephony;
 import com.noob.noobcameraflash.managers.NoobCameraManager;
@@ -73,12 +70,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 class ActivateProfileHelper {
 
-    static boolean disableScreenTimeoutInternalChange = false;
-    static boolean brightnessDialogInternalChange = false;
+    static volatile boolean disableScreenTimeoutInternalChange = false;
+    static volatile boolean brightnessDialogInternalChange = false;
 
     // bluetooth calls volume stream
     static final int STREAM_BLUETOOTH_SCO = 6;
@@ -113,7 +108,7 @@ class ActivateProfileHelper {
     private static final String PREF_KEEP_SCREEN_ON_PERMANENT = "keep_screen_on_permanent";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
-    static final String EXTRA_PROFILE_NAME = "profile_name";
+    //static final String EXTRA_PROFILE_NAME = "profile_name";
 
     @SuppressLint("MissingPermission")
     private static void doExecuteForRadios(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences)
@@ -127,7 +122,7 @@ class ActivateProfileHelper {
         if (profile == null)
             return;
 
-        PPApplication.sleep(300);
+        boolean firstSleepCalled = false;
 
         Context appContext = context.getApplicationContext();
 
@@ -139,7 +134,14 @@ class ActivateProfileHelper {
                 if (phoneCount > 1) {
 
                     if (profile._deviceOnOffSIM1 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                GlobalUtils.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1");
                             //boolean _isSIM1On = isSIMOn(appContext, 1);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM1On="+_isSIM1On);
@@ -153,7 +155,6 @@ class ActivateProfileHelper {
                                     break;
                                 case 2:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 2");
-                                    //noinspection DuplicateBranchesInSwitch
                                     _setSIM1OnOff = true;
                                     _setOn = false;
                                     break;
@@ -162,16 +163,21 @@ class ActivateProfileHelper {
                             }
                             if (_setSIM1OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
-                                //noinspection ConstantConditions
                                 setSIMOnOff(appContext, _setOn, 1);
-                                PPApplication.sleep(200);
+                                GlobalUtils.sleep(200);
                             }
                         }
                         //else
                         //    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 NOT ALLOWED");
                     }
                     if (profile._deviceOnOffSIM2 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                GlobalUtils.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2");
                             //boolean _isSIM2On = isSIMOn(appContext, 2);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM2On="+_isSIM2On);
@@ -185,7 +191,6 @@ class ActivateProfileHelper {
                                     break;
                                 case 2:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 2");
-                                    //noinspection DuplicateBranchesInSwitch
                                     _setSIM2OnOff = true;
                                     _setOn = false;
                                     break;
@@ -194,9 +199,8 @@ class ActivateProfileHelper {
                             }
                             if (_setSIM2OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
-                                //noinspection ConstantConditions
                                 setSIMOnOff(appContext, _setOn, 2);
-                                PPApplication.sleep(200);
+                                GlobalUtils.sleep(200);
                             }
                         }
                         //else
@@ -210,7 +214,13 @@ class ActivateProfileHelper {
         // change default SIM
         if (Build.VERSION.SDK_INT >= 26) {
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    //noinspection ConstantConditions
+                    if (!firstSleepCalled) {
+                        GlobalUtils.sleep(300);
+                        firstSleepCalled = true;
+                    }
+
 //                    PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "profile._deviceDefaultSIMCards="+profile._deviceDefaultSIMCards);
                     String[] splits = profile._deviceDefaultSIMCards.split("\\|");
                     if (splits.length == 3) {
@@ -249,12 +259,18 @@ class ActivateProfileHelper {
         // setup network type
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    GlobalUtils.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                 // in array.xml, networkTypeGSMValues are 100+ values
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
                 setPreferredNetworkType(appContext, profile._deviceNetworkType - 100, 0);
-                PPApplication.sleep(200);
+                GlobalUtils.sleep(200);
             }
         }
         if (Build.VERSION.SDK_INT >= 26) {
@@ -263,21 +279,33 @@ class ActivateProfileHelper {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
                     if (profile._deviceNetworkTypeSIM1 >= 100) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                GlobalUtils.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                             // in array.xml, networkTypeGSMValues are 100+ values
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
                             setPreferredNetworkType(appContext, profile._deviceNetworkTypeSIM1 - 100, 1);
-                            PPApplication.sleep(200);
+                            GlobalUtils.sleep(200);
                         }
                     }
                     if (profile._deviceNetworkTypeSIM2 >= 100) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                GlobalUtils.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                             // in array.xml, networkTypeGSMValues are 100+ values
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
                             setPreferredNetworkType(appContext, profile._deviceNetworkTypeSIM2 - 100, 2);
-                            PPApplication.sleep(200);
+                            GlobalUtils.sleep(200);
                         }
                     }
                 }
@@ -286,7 +314,13 @@ class ActivateProfileHelper {
 
         // setup mobile data
         if (profile._deviceMobileData != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    GlobalUtils.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData");
                 boolean _isMobileData = isMobileData(appContext, 0);
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -315,7 +349,7 @@ class ActivateProfileHelper {
                 if (_setMobileData) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
                     setMobileData(appContext, _isMobileData, 0);
-                    PPApplication.sleep(200);
+                    GlobalUtils.sleep(200);
                 }
             }
             //else
@@ -326,9 +360,14 @@ class ActivateProfileHelper {
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
-
                     if (profile._deviceMobileDataSIM1 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                GlobalUtils.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
 //                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1");
                             boolean _isMobileData = isMobileData(appContext, 1);
 //                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -357,14 +396,20 @@ class ActivateProfileHelper {
                             if (_setMobileData) {
 //                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
                                 setMobileData(appContext, _isMobileData, 1);
-                                PPApplication.sleep(200);
+                                GlobalUtils.sleep(200);
                             }
                         }
                         //else
                         //    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 NOT ALLOWED");
                     }
                     if (profile._deviceMobileDataSIM2 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //noinspection ConstantConditions
+                            if (!firstSleepCalled) {
+                                GlobalUtils.sleep(300);
+                                firstSleepCalled = true;
+                            }
+
 //                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2");
                             boolean _isMobileData = isMobileData(appContext, 2);
 //                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -393,7 +438,7 @@ class ActivateProfileHelper {
                             if (_setMobileData) {
 //                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
                                 setMobileData(appContext, _isMobileData, 2);
-                                PPApplication.sleep(200);
+                                GlobalUtils.sleep(200);
                             }
                         }
                         //else
@@ -407,7 +452,13 @@ class ActivateProfileHelper {
         // setup WiFi AP
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    GlobalUtils.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
                 if (Build.VERSION.SDK_INT < 30) {
                     WifiApManager wifiApManager = null;
@@ -456,7 +507,7 @@ class ActivateProfileHelper {
                         if (setWifiAPState) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiAP()");
                             setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, profile, appContext);
-                            PPApplication.sleep(3000);
+                            GlobalUtils.sleep(1000);
                         }
                     }
                 }
@@ -501,7 +552,7 @@ class ActivateProfileHelper {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
                         //CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
                         setWifiAP(null, isWifiAPEnabled, doNotChangeWifi, profile, appContext);
-                        PPApplication.sleep(1000);
+                        GlobalUtils.sleep(1000);
                     }
                 }
             }
@@ -512,7 +563,13 @@ class ActivateProfileHelper {
         if (canChangeWifi) {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    //noinspection ConstantConditions
+                    if (!firstSleepCalled) {
+                        GlobalUtils.sleep(300);
+                        firstSleepCalled = true;
+                    }
+
 //                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi ALLOWED");
                     boolean isWifiAPEnabled;
                     if (Build.VERSION.SDK_INT < 30)
@@ -531,6 +588,7 @@ class ActivateProfileHelper {
                             switch (profile._deviceWiFi) {
                                 case 1:
                                 case 4:
+                                case 6:
 //                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 1,4");
                                     if (!isWifiEnabled) {
                                         isWifiEnabled = true;
@@ -538,6 +596,7 @@ class ActivateProfileHelper {
                                     }
                                     break;
                                 case 2:
+                                case 7:
 //                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 2");
                                     if (isWifiEnabled) {
                                         isWifiEnabled = false;
@@ -546,6 +605,7 @@ class ActivateProfileHelper {
                                     break;
                                 case 3:
                                 case 5:
+                                case 8:
 //                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 3,5");
                                     isWifiEnabled = !isWifiEnabled;
                                     setWifiState = true;
@@ -562,13 +622,18 @@ class ActivateProfileHelper {
                                 try {
 //                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabled()");
                                     //PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.doExecuteForRadio");
-                                    //if (Build.VERSION.SDK_INT >= 29)
-                                    //    CmdWifi.setWifi(isWifiEnabled);
-                                    //else
+                                    if ((profile._deviceWiFi == 6) ||
+                                        (profile._deviceWiFi == 7) ||
+                                        (profile._deviceWiFi == 8)) {
+                                        setWifiInAirplaneMode(/*appContext,*/ isWifiEnabled);
+                                    } else {
+                                        //if (Build.VERSION.SDK_INT >= 29)
+                                        //    CmdWifi.setWifi(isWifiEnabled);
+                                        //else
 //                                        PPApplication.logE("[WIFI_ENABLED] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabled="+isWifiEnabled);
-                                        //noinspection deprecation
                                         wifiManager.setWifiEnabled(isWifiEnabled);
                                         //CmdWifi.setWifiEnabled(isWifiAPEnabled);
+                                    }
                                 } catch (Exception e) {
                                     //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
                                     //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
@@ -576,7 +641,7 @@ class ActivateProfileHelper {
                                     showError(context, profile._name, Profile.PARAMETER_TYPE_WIFI);
 //                                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
                                 }
-                                PPApplication.sleep(200);
+                                GlobalUtils.sleep(200);
                             }
                         }
                     }
@@ -584,8 +649,14 @@ class ActivateProfileHelper {
             }
 
             // connect to SSID
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                    //noinspection ConstantConditions
+                    if (!firstSleepCalled) {
+                        GlobalUtils.sleep(300);
+                        firstSleepCalled = true;
+                    }
+
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID");
                     if (Permissions.checkLocation(appContext)) {
                         WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
@@ -631,14 +702,11 @@ class ActivateProfileHelper {
                                     if (wifiConnected)
                                         wifiInfo = wifiManager.getConnectionInfo();
 
-                                    //noinspection deprecation
                                     List<WifiConfiguration> list = null;
 
                                     if (Permissions.hasPermission(appContext, Manifest.permission.ACCESS_FINE_LOCATION))
-                                        //noinspection deprecation
                                         list = wifiManager.getConfiguredNetworks();
                                     if (list != null) {
-                                        //noinspection deprecation
                                         for (WifiConfiguration i : list) {
                                             if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
                                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID wifiConnected="+wifiConnected);
@@ -649,15 +717,11 @@ class ActivateProfileHelper {
                                                             PhoneProfilesService.getInstance().connectToSSIDStarted = true;
 
                                                         // connected to another SSID
-                                                        //noinspection deprecation
                                                         wifiManager.disconnect();
-                                                        //noinspection deprecation
                                                         wifiManager.enableNetwork(i.networkId, true);
-                                                        //noinspection deprecation
                                                         wifiManager.reconnect();
                                                     }
                                                 } else
-                                                    //noinspection deprecation
                                                     wifiManager.enableNetwork(i.networkId, true);
                                                 break;
                                             }
@@ -683,7 +747,13 @@ class ActivateProfileHelper {
 
         // setup bluetooth
         if (profile._deviceBluetooth != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    GlobalUtils.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth");
                 BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
@@ -743,7 +813,13 @@ class ActivateProfileHelper {
 
         // setup location mode
         if (profile._deviceLocationMode != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    GlobalUtils.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode");
 
                 switch (profile._deviceLocationMode) {
@@ -753,17 +829,14 @@ class ActivateProfileHelper {
                         break;
                     case 2:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 2");
-                        //noinspection deprecation
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
                         break;
                     case 3:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 3");
-                        //noinspection deprecation
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
                         break;
                     case 4:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 4");
-                        //noinspection deprecation
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
                         break;
                 }
@@ -772,7 +845,13 @@ class ActivateProfileHelper {
 
         // setup GPS
         if (profile._deviceGPS != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    GlobalUtils.sleep(300);
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS");
                 //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
@@ -813,7 +892,14 @@ class ActivateProfileHelper {
 
         // setup NFC
         if (profile._deviceNFC != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //noinspection ConstantConditions
+                if (!firstSleepCalled) {
+                    GlobalUtils.sleep(300);
+                    //noinspection UnusedAssignment
+                    firstSleepCalled = true;
+                }
+
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC");
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(appContext);
                 if (nfcAdapter != null) {
@@ -847,10 +933,10 @@ class ActivateProfileHelper {
             declaredMethod.setAccessible(true);
             Integer num = (Integer) declaredMethod.invoke(null, new Object[0]);
             if (num != null) {
-                //noinspection RedundantArrayCreation
+                @SuppressWarnings("RedundantArrayCreation")
                 @SuppressLint("PrivateApi")
                 Object newInstance = Class.forName("com.android.internal.app.AssistUtils").getConstructor(new Class[]{Context.class}).newInstance(new Object[]{context});
-                //noinspection RedundantArrayCreation
+                @SuppressWarnings("RedundantArrayCreation")
                 Method declaredMethod2 = newInstance.getClass().getDeclaredMethod("getAssistComponentForUser", new Class[]{Integer.TYPE});
                 declaredMethod2.setAccessible(true);
                 compName = (ComponentName) declaredMethod2.invoke(newInstance, new Object[]{num});
@@ -883,11 +969,12 @@ class ActivateProfileHelper {
             return;
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadRadios();
-        final Handler __handler = new Handler(PPApplication.handlerThreadRadios.getLooper());
+        //PPApplication.startHandlerThreadRadios();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadRadios.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), profile, executedProfileSharedPreferences) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadRadios", "START run - from=ActivateProfileHelper.executeForRadios");
 
             //Context appContext= appContextWeakRef.get();
@@ -905,28 +992,35 @@ class ActivateProfileHelper {
 
                     boolean _isAirplaneMode = false;
                     boolean _setAirplaneMode = false;
+                    boolean _useAssisten = false;
                     if (profile._deviceAirplaneMode != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             _isAirplaneMode = isAirplaneMode(appContext);
                             switch (profile._deviceAirplaneMode) {
                                 case 1:
+                                case 4:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 1");
                                     if (!_isAirplaneMode) {
                                         _isAirplaneMode = true;
                                         _setAirplaneMode = true;
+                                        _useAssisten = profile._deviceAirplaneMode == 4;
                                     }
                                     break;
                                 case 2:
+                                case 5:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 2");
                                     if (_isAirplaneMode) {
                                         _isAirplaneMode = false;
                                         _setAirplaneMode = true;
+                                        _useAssisten = profile._deviceAirplaneMode == 5;
                                     }
                                     break;
                                 case 3:
+                                case 6:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 3");
                                     _isAirplaneMode = !_isAirplaneMode;
                                     _setAirplaneMode = true;
+                                    _useAssisten = profile._deviceAirplaneMode == 6;
                                     break;
                             }
                         }
@@ -934,8 +1028,8 @@ class ActivateProfileHelper {
                     if (_setAirplaneMode /*&& _isAirplaneMode*/) {
                         // switch ON airplane mode, set it before doExecuteForRadios
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "setAirplaneMode()");
-                        setAirplaneMode(context, _isAirplaneMode);
-                        PPApplication.sleep(2500);
+                        setAirplaneMode(context, _isAirplaneMode, _useAssisten);
+                        GlobalUtils.sleep(1500);
                         //PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                     }
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "doExecuteForRadios()");
@@ -964,7 +1058,9 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     static boolean isAudibleRinging(int ringerMode, int zenMode/*, boolean onlyVibrateSilent*/) {
@@ -1086,14 +1182,14 @@ class ActivateProfileHelper {
                                 newNotificationVolume = oldNotificationVolume + 1;
                             EventPreferencesVolumes.internalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                            PPApplication.sleep(2000);
+                            GlobalUtils.sleep(2000);
                             merged = audioManager.getStreamVolume(AudioManager.STREAM_RING) == newNotificationVolume;
                         } else
                             merged = false;
                         EventPreferencesVolumes.internalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                        DisableVolumesInternalChangeWorker.enqueueWork();
+                        PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                         audioManager.setRingerMode(ringerMode);
 
@@ -1117,7 +1213,6 @@ class ActivateProfileHelper {
         }
     }
 
-    @SuppressLint("NewApi")
     private static void setVolumes(Context context, Profile profile, AudioManager audioManager, int systemZenMode,
                                    int linkUnlink, boolean forProfileActivation, boolean forRingerMode)
     {
@@ -1136,58 +1231,59 @@ class ActivateProfileHelper {
 
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile._volumeMuteSound=" + profile._volumeMuteSound);
 
-        if (profile._volumeMuteSound) {
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
-                // WARNING mute.unmute must be called only for audible ringer mode
-                //         change of mute state bad affects silent mode (is not working)
+        if (forProfileActivation) {
+            if (profile._volumeMuteSound) {
+                if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+                    // WARNING mute.unmute must be called only for audible ringer mode
+                    //         change of mute state bad affects silent mode (is not working)
 
-                if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+                    if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "mute - ring");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "mute - notification");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "mute - system");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "mute - dtmf");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
                 }
-            }
-            if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
+                if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
 //                Log.e("ActivateProfileHelper.setVolumes", "mute - music");
-                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            }
-        }
-        else {
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
-                // WARNING mute.unmute must be called only for audible ringer mode
-                //         change of mute state bad affects silent mode (is not working)
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                }
+            } else {
+                if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
+                    // WARNING mute.unmute must be called only for audible ringer mode
+                    //         change of mute state bad affects silent mode (is not working)
 
-                if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+                    if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "unmute - ring");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "unmute - notification");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "unmute - system");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                if (audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
+                    if (audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
 //                    Log.e("ActivateProfileHelper.setVolumes", "unmute - dtmf");
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
                 }
-            }
-            if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
+                if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
 //                Log.e("ActivateProfileHelper.setVolumes", "unmute - music");
-                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                }
             }
         }
 
@@ -1196,11 +1292,10 @@ class ActivateProfileHelper {
         boolean notificationMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION);
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "ring mute status="+ringMuted);
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "notification mute status="+notificationMuted);
-        boolean systemMuted = audioManager.isStreamMute(AudioManager.STREAM_SYSTEM);
-        boolean dtmfMuted = audioManager.isStreamMute(AudioManager.STREAM_DTMF);
-        boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
 
         if (forRingerMode) {
+            // get mute state before set of all volumes; system stream may set mute to true
+
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeRingtoneChange()=" + profile.getVolumeRingtoneChange());
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeRingtoneValue()=" + profile.getVolumeRingtoneValue());
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeNotificationChange()=" + profile.getVolumeNotificationChange());
@@ -1227,23 +1322,26 @@ class ActivateProfileHelper {
                     }
                 }
             }
+        }
 
-            //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityChange()=" + profile.getVolumeAccessibilityChange());
-            //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityValue()=" + profile.getVolumeAccessibilityValue());
+        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityChange()=" + profile.getVolumeAccessibilityChange());
+        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAccessibilityValue()=" + profile.getVolumeAccessibilityValue());
 
-            if (forProfileActivation) {
-                if (Build.VERSION.SDK_INT >= 26) {
-                    if (profile.getVolumeAccessibilityChange()) {
-                        try {
-                            //EventPreferencesVolumes.internalChange = true;
-                            audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                            //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+        if (forProfileActivation) {
+            if (Build.VERSION.SDK_INT >= 26) {
+                if (profile.getVolumeAccessibilityChange()) {
+                    try {
+                        //EventPreferencesVolumes.internalChange = true;
+                        audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
                 }
             }
+        }
+
+        if (forRingerMode) {
 
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "isAudibleSystemRingerMode=" + isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/));
 
@@ -1262,6 +1360,9 @@ class ActivateProfileHelper {
                     //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeSystemValue()=" + profile.getVolumeSystemValue());
 
                     if (forProfileActivation) {
+                        boolean systemMuted = audioManager.isStreamMute(AudioManager.STREAM_SYSTEM);
+                        boolean dtmfMuted = audioManager.isStreamMute(AudioManager.STREAM_DTMF);
+
                         if (!dtmfMuted) {
                             if (profile.getVolumeDTMFChange()) {
                                 synchronized (PPApplication.notUnlinkVolumesMutex) {
@@ -1486,6 +1587,7 @@ class ActivateProfileHelper {
                 }
             }
             if (!profile._volumeMuteSound) {
+                boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
                 if (!musicMuted) {
                     if (profile.getVolumeMediaChange()) {
                         setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
@@ -1534,7 +1636,7 @@ class ActivateProfileHelper {
             if (!G1OK) {
                 //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "WRITE_SECURE_SETTINGS NOT granted");
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                        (PPApplication.isRooted(false))) {
+                        (RootUtils.isRooted(false))) {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "settings put global audio_safe_volume_state 2";
                         Command command = new Command(0, false, command1);
@@ -1542,7 +1644,7 @@ class ActivateProfileHelper {
                             //EventPreferencesVolumes.internalChange = true;
                             //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "disable safe volume with root");
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            PPApplication.commandWait(command, "ActivateProfileHelper.setMediaVolume");
+                            RootUtils.commandWait(command, "ActivateProfileHelper.setMediaVolume");
                             //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (3)");
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         } catch (Exception ee) {
@@ -1634,7 +1736,6 @@ class ActivateProfileHelper {
             } else {
                 //PPApplication.logE("ActivateProfileHelper.setZenMode", "ZENMODE_SILENT or not can change zen mode");
                 try {
-                    //noinspection SwitchStatementWithTooFewBranches
                     switch (zenMode) {
                         case ZENMODE_SILENT:
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
@@ -1692,7 +1793,7 @@ class ActivateProfileHelper {
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, executedProfileSharedPreferences, false, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateWhenRinging(appContext)) {
                     /*if (PPApplication.romIsMIUI) {
@@ -1716,7 +1817,7 @@ class ActivateProfileHelper {
                             //PPApplication.recordException(ee);
 
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1;
                                     Command command;
@@ -1733,7 +1834,7 @@ class ActivateProfileHelper {
                                     }
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                        RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
                                         //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (with root)");
                                     } catch (Exception e) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -1791,7 +1892,7 @@ class ActivateProfileHelper {
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateNotifications(appContext)) {
                     /*try {
@@ -1803,7 +1904,7 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(ee);
 
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1;
                                 Command command;
@@ -1819,7 +1920,7 @@ class ActivateProfileHelper {
                                 }
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    PPApplication.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
+                                    RootUtils.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
 //                                    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate notifications set (with root)");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2070,19 +2171,9 @@ class ActivateProfileHelper {
             }
 
             if (profile._soundRingtoneChangeSIM1 == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
-                    boolean sim1Exists;
-                    //boolean sim2Exists;
-                    synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        sim1Exists = sim0Exists;
-                        //sim2Exists = sim0Exists;
-                        //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        //sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
-                    }
+                    boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
                     if (sim1Exists) {
 
                         if (!profile._soundRingtoneSIM1.isEmpty()) {
@@ -2204,19 +2295,10 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundRingtoneChangeSIM2 == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
-                    //boolean sim1Exists;
-                    boolean sim2Exists;
-                    synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        //sim1Exists = sim0Exists;
-                        sim2Exists = sim0Exists;
-                        //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                        //sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
-                    }
+                    boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+
                     if (sim2Exists) {
 
                         if (!profile._soundRingtoneSIM2.isEmpty()) {
@@ -2332,19 +2414,10 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundNotificationChangeSIM1 == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
-                    boolean sim1Exists;
-                    //boolean sim2Exists;
-                    synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        sim1Exists = sim0Exists;
-                        //sim2Exists = sim0Exists;
-                        //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        //sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
-                    }
+                    boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+
                     if (sim1Exists) {
 
                         if (!profile._soundNotificationSIM1.isEmpty()) {
@@ -2380,7 +2453,7 @@ class ActivateProfileHelper {
                                         //Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
 
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2388,7 +2461,7 @@ class ActivateProfileHelper {
                                                 command = new Command(0, false, command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 1 with root");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2406,7 +2479,7 @@ class ActivateProfileHelper {
                                         }
 
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2414,7 +2487,7 @@ class ActivateProfileHelper {
                                                 command = new Command(0, false, command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 1 with root");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2469,7 +2542,7 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
                                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1;
                                             Command command;
@@ -2477,7 +2550,7 @@ class ActivateProfileHelper {
                                             command = new Command(0, false, command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM1 with root");
                                             } catch (Exception e) {
                                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2493,7 +2566,7 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
                                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1;
                                             Command command;
@@ -2501,7 +2574,7 @@ class ActivateProfileHelper {
                                             command = new Command(0, false, command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM1 with root");
                                             } catch (Exception e) {
                                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2523,19 +2596,10 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundNotificationChangeSIM2 == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
-                    //boolean sim1Exists;
-                    boolean sim2Exists;
-                    synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        //sim1Exists = sim0Exists;
-                        sim2Exists = sim0Exists;
-                        //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                        //sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
-                    }
+                    boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+
                     if (sim2Exists) {
 
                         if (!profile._soundNotificationSIM2.isEmpty()) {
@@ -2571,7 +2635,7 @@ class ActivateProfileHelper {
                                         //Settings.System.putString(context.getContentResolver(), "notification_sound_2", uri.toString());
 
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2579,7 +2643,7 @@ class ActivateProfileHelper {
                                                 command = new Command(0, false, command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 2 with root");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2597,7 +2661,7 @@ class ActivateProfileHelper {
                                         }
 
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2605,7 +2669,7 @@ class ActivateProfileHelper {
                                                 command = new Command(0, false, command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM2 with root");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2660,7 +2724,7 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
 
                                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1;
                                             Command command;
@@ -2668,7 +2732,7 @@ class ActivateProfileHelper {
                                             command = new Command(0, false, command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification fro SIM2 with root");
                                             } catch (Exception e) {
                                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2681,7 +2745,7 @@ class ActivateProfileHelper {
 //                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri=null");
 
                                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1;
                                             Command command;
@@ -2689,7 +2753,7 @@ class ActivateProfileHelper {
                                             command = new Command(0, false, command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM2 with root");
                                             } catch (Exception e) {
                                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2712,19 +2776,11 @@ class ActivateProfileHelper {
             }
 
             if (profile._soundSameRingtoneForBothSIMCards != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                    boolean sim0Exists;
-                    boolean sim1Exists;
-                    boolean sim2Exists;
-                    synchronized (PPApplication.simCardsMutext) {
-                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        sim1Exists = sim0Exists;
-                        sim2Exists = sim0Exists;
-                        //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
-                    }
+                    boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                    boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+
                     if (sim1Exists && sim2Exists) {
 
                         try {
@@ -2735,7 +2791,7 @@ class ActivateProfileHelper {
                                 value = "0";
 
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1;
                                     Command command;
@@ -2743,7 +2799,7 @@ class ActivateProfileHelper {
                                     command = new Command(0, false, command1);
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                        RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "same ringtone fro bth sim cards with root");
                                     } catch (Exception e) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -2826,184 +2882,134 @@ class ActivateProfileHelper {
 //        }
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadVolumes();
-        final Handler __handler = new Handler(PPApplication.handlerThreadVolumes.getLooper());
+        //PPApplication.startHandlerThreadVolumes();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadVolumes.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), profile, executedProfileSharedPreferences) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
-            //Context appContext= appContextWeakRef.get();
-            //Profile profile = profileWeakRef.get();
-            //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForVolumes");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-            //if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForVolumes");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
-                    if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
-                            ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
-                        if (Permissions.checkPhone(appContext))
-                            linkUnlink = linkUnlinkVolumes;
-                    }
+                int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
+                if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
+                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+                    if (Permissions.checkPhone(appContext))
+                        linkUnlink = linkUnlinkVolumes;
+                }
 //                          PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlink=" + linkUnlink);
 
-                    if (profile != null) {
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 1");
-                        boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences);
+                if (profile != null) {
+                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 1");
+                    boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences);
 
-                        final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+                    final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
 
-                        // sleep for change of ringer mode and volumes
-                        // because may be changed by another profile or from outside of PPP
-                        PPApplication.sleep(500);
-
-//                                PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
-                        RingerModeChangeReceiver.internalChange = true;
-                        //EventPreferencesVolumes.internalChange = true;
-
-                        if ((profile._volumeRingerMode != 0) ||
-                                profile.getVolumeRingtoneChange() ||
-                                profile.getVolumeNotificationChange() ||
-                                profile.getVolumeSystemChange() ||
-                                profile.getVolumeDTMFChange()) {
+                    if ((profile._volumeRingerMode != 0) ||
+                            profile.getVolumeRingtoneChange() ||
+                            profile.getVolumeNotificationChange() ||
+                            profile.getVolumeSystemChange() ||
+                            profile.getVolumeDTMFChange()) {
 
 //                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "change ringer mode");
 
-                            //if (Permissions.checkProfileAccessNotificationPolicy(context, profile, null)) {
-                            if (canChangeZenMode(appContext)) {
-                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "can change zen mode");
+                        // sleep for change of ringer mode and volumes
+                        // because may be changed by another profile or from outside of PPP
+                        GlobalUtils.sleep(500);
 
-                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeRingerModeForVolumeEqual0()");
-                                changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
-                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
-                                changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
+//                        PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
+                        RingerModeChangeReceiver.internalChange = true;
 
-                                //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+                        if (canChangeZenMode(appContext)) {
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "can change zen mode");
 
-                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode()");
-                                setRingerMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeRingerModeForVolumeEqual0()");
+                            changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
+                            changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
-                                //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
-                                PPApplication.sleep(500);
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode()");
+                            setRingerMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
 
-                                // get actual system zen mode (may be changed in setRingerMode())
-                                int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+                            //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
+                            GlobalUtils.sleep(500);
 
-//                                  PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
-                                setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
-
-                                //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
-
-                                /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                                final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
-                                        RingerModeChangeReceiver.internalChange = false;
-                                    }
-                                }, 3000);*/
-                                        //PostDelayedBroadcastReceiver.setAlarm(
-                                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
-                            }
-                        } else
-                        /*if (profile.getVolumeMediaChange() ||
-                            profile.getVolumeAlarmChange() ||
-                            profile.getVolumeVoiceChange() ||
-                            profile.getVolumeAccessibilityChange() ||
-                            profile.getVolumeBluetoothSCOChange())*/ {
-                            // call setVolume() for "Mute sound"
-
-//                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
-
+                            // get actual system zen mode (may be changed in setRingerMode())
                             int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
+//                                  PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
+                            setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
+
+                            //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
+
+                            /*PPApplication.startHandlerThreadInternalChangeToFalse();
+                            final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
+                                    RingerModeChangeReceiver.internalChange = false;
+                                }
+                            }, 3000);*/
+                            //PostDelayedBroadcastReceiver.setAlarm(
+                           //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
+                        }
+                    } else {
+
+//                        PPApplication.logE("[VOLUMES] ActivateProfileHelper.executeForVolumes", "internaChange=true");
+                        RingerModeChangeReceiver.internalChange = true;
+
+//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
+
+                        int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+
 //                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
-                            setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false);
-                        }
-                        /*else {
-                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ringer mode and volumes are not configured");
-                        }*/
-
-                        /*
-                        if (profile._volumeSpeakerPhone != 0) {
-                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
-                            boolean savedSpeakerphone = false; audioManager.isSpeakerphoneOn();
-                            boolean changeSpeakerphone = false;
-                            if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
-                                changeSpeakerphone = true;
-                            if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
-                                changeSpeakerphone = true;
-                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "changeSpeakerphone="+changeSpeakerphone);
-                            if (changeSpeakerphone) {
-                                /// activate SpeakerPhone
-
-                                // not working in EMUI :-/
-                                audioManager.setMode(AudioManager.MODE_IN_CALL);
-
-                                // Delay 2 seconds mode changed to MODE_IN_CALL
-                                long start = SystemClock.uptimeMillis();
-                                do {
-                                    if (audioManager.getMode() != AudioManager.MODE_IN_CALL) {
-                                        //if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
-                                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                                        PPApplication.sleep(500);
-                                    }
-                                    else
-                                        break;
-                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "SystemClock.uptimeMillis() - start="+(SystemClock.uptimeMillis() - start));
-                                } while (SystemClock.uptimeMillis() - start < (5 * 1000));
-                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                                //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
-
-                                PPApplication.sleep(500);
-                                audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
-                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ACTIVATED SPEAKERPHONE");
-                            }
-                        }
-                        */
-
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
-                        DisableInternalChangeWorker.enqueueWork();
-                        //DisableVolumesInternalChangeWorker.enqueueWork();
-
-                        if (noErrorSetTone) {
-                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 2");
-                            setTones(appContext, profile, executedProfileSharedPreferences);
-                        }
-
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "end");
-
+                        setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false);
                     }
-                } catch (Exception e) {
+
+                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
+                    PPExecutors.scheduleDisableInternalChangeExecutor();
+                    //DisableVolumesInternalChangeWorker.enqueueWork();
+
+                    if (noErrorSetTone) {
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 2");
+                        setTones(appContext, profile, executedProfileSharedPreferences);
+                    }
+
+                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "end");
+
+                }
+            } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
                     }
                 }
-            //}
-        });
+            }
+        }; //);
+        PPApplication.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setNotificationLed(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadProfileActivation();
-        final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+        //PPApplication.startHandlerThreadProfileActivation();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), null, executedProfileSharedPreferences) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setNotificationLed");
 
             //Context appContext= appContextWeakRef.get();
@@ -3019,7 +3025,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                         //    Settings.System.putInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, value);
@@ -3036,7 +3042,7 @@ class ActivateProfileHelper {
                         }
                         if (!G1OK) {*/
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/ + " " + value;
                                 //if (PPApplication.isSELinuxEnforcing())
@@ -3044,7 +3050,7 @@ class ActivateProfileHelper {
                                 Command command = new Command(0, false, command1); //, command2);
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    PPApplication.commandWait(command, "ActivateProfileHelper.setNotificationLed");
+                                    RootUtils.commandWait(command, "ActivateProfileHelper.setNotificationLed");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
@@ -3066,16 +3072,19 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setHeadsUpNotifications(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadProfileActivation();
-        final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+        //PPApplication.startHandlerThreadProfileActivation();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), null, executedProfileSharedPreferences) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setHeadsUpNotifications");
 
             //Context appContext= appContextWeakRef.get();
@@ -3091,7 +3100,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean G1OK = false;
                         //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -3105,7 +3114,7 @@ class ActivateProfileHelper {
                         }
                         if (!G1OK) {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = "settings put global " + "heads_up_notifications_enabled" + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
@@ -3113,7 +3122,7 @@ class ActivateProfileHelper {
                                     Command command = new Command(0, false, command1); //, command2);
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        PPApplication.commandWait(command, "ActivateProfileHelper.setHeadsUpNotifications");
+                                        RootUtils.commandWait(command, "ActivateProfileHelper.setHeadsUpNotifications");
                                     } catch (Exception e) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(e));
@@ -3136,16 +3145,19 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setAlwaysOnDisplay(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadProfileActivation();
-        final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+        //PPApplication.startHandlerThreadProfileActivation();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), null, executedProfileSharedPreferences) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setAlwaysOnDisplay");
 
             //Context appContext= appContextWeakRef.get();
@@ -3161,7 +3173,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         /* not working (private secure settings) :-/
                         boolean G1OK = false;
@@ -3175,7 +3187,7 @@ class ActivateProfileHelper {
                         }
                         if (!G1OK) {*/
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + "aod_mode" + " " + value;
                                 //if (PPApplication.isSELinuxEnforcing())
@@ -3183,7 +3195,7 @@ class ActivateProfileHelper {
                                 Command command = new Command(0, false, command1); //, command2);
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    PPApplication.commandWait(command, "ActivateProfileHelper.setAlwaysOnDisplay");
+                                    RootUtils.commandWait(command, "ActivateProfileHelper.setAlwaysOnDisplay");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(e));
@@ -3205,7 +3217,9 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setScreenOnPermanent(Profile profile, Context context) {
@@ -3309,7 +3323,6 @@ class ActivateProfileHelper {
         }
     }
 
-    @SuppressLint("SwitchIntDef")
     static int getSystemZenMode(Context context/*, int defaultValue*/) {
         Context appContext = context.getApplicationContext();
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -3472,7 +3485,7 @@ class ActivateProfileHelper {
                     }
                     //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
-                    PPApplication.sleep(500);
+                    GlobalUtils.sleep(500);
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     setVibrateSettings(false, audioManager);
 
@@ -3491,7 +3504,7 @@ class ActivateProfileHelper {
                     }
                     //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
-                    PPApplication.sleep(500);
+                    GlobalUtils.sleep(500);
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     setVibrateSettings(true, audioManager);
 
@@ -3510,7 +3523,7 @@ class ActivateProfileHelper {
                     }
                     //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
-                    PPApplication.sleep(500);
+                    GlobalUtils.sleep(500);
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                     setVibrateSettings(true, audioManager);
 
@@ -3532,7 +3545,7 @@ class ActivateProfileHelper {
                         }
                         //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                         InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
-                        PPApplication.sleep(500);
+                        GlobalUtils.sleep(500);
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                         setVibrateSettings(true, audioManager);
                     }
@@ -3542,7 +3555,7 @@ class ActivateProfileHelper {
                         }
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         setVibrateSettings(false, audioManager);
-                        PPApplication.sleep(500);
+                        GlobalUtils.sleep(500);
                         //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
                         InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
                     }
@@ -3562,7 +3575,7 @@ class ActivateProfileHelper {
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
-                            PPApplication.sleep(500);
+                            GlobalUtils.sleep(500);
                             //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                             InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
 
@@ -3580,7 +3593,7 @@ class ActivateProfileHelper {
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
-                            PPApplication.sleep(500);
+                            GlobalUtils.sleep(500);
                             //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                             InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
 
@@ -3599,7 +3612,7 @@ class ActivateProfileHelper {
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
-                            PPApplication.sleep(500);
+                            GlobalUtils.sleep(500);
                             //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_NONE);
                             InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_NONE);
 
@@ -3614,7 +3627,7 @@ class ActivateProfileHelper {
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateSettings(true, audioManager);
-                            PPApplication.sleep(500);
+                            GlobalUtils.sleep(500);
                             //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                             InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
 
@@ -3633,7 +3646,7 @@ class ActivateProfileHelper {
                             }
                             if (Build.VERSION.SDK_INT <= 25) {
                                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                                PPApplication.sleep(500);
+                                GlobalUtils.sleep(500);
                                 //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                                 InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
@@ -3651,7 +3664,7 @@ class ActivateProfileHelper {
                                 //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                                 InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
 
-                                PPApplication.sleep(1000);
+                                GlobalUtils.sleep(1000);
 
                                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                                 setVibrateSettings(true, audioManager);
@@ -3661,7 +3674,7 @@ class ActivateProfileHelper {
                             else {
                                 // must be set 2x to keep vibraton
                                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                                PPApplication.sleep(500);
+                                GlobalUtils.sleep(500);
                                 //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                                 InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
 
@@ -3687,7 +3700,7 @@ class ActivateProfileHelper {
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
-                            PPApplication.sleep(500);
+                            GlobalUtils.sleep(500);
                             //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
                             InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
 
@@ -3744,7 +3757,6 @@ class ActivateProfileHelper {
                         }
                         visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
                     }
-                    //noinspection WrongConstant
                     wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
                     //} else
                     //    wallpaperManager.setBitmap(decodedSampleBitmap);
@@ -3769,11 +3781,12 @@ class ActivateProfileHelper {
 
     private static void changeImageWallpaper(Profile profile, Context context) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadWallpaper();
-        final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
+        //PPApplication.startHandlerThreadWallpaper();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), profile, null) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
             //Context appContext= appContextWeakRef.get();
@@ -3802,7 +3815,9 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void changeWallpaperFromFolder(Profile profile, Context context) {
@@ -3817,11 +3832,12 @@ class ActivateProfileHelper {
                  (PPApplication.wallpaperChangeTime <= _time))) {
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadWallpaper();
-            final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
+            //PPApplication.startHandlerThreadWallpaper();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(
             //        context.getApplicationContext(), profile, null) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
                 //Context appContext= appContextWeakRef.get();
@@ -3905,7 +3921,9 @@ class ActivateProfileHelper {
                     }
                 }
                 //}
-            });
+            }; //);
+            PPApplication.createProfileActiationExecutorPool();
+            PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
 
@@ -3913,11 +3931,12 @@ class ActivateProfileHelper {
         if (profile._deviceRunApplicationChange == 1)
         {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadRunApplication();
-            final Handler __handler = new Handler(PPApplication.handlerThreadRunApplication.getLooper());
+            //PPApplication.startHandlerThreadRunApplication();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadRunApplication.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(
             //        context.getApplicationContext(), profile, null) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadRunApplication", "START run - from=ActivateProfileHelper.executeForRunApplications");
 
                 if (PPApplication.blockProfileEventActions)
@@ -3952,7 +3971,7 @@ class ActivateProfileHelper {
                             } else {
                                 doExecuteForRunApplications(appContext, profile._name, split);
                             }
-                            PPApplication.sleep(1000);
+                            GlobalUtils.sleep(1000);
                         }
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -3966,7 +3985,9 @@ class ActivateProfileHelper {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createProfileActiationExecutorPool();
+            PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
 
@@ -4184,11 +4205,12 @@ class ActivateProfileHelper {
         }
         if (!G1OK) {*/
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadProfileActivation();
-        final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+        //PPApplication.startHandlerThreadProfileActivation();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), profile, null) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.executeRootForAdaptiveBrightness");
 
             //Context appContext= appContextWeakRef.get();
@@ -4205,7 +4227,7 @@ class ActivateProfileHelper {
                     }
 
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                         synchronized (PPApplication.rootMutex) {
                             String command1 = "settings put system " + Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ + " " +
                                     adaptiveValue;
@@ -4214,7 +4236,7 @@ class ActivateProfileHelper {
                             Command command = new Command(0, false, command1); //, command2);
                             try {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                PPApplication.commandWait(command, "ActivateProfileHelper.executeRootForAdaptiveBrightness");
+                                RootUtils.commandWait(command, "ActivateProfileHelper.executeRootForAdaptiveBrightness");
                             } catch (Exception e) {
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.executeRootForAdaptiveBrightness", Log.getStackTraceString(e));
@@ -4234,7 +4256,9 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
         //}
     }
 
@@ -4253,9 +4277,11 @@ class ActivateProfileHelper {
             executeForRunApplications(profile, appContext);
         }
 
+        setVPN(context, profile, executedProfileSharedPreferences);
+
         //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
         KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             if (profile._deviceMobileDataPrefs == 1)
             {
@@ -4331,7 +4357,7 @@ class ActivateProfileHelper {
             }
         }
 
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             if (profile._deviceNetworkTypePrefs == 1)
             {
@@ -4544,7 +4570,6 @@ class ActivateProfileHelper {
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -4553,6 +4578,8 @@ class ActivateProfileHelper {
         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
 
         Notification notification = mBuilder.build();
         notification.vibrate = null;
@@ -4734,10 +4761,10 @@ class ActivateProfileHelper {
                     if (PPApplication.isScreenOn && !keyguardShowing) {
                         try {
 //                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "switch keyguard");
-                            PhoneProfilesService ppService = PhoneProfilesService.getInstance();
-                            if (ppService != null) {
-                                ppService.switchKeyguard();
-                            }
+                            //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                            //if (ppService != null) {
+                                GlobalUtils.switchKeyguard(context);
+                            //}
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }
@@ -4761,7 +4788,7 @@ class ActivateProfileHelper {
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         if (profile.getDeviceBrightnessChangeLevel()) {
 //                            PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set brightness 1");
-                            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, executedProfileSharedPreferences, true, appContext).allowed
+                            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, executedProfileSharedPreferences, true, appContext).allowed
                                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                                 Settings.System.putInt(appContext.getContentResolver(),
@@ -4941,69 +4968,108 @@ class ActivateProfileHelper {
         // enable/disable scanners
         if (profile._applicationDisableWifiScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableWifiScanning");
+            boolean oldApplicationEventWifiEnableScanning = ApplicationPreferences.applicationEventWifiEnableScanning;
+            boolean newApplicationEventWifiEnableScanning = profile._applicationDisableWifiScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, profile._applicationDisableWifiScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableWifiScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventWifiEnableScanning(appContext);
             ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableWifiScanning");
-            PPApplication.restartWifiScanner(appContext);
+            if (oldApplicationEventWifiEnableScanning != newApplicationEventWifiEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableWifiScanning");
+                PPApplication.restartWifiScanner(appContext);
+            }
         }
         if (profile._applicationDisableBluetoothScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableBluetoothScanning");
+            boolean oldApplicationEventBluetoothEnableScanning = ApplicationPreferences.applicationEventBluetoothEnableScanning;
+            boolean newApplicationEventBluetoothEnableScanning = profile._applicationDisableBluetoothScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, profile._applicationDisableBluetoothScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableBluetoothScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext);
             ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableBluetoothScanning");
-            PPApplication.restartBluetoothScanner(appContext);
+            if (oldApplicationEventBluetoothEnableScanning != newApplicationEventBluetoothEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableBluetoothScanning");
+                PPApplication.restartBluetoothScanner(appContext);
+            }
         }
         if (profile._applicationDisableLocationScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
+            boolean oldApplicationEventLocationEnableScanning = ApplicationPreferences.applicationEventLocationEnableScanning;
+            boolean newApplicationEventLocationEnableScanning = profile._applicationDisableLocationScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, profile._applicationDisableLocationScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableLocationScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventLocationEnableScanning(appContext);
             ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
-            PPApplication.restartLocationScanner(appContext);
+            if (oldApplicationEventLocationEnableScanning != newApplicationEventLocationEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
+                PPApplication.restartLocationScanner(appContext);
+            }
         }
         if (profile._applicationDisableMobileCellScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");
+            boolean oldApplicationEventMobileCellEnableScanning = ApplicationPreferences.applicationEventMobileCellEnableScanning;
+            boolean newApplicationEventMobileCellEnableScanning = profile._applicationDisableMobileCellScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, profile._applicationDisableMobileCellScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableMobileCellScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
             ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");
-            PPApplication.restartMobileCellsScanner(appContext);
+            if (oldApplicationEventMobileCellEnableScanning != newApplicationEventMobileCellEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");
+                PPApplication.restartMobileCellsScanner(appContext);
+            }
         }
         if (profile._applicationDisableOrientationScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableOrientationScanning");
+            boolean oldApplicationEventOrientationEnableScanning = ApplicationPreferences.applicationEventOrientationEnableScanning;
+            boolean newApplicationEventOrientationEnableScanning = profile._applicationDisableOrientationScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationDisableOrientationScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableOrientationScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventOrientationEnableScanning(appContext);
             ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableOrientationScanning");
-            PPApplication.restartOrientationScanner(appContext);
+            if (oldApplicationEventOrientationEnableScanning != newApplicationEventOrientationEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableOrientationScanning");
+                PPApplication.restartOrientationScanner(appContext);
+            }
         }
         if (profile._applicationDisableNotificationScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableNotificationScanning");
+            boolean oldApplicationEventNotificationEnableScanning = ApplicationPreferences.applicationEventNotificationEnableScanning;
+            boolean newApplicationEventNotificationEnableScanning = profile._applicationDisableNotificationScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, profile._applicationDisableNotificationScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableNotificationScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventNotificationEnableScanning(appContext);
             ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(appContext);
-            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableNotificationScanning");
-            PPApplication.restartNotificationScanner(appContext);
+            if (oldApplicationEventNotificationEnableScanning != newApplicationEventNotificationEnableScanning) {
+                //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableNotificationScanning");
+                PPApplication.restartNotificationScanner(appContext);
+            }
+        }
+        if (profile._applicationDisablePeriodicScanning != 0) {
+//            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisablePeriodicScanning");
+            boolean oldApplicationEventPeriodicEnableScanning = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;
+            boolean newApplicationEventPeriodicEnableScanning = profile._applicationDisablePeriodicScanning == 2;
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, profile._applicationDisablePeriodicScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisablePeriodicScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(appContext);
+            ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(appContext);
+            if (oldApplicationEventPeriodicEnableScanning != newApplicationEventPeriodicEnableScanning) {
+//                PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisablePeriodicScanning");
+                PPApplication.restartPeriodicScanningScanner(appContext);
+            }
         }
 
         // set heads-up notifications
@@ -5047,6 +5113,59 @@ class ActivateProfileHelper {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start work for close all applications");
                 // work for first start events or activate profile on boot
 
+//                PPApplication.logE("[EXECUTOR_CALL]  ***** ActivateProfileHelper.execute", "schedule - profile._deviceCloseAllApplications");
+
+                final String profileName = profile._name;
+                //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                Runnable runnable = () -> {
+//                    long start = System.currentTimeMillis();
+//                    PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- START - profile._deviceCloseAllApplications");
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_execute_closeAllApplicaitons");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        if (!PPApplication.blockProfileEventActions) {
+                            try {
+                                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                                startMain.addCategory(Intent.CATEGORY_HOME);
+                                startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                                appContext.startActivity(startMain);
+                            /*} catch (SecurityException e) {
+                                //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                                String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
+                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);*/
+                            } catch (Exception e) {
+                                //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
+                            }
+                        }
+
+//                        long finish = System.currentTimeMillis();
+//                        long timeElapsed = finish - start;
+//                        PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- END - profile._deviceCloseAllApplications -timeElapsed="+timeElapsed);
+                    } catch (Exception e) {
+//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                        //worker.shutdown();
+                    }
+                };
+                PPApplication.createDelayedProfileActivationExecutor();
+                PPApplication.delayedProfileActivationExecutor.schedule(runnable, 1500, TimeUnit.MILLISECONDS);
+                /*
                 Data workData = new Data.Builder()
                         .putString(EXTRA_PROFILE_NAME, profile._name)
                         .build();
@@ -5079,6 +5198,7 @@ class ActivateProfileHelper {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
             }
         }
 
@@ -5140,7 +5260,6 @@ class ActivateProfileHelper {
                     break;
             }
 
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(pi);
             mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -5148,6 +5267,8 @@ class ActivateProfileHelper {
             mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             //}
+
+            mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
 
             Notification notification = mBuilder.build();
             notification.vibrate = null;
@@ -5175,7 +5296,8 @@ class ActivateProfileHelper {
 
         if (profile._deviceForceStopApplicationChange == 1) {
             boolean enabled;
-            enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_7_0);
+            enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
+                            /*, "ActivateProfileHelper.execute (profile._deviceForceStopApplicationChange)"*/);
             if (enabled) {
                 // executeForInteractivePreferences() is called from broadcast receiver PPPExtenderBroadcastReceiver
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForForceStopApplications()");
@@ -5428,33 +5550,7 @@ class ActivateProfileHelper {
         }
         setActivatedProfileScreenTimeoutWhenScreenOff(appContext, 0);
 
-        OneTimeWorkRequest disableInternalChangeWorker =
-                new OneTimeWorkRequest.Builder(DisableScreenTimeoutInternalChangeWorker.class)
-                        .addTag(DisableScreenTimeoutInternalChangeWorker.WORK_TAG)
-                        .setInitialDelay(5, TimeUnit.SECONDS)
-                        .build();
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-
-//                    //if (PPApplication.logEnabled()) {
-//                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosForUniqueWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG);
-//                    try {
-//                        List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.setScreenTimeout", "for=" + DisableScreenTimeoutInternalChangeWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                    } catch (Exception ignored) {
-//                    }
-//                    //}
-
-//                    PPApplication.logE("[WORKER_CALL] ActivateProfileHelper.setScreenTimeout", "xxx");
-                    workManager.enqueueUniqueWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                }
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
+        PPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor();
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -5528,7 +5624,6 @@ class ActivateProfileHelper {
     */
 
     /*
-    @SuppressLint("RtlHardcoded")
     static void createBrightnessView(Profile profile, Context context)
     {
         PPApplication.logE("ActivateProfileHelper.createBrightnessView", "xxx");
@@ -5705,6 +5800,8 @@ class ActivateProfileHelper {
                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                 mBuilder.setOngoing(true);
 
+                mBuilder.setGroup(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_GROUP);
+
                 Notification notification = mBuilder.build();
                 notification.vibrate = null;
                 notification.defaults &= ~DEFAULT_VIBRATE;
@@ -5769,11 +5866,11 @@ class ActivateProfileHelper {
         //    return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     }
 
-    private static void setAirplaneMode(Context context, boolean mode)
+    private static void setAirplaneMode(Context context, boolean mode, boolean useAssistant)
     {
-        boolean isRooted = PPApplication.isRooted(false);
-        boolean settingsBinaryExists = PPApplication.settingsBinaryExists(false);
-        if (isRooted &&
+        boolean isRooted = RootUtils.isRooted(false);
+        boolean settingsBinaryExists = RootUtils.settingsBinaryExists(false);
+        if (isRooted && (!useAssistant) &&
             (!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             settingsBinaryExists) {
             // device is rooted
@@ -5795,7 +5892,7 @@ class ActivateProfileHelper {
                 Command command = new Command(0, true, command1, command2);
                 try {
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    PPApplication.commandWait(command, "ActivateProfileHelper.setAirplaneMode");
+                    RootUtils.commandWait(command, "ActivateProfileHelper.setAirplaneMode");
                 } catch (Exception e) {
                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                     //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
@@ -5805,10 +5902,8 @@ class ActivateProfileHelper {
             }
         }
         else
-        /*if (!isRooted ||
-            ApplicationPreferences.applicationNeverAskForGrantRoot ||
-            (!settingsBinaryExists))*/ {
-            Intent intent = new Intent(PPPVoiceService.ACTION_ASSISTANT);
+        if (useAssistant && isPPPSetAsDefaultAssistant(context)) {
+            Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
             intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
             intent.putExtra("airplane_mode_enabled", mode);
             context.sendBroadcast(intent);
@@ -5864,7 +5959,6 @@ class ActivateProfileHelper {
 
                         getDataEnabledMethod.setAccessible(true);
 
-                        //noinspection ConstantConditions
                         return (Boolean) getDataEnabledMethod.invoke(ITelephonyStub);
                     }
                     else
@@ -5890,7 +5984,6 @@ class ActivateProfileHelper {
                     getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
                     getDataEnabledMethod.setAccessible(true);
 
-                    //noinspection ConstantConditions
                     return (Boolean) getDataEnabledMethod.invoke(telephonyManager);
 
                 } catch (Exception e) {
@@ -5914,7 +6007,6 @@ class ActivateProfileHelper {
                         //SubscriptionManager.from(appContext);
                         if (mSubscriptionManager != null) {
                             int defaultDataId;// = 0;
-                            //noinspection ConstantConditions
                             defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
 //                            PPApplication.logE("ActivateProfileHelper.isMobileData", "defaultDataId=" + defaultDataId);
 
@@ -6042,18 +6134,18 @@ class ActivateProfileHelper {
 
         //Context appContext = context.getApplicationContext();
 
-        boolean simExists;
-        synchronized (PPApplication.simCardsMutext) {
-            simExists = PPApplication.simCardsMutext.simCardsDetected &&
-                    PPApplication.simCardsMutext.sim0Exists;
-            if (simCard == 1)
-                simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
-            else
-            if (simCard == 2)
-                simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+        if (simCard == 1) {
+            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+            simExists = simExists && sim1Exists;
+        }
+        else
+        if (simCard == 2) {
+            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+            simExists = simExists && sim2Exists;
         }
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-            PPApplication.isRooted(false) &&
+                RootUtils.isRooted(false) &&
             simExists)
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
@@ -6065,7 +6157,7 @@ class ActivateProfileHelper {
                         Command command = new Command(0, false, command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                            PPApplication.commandWait(command, "ActivateProfileHelper.setMobileData");
+                            RootUtils.commandWait(command, "ActivateProfileHelper.setMobileData");
                             //PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
                         } catch (Exception e) {
                             //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
@@ -6151,6 +6243,27 @@ class ActivateProfileHelper {
 //                    else
 //                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "transactionCode == -1");
                 }*/
+            }
+        }
+    }
+
+    private static void setWifiInAirplaneMode(/*Context context, */boolean enable)
+    {
+        //Context appContext = context.getApplicationContext();
+
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                RootUtils.isRooted(false)) {
+            synchronized (PPApplication.rootMutex) {
+                String command1 = "svc wifi " + (enable ? "enable" : "disable");
+                //PPApplication.logE("ActivateProfileHelper.setWifiInAirplaneMode", "command=" + command1);
+                Command command = new Command(0, false, command1);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                    RootUtils.commandWait(command, "ActivateProfileHelper.setWifiInAirplaneMode");
+                    //PPApplication.logE("ActivateProfileHelper.setWifiInAirplaneMode", "after wait");
+                } catch (Exception e) {
+                    //Log.e("ActivateProfileHelper.setWifiInAirplaneMode", Log.getStackTraceString(e));
+                }
             }
         }
     }
@@ -6246,20 +6359,20 @@ class ActivateProfileHelper {
 //        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "simCard="+simCard);
 //        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "networkType="+networkType);
 
-        boolean simExists;
-        synchronized (PPApplication.simCardsMutext) {
-            simExists = PPApplication.simCardsMutext.simCardsDetected &&
-                    PPApplication.simCardsMutext.sim0Exists;
-            if (simCard == 1)
-                simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
-            else
-            if (simCard == 2)
-                simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+        if (simCard == 1) {
+            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+            simExists = simExists && sim1Exists;
+        }
+        else
+        if (simCard == 2) {
+            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+            simExists = simExists && sim2Exists;
         }
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-            PPApplication.isRooted(false) &&
-            PPApplication.serviceBinaryExists(false) &&
+                RootUtils.isRooted(false) &&
+                RootUtils.serviceBinaryExists(false) &&
             simExists)
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
@@ -6299,7 +6412,7 @@ class ActivateProfileHelper {
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionId=" + subscriptionId);
                                             synchronized (PPApplication.rootMutex) {
-                                                String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
+                                                String command1 = RootUtils.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "command1=" + command1);
                                                 if (command1 != null) {
                                                     Command command = new Command(0, false, command1)/* {
@@ -6311,7 +6424,7 @@ class ActivateProfileHelper {
                                                     }*/;
                                                     try {
                                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                        PPApplication.commandWait(command, "ActivateProfileHelper.setPreferredNetworkType");
+                                                        RootUtils.commandWait(command, "ActivateProfileHelper.setPreferredNetworkType");
                                                     } catch (Exception e) {
                                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                         //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
@@ -6378,7 +6491,7 @@ class ActivateProfileHelper {
                 }
                 else
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                        (PPApplication.isRooted(false) && PPApplication.serviceBinaryExists(false))) {
+                        (RootUtils.isRooted(false) && RootUtils.serviceBinaryExists(false))) {
                     //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-rooted");
                     int transactionCode = PPApplication.rootMutex.transactionCode_setWifiApEnabled;
                     /*if (PPApplication.logEnabled()) {
@@ -6397,21 +6510,20 @@ class ActivateProfileHelper {
                                 if (isWifiEnabled) {
                                     //PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.setWifiAP");
 //                                    PPApplication.logE("[WIFI_ENABLED] ActivateProfileHelper.setWifiAP", "false");
-                                    //noinspection deprecation
                                     wifiManager.setWifiEnabled(false);
-                                    PPApplication.sleep(1000);
+                                    GlobalUtils.sleep(1000);
                                 }
                             }
                         }
                         synchronized (PPApplication.rootMutex) {
                             //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-start root command");
-                            String command1 = PPApplication.getServiceCommand("wifi", transactionCode, 0, (enable) ? 1 : 0);
+                            String command1 = RootUtils.getServiceCommand("wifi", transactionCode, 0, (enable) ? 1 : 0);
                             if (command1 != null) {
                                 //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-command1=" + command1);
                                 Command command = new Command(0, false, command1);
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    PPApplication.commandWait(command, "ActivateProfileHelper.setWifiAP");
+                                    RootUtils.commandWait(command, "ActivateProfileHelper.setWifiAP");
                                     //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -6466,14 +6578,14 @@ class ActivateProfileHelper {
         }
         if (!G1OK) {
             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                    (PPApplication.isRooted(false))) {
+                    (RootUtils.isRooted(false))) {
                 synchronized (PPApplication.rootMutex) {
-                    String command1 = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", appContext, enable);
+                    String command1 = RootUtils.getJavaCommandFile(CmdNfc.class, "nfc", appContext, enable);
                     if (command1 != null) {
                         Command command = new Command(0, false, command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
-                            PPApplication.commandWait(command, "ActivateProfileHelper.setNFC");
+                            RootUtils.commandWait(command, "ActivateProfileHelper.setNFC");
                         } catch (Exception e) {
                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
@@ -6556,7 +6668,7 @@ class ActivateProfileHelper {
             }
             if (!G1OK) {
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                        (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                     // device is rooted
                     //PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
 
@@ -6571,7 +6683,7 @@ class ActivateProfileHelper {
                         Command command = new Command(0, false, command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (1)");
+                            RootUtils.commandWait(command, "ActivateProfileHelper.setGPS (1)");
                         } catch (Exception e) {
                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
@@ -6611,7 +6723,7 @@ class ActivateProfileHelper {
             }
             if (!G1OK) {
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                        (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                     // device is rooted
                     //PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
 
@@ -6626,7 +6738,7 @@ class ActivateProfileHelper {
                         Command command = new Command(0, false, command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (2)");
+                            RootUtils.commandWait(command, "ActivateProfileHelper.setGPS (2)");
                         } catch (Exception e) {
                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
@@ -6659,7 +6771,6 @@ class ActivateProfileHelper {
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
             try {
-                //noinspection deprecation
                 Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
                 //G1OK = true;
             } catch (Exception ee) {
@@ -6694,11 +6805,12 @@ class ActivateProfileHelper {
     private static void setPowerSaveMode(Profile profile, Context context, SharedPreferences executedProfileSharedPreferences) {
         if (profile._devicePowerSaveMode != 0) {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadProfileActivation();
-            final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+            //PPApplication.startHandlerThreadProfileActivation();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(
             //        context.getApplicationContext(), profile, executedProfileSharedPreferences) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setPowerSaveMode");
 
                 //Context appContext= appContextWeakRef.get();
@@ -6707,7 +6819,7 @@ class ActivateProfileHelper {
 
                 //if ((appContext != null) && (profile != null) && (executedProfileSharedPreferences != null)) {
 
-                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -6754,13 +6866,13 @@ class ActivateProfileHelper {
                                     }
                                     if (!G1OK) {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);
                                                 Command command = new Command(0, false, command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setPowerSaveMode");
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setPowerSaveMode");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                     //Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));
@@ -6784,17 +6896,20 @@ class ActivateProfileHelper {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createProfileActiationExecutorPool();
+            PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
 
     private static void lockDevice(Profile profile, Context context) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadProfileActivation();
-        final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+        //PPApplication.startHandlerThreadProfileActivation();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), profile, null) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.lockDevice");
 
             //PPApplication.logE("[TEST_BLOCK_PROFILE_EVENTS_ACTIONS] ActivateProfileHelper.lockDevice", "PPApplication.blockProfileEventActions="+PPApplication.blockProfileEventActions);
@@ -6839,7 +6954,7 @@ class ActivateProfileHelper {
                             break;
                         case 2:
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (PPApplication.isRooted(false))) {
+                                    (RootUtils.isRooted(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     /*String command1 = "input keyevent 26";
                                     Command command = new Command(0, false, command1);
@@ -6852,12 +6967,12 @@ class ActivateProfileHelper {
                                     } catch (Exception e) {
                                         Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
                                     }*/
-                                    String command1 = PPApplication.getJavaCommandFile(CmdGoToSleep.class, "power", appContext, 0);
+                                    String command1 = RootUtils.getJavaCommandFile(CmdGoToSleep.class, "power", appContext, 0);
                                     if (command1 != null) {
                                         Command command = new Command(0, false, command1);
                                         try {
                                             RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
-                                            PPApplication.commandWait(command, "ActivateProfileHelper.lockDevice");
+                                            RootUtils.commandWait(command, "ActivateProfileHelper.lockDevice");
                                         } catch (Exception e) {
                                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                             //Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
@@ -6905,12 +7020,14 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setScreenDarkMode(Context appContext, final int value, SharedPreferences executedProfileSharedPreferences) {
         //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "xxx");
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, executedProfileSharedPreferences, false, appContext).allowed
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, executedProfileSharedPreferences, false, appContext).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (Build.VERSION.SDK_INT >= 29) {
                 //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "allowed");
@@ -6935,7 +7052,7 @@ class ActivateProfileHelper {
                 }
                 if (!G1OK) {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                            (PPApplication.isRooted(false))) {
+                            (RootUtils.isRooted(false))) {
                         //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "root granted");
 
                         synchronized (PPApplication.rootMutex) {
@@ -6947,7 +7064,7 @@ class ActivateProfileHelper {
                             Command command = new Command(0, false, command1);
                             try {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                PPApplication.commandWait(command, "ActivateProfileHelper.setScreenDarkMode");
+                                RootUtils.commandWait(command, "ActivateProfileHelper.setScreenDarkMode");
                             } catch (Exception ee) {
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setScreenDarkMode", Log.getStackTraceString(ee));
@@ -6963,7 +7080,7 @@ class ActivateProfileHelper {
                 if (uiModeManager != null) {
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_NORMAL) {
                         uiModeManager.enableCarMode(0);
-                        PPApplication.sleep(200);
+                        GlobalUtils.sleep(200);
                         //uiModeManager.disableCarMode(0);
                         uiModeManager.disableCarMode(UiModeManager.DISABLE_CAR_MODE_GO_HOME);
                     }
@@ -6971,7 +7088,7 @@ class ActivateProfileHelper {
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_CAR) {
                         //uiModeManager.disableCarMode(0);
                         uiModeManager.disableCarMode(UiModeManager.DISABLE_CAR_MODE_GO_HOME);
-                        PPApplication.sleep(200);
+                        GlobalUtils.sleep(200);
                         uiModeManager.enableCarMode(0);
                     }
                 }
@@ -7051,20 +7168,21 @@ class ActivateProfileHelper {
         }
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                PPApplication.isRooted(false)) {
+                RootUtils.isRooted(false)) {
 
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
                 if (Build.VERSION.SDK_INT >= 26) {
 //                    if (simCard != -1) {
-                        boolean simExists;
-                        synchronized (PPApplication.simCardsMutext) {
-                            simExists = PPApplication.simCardsMutext.simCardsDetected;
-                            if (simCard == 1)
-                                simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
-                            else
-                            if (simCard == 2)
-                                simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+                        if (simCard == 1) {
+                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+                            simExists = simExists && sim1Exists;
+                        }
+                        else
+                        if (simCard == 2) {
+                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                            simExists = simExists && sim2Exists;
                         }
 
                         if ((simCard == -1) || simExists) {
@@ -7122,9 +7240,9 @@ class ActivateProfileHelper {
                                                         synchronized (PPApplication.rootMutex) {
                                                             String command1;
                                                             if (simCard == -1)
-                                                                command1 = PPApplication.getServiceCommand("isub", transactionCode, 0);
+                                                                command1 = RootUtils.getServiceCommand("isub", transactionCode, 0);
                                                             else
-                                                                command1 = PPApplication.getServiceCommand("isub", transactionCode, subscriptionId);
+                                                                command1 = RootUtils.getServiceCommand("isub", transactionCode, subscriptionId);
 //                                                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command1=" + command1);
 
                                                             String command2 = "";
@@ -7148,7 +7266,7 @@ class ActivateProfileHelper {
                                                                 Command command = new Command(0, false, command2, command1);
                                                                 try {
                                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setDefaultSimCard");
+                                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setDefaultSimCard");
                                                                 } catch (Exception e) {
                                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                                     //Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
@@ -7218,19 +7336,19 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
-        boolean simExists;
-        synchronized (PPApplication.simCardsMutext) {
-            simExists = PPApplication.simCardsMutext.simCardsDetected &&
-                    PPApplication.simCardsMutext.sim0Exists;
-            if (simCard == 1)
-                simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
-            else
-            if (simCard == 2)
-                simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+        if (simCard == 1) {
+            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
+            simExists = simExists && sim1Exists;
+        }
+        else
+        if (simCard == 2) {
+            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+            simExists = simExists && sim2Exists;
         }
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                PPApplication.isRooted(false) &&
+                RootUtils.isRooted(false) &&
                 simExists)
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
@@ -7268,7 +7386,7 @@ class ActivateProfileHelper {
                                         int subscriptionId = subscriptionInfo.getSubscriptionId();
 //                                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionId=" + subscriptionId);
                                         synchronized (PPApplication.rootMutex) {
-                                            String command1 = PPApplication.getServiceCommand("isub", transactionCode, subscriptionId, state);
+                                            String command1 = RootUtils.getServiceCommand("isub", transactionCode, subscriptionId, state);
                                             //String command1 = PPApplication.getServiceCommand("phone", transactionCode, slotIndex, state);
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
                                             if (command1 != null) {
@@ -7281,7 +7399,7 @@ class ActivateProfileHelper {
                                                 }*/;
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setSIMOnOff");
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setSIMOnOff");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
 //                                                    Log.e("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
@@ -7309,18 +7427,19 @@ class ActivateProfileHelper {
 
     private static void setCameraFlash(Context appContext, Profile profile, SharedPreferences executedProfileSharedPreferences) {
         if (profile._cameraFlash != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkProfileCameraFlash(appContext, profile, null)) {
                     switch (profile._cameraFlash) {
                         case 1:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
                             try {
-                                PPApplication.startHandlerThreadProfileActivation();
-                                final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+                                //PPApplication.startHandlerThreadProfileActivation();
+                                //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
                                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                                 //        context.getApplicationContext()) {
-                                __handler.post(() -> {
+                                //__handler.post(() -> {
+                                Runnable runnable = () -> {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -7350,7 +7469,9 @@ class ActivateProfileHelper {
                                             }
                                         }
                                     }
-                                });
+                                }; //);
+                                PPApplication.createProfileActiationExecutorPool();
+                                PPApplication.profileActiationExecutorPool.submit(runnable);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
@@ -7358,11 +7479,12 @@ class ActivateProfileHelper {
                         case 2:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
                             try {
-                                PPApplication.startHandlerThreadProfileActivation();
-                                final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
+                                //PPApplication.startHandlerThreadProfileActivation();
+                                //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
                                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                                 //        context.getApplicationContext()) {
-                                __handler.post(() -> {
+                                //__handler.post(() -> {
+                                Runnable runnable = () -> {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -7392,7 +7514,9 @@ class ActivateProfileHelper {
                                             }
                                         }
                                     }
-                                });
+                                }; //);
+                                PPApplication.createProfileActiationExecutorPool();
+                                PPApplication.profileActiationExecutorPool.submit(runnable);
 
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -7400,6 +7524,127 @@ class ActivateProfileHelper {
                             break;
                     }
                 }
+            }
+        }
+    }
+
+    static void setVPN(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
+        if (!profile._deviceVPN.isEmpty()) {
+            String[] splits = profile._deviceVPN.split("\\|");
+            try {
+                int vpnApplication = Integer.parseInt(splits[0]);
+                if (vpnApplication > 0) {
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, executedProfileSharedPreferences, true, context).allowed
+                            == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        boolean enableVPN = splits[1].equals("0");
+
+                        boolean setVPN = true;
+
+                        boolean doNotSet = false;
+                        if (splits.length > 4)
+                            doNotSet = splits[4].equals("1");
+                        if (doNotSet) {
+                            ConnectivityManager connManager = null;
+                            try {
+                                connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                            } catch (Exception e) {
+                                // java.lang.NullPointerException: missing IConnectivityManager
+                                // Dual SIM?? Bug in Android ???
+                                //PPApplication.recordException(e);
+                            }
+                            if (connManager != null) {
+                                Network activeNetwork = connManager.getActiveNetwork();
+                                NetworkCapabilities caps = connManager.getNetworkCapabilities(activeNetwork);
+                                boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+                                setVPN = enableVPN != vpnInUse;
+                            }
+                        }
+                        if (setVPN) {
+                            String profileName = "";
+                            if (splits.length > 2)
+                                profileName = splits[2];
+                            String tunnelName = "";
+                            if (splits.length > 3)
+                                tunnelName = splits[3];
+
+                            Intent intent = null;
+                            switch (vpnApplication) {
+                                case 1:
+                                    intent = new Intent();
+                                    intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
+                                    if (enableVPN) {
+                                        intent.setAction("net.openvpn.openvpn.CONNECT");
+                                        String keyValue = "AS " + profileName;
+                                        intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
+                                        intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", "true");
+                                    } else {
+                                        intent.setAction("net.openvpn.openvpn.DISCONNECT");
+                                        intent.putExtra("net.openvpn.openvpn.STOP", "true");
+                                    }
+                                    break;
+                                case 2:
+                                    intent = new Intent();
+                                    intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
+                                    if (enableVPN) {
+                                        intent.setAction("net.openvpn.openvpn.CONNECT");
+                                        String keyValue = "PC " + profileName;
+                                        intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
+                                        intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", "true");
+                                    } else {
+                                        intent.setAction("net.openvpn.openvpn.DISCONNECT");
+                                        intent.putExtra("net.openvpn.openvpn.STOP", "true");
+                                    }
+                                    break;
+                                case 3:
+                                    intent = new Intent();
+                                    if (enableVPN) {
+                                        intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.ConnectVPN"));
+                                    } else {
+                                        intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN"));
+                                    }
+                                    intent.setAction("android.intent.action.MAIN");
+                                    intent.putExtra("de.blinkt.openvpn.api.profileName", profileName);
+                                    break;
+                                case 4:
+                                    if (Permissions.checkProfileWireGuard(context, profile, null)) {
+                                        intent = new Intent(enableVPN ? "com.wireguard.android.action.SET_TUNNEL_UP" : "com.wireguard.android.action.SET_TUNNEL_DOWN");
+                                        intent.setPackage("com.wireguard.android");
+                                        intent.putExtra("tunnel", tunnelName);
+                                    }
+                                    break;
+                            }
+
+                            if (intent != null) {
+                                if (vpnApplication < 4) {
+                                    //noinspection TryWithIdenticalCatches
+                                    try {
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        context.startActivity(intent);
+                                    } catch (ActivityNotFoundException ee) {
+                                        //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (01)");
+                                        PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
+                                                null, profileName, "");
+                                    } catch (SecurityException e) {
+                                        //PPApplication.logE("ActivateProfileHelper.setVPN","intent - ERROR (02)");
+                                        PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
+                                                null, profileName, "");
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
+                                } else {
+                                    try {
+                                        context.sendBroadcast(intent);
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
         }
     }
@@ -7472,8 +7717,10 @@ class ActivateProfileHelper {
             ApplicationPreferences.prefRingerMode = mode;
 
             if (savedMode != mode) {
+                PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, "SENSOR_TYPE_SOUND_PROFILE", 5);
+                /*
                 Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
+                        .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
                         .build();
 
                 OneTimeWorkRequest worker =
@@ -7506,6 +7753,7 @@ class ActivateProfileHelper {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
             }
         }
     }
@@ -7534,8 +7782,10 @@ class ActivateProfileHelper {
             ApplicationPreferences.prefZenMode = mode;
 
             if (savedMode != mode) {
+                PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, "SENSOR_TYPE_SOUND_PROFILE", 5);
+                /*
                 Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
+                        .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
                         .build();
 
                 OneTimeWorkRequest worker =
@@ -7568,6 +7818,7 @@ class ActivateProfileHelper {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
             }
         }
     }
@@ -7626,7 +7877,6 @@ class ActivateProfileHelper {
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     static void showError(Context context, String profileName, int parameterType) {
         if ((context == null) || (profileName == null))
             return;
@@ -7637,7 +7887,6 @@ class ActivateProfileHelper {
         String text;
         int notificationId;
         String notificationTag;
-        //noinspection SwitchStatementWithTooFewBranches
         switch (parameterType) {
             case Profile.PARAMETER_TYPE_WIFI:
                 text = appContext.getString(R.string.profile_activation_activation_error_change_wifi);
@@ -7677,6 +7926,8 @@ class ActivateProfileHelper {
         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
 
         Notification notification = mBuilder.build();
 

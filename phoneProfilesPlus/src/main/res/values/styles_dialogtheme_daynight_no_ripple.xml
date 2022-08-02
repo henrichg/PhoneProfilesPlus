@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogTheme_dayNight_noRipple" parent="@style/Base.Theme.PhoneProfilesTheme_dialog_dayNight">
+        <item name="listViewItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
+        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector_no_ripple</item>
+
+<!--        <item name="windowFixedWidthMajor">65%</item>-->
+<!--        <item name="windowFixedWidthMinor">85%</item>-->
+        <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+        <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+    </style>
+</resources>

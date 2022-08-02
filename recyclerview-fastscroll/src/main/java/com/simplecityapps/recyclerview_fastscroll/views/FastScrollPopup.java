@@ -82,32 +82,27 @@ public class FastScrollPopup {
     public void setBgColor(int color) {
         mBackgroundColor = color;
         mBackgroundPaint.setColor(color);
-        //noinspection deprecation
         mRecyclerView.invalidate(mBgBounds);
     }
 
     public void setTextColor(int color) {
         mTextPaint.setColor(color);
-        //noinspection deprecation
         mRecyclerView.invalidate(mBgBounds);
     }
 
     public void setTextSize(int size) {
         mTextPaint.setTextSize(size);
-        //noinspection deprecation
         mRecyclerView.invalidate(mBgBounds);
     }
 
     public void setBackgroundSize(int size) {
         mBackgroundSize = size;
         mCornerRadius = mBackgroundSize / 2;
-        //noinspection deprecation
         mRecyclerView.invalidate(mBgBounds);
     }
 
     public void setTypeface(Typeface typeface) {
         mTextPaint.setTypeface(typeface);
-        //noinspection deprecation
         mRecyclerView.invalidate(mBgBounds);
     }
 
@@ -131,7 +126,6 @@ public class FastScrollPopup {
     @Keep
     public void setAlpha(float alpha) {
         mAlpha = alpha;
-        //noinspection deprecation
         mRecyclerView.invalidate(mBgBounds);
     }
 

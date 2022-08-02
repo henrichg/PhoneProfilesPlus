@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -20,7 +19,7 @@ class AskForDurationActivateProfileDialog
     private final DataWrapper dataWrapper;
 
     private final AlertDialog mDialog;
-    private final Activity activity;
+    final Activity activity;
 
     private final LinearLayout linlaProgress;
     private final ListView listView;
@@ -38,7 +37,6 @@ class AskForDurationActivateProfileDialog
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_profile_preference, null);
         dialogBuilder.setView(layout);
 
@@ -61,7 +59,6 @@ class AskForDurationActivateProfileDialog
 
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void onShow(/*DialogInterface dialog*/) {
         new ShowDialogAsyncTask(askForDurationDialog.mAfterDoProfile, this, activity).execute();
     }

@@ -1,12 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 
@@ -25,11 +23,12 @@ class DrawOverAppsPermissionNotification {
 
             if (useHandler) {
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThread(/*"DrawOverAppsPermissionNotification.showNotification"*/);
-                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                //PPApplication.startHandlerThread(/*"DrawOverAppsPermissionNotification.showNotification"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
 
                     //Context appContext= appContextWeakRef.get();
@@ -64,7 +63,9 @@ class DrawOverAppsPermissionNotification {
                             }
                         }
                     //}
-                });
+                }; //);
+                PPApplication.createBasicExecutorPool();
+                PPApplication.basicExecutorPool.submit(runnable);
             }
             else {
                 try {
@@ -92,7 +93,6 @@ class DrawOverAppsPermissionNotification {
         final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
         intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
@@ -104,6 +104,8 @@ class DrawOverAppsPermissionNotification {
         mBuilder.setOnlyAlertOnce(true);
 
         mBuilder.setWhen(0);
+
+        mBuilder.setGroup(PPApplication.SYTEM_CONFIGURATION_ERRORS_NOTIFICATION_GROUP);
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {

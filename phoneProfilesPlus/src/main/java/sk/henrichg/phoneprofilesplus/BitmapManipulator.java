@@ -226,6 +226,13 @@ class BitmapManipulator {
         return false;
     }
 
+    /*static int getDominantColor(Bitmap bitmap) {
+        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true);
+        final int color = newBitmap.getPixel(0, 0);
+        newBitmap.recycle();
+        return color;
+    }*/
+
     /*
     static Bitmap resampleBitmapFile(String bitmapFile, int width, int height, Context context)
     {
@@ -268,9 +275,7 @@ class BitmapManipulator {
 
             int rotatedWidth, rotatedHeight;
             if (rotate == 90 || rotate == 270) {
-                //noinspection SuspiciousNameCombination
                 rotatedWidth = height;
-                //noinspection SuspiciousNameCombination
                 rotatedHeight = width;
             } else {
                 rotatedWidth = width;
@@ -385,19 +390,19 @@ class BitmapManipulator {
         return recolorBitmap(bitmap, color/*, context*/);
     }
 
-    /*
+    /* these are for recolor vector drawables
     static Drawable tintDrawableByColor(Drawable drawable, int color) {
-        Drawable wrapDrawable = DrawableCompat.wrap(drawable);
-        //DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
+        Drawable wrapDrawable = drawable.mutate();
+        wrapDrawable = DrawableCompat.wrap(wrapDrawable);
+        DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
         DrawableCompat.setTint(wrapDrawable, color);
-        wrapDrawable.mutate();
         return wrapDrawable;
     }
 
     static Drawable tintDrawableByValue(Drawable drawable, int value) {
         int color  = Color.argb(0xFF, value, value, value);
         Drawable tintedDrawable = tintDrawableByColor(drawable, color);
-        tintedDrawable.mutate();
+        //tintedDrawable.mutate();
         return tintedDrawable;
     }
     */

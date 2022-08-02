@@ -8,9 +8,18 @@
     android:gravity="center_horizontal"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
+    <View
+        android:id="@+id/profile_pref_dlg_listview_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="?attr/dialogDivider" />
+
 <ScrollView android:id="@+id/info_pref_dialog_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
     android:scrollbarStyle="outsideOverlay"
@@ -23,18 +32,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginEnd="15dp">
 
         <TextView
             android:id="@+id/info_pref_dialog_info_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/empty_string"
             android:textSize="16sp" />
 
     </LinearLayout>
 
 </ScrollView>
+
+    <View
+        android:id="@+id/profile_pref_dlg_listview_buttonBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginBottom="3dp"
+        android:background="?attr/dialogDivider" />
 
 </LinearLayout>

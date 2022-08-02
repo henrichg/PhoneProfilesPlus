@@ -140,7 +140,7 @@
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsCalendarParameters" />
-            
+
         <Preference
             app:title="@string/event_preferences_category_eventBatteryParameters"
             app:summary="@string/event_preference_sensor_battery_summary"
@@ -166,12 +166,28 @@
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsSMSParameters" />
 
         <Preference
+            app:title="@string/event_preferences_category_eventRoamingParameters"
+            app:summary="@string/event_preference_sensor_roaming_summary"
+            app:key="eventRoamingCategoryRoot"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsRoamingParameters" />
+
+        <Preference
             app:key="eventRadioSwitchCategoryRoot"
             app:title="@string/event_preferences_category_eventRadioSwitchParameters"
             app:summary="@string/event_preference_sensor_radioSwitch_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsRadioSwitchParameters" />
+
+        <Preference
+            app:title="@string/event_preferences_category_eventVPNParameters"
+            app:summary="@string/event_preference_sensor_vpn_summary"
+            app:key="eventVPNCategoryRoot"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsVPNParameters" />
 
         <Preference
             app:key="eventLocationCategoryRoot"
@@ -284,6 +300,14 @@
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsDeviceBootParameters" />
+
+        <Preference
+            app:key="eventActivatedProfileCategoryRoot"
+            app:title="@string/event_preferences_category_eventActivatedProfileParameters"
+            app:summary="@string/event_preference_sensor_activated_profile_summary"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsActivatedProfileParameters" />
 
     </PreferenceCategory>
     

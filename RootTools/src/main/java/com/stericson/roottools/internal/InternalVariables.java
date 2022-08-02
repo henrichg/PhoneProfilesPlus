@@ -37,19 +37,19 @@ class InternalVariables
     // ----------------------
 
 
-    protected static boolean nativeToolsReady = false;
-    protected static boolean found = false;
-    protected static boolean processRunning = false;
+    protected static volatile boolean nativeToolsReady = false;
+    protected static volatile boolean found = false;
+    protected static volatile boolean processRunning = false;
 
-    protected static String[] space;
-    protected static String getSpaceFor;
+    protected static volatile String[] space;
+    protected static volatile String getSpaceFor;
     @SuppressWarnings("unused")
-    protected static String busyboxVersion;
-    protected static String pid_list = "";
-    protected static ArrayList<Mount> mounts;
-    protected static ArrayList<Symlink> symlinks;
-    protected static String inode = "";
-    protected static Permissions permissions;
+    protected static volatile String busyboxVersion;
+    protected static volatile String pid_list = "";
+    protected static volatile ArrayList<Mount> mounts;
+    protected static volatile ArrayList<Symlink> symlinks;
+    protected static volatile String inode = "";
+    protected static volatile Permissions permissions;
 
     // regex to get pid out of ps line, example:
     // root 2611 0.0 0.0 19408 2104 pts/2 S 13:41 0:00 bash

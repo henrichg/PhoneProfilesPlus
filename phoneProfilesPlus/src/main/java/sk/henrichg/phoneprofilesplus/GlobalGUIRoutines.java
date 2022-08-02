@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.os.Looper.getMainLooper;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -8,30 +10,22 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Vibrator;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.BulletSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.LeadingMarginSpan;
 import android.text.style.StyleSpan;
-import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
 import android.view.View;
@@ -40,34 +34,32 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.color.DynamicColors;
+
 import org.xml.sax.XMLReader;
 
-import java.lang.ref.WeakReference;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 
-import static android.os.Looper.getMainLooper;
-
 class GlobalGUIRoutines {
 
-    // import/export
-    static final String DB_FILEPATH = "/data/" + PPApplication.PACKAGE_NAME + "/databases";
-    //static final String REMOTE_EXPORT_PATH = "/PhoneProfiles";
-    static final String EXPORT_APP_PREF_FILENAME = "ApplicationPreferences.backup";
-    //static final String EXPORT_DEF_PROFILE_PREF_FILENAME = "DefaultProfilePreferences.backup";
-
     static final int ICON_SIZE_DP = 50;
+
+    static final String OPAQUENESS_LIGHTNESS_0 = "0";
+    static final String OPAQUENESS_LIGHTNESS_12 = "12";
+    static final String OPAQUENESS_LIGHTNESS_25 = "25";
+    static final String OPAQUENESS_LIGHTNESS_37 = "37";
+    static final String OPAQUENESS_LIGHTNESS_50 = "50";
+    static final String OPAQUENESS_LIGHTNESS_62 = "62";
+    static final String OPAQUENESS_LIGHTNESS_75 = "75";
+    static final String OPAQUENESS_LIGHTNESS_87 = "87";
+    static final String OPAQUENESS_LIGHTNESS_100 = "100";
 
     /*
     // https://stackoverflow.com/questions/40221711/android-context-getresources-updateconfiguration-deprecated
@@ -245,30 +237,57 @@ class GlobalGUIRoutines {
                 }*/
         }
         if (forActivator) {
-            return R.style.ActivatorTheme_dayNight;
+            if (PPApplication.deviceIsOnePlus)
+                return R.style.ActivatorTheme_dayNight_noRipple;
+            else
+                return R.style.ActivatorTheme_dayNight;
         }
         else
         if (forDialog) {
-            return R.style.DialogTheme_dayNight;
+            if (PPApplication.deviceIsOnePlus)
+                return R.style.DialogTheme_dayNight_noRipple;
+            else
+                return R.style.DialogTheme_dayNight;
         }
         else
         if (forLocationEditor) {
-            return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
+            if (PPApplication.deviceIsOnePlus)
+                return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
+            else
+                return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
         }
         else
         if (forPopup) {
-            if (withToolbar)
-                return R.style.PopupTheme_withToolbar_dayNight;
-            else
-                return R.style.PopupTheme_dayNight;
+            if (PPApplication.deviceIsOnePlus) {
+                if (withToolbar)
+                    return R.style.PopupTheme_withToolbar_dayNight_noRipple;
+                else
+                    return R.style.PopupTheme_dayNight_noRipple;
+
+            } else {
+                if (withToolbar)
+                    return R.style.PopupTheme_withToolbar_dayNight;
+                else
+                    return R.style.PopupTheme_dayNight;
+            }
         } else {
-            if (withToolbar) {
-                //if (withDrawerLayout)
-                //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
-                //else
-                return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
-            } else
-                return R.style.Theme_PhoneProfilesTheme_dayNight;
+            if (PPApplication.deviceIsOnePlus) {
+                if (withToolbar) {
+                    //if (withDrawerLayout)
+                    //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
+                    //else
+                    return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight_noRipple;
+                } else
+                    return R.style.Theme_PhoneProfilesTheme_dayNight_noRipple;
+            } else {
+                if (withToolbar) {
+                    //if (withDrawerLayout)
+                    //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
+                    //else
+                    return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
+                } else
+                    return R.style.Theme_PhoneProfilesTheme_dayNight;
+            }
         }
     }
 
@@ -289,7 +308,7 @@ class GlobalGUIRoutines {
     static void switchNightMode(final Context appContext, boolean useMainLooperHandler) {
         if (useMainLooperHandler) {
             new Handler(getMainLooper()).post(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
                 try {
                     switchNightMode(appContext);
                 } catch (Exception e) {
@@ -301,7 +320,7 @@ class GlobalGUIRoutines {
             switchNightMode(appContext);
     }
 
-    static void reloadActivity(final Activity activity, @SuppressWarnings("SameParameterValue") boolean newIntent)
+    static void reloadActivity(final Activity activity, boolean newIntent)
     {
         if (activity == null)
             return;
@@ -424,17 +443,16 @@ class GlobalGUIRoutines {
     }
     */
 
-    @SuppressWarnings("SameParameterValue")
     static int dpToPx(int dp)
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    private static int dip(int dp) {
+    static int dip(int dp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics()));
     }
 
-    private static int sip(int sp) {
+    static int sip(int sp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().getDisplayMetrics()));
     }
 
@@ -487,500 +505,6 @@ class GlobalGUIRoutines {
         }
     }
     */
-
-    static String formatDateTime(Context context, String timeToFormat) {
-
-        String finalDateTime = "";
-
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        Date date;
-        if (timeToFormat != null) {
-            try {
-                date = iso8601Format.parse(timeToFormat);
-            } catch (ParseException e) {
-                date = null;
-            }
-
-            if (date != null) {
-                long when = date.getTime();
-                when += TimeZone.getDefault().getOffset(when);
-
-                /*
-                int flags = 0;
-                flags |= DateUtils.FORMAT_SHOW_TIME;
-                flags |= DateUtils.FORMAT_SHOW_DATE;
-                flags |= DateUtils.FORMAT_NUMERIC_DATE;
-                flags |= DateUtils.FORMAT_SHOW_YEAR;
-
-                finalDateTime = android.text.format.DateUtils.formatDateTime(context,
-                        when, flags);
-
-                finalDateTime = DateFormat.getDateFormat(context).format(when) +
-                        " " + DateFormat.getTimeFormat(context).format(when);
-                */
-
-                /*
-                SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss");
-                finalDateTime = sdf.format(when);
-                */
-
-                finalDateTime = timeDateStringFromTimestamp(context, when);
-            }
-        }
-        return finalDateTime;
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    static String timeDateStringFromTimestamp(Context applicationContext, long timestamp){
-        String timeDate;
-        String androidDateTime=android.text.format.DateFormat.getDateFormat(applicationContext).format(new Date(timestamp))+" "+
-                android.text.format.DateFormat.getTimeFormat(applicationContext).format(new Date(timestamp));
-        String javaDateTime = DateFormat.getDateTimeInstance().format(new Date(timestamp));
-        String AmPm="";
-        if(!Character.isDigit(androidDateTime.charAt(androidDateTime.length()-1))) {
-            if(androidDateTime.contains(new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM])){
-                AmPm=" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM];
-            }else{
-                AmPm=" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.PM];
-            }
-            androidDateTime=androidDateTime.replace(AmPm, "");
-        }
-        if(!Character.isDigit(javaDateTime.charAt(javaDateTime.length()-1))){
-            javaDateTime=javaDateTime.replace(" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM], "");
-            javaDateTime=javaDateTime.replace(" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.PM], "");
-        }
-        javaDateTime=javaDateTime.substring(javaDateTime.length()-3);
-        timeDate=androidDateTime.concat(javaDateTime);
-        return timeDate.concat(AmPm);
-    }
-
-    static Spanned fromHtml(String source, boolean forBullets, boolean forNumbers, int numberFrom, int sp) {
-        Spanned htmlSpanned;
-
-        //if (Build.VERSION.SDK_INT >= 24) {
-            if (forNumbers)
-                htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
-            else {
-                htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT);
-                //htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
-            }
-        //} else {
-        //    if (forBullets || forNumbers)
-        //        htmlSpanned = Html.fromHtml(source, null, new LiTagHandler());
-        //    else
-        //        htmlSpanned = Html.fromHtml(source);
-        //}
-
-        htmlSpanned = removeUnderline(htmlSpanned);
-
-        if (forBullets)
-            return addBullets(htmlSpanned);
-        else
-        if (forNumbers)
-            return addNumbers(htmlSpanned, numberFrom, sp);
-        else
-            return  htmlSpanned;
-
-    }
-
-    private static class URLSpanline_none extends URLSpan {
-        public URLSpanline_none(String url) {
-            super(url);
-        }
-        @Override
-        public void updateDrawState(TextPaint ds) {
-            super.updateDrawState(ds);
-            ds.setUnderlineText(false);
-        }
-    }
-
-    private static SpannableStringBuilder removeUnderline(Spanned htmlSpanned) {
-        SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(htmlSpanned);
-        URLSpan[] spans = spannableBuilder.getSpans(0, spannableBuilder.length(), URLSpan.class);
-        for (URLSpan span: spans) {
-            int start = spannableBuilder.getSpanStart(span);
-            int end = spannableBuilder.getSpanEnd(span);
-            spannableBuilder.removeSpan(span);
-            span = new URLSpanline_none(span.getURL());
-            spannableBuilder.setSpan(span, start, end, 0);
-        }
-        return spannableBuilder;
-    }
-
-    private static SpannableStringBuilder addBullets(Spanned htmlSpanned) {
-        SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(htmlSpanned);
-        BulletSpan[] spans = spannableBuilder.getSpans(0, spannableBuilder.length(), BulletSpan.class);
-        if (spans != null) {
-            for (BulletSpan span : spans) {
-                int start = spannableBuilder.getSpanStart(span);
-                int end  = spannableBuilder.getSpanEnd(span);
-                spannableBuilder.removeSpan(span);
-                spannableBuilder.setSpan(new ImprovedBulletSpan(dip(2), dip(8), 0), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            }
-        }
-        return spannableBuilder;
-    }
-
-    private static SpannableStringBuilder addNumbers(Spanned htmlSpanned, int numberFrom, int sp) {
-        int listItemCount = numberFrom-1;
-        SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(htmlSpanned);
-        BulletSpan[] spans = spannableBuilder.getSpans(0, spannableBuilder.length(), BulletSpan.class);
-        if (spans != null) {
-            for (BulletSpan span : spans) {
-                int start = spannableBuilder.getSpanStart(span);
-                int end  = spannableBuilder.getSpanEnd(span);
-                spannableBuilder.removeSpan(span);
-                ++listItemCount;
-                spannableBuilder.insert(start, listItemCount + ". ");
-                spannableBuilder.setSpan(new LeadingMarginSpan.Standard(0, sip(sp)), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            }
-        }
-        return spannableBuilder;
-    }
-
-    @SuppressLint("DefaultLocale")
-    static String getDurationString(int duration) {
-        int hours = duration / 3600;
-        int minutes = (duration % 3600) / 60;
-        int seconds = duration % 60;
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
-
-    @SuppressLint("DefaultLocale")
-    static String getTimeString(int time) {
-        int hours = time / 60;
-        int minutes = (time % 60);
-        return String.format("%02d:%02d", hours, minutes);
-    }
-
-    static String getListPreferenceString(String value, int arrayValuesRes,
-                                          int arrayStringsRes, Context context) {
-        String[] arrayValues = context.getResources().getStringArray(arrayValuesRes);
-        String[] arrayStrings = context.getResources().getStringArray(arrayStringsRes);
-        int index = 0;
-        for (String arrayValue : arrayValues) {
-            if (arrayValue.equals(value))
-                break;
-            ++index;
-        }
-        try {
-            return arrayStrings[index];
-        } catch (Exception e) {
-            return context.getString(R.string.array_pref_no_change);
-        }
-    }
-
-    static String getZenModePreferenceString(String value, Context context) {
-        String[] arrayValues;
-        String[] arrayStrings;
-
-        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        if ((vibrator != null) && vibrator.hasVibrator()) {
-            arrayValues = context.getResources().getStringArray(R.array.zenModeValues);
-            arrayStrings = context.getResources().getStringArray(R.array.zenModeArray);
-        }
-        else {
-            arrayValues = context.getResources().getStringArray(R.array.zenModeNotVibratorValues);
-            arrayStrings = context.getResources().getStringArray(R.array.zenModeNotVibratorArray);
-        }
-
-        String[] arraySummaryStrings = context.getResources().getStringArray(R.array.zenModeSummaryArray);
-        int index = 0;
-        for (String arrayValue : arrayValues) {
-            if (arrayValue.equals(value))
-                break;
-            ++index;
-        }
-        try {
-            return arrayStrings[index] + " - " + arraySummaryStrings[Integer.parseInt(value) - 1];
-        } catch (Exception e) {
-            return context.getString(R.string.array_pref_no_change);
-        }
-    }
-
-    static void setRingtonePreferenceSummary(final String initSummary, final String ringtoneUri,
-                final androidx.preference.Preference preference, final Context context) {
-        SetRingtonePreferenceSummaryAsyncTask asyncTask =
-                new SetRingtonePreferenceSummaryAsyncTask(initSummary, ringtoneUri, preference, context);
-        asyncTask.execute();
-    }
-
-    private static class SetRingtonePreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
-        private String ringtoneName;
-
-        final String initSummary;
-        final String ringtoneUri;
-        private final WeakReference<androidx.preference.Preference> preferenceWeakRef;
-        private final WeakReference<Context> contextWeakReference;
-
-        public SetRingtonePreferenceSummaryAsyncTask(final String initSummary, final String ringtoneUri,
-                    final androidx.preference.Preference preference, final Context context) {
-            this.preferenceWeakRef = new WeakReference<>(preference);
-            this.contextWeakReference = new WeakReference<>(context);
-            this.initSummary = initSummary;
-            this.ringtoneUri = ringtoneUri;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Context context = contextWeakReference.get();
-            androidx.preference.Preference preference = preferenceWeakRef.get();
-            if ((context != null) && (preference != null)) {
-                if ((ringtoneUri == null) || ringtoneUri.isEmpty())
-                    ringtoneName = context.getString(R.string.ringtone_preference_none);
-                else {
-                    Uri uri = Uri.parse(ringtoneUri);
-                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-                    try {
-                        ringtoneName = ringtone.getTitle(context);
-                    } catch (Exception e) {
-                        ringtoneName = context.getString(R.string.ringtone_preference_not_set);
-                    }
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-            Context context = contextWeakReference.get();
-            androidx.preference.Preference preference = preferenceWeakRef.get();
-            if ((context != null) && (preference != null)) {
-                String summary = TextUtils.replace(initSummary, new String[]{"<ringtone_name>"}, new String[]{ringtoneName}).toString();
-                preference.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
-            }
-        }
-
-    }
-
-    static void setProfileSoundsPreferenceSummary(final String initSummary,
-                     final String ringtoneUri, final String notificationUri, final String alarmUri,
-                     final androidx.preference.Preference preference, final Context context) {
-        SetProfileSoundsPreferenceSummaryAsyncTask asyncTask =
-                new SetProfileSoundsPreferenceSummaryAsyncTask(initSummary,
-                        ringtoneUri, notificationUri, alarmUri,
-                        preference, context);
-        asyncTask.execute();
-    }
-
-    private static class SetProfileSoundsPreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
-        private String ringtoneName;
-        private String notificationName;
-        private String alarmName;
-
-        final String initSummary;
-        final String ringtoneUri;
-        final String notificationUri;
-        final String alarmUri;
-        private final WeakReference<androidx.preference.Preference> preferenceWeakRef;
-        private final WeakReference<Context> contextWeakReference;
-
-        public SetProfileSoundsPreferenceSummaryAsyncTask(final String initSummary,
-                    final String ringtoneUri, final String notificationUri, final String alarmUri,
-                    final androidx.preference.Preference preference, final Context context) {
-            this.preferenceWeakRef = new WeakReference<>(preference);
-            this.contextWeakReference = new WeakReference<>(context);
-            this.initSummary = initSummary;
-            this.ringtoneUri = ringtoneUri;
-            this.notificationUri = notificationUri;
-            this.alarmUri = alarmUri;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Context context = contextWeakReference.get();
-            androidx.preference.Preference preference = preferenceWeakRef.get();
-            if ((context != null) && (preference != null)) {
-                if ((ringtoneUri == null) || ringtoneUri.isEmpty())
-                    ringtoneName = context.getString(R.string.ringtone_preference_none);
-                else {
-                    String[] splits = ringtoneUri.split("\\|");
-                    Uri uri = Uri.parse(splits[0]);
-                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-                    try {
-                        ringtoneName = ringtone.getTitle(context);
-                    } catch (Exception e) {
-                        ringtoneName = context.getString(R.string.ringtone_preference_not_set);
-                    }
-                }
-
-                if ((notificationUri == null) || notificationUri.isEmpty())
-                    notificationName = context.getString(R.string.ringtone_preference_none);
-                else {
-                    String[] splits = notificationUri.split("\\|");
-                    Uri uri = Uri.parse(splits[0]);
-                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-                    try {
-                        notificationName = ringtone.getTitle(context);
-                    } catch (Exception e) {
-                        notificationName = context.getString(R.string.ringtone_preference_not_set);
-                    }
-                }
-
-                if ((alarmUri == null) || alarmUri.isEmpty())
-                    alarmName = context.getString(R.string.ringtone_preference_none);
-                else {
-                    String[] splits = alarmUri.split("\\|");
-                    Uri uri = Uri.parse(splits[0]);
-                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-                    try {
-                        alarmName = ringtone.getTitle(context);
-                    } catch (Exception e) {
-                        alarmName = context.getString(R.string.ringtone_preference_not_set);
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-            Context context = contextWeakReference.get();
-            androidx.preference.Preference preference = preferenceWeakRef.get();
-            if ((context != null) && (preference != null)) {
-                String summary = TextUtils.replace(initSummary,
-                        new String[]{"<ringtone_name>", "<notification_name>", "<alarm_name>"},
-                        new String[]{ringtoneName, notificationName, alarmName}).toString();
-                preference.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
-            }
-        }
-
-    }
-
-    static void setProfileSoundsDualSIMPreferenceSummary(final String initSummary,
-              final String ringtoneSIM1Uri, final String ringtoneSIM2Uri,
-              final String notificationSIM1Uri, final String notificationSIM2Uri,
-              final androidx.preference.Preference preference, final Context context) {
-        SetProfileSoundsDualSIMPreferenceSummaryAsyncTask asyncTask =
-                new SetProfileSoundsDualSIMPreferenceSummaryAsyncTask(initSummary,
-                        ringtoneSIM1Uri, ringtoneSIM2Uri, notificationSIM1Uri, notificationSIM2Uri,
-                        preference, context);
-        asyncTask.execute();
-    }
-
-    private static class SetProfileSoundsDualSIMPreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
-
-        private String ringtoneNameSIM1;
-        private String ringtoneNameSIM2;
-        private String notificationNameSIM1;
-        private String notificationNameSIM2;
-
-        final String initSummary;
-        final String ringtoneSIM1Uri;
-        final String ringtoneSIM2Uri;
-        final String notificationSIM1Uri;
-        final String notificationSIM2Uri;
-        private final WeakReference<androidx.preference.Preference> preferenceWeakRef;
-        private final WeakReference<Context> contextWeakReference;
-
-        public SetProfileSoundsDualSIMPreferenceSummaryAsyncTask(final String initSummary,
-                     final String ringtoneSIM1Uri, final String ringtoneSIM2Uri,
-                     final String notificationSIM1Uri, final String notificationSIM2Uri,
-                     final androidx.preference.Preference preference, final Context context) {
-            this.preferenceWeakRef = new WeakReference<>(preference);
-            this.contextWeakReference = new WeakReference<>(context);
-            this.initSummary = initSummary;
-            this.ringtoneSIM1Uri = ringtoneSIM1Uri;
-            this.ringtoneSIM2Uri = ringtoneSIM2Uri;
-            this.notificationSIM1Uri = notificationSIM1Uri;
-            this.notificationSIM2Uri = notificationSIM2Uri;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Context context = contextWeakReference.get();
-            androidx.preference.Preference preference = preferenceWeakRef.get();
-            if ((context != null) && (preference != null)) {
-                if ((ringtoneSIM1Uri == null) || ringtoneSIM1Uri.isEmpty())
-                    ringtoneNameSIM1 = context.getString(R.string.ringtone_preference_none);
-                else {
-                    String[] splits = ringtoneSIM1Uri.split("\\|");
-                    Uri uri = Uri.parse(splits[0]);
-                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-                    try {
-                        ringtoneNameSIM1 = ringtone.getTitle(context);
-                    } catch (Exception e) {
-                        ringtoneNameSIM1 = context.getString(R.string.ringtone_preference_not_set);
-                    }
-                }
-
-                if ((ringtoneSIM2Uri == null) || ringtoneSIM2Uri.isEmpty())
-                    ringtoneNameSIM2 = context.getString(R.string.ringtone_preference_none);
-                else {
-                    String[] splits = ringtoneSIM2Uri.split("\\|");
-                    Uri uri = Uri.parse(splits[0]);
-                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-                    try {
-                        ringtoneNameSIM2 = ringtone.getTitle(context);
-                    } catch (Exception e) {
-                        ringtoneNameSIM2 = context.getString(R.string.ringtone_preference_not_set);
-                    }
-                }
-
-                if ((notificationSIM1Uri == null) || notificationSIM1Uri.isEmpty())
-                    notificationNameSIM1 = context.getString(R.string.ringtone_preference_none);
-                else {
-                    String[] splits = notificationSIM1Uri.split("\\|");
-                    Uri uri = Uri.parse(splits[0]);
-                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-                    try {
-                        notificationNameSIM1 = ringtone.getTitle(context);
-                    } catch (Exception e) {
-                        notificationNameSIM1 = context.getString(R.string.ringtone_preference_not_set);
-                    }
-                }
-
-                if ((notificationSIM2Uri == null) || notificationSIM2Uri.isEmpty())
-                    notificationNameSIM2 = context.getString(R.string.ringtone_preference_none);
-                else {
-                    String[] splits = notificationSIM2Uri.split("\\|");
-                    Uri uri = Uri.parse(splits[0]);
-                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-                    try {
-                        notificationNameSIM2 = ringtone.getTitle(context);
-                    } catch (Exception e) {
-                        notificationNameSIM2 = context.getString(R.string.ringtone_preference_not_set);
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            Context context = contextWeakReference.get();
-            androidx.preference.Preference preference = preferenceWeakRef.get();
-            if ((context != null) && (preference != null)) {
-                String summary = TextUtils.replace(initSummary,
-                        new String[]{"<ringtone_name_sim1>", "<ringtone_name_sim2>", "<notification_name_sim1>", "<notification_name_sim2>"},
-                        new String[]{ringtoneNameSIM1, ringtoneNameSIM2, notificationNameSIM1, notificationNameSIM2}).toString();
-                preference.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
-            }
-        }
-
-    }
-
-    @SuppressLint("DefaultLocale")
-    static String getEndsAtString(int duration) {
-        if(duration == 0) {
-            return "--";
-        }
-
-        Calendar ends = Calendar.getInstance();
-        ends.add(Calendar.SECOND, duration);
-        int hours = ends.get(Calendar.HOUR_OF_DAY);
-        int minutes = ends.get(Calendar.MINUTE);
-        int seconds = ends.get(Calendar.SECOND);
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
 
     /*
     static Point getNavigationBarSize(Context context) {
@@ -1197,21 +721,24 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
-    static void setThemeTimeDurationPickerDisplay(TimeDurationPicker timeDurationPicker, final Activity activity) {
-        if (ApplicationPreferences.applicationTheme(activity, true).equals("white")) {
+    static void setThemeTimeDurationPickerDisplay(TimeDurationPicker timeDurationPicker, final Context context) {
+        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                                    == Configuration.UI_MODE_NIGHT_YES;
+
+        if (/*ApplicationPreferences.applicationTheme(activity, true).equals("white")*/!nightModeOn) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace_light));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(activity, R.drawable.ic_clear_light));
+            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace_light));
+            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear_light));
         }
         else {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display_Dark);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit_Dark);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(activity, R.drawable.ic_clear));
+            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace));
+            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear));
         }
-        timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(activity));
-        timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(activity));
+        timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
+        timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
     }
 
     static int getThemeSecondaryTextColor(final Context context) {
@@ -1241,6 +768,32 @@ class GlobalGUIRoutines {
         }
     }
 
+    static int getDynamicColor(int colorAttr, Context context) {
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (DynamicColors.isDynamicColorAvailable()) {
+                Context dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.ThemeOverlay_Material3_DynamicColors_DayNight);
+                /*int[] attrsToResolve = {
+                        R.attr.colorPrimary,    // 0
+                        R.attr.colorOnPrimary,  // 1
+                        R.attr.colorSecondary,  // 2
+                        R.attr.colorAccent,      // 3
+                };*/
+                int[] attrsToResolve = { colorAttr };
+                // now resolve them
+                TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
+                /*int color = ta.getColor(0, 0);
+                int onPrimary = ta.getColor(1, 0);
+                int secondary = ta.getColor(2, 0);
+                int accent = ta.getColor(3, 0);*/
+                int color = ta.getColor(0, 0);
+                ta.recycle();   // recycle TypedArray
+
+                return color;
+            }
+        }
+        return 0;
+    }
+
     static boolean activityIntentExists(Intent intent, Context context) {
         try {
             List<ResolveInfo> activities = context.getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
@@ -1254,7 +807,6 @@ class GlobalGUIRoutines {
     static void registerOnActivityDestroyListener(@NonNull Preference preference, @NonNull PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
-            @SuppressLint("PrivateApi")
             Method method = pm.getClass().getDeclaredMethod(
                     "registerOnActivityDestroyListener",
                     PreferenceManager.OnActivityDestroyListener.class);
@@ -1267,7 +819,6 @@ class GlobalGUIRoutines {
     static void unregisterOnActivityDestroyListener(@NonNull Preference preference, @NonNull PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
-            @SuppressLint("PrivateApi")
             Method method = pm.getClass().getDeclaredMethod(
                     "unregisterOnActivityDestroyListener",
                     PreferenceManager.OnActivityDestroyListener.class);
@@ -1339,7 +890,6 @@ class GlobalGUIRoutines {
         private int mSelectedIndex = -1;
         private final Activity activity;
 
-        @SuppressWarnings("SameParameterValue")
         HighlightedSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
             super(activity, textViewResourceId, objects);
             this.activity = activity;
@@ -1386,6 +936,173 @@ class GlobalGUIRoutines {
                     Settings.System.TRANSITION_ANIMATION_SCALE, 1);
         }*/
         return (duration != 0 && transition != 0);
+    }
+
+    static void showDialogAboutRedText(final Profile profile, final Event event,
+                                       final boolean forProfile,
+                                       final boolean forActivator,
+                                       final boolean forShowInActivator,
+                                       final boolean forRunStopEvent,
+                                       final Activity activity) {
+        if (activity == null)
+            return;
+
+        String nTitle = "";
+        String nText = "";
+
+        if (profile != null) {
+            nTitle = activity.getString(R.string.profile_preferences_red_texts_title);
+            nText = activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                    "\"" + profile._name + "\" " +
+                    activity.getString(R.string.preferences_red_texts_text_2);
+//            if (android.os.Build.VERSION.SDK_INT < 24) {
+//                nTitle = activity.getString(R.string.ppp_app_name);
+//                nText = activity.getString(R.string.profile_preferences_red_texts_title) + ": " +
+//                        activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+//                        "\"" + profile._name + "\" " +
+//                        activity.getString(R.string.preferences_red_texts_text_2);
+//            }
+            if (forShowInActivator)
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3_new);
+            else
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+
+            nText = nText + "\n\n" + activity.getString(R.string.profile_preferences_red_texts_text_4);
+        }
+
+        if (event != null) {
+            nTitle = activity.getString(R.string.event_preferences_red_texts_title);
+            nText = activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                    "\"" + event._name + "\" " +
+                    activity.getString(R.string.preferences_red_texts_text_2);
+//            if (android.os.Build.VERSION.SDK_INT < 24) {
+//                nTitle = activity.getString(R.string.ppp_app_name);
+//                nText = activity.getString(R.string.event_preferences_red_texts_title) + ": " +
+//                        activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
+//                        "\"" + event._name + "\" " +
+//                        activity.getString(R.string.preferences_red_texts_text_2);
+//            }
+            if (forRunStopEvent)
+                nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
+            else
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+
+            nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
+        }
+
+        if ((profile != null) || (event != null)) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setTitle(nTitle);
+            dialogBuilder.setMessage(nText);
+            if (forProfile) {
+                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_profile_preferences,
+                        (dialog, which) -> {
+                            Intent intent;
+                            if (profile != null) {
+                                intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                                intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                            }
+                            else {
+                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                            }
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                if (forActivator)
+                                    activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        });
+                if (forActivator) {
+                    dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                            (dialog, which) -> {
+                                Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                                activity.startActivity(intent);
+
+                                try {
+                                    // close Activator
+                                    activity.finish();
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+                            });
+                }
+            }
+            else {
+                //    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_event_preferences,
+                        (dialog, which) -> {
+                            Intent intent;
+                            if (event != null) {
+                                intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                                intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                            }
+                            else {
+                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
+                            }
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                if (forActivator)
+                                    activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        });
+                /*
+                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                        (dialog, which) -> {
+                            Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                            if (forActivator)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                if (forActivator)
+                                    activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        });
+                 */
+            }
+            dialogBuilder.setCancelable(!forActivator);
+            AlertDialog dialog = dialogBuilder.create();
+
+//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                @Override
+//                public void onShow(DialogInterface dialog) {
+//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                    if (positive != null) positive.setAllCaps(false);
+//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                    if (negative != null) negative.setAllCaps(false);
+//                }
+//            });
+
+            if (!activity.isFinishing())
+                dialog.show();
+        }
     }
 
 }

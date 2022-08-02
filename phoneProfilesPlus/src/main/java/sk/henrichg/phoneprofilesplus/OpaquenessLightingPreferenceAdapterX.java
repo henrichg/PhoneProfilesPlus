@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,7 @@ class OpaquenessLightingPreferenceAdapterX extends BaseAdapter {
         this.preferenceFragment = preferenceFragment;
 
         if (value.isEmpty())
-            this.value = "0";
+            this.value = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
         else
             this.value = value;
 
@@ -62,7 +61,6 @@ class OpaquenessLightingPreferenceAdapterX extends BaseAdapter {
         //int position;
     }
 
-    @SuppressLint("SetTextI18n")
     public View getView(int position, View convertView, ViewGroup parent)
     {
         ViewHolder holder;

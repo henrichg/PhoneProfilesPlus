@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_one_row_root"
     android:layout_width="match_parent"
-    android:layout_height="55dp"
+    android:layout_height="@dimen/one_row_widget_height"
     android:gravity="center"
     android:background="#40000000"
     tools:ignore="Overdraw">
@@ -38,8 +38,8 @@
 
             <ImageView
                 android:id="@+id/widget_one_row_header_restart_events"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_centerInParent="true"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/menu_restart_events"
@@ -85,15 +85,15 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text="@string/profile_name_default"
-                    android:textColor="#33b5e5"
-                    android:textSize="15sp"
+                    android:textSize="16dp"
                     android:ellipsize="end"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    tools:ignore="SpUsage"/>
 
                 <ImageView
                     android:id="@+id/widget_one_row_header_profile_pref_indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="13dp"
+                    android:layout_height="@dimen/profile_preferences_indicator_height"
                     android:layout_marginTop="2dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_indicator_image"

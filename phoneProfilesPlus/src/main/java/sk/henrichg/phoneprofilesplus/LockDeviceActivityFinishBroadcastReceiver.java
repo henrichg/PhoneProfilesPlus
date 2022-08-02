@@ -1,16 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
-
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +27,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 intent.setAction(PhoneProfilesService.ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER);
                 //intent.setClass(context, LockDeviceActivityFinishBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "alarm found");
@@ -49,10 +42,11 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     static void setAlarm(Context context)
     {
         removeAlarm(context);
+
+        //final Context appContext = context.getApplicationContext();
 
         int delay = 20; // 20 seconds
 
@@ -63,7 +57,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 intent.setAction(PhoneProfilesService.ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER);
                 //intent.setClass(context, LockDeviceActivityFinishBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -80,16 +73,49 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
             } else {
-            /*int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
-            //noinspection ConstantConditions
-            if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+//                PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
+
+                //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                Runnable runnable = () -> {
+//                    long start = System.currentTimeMillis();
+//                    PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
+
+//                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+//                        PowerManager.WakeLock wakeLock = null;
+//                        try {
+//                            if (powerManager != null) {
+//                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LockDeviceActivityFinishBroadcastReceiver_executor_1");
+//                                wakeLock.acquire(10 * 60 * 1000);
+//                            }
+
+                        //noinspection Convert2MethodRef
+                        LockDeviceActivityFinishBroadcastReceiver.doWork();
+
+//                        long finish = System.currentTimeMillis();
+//                        long timeElapsed = finish - start;
+//                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
+                        //worker.shutdown();
+//                        } catch (Exception e) {
+////                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplication.recordException(e);
+//                        } finally {
+//                            if ((wakeLock != null) && wakeLock.isHeld()) {
+//                                try {
+//                                    wakeLock.release();
+//                                } catch (Exception ignored) {
+//                                }
+//                            }
+//                        }
+                };
+                PPApplication.createDelayedProfileActivationExecutor();
+                PPApplication.delayedProfileActivationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+
+                /*
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
@@ -112,12 +138,13 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
 //                            PPApplication.logE("[WORKER_CALL] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "xxx");
                             //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
-                            workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                            workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                         }
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
             }
         }
         else {
@@ -126,7 +153,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             intent.setAction(PhoneProfilesService.ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER);
             //intent.setClass(context, LockDeviceActivityFinishBroadcastReceiver.class);
 
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -144,11 +170,29 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
+//                    PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
+
+                    //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    Runnable runnable = () -> {
+//                        long start = System.currentTimeMillis();
+//                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
+
+                        //noinspection Convert2MethodRef
+                        LockDeviceActivityFinishBroadcastReceiver.doWork();
+
+//                        long finish = System.currentTimeMillis();
+//                        long timeElapsed = finish - start;
+//                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
+                        //worker.shutdown();
+                    };
+                    PPApplication.createDelayedProfileActivationExecutor();
+                    PPApplication.delayedProfileActivationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+
+                    /*
                     long alarmTime = SystemClock.elapsedRealtime() + delay * 1000;
 
 //                        if (PPApplication.logEnabled()) {
@@ -167,6 +211,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else
                     //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    */
                 }
             }
         }

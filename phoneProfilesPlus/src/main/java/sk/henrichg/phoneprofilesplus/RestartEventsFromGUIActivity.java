@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -38,6 +39,11 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
         sendBroadcast(it);
 
         dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
@@ -119,7 +125,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
 
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorActivity.onStart", "application is not started");
@@ -144,7 +150,6 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
-            //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorActivity.onStart", "application is started");

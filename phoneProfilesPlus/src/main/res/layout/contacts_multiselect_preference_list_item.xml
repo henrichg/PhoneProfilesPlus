@@ -3,17 +3,16 @@
     android:id="@+id/contacts_multiselect_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="3dp"
-    android:paddingEnd="3dp"
     android:paddingTop="6dp"
     android:paddingBottom="6dp"
-    android:background="?attr/selectableItemBackground"  >
+    android:background="?attr/listViewItemBackground"  >
 
     <CheckBox
         android:id="@+id/contacts_multiselect_pref_dlg_item_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
         android:checked="false"
         android:focusable="false" />
@@ -44,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/empty_string"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -52,14 +51,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/empty_string"
-            android:textSize="13sp"/>
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/contacts_multiselect_pref_dlg_item_account_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/empty_string"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="italic"/>
 
     </LinearLayout>

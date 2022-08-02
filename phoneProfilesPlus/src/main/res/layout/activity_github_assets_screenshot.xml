@@ -49,7 +49,7 @@
         <View
             android:id="@+id/github_assets_screenshot_activity_divider"
             android:layout_width="match_parent"
-            android:layout_height="1dip"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginTop="20dp"
             android:background="?attr/dialogDivider"/>
 

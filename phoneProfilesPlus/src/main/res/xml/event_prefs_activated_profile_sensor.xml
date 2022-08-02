@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/event_preferences_category_eventActivatedProfileParameters"
+    app:key="eventActivatedProfileCategory" >
+
+    <SwitchPreferenceCompat
+        app:key="eventActivatedProfileEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:key="eventActivatedProfileInfo"
+        app:title="@string/event_preferences_activated_profile_info"
+        app:summary="@string/event_preferences_activated_profile_info_summary"
+        app:dependency="eventActivatedProfileEnabled"
+        app:widgetLayout="@layout/preference_widget_info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+        app:defaultValue="0"
+        app:key="eventActivatedProfileStartProfile"
+        app:title="@string/event_preferences_activated_profile_startProfile"
+        app:addNoActivateItem="0"
+        app:dependency="eventActivatedProfileEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+        app:defaultValue="0"
+        app:key="eventActivatedProfileEndProfile"
+        app:title="@string/event_preferences_activated_profile_endProfile"
+        app:addNoActivateItem="0"
+        app:dependency="eventActivatedProfileEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

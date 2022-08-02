@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="IconLocation">
-        <ignore path="src/main/res/drawable/acch_draughtboard.png" />
-        <ignore path="src/main/res/drawable/acch_ic_empty.png" />
+        <ignore path="src/main/res/drawable/acch_draughtboard.webp" />
     </issue>
 </lint>

@@ -207,7 +207,6 @@ class ContactsCache {
     }
 
 /*
-    @SuppressWarnings("SameParameterValue")
     private String removeLeadingChar(String s, char ch) {
         int index;
         for (index = 0; index < s.length(); index++) {
@@ -218,7 +217,6 @@ class ContactsCache {
         return s.substring(index);
     }
 
-    @SuppressWarnings("SameParameterValue")
     private String removeTrailingChar(String s, char ch) {
         int index;
         for (index = s.length() - 1; index >= 0; index--) {

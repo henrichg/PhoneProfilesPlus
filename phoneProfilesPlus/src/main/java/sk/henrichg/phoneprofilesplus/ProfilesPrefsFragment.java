@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +23,7 @@ import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
@@ -45,6 +48,7 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 //import me.drakeet.support.toast.ToastCompat;
@@ -91,6 +95,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "prf_pref_deviceBrightness_forceSetBrightnessAtScreenOn";
     private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS = "prf_pref_deviceAirplaneMode_assistantSettings";
     private static final String PREF_SCREEN_DARK_MODE_INFO = "prf_pref_screenDarkModeInfo";
+    private static final String PREF_PROFILE_AIRPLANE_MODE_RADIOS_INFO = "prf_pref_deviceAirplaneModeRadiosInfo";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -267,6 +272,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof VPNDialogPreferenceX)
+        {
+            ((VPNDialogPreferenceX)preference).fragment = new VPNDialogPreferenceFragmentX();
+            dialogFragment = ((VPNDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -292,7 +305,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "xxx");
+//        PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "xxx");
 
         if (getActivity() == null)
             return;
@@ -495,6 +508,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
         }
 
+        if (android.os.Build.VERSION.SDK_INT < 30) {
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            if (preference != null)
+            {
+                preference.setTitle("(R) "+getString(R.string.profile_preferences_deviceAirplaneMode));
+                String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "");
+                setSummary(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, value);
+            }
+        }
         /*if (android.os.Build.VERSION.SDK_INT >= 26) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
             if (preference != null)
@@ -640,7 +662,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference16 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_7_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -682,7 +704,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference17 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_7_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -744,7 +766,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = findPreference(PREF_NOTIFICATION_LED_INFO);
         if (preference != null) {
-            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, preferences, true, context);
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, preferences, true, context);
             preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -752,7 +774,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         preference = findPreference(PREF_ALWAYS_ON_DISPLAY_INFO);
         if (preference != null) {
-            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, preferences, true, context);
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, preferences, true, context);
             preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -760,7 +782,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         preference = findPreference(PREF_SCREEN_DARK_MODE_INFO);
         if (preference != null) {
-            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, preferences, true, context);
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, preferences, true, context);
             preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                             (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -774,7 +796,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1);
                     if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, preferences, true, context);
+                        PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, preferences, true, context);
                         preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                             ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                              (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -782,7 +804,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2);
                     if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, preferences, true, context);
+                        PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, preferences, true, context);
                         preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -791,7 +813,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1);
                     if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, preferences, true, context);
+                        PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, preferences, true, context);
                         preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -799,7 +821,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2);
                     if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, preferences, true, context);
+                        PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, preferences, true, context);
                         preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -808,7 +830,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS);
                     if (preference != null) {
-                        PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, preferences, true, context);
+                        PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, preferences, true, context);
                         preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -817,7 +839,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     ListPreference listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1);
                     if (listPreference != null) {
-                        PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, preferences, true, context);
+                        PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, preferences, true, context);
 
                         listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
                         listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_deviceOnOff_SIM1));
@@ -831,7 +853,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                     listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2);
                     if (listPreference != null) {
-                        PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, preferences, true, context);
+                        PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, preferences, true, context);
 
                         listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
                         listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_deviceOnOff_SIM2));
@@ -849,7 +871,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
                         if (preference != null) {
-                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, preferences, true, context);
+                            PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, preferences, true, context);
                             preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                     ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -858,7 +880,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
                         if (preference != null) {
-                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, null, preferences, true, context);
+                            PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, null, preferences, true, context);
                             preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                     ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -868,7 +890,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
                         if (preference != null) {
-                            PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, preferences, true, context);
+                            PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, preferences, true, context);
                             preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                     ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -877,7 +899,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2);
                         if (preference != null) {
-                            PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, null, preferences, true, context);
+                            PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, null, preferences, true, context);
                             preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                     ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -887,7 +909,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         listPreference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
                         if (listPreference != null) {
-                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, preferences, true, context);
+                            PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, preferences, true, context);
 
                             listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
                             listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
@@ -902,7 +924,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         RingtonePreferenceX ringtonePreference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1);
                         if (ringtonePreference != null) {
-                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, null, preferences, true, context);
+                            PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, null, preferences, true, context);
 
                             ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
                             ringtonePreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
@@ -918,7 +940,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         listPreference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
                         if (listPreference != null) {
-                            PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
+                            PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
 
                             listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                             listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
@@ -933,7 +955,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         ringtonePreference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
                         if (ringtonePreference != null) {
-                            PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
+                            PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
 
                             ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
                             ringtonePreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
@@ -1177,6 +1199,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        /*
         infoDialogPreference = prefMng.findPreference("prf_pref_deviceVPNInfo");
         if (infoDialogPreference != null) {
             String url1 = "https://openvpn.net/vpn-server-resources/faq-regarding-openvpn-connect-android/#how-do-i-use-tasker-with-openvpn-connect-for-android";
@@ -1190,6 +1213,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setInfoText(infoText);
             infoDialogPreference.setIsHtml(true);
         }
+        */
 
         preference = findPreference("prf_pref_deviceScreenTimeoutAndKeeepScreenOnInfo");
         if (preference != null) {
@@ -1240,17 +1264,36 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Preference assistantPreference = prefMng.findPreference(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
         if (assistantPreference != null) {
-            if (PPApplication.isRooted(true)) {
-                assistantPreference.setEnabled(false);
-            } else {
-                assistantPreference.setEnabled(true);
-                //assistantPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                assistantPreference.setOnPreferenceClickListener(preference13 -> {
-                    configureAssistant();
-                    return false;
-                });
-            }
+            //assistantPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            assistantPreference.setOnPreferenceClickListener(preference13 -> {
+                configureAssistant();
+                return false;
+            });
         }
+
+        infoDialogPreference = prefMng.findPreference(PREF_PROFILE_AIRPLANE_MODE_RADIOS_INFO);
+        if (infoDialogPreference != null) {
+
+            String url;
+            if (DebugVersion.enabled)
+                url = PPApplication.HELP_AIRPLANE_MODE_RADIOS_CONFIG_DEVEL;
+            else
+                url = PPApplication.HELP_AIRPLANE_MODE_RADIOS_CONFIG;
+
+            String infoText =
+                    "<b>"+getString(R.string.profile_preferences_deviceAirplaneModeRadios_info1) + "</b><br><br>" +
+                            getString(R.string.profile_preferences_deviceAirplaneModeRadios_info2) + " " +
+                            getString(R.string.profile_preferences_deviceAirplaneModeRadios_info3) + ":<br>" +
+                            "<a href=" + url + ">" + url+ " &#8658;</a><br><br>";
+
+            String configuredRadios = Settings.Global.getString(context.getContentResolver(), "airplane_mode_radios");
+
+            infoText = infoText + getString(R.string.profile_preferences_deviceAirplaneModeRadios_info4) + " " + configuredRadios;
+
+            infoDialogPreference.setInfoText(infoText);
+            infoDialogPreference.setIsHtml(true);
+        }
+
 
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
@@ -1606,7 +1649,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                                          Context context) {
         //Preference preference = prefMng.findPreference(key);
         String title = "";
-        PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+        PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
         boolean _notGrantedG1Permission =
                 (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                 (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION);
@@ -1614,91 +1657,111 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                         ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                          (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED));
+        boolean _notDefaultAssistant =
+                (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT);
         if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                 _notGrantedG1Permission ||
-                _notRootedOrGrantedRoot) {
-            if (//key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
-                key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
-                key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND)) {
-                /*boolean defaultValue =
-                        getResources().getBoolean(
-                                GlobalGUIRoutines.getResourceId(key, "bool", context));*/
+                _notRootedOrGrantedRoot ||
+                _notDefaultAssistant) {
+            switch (key) {
+                case Profile.PREF_PROFILE_ASK_FOR_DURATION:
+                case Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE:
+                case Profile.PREF_PROFILE_VOLUME_MUTE_SOUND:
+                //case Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR:
+                    /*boolean defaultValue =
+                            getResources().getBoolean(
+                                    GlobalGUIRoutines.getResourceId(key, "bool", context));*/
 
-                boolean hasVibrator = true;
-                if (key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE)) {
-                    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                    hasVibrator = (vibrator != null) && vibrator.hasVibrator();
-                }
-
-                //noinspection ConstantConditions
-                boolean defaultValue = Profile.defaultValuesBoolean.get(key);
-                if (hasVibrator && preferences.getBoolean(key, defaultValue) != defaultValue) {
-                    title = getString(preferenceTitleId);
-                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                }
-            } else if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)) {
-                title = context.getString(R.string.profile_preferences_exactTime);
-            } else {
-                /*String defaultValue =
-                        getResources().getString(
-                                GlobalGUIRoutines.getResourceId(key, "string", context));*/
-                String defaultValue = Profile.defaultValuesString.get(key);
-                String value = preferences.getString(key, defaultValue);
-                if (value != null) {
-                    switch (key) {
-                        case Profile.PREF_PROFILE_VOLUME_RINGTONE:
-                        case Profile.PREF_PROFILE_VOLUME_NOTIFICATION:
-                        case Profile.PREF_PROFILE_VOLUME_MEDIA:
-                        case Profile.PREF_PROFILE_VOLUME_ALARM:
-                        case Profile.PREF_PROFILE_VOLUME_SYSTEM:
-                        case Profile.PREF_PROFILE_VOLUME_VOICE:
-                        case Profile.PREF_PROFILE_VOLUME_DTMF:
-                        case Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY:
-                        case Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO:
-                            if (VolumeDialogPreferenceX.changeEnabled(value)) {
-                                title = getString(preferenceTitleId);
-                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            }
-                            break;
-                        case Profile.PREF_PROFILE_DEVICE_BRIGHTNESS:
-                            if (BrightnessDialogPreferenceX.changeEnabled(value)) {
-                                title = getString(preferenceTitleId);
-                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            }
-                            break;
-                        case Profile.PREF_PROFILE_VOLUME_ZEN_MODE:
-                            title = getString(preferenceTitleId);
-                            notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                            notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            break;
-                        case Profile.PREF_PROFILE_GENERATE_NOTIFICATION:
-                            if (GenerateNotificationDialogPreferenceX.changeEnabled(value)) {
-                                title = getString(preferenceTitleId);
-                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            }
-                            break;
-                        default:
-                            if (!value.equals(defaultValue)) {
-                                if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
-                                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
-                                    title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
-                                else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS))
-                                    title = "(R) " + getString(R.string.profile_preferences_vibrateNotifications);
-                                else if (key.equals(Profile.PREF_PROFILE_DURATION))
-                                    title = context.getString(R.string.profile_preferences_duration);
-                                else
-                                    title = getString(preferenceTitleId);
-                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
-                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
-                            }
-                            break;
+                    boolean hasVibrator = true;
+                    if (key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE)) {
+                        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                        hasVibrator = (vibrator != null) && vibrator.hasVibrator();
                     }
-                }
+
+                    //noinspection ConstantConditions
+                    boolean defaultValue = Profile.defaultValuesBoolean.get(key);
+                    if (hasVibrator && preferences.getBoolean(key, defaultValue) != defaultValue) {
+                        title = getString(preferenceTitleId);
+                        notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                        notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                    }
+                    break;
+                case Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME:
+                    title = context.getString(R.string.profile_preferences_exactTime);
+                    break;
+                case Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE:
+                    String defaultValueS = Profile.defaultValuesString.get(key);
+                    if (!preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValueS).equals(defaultValueS))
+                        title = getString(preferenceTitleId);
+                    break;
+                default:
+                    /*String defaultValue =
+                            getResources().getString(
+                                    GlobalGUIRoutines.getResourceId(key, "string", context));*/
+                    defaultValueS = Profile.defaultValuesString.get(key);
+                    String value = preferences.getString(key, defaultValueS);
+                    if (value != null) {
+                        switch (key) {
+                            case Profile.PREF_PROFILE_VOLUME_RINGTONE:
+                            case Profile.PREF_PROFILE_VOLUME_NOTIFICATION:
+                            case Profile.PREF_PROFILE_VOLUME_MEDIA:
+                            case Profile.PREF_PROFILE_VOLUME_ALARM:
+                            case Profile.PREF_PROFILE_VOLUME_SYSTEM:
+                            case Profile.PREF_PROFILE_VOLUME_VOICE:
+                            case Profile.PREF_PROFILE_VOLUME_DTMF:
+                            case Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY:
+                            case Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO:
+                                if (VolumeDialogPreferenceX.changeEnabled(value)) {
+                                    title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
+                            case Profile.PREF_PROFILE_DEVICE_BRIGHTNESS:
+                                if (BrightnessDialogPreferenceX.changeEnabled(value)) {
+                                    title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
+                            case Profile.PREF_PROFILE_VOLUME_ZEN_MODE:
+                                title = getString(preferenceTitleId);
+                                notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                break;
+                            case Profile.PREF_PROFILE_GENERATE_NOTIFICATION:
+                                if (GenerateNotificationDialogPreferenceX.changeEnabled(value)) {
+                                    title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
+                            case Profile.PREF_PROFILE_DEVICE_VPN:
+                                if (VPNDialogPreferenceX.changeEnabled(value)) {
+                                    title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
+                            default:
+                                if (!value.equals(defaultValueS)) {
+                                    if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
+                                            (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
+                                        title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
+                                    else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS))
+                                        title = "(R) " + getString(R.string.profile_preferences_vibrateNotifications);
+                                    else if (key.equals(Profile.PREF_PROFILE_DURATION))
+                                        title = context.getString(R.string.profile_preferences_duration);
+                                    else
+                                        title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                }
+                                break;
+                        }
+                    }
+                    break;
             }
         }
         return title;
@@ -1710,6 +1773,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean forceSet = false;
         boolean bold = false;
         boolean accessibilityEnabled = true;
+        boolean defaultAssistantSet = true;
     }
 
     private boolean setCategorySummaryActivationDuration(Context context,
@@ -1726,12 +1790,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     cattegorySummaryData.bold = true;
                     value = preferences.getString(Profile.PREF_PROFILE_DURATION, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION));
                     if (value != null) {
-                        value = GlobalGUIRoutines.getDurationString(Integer.parseInt(value));
+                        value = StringFormatUtils.getDurationString(Integer.parseInt(value));
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b> • ";
 
                         String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
-                        value = GlobalGUIRoutines.getListPreferenceString(afterDurationDoValue,
+                        value = StringFormatUtils.getListPreferenceString(afterDurationDoValue,
                                 R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
                         cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
 
@@ -1760,12 +1824,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     int iValue = preferences.getInt(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME, Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)));
                     value = String.valueOf(iValue);
                     //if (value != null) {
-                        value = GlobalGUIRoutines.getTimeString(Integer.parseInt(value));
+                        value = StringFormatUtils.getTimeString(Integer.parseInt(value));
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b> • ";
 
                         String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
-                        value = GlobalGUIRoutines.getListPreferenceString(afterDurationDoValue,
+                        value = StringFormatUtils.getListPreferenceString(afterDurationDoValue,
                                 R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
                         cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
 
@@ -1809,11 +1873,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
 
-            GlobalGUIRoutines.setRingtonePreferenceSummary(cattegorySummaryData.summary,
+            setRingtonePreferenceSummary(cattegorySummaryData.summary,
                     preferences.getString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND)),
                     preferenceScreen, context);
-            //noinspection ConstantConditions
             GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, false, false);
             return true;
         }
@@ -1831,7 +1894,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
 
-            String value = GlobalGUIRoutines.getListPreferenceString(ringerMode,
+            String value = StringFormatUtils.getListPreferenceString(ringerMode,
                     R.array.soundModeValues, R.array.soundModeArray, context);
 
             if (ringerMode != null) {
@@ -1864,10 +1927,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!title.isEmpty()) {
                 final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
                 if ((ringerMode != null) && (ringerMode.equals("5")) && canEnableZenMode) {
-                    //noinspection ConstantConditions
                     if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
-                    String value = GlobalGUIRoutines.getZenModePreferenceString(zenMode, context);
+                    String value = StringFormatUtils.getZenModePreferenceString(zenMode, context);
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                 }
@@ -1876,21 +1938,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!title.isEmpty()) {
                 if (ringerMode != null) {
                     if (ringerMode.equals("1") || ringerMode.equals("4")) {
-                        //noinspection ConstantConditions
                         if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
-                        String value = GlobalGUIRoutines.getListPreferenceString(
+                        String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING,
                                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)),
                                 R.array.vibrateWhenRingingValues, R.array.vibrateWhenRingingArray, context);
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
-                    } else //noinspection DuplicateExpressions
+                    } else
+                        //noinspection DuplicateExpressions
                         if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
-                        //noinspection ConstantConditions
                         if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
-                        String value = GlobalGUIRoutines.getListPreferenceString(
+                        String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING,
                                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)),
                                 R.array.vibrateWhenRingingValues, R.array.vibrateWhenRingingArray, context);
@@ -1904,23 +1965,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!title.isEmpty()) {
                     if (ringerMode != null) {
                         if (ringerMode.equals("1") || ringerMode.equals("4")) {
-                            //noinspection ConstantConditions
                             if (!cattegorySummaryData.summary.isEmpty())
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
-                            String value = GlobalGUIRoutines.getListPreferenceString(
+                            String value = StringFormatUtils.getListPreferenceString(
                                     preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS,
                                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)),
                                     R.array.vibrateNotificationsValues, R.array.vibrateNotificationsArray, context);
 
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
-                        } else //noinspection DuplicateExpressions
+                        } else
+                            //noinspection DuplicateExpressions
                             if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
-                            //noinspection ConstantConditions
                             if (!cattegorySummaryData.summary.isEmpty())
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
-                            String value = GlobalGUIRoutines.getListPreferenceString(
+                            String value = StringFormatUtils.getListPreferenceString(
                                     preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS,
                                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)),
                                     R.array.vibrateNotificationsValues, R.array.vibrateNotificationsArray, context);
@@ -1968,7 +2028,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGTONE));
 
-                    value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                    value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                 } else
@@ -1986,7 +2046,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_NOTIFICATION));
 
-                        value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                        value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                     } else
@@ -2002,7 +2062,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_MEDIA,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_MEDIA));
 
-                    value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                    value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                 } else
@@ -2018,7 +2078,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ALARM,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ALARM));
 
-                value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
             }
@@ -2035,7 +2095,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_SYSTEM,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SYSTEM));
 
-                    value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+                    value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                 } else
@@ -2051,7 +2111,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_VOICE,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_VOICE));
 
-                value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+                value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
             }
@@ -2068,7 +2128,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_DTMF,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_DTMF));
 
-                    value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
+                    value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                 } else
@@ -2084,7 +2144,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY));
 
-                value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
+                value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
             }
@@ -2100,7 +2160,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO));
 
-                value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
+                value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
             }
@@ -2112,7 +2172,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE)),
                     R.array.volumeSpeakerPhoneValues, R.array.volumeSpeakerPhoneArray, context);
@@ -2225,7 +2285,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         cattegorySummaryData.permissionGranted = cattegorySummaryData.permissionGranted && (permissions.size() == 0);
 
         if (cattegorySummaryData.bold) {
-            GlobalGUIRoutines.setProfileSoundsPreferenceSummary(cattegorySummaryData.summary,
+            setProfileSoundsPreferenceSummary(cattegorySummaryData.summary,
                     preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE)),
                     preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION,
@@ -2234,7 +2294,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM)),
                     preferenceScreen, context);
 
-            //noinspection ConstantConditions
             GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, false, !cattegorySummaryData.permissionGranted);
         }
 
@@ -2247,10 +2306,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_ON_TOUCH, R.string.profile_preferences_soundOnTouch, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            //noinspection ConstantConditions
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ON_TOUCH)),
                     R.array.soundOnTouchValues, R.array.soundOnTouchArray, context);
@@ -2262,7 +2320,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH)),
                     R.array.vibrationOnTouchValues, R.array.vibrationOnTouchArray, context);
@@ -2274,7 +2332,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING)),
                     R.array.dtmfToneWhenDialingValues, R.array.dtmfToneWhenDialingArray, context);
@@ -2300,16 +2358,29 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                              CattegorySummaryData cattegorySummaryData,
                                              TelephonyManager telephonyManager, int phoneCount) {
         String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, R.string.profile_preferences_deviceAirplaneMode, context);
-//            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_AIRPLANE_MODE - notGrantedG1Permission="+notGrantedG1Permission);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)),
                     R.array.hardwareModeValues, R.array.hardwareModeArray, context);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+
+            Profile profile = new Profile();
+            profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "0"));
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileMicrophone(context, profile, permissions);
+            cattegorySummaryData.permissionGranted = permissions.size() == 0;
+
+            if (/*(!PPApplication.isRooted(true)) &&*/ (profile._deviceAirplaneMode >= 4)) {
+                // change only when default assistant is false, becuse may be checked also for another
+                // profile parameters
+                boolean defaultAssistantSet = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context);
+                if (!defaultAssistantSet)
+                    cattegorySummaryData.defaultAssistantSet = false;
+            }
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, R.string.profile_preferences_deviceAutosync, context);
 //            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_AUTOSYNC - notGrantedG1Permission="+notGrantedG1Permission);
@@ -2317,7 +2388,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AUTOSYNC)),
                     R.array.hardwareModeValues, R.array.hardwareModeArray, context);
@@ -2330,7 +2401,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)),
                     R.array.hardwareModeValues, R.array.hardwareModeArray, context);
@@ -2343,7 +2414,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS)),
                     R.array.mobileDataPrefsValues, R.array.mobileDataPrefsArray, context);
@@ -2430,7 +2501,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI)),
                     R.array.wifiModeValues, R.array.wifiModeArray, context);
@@ -2461,7 +2532,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.bold = true;
                 if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
-                String value = GlobalGUIRoutines.getListPreferenceString(
+                String value = StringFormatUtils.getListPreferenceString(
                         preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI_AP)),
                         R.array.wifiAPValues, R.array.wifiAPArray, context);
@@ -2475,7 +2546,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS)),
                     R.array.wiFiAPPrefsValues, R.array.wiFiAPPrefsArray, context);
@@ -2488,7 +2559,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BLUETOOTH)),
                     R.array.hardwareModeValues, R.array.hardwareModeArray, context);
@@ -2501,7 +2572,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE)),
                     R.array.locationModeValues, R.array.locationModeArray, context);
@@ -2514,7 +2585,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_GPS,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_GPS)),
                     R.array.hardwareModeValues, R.array.hardwareModeArray, context);
@@ -2527,7 +2598,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS)),
                     R.array.locationServicePrefsValues, R.array.locationServicePrefsArray, context);
@@ -2540,7 +2611,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_NFC,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NFC)),
                     R.array.hardwareModeValues, R.array.hardwareModeArray, context);
@@ -2570,7 +2641,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 arrayValues = R.array.networkTypeCDMAValues;
             }
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)),
                     arrayValues, arrayStrings, context);
@@ -2583,7 +2654,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS)),
                     R.array.networkTypePrefsValues, R.array.networkTypePrefsArray, context);
@@ -2596,10 +2667,56 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS)),
                     R.array.vpnSettingsPrefsValues, R.array.vpnSettingsPrefsArray, context);
+
+            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+        }
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_VPN, R.string.profile_preferences_deviceVPN, context);
+//            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_VPN - notGrantedG1Permission="+notGrantedG1Permission);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
+
+            String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN));
+
+            int vpnApplication;
+
+            String[] splits = value.split("\\|");
+            try {
+                vpnApplication = Integer.parseInt(splits[0]);
+            } catch (Exception e) {
+                //Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+                vpnApplication = 0;
+            }
+
+            String[] entries = getResources().getStringArray(R.array.vpnApplicationArray);
+            String[] entryValues = getResources().getStringArray(R.array.vpnApplicationValues);
+
+            int applicaitonIdx = 0;
+            for (String entryValue : entryValues) {
+                if (entryValue.equals(String.valueOf(vpnApplication))) {
+                    break;
+                }
+                ++applicaitonIdx;
+            }
+            value = entries[applicaitonIdx];
+
+            boolean enableVPN = true;
+            try {
+                enableVPN = Integer.parseInt(splits[1]) == 0;
+            } catch (Exception e) {
+                //Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+            }
+            if (enableVPN)
+                value = value + "; " + getString(R.string.vpn_profile_pref_dlg_enable_vpn);
+            else
+                value = value + "; " + getString(R.string.vpn_profile_pref_dlg_disable_vpn);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
         }
@@ -2626,7 +2743,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT)),
                     R.array.screenTimeoutValues, R.array.screenTimeoutArray, context);
@@ -2640,12 +2757,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS));
-            boolean automatic = Profile.getDeviceBrightnessAutomatic(value);
-            boolean changeLevel = Profile.getDeviceBrightnessChangeLevel(value);
-            int iValue = Profile.getDeviceBrightnessValue(value);
+            boolean automatic = ProfileStatic.getDeviceBrightnessAutomatic(value);
+            boolean changeLevel = ProfileStatic.getDeviceBrightnessChangeLevel(value);
+            int iValue = ProfileStatic.getDeviceBrightnessValue(value);
 
             boolean adaptiveAllowed = /*(android.os.Build.VERSION.SDK_INT <= 21) ||*/
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, preferences, true, context).allowed
+                    (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, preferences, true, context).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED);
 
             String summaryString;
@@ -2671,7 +2788,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AUTOROTATE)),
                     R.array.displayRotationValues, R.array.displayRotationArray, context);
@@ -2683,7 +2800,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT)),
                     R.array.screenOnPermanentValues, R.array.screenOnPermanentArray, context);
@@ -2695,7 +2812,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_KEYGUARD)),
                     R.array.keyguardValues, R.array.keyguardArray, context);
@@ -2710,7 +2827,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String wallpaperChangeValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
 
-            String sValue = GlobalGUIRoutines.getListPreferenceString(wallpaperChangeValue,
+            String sValue = StringFormatUtils.getListPreferenceString(wallpaperChangeValue,
                     R.array.changeWallpaperValues, R.array.changeWallpaperArray, context);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + sValue + "</b>";
@@ -2719,7 +2836,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     wallpaperChangeValue.equals("3")) {
                 cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-                String value = GlobalGUIRoutines.getListPreferenceString(
+                String value = StringFormatUtils.getListPreferenceString(
                         preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
                         R.array.wallpaperForValues, R.array.wallpaperForArray, context);
@@ -2734,7 +2851,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_LOCK_DEVICE)),
                     R.array.lockDeviceValues, R.array.lockDeviceArray, context);
@@ -2746,7 +2863,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS)),
                     R.array.headsUpNotificationsValues, R.array.headsUpNotificationsArray, context);
@@ -2758,7 +2875,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY)),
                     R.array.alwaysOnDisplayValues, R.array.alwaysOnDisplayArray, context);
@@ -2771,7 +2888,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_SCREEN_DARK_MODE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_DARK_MODE)),
                     R.array.screenDarkModeValues, R.array.screenDarkModeArray, context);
@@ -2797,7 +2914,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
         profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
-        cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
+        cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
 
         return false;
     }
@@ -2810,7 +2927,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             //if (!summary.isEmpty()) summary = summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_NOTIFICATION_LED)),
                     R.array.notificationLedValues, R.array.notificationLedArray, context);
@@ -2822,7 +2939,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_CAMERA_FLASH)),
                     R.array.cameraFlashValues, R.array.cameraFlashArray, context);
@@ -2848,7 +2965,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE)),
                     R.array.hardwareModeValues, R.array.hardwareModeArray, context);
@@ -2876,7 +2993,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS)),
                     R.array.closeAllApplicationsValues, R.array.closeAllApplicationsArray, context);
@@ -2902,7 +3019,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             Profile profile = new Profile();
             profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
-            cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
+            cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, R.string.profile_preferences_generateNotification, context);
         if (!title.isEmpty()) {
@@ -2913,9 +3030,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION));
 
             //boolean generate = Profile.getGenerateNotificationChange(value);
-            int iconType = Profile.getGenerateNotificationIconType(value);
-            String notificationTitle = Profile.getGenerateNotificationTitle(value);
-            String notificationBody = Profile.getGenerateNotificationBody(value);
+            int iconType = ProfileStatic.getGenerateNotificationIconType(value);
+            String notificationTitle = ProfileStatic.getGenerateNotificationTitle(value);
+            String notificationBody = ProfileStatic.getGenerateNotificationBody(value);
 
             String summaryString = "";
 
@@ -2963,13 +3080,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ok = false;
         }
         else
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0) {
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
             cattegorySummaryData.summary = getString(R.string.profile_preferences_device_not_allowed) +
                     ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
             ok = false;
         }
         else
-        if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
+        if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                /*, "ProfilesPrefsFragment.setCategorySummaryForceStopApplications"*/)) {
             cattegorySummaryData.summary = getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+ getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
             ok = false;
@@ -2997,7 +3115,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Profile profile = new Profile();
         profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
-        cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
+        cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
 
         return false;
     }
@@ -3026,12 +3144,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
                         getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0) {
+            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                 //ok = false;
                 cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
                         getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-            } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
+            } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                    /*, "ProfilesPrefsFragment.setCategorySummaryLockDevice"*/)) {
                 //ok = false;
                 cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
                         getString(R.string.profile_preferences_device_not_allowed) +
@@ -3053,7 +3172,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         Permissions.checkProfileLockDevice(context, profile, permissions);
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
-        cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
+        cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
 
         return false;
     }
@@ -3065,7 +3184,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING)),
                     R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
@@ -3077,7 +3196,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING)),
                     R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
@@ -3089,7 +3208,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING)),
                     R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
@@ -3101,7 +3220,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)),
                     R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
@@ -3113,7 +3232,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING)),
                     R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
@@ -3125,19 +3244,32 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
                     R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
         }
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, R.string.profile_preferences_applicationEnablePeriodicScanning, context);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
+
+            String value = StringFormatUtils.getListPreferenceString(
+                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING)),
+                    R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
+
+            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+        }
+
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, R.string.profile_preferences_applicationEnableGlobalEventsRun, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
+            String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
                     R.array.applicationDisableGlobalEventsRunValues, R.array.applicationDisableGlobalEventsRunArray, context);
@@ -3168,7 +3300,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         cattegorySummaryData.bold = true;
                         //if (!summary.isEmpty()) summary = summary + " • ";
 
-                        String value = GlobalGUIRoutines.getListPreferenceString(
+                        String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1,
                                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)),
                                 R.array.onOffSIMValues, R.array.onOffSIMArray, context);
@@ -3181,7 +3313,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         cattegorySummaryData.bold = true;
                         if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
-                        String value = GlobalGUIRoutines.getListPreferenceString(
+                        String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2,
                                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2)),
                                 R.array.onOffSIMValues, R.array.onOffSIMArray, context);
@@ -3230,7 +3362,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         cattegorySummaryData.bold = true;
                         if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
-                        String value = GlobalGUIRoutines.getListPreferenceString(
+                        String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1,
                                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1)),
                                 R.array.hardwareModeValues, R.array.hardwareModeArray, context);
@@ -3243,7 +3375,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         cattegorySummaryData.bold = true;
                         if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
-                        String value = GlobalGUIRoutines.getListPreferenceString(
+                        String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2,
                                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)),
                                 R.array.hardwareModeValues, R.array.hardwareModeArray, context);
@@ -3272,7 +3404,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             arrayValues = R.array.networkTypeCDMAValues;
                         }
 
-                        String value = GlobalGUIRoutines.getListPreferenceString(
+                        String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1,
                                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1)),
                                 arrayValues, arrayStrings, context);
@@ -3300,7 +3432,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             arrayValues = R.array.networkTypeCDMAValues;
                         }
 
-                        String value = GlobalGUIRoutines.getListPreferenceString(
+                        String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2,
                                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)),
                                 arrayValues, arrayStrings, context);
@@ -3375,7 +3507,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
                                 cattegorySummaryData.bold = true;
 
-                                String value = GlobalGUIRoutines.getListPreferenceString(
+                                String value = StringFormatUtils.getListPreferenceString(
                                         preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
                                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
                                         R.array.soundSameRingtoneForBothSIMCardsValues, R.array.soundSameRingtoneForBothSIMCardsArray, context);
@@ -3385,7 +3517,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
 
                         if (cattegorySummaryData.bold) {
-                            GlobalGUIRoutines.setProfileSoundsDualSIMPreferenceSummary(cattegorySummaryData.summary,
+                            setProfileSoundsDualSIMPreferenceSummary(cattegorySummaryData.summary,
                                     preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1,
                                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1)),
                                     preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2,
@@ -3405,7 +3537,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             Permissions.checkProfileRingtones(context, profile, permissions);
                             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
-                            //noinspection ConstantConditions
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, false,
                                     (!cattegorySummaryData.permissionGranted) ||
                                     notGrantedG1Permission ||
@@ -3422,7 +3553,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         Permissions.checkProfileRingtones(context, profile, permissions);
                         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
-                        //noinspection ConstantConditions
                         GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, false,
                                 (!cattegorySummaryData.permissionGranted) ||
                                         notGrantedG1Permission ||
@@ -3449,7 +3579,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String wallpaperChangeValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
 
-            String sValue = GlobalGUIRoutines.getListPreferenceString(wallpaperChangeValue,
+            String sValue = StringFormatUtils.getListPreferenceString(wallpaperChangeValue,
                     R.array.changeWallpaperValues, R.array.changeWallpaperArray, context);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + sValue + "</b>";
@@ -3458,7 +3588,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     wallpaperChangeValue.equals("3")) {
                 cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-                String value = GlobalGUIRoutines.getListPreferenceString(
+                String value = StringFormatUtils.getListPreferenceString(
                         preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
                         R.array.wallpaperForValues, R.array.wallpaperForArray, context);
@@ -3494,6 +3624,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         cattegorySummaryData.forceSet = false;
         cattegorySummaryData.bold = false;
         cattegorySummaryData.accessibilityEnabled = true;
+        cattegorySummaryData.defaultAssistantSet = true;
 
         int phoneCount = 1;
         TelephonyManager telephonyManager = null;
@@ -3587,19 +3718,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 return;
         }
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "key=" + key);
-            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "preferenceScreen=" + preferenceScreen);
-            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "_bold=" + _bold);
-        }*/
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "key=" + key);
+//            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "preferenceScreen=" + preferenceScreen);
+//            //PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "_bold=" + _bold);
+//            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "cattegorySummaryData.defaultAssistantSet="+cattegorySummaryData.defaultAssistantSet);
+//        }
 
         GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, false,
                 (!cattegorySummaryData.permissionGranted) ||
                 (!cattegorySummaryData.accessibilityEnabled) ||
+                (!cattegorySummaryData.defaultAssistantSet) ||
                 notGrantedG1Permission ||
                 notRootedOrGrantetRoot);
         if (cattegorySummaryData.bold || cattegorySummaryData.forceSet)
-            preferenceScreen.setSummary(GlobalGUIRoutines.fromHtml(cattegorySummaryData.summary, false, false, 0, 0));
+            preferenceScreen.setSummary(StringFormatUtils.fromHtml(cattegorySummaryData.summary, false, false, 0, 0));
         else
             preferenceScreen.setSummary("");
     }
@@ -3873,7 +4006,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
-                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
@@ -3950,12 +4083,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             PreferenceAllowed preferenceAllowed;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)) {
-                preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
             }
             else
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)) {
                 if (Build.VERSION.SDK_INT >= 28)
-                    preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                    preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 else {
                     preferenceAllowed = new PreferenceAllowed();
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
@@ -4033,7 +4166,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
-                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
@@ -4069,7 +4202,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
-                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
@@ -4174,11 +4307,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING) ||
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING) ||
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING) ||
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN))
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
-                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
@@ -4215,7 +4349,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0)
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -4238,13 +4372,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 }
                 else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0) {
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 }
                 else
-                if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
+                if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                        /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/)) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
@@ -4283,7 +4418,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0)
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -4312,12 +4447,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         changeSummary = changeSummary + "\n\n" +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_7_0) {
+                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                         //ok = false;
                         changeSummary = changeSummary + "\n\n" +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                    } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
+                    } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                            /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_LOCK_DEVICE)"*/)) {
                         //ok = false;
                         changeSummary = changeSummary + "\n\n" +
                                 getString(R.string.profile_preferences_device_not_allowed) +
@@ -4348,7 +4484,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
 
                 if (profile._lockDevice == 3) {
-                    int _isAccessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
+                    int _isAccessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false);
                     boolean _accessibilityEnabled = _isAccessibilityEnabled == 1;
 
                     String summary;
@@ -4377,7 +4513,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Profile profile = new Profile();
                 profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
 
-                int _isAccessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
+                int _isAccessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false);
                 boolean _accessibilityEnabled = _isAccessibilityEnabled == 1;
 
                 String summary;
@@ -4409,7 +4545,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_CAMERA_FLASH))
         {
-            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
                 Preference preference = prefMng.findPreference(key);
@@ -4472,6 +4608,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_VPN))
+        {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String sValue = value.toString();
+                boolean change = VPNDialogPreferenceX.changeEnabled(sValue);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, false);
+            }
+        }
 
     }
 
@@ -4515,7 +4660,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)) {
-                    PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                    PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                     if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
@@ -4585,7 +4730,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
 
                 if (key.equals(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)) {
-                    PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                    PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                     if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
@@ -4616,7 +4761,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
-                    PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                    PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                     if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
@@ -4706,7 +4851,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
         {
-            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
                 Preference preference = prefMng.findPreference(key);
@@ -4758,7 +4903,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)) {
-            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -4783,7 +4928,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         int index = listPreference.findIndexOfValue(sValue);
                         CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                         listPreference.setSummary(summary);
-                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+
+                        Profile profile = new Profile();
+                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "0"));
+                        Permissions.checkProfileMicrophone(context, profile, permissions);
+                        boolean _permissionGranted = permissions.size() == 0;
+
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, !_permissionGranted);
                     }
                 }
             }
@@ -4804,7 +4956,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
-            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -4835,14 +4987,45 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_VPN)) {
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    boolean errorColor = false;
+                    if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
+                        preference.setEnabled(false);
+                    else
+                        errorColor = !value.toString().equals("0");
+                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, false, errorColor);
+                } else {
+                    preference.setEnabled(true);
 
+                    String sValue = value.toString();
+                    boolean bold = !sValue.startsWith("0");
+
+                    Profile profile = new Profile();
+                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "0|0|||0");
+                    Permissions.checkProfileWireGuard(context, profile, permissions);
+                    boolean _permissionGranted = permissions.size() == 0;
+
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, !_permissionGranted);
+                }
+            }
+        }
         if (Build.VERSION.SDK_INT >= 26) {
 
             if (phoneCount > 1) {
 
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)) {
-                    PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                    PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                     if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
@@ -4883,7 +5066,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)) {
-                    PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                    PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                     if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
@@ -4922,7 +5105,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS)) {
-                    PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                    PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                     if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
@@ -4961,7 +5144,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2)) {
-                    PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                    PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                     if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
@@ -5127,8 +5310,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN);
         setSummary(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS);
-
         setSummary(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING);
+        setSummary(Profile.PREF_PROFILE_DEVICE_VPN);
 
         // disable depended preferences
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
@@ -5151,9 +5335,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
-        boolean enabled = Profile.getVolumeChange(ringtoneValue);
+        boolean enabled = ProfileStatic.getVolumeChange(ringtoneValue);
         if (enabled) {
-            int volume = Profile.getVolumeRingtoneValue(ringtoneValue);
+            int volume = ProfileStatic.getVolumeRingtoneValue(ringtoneValue);
             return volume > 0;
         }
         else
@@ -5163,7 +5347,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private boolean getEnableVolumeNotificationVolume0(boolean notificationEnabled, String notificationValue/*, Context context*/) {
         return  notificationEnabled && ActivateProfileHelper.getMergedRingNotificationVolumes() &&
                 ApplicationPreferences.applicationUnlinkRingerNotificationVolumes &&
-                Profile.getVolumeChange(notificationValue) && (Profile.getVolumeRingtoneValue(notificationValue) == 0);
+                ProfileStatic.getVolumeChange(notificationValue) && (ProfileStatic.getVolumeRingtoneValue(notificationValue) == 0);
     }
 
     private void disableDependedPref(String key, Object value)
@@ -5197,8 +5381,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
 
                 String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
-                enabled = (Profile.getVolumeChange(ringtoneValue) ||
-                        Profile.getVolumeChange(notificationValue)) &&
+                enabled = (ProfileStatic.getVolumeChange(ringtoneValue) ||
+                        ProfileStatic.getVolumeChange(notificationValue)) &&
                         ringerMode.equals("0");
                 preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
                 if (preference != null)
@@ -5287,7 +5471,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         //if (Build.VERSION.SDK_INT < 30) {
             if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
-                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean enabled = !sValue.equals(ON);
                     ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
@@ -5305,7 +5489,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String zenMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
             boolean enabled = false;
 
-            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, preferences, true, context);
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, preferences, true, context);
             if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -5326,7 +5510,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             if (Build.VERSION.SDK_INT >= 28) {
                 enabled = false;
-                preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, preferences, true, context);
+                preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, preferences, true, context);
                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                          (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
@@ -5351,7 +5535,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
             setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean enabled;
-            enabled = PPPExtenderBroadcastReceiver.isEnabled(context, -1);
+            enabled = PPPExtenderBroadcastReceiver.isEnabled(context/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+                    /*, "ProfilesPrefsFragment.disableDependedPref (Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/);
             //enabled = PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
@@ -5441,6 +5626,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
             }
         }
+        /*if (Build.VERSION.SDK_INT <= 30) {
+            if (key.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS)) {
+                // RECORD_AUDIO must be granted for set PPP as default assistant
+                // must be enabled when PPP is defult assistant
+                // because must be possible remove it
+                boolean enabled = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context) ||
+                                    Permissions.checkMicrophone(context);
+                //Log.e("ProfilePrefsFragment.disableDependedPref", "enabled="+enabled);
+                Preference preference = prefMng.findPreference(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
+                if (preference != null)
+                    preference.setEnabled(enabled);
+            }
+        }*/
     }
 
     private void disableDependedPref(String key) {
@@ -5456,14 +5654,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(key, value);
     }
 
-    static boolean isRedTextNotificationRequired(Profile profile, Context context) {
+    static boolean isRedTextNotificationRequired(Profile profile, boolean againCheckAccessibilityInDelay, Context context) {
         boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
         /*if (Build.VERSION.SDK_INT >= 29) {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;
         }*/
         // test only root or G1 parameters, because key is not set but profile is
-        PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, true, context);
+        PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed("-", profile, null, true, context);
 //        if ((profile != null) && (profile._name.equals("Low battery"))) {
 //            PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.isRedTextNotificationRequired", "preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
 //            PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.isRedTextNotificationRequired", "preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
@@ -5477,7 +5675,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         //preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, false, true, true, context);
         boolean grantedG1Permission = true;
-        //noinspection RedundantIfStatement
         if (preferenceAllowed.notAllowedG1) {
             //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
                 grantedG1Permission = false;
@@ -5488,20 +5685,31 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //        }
 
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
+
         boolean accessibilityNotRequired = true;
-        //noinspection RedundantIfStatement
         if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0)))
             accessibilityNotRequired = false;
-        boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext()) == 1);
+//        if ((profile != null) && profile._name.equals("Lock device")) {
+//            PPApplication.logE("ProfilePrefsFragment.isRedTextNotificationRequired", "accessibilityNotRequired=" + accessibilityNotRequired);
+//            PPApplication.logE("ProfilePrefsFragment.isRedTextNotificationRequired", "isAccessibilityEnabled=" + profile.isAccessibilityServiceEnabled(context.getApplicationContext(), checkFlag));
+//        }
+        boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext(), againCheckAccessibilityInDelay) == 1);
+        //if (profile != null)
+        //    PPApplication.logE("ProfilePrefsFragment.isRedTextNotificationRequired", "accessibilityEnabled="+accessibilityEnabled + " profile="+profile._name);
 
 //        if ((profile != null) && (profile._name.equals("Low battery"))) {
 //            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
 //        }
 
+        boolean defaultAssistantNotRequired = true;
+        if ((profile != null) && (profile._deviceAirplaneMode >= 4))
+            defaultAssistantNotRequired = false;
+        boolean defaultAssistantEnabled = defaultAssistantNotRequired || (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context.getApplicationContext()));
+
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-            return (!grantedAllPermissions) || (!enabledNotificationAccess) || (!accessibilityEnabled);
+            return (!grantedAllPermissions) || (!enabledNotificationAccess) || (!accessibilityEnabled) || (!defaultAssistantEnabled);
         else
-            return (!grantedAllPermissions) || (!grantedRoot) || (!grantedG1Permission) || (!enabledNotificationAccess) || (!accessibilityEnabled);
+            return (!grantedAllPermissions) || (!grantedRoot) || (!grantedG1Permission) || (!enabledNotificationAccess) || (!accessibilityEnabled) || (!defaultAssistantEnabled);
     }
 
     void setRedTextToPreferences() {
@@ -5534,7 +5742,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (profile != null) {
 
                 // test only root or G1 parameters, because key is not set but profile is
-                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, true, context);
+                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed("-", profile, null, true, context);
 //                if (profile._name.equals("Low battery")) {
 //                    PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "profile=" + profile._name);
 //                    PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
@@ -5562,119 +5770,117 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {*/
-                //noinspection IfStatementWithIdenticalBranches
+                Preference preference = prefMng.findPreference(PRF_GRANT_G1_PREFERENCES);
                 if (!preferenceAllowed.notAllowedG1) {
 //                        if (profile._name.equals("Low battery")) {
 //                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission granted");
 //                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference=" + preference);
 //                        }
-                        Preference preference = prefMng.findPreference(PRF_GRANT_G1_PREFERENCES);
-                        if (preference != null) {
-                            PreferenceScreen preferenceCategory = findPreference(rootScreen);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = findPreference(rootScreen);
 //                            if (profile._name.equals("Low battery"))
 //                                PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preferenceCategory="+preferenceCategory);
-                            if (preferenceCategory != null)
-                                preferenceCategory.removePreference(preference);
-                        }
-                    } else {
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                } else {
 //                        if (profile._name.equals("Low battery"))
 //                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission not allowed");
-                        //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) {
+                    //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) {
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission not granted");
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
-                        Preference preference = prefMng.findPreference(PRF_GRANT_G1_PREFERENCES);
-                        if (preference == null) {
-                            PreferenceScreen preferenceCategory = findPreference(rootScreen);
+                    if (preference == null) {
+                        PreferenceScreen preferenceCategory = findPreference(rootScreen);
 //                            if (profile._name.equals("Low battery"))
 //                                PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preferenceCategory="+preferenceCategory);
+                        if (preferenceCategory != null) {
+                            preference = new Preference(context);
+                            preference.setKey(PRF_GRANT_G1_PREFERENCES);
+                            preference.setIconSpaceReserved(false);
+                            preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
+                            preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                            preference.setOrder(-100);
+                            preferenceCategory.addPreference(preference);
+//                                if (profile._name.equals("Low battery"))
+//                                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 preference added");
+                        }
+                    }
+//                        if (profile._name.equals("Low battery"))
+//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
+                    if (preference != null) {
+//                            if (profile._name.equals("Low battery"))
+//                                PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "set summary for G1 preference");
+                        String _title = order + ". " + getString(R.string.preferences_grantG1Preferences_title);
+                        ++order;
+                        Spannable title = new SpannableString(_title);
+                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        preference.setTitle(title);
+                        Spannable summary = new SpannableString(getString(R.string.preferences_grantG1Preferences_summary));
+                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        preference.setSummary(summary);
+
+                        final ProfilesPrefsFragment fragment = this;
+                        preference.setOnPreferenceClickListener(preference12 -> {
+                            Permissions.grantG1Permission(fragment, activity);
+                            return false;
+                        });
+                    }
+                    //}
+                }
+
+                //preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, true, false, true, context);
+                // not enabled grant root
+                //if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (!preferenceAllowed.notAllowedRoot) {
+//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "root granted");
+                    preference = prefMng.findPreference(PRF_GRANT_ROOT);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                } else {
+//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "root not granted");
+                    //if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)) {
+                    if (!ApplicationPreferences.applicationNeverAskForGrantRoot) {
+//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "grant root enabled");
+                        preference = prefMng.findPreference(PRF_GRANT_ROOT);
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = findPreference(rootScreen);
                             if (preferenceCategory != null) {
                                 preference = new Preference(context);
-                                preference.setKey(PRF_GRANT_G1_PREFERENCES);
+                                preference.setKey(PRF_GRANT_ROOT);
                                 preference.setIconSpaceReserved(false);
                                 preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                                 preference.setLayoutResource(R.layout.mp_preference_material_widget);
                                 preference.setOrder(-100);
                                 preferenceCategory.addPreference(preference);
-//                                if (profile._name.equals("Low battery"))
-//                                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 preference added");
                             }
                         }
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
                         if (preference != null) {
-//                            if (profile._name.equals("Low battery"))
-//                                PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "set summary for G1 preference");
-                            String _title = order + ". " + getString(R.string.preferences_grantG1Preferences_title);
+                            String _title = order + ". " + getString(R.string.preferences_grantRoot_title);
                             ++order;
                             Spannable title = new SpannableString(_title);
                             title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                             preference.setTitle(title);
-                            Spannable summary = new SpannableString(getString(R.string.preferences_grantG1Preferences_summary));
+                            Spannable summary = new SpannableString(getString(R.string.preferences_grantRoot_summary));
                             summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                             preference.setSummary(summary);
 
                             final ProfilesPrefsFragment fragment = this;
-                            preference.setOnPreferenceClickListener(preference12 -> {
-                                Permissions.grantG1Permission(fragment, activity);
+                            preference.setOnPreferenceClickListener(preference13 -> {
+                                Permissions.grantRootX(fragment, activity);
                                 return false;
                             });
                         }
-                        //}
                     }
-
-                    //preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, true, false, true, context);
-                    // not enabled grant root
-                    //if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (!preferenceAllowed.notAllowedRoot) {
-//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "root granted");
-                        Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
-                        if (preference != null) {
-                            PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                            if (preferenceCategory != null)
-                                preferenceCategory.removePreference(preference);
-                        }
-                    } else {
-//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "root not granted");
-                        //if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)) {
-                        if (!ApplicationPreferences.applicationNeverAskForGrantRoot) {
-//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "grant root enabled");
-                            Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
-                            if (preference == null) {
-                                PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                                if (preferenceCategory != null) {
-                                    preference = new Preference(context);
-                                    preference.setKey(PRF_GRANT_ROOT);
-                                    preference.setIconSpaceReserved(false);
-                                    preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
-                                    preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                                    preference.setOrder(-100);
-                                    preferenceCategory.addPreference(preference);
-                                }
-                            }
-                            if (preference != null) {
-                                String _title = order + ". " + getString(R.string.preferences_grantRoot_title);
-                                ++order;
-                                Spannable title = new SpannableString(_title);
-                                title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
-                                preference.setTitle(title);
-                                Spannable summary = new SpannableString(getString(R.string.preferences_grantRoot_summary));
-                                summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
-                                preference.setSummary(summary);
-
-                                final ProfilesPrefsFragment fragment = this;
-                                preference.setOnPreferenceClickListener(preference13 -> {
-                                    Permissions.grantRootX(fragment, activity);
-                                    return false;
-                                });
-                            }
-                        }
-                    }
+                }
                 //}
 
                 // not some permissions
                 if (Permissions.checkProfilePermissions(context, profile).size() == 0) {
 //                        PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "profile permisions=all granted");
-                    Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                    preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = prefMng.findPreference(rootScreen);
                         if (preferenceCategory != null)
@@ -5683,7 +5889,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 } else {
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "app. permissions not granted");
                     //PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "profile._id="+profile._id);
-                    Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                    preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null) {
@@ -5722,7 +5928,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not enabled notification access
                 if (/*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context)) {
-                    Preference preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
+                    preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null)
@@ -5730,7 +5936,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 } else {
 //                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "notification access not granted");
-                    Preference preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
+                    preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null) {
@@ -5773,9 +5979,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
 
                 // not enabled accessibility service
-                int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext());
+                int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext(), false);
 //                Log.e("ProfilePrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
-                if (accessibilityEnabled == 1) {
+                /*if (accessibilityEnabled == 1) {
                     int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                     if (extenderVersion != 0) {
                         // PPPE is installed
@@ -5783,9 +5989,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             // Extender is not connected
                             accessibilityEnabled = 0;
                     }
-                }
+                }*/
 //                Log.e("ProfilePrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
-                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                 if (accessibilityEnabled == 1) {
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
@@ -5892,7 +6098,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (showDoNotDisturbPermission) {
             // Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS exists
             try {
-                @SuppressLint("InlinedApi")
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                 //noinspection deprecation
@@ -5925,7 +6130,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, getActivity())) {
             try {
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {
@@ -5956,7 +6160,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private void installExtenderFromGitHub() {
         if (getActivity() == null) {
             return;
@@ -5966,7 +6169,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
         dialogBuilder.setView(layout);
 
@@ -6046,7 +6248,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             dialog.show();
     }
 
-    @SuppressLint("SetTextI18n")
     private void installExtender() {
         if (getActivity() == null) {
             return;
@@ -6057,7 +6258,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 
@@ -6115,7 +6315,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 
@@ -6328,6 +6527,275 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 setSummary(key, value);
             }
         }
+    }
+
+    private void setRingtonePreferenceSummary(final String initSummary, final String ringtoneUri,
+                                             final androidx.preference.Preference preference, final Context context) {
+        SetRingtonePreferenceSummaryAsyncTask asyncTask =
+                new SetRingtonePreferenceSummaryAsyncTask(initSummary, ringtoneUri, preference, context);
+        asyncTask.execute();
+    }
+
+    private static class SetRingtonePreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
+        private String ringtoneName;
+
+        final String initSummary;
+        final String ringtoneUri;
+        private final WeakReference<Preference> preferenceWeakRef;
+        private final WeakReference<Context> contextWeakReference;
+
+        public SetRingtonePreferenceSummaryAsyncTask(final String initSummary, final String ringtoneUri,
+                                                     final androidx.preference.Preference preference, final Context context) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.contextWeakReference = new WeakReference<>(context);
+            this.initSummary = initSummary;
+            this.ringtoneUri = ringtoneUri;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
+                if ((ringtoneUri == null) || ringtoneUri.isEmpty())
+                    ringtoneName = context.getString(R.string.ringtone_preference_none);
+                else {
+                    Uri uri = Uri.parse(ringtoneUri);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        ringtoneName = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        ringtoneName = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
+                String summary = TextUtils.replace(initSummary, new String[]{"<ringtone_name>"}, new String[]{ringtoneName}).toString();
+                preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
+            }
+        }
+
+    }
+
+    private void setProfileSoundsPreferenceSummary(final String initSummary,
+                                                  final String ringtoneUri, final String notificationUri, final String alarmUri,
+                                                  final androidx.preference.Preference preference, final Context context) {
+        SetProfileSoundsPreferenceSummaryAsyncTask asyncTask =
+                new SetProfileSoundsPreferenceSummaryAsyncTask(initSummary,
+                        ringtoneUri, notificationUri, alarmUri,
+                        preference, context);
+        asyncTask.execute();
+    }
+
+    private static class SetProfileSoundsPreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
+        private String ringtoneName;
+        private String notificationName;
+        private String alarmName;
+
+        final String initSummary;
+        final String ringtoneUri;
+        final String notificationUri;
+        final String alarmUri;
+        private final WeakReference<androidx.preference.Preference> preferenceWeakRef;
+        private final WeakReference<Context> contextWeakReference;
+
+        public SetProfileSoundsPreferenceSummaryAsyncTask(final String initSummary,
+                                                          final String ringtoneUri, final String notificationUri, final String alarmUri,
+                                                          final androidx.preference.Preference preference, final Context context) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.contextWeakReference = new WeakReference<>(context);
+            this.initSummary = initSummary;
+            this.ringtoneUri = ringtoneUri;
+            this.notificationUri = notificationUri;
+            this.alarmUri = alarmUri;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
+                if ((ringtoneUri == null) || ringtoneUri.isEmpty())
+                    ringtoneName = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = ringtoneUri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        ringtoneName = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        ringtoneName = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((notificationUri == null) || notificationUri.isEmpty())
+                    notificationName = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = notificationUri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        notificationName = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        notificationName = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((alarmUri == null) || alarmUri.isEmpty())
+                    alarmName = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = alarmUri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        alarmName = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        alarmName = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
+                String summary = TextUtils.replace(initSummary,
+                        new String[]{"<ringtone_name>", "<notification_name>", "<alarm_name>"},
+                        new String[]{ringtoneName, notificationName, alarmName}).toString();
+                preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
+            }
+        }
+
+    }
+
+    private void setProfileSoundsDualSIMPreferenceSummary(final String initSummary,
+                                                         final String ringtoneSIM1Uri, final String ringtoneSIM2Uri,
+                                                         final String notificationSIM1Uri, final String notificationSIM2Uri,
+                                                         final androidx.preference.Preference preference, final Context context) {
+        SetProfileSoundsDualSIMPreferenceSummaryAsyncTask asyncTask =
+                new SetProfileSoundsDualSIMPreferenceSummaryAsyncTask(initSummary,
+                        ringtoneSIM1Uri, ringtoneSIM2Uri, notificationSIM1Uri, notificationSIM2Uri,
+                        preference, context);
+        asyncTask.execute();
+    }
+
+    private static class SetProfileSoundsDualSIMPreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private String ringtoneNameSIM1;
+        private String ringtoneNameSIM2;
+        private String notificationNameSIM1;
+        private String notificationNameSIM2;
+
+        final String initSummary;
+        final String ringtoneSIM1Uri;
+        final String ringtoneSIM2Uri;
+        final String notificationSIM1Uri;
+        final String notificationSIM2Uri;
+        private final WeakReference<androidx.preference.Preference> preferenceWeakRef;
+        private final WeakReference<Context> contextWeakReference;
+
+        public SetProfileSoundsDualSIMPreferenceSummaryAsyncTask(final String initSummary,
+                                                                 final String ringtoneSIM1Uri, final String ringtoneSIM2Uri,
+                                                                 final String notificationSIM1Uri, final String notificationSIM2Uri,
+                                                                 final androidx.preference.Preference preference, final Context context) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.contextWeakReference = new WeakReference<>(context);
+            this.initSummary = initSummary;
+            this.ringtoneSIM1Uri = ringtoneSIM1Uri;
+            this.ringtoneSIM2Uri = ringtoneSIM2Uri;
+            this.notificationSIM1Uri = notificationSIM1Uri;
+            this.notificationSIM2Uri = notificationSIM2Uri;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
+                if ((ringtoneSIM1Uri == null) || ringtoneSIM1Uri.isEmpty())
+                    ringtoneNameSIM1 = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = ringtoneSIM1Uri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        ringtoneNameSIM1 = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        ringtoneNameSIM1 = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((ringtoneSIM2Uri == null) || ringtoneSIM2Uri.isEmpty())
+                    ringtoneNameSIM2 = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = ringtoneSIM2Uri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        ringtoneNameSIM2 = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        ringtoneNameSIM2 = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((notificationSIM1Uri == null) || notificationSIM1Uri.isEmpty())
+                    notificationNameSIM1 = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = notificationSIM1Uri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        notificationNameSIM1 = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        notificationNameSIM1 = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((notificationSIM2Uri == null) || notificationSIM2Uri.isEmpty())
+                    notificationNameSIM2 = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = notificationSIM2Uri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        notificationNameSIM2 = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        notificationNameSIM2 = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
+                String summary = TextUtils.replace(initSummary,
+                        new String[]{"<ringtone_name_sim1>", "<ringtone_name_sim2>", "<notification_name_sim1>", "<notification_name_sim2>"},
+                        new String[]{ringtoneNameSIM1, ringtoneNameSIM2, notificationNameSIM1, notificationNameSIM2}).toString();
+                preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
+            }
+        }
+
     }
 
 }

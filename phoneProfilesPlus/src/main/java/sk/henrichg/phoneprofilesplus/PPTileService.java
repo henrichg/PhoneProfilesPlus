@@ -1,14 +1,19 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Icon;
 import android.os.Build;
-import android.os.Handler;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 public class PPTileService extends TileService {
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
 
     @Override
     public void onClick () {
@@ -149,14 +154,15 @@ public class PPTileService extends TileService {
         if (tile == null)
             return;
 
-//        PPApplication.logE("PPTileService.updateTile", "profileId="+profileId);
-
         int tileId = getTileId();
+//        PPApplication.logE("PPTileService.updateTile", "tileId="+tileId);
+
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
-            PPApplication.startHandlerThreadWidget();
-            final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            //PPApplication.startHandlerThreadWidget();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(getApplicationContext(), tile) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
@@ -171,7 +177,14 @@ public class PPTileService extends TileService {
                         if (Build.VERSION.SDK_INT >= 29) {
                             tile.setSubtitle(null);
                         }
-                        tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_list_item_events_restart_color_filled));
+                        /*
+                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
+                        Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
+                                "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                        restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
+                        tile.setIcon(Icon.createWithBitmap(restartEvents._iconBitmap));
+                        */
+                        tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_restart_events));
                         tile.setState(Tile.STATE_INACTIVE);
                     }
                     else {
@@ -190,7 +203,7 @@ public class PPTileService extends TileService {
                                 if (profile._iconBitmap != null)
                                     tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
                                 else {
-                                    int res = Profile.getIconResource(profile.getIconIdentifier());
+                                    int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
                                     tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
                                 }
                             } else {
@@ -202,12 +215,15 @@ public class PPTileService extends TileService {
                             else
                                 tile.setState(Tile.STATE_INACTIVE);
                         }
+                        dataWrapper.invalidateDataWrapper();
                     }
                     tile.updateTile();
 
                     // save tile profileId into SharedPreferences
                 //}
-            });
+            }; //);
+            PPApplication.createDelayedGuiExecutor();
+            PPApplication.delayedGuiExecutor.submit(runnable);
         } else {
             tile.setLabel(getString(R.string.quick_tile_icon_label));
             tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_default));

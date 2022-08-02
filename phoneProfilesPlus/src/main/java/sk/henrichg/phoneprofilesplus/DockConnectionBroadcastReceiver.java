@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -25,7 +23,9 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
             if (accessoryEventsExists)
             {*/
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThreadBroadcast(/*"DockConnectionBroadcastReceiver.onReceive"*/);
+                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_DOCK_CONNECTION, "SENSOR_TYPE_DOCK_CONNECTION", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -60,6 +60,7 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 });
+                */
             //}
 
         }

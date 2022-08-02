@@ -21,7 +21,6 @@
  */
 package com.stericson.rootshell.execution;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.stericson.rootshell.RootShell;
@@ -78,11 +77,11 @@ public class Shell {
     //Statics -- visible to all
     private static final String token = "F*D^W@#FGF";
 
-    private static Shell rootShell = null;
+    private volatile static Shell rootShell = null;
 
-    private static Shell shell = null;
+    private volatile static Shell shell = null;
 
-    private static Shell customShell = null;
+    private volatile static Shell customShell = null;
 
     private static final String[] suVersion = new String[]{
             null, null
@@ -521,7 +520,6 @@ public class Shell {
      * @return true if SELinux set to enforcing, or false in the case of
      * permissive or not present
      */
-    @SuppressLint("ObsoleteSdkInt")
     public synchronized boolean isSELinuxEnforcing() {
         if (isSELinuxEnforcing == null) {
             Boolean enforcing = null;

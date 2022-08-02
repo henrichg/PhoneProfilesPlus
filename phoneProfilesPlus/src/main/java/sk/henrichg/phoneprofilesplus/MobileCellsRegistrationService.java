@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
+import static android.app.Notification.DEFAULT_SOUND;
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -15,9 +17,6 @@ import android.os.IBinder;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-
-import static android.app.Notification.DEFAULT_SOUND;
-import static android.app.Notification.DEFAULT_VIBRATE;
 
 public class MobileCellsRegistrationService extends Service {
 
@@ -34,8 +33,8 @@ public class MobileCellsRegistrationService extends Service {
 
     private CountDownTimer countDownTimer = null;
 
-    static boolean serviceStarted = false;
-    static boolean forceStart;
+    static volatile boolean serviceStarted = false;
+    static volatile boolean forceStart;
     private Context context;
 
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
@@ -59,6 +58,11 @@ public class MobileCellsRegistrationService extends Service {
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
         //registerReceiver(stopReceiver, new IntentFilter(MobileCellsRegistrationService.ACTION_STOP));
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
@@ -190,7 +194,7 @@ public class MobileCellsRegistrationService extends Service {
             text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
             String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
             long iValue = millisUntilFinished / 1000;
-            time = time + ": " + GlobalGUIRoutines.getDurationString((int) iValue);
+            time = time + ": " + StringFormatUtils.getDurationString((int) iValue);
             text = text + "; " + time;
 //            if (android.os.Build.VERSION.SDK_INT < 24) {
 //                text = text + " (" + getString(R.string.ppp_app_name) + ")";
@@ -212,7 +216,6 @@ public class MobileCellsRegistrationService extends Service {
         if (millisUntilFinished > 0) {
             // Android 12 - this do not starts activity - OK
             Intent stopRegistrationIntent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
             mBuilder.addAction(R.drawable.ic_action_stop,
                     context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
@@ -225,6 +228,8 @@ public class MobileCellsRegistrationService extends Service {
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_GROUP);
 
         Notification notification = mBuilder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
@@ -242,7 +247,7 @@ public class MobileCellsRegistrationService extends Service {
         //PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
 
         showNotification(0);
-        PPApplication.sleep(500);
+        GlobalUtils.sleep(500);
 
         //PPApplication.logE("[REG] MobileCellsRegistrationService.stopRegistration", "setMobileCellsAutoRegistration(true)");
         setMobileCellsAutoRegistration(context, true);
@@ -281,6 +286,8 @@ public class MobileCellsRegistrationService extends Service {
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_GROUP);
 
         Notification notification = mBuilder.build();
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);

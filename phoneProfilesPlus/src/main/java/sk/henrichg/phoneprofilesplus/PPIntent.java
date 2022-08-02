@@ -238,7 +238,7 @@ class PPIntent implements Parcelable {
         dest.writeInt(this._doNotDelete ? 1 : 0);
     }
 
-    PPIntent duplicate() {
+    PPIntent duplicate(/*boolean doNotDelete*/) {
         PPIntent newPPIntent = new PPIntent();
         newPPIntent._name = _name + "_d";
         newPPIntent._packageName = _packageName;
@@ -280,7 +280,7 @@ class PPIntent implements Parcelable {
         newPPIntent._flags = _flags;
         newPPIntent._intentType = _intentType;
 
-        newPPIntent._doNotDelete = _doNotDelete;
+        newPPIntent._doNotDelete = false; //doNotDelete;
 
         return newPPIntent;
     }

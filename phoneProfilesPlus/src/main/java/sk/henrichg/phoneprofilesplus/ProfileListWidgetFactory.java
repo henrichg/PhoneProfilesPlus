@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+
+import androidx.core.graphics.ColorUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -84,6 +87,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListPrefIndicator;
         boolean applicationWidgetListChangeColorsByNightMode;
+        String applicationWidgetListIconColor;
+        boolean applicationWidgetListUseDynamicColors;
+        boolean applicationWidgetListBackgroundType;
+        String applicationWidgetListLightnessB;
+        String applicationWidgetListBackgroundColor;
+        String applicationWidgetListBackgroundColorNightModeOff;
+        String applicationWidgetListBackgroundColorNightModeOn;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
@@ -91,73 +101,110 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
+            applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
+            applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
+            applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
+            applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB;
+            applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
+            applicationWidgetListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff;
+            applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
 
-            if (Build.VERSION.SDK_INT >= 31) {
+            if (Build.VERSION.SDK_INT >= 30) {
+                if (Build.VERSION.SDK_INT < 31)
+                    applicationWidgetListUseDynamicColors = false;
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetListChangeColorsByNightMode) {
+                        (applicationWidgetListChangeColorsByNightMode &&
+                        (!applicationWidgetListUseDynamicColors))) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationWidgetListLightnessT = "100"; // lightness of text = white
+                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                            applicationWidgetListBackgroundType = true; // background type = color
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationWidgetListLightnessT = "0"; // lightness of text = black
+                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                            applicationWidgetListBackgroundType = true; // background type = color
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                             break;
                     }
                 }
             }
         }
 
-        if (!applicationWidgetListGridLayout)
-            row=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
-        else
-            row=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item);
+        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
+            if (!applicationWidgetListGridLayout)
+                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
+            else
+                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item);
+        } else {
+            if (!applicationWidgetListGridLayout)
+                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item_dn);
+            else
+                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item_dn);
+        }
     
         Profile profile = getItem(position);
 
         if (profile != null) {
+            Bitmap bitmap = null;
+            if (applicationWidgetListIconColor.equals("0")) {
+                if (applicationWidgetListChangeColorsByNightMode ||
+                    ((!applicationWidgetListBackgroundType) &&
+                        (Integer.parseInt(applicationWidgetListLightnessB) <= 25)) ||
+                    (applicationWidgetListBackgroundType &&
+                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            }
             if (profile.getIsIconResourceID()) {
-                if (profile._iconBitmap != null)
-                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                if (bitmap != null)
+                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
                 else {
-                    row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
+                    if (profile._iconBitmap != null)
+                        row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                    else
+                        row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
                             /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
-                            Profile.getIconResource(profile.getIconIdentifier()));
+                                ProfileStatic.getIconResource(profile.getIconIdentifier()));
                 }
             } else {
-                row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                if (bitmap != null)
+                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
+                else
+                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
             }
             int red = 0xFF;
             int green;
             int blue;
             switch (applicationWidgetListLightnessT) {
-                case "0":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                     red = 0x00;
                     break;
-                case "12":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                     red = 0x20;
                     break;
-                case "25":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                     red = 0x40;
                     break;
-                case "37":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                     red = 0x60;
                     break;
-                case "50":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                     red = 0x80;
                     break;
-                case "62":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                     red = 0xA0;
                     break;
-                case "75":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                     red = 0xC0;
                     break;
-                case "87":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                     red = 0xE0;
                     break;
-                case "100":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                     //noinspection ConstantConditions
                     red = 0xFF;
                     break;
@@ -168,31 +215,56 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 if (profile._checked) {
                     row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 16);
 
-                    //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
-                    //else
-                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.parseColor("#33b5e5"));
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                            applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
+                        row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                    else {
+                        // must be removed android:textColor in layout
+                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                        if (color != 0) {
+                            row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
+                        }
+                    }
                 } else {
                     row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
 
-                    //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
-                    //else
-                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                            applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
+                        row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
+                    else {
+                        // must be removed android:textColor in layout
+                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                        if (color != 0) {
+                            row.setTextColor(R.id.widget_profile_list_item_profile_name,
+                                    Color.argb(0xCC, Color.red(color), Color.green(color), Color.blue(color)));
+                        }
+                    }
                 }
             } else {
-                row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                        applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
+                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                else {
+                    // must be removed android:textColor in layout
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                    if (color != 0) {
+                        row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
+                    }
+                }
             }
             if ((!applicationWidgetListHeader) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
-                Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
-                                            "", true, true, true, dataWrapper);
+                Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
+                                            "", true, true, applicationWidgetListGridLayout, dataWrapper);
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
             } else {
                 Spannable profileName = profile.getProfileNameWithDuration("", "",
-                        true/*applicationWidgetListGridLayout*/, true, context.getApplicationContext());
+                        true/*applicationWidgetListGridLayout*/, applicationWidgetListGridLayout, context.getApplicationContext());
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
             }
             if (!applicationWidgetListGridLayout) {
@@ -245,35 +317,40 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                                   String applicationWidgetListIconLightness,
                                                   String applicationWidgetListIconColor,
                                                   boolean applicationWidgetListCustomIconLightness,
-                                                  String applicationWidgetListPrefIndicatorLightness)
+                                                  String applicationWidgetListPrefIndicatorLightness,
+                                                  boolean applicationWidgetListChangeColorsByNightMode,
+                                                  boolean applicationWidgetListUseDynamicColors,
+                                                  boolean applicationWidgetListBackgroundType,
+                                                  String applicationWidgetListBackgroundColor,
+                                                  String applicationWidgetListBackground)
     {
         int monochromeValue = 0xFF;
         switch (applicationWidgetListIconLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 monochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 monochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 monochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 monochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 monochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 monochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 monochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 monochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 //noinspection ConstantConditions
                 monochromeValue = 0xFF;
                 break;
@@ -282,59 +359,80 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         float prefIndicatorLightnessValue = 0f;
         int prefIndicatorMonochromeValue = 0x00;
         switch (applicationWidgetListPrefIndicatorLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 prefIndicatorLightnessValue = -128f;
                 //noinspection ConstantConditions
                 prefIndicatorMonochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 prefIndicatorLightnessValue = -96f;
                 prefIndicatorMonochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 prefIndicatorLightnessValue = -64f;
                 prefIndicatorMonochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 prefIndicatorLightnessValue = -32f;
                 prefIndicatorMonochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 prefIndicatorLightnessValue = 0f;
                 prefIndicatorMonochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 prefIndicatorLightnessValue = 32f;
                 prefIndicatorMonochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 prefIndicatorLightnessValue = 64f;
                 prefIndicatorMonochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 prefIndicatorLightnessValue = 96f;
                 prefIndicatorMonochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 prefIndicatorLightnessValue = 128f;
                 prefIndicatorMonochromeValue = 0xFF;
                 break;
         }
 
+        int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
+        if (applicationWidgetListChangeColorsByNightMode &&
+                applicationWidgetListIconColor.equals("0")) {
+            if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListUseDynamicColors)
+                indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
+            else
+                indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;
+        }
+        else
+        if (applicationWidgetListBackgroundType) {
+            if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)
+                indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
+            else
+                indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
+        } else {
+            if (Integer.parseInt(applicationWidgetListBackground) <= 37)
+                indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
+            else
+                indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
+        }
+
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
                     monochromeValue, applicationWidgetListCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
+                    indicatorType, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
         }
         else {
             if (dataWrapper == null) {
                 dataWrapper = new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
                         monochromeValue, applicationWidgetListCustomIconLightness,
-                        DataWrapper.IT_FOR_WIDGET, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
+                        indicatorType, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
             } else {
                 dataWrapper.setParameters(applicationWidgetListIconColor.equals("1"),
                         monochromeValue, applicationWidgetListCustomIconLightness,
-                        DataWrapper.IT_FOR_WIDGET, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
+                        indicatorType, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
             }
             return dataWrapper;
         }
@@ -355,6 +453,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         String applicationWidgetListPrefIndicatorLightness;
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListChangeColorsByNightMode;
+        boolean applicationWidgetListUseDynamicColors;
+        boolean applicationWidgetListBackgroundType;
+        String applicationWidgetListBackgroundColor;
+        String applicationWidgetListBackground;
+        String applicationWidgetListBackgroundColorNightModeOff;
+        String applicationWidgetListBackgroundColorNightModeOn;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
@@ -363,22 +468,33 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListPrefIndicatorLightness = ApplicationPreferences.applicationWidgetListPrefIndicatorLightness;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
+            applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
+            applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
+            applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
+            applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground;
+            applicationWidgetListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff;
+            applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
 
-            if (Build.VERSION.SDK_INT >= 31) {
-                if (applicationWidgetListChangeColorsByNightMode) {
+            if (Build.VERSION.SDK_INT >= 30) {
+                if (Build.VERSION.SDK_INT < 31)
+                    applicationWidgetListUseDynamicColors = false;
+                if (applicationWidgetListChangeColorsByNightMode &&
+                        (!applicationWidgetListUseDynamicColors)) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
-                            applicationWidgetListIconLightness = "75";
-                            applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
+                            applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
+                            //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
-                            applicationWidgetListIconLightness = "62";
-                            applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
+                            applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
+                            //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
                             break;
                     }
                 }
@@ -389,7 +505,12 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                                 applicationWidgetListIconLightness,
                                                 applicationWidgetListIconColor,
                                                 applicationWidgetListCustomIconLightness,
-                                                applicationWidgetListPrefIndicatorLightness);
+                                                applicationWidgetListPrefIndicatorLightness,
+                                                applicationWidgetListChangeColorsByNightMode,
+                                                applicationWidgetListUseDynamicColors,
+                                                applicationWidgetListBackgroundType,
+                                                applicationWidgetListBackgroundColor,
+                                                applicationWidgetListBackground);
 
         List<Profile> newProfileList = _dataWrapper.getNewProfileList(true,
                                                         applicationWidgetListPrefIndicator);
@@ -410,16 +531,26 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         Profile restartEvents = null;
         if ((!applicationWidgetListHeader) &&
                 Event.getGlobalEventsRunning()) {
-            restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+            //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+            restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
+                    "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);
         }
+        _dataWrapper.invalidateDataWrapper();
 
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
         createProfilesDataWrapper(false,
                                     applicationWidgetListIconLightness,
                                     applicationWidgetListIconColor,
                                     applicationWidgetListCustomIconLightness,
-                                    applicationWidgetListPrefIndicatorLightness);
+                                    applicationWidgetListPrefIndicatorLightness,
+                                    applicationWidgetListChangeColorsByNightMode,
+                                    applicationWidgetListUseDynamicColors,
+                                    applicationWidgetListBackgroundType,
+                                    applicationWidgetListBackgroundColor,
+                                    applicationWidgetListBackground);
         //if (dataWrapper != null) {
             //dataWrapper.invalidateProfileList();
             if (restartEvents != null)

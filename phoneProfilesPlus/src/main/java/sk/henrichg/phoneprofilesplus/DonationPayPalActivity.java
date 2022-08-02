@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentManager;
 
 public class DonationPayPalActivity extends AppCompatActivity {
 
-    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
@@ -55,6 +54,11 @@ public class DonationPayPalActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     /**

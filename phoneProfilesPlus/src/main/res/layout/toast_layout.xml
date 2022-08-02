@@ -9,9 +9,11 @@
 
     <ImageView
         android:id="@+id/custom_toast_image"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/ic_ppp_icon_for_toast"
         android:contentDescription="@string/app_name" />
 
@@ -20,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
-        style="@style/TextAppearance.AppCompat.Small"
+        android:textSize="14sp"
         android:textColor="@color/toastTextColor"
         android:text="@string/empty_string" />
 

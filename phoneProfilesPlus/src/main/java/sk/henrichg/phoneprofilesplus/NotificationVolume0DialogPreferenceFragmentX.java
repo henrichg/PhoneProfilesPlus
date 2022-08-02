@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
@@ -39,7 +38,6 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
         //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "before layout inflater");
 
         LayoutInflater inflater = ((Activity)preference.prefContext).getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_notification_volume_0_preference, null);
         dialogBuilder.setView(layout);
 

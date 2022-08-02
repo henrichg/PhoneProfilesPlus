@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 
 // This broadcast is needed for start of PPP after package replaced
@@ -17,11 +16,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"PackageReplacedReceiver.onReceive"*/);
-            final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"PackageReplacedReceiver.onReceive"*/);
+            //final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler2.post(() -> {
+            //__handler2.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
@@ -36,7 +36,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(appContext, 0);
 
-                        boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                        boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "serviceStarted=" + serviceStarted);
 
                         if ((!serviceStarted) && PPApplication.getApplicationStarted(false)) {
@@ -75,7 +75,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
         }
     }
 

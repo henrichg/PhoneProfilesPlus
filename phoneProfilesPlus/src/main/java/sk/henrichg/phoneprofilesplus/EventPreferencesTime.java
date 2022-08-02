@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -179,7 +178,7 @@ class EventPreferencesTime extends EventPreferences {
                 }
 
                 if (_timeType != TIME_TYPE_EXACT) {
-                    if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                         descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
                     }
                 }
@@ -198,10 +197,11 @@ class EventPreferencesTime extends EventPreferences {
                     allDays = allDays && daySet[i];
 
                 descr = descr + context.getString(R.string.event_preferences_time_timeDays) + ": ";
-                if (allDays) {
-                    descr = descr + "<b>" + context.getString(R.string.array_pref_event_all) + "</b>";
-                    descr = descr + " ";
-                } else {
+                //if (allDays) {
+                //    descr = descr + "<b>" + context.getString(R.string.array_pref_event_all) + "</b>";
+                //    descr = descr + " ";
+                //} else
+                {
                     descr = descr + "<b>";
                     String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
 
@@ -428,7 +428,7 @@ class EventPreferencesTime extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String summary = context.getString(R.string.event_preference_sensor_time_locationSystemSettings_summary);
-                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n"+
                             summary;
                 }
@@ -459,6 +459,13 @@ class EventPreferencesTime extends EventPreferences {
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_TIME_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
@@ -491,12 +498,15 @@ class EventPreferencesTime extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
             if (preference != null) {
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
+                boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_TIME).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                if (enabled)
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                else
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
         }
         else {
@@ -528,10 +538,14 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_TIME_APP_SETTINGS, preferences, context);
+        if (!onlyCategory) {
+            if (prefMng.findPreference(PREF_EVENT_TIME_ENABLED) != null) {
+                setSummary(prefMng, PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS, preferences, context);
+                setSummary(prefMng, PREF_EVENT_TIME_APP_SETTINGS, preferences, context);
+            }
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 
@@ -1193,7 +1207,6 @@ class EventPreferencesTime extends EventPreferences {
                 try {
                     //if (testEvent)
                     //    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode=" + (int) _event._id);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                     //if (testEvent)
                     //    PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent=" + pendingIntent);
@@ -1210,7 +1223,6 @@ class EventPreferencesTime extends EventPreferences {
                 try {
                     //if (testEvent)
                     //    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode=" + (-(int) _event._id));
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, -(int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                     //if (testEvent)
                     //    PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent=" + pendingIntent);
@@ -1230,7 +1242,6 @@ class EventPreferencesTime extends EventPreferences {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_TIME_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
         /*boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
@@ -1280,7 +1291,6 @@ class EventPreferencesTime extends EventPreferences {
         //int requestCode = (int)_event._id;
         //if (!startEvent)
         //    requestCode = -(int)_event._id;
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -1288,7 +1298,6 @@ class EventPreferencesTime extends EventPreferences {
             if (applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);

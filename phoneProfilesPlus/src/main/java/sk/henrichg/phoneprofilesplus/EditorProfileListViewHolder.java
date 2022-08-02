@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -51,6 +53,10 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         if (ApplicationPreferences.applicationEditorPrefIndicator)
             profileIndicator = itemView.findViewById(R.id.profile_list_profile_pref_indicator);
 
+        // don't delete this - it is workaround for set this LinearLayout non-clickable
+        LinearLayout buttonsLayout = itemView.findViewById(R.id.profile_list_item_buttons_root);
+        buttonsLayout.setOnClickListener(v -> {});
+
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
 
@@ -68,7 +74,6 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         {
             profileName.setTypeface(null, Typeface.BOLD);
             profileName.setTextSize(16);
-            //noinspection ConstantConditions
             profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
         }
         else*/
@@ -77,7 +82,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             ((profile._volumeRingerMode != 0) && (!ActivateProfileHelper.canChangeZenMode(context, false))) ||
             (profile.isAccessibilityServiceEnabled(context) != 1)
            )*/
-        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context)){
+        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, context)){
             profileName.setTypeface(null, Typeface.NORMAL);
             //profileName.setTextSize(15);
             profileName.setTextColor(Color.RED);
@@ -93,7 +98,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         String indicators = "";
         //if (profile._showInActivator)
         //    indicators = "[A]";
-        Spannable _profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
+        Spannable _profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile,
                                     false, indicators, true, true, false,
                                     editorFragment.activityDataWrapper);
 
@@ -101,19 +106,28 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
         if (profile.getIsIconResourceID())
         {
-            if (profile._iconBitmap != null)
-                profileIcon.setImageBitmap(profile._iconBitmap);
+            Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+            if (bitmap != null)
+                profileIcon.setImageBitmap(bitmap);
             else {
-                //holder.profileIcon.setImageBitmap(null);
-                //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                //        context.PPApplication.PACKAGE_NAME);
-                int res = Profile.getIconResource(profile.getIconIdentifier());
-                profileIcon.setImageResource(res); // icon resource
+                if (profile._iconBitmap != null)
+                    profileIcon.setImageBitmap(profile._iconBitmap);
+                else {
+                    //holder.profileIcon.setImageBitmap(null);
+                    //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                    //        context.PPApplication.PACKAGE_NAME);
+                    int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
+                    profileIcon.setImageResource(res); // icon resource
+                }
             }
         }
         else
         {
-            profileIcon.setImageBitmap(profile._iconBitmap);
+            Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+            if (bitmap != null)
+                profileIcon.setImageBitmap(bitmap);
+            else
+                profileIcon.setImageBitmap(profile._iconBitmap);
         }
 
         if (ApplicationPreferences.applicationEditorPrefIndicator)

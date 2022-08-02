@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="ActivatorTheme_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_activator_dayNight">
+        <item name="listViewItemBackground">@drawable/listview_item_background</item>
+        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector</item>
+
 <!--        <item name="windowFixedWidthMajor">65%</item>-->
 <!--        <item name="windowFixedWidthMinor">85%</item>-->
         <item name="android:windowMinWidthMinor">@dimen/activator_min_width_minor</item>

@@ -16,17 +16,14 @@
 
 package com.codetroopers.betterpickers.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 /**
  * Displays text with no padding at the top.
  */
-@SuppressLint("AppCompatCustomView")
-public class ZeroTopPaddingTextView extends TextView {
+public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     //private static final float NORMAL_FONT_PADDING_RATIO = 0.328f;
     private static final float NORMAL_FONT_PADDING_RATIO = 0.0f; //0.208f;
@@ -75,7 +72,6 @@ public class ZeroTopPaddingTextView extends TextView {
         float paddingRatio = NORMAL_FONT_PADDING_RATIO;
         float bottomPaddingRatio = NORMAL_FONT_BOTTOM_PADDING_RATIO;
         if (getPaint().getTypeface() != null && getPaint().getTypeface().equals(Typeface.DEFAULT_BOLD)) {
-            //noinspection ConstantConditions
             paddingRatio = BOLD_FONT_PADDING_RATIO;
             //noinspection ConstantConditions
             bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;

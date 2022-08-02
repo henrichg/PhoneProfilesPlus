@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/profile_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp" >
+    android:layout_height="54dp" >
 
     <RadioButton
         android:id="@+id/profile_pref_dlg_item_radiobtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_centerVertical="true"
         android:checked="false"
         android:focusable="false" />
@@ -39,14 +40,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:text="@string/profile_name_default"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:ellipsize="end"
             android:maxLines="1"/>
 
         <ImageView
             android:id="@+id/profile_pref_dlg_item_indicator"
             android:layout_width="match_parent"
-            android:layout_height="14dp"
+            android:layout_height="@dimen/profile_preferences_indicator_height"
             android:layout_marginTop="2dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_indicator_image"

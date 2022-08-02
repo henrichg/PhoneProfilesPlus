@@ -38,18 +38,18 @@
         <View
             android:id="@+id/run_applications_editor_dialog_titleBarDivider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
             android:background="?attr/dialogDivider"
             android:layout_alignParentTop="true" />
 
         <View
             android:id="@+id/run_applications_editor_dialog_buttonBarDivider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
             android:background="?attr/dialogDivider"
             android:layout_alignParentBottom="true" />
 
@@ -65,7 +65,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingEnd="15dp"
                 android:layout_marginEnd="5dp"
                 android:scrollbars="none"
                 android:clipToPadding="false"
@@ -158,7 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:text="@string/applications_editor_dialog_startApplicationDelay" />
 
                 <TextView
@@ -168,8 +168,8 @@
                     android:layout_marginTop="5dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="7dp"
+                    android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
+                    android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
                     android:textColor="?attr/colorAccent"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -182,10 +182,10 @@
         <View
             android:id="@+id/run_applications_editor_dialog_buttonBarDivider2"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
             android:background="?attr/dialogDivider" />
 
     </LinearLayout>

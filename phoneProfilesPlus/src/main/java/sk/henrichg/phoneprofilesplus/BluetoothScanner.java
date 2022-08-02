@@ -6,9 +6,7 @@ import android.bluetooth.le.BluetoothLeScanner;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.os.SystemClock;
-import android.provider.Settings;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -22,10 +20,14 @@ class BluetoothScanner {
     static final int CLASSIC_BT_SCAN_DURATION = 25; // 25 seconds for classic bluetooth scan
 
     //static boolean bluetoothEnabledForScan;
-    static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
-    static boolean bluetoothDiscoveryStarted = false;
-    static BluetoothLeScanner bluetoothLEScanner = null;
-    static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
+    static volatile List<BluetoothDeviceData> tmpBluetoothScanResults = null;
+    static volatile boolean bluetoothDiscoveryStarted = false;
+    static volatile BluetoothLeScanner bluetoothLEScanner = null;
+
+    // this is OK, because this callback will be set to null after stop of LE scan
+    @SuppressLint("StaticFieldLeak")
+    static volatile BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
+
     //static BluetoothLEScanCallback18 bluetoothLEScanCallback18 = null;
     //static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
 
@@ -53,22 +55,9 @@ class BluetoothScanner {
 
             //PPApplication.logE("%%%% BluetoothScanner.doScan", "scannerType=" + scannerType);
 
-            // for Airplane mode ON, no scan
-            //if (android.os.Build.VERSION.SDK_INT >= 17) {
-                if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
-                    //PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END - airplane mode ON -------");
-                    return;
-                }
-            /*} else {
-                if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
-                    PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END - airplane mode ON -------");
-                    return;
-                }
-            }*/
-
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
             int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
             if (isPowerSaveMode) {
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
@@ -82,7 +71,7 @@ class BluetoothScanner {
             else {
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2")) {
-                        if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        if (GlobalUtils.isNowTimeBetweenTimes(
                                 ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                             // not scan bluetooth in configured time
@@ -93,8 +82,8 @@ class BluetoothScanner {
                 }
             }
 
-            PPApplication.startHandlerThreadPPScanners(/*"BluetoothScanner.doScan.1"*/);
-            final Handler bluetoothChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+            //PPApplication.startHandlerThreadPPScanners(/*"BluetoothScanner.doScan.1"*/);
+            //final Handler bluetoothChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
 
             //synchronized (PPApplication.radioChangeStateMutex) {
 
@@ -116,7 +105,6 @@ class BluetoothScanner {
                     else
                         leDevicesScan = false;*/
                     /*if (PPApplication.logEnabled()) {
-                        //noinspection ConstantConditions
                         PPApplication.logE("$$$B BluetoothScanner.doScan", "classicDevicesScan=" + classicDevicesScan);
                         PPApplication.logE("$$$B BluetoothScanner.doScan", "leDevicesScan=" + leDevicesScan);
                     }*/
@@ -127,7 +115,7 @@ class BluetoothScanner {
                                    //(forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                     //if (scan) {
                         if (leDevicesScan)
-                            leDevicesScan = isLocationEnabled(context/*, scannerType*/);
+                            leDevicesScan = GlobalUtils.isLocationEnabled(context);
                     //}
                     /*if (!scan) {
                         // bluetooth scan events not exists
@@ -141,7 +129,8 @@ class BluetoothScanner {
                                 // service restarted during scanning (prefEventBluetoothEnabledForScan is set to false at end of scan),
                                 // dislabe Bluetooth
 //                                PPApplication.logE("$$$B BluetoothScanner.doScan", "disable BT - service restarted");
-                                bluetoothChangeHandler.post(() -> {
+                                //bluetoothChangeHandler.post(() -> {
+                                Runnable runnable = () -> {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
                                     if (Permissions.checkBluetoothForEMUI(context)) {
                                         try {
@@ -158,7 +147,9 @@ class BluetoothScanner {
                                         }
                                     }
                                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
-                                });
+                                }; //);
+                                PPApplication.createScannersExecutor();
+                                PPApplication.scannersExecutor.submit(runnable);
                                 //PPApplication.sleep(1000);
                                 if (BluetoothScanWorker.bluetooth == null)
                                     BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
@@ -166,7 +157,7 @@ class BluetoothScanner {
                                 //unlock();
                             }
 
-                            //noinspection ConstantConditions,ConstantIfStatement
+                            //noinspection ConstantConditions
                             if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
                                 BluetoothScanWorker.setScanRequest(context, false);
                                 BluetoothScanWorker.setLEScanRequest(context, false);
@@ -188,7 +179,7 @@ class BluetoothScanner {
 
                                     // enable bluetooth
                                     bluetoothState = enableBluetooth(BluetoothScanWorker.bluetooth,
-                                                                    bluetoothChangeHandler,
+                                                                    //bluetoothChangeHandler,
                                                                     false);
                                     //PPApplication.logE("$$$BCL BluetoothScanner.doScan", "bluetoothState=" + bluetoothState);
 
@@ -231,7 +222,7 @@ class BluetoothScanner {
 
                                     // enable bluetooth
                                     bluetoothState = enableBluetooth(BluetoothScanWorker.bluetooth,
-                                                                    bluetoothChangeHandler,
+                                                                    //bluetoothChangeHandler,
                                                                     true);
 
                                     if (bluetoothState == BluetoothAdapter.STATE_ON) {
@@ -271,7 +262,8 @@ class BluetoothScanner {
                             }
 
                             if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
-                                bluetoothChangeHandler.post(() -> {
+                                //bluetoothChangeHandler.post(() -> {
+                                Runnable runnable = () -> {
     //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
 
     //                                    PPApplication.logE("$$$B BluetoothScanner.doScan", "disable bluetooth");
@@ -291,7 +283,9 @@ class BluetoothScanner {
                                         }
 
                                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
-                                });
+                                }; //);
+                                PPApplication.createScannersExecutor();
+                                PPApplication.scannersExecutor.submit(runnable);
                             } //else
                             //PPApplication.logE("$$$B BluetoothScanner.doScan", "keep enabled bluetooth");
                             //PPApplication.sleep(1000);
@@ -361,9 +355,8 @@ class BluetoothScanner {
         }
     }
 
-    @SuppressLint("NewApi")
     private int enableBluetooth(BluetoothAdapter bluetooth,
-                                Handler bluetoothChangeHandler,
+                                /*Handler bluetoothChangeHandler,*/
                                 boolean forLE)
     {
         //PPApplication.logE("$$$B BluetoothScanner.enableBluetooth","xxx");
@@ -396,7 +389,8 @@ class BluetoothScanner {
                     else
                         BluetoothScanWorker.setLEScanRequest(context, true);
                     final BluetoothAdapter _bluetooth = bluetooth;
-                    bluetoothChangeHandler.post(() -> {
+                    //bluetoothChangeHandler.post(() -> {
+                    Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.enableBluetooth");
 
                         if (Permissions.checkBluetoothForEMUI(context)) {
@@ -408,7 +402,9 @@ class BluetoothScanner {
                         }
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
-                    });
+                    }; //);
+                    PPApplication.createScannersExecutor();
+                    PPApplication.scannersExecutor.submit(runnable);
                     return BluetoothAdapter.STATE_TURNING_ON;
                 }
             }
@@ -435,7 +431,7 @@ class BluetoothScanner {
                     break;
             }*/
 
-            PPApplication.sleep(500);
+            GlobalUtils.sleep(200);
         } while (SystemClock.uptimeMillis() - start < 5 * 1000);
     }
 
@@ -446,7 +442,7 @@ class BluetoothScanner {
             if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
                     ApplicationPreferences.prefEventBluetoothWaitForResult))
                 break;
-            PPApplication.sleep(500);
+            GlobalUtils.sleep(200);
         } while (SystemClock.uptimeMillis() - start < CLASSIC_BT_SCAN_DURATION * 1000);
 
         BluetoothScanWorker.finishCLScan(context);
@@ -463,7 +459,7 @@ class BluetoothScanner {
                         ApplicationPreferences.prefEventBluetoothLEWaitForResult))
                     break;
 
-                PPApplication.sleep(500);
+                GlobalUtils.sleep(200);
             } while (SystemClock.uptimeMillis() - start < (applicationEventBluetoothLEScanDuration * 5L) * 1000);
             //PPApplication.logE("%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd", "do finishLEScan");
             BluetoothScanWorker.finishLEScan(context);
@@ -474,7 +470,7 @@ class BluetoothScanner {
             // wait for ScanCallback.onBatchScanResults after stop scan
             start = SystemClock.uptimeMillis();
             do {
-                PPApplication.sleep(500);
+                GlobalUtils.sleep(200);
             } while (SystemClock.uptimeMillis() - start < 10 * 1000);
             // save ScanCallback.onBatchScanResults
             BluetoothScanWorker.finishLEScan(context);
@@ -482,86 +478,9 @@ class BluetoothScanner {
         }
     }
 
-    @SuppressLint("InlinedApi")
     static boolean bluetoothLESupported(/*Context context*/) {
         return (/*(android.os.Build.VERSION.SDK_INT >= 18) &&*/
                 PPApplication.HAS_FEATURE_BLUETOOTH_LE);
-    }
-
-    private static boolean isLocationEnabled(Context context/*, String scanType*/) {
-        //if (Build.VERSION.SDK_INT >= 23) {
-            // check for Location Settings
-
-            //noinspection RedundantIfStatement
-            if (!PhoneProfilesService.isLocationEnabled(context)/* || (!isScanAlwaysAvailable)*/) {
-                // Location settings are not properly set, show notification about it
-
-                /*
-                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-
-                    if (getShowEnableLocationNotification(context, scanType)) {
-                        //Intent notificationIntent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                        Intent notificationIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                        String notificationText;
-                        String notificationBigText;
-
-                        notificationText = context.getString(R.string.phone_profiles_pref_category_bluetooth_scanning);
-                        notificationBigText = context.getString(R.string.phone_profiles_pref_eventBluetoothLocationSystemSettings_summary);
-
-                        String nTitle = notificationText;
-                        String nText = notificationBigText;
-                        if (android.os.Build.VERSION.SDK_INT < 24) {
-                            nTitle = context.getString(R.string.ppp_app_name);
-                            nText = notificationText + ": " + notificationBigText;
-                        }
-                        PPApplication.createExclamationNotificationChannel(context);
-                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                                .setColor(ContextCompat.getColor(context, R.color.primary))
-                                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                                .setContentTitle(nTitle) // title for notification
-                                .setContentText(nText) // message for notification
-                                .setAutoCancel(true); // clear notification after click
-                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
-
-                        int requestCode;
-                        //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategory");
-                        requestCode = 2;
-
-                        //notificationIntent.putExtra(PhoneProfilesPresActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-
-                        PendingIntent pi = PendingIntent.getActivity(context, requestCode, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        mBuilder.setContentIntent(pi);
-                        mBuilder.setPriority(Notification.PRIORITY_MAX);
-                        mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-                        mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                        if (mNotificationManager != null) {
-                            mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID, mBuilder.build());
-                        }
-
-                        setShowEnableLocationNotification(context, false, scanType);
-                    }
-                }
-                */
-
-                return false;
-            }
-            else {
-                /*NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
-                    notificationManager.cancel(PPApplication.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID);
-                }
-                setShowEnableLocationNotification(context, true, scanType);*/
-                return true;
-            }
-
-        /*}
-        else {
-            //setShowEnableLocationNotification(context, true, scanType);
-            return true;
-        }*/
     }
 
 }

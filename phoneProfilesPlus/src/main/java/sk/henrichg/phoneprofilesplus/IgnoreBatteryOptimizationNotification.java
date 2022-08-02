@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 
@@ -22,11 +21,12 @@ class IgnoreBatteryOptimizationNotification {
 
         final Context appContext = context.getApplicationContext();
         if (useHandler) {
-            PPApplication.startHandlerThread(/*"IgnoreBatteryOptimizationNotification.showNotification"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"IgnoreBatteryOptimizationNotification.showNotification"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
                 //Context appContext= appContextWeakRef.get();
@@ -76,7 +76,9 @@ class IgnoreBatteryOptimizationNotification {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
 
         }
         else {
@@ -133,7 +135,6 @@ class IgnoreBatteryOptimizationNotification {
         //}
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
@@ -143,16 +144,18 @@ class IgnoreBatteryOptimizationNotification {
 
         /*
         Intent disableIntent = new Intent(context, IgnoreBatteryOptimizationDisableActivity.class);
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pDisableIntent = PendingIntent.getActivity(context, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
-                R.drawable.ic_action_exit_app,
+                //R.drawable.ic_action_exit_app,
+                R.drawable.ic_empty,
                 context.getString(R.string.ignore_battery_optimization_notification_disable_button),
                 pDisableIntent);
         mBuilder.addAction(actionBuilder.build());
         */
 
         mBuilder.setWhen(0);
+
+        mBuilder.setGroup(PPApplication.SYTEM_CONFIGURATION_ERRORS_NOTIFICATION_GROUP);
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {

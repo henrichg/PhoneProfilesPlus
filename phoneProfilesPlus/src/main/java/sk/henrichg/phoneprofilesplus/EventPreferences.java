@@ -36,7 +36,7 @@ abstract class EventPreferences {
         return true;
     }
 
-    int isAccessibilityServiceEnabled(Context context)
+    int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay)
     {
         return 1;
     }
@@ -84,7 +84,7 @@ abstract class EventPreferences {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_PASSED, context);
 //                Log.e("EventPreferences.getPassStatusString", "passed labelColor="+Integer.toHexString(labelColor));
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ "+sensorTitle+" ]");
+                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ » "+sensorTitle+" ]");
             }
             else {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_NOT_PASSED, context);
@@ -110,7 +110,7 @@ abstract class EventPreferences {
     //abstract void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context);
 
     @SuppressWarnings("unused")
-    void checkPreferences(PreferenceManager prefMng, Context context)
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context)
     {
     }
 

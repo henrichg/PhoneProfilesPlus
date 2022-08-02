@@ -55,7 +55,7 @@ public class TimeDialogPreferenceX extends DialogPreference {
     }
 
     void setSummaryTDP() {
-        setSummary(GlobalGUIRoutines.getTimeString(value));
+        setSummary(StringFormatUtils.getTimeString(value));
     }
 
     void persistValue(int value)

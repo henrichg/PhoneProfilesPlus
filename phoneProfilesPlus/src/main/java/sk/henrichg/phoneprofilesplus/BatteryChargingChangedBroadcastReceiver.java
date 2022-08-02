@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -30,7 +28,6 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
         boolean _isCharging = false;
         //int _plugged = -1;
 
-        //noinspection RedundantIfStatement
         if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
             //_plugged = -BatteryManager.BATTERY_STATUS_CHARGING;
             _isCharging = true;
@@ -116,7 +113,9 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 
             if (Event.getGlobalEventsRunning()) {
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThreadBroadcast(/*"BatteryChargingChangedBroadcastReceiver.onReceive"*/);
+                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BATTERY, "SENSOR_TYPE_BATTERY", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -155,6 +154,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 });
+                */
             }
         }
     }

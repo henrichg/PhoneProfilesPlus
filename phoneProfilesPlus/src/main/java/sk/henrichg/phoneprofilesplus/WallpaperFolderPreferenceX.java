@@ -62,7 +62,7 @@ public class WallpaperFolderPreferenceX extends Preference {
 
             try {
                 String path;
-                path = PPApplication.getRealPath(folderUri);
+                path = GlobalUtils.getRealPath(folderUri);
                 setSummary(path);
             } catch (Exception e) {
                 setSummary(R.string.preference_profile_no_change);
@@ -107,7 +107,7 @@ public class WallpaperFolderPreferenceX extends Preference {
 
             try {
                 String path;
-                path = PPApplication.getRealPath(folderUri);
+                path = GlobalUtils.getRealPath(folderUri);
                 setSummary(path);
             } catch (Exception e) {
                 setSummary(R.string.preference_profile_no_change);
@@ -130,7 +130,7 @@ public class WallpaperFolderPreferenceX extends Preference {
             Uri folderUri = Uri.parse(wallpaperFolder);
             try {
                 String path;
-                path = PPApplication.getRealPath(folderUri);
+                path = GlobalUtils.getRealPath(folderUri);
                 setSummary(path);
             } catch (Exception e) {
                 setSummary(R.string.preference_profile_no_change);
@@ -156,6 +156,9 @@ public class WallpaperFolderPreferenceX extends Preference {
             else {
                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             }
+            // not supported by ACTION_OPEN_DOCUMENT_TREE
+            //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -184,7 +187,6 @@ public class WallpaperFolderPreferenceX extends Preference {
                 }
             }
 
-            //noinspection deprecation
             ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
         } catch (Exception e) {
             PPApplication.recordException(e);

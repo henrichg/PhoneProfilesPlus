@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -47,19 +46,17 @@ class RunApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder impl
         itemView.setOnClickListener(this);
     }
 
-    @SuppressLint("SetTextI18n")
     void bindApplication(Application application, int position) {
         this.application = application;
         //PPApplication.logE("ApplicationEditorDialogViewHolder.bindApplication", "this.application="+this.application);
 
         // Display Application data
         if (dialog.selectedFilter != 2) {
-            if (EditorActivity.getApplicationsCache() != null)
-                imageViewIcon.setImageBitmap(EditorActivity.getApplicationsCache().getApplicationIcon(application, false));
+            if (PPApplication.getApplicationsCache() != null)
+                imageViewIcon.setImageBitmap(PPApplication.getApplicationsCache().getApplicationIcon(application, false));
         }
         textViewAppName.setText(application.appLabel);
 
-        //noinspection RedundantIfStatement
         radioBtn.setChecked(dialog.selectedPosition == position);
         radioBtn.setTag(position);
 

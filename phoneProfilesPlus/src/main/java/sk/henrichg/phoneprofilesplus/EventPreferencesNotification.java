@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -220,7 +219,7 @@ class EventPreferencesNotification extends EventPreferences {
                         descr = descr + "<b>" + _text + "</b>";
                     }
                     descr = descr + " • ";
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + StringFormatUtils.getDurationString(this._duration) + "</b>";
                 }
             }
         }
@@ -392,6 +391,13 @@ class EventPreferencesNotification extends EventPreferences {
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED) ||
             key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
             key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL) ||
@@ -442,12 +448,15 @@ class EventPreferencesNotification extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
             if (preference != null) {
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
+                boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NOTIFICATION).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                if (enabled)
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                else
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
         }
         else {
@@ -486,72 +495,68 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            boolean enabled = ApplicationPreferences.applicationEventNotificationEnableScanning &&
-                    PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
-            Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
-            ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
-            Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
-            Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
-            SwitchPreferenceCompat checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
-            Preference contactGroupsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
-            Preference contactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
-            SwitchPreferenceCompat checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
-            Preference textPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
-            Preference contactListTypePreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
-            Preference maximumDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (!onlyCategory) {
+            if (prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED) != null) {
+                boolean enabled = ApplicationPreferences.applicationEventNotificationEnableScanning &&
+                        PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
+                Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
+                ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
+                Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
+                Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
+                SwitchPreferenceCompat checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
+                Preference contactGroupsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
+                Preference contactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
+                SwitchPreferenceCompat checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
+                Preference textPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
+                Preference contactListTypePreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
+                Preference maximumDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
 
-            if (notififcationAccess != null) {
-                notififcationAccess.setEnabled(ApplicationPreferences.applicationEventNotificationEnableScanning);
-            }
-            if (applicationsPreference != null) {
-                applicationsPreference.setEnabled(enabled);
-                applicationsPreference.setSummaryAMSDP();
-            }
-            if (ringingCallPreference != null) {
-                ringingCallPreference.setEnabled(enabled);
-            }
-            if (missedCallPreference != null) {
-                missedCallPreference.setEnabled(enabled);
-            }
-            if (checkContactsPreference != null) {
-                checkContactsPreference.setEnabled(enabled);
-            }
-            if (contactGroupsPreference != null) {
-                boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
-                contactGroupsPreference.setEnabled(enabled && checkEnabled);
-            }
-            if (contactsPreference != null) {
-                boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
-                contactsPreference.setEnabled(enabled && checkEnabled);
-            }
-            if (contactListTypePreference != null) {
-                boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
-                contactListTypePreference.setEnabled(enabled && checkEnabled);
-            }
-            if (checkTextPreference != null) {
-                checkTextPreference.setEnabled(enabled);
-            }
-            if (textPreference != null) {
-                boolean checkEnabled = (checkTextPreference != null) && (checkTextPreference.isChecked());
-                textPreference.setEnabled(enabled && checkEnabled);
-            }
-            if (maximumDuration != null) {
-                maximumDuration.setEnabled(enabled);
-            }
+                if (notififcationAccess != null) {
+                    notififcationAccess.setEnabled(ApplicationPreferences.applicationEventNotificationEnableScanning);
+                }
+                if (applicationsPreference != null) {
+                    applicationsPreference.setEnabled(enabled);
+                    applicationsPreference.setSummaryAMSDP();
+                }
+                if (ringingCallPreference != null) {
+                    ringingCallPreference.setEnabled(enabled);
+                }
+                if (missedCallPreference != null) {
+                    missedCallPreference.setEnabled(enabled);
+                }
+                if (checkContactsPreference != null) {
+                    checkContactsPreference.setEnabled(enabled);
+                }
+                if (contactGroupsPreference != null) {
+                    boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
+                    contactGroupsPreference.setEnabled(enabled && checkEnabled);
+                }
+                if (contactsPreference != null) {
+                    boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
+                    contactsPreference.setEnabled(enabled && checkEnabled);
+                }
+                if (contactListTypePreference != null) {
+                    boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
+                    contactListTypePreference.setEnabled(enabled && checkEnabled);
+                }
+                if (checkTextPreference != null) {
+                    checkTextPreference.setEnabled(enabled);
+                }
+                if (textPreference != null) {
+                    boolean checkEnabled = (checkTextPreference != null) && (checkTextPreference.isChecked());
+                    textPreference.setEnabled(enabled && checkEnabled);
+                }
+                if (maximumDuration != null) {
+                    maximumDuration.setEnabled(enabled);
+                }
 
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
-            setSummary(prefMng, PREF_EVENT_NOTIFICATION_APP_SETTINGS, preferences, context);
-            setCategorySummary(prefMng, preferences, context);
-        /*}
-        else {
-            PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
-            PreferenceScreen preferenceCategory = (PreferenceScreen) prefMng.findPreference("eventNotificationCategory");
-            if ((preferenceCategory != null) && (preferenceScreen != null))
-                preferenceScreen.removePreference(preferenceCategory);
-        }*/
+                setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
+                setSummary(prefMng, PREF_EVENT_NOTIFICATION_APP_SETTINGS, preferences, context);
+            }
+        }
+        setCategorySummary(prefMng, preferences, context);
     }
 
     private long computeAlarm(Context context)
@@ -616,7 +621,6 @@ class EventPreferencesNotification extends EventPreferences {
                 intent.setAction(PhoneProfilesService.ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, NotificationEventEndBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("EventPreferencesNotification.removeAlarm", "alarm found");
@@ -631,7 +635,6 @@ class EventPreferencesNotification extends EventPreferences {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_NOTIFICATION_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(long alarmTime, Context context)
     {
         if (alarmTime > 0) {
@@ -648,7 +651,6 @@ class EventPreferencesNotification extends EventPreferences {
 
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -656,7 +658,6 @@ class EventPreferencesNotification extends EventPreferences {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -1280,7 +1281,7 @@ class EventPreferencesNotification extends EventPreferences {
             }*/
 
             if (!split.isEmpty()) {
-                ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                ContactsCache contactsCache = PPApplication.getContactsCache();
                 if (contactsCache == null)
                     return false;
 
@@ -1350,7 +1351,7 @@ class EventPreferencesNotification extends EventPreferences {
                 }*/
 
                 if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                    ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                    ContactsCache contactsCache = PPApplication.getContactsCache();
                     if (contactsCache == null)
                         return false;
 

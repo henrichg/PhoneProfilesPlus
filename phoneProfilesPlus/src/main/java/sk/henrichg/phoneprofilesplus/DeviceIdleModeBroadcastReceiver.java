@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 
 public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
@@ -23,11 +22,12 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
             // isLightDeviceIdleMode() is @hide :-(
             if ((powerManager != null) && !powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/) {
                 //PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","NOT in idle mode");
-                PPApplication.startHandlerThreadBroadcast(/*"DeviceIdleModeBroadcastReceiver.onReceive"*/);
-                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                //PPApplication.startHandlerThreadBroadcast(/*"DeviceIdleModeBroadcastReceiver.onReceive"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
@@ -89,7 +89,9 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     //}
-                });
+                }; //);
+                PPApplication.createEventsHandlerExecutor();
+                PPApplication.eventsHandlerExecutor.submit(runnable);
             }
             //else
             //    PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","in idle mode");

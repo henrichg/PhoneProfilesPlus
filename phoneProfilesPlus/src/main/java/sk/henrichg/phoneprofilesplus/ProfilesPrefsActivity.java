@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -39,7 +40,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     public static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
     //public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
+    //public static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         newProfileMode = getIntent().getIntExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
         predefinedProfileIndex = getIntent().getIntExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
-        if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
+        if (getIntent().getBooleanExtra(DataWrapperStatic.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
             if (dataWrapper.getProfileById(profile_id, false, false, false) == null) {
@@ -93,6 +94,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
@@ -265,7 +271,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         {
             // create new profile
             if (predefinedProfileIndex == 0) {
-                profile = DataWrapper.getNonInitializedProfile(
+                profile = DataWrapperStatic.getNonInitializedProfile(
                         getBaseContext().getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
             }
@@ -382,7 +388,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._applicationDisableGloabalEventsRun,
                         origProfile._deviceVPNSettingsPrefs,
                         origProfile._endOfActivationType,
-                        origProfile._endOfActivationTime
+                        origProfile._endOfActivationTime,
+                        origProfile._applicationDisablePeriodicScanning,
+                        origProfile._deviceVPN
                 );
                 showSaveMenu = true;
             }
@@ -592,6 +600,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
             profile._applicationDisableGloabalEventsRun = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, ""));
             profile._deviceVPNSettingsPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, ""));
+            profile._applicationDisablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, ""));
+            profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "");
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");
@@ -629,7 +639,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 //                PPApplication.logE("[BLOCK_ACTIONS] ProfilesPrefsActivity.savePreferences", "true");
                 PPApplication.setBlockProfileEventActions(true);
                 if (Event.getGlobalEventsRunning()) {
-                    if (!DataWrapper.getIsManualProfileActivation(false, getApplicationContext())) {
+                    if (!DataWrapperStatic.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
 //                        PPApplication.logE("[APP_START] ProfilesPrefsActivity.savePreferences", "xxx");
                         dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
@@ -754,10 +764,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 public void onSequenceFinish() {
                     //targetHelpsSequenceStarted = false;
 
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                    editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.apply();
-                    ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = true;
+                    //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                    //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.apply();
+                    //ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = true;
 
                 }
 
@@ -775,10 +785,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
 
-            editor = ApplicationPreferences.getEditor(getApplicationContext());
-            editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
-            editor.apply();
-            ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = false;
+            //editor = ApplicationPreferences.getEditor(getApplicationContext());
+            //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+            //editor.apply();
+            //ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = false;
 
             sequence.start();
         }
@@ -794,7 +804,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsActivationDuration extends ProfilesPrefsFragment {
 
         @Override
@@ -804,7 +813,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsSoundProfiles extends ProfilesPrefsFragment {
 
         @Override
@@ -814,7 +822,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsVolumes extends ProfilesPrefsFragment {
 
         @Override
@@ -824,7 +831,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsSounds extends ProfilesPrefsFragment {
 
         @Override
@@ -834,7 +840,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsTouchEffects extends ProfilesPrefsFragment {
 
         @Override
@@ -844,7 +849,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsRadios extends ProfilesPrefsFragment {
 
         @Override
@@ -854,7 +858,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsScreen extends ProfilesPrefsFragment {
 
         @Override
@@ -864,7 +867,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsApplication extends ProfilesPrefsFragment {
 
         @Override
@@ -874,7 +876,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsOthers extends ProfilesPrefsFragment {
 
         @Override
@@ -884,7 +885,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsForceStopApplications extends ProfilesPrefsFragment {
 
         @Override
@@ -894,7 +894,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsLockDevice extends ProfilesPrefsFragment {
 
         @Override
@@ -904,7 +903,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsLedAccessories extends ProfilesPrefsFragment {
 
         @Override
@@ -914,7 +912,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsRadiosDualSIMSupport extends ProfilesPrefsFragment {
 
         @Override
@@ -924,7 +921,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsSoundsDualSIMSupport extends ProfilesPrefsFragment {
 
         @Override
@@ -934,7 +930,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     static public class ProfilesPrefsWallpaper extends ProfilesPrefsFragment {
 
         @Override

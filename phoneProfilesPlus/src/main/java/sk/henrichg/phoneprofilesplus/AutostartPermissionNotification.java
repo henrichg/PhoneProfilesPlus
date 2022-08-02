@@ -1,10 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.core.app.NotificationCompat;
@@ -20,17 +18,18 @@ class AutostartPermissionNotification {
             final Context appContext = context.getApplicationContext();
 
             if (useHandler) {
-                PPApplication.startHandlerThread();
-                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                //PPApplication.startHandlerThread();
+                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=AutostartPermissionNotification.showNotification");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
 
-                    boolean isServiceRunning = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                    boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                     if (!isServiceRunning) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -67,10 +66,11 @@ class AutostartPermissionNotification {
                             }
                         }
                     }
-                });
-
+                }; //);
+                PPApplication.createBasicExecutorPool();
+                PPApplication.basicExecutorPool.submit(runnable);
             } else {
-                boolean isServiceRunning = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                 if (!isServiceRunning) {
                     try {
                         //PPApplication.logE("AutostartPermissionNotification.showNotification", "pm="+pm);
@@ -91,7 +91,6 @@ class AutostartPermissionNotification {
         }
     }
 
-    @SuppressLint("BatteryLife")
     static private void showNotification(Context context, String title, String text) {
         PPApplication.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
@@ -106,7 +105,6 @@ class AutostartPermissionNotification {
         intent = new Intent(context, AutostartPermissionActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
@@ -115,6 +113,8 @@ class AutostartPermissionNotification {
         mBuilder.setOnlyAlertOnce(true);
 
         mBuilder.setWhen(0);
+
+        mBuilder.setGroup(PPApplication.SYTEM_CONFIGURATION_ERRORS_NOTIFICATION_GROUP);
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {

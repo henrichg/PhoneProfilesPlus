@@ -135,5 +135,7 @@
     <attr name="infoPreferenceIcon" format="reference" />
     <attr name="exclamationPreferenceIcon" format="reference" />
     <attr name="editorFilterBackgroundColor" format="reference" />
+    <attr name="listViewItemBackground" format="reference" />
+    <attr name="popupMenuItemBackground" format="reference" />
 
 </resources>

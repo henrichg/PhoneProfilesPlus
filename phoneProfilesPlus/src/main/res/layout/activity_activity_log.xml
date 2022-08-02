@@ -84,7 +84,7 @@
         <View
             android:id="@+id/activity_log_header_divider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height"
             android:background="?attr/dialogDivider" />
 
     </LinearLayout>
@@ -95,11 +95,12 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:choiceMode="singleChoice"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay"
-        android:divider="@android:color/transparent" />
+        android:divider="@android:color/transparent"
+        android:listSelector="?attr/listViewItemBackground" />
 
 </LinearLayout>

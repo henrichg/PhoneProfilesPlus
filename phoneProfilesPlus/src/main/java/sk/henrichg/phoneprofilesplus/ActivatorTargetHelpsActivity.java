@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ActivatorTargetHelpsActivity extends AppCompatActivity {
 
-    public static ActivatorTargetHelpsActivity activity;
+    public static volatile ActivatorTargetHelpsActivity activity;
     //public static ActivatorActivity activatorActivity;
 
     @Override
@@ -28,6 +29,11 @@ public class ActivatorTargetHelpsActivity extends AppCompatActivity {
         window.setNavigationBarColor(Color.TRANSPARENT);
 
         activity = this;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

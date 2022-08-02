@@ -45,6 +45,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
@@ -53,7 +54,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-//import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,8 +65,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -87,9 +90,7 @@ public class EditorActivity extends AppCompatActivity
 
     private ImageView eventsRunStopIndicator;
 
-    private static boolean savedInstanceStateChanged;
-
-    private static ApplicationsCache applicationsCache;
+    private static volatile boolean savedInstanceStateChanged;
 
     @SuppressWarnings("rawtypes")
     private AsyncTask importAsyncTask = null;
@@ -102,13 +103,13 @@ public class EditorActivity extends AppCompatActivity
     @SuppressWarnings("rawtypes")
     private AsyncTask restoreAsyncTask = null;
 
-    static boolean doImport = false;
+    static volatile boolean doImport = false;
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
     private AlertDialog backupProgressDialog = null;
     private AlertDialog restoreProgressDialog = null;
 
-    static boolean importFromPPStopped = false;
+    static volatile boolean importFromPPStopped = false;
 
     private static final int DSI_PROFILES_ALL = 0;
     private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
@@ -134,6 +135,8 @@ public class EditorActivity extends AppCompatActivity
     private static final int REQUEST_CODE_BACKUP_SETTINGS = 6230;
     private static final int REQUEST_CODE_BACKUP_SETTINGS_2 = 6231;
     private static final int REQUEST_CODE_RESTORE_SETTINGS = 6232;
+    private static final int REQUEST_CODE_SHARE_SETTINGS = 6233;
+    private static final int REQUEST_CODE_RESTORE_SHARED_SETTINGS = 6234;
 
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
@@ -183,6 +186,12 @@ public class EditorActivity extends AppCompatActivity
 
     //private boolean startTargetHelps;
     //public boolean targetHelpsSequenceStarted;
+
+    int selectedLanguage = 0;
+    String defaultLanguage = "";
+    String defaultCountry = "";
+    String defaultScript = "";
+    final Collator languagesCollator = GlobalUtils.getCollator();
 
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
@@ -235,7 +244,7 @@ public class EditorActivity extends AppCompatActivity
         }
     };
 
-    @SuppressLint({"NewApi", "RestrictedApi"})
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -247,7 +256,7 @@ public class EditorActivity extends AppCompatActivity
 
         savedInstanceStateChanged = (savedInstanceState != null);
 
-        createApplicationsCache();
+        PPApplication.createApplicationsCache(true);
 
         /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             setContentView(R.layout.activity_editor_list_onepane_19);
@@ -346,7 +355,6 @@ public class EditorActivity extends AppCompatActivity
         }
 
         drawerListView = findViewById(R.id.editor_drawer_list);
-        //noinspection ConstantConditions
         headerView =  getLayoutInflater().inflate(R.layout.editor_drawer_list_header, drawerListView, false);
         drawerListView.addHeaderView(headerView, null, false);
         drawerHeaderFilterImage = findViewById(R.id.editor_drawer_list_header_icon);
@@ -623,6 +631,11 @@ public class EditorActivity extends AppCompatActivity
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onStart()
     {
         super.onStart();
@@ -653,6 +666,8 @@ public class EditorActivity extends AppCompatActivity
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
 
             refreshGUI(/*true,*/ false, true, 0, 0);
+
+            Permissions.grantNotificationsPermission(this);
         }
         else {
             if (!isFinishing())
@@ -691,7 +706,7 @@ public class EditorActivity extends AppCompatActivity
 
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorActivity.onStart", "application is not started");
@@ -716,7 +731,6 @@ public class EditorActivity extends AppCompatActivity
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
-            //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorActivity.onStart", "application is started");
@@ -748,6 +762,14 @@ public class EditorActivity extends AppCompatActivity
         }
 
         return false;
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+//        Log.e("EditorActivity.onResume", "xxx");
+        savedInstanceStateChanged = false;
     }
 
     @Override
@@ -804,12 +826,18 @@ public class EditorActivity extends AppCompatActivity
             restoreAsyncTask.cancel(true);
         }
 
-        if (!savedInstanceStateChanged)
-        {
+//        Log.e("EditorActivity.onDestroy", "savedInstanceStateChanged="+savedInstanceStateChanged);
+        if (!savedInstanceStateChanged) {
             // no destroy caches on orientation change
-            if (applicationsCache != null)
-                applicationsCache.clearCache(true);
-            applicationsCache = null;
+            Runnable runnable = () -> {
+                if (PPApplication.getApplicationsCache() != null) {
+                    PPApplication.getApplicationsCache().cancelCaching();
+                    if (!PPApplication.getApplicationsCache().cached)
+                        PPApplication.getApplicationsCache().clearCache(false);
+                }
+            };
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
         }
 
         try {
@@ -823,6 +851,11 @@ public class EditorActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         editorToolbar.inflateMenu(R.menu.editor_top_bar);
+
+        if (Build.VERSION.SDK_INT >= 28) {
+            menu.setGroupDividerEnabled(true);
+        }
+
         return true;
     }
 
@@ -846,7 +879,6 @@ public class EditorActivity extends AppCompatActivity
         });
     }
 
-    @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean ret = super.onPrepareOptionsMenu(menu);
@@ -912,7 +944,9 @@ public class EditorActivity extends AppCompatActivity
             menuItem.setEnabled(DebugVersion.enabled);
         }
 
+        /*
         boolean activityExists = GlobalGUIRoutines.activityActionExists(Intent.ACTION_OPEN_DOCUMENT_TREE, getApplicationContext());
+        Log.e("EditorActivity.onPrepareOptionsMenu", "ACTION_OPEN_DOCUMENT_TREE activityExists="+activityExists);
         menuItem = menu.findItem(R.id.menu_import);
         if (menuItem != null) {
             menuItem.setVisible(activityExists);
@@ -923,6 +957,21 @@ public class EditorActivity extends AppCompatActivity
             menuItem.setVisible(activityExists);
             menuItem.setEnabled(activityExists);
         }
+        */
+
+        /*activityExists = GlobalGUIRoutines.activityActionExists(Intent.ACTION_OPEN_DOCUMENT_TREE, getApplicationContext());
+        menuItem = menu.findItem(R.id.menu_share_settings);
+        if (menuItem != null) {
+            menuItem.setVisible(activityExists);
+            menuItem.setEnabled(activityExists);
+        }*/
+        /*activityExists = GlobalGUIRoutines.activityActionExists(Intent.ACTION_OPEN_DOCUMENT, getApplicationContext());
+        Log.e("EditorActivity.onPrepareOptionsMenu", "ACTION_OPEN_DOCUMENT activityExists="+activityExists);
+        menuItem = menu.findItem(R.id.menu_restore_shared_settings);
+        if (menuItem != null) {
+            menuItem.setVisible(activityExists);
+            menuItem.setEnabled(activityExists);
+        }*/
 
         menuItem = menu.findItem(R.id.menu_import_from_pp);
         if (menuItem != null) {
@@ -1046,17 +1095,29 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_export) {
-            exportData(false, false);
-            return true;
-        }
-        else
-        if (itemId == R.id.menu_export_and_email) {
-            exportData(true, false);
+            exportData(R.string.menu_export, false, false, false);
             return true;
         }
         else
         if (itemId == R.id.menu_import) {
-            importData();
+            importData(R.string.menu_import, false);
+            return true;
+        }
+
+        else
+        if (itemId == R.id.menu_share_settings) {
+            exportData(R.string.menu_share_settings, false, false, true);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_restore_shared_settings) {
+            importData(R.string.menu_restore_shared_settings, true);
+            return true;
+        }
+
+        else
+        if (itemId == R.id.menu_export_and_email) {
+            exportData(R.string.menu_export_and_email, true, false, false);
             return true;
         }
         else
@@ -1084,7 +1145,7 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_export_and_email_to_author) {
-            exportData(true, true);
+            exportData(R.string.menu_export_and_email_to_author, true, true, false);
             return true;
         }
         else
@@ -1290,7 +1351,6 @@ public class EditorActivity extends AppCompatActivity
             return true;
         }
         else
-
         if ((itemId == R.id.menu_check_in_github) ||
                 (itemId == R.id.menu_check_in_fdroid) ||
                 (itemId == R.id.menu_check_in_galaxy_store) ||
@@ -1308,7 +1368,6 @@ public class EditorActivity extends AppCompatActivity
 
             return true;
         }
-
         else
         if (itemId == R.id.menu_test_crash) {
             throw new RuntimeException("Test Crash");
@@ -1331,12 +1390,147 @@ public class EditorActivity extends AppCompatActivity
             }
             return true;
         }
-
+        else
         if (itemId == R.id.menu_donation) {
             intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
             startActivity(intent);
             return true;
         }
+        else
+        if (itemId == R.id.menu_choose_language) {
+            String storedLanguage = LocaleHelper.getLanguage(getApplicationContext());
+            String storedCountry = LocaleHelper.getCountry(getApplicationContext());
+            String storedScript = LocaleHelper.getScript(getApplicationContext());
+//            Log.e("EditorActivity.onOptionsItemSelected", "storedLanguage="+storedLanguage);
+//            Log.e("EditorActivity.onOptionsItemSelected", "storedCountry="+storedCountry);
+//            Log.e("EditorActivity.onOptionsItemSelected", "storedScript="+storedScript);
+
+            final String[] languageValues = getResources().getStringArray(R.array.chooseLanguageValues);
+            ArrayList<Language> languages = new ArrayList<>();
+
+            for (String languageValue : languageValues) {
+                Language language = new Language();
+                if (languageValue.equals("[sys]")) {
+                    language.language = languageValue;
+                    language.country = "";
+                    language.script = "";
+                    language.name = getString(R.string.menu_choose_language_system_language);
+                } else {
+                    String[] splits = languageValue.split("-");
+                    String sLanguage = splits[0];
+                    String country = "";
+                    if (splits.length >= 2)
+                        country = splits[1];
+                    String script = "";
+                    if (splits.length >= 3)
+                        script = splits[2];
+
+                    Locale loc = null;
+                    if (country.isEmpty() && script.isEmpty())
+                        loc = new Locale.Builder().setLanguage(sLanguage).build();
+                    if (!country.isEmpty() && script.isEmpty())
+                        loc = new Locale.Builder().setLanguage(sLanguage).setRegion(country).build();
+                    if (country.isEmpty() && !script.isEmpty())
+                        loc = new Locale.Builder().setLanguage(sLanguage).setScript(script).build();
+                    if (!country.isEmpty() && !script.isEmpty())
+                        loc = new Locale.Builder().setLanguage(sLanguage).setRegion(country).setScript(script).build();
+
+//                    Log.e("EditorActivity.onOptionsItemSelected", "sLanguage="+sLanguage);
+//                    Log.e("EditorActivity.onOptionsItemSelected", "country="+country);
+//                    Log.e("EditorActivity.onOptionsItemSelected", "script="+script);
+
+                    language.language = sLanguage;
+                    language.country = country;
+                    language.script = script;
+                    language.name = loc.getDisplayName(loc);
+                    language.name = language.name.substring(0, 1).toUpperCase(loc) + language.name.substring(1);
+                }
+                languages.add(language);
+            }
+
+            languages.sort(new LanguagesComparator());
+
+            final String[] languageNameChoices = new String[languages.size()];
+            for(int i = 0; i < languages.size(); i++) languageNameChoices[i] = languages.get(i).name;
+
+            for (int i = 0; i < languages.size(); i++) {
+                Language language = languages.get(i);
+                String sLanguage = language.language;
+                String country = language.country;
+                String script = language.script;
+
+                if (sLanguage.equals(storedLanguage) &&
+                        storedCountry.isEmpty() &&
+                        storedScript.isEmpty()) {
+                    selectedLanguage = i;
+                    break;
+                }
+                if (sLanguage.equals(storedLanguage) &&
+                        country.equals(storedCountry) &&
+                        storedScript.isEmpty()) {
+                    selectedLanguage = i;
+                    break;
+                }
+                if (sLanguage.equals(storedLanguage) &&
+                        storedCountry.isEmpty() &&
+                        script.equals(storedScript)) {
+                    selectedLanguage = i;
+                    break;
+                }
+                if (sLanguage.equals(storedLanguage) &&
+                        country.equals(storedCountry) &&
+                        script.equals(storedScript)) {
+                    selectedLanguage = i;
+                    break;
+                }
+            }
+
+            //Log.e("MainActivity.onOptionsItemSelected", "defualt language="+Locale.getDefault().getDisplayLanguage());
+            // this is list of locales by order in system settings. Index 0 = default locale in system
+            //LocaleListCompat locales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
+            //for (int i = 0; i < locales.size(); i++) {
+            //    Log.e("MainActivity.onOptionsItemSelected", "language="+locales.get(i).getDisplayLanguage());
+            //}
+
+            AlertDialog chooseLanguageDialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.menu_choose_language)
+                    .setCancelable(true)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setSingleChoiceItems(languageNameChoices, selectedLanguage, (dialog, which) -> {
+                        selectedLanguage = which;
+
+                        Language language = languages.get(selectedLanguage);
+                        defaultLanguage = language.language;
+                        defaultCountry = language.country;
+                        defaultScript = language.script;
+
+//                        Log.e("EditorActivity.onOptionsItemSelected", "defaultLanguage="+defaultLanguage);
+//                        Log.e("EditorActivity.onOptionsItemSelected", "defaultCountry="+defaultCountry);
+//                        Log.e("EditorActivity.onOptionsItemSelected", "defaultScript="+defaultScript);
+
+                        LocaleHelper.setLocale(getApplicationContext(),
+                                defaultLanguage, defaultCountry, defaultScript, true);
+
+                        GlobalGUIRoutines.reloadActivity(this, false);
+                        dialog.dismiss();
+                    })
+                    .create();
+
+//                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
+
+            chooseLanguageDialog.show();
+
+            return true;
+        }
+
 
         else {
             return super.onOptionsItemSelected(item);
@@ -1786,7 +1980,7 @@ public class EditorActivity extends AppCompatActivity
                         //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
                         //Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                         //        /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
-                        PhoneProfilesService.displayPreferencesErrorNotification(profile, null, getApplicationContext());
+                        DataWrapperStatic.displayPreferencesErrorNotification(profile, null, false, getApplicationContext());
                     }
                 }
 
@@ -1826,7 +2020,7 @@ public class EditorActivity extends AppCompatActivity
                     redrawEventListFragment(event, newEventMode);
 
                     //Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
-                    PhoneProfilesService.displayPreferencesErrorNotification(null, event, getApplicationContext());
+                    DataWrapperStatic.displayPreferencesErrorNotification(null, event, false, getApplicationContext());
                 }
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -1910,13 +2104,13 @@ public class EditorActivity extends AppCompatActivity
         else
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT)) {
             if (resultCode == RESULT_OK) {
-                doExportData(false, false);
+                doExportData(false, false, false);
             }
         }
         else
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)) {
             if (resultCode == RESULT_OK) {
-                doExportData(true, false);
+                doExportData(true, false, false);
             }
         }
         else
@@ -1965,9 +2159,50 @@ public class EditorActivity extends AppCompatActivity
             }
         }
         else
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_SHARED_IMPORT)) {
+            if ((resultCode == RESULT_OK) && (data != null)) {
+                boolean ok = false;
+                try {
+                    Intent intent;
+                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+                    intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                    intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setType("application/zip");
+                    //noinspection deprecation
+                    startActivityForResult(intent, REQUEST_CODE_RESTORE_SHARED_SETTINGS);
+                    ok = true;
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+                if (!ok) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                    dialogBuilder.setMessage(R.string.open_document_activity_not_found_alert);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                    if (!isFinishing())
+                        dialog.show();
+                }
+            }
+        }
+        else
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR)) {
             if (resultCode == RESULT_OK) {
-                doExportData(true, true);
+                doExportData(true, true, false);
             }
         }
         else
@@ -2000,7 +2235,6 @@ public class EditorActivity extends AppCompatActivity
                             dialogBuilder.setMessage(R.string.backup_settings_alert_title);
 
                             LayoutInflater inflater = (activity.getLayoutInflater());
-                            @SuppressLint("InflateParams")
                             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
                             dialogBuilder.setView(layout);
 
@@ -2046,7 +2280,7 @@ public class EditorActivity extends AppCompatActivity
                                     if (pickedDir.canWrite()) {
                                         File applicationDir = getApplicationContext().getExternalFilesDir(null);
 
-                                        ok = copyToBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, getApplicationContext());
+                                        ok = copyToBackupDirectory(pickedDir, applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME, getApplicationContext());
                                         if (ok == 1)
                                             ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, getApplicationContext());
                                     }
@@ -2127,122 +2361,63 @@ public class EditorActivity extends AppCompatActivity
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     getApplicationContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
+                    restoreAsyncTask = new RestoreAsyncTask(treeUri, false, this).execute();
+                }
+            }
+        }
+        else
+        if (requestCode == REQUEST_CODE_SHARE_SETTINGS) {
+            if (resultCode == RESULT_OK) {
+                PPApplication.showToast(getApplicationContext(), getString(R.string.share_settings_ok_shared), Toast.LENGTH_SHORT);
+            } else {
+                if (!isFinishing()) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                    dialogBuilder.setTitle(R.string.share_settings_alert_title);
+                    dialogBuilder.setMessage(R.string.share_settings_error_on_share);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = dialogBuilder.create();
 
-/*                    class RestoreAsyncTask extends AsyncTask<Void, Integer, Integer> {
-                        DocumentFile pickedDir;
-                        final Uri treeUri;
-                        final Activity activity;
+                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    //            @Override
+                    //            public void onShow(DialogInterface dialog) {
+                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    //                if (positive != null) positive.setAllCaps(false);
+                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    //                if (negative != null) negative.setAllCaps(false);
+                    //            }
+                    //        });
 
-                        //int _requestCode;
-                        int ok = 1;
+                    dialog.show();
+                }
+            }
+        }
+        else
+        if (requestCode == REQUEST_CODE_RESTORE_SHARED_SETTINGS) {
+            if (resultCode == RESULT_OK) {
+                // uri of folder
+                Uri fileUri = data.getData();
+                if (fileUri != null) {
+                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, fileUri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION/* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
+                    // persistent permissions
+                    final int takeFlags = //data.getFlags() &
+                            (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    getApplicationContext().getContentResolver().takePersistableUriPermission(fileUri, takeFlags);
 
-                        private RestoreAsyncTask(Uri treeUri, Activity activity) {
-                            this.treeUri = treeUri;
-                            //this._requestCode = requestCode;
-                            this.activity = activity;
-
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            dialogBuilder.setMessage(R.string.restore_settings_alert_title);
-
-                            LayoutInflater inflater = (activity.getLayoutInflater());
-                            @SuppressLint("InflateParams")
-                            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                            dialogBuilder.setView(layout);
-
-                            restoreProgressDialog = dialogBuilder.create();
-                        }
-
-                        @Override
-                        protected void onPreExecute() {
-                            super.onPreExecute();
-
-                            pickedDir = DocumentFile.fromTreeUri(getApplicationContext(), treeUri);
-
-                            GlobalGUIRoutines.lockScreenOrientation(activity, false);
-                            restoreProgressDialog.setCancelable(false);
-                            restoreProgressDialog.setCanceledOnTouchOutside(false);
-                            if (!activity.isFinishing())
-                                restoreProgressDialog.show();
-                        }
-
-                        @Override
-                        protected Integer doInBackground(Void... params) {
-                            if (pickedDir != null) {
-                                if (pickedDir.canWrite()) {
-                                    if (pickedDir.canWrite()) {
-                                        File applicationDir = getApplicationContext().getExternalFilesDir(null);
-
-                                        ok = copyFromBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, getApplicationContext());
-                                        if (ok == 1)
-                                            ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, getApplicationContext());
-                                    } else {
-                                        // cannot copy backup files, pickedDir is not writable
-                                        //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - cannot copy restore files, pickedDir is not writable");
-                                        ok = 0;
-                                    }
-                                } else {
-                                    // pickedDir is not writable
-                                    //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
-                                    ok = 0;
-                                }
-                            } else {
-                                // pickedDir is null
-                                //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is null");
-                                ok = 0;
-                            }
-
-                            return ok;
-                        }
-
-                        @Override
-                        protected void onPostExecute(Integer result) {
-                            super.onPostExecute(result);
-
-                            if (!isFinishing()) {
-                                if ((restoreProgressDialog != null) && restoreProgressDialog.isShowing()) {
-                                    if (!isDestroyed())
-                                        restoreProgressDialog.dismiss();
-                                    restoreProgressDialog = null;
-                                }
-                                GlobalGUIRoutines.unlockScreenOrientation(activity);
-                            }
-
-                            if (result == 0) {
-                                //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - Error restore files");
-
-                                if (!activity.isFinishing()) {
-                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                                    dialogBuilder.setTitle(R.string.restore_settings_alert_title);
-                                    dialogBuilder.setMessage(R.string.restore_settings_error_on_backup);
-                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog dialog = dialogBuilder.create();
-
-                                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    //            @Override
-                                    //            public void onShow(DialogInterface dialog) {
-                                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    //                if (positive != null) positive.setAllCaps(false);
-                                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    //                if (negative != null) negative.setAllCaps(false);
-                                    //            }
-                                    //        });
-
-                                    dialog.show();
-                                }
-                            } else {
-                                PPApplication.showToast(getApplicationContext(), getString(R.string.restore_settings_ok_backed_up), Toast.LENGTH_SHORT);
-
-                                doImportData();
-                            }
-                        }
-                    }
-*/
-                    restoreAsyncTask = new RestoreAsyncTask(/*requestCode, */treeUri, this).execute();
+                    restoreAsyncTask = new RestoreAsyncTask(fileUri, true, this).execute();
 
                 }
             }
         }
+        else
+        if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
+        {
+            PhoneProfilesNotification.drawProfileNotification(true, getApplicationContext());
+            DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+            IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+        }
+
     }
 
     /*
@@ -2337,7 +2512,6 @@ public class EditorActivity extends AppCompatActivity
     }
 
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean importApplicationPreferences(File src/*, int what*/) {
         boolean res = true;
         ObjectInputStream input = null;
@@ -2426,8 +2600,8 @@ public class EditorActivity extends AppCompatActivity
                     // set application parameters to "Not used" for non-granted Uri premissions
                     ContentResolver contentResolver = getApplicationContext().getContentResolver();
                     String tone = ApplicationPreferences.getSharedPreferences(getApplicationContext()).getString(
-                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND,
-                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND,
+                            ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE);
                     if (!tone.isEmpty()) {
                         if (tone.contains("content://media/external")) {
                             boolean isGranted = false;
@@ -2444,8 +2618,8 @@ public class EditorActivity extends AppCompatActivity
                             }
                             if (!isGranted) {
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                                editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND,
-                                        ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE);
+                                editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND,
+                                        ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE);
                                 editor.apply();
                             }
                         }
@@ -2521,40 +2695,37 @@ public class EditorActivity extends AppCompatActivity
         importAsyncTask = new ImportAsyncTask(this).execute();
     }
 
-    private void importData()
+    private void importData(final int titleRes, final boolean share)
     {
         AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(this);
-        dialogBuilder2.setTitle(R.string.import_profiles_alert_title);
+        dialogBuilder2.setTitle(titleRes);
         dialogBuilder2.setMessage(R.string.import_profiles_alert_message);
 
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-            if (Permissions.grantImportPermissions(getApplicationContext(), EditorActivity.this/*, PPApplication.EXPORT_PATH*/)) {
-                boolean ok = false;
-                try {
-                    Intent intent;
-                    if (Build.VERSION.SDK_INT >= 29) {
-                        StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
-                    }
-                    else {
-                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            if (share) {
+                if (Permissions.grantImportPermissions(true, getApplicationContext(), EditorActivity.this)) {
+                    boolean ok = false;
+                    try {
+                        Intent intent;
+                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
                         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        intent.setType("application/zip");
+                        //noinspection deprecation
+                        startActivityForResult(intent, REQUEST_CODE_RESTORE_SHARED_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
-                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                    //noinspection deprecation
-                    startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
-                    ok = true;
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
-                if (!ok){
-                    AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorActivity.this);
-                    _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
-                    //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    _dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog _dialog = _dialogBuilder.create();
+                    if (!ok) {
+                        AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorActivity.this);
+                        _dialogBuilder.setMessage(R.string.open_document_activity_not_found_alert);
+                        //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        _dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog _dialog = _dialogBuilder.create();
 
 //                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -2566,8 +2737,55 @@ public class EditorActivity extends AppCompatActivity
 //                                }
 //                            });
 
-                    if (!isFinishing())
-                        _dialog.show();
+                        if (!isFinishing())
+                            _dialog.show();
+                    }
+                }
+
+            } else {
+                if (Permissions.grantImportPermissions(false, getApplicationContext(), EditorActivity.this)) {
+                    boolean ok = false;
+                    try {
+                        Intent intent;
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
+                            intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                        } else {
+                            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        }
+                        // not supported by ACTION_OPEN_DOCUMENT_TREE
+                        //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+
+                        //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                        //noinspection deprecation
+                        startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                    if (!ok) {
+                        AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorActivity.this);
+                        _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
+                        //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        _dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog _dialog = _dialogBuilder.create();
+
+//                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                        if (!isFinishing())
+                            _dialog.show();
+                    }
                 }
             }
         });
@@ -2603,7 +2821,6 @@ public class EditorActivity extends AppCompatActivity
         dialogBuilder2.setTitle(R.string.import_profiles_from_pp_alert_title);
 
         LayoutInflater inflater = (getLayoutInflater());
-        @SuppressLint("InflateParams")
         final View layout = inflater.inflate(R.layout.dialog_import_pp_data_alert, null);
         dialogBuilder2.setView(layout);
 
@@ -2732,25 +2949,31 @@ public class EditorActivity extends AppCompatActivity
         return res;
     }
 
-    private void exportData(final boolean email, final boolean toAuthor)
+    private void exportData(final int titleRes, final boolean email, final boolean toAuthor, final boolean share)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle(R.string.export_profiles_alert_title);
-        //File sd = Environment.getExternalStorageDirectory();
-        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        dialogBuilder.setTitle(titleRes);
+
         if (email)
             dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message_note));
+        else
+        if (share) {
+            String message = getString(R.string.share_settings_alert_message) + "\n\n" +
+                    getString(R.string.export_profiles_alert_message_note);
+            dialogBuilder.setMessage(message);
+        }
         else
             dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + "\n\n" +
                                         getString(R.string.export_profiles_alert_message_note));
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
+        // for share is not needed grant Storage permission
         dialogBuilder.setPositiveButton(R.string.alert_button_backup, (dialog, which) -> {
-            if (email)
-                doExportData(true, toAuthor);
+            if (email || share)
+                doExportData(email, toAuthor, share);
             else
             if (Permissions.grantExportPermissions(getApplicationContext(), EditorActivity.this))
-                doExportData(false, false);
+                doExportData(false, false, false);
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         AlertDialog dialog = dialogBuilder.create();
@@ -2769,11 +2992,11 @@ public class EditorActivity extends AppCompatActivity
             dialog.show();
     }
 
-    private void doExportData(final boolean email, final boolean toAuthor)
+    private void doExportData(final boolean email, final boolean toAuthor, final boolean share)
     {
-        if (email || Permissions.checkExport(getApplicationContext())) {
+        if (email || share || Permissions.checkExport(getApplicationContext())) {
 
-            exportAsyncTask = new ExportAsyncTask(email, toAuthor, this).execute();
+            exportAsyncTask = new ExportAsyncTask(email, toAuthor, share, this).execute();
         }
 
     }
@@ -2788,8 +3011,15 @@ public class EditorActivity extends AppCompatActivity
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
         savedInstanceStateChanged = true;
+//        Log.e("EditorActivity.onSaveInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
+    }
+
+    @Override
+    public void onRestoreInstanceState(@NonNull Bundle outState) {
+        super.onRestoreInstanceState(outState);
+        savedInstanceStateChanged = false;
+//        Log.e("EditorActivity.onRestoreInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
     }
 
      @Override
@@ -2805,7 +3035,6 @@ public class EditorActivity extends AppCompatActivity
      */
 
      /*
-     @SuppressLint("SetTextI18n")
      private void setStatusBarTitle()
      {
         // set filter status bar title
@@ -3080,21 +3309,6 @@ public class EditorActivity extends AppCompatActivity
                     }, 200);
                 }
             }
-        }
-    }
-
-    public static ApplicationsCache getApplicationsCache()
-    {
-        return applicationsCache;
-    }
-
-    public static void createApplicationsCache()
-    {
-        if ((!savedInstanceStateChanged) || (applicationsCache == null))
-        {
-            if (applicationsCache != null)
-                applicationsCache.clearCache(true);
-            applicationsCache =  new ApplicationsCache();
         }
     }
 
@@ -3679,7 +3893,7 @@ public class EditorActivity extends AppCompatActivity
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
 
                             editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                            //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                             ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
@@ -3689,7 +3903,7 @@ public class EditorActivity extends AppCompatActivity
                                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
                             ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+                            //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
 
                         }
                         else {
@@ -3700,7 +3914,7 @@ public class EditorActivity extends AppCompatActivity
                             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
 
                             editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                            //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                             ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
@@ -3709,7 +3923,7 @@ public class EditorActivity extends AppCompatActivity
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
 
                             ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
+                            //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
                         }
                         editor.apply();
                     }
@@ -3749,173 +3963,6 @@ public class EditorActivity extends AppCompatActivity
         }
     }
 
-    static void showDialogAboutRedText(final Profile profile, final Event event,
-                                       final boolean forProfile,
-                                       final boolean forActivator,
-                                       final boolean forShowInActivator,
-                                       final boolean forRunStopEvent,
-                                       final Activity activity) {
-        if (activity == null)
-            return;
-
-        String nTitle = "";
-        String nText = "";
-
-        if (profile != null) {
-            nTitle = activity.getString(R.string.profile_preferences_red_texts_title);
-            nText = activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-                    "\"" + profile._name + "\" " +
-                    activity.getString(R.string.preferences_red_texts_text_2);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = activity.getString(R.string.ppp_app_name);
-//                nText = activity.getString(R.string.profile_preferences_red_texts_title) + ": " +
-//                        activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-//                        "\"" + profile._name + "\" " +
-//                        activity.getString(R.string.preferences_red_texts_text_2);
-//            }
-            if (forShowInActivator)
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3_new);
-            else
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
-
-            nText = nText + "\n\n" + activity.getString(R.string.profile_preferences_red_texts_text_4);
-        }
-
-        if (event != null) {
-            nTitle = activity.getString(R.string.event_preferences_red_texts_title);
-            nText = activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
-                    "\"" + event._name + "\" " +
-                    activity.getString(R.string.preferences_red_texts_text_2);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = activity.getString(R.string.ppp_app_name);
-//                nText = activity.getString(R.string.event_preferences_red_texts_title) + ": " +
-//                        activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
-//                        "\"" + event._name + "\" " +
-//                        activity.getString(R.string.preferences_red_texts_text_2);
-//            }
-            if (forRunStopEvent)
-                nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
-            else
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
-
-            nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
-        }
-
-        if ((profile != null) || (event != null)) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(nTitle);
-            dialogBuilder.setMessage(nText);
-            if (forProfile) {
-                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_profile_preferences,
-                        (dialog, which) -> {
-                            Intent intent;
-                            if (profile != null) {
-                                intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                                intent.putExtra(EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                                intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-                            }
-                            else {
-                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                            }
-                            activity.startActivity(intent);
-
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                if (forActivator) {
-                    dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
-                            (dialog, which) -> {
-                                Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                                activity.startActivity(intent);
-
-                                try {
-                                    // close Activator
-                                    activity.finish();
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                            });
-                }
-            }
-            else {
-                //    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_event_preferences,
-                        (dialog, which) -> {
-                            Intent intent;
-                            if (event != null) {
-                                intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                                intent.putExtra(EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                                intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, 0);
-                            }
-                            else {
-                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
-                            }
-                            activity.startActivity(intent);
-
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                /*
-                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
-                        (dialog, which) -> {
-                            Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                            if (forActivator)
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
-                            activity.startActivity(intent);
-
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                 */
-            }
-            dialogBuilder.setCancelable(!forActivator);
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
-
-            if (!activity.isFinishing())
-                dialog.show();
-        }
-    }
-
     String getEmailBodyText() {
         String body;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
@@ -3932,101 +3979,6 @@ public class EditorActivity extends AppCompatActivity
         }
         body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
         return body;
-    }
-
-    private static int copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
-        DocumentFile oldFile = pickedDir.findFile(fileName);
-        if (oldFile != null) {
-            // delete old file
-            if (!oldFile.delete()) {
-                // cannot delete existed file
-                //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot delete existed file");
-                return 0;
-            }
-        }
-        // copy file
-        DocumentFile newFile = pickedDir.createFile("application/x-binary", fileName);
-        if (newFile != null) {
-            try {
-                File exportFile = new File(applicationDir, fileName);
-                FileInputStream inStream = new FileInputStream(exportFile);
-                OutputStream outStream = context.getContentResolver().openOutputStream(newFile.getUri());
-                if (outStream != null) {
-                    try {
-                        byte[] buf = new byte[1024];
-                        int len;
-                        while ((len = inStream.read(buf)) > 0) {
-                            outStream.write(buf, 0, len);
-                        }
-                    } finally {
-                        inStream.close();
-                        outStream.close();
-                    }
-                }
-                else {
-                    // cannot open fileName stream
-                    //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot open fileName stream");
-                    return 0;
-                }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-                //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", Log.getStackTraceString(e));
-                return 0;
-            }
-        }
-        else {
-            // cannot create fileName
-            //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot create fileName");
-            return 0;
-        }
-        return 1;
-    }
-
-    private static int copyFromBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
-        File importFile = new File(applicationDir, fileName);
-        if (importFile.exists()) {
-            // delete old file
-            if (!importFile.delete()) {
-                // cannot delete existed file
-                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot delete existed file");
-                return 0;
-            }
-        }
-        // copy file
-        DocumentFile inputFile = pickedDir.findFile(fileName);
-        if (inputFile != null) {
-            try {
-                FileOutputStream outStream = new FileOutputStream(importFile);
-                InputStream inStream = context.getContentResolver().openInputStream(inputFile.getUri());
-                if (inStream != null) {
-                    try {
-                        byte[] buf = new byte[1024];
-                        int len;
-                        while ((len = inStream.read(buf)) > 0) {
-                            outStream.write(buf, 0, len);
-                        }
-                    } finally {
-                        inStream.close();
-                        outStream.close();
-                    }
-                }
-                else {
-                    // cannot open fileName stream
-                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot open fileName stream");
-                    return 0;
-                }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
-                return 0;
-            }
-        }
-        else {
-            // cannot create fileName
-            //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot create fileName");
-            return 0;
-        }
-        return 1;
     }
 
     private static class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -4048,7 +4000,6 @@ public class EditorActivity extends AppCompatActivity
             dialogBuilder.setMessage(R.string.backup_settings_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -4097,7 +4048,7 @@ public class EditorActivity extends AppCompatActivity
                         if (pickedDir.canWrite()) {
                             File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
 
-                            ok = copyToBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
+                            ok = copyToBackupDirectory(pickedDir, applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
                             if (ok == 1)
                                 ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
                         } else {
@@ -4161,28 +4112,87 @@ public class EditorActivity extends AppCompatActivity
                 }
             }
         }
+
+        private int copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
+            DocumentFile oldFile = pickedDir.findFile(fileName);
+            if (oldFile != null) {
+                // delete old file
+                if (!oldFile.delete()) {
+                    // cannot delete existed file
+                    //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot delete existed file");
+                    return 0;
+                }
+            }
+            // copy file
+            DocumentFile newFile = pickedDir.createFile("application/x-binary", fileName);
+            if (newFile != null) {
+                try {
+                    File exportFile = new File(applicationDir, fileName);
+                    FileInputStream inStream = new FileInputStream(exportFile);
+                    OutputStream outStream = context.getContentResolver().openOutputStream(newFile.getUri());
+                    if (outStream != null) {
+                        try {
+                            byte[] buf = new byte[1024];
+                            int len;
+                            while ((len = inStream.read(buf)) > 0) {
+                                outStream.write(buf, 0, len);
+                            }
+                        } finally {
+                            inStream.close();
+                            outStream.close();
+                        }
+                    }
+                    else {
+                        // cannot open fileName stream
+                        //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot open fileName stream");
+                        return 0;
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                    //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", Log.getStackTraceString(e));
+                    return 0;
+                }
+            }
+            else {
+                // cannot create fileName
+                //PPApplication.logE("--------- EditorActivity.copyToBackupDirectory", "cannot create fileName");
+                return 0;
+            }
+            return 1;
+        }
+
     }
 
     private static class RestoreAsyncTask extends AsyncTask<Void, Integer, Integer> {
+        final boolean share;
+        Uri treeUri;
+        Uri fileUri;
+
         DocumentFile pickedDir;
-        final Uri treeUri;
+        DocumentFile pickedFile;
 
         //int _requestCode;
         int ok = 1;
 
         private final WeakReference<EditorActivity> activityWeakRef;
 
-        public RestoreAsyncTask(/*int requestCode, */Uri treeUri, EditorActivity activity) {
-            this.treeUri = treeUri;
+        public RestoreAsyncTask(Uri treeFileUri, boolean share, EditorActivity activity) {
+            this.share = share;
+            if (share)
+                this.fileUri = treeFileUri;
+            else
+                this.treeUri = treeFileUri;
             //this._requestCode = requestCode;
 
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setMessage(R.string.restore_settings_alert_title);
+            if (share)
+                dialogBuilder.setMessage(R.string.restore_shared_settings_alert_title);
+            else
+                dialogBuilder.setMessage(R.string.restore_settings_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -4195,7 +4205,11 @@ public class EditorActivity extends AppCompatActivity
 
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
-                pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
+                if (share) {
+                    pickedFile = DocumentFile.fromSingleUri(activity.getApplicationContext(), fileUri);
+                } else {
+                    pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
+                }
 
                 GlobalGUIRoutines.lockScreenOrientation(activity, false);
                 activity.restoreProgressDialog.setCancelable(false);
@@ -4209,22 +4223,71 @@ public class EditorActivity extends AppCompatActivity
         protected Integer doInBackground(Void... params) {
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
-                if (pickedDir != null) {
-                    if (pickedDir.canWrite()) {
-                        File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
+                if (share) {
+                    if (pickedFile != null) {
+                        if (pickedFile.canRead()) {
+                            File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
 
-                        ok = copyFromBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
-                        if (ok == 1)
-                            ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
+                            // file name in local storage will be PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION
+                            ok = copySharedFile(pickedFile, applicationDir, activity.getApplicationContext());
+
+                            if (ok == 1) {
+                                // delete backup files
+                                File importFile = new File(applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME);
+                                if (importFile.exists()) {
+                                    // delete old file
+                                    if (!importFile.delete())
+                                        ok = 0;
+                                }
+                                if (ok == 1) {
+                                    importFile = new File(applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
+                                    if (importFile.exists()) {
+                                        // delete old file
+                                        if (!importFile.delete())
+                                            ok = 0;
+                                    }
+                                }
+
+                                if (ok == 1) {
+                                    // unzip shared file
+                                    ZipManager zipManager = new ZipManager();
+                                    File zipFile = new File(applicationDir, PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION);
+                                    String destinationDir = applicationDir.getAbsolutePath();
+                                    if (!destinationDir.endsWith("/"))
+                                        destinationDir = destinationDir + "/";
+                                    if (!zipManager.unzip(zipFile.getAbsolutePath(), destinationDir))
+                                        ok = 0;
+                                }
+                            }
+
+                        } else {
+                            // pickedDir is not writable
+                            //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - fileDir is not readable");
+                            ok = 0;
+                        }
                     } else {
-                        // pickedDir is not writable
-                        //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
+                        // pickedDir is null
+                        //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedFile is null");
                         ok = 0;
                     }
                 } else {
-                    // pickedDir is null
-                    //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is null");
-                    ok = 0;
+                    if (pickedDir != null) {
+                        if (pickedDir.canRead()) {
+                            File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
+
+                            ok = copyFromBackupDirectory(pickedDir, applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
+                            if (ok == 1)
+                                ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
+                        } else {
+                            // pickedDir is not writable
+                            //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not readable");
+                            ok = 0;
+                        }
+                    } else {
+                        // pickedDir is null
+                        //PPApplication.logE("--------- EditorActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is null");
+                        ok = 0;
+                    }
                 }
             } else {
                 ok = 0;
@@ -4253,8 +4316,13 @@ public class EditorActivity extends AppCompatActivity
 
                     if (!activity.isFinishing()) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                        dialogBuilder.setTitle(R.string.restore_settings_alert_title);
-                        dialogBuilder.setMessage(R.string.restore_settings_error_on_backup);
+                        if (share) {
+                            dialogBuilder.setTitle(R.string.restore_shared_settings_alert_title);
+                            dialogBuilder.setMessage(R.string.restore_shared_settings_error_on_backup);
+                        } else {
+                            dialogBuilder.setTitle(R.string.restore_settings_alert_title);
+                            dialogBuilder.setMessage(R.string.restore_settings_error_on_backup);
+                        }
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
@@ -4272,12 +4340,113 @@ public class EditorActivity extends AppCompatActivity
                         dialog.show();
                     }
                 } else {
-                    PPApplication.showToast(activity.getApplicationContext(), activity.getString(R.string.restore_settings_ok_backed_up), Toast.LENGTH_SHORT);
+                    if (share)
+                        PPApplication.showToast(activity.getApplicationContext(), activity.getString(R.string.restore_shared_settings_ok_backed_up), Toast.LENGTH_SHORT);
+                    else
+                        PPApplication.showToast(activity.getApplicationContext(), activity.getString(R.string.restore_settings_ok_backed_up), Toast.LENGTH_SHORT);
 
                     activity.doImportData();
                 }
             }
         }
+
+        private int copyFromBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
+            File importFile = new File(applicationDir, fileName);
+            if (importFile.exists()) {
+                // delete old file
+                if (!importFile.delete()) {
+                    // cannot delete existed file
+                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot delete existed file");
+                    return 0;
+                }
+            }
+            // copy file
+            DocumentFile inputFile = pickedDir.findFile(fileName);
+            if (inputFile != null) {
+                try {
+                    FileOutputStream outStream = new FileOutputStream(importFile);
+                    InputStream inStream = context.getContentResolver().openInputStream(inputFile.getUri());
+                    if (inStream != null) {
+                        try {
+                            byte[] buf = new byte[1024];
+                            int len;
+                            while ((len = inStream.read(buf)) > 0) {
+                                outStream.write(buf, 0, len);
+                            }
+                        } finally {
+                            inStream.close();
+                            outStream.close();
+                        }
+                    }
+                    else {
+                        // cannot open fileName stream
+                        //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot open fileName stream");
+                        return 0;
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
+                    return 0;
+                }
+            }
+            else {
+                // cannot create fileName
+                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot create fileName");
+                return 0;
+            }
+            return 1;
+        }
+
+        private int copySharedFile(DocumentFile pickedFile, File applicationDir, Context context) {
+            // delete all zip files in local storage
+            File sd = context.getApplicationContext().getExternalFilesDir(null);
+            File[] oldZipFiles = sd.listFiles();
+            if (oldZipFiles != null) {
+                for (File f : oldZipFiles) {
+                    if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
+                        if (!f.delete())
+                            return 0;
+                    }
+                }
+            }
+            // copy file
+            //DocumentFile inputFile = pickedFile;
+            if (pickedFile != null) {
+                try {
+                    File importFile = new File(applicationDir, PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION);
+                    FileOutputStream outStream = new FileOutputStream(importFile);
+                    InputStream inStream = context.getContentResolver().openInputStream(pickedFile.getUri());
+                    if (inStream != null) {
+                        try {
+                            byte[] buf = new byte[1024];
+                            int len;
+                            while ((len = inStream.read(buf)) > 0) {
+                                outStream.write(buf, 0, len);
+                            }
+                        } finally {
+                            inStream.close();
+                            outStream.close();
+                        }
+                    }
+                    else {
+                        // cannot open fileName stream
+                        //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot open fileName stream");
+                        return 0;
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                    //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
+                    return 0;
+                }
+            }
+            else {
+                // cannot create fileName
+                //PPApplication.logE("--------- EditorActivity.copyFromBackupDirectory", "cannot create fileName");
+                return 0;
+            }
+            return 1;
+        }
+
     }
 
     private static class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -4295,7 +4464,6 @@ public class EditorActivity extends AppCompatActivity
             dialogBuilder.setMessage(R.string.import_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -4338,7 +4506,6 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
-        @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
         @Override
         protected Integer doInBackground(Void... params) {
             //PPApplication.logE("PPApplication.exitApp", "from EditorActivity.doImportData shutdown=false");
@@ -4354,11 +4521,9 @@ public class EditorActivity extends AppCompatActivity
                     /*try {
                         File exportPath = new File(sd, _applicationDataPath);
                         if (exportPath.exists()) {
-                            //noinspection ResultOfMethodCallIgnored
                             exportPath.setReadable(true, false);
                         }
                         if (exportPath.exists()) {
-                            //noinspection ResultOfMethodCallIgnored
                             exportPath.setWritable(true, false);
                         }
                     } catch (Exception e) {
@@ -4367,8 +4532,8 @@ public class EditorActivity extends AppCompatActivity
 
                     // import application preferences must be first,
                     // because in DatabaseHandler.importDB is recompute of volumes in profiles
-                    //File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                    File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                    //File exportFile = new File(sd, _applicationDataPath + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
+                    File exportFile = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME);
                     appSettingsError = !activity.importApplicationPreferences(exportFile/*, 1*/);
                     //exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                     //exportFile = new File(sd, GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
@@ -4502,7 +4667,6 @@ public class EditorActivity extends AppCompatActivity
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private static class ImportFromPPAsyncTask extends AsyncTask<Void, Integer, Integer> {
         private final DataWrapper _dataWrapper;
         private boolean profilesError = true;
@@ -4531,7 +4695,6 @@ public class EditorActivity extends AppCompatActivity
             dialogBuilder.setMessage(R.string.import_profiles_from_pp_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -4599,7 +4762,6 @@ public class EditorActivity extends AppCompatActivity
         }
 
         @SuppressWarnings("StringConcatenationInLoop")
-        @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
         @Override
         protected Integer doInBackground(Void... params) {
             //PPApplication.logE("PPApplication.exitApp", "from EditorActivity.doImportData shutdown=false");
@@ -4623,7 +4785,7 @@ public class EditorActivity extends AppCompatActivity
                                 importPPDataBroadcastReceiver.importEndeed)
                             break;
 
-                        PPApplication.sleep(500);
+                        GlobalUtils.sleep(200);
                     } while (SystemClock.uptimeMillis() - start < 30 * 1000);
 
                     if (!importFromPPStopped) {
@@ -4993,7 +5155,9 @@ public class EditorActivity extends AppCompatActivity
                                                 0,
                                                 0,
                                                 0,
-                                                0
+                                                0,
+                                                0,
+                                                "0|0|||0"
                                         );
 
                                         // replace ids in profile._deviceRunApplicationPackageName
@@ -5053,8 +5217,8 @@ public class EditorActivity extends AppCompatActivity
 
                                         // set profile parameters to "Not used" for non-granted Uri premissions
                                         String icon = profile._icon;
-                                        if (!Profile.getIsIconResourceID(icon)) {
-                                            String iconIdentifier = Profile.getIconIdentifier(icon);
+                                        if (!ProfileStatic.getIsIconResourceID(icon)) {
+                                            String iconIdentifier = ProfileStatic.getIconIdentifier(icon);
                                             boolean isGranted = false;
                                             Uri uri = Uri.parse(iconIdentifier);
                                             if (uri != null) {
@@ -5296,7 +5460,6 @@ public class EditorActivity extends AppCompatActivity
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private static class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
         private final DataWrapper dataWrapper;
         private boolean runStopEvents;
@@ -5304,17 +5467,20 @@ public class EditorActivity extends AppCompatActivity
         private final WeakReference<EditorActivity> activityWeakRef;
         final boolean email;
         final boolean toAuthor;
+        final boolean share;
+        File zipFile = null;
 
-        public ExportAsyncTask(final boolean email, final boolean toAuthor, EditorActivity activity) {
+        public ExportAsyncTask(final boolean email, final boolean toAuthor, final boolean share,
+                               EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
             this.email = email;
             this.toAuthor = toAuthor;
+            this.share = share;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setMessage(R.string.export_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
             dialogBuilder.setView(layout);
 
@@ -5349,7 +5515,6 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
-        @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
         @Override
         protected Integer doInBackground(Void... params) {
 
@@ -5360,34 +5525,14 @@ public class EditorActivity extends AppCompatActivity
                     PPApplication.exitApp(false, activity.getApplicationContext(), this.dataWrapper, null, false, false);
 
                     // wait for end of PPService
-                    PPApplication.sleep(3000);
+                    GlobalUtils.sleep(3000);
 
-                    //File sd = Environment.getExternalStorageDirectory();
                     File sd = activity.getApplicationContext().getExternalFilesDir(null);
-                    //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-
-                        /*File exportDir = new File(sd, PPApplication.EXPORT_PATH);
-                        if (!(exportDir.exists() && exportDir.isDirectory())) {
-                            //noinspection ResultOfMethodCallIgnored
-                            exportDir.mkdirs();
-                            try {
-                                //noinspection ResultOfMethodCallIgnored
-                                exportDir.setReadable(true, false);
-                            } catch (Exception ee) {
-                                PPApplication.recordException(ee);
-                            }
-                            try {
-                                //noinspection ResultOfMethodCallIgnored
-                                exportDir.setWritable(true, false);
-                            } catch (Exception ee) {
-                                PPApplication.recordException(ee);
-                            }
-                        }*/
 
                     int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
                     if (ret == 1) {
-                        //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                        File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                        //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
+                        File exportFile = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME);
                         if (activity.exportApplicationPreferences(exportFile, runStopEvents/*, 1*/)) {
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
@@ -5396,6 +5541,43 @@ public class EditorActivity extends AppCompatActivity
                             ret = 1;
                         } else
                             ret = 0;
+                    }
+
+                    if ((ret == 1) && (this.share)) {
+                        String[] filesToZip = new String[2];
+
+                        try {
+                            // delete all zip files in local storage
+                            sd = activity.getApplicationContext().getExternalFilesDir(null);
+                            File[] oldZipFiles = sd.listFiles();
+                            if (oldZipFiles != null) {
+                                for (File f : oldZipFiles) {
+                                    if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
+                                        //noinspection ResultOfMethodCallIgnored
+                                        f.delete();
+                                    }
+                                }
+                            }
+
+                            CharSequence dateTime = android.text.format.DateFormat.format("yyyyMMddHHmmss", new java.util.Date());
+
+                            String fileName = PPApplication.SHARED_EXPORT_FILENAME + "_" + dateTime +
+                                                PPApplication.SHARED_EXPORT_FILEEXTENSION;
+                            zipFile = new File(sd, fileName);
+                            String zipFilePath = zipFile.getAbsolutePath();
+
+                            filesToZip[0] = new File(sd, DatabaseHandler.EXPORT_DBFILENAME).getAbsolutePath();
+                            filesToZip[1] = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME).getAbsolutePath();
+
+                            ZipManager zipManager = new ZipManager();
+                            if (!zipManager.zip(filesToZip, zipFilePath))
+                                ret = 0;
+                        } catch (Exception e) {
+                            //PPApplication.recordException(e);
+                            e.printStackTrace();
+                            ret = 0;
+                        }
+
                     }
 
                     PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, "");
@@ -5457,8 +5639,8 @@ public class EditorActivity extends AppCompatActivity
                             Uri fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", exportedDB);
                             uris.add(fileUri);
 
-                            //File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                            File appSettingsFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                            //File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
+                            File appSettingsFile = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME);
                             fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", appSettingsFile);
                             uris.add(fileUri);
                         } catch (Exception e) {
@@ -5507,10 +5689,28 @@ public class EditorActivity extends AppCompatActivity
                                 PPApplication.recordException(e);
                             }
                         }
+                    } else
+                    if (share) {
+                        //File sd = context.getExternalFilesDir(null);
+                        //File zipFile = new File(sd, PPApplication.SHARED_EXPORT_LOCALFILENAME);
+                        if (zipFile.exists()) {
+                            Uri zipFileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", zipFile);
+
+                            ShareCompat.IntentBuilder shareBuilder = new ShareCompat.IntentBuilder(activity);
+                            shareBuilder.setType("application/zip")
+                                    .setStream(zipFileUri)
+                                    .setChooserTitle(R.string.share_settings_choose_bar);
+
+                            Intent intent = shareBuilder.createChooserIntent()
+                                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            //activity.startActivity(intent);
+                            //noinspection deprecation
+                            activity.startActivityForResult(intent, REQUEST_CODE_SHARE_SETTINGS);
+                        }
                     } else {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                         LayoutInflater inflater = (activity).getLayoutInflater();
-                        @SuppressLint("InflateParams")
                         View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
                         dialogBuilder.setView(layout);
                         dialogBuilder.setTitle(R.string.backup_settings_alert_title);
@@ -5542,6 +5742,9 @@ public class EditorActivity extends AppCompatActivity
                                     intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                                 }
+                                // not supported by ACTION_OPEN_DOCUMENT_TREE
+                                //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+
                                 //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                                 //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                                 //PPApplication.logE("--------- EditorActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
@@ -5601,6 +5804,20 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
+    }
+
+    private static class Language {
+        String language;
+        String country;
+        String script;
+        String name;
+    }
+
+    private class LanguagesComparator implements Comparator<Language> {
+
+        public int compare(Language lhs, Language rhs) {
+            return languagesCollator.compare(lhs.name, rhs.name);
+        }
     }
 
 }

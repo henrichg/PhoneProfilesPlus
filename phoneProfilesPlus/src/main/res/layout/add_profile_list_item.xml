@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/profile_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp" >
+    android:layout_height="54dp" >
 
     <RadioButton
         android:id="@+id/profile_pref_dlg_item_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
         android:layout_gravity="center_vertical"
         android:checked="false"
@@ -16,7 +17,8 @@
     <RelativeLayout
         android:id="@+id/profile_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
-        android:layout_height="48dp" >
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical">
 
         <ImageView
             android:id="@+id/profile_pref_dlg_item_icon"
@@ -50,7 +52,7 @@
             <ImageView
                 android:id="@+id/profile_pref_dlg_item_indicator"
                 android:layout_width="match_parent"
-                android:layout_height="14dp"
+                android:layout_height="@dimen/profile_preferences_indicator_height"
                 android:layout_marginTop="2dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_indicator_image"

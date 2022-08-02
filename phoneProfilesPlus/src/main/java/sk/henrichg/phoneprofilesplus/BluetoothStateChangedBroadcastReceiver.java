@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 
 public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
@@ -27,10 +26,11 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
             final int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"BluetoothStateChangedBroadcastReceiver.onReceive"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"BluetoothStateChangedBroadcastReceiver.onReceive"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
@@ -112,7 +112,9 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createEventsHandlerExecutor();
+            PPApplication.eventsHandlerExecutor.submit(runnable);
         }
 
     }

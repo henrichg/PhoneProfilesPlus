@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
@@ -185,7 +186,7 @@ class AddEventAdapter extends BaseAdapter {
                     else {
                         holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
                         String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
-                        holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription, true, false, 0, 0));
+                        holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, false, 0, 0));
 
                         RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
                         parameter.setMargins(0, -GlobalGUIRoutines.dpToPx(14), 0, 0); // left, top, right, bottom
@@ -202,24 +203,33 @@ class AddEventAdapter extends BaseAdapter {
                 if (event._manualProfileActivation)
                     profileName = "[M] " + profileName;
                 if (event._delayStart > 0)
-                    profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayStart) + "] " + profileName;
+                    profileName = "[" + StringFormatUtils.getDurationString(event._delayStart) + "] " + profileName;
                 holder.profileStartName.setText(profileName);
                 holder.profileStartName.setTextColor(defaultColor);
                 if (profile.getIsIconResourceID())
                 {
-                    if (profile._iconBitmap != null)
-                        holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                    if (bitmap != null)
+                        holder.profileStartIcon.setImageBitmap(bitmap);
                     else {
-                        //holder.profileStartIcon.setImageBitmap(null);
-                        //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                        //        vi.getContext().PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
-                        holder.profileStartIcon.setImageResource(res); // icon resource
+                        if (profile._iconBitmap != null)
+                            holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
+                        else {
+                            //holder.profileStartIcon.setImageBitmap(null);
+                            //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            //        vi.getContext().PPApplication.PACKAGE_NAME);
+                            int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
+                            holder.profileStartIcon.setImageResource(res); // icon resource
+                        }
                     }
                 }
                 else
                 {
-                    holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                    if (bitmap != null)
+                        holder.profileStartIcon.setImageBitmap(bitmap);
+                    else
+                        holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
                 if (applicationEditorPrefIndicator)
@@ -281,7 +291,6 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
-                //noinspection IfStatementWithIdenticalBranches
                 if (profile != null) {
                     String profileName;
                     //if (event._atEndHowUndo == 0) {
@@ -303,17 +312,26 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileEndName.setText(profileName);
                     holder.profileEndName.setTextColor(defaultColor);
                     if (profile.getIsIconResourceID()) {
-                        if (profile._iconBitmap != null)
-                            holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                        if (bitmap != null)
+                            holder.profileEndIcon.setImageBitmap(bitmap);
                         else {
-                            //holder.profileEndIcon.setImageBitmap(null);
-                            //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            //        vi.getContext().PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(profile.getIconIdentifier());
-                            holder.profileEndIcon.setImageResource(res); // icon resource
+                            if (profile._iconBitmap != null)
+                                holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
+                            else {
+                                //holder.profileEndIcon.setImageBitmap(null);
+                                //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                //        vi.getContext().PPApplication.PACKAGE_NAME);
+                                int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
+                                holder.profileEndIcon.setImageResource(res); // icon resource
+                            }
                         }
                     } else {
-                        holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                        if (bitmap != null)
+                            holder.profileEndIcon.setImageBitmap(bitmap);
+                        else
+                            holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
                     if (applicationEditorPrefIndicator) {

@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -24,7 +25,7 @@ class ActivatorListAdapter extends BaseAdapter
 
     //public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
-    static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_adapter_start_target_helps_finished";
+    //static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_adapter_start_target_helps_finished";
 
     ActivatorListAdapter(ActivatorListFragment f, /*List<Profile> pl, */DataWrapper dataWrapper)
     {
@@ -209,7 +210,6 @@ class ActivatorListAdapter extends BaseAdapter
                     holder.profileName.setTextSize(14);
                 else
                     holder.profileName.setTextSize(16);
-                //noinspection ConstantConditions
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             } else*/ {
                 holder.profileName.setTypeface(null, Typeface.NORMAL);
@@ -221,24 +221,35 @@ class ActivatorListAdapter extends BaseAdapter
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeWhiteTextColor(fragment.getActivity()));
             }
 
-            Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
+            Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile,
                     false, "", true, false, applicationActivatorGridLayout,
                     activityDataWrapper);
             holder.profileName.setText(profileName);
 
 
             if (profile.getIsIconResourceID()) {
-                if (profile._iconBitmap != null)
-                    holder.profileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
+                //double luminance = ColorUtils.calculateLuminance(iconColor);
+                //Log.e("ActivatorListAdapter.getView", "profile="+profile._name+" - luminance="+luminance);
+                if (bitmap != null)
+                    holder.profileIcon.setImageBitmap(bitmap);
                 else {
-                    //holder.profileIcon.setImageBitmap(null);
-                    //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                    //        vi.getContext().PPApplication.PACKAGE_NAME);
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    holder.profileIcon.setImageResource(res); // icon resource
+                    if (profile._iconBitmap != null)
+                        holder.profileIcon.setImageBitmap(profile._iconBitmap);
+                    else {
+                        //holder.profileIcon.setImageBitmap(null);
+                        //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                        //        vi.getContext().PPApplication.PACKAGE_NAME);
+                        int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
+                        holder.profileIcon.setImageResource(res); // icon resource
+                    }
                 }
             } else {
-                holder.profileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
+                if (bitmap != null)
+                    holder.profileIcon.setImageBitmap(bitmap);
+                else
+                    holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
 
             if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList
@@ -352,10 +363,10 @@ class ActivatorListAdapter extends BaseAdapter
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
-                    ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+                    //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
@@ -390,7 +401,7 @@ class ActivatorListAdapter extends BaseAdapter
 
                     editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                     editor.apply();
 
@@ -400,7 +411,7 @@ class ActivatorListAdapter extends BaseAdapter
 
                     ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
                     ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
-                    ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+                    //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
@@ -423,10 +434,10 @@ class ActivatorListAdapter extends BaseAdapter
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
 
-            editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-            editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
-            editor.apply();
-            ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = false;
+            //editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+            //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+            //editor.apply();
+            //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = false;
 
             sequence.start();
         }

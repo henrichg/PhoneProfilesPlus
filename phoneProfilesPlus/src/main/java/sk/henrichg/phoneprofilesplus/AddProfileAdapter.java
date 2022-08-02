@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,18 +97,28 @@ class AddProfileAdapter extends BaseAdapter {
             holder.profileIcon.setVisibility(View.VISIBLE);
             if (profile.getIsIconResourceID())
             {
-                if (profile._iconBitmap != null)
-                    holder.profileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                if (bitmap != null)
+                    holder.profileIcon.setImageBitmap(bitmap);
                 else {
-                    //holder.profileIcon.setImageBitmap(null);
-                    //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                    //        vi.getContext().PPApplication.PACKAGE_NAME);
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    holder.profileIcon.setImageResource(res); // icon resource
+                    if (profile._iconBitmap != null)
+                        holder.profileIcon.setImageBitmap(profile._iconBitmap);
+                    else {
+                        //holder.profileIcon.setImageBitmap(null);
+                        //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                        //        vi.getContext().PPApplication.PACKAGE_NAME);
+                        int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
+                        holder.profileIcon.setImageResource(res); // icon resource
+                    }
                 }
             }
-            else
-                holder.profileIcon.setImageBitmap(profile._iconBitmap);
+            else {
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                if (bitmap != null)
+                    holder.profileIcon.setImageBitmap(bitmap);
+                else
+                    holder.profileIcon.setImageBitmap(profile._iconBitmap);
+            }
             if (applicationEditorPrefIndicator) {
                 if (holder.profileIndicator != null) {
                     if (position == 0)

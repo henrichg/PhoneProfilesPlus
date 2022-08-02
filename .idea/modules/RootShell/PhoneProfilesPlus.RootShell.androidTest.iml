@@ -29,7 +29,7 @@
     <content url="file://$MODULE_DIR$/../../../RootShell/build/generated/source/buildConfig/androidTest/debug" />
     <content url="file://$MODULE_DIR$/../../../RootShell/src/androidTest" />
     <content url="file://$MODULE_DIR$/../../../RootShell/src/androidTestDebug" />
-    <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 32 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.RootShell.main" scope="TEST" />
   </component>

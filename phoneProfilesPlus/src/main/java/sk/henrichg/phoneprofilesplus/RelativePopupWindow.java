@@ -4,9 +4,7 @@
 
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -24,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
  * @author kakajika
  * @since 2016/07/01
  */
-@SuppressWarnings({"DanglingJavadoc", "unused"})
+@SuppressWarnings({"unused", "DanglingJavadoc"})
 public class RelativePopupWindow extends PopupWindow {
 
     @IntDef({
@@ -71,7 +69,6 @@ public class RelativePopupWindow extends PopupWindow {
         super(context, attrs, defStyleAttr);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public RelativePopupWindow(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -197,19 +194,15 @@ public class RelativePopupWindow extends PopupWindow {
         }
     }
 
-    @SuppressWarnings("ResourceType")
     private static int makeDropDownMeasureSpec(int measureSpec) {
         return View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(measureSpec), getDropDownMeasureSpecMode(measureSpec));
     }
 
-    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     private static int getDropDownMeasureSpecMode(int measureSpec) {
-        switch (measureSpec) {
-            case ViewGroup.LayoutParams.WRAP_CONTENT:
-                return View.MeasureSpec.UNSPECIFIED;
-            default:
-                return View.MeasureSpec.EXACTLY;
+        if (measureSpec == ViewGroup.LayoutParams.WRAP_CONTENT) {
+            return View.MeasureSpec.UNSPECIFIED;
         }
+        return View.MeasureSpec.EXACTLY;
     }
 
 }

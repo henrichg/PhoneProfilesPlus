@@ -66,7 +66,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
 
     private void setColorInWidget() {
 
-        int color = Integer.parseInt(value);
+        int color = parseValue(value);
 
         Drawable selector = createSelector(color);
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -117,7 +117,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
 
     private void setSummaryCCHP(String value)
     {
-        int color = Integer.parseInt(value);
+        int color = parseValue(value);
         setSummary(ChromaUtil.getFormattedColorString(color, false));
     }
 
@@ -261,4 +261,12 @@ public class ColorChooserPreferenceX extends DialogPreference {
 
     }
 
+    static int parseValue(String value) {
+        long color;
+        if (value.startsWith("#"))
+            color = Long.decode("0x" + value.substring(1));
+        else
+            color = Long.parseLong(value);
+        return (int) color;
+    }
 }

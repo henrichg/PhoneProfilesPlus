@@ -15,13 +15,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
         android:text="@string/info_notification_event_states"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
+        android:paddingBottom="8dp"
         android:text="@string/info_notification_event_states_manual_profile_activation"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_manual_profile_activation"
@@ -30,7 +31,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
+        android:paddingBottom="8dp"
         android:text="@string/info_notification_event_states_running"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_running"
@@ -39,7 +40,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
+        android:paddingBottom="8dp"
         android:text="@string/info_notification_event_states_paused"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_paused"
@@ -48,7 +49,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
+        android:paddingBottom="8dp"
         android:text="@string/info_notification_event_states_paused_delay"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_paused_delay"
@@ -57,7 +58,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
+        android:paddingBottom="8dp"
         android:text="@string/info_notification_event_states_running_delay"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_running_delay"

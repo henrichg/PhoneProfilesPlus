@@ -3,10 +3,12 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -45,10 +47,10 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
                             preference.useCustomColor,
                             preference.customColor*/);
         gridView.setAdapter(adapter);
-        gridView.setSelection(ProfileIconPreferenceAdapterX.getImageResourcePosition(preference.imageIdentifier/*, prefContext*/));
+        gridView.setSelection(ProfileStatic.getImageResourcePosition(preference.imageIdentifier/*, prefContext*/));
 
         gridView.setOnItemClickListener((parent, v, position, id) -> {
-            preference.setImageIdentifierAndType(ProfileIconPreferenceAdapterX.getImageResourceName(position),true);
+            preference.setImageIdentifierAndType(ProfileStatic.getImageResourceName(position),true);
             adapter.imageIdentifierAndTypeChanged(/*preference.imageIdentifier, preference.isImageResourceID*/);
             preference.updateIcon(true);
             colorChooserButton.setEnabled(preference.isImageResourceID);
@@ -77,19 +79,42 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         });
 
         final AppCompatImageButton helpButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon_helpIcon);
-        TooltipCompat.setTooltipText(helpButton, getString(R.string.profile_icon_preference_custumIconFromIconPack_help));
+        TooltipCompat.setTooltipText(helpButton, getString(R.string.menu_help));
         helpButton.setOnClickListener(v -> {
-            String helpString = getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_1) + "<br><br>" +
-                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_2) +
-                    " \"ThemeX: Extract Launcher Theme\". " +
-                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + "<br><br>" +
-                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4);
-                    //"<a href=https://play.google.com/store/apps/details?id=com.redphx.themex>" +
-                    //getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4) + " &#8658;</a>";
-            //iconPacksIfo.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT));
-            //iconPacksIfo.setClickable(true);
-            //iconPacksIfo.setMovementMethod(LinkMovementMethod.getInstance());
-            DialogHelpPopupWindowX.showPopup(helpButton, R.string.profile_icon_preference_custumIconFromIconPack_help, (Activity)prefContext, /*getDialog(),*/ helpString, true);
+
+            PopupMenu popup;
+            popup = new PopupMenu(prefContext, helpButton, Gravity.END);
+            //noinspection ConstantConditions
+            getActivity().getMenuInflater().inflate(R.menu.profile_icon_help_menu, popup.getMenu());
+
+            popup.setOnMenuItemClickListener(item -> {
+                if (getActivity() != null) {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.menu_profile_icon_help_icon_color) {
+                        String helpString = getString(R.string.profile_icon_preference_iconColor_help_info_1) + "<br>" +
+                                getString(R.string.profile_icon_preference_iconColor_help_info_2);
+                        DialogHelpPopupWindowX.showPopup(helpButton, R.string.profile_icon_preference_iconColor_help, (Activity)prefContext, helpString, true);
+                        return true;
+                    }
+                    else
+                    if (itemId == R.id.menu_profile_icon_help_menu_custom_icon_pack) {
+                        String helpString = getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_1) + "<br><br>" +
+                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_2) +
+                                " \"ThemeX: Extract Launcher Theme\". " +
+                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + "<br><br>" +
+                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4);
+                        DialogHelpPopupWindowX.showPopup(helpButton, R.string.profile_icon_preference_custumIconFromIconPack_help, (Activity)prefContext, helpString, true);
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                return true;
+            });
+
+            if ((getActivity() != null) && (!getActivity().isFinishing()))
+                popup.show();
         });
 
         preference.getValuePIDP();

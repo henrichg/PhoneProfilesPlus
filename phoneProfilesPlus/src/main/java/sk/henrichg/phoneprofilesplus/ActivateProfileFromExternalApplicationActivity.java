@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -48,11 +49,16 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onStart()
     {
         super.onStart();
 
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
 //            PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onStart", "application not started");
 
@@ -92,7 +98,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
 //                PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onCreate", "profile=" + profile._name);
                 //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                 //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
-                if (!PhoneProfilesService.displayPreferencesErrorNotification(profile, null, getApplicationContext())) {
+                if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, getApplicationContext())) {
 //                    PPApplication.logE("&&&&&&& ActivateProfileFromExternalApplicationActivity.onStart", "called is DataWrapper.activateProfileFromMainThread");
                     dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this, false);
                 } else
@@ -148,6 +154,9 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_GROUP);
+
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(getApplicationContext());
         try {
             mNotificationManager.notify(

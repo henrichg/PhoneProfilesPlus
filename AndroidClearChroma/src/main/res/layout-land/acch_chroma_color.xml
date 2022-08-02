@@ -9,57 +9,37 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/acch_color_view"
         android:layout_width="@dimen/acch_color_view_width"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/acch_color_view_height"
         android:layout_alignParentStart="true"
         android:background="@drawable/acch_color_background"
         android:src="@android:color/black"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_toEndOf="@id/acch_color_view"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:orientation="vertical" >
+        android:fadeScrollbars="false" >
 
-        <!--
-        <TextView
-            android:id="@+id/acch_color_edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:textSize="17sp"
-            android:textColor="?attr/colorAccent"
-            android:background="@drawable/acch_button_background"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"/>
-        -->
-
-        <EditText
-            android:id="@+id/acch_color_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center_horizontal"
-            android:imeOptions="actionDone|actionGo|actionSend"
-            android:inputType="textCapCharacters|textNoSuggestions"
-            android:importantForAutofill="no"
-            android:textSize="20sp"
-            tools:ignore="LabelFor"/>
-<!--        android:digits="#0123456789ABCDEF"-->
-<!--        android:maxLength="9"-->
-
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/acch_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"
+                android:imeOptions="actionDone|actionGo|actionSend"
+                android:inputType="textCapCharacters|textNoSuggestions"
+                android:importantForAutofill="no"
+                android:textSize="20sp"
+                tools:ignore="LabelFor"/>
+    <!--        android:digits="#0123456789ABCDEF"-->
+    <!--        android:maxLength="9"-->
 
             <LinearLayout
                 android:id="@+id/acch_channel_container"
@@ -68,8 +48,9 @@
                 android:layout_gravity="center"
                 android:orientation="vertical"/>
 
-        </ScrollView>
+        </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

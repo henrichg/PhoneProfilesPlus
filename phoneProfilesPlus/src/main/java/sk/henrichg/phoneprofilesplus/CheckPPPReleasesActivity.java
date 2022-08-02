@@ -68,6 +68,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onStart()
     {
         super.onStart();
@@ -150,7 +155,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
-    @SuppressLint({"SetTextI18n", "InflateParams"})
     private void showDialog(final Activity activity, int store) {
 
         PackageManager packageManager = activity.getPackageManager();
@@ -225,7 +229,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint({"SetTextI18n", "InflateParams"})
+    @SuppressLint({"InflateParams", "SetTextI18n"})
     private void checkInGitHub(final Activity activity, final boolean refreshOpenedDialog) {
         int pppVersionCode = 0;
         try {
@@ -625,7 +629,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
 /*
-    @SuppressLint("InflateParams")
     private void checkInAmazonAppstore(final Activity activity) {
         // com.amazon.venezia
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);

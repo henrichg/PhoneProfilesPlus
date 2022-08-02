@@ -24,7 +24,7 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
     }
 
     public int getCount() {
-        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
         if (contactGroupsCache != null)
             return contactGroupsCache.getLength();
         else
@@ -32,7 +32,7 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
     }
 
     public Object getItem(int position) {
-        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
         if (contactGroupsCache != null)
             return contactGroupsCache.getContactGroup(position);
         else
@@ -85,7 +85,7 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
             textViewAccountType = viewHolder.textViewAccountType;
         }
 
-        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
         if (contactGroupsCache != null) {
             // Contact group to display
             ContactGroup contactGroup = contactGroupsCache.getContactGroup(position);

@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
 
@@ -19,14 +19,12 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-import java.util.Calendar;
-
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.util.Calendar;
 
 public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
@@ -114,7 +112,6 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         intent.setAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
         //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
 
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -122,7 +119,6 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             if (ApplicationPreferences.applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -148,7 +144,6 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                 intent.setAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
                 //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     alarmManager.cancel(pendingIntent);
@@ -170,11 +165,12 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
         //if (useHandler) {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
 
                 //Context appContext= appContextWeakRef.get();
@@ -228,7 +224,9 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
         /*}
         else {
             _doWork(appContext);
@@ -276,7 +274,6 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                 .setAutoCancel(true); // clear notification after click
 
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -284,6 +281,8 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
 
         Notification notification = mBuilder.build();
         if (Build.VERSION.SDK_INT < 26) {

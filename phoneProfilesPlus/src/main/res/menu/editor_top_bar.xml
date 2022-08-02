@@ -43,31 +43,55 @@
         android:orderInCategory="210"
         app:showAsAction="never" >
     </item>
+
     <item android:id="@+id/menu_dark_theme"
           android:title="@string/menu_dark_theme_on"
           android:orderInCategory="212"
           app:showAsAction="never" />
+
+    <item android:id="@+id/menu_choose_language"
+        android:title="@string/menu_choose_language"
+        android:orderInCategory="220"
+        app:showAsAction="never"
+        tools:ignore="AlwaysShowAction"/>
+
     <item android:id="@+id/menu_import_export"
         android:title="@string/menu_import_export"
         android:orderInCategory="230"
         app:showAsAction="never">
         <menu>
-            <item android:id="@+id/menu_export"
-                android:title="@string/menu_export"
-                android:orderInCategory="100"
-                app:showAsAction="never" />
-            <item android:id="@+id/menu_export_and_email"
-                android:title="@string/menu_export_and_email"
-                android:orderInCategory="101"
-                app:showAsAction="never" />
-            <item android:id="@+id/menu_import"
-                android:title="@string/menu_import"
-                android:orderInCategory="110"
-                app:showAsAction="never" />
-            <item android:id="@+id/menu_import_from_pp"
-                android:title="@string/menu_import_from_pp"
-                android:orderInCategory="120"
-                app:showAsAction="never" />
+            <group android:id="@+id/backup" >
+                <item android:id="@+id/menu_export"
+                    android:title="@string/menu_export"
+                    android:orderInCategory="100"
+                    app:showAsAction="never" />
+                <item android:id="@+id/menu_import"
+                    android:title="@string/menu_import"
+                    android:orderInCategory="101"
+                    app:showAsAction="never" />
+            </group>
+
+            <group android:id="@+id/share" >
+                <item android:id="@+id/menu_share_settings"
+                    android:title="@string/menu_share_settings"
+                    android:orderInCategory="105"
+                    app:showAsAction="never" />
+                <item android:id="@+id/menu_restore_shared_settings"
+                    android:title="@string/menu_restore_shared_settings"
+                    android:orderInCategory="106"
+                    app:showAsAction="never" />
+            </group>
+
+            <group android:id="@+id/other" >
+                <item android:id="@+id/menu_export_and_email"
+                    android:title="@string/menu_export_and_email"
+                    android:orderInCategory="110"
+                    app:showAsAction="never" />
+                <item android:id="@+id/menu_import_from_pp"
+                    android:title="@string/menu_import_from_pp"
+                    android:orderInCategory="120"
+                    app:showAsAction="never" />
+            </group>
         </menu>
     </item>
 
@@ -125,13 +149,13 @@
 
     </item>
 
-    <item android:id="@+id/menu_about"
-        android:title="@string/menu_about_application"
+    <item android:id="@+id/menu_donation"
+        android:title="@string/about_application_donate_button"
         android:orderInCategory="255"
         app:showAsAction="never" />
 
-    <item android:id="@+id/menu_donation"
-        android:title="@string/about_application_donate_button"
+    <item android:id="@+id/menu_about"
+        android:title="@string/menu_about_application"
         android:orderInCategory="256"
         app:showAsAction="never" />
 

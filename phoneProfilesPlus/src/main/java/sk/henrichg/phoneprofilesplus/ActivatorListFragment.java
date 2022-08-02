@@ -1,8 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.view.View.GONE;
+
 import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,8 +25,6 @@ import androidx.fragment.app.Fragment;
 
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
-
-import static android.view.View.GONE;
 
 public class ActivatorListFragment extends Fragment {
 
@@ -158,8 +159,7 @@ public class ActivatorListFragment extends Fragment {
 
         activatedProfileHeader = view.findViewById(R.id.act_prof_header);
         if (activatedProfileHeader != null) {
-            /*@SuppressWarnings("ConstantConditions")
-            Handler handler = new Handler(getActivity().getMainLooper());
+            /* Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -241,7 +241,7 @@ public class ActivatorListFragment extends Fragment {
         private final boolean applicationActivatorPrefIndicator;
         //private final boolean applicationActivatorHeader;
         private final boolean applicationActivatorGridLayout;
-        private final GridView gridView;
+        //private final GridView gridView;
 
         //private boolean someErrorProfiles = false;
 
@@ -266,7 +266,7 @@ public class ActivatorListFragment extends Fragment {
             applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
             //applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(this.dataWrapper.context);
             applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout;
-            gridView = fragment.gridView;
+            //gridView = fragment.gridView;
         }
 
         @Override
@@ -303,7 +303,10 @@ public class ActivatorListFragment extends Fragment {
 //            if (!someErrorProfiles) {
             if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
                 if (Event.getGlobalEventsRunning()) {
-                    Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+                    //Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+                    Profile restartEvents = DataWrapperStatic.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
+                            "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                    restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
                     restartEvents._showInActivator = true;
                     restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
                     dataWrapper.profileList.add(0, restartEvents);
@@ -311,22 +314,26 @@ public class ActivatorListFragment extends Fragment {
             }
 
             if (applicationActivatorGridLayout) {
-                int count = 0;
-                for (Profile profile : this.dataWrapper.profileList) {
-                    if (profile._showInActivator)
-                        ++count;
-                }
+                final ActivatorListFragment fragment = this.fragmentWeakRef.get();
+                if ((fragment != null) && (fragment.isAdded())) {
 
-                int numColumns = gridView.getNumColumns();
+                    int count = 0;
+                    for (Profile profile : this.dataWrapper.profileList) {
+                        if (profile._showInActivator)
+                            ++count;
+                    }
 
-                int modulo = count % numColumns;
-                if (modulo > 0) {
-                    for (int i = 0; i < numColumns - modulo; i++) {
-                        Profile profile = DataWrapper.getNonInitializedProfile(
-                                dataWrapper.context.getString(R.string.profile_name_default),
-                                Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
-                        profile._showInActivator = true;
-                        this.dataWrapper.profileList.add(profile);
+                    int numColumns = fragment.gridView.getNumColumns();
+
+                    int modulo = count % numColumns;
+                    if (modulo > 0) {
+                        for (int i = 0; i < numColumns - modulo; i++) {
+                            Profile profile = DataWrapperStatic.getNonInitializedProfile(
+                                    dataWrapper.context.getString(R.string.profile_name_default),
+                                    Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
+                            profile._showInActivator = true;
+                            this.dataWrapper.profileList.add(profile);
+                        }
                     }
                 }
             }
@@ -383,11 +390,9 @@ public class ActivatorListFragment extends Fragment {
 //                        if (someErrorProfiles) {
 //                            // some profiles has errors
 //
-//                            //noinspection ConstantConditions
 //                            Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
 //                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-//                            //noinspection ConstantConditions
 //                            fragment.getActivity().startActivity(intent);
 //
 //                            try {
@@ -471,9 +476,8 @@ public class ActivatorListFragment extends Fragment {
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        //if (activityDataWrapper != null)
-        //    activityDataWrapper.invalidateDataWrapper();
-        //activityDataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
     }
 
     private void updateHeader(Profile profile)
@@ -496,22 +500,31 @@ public class ActivatorListFragment extends Fragment {
         }
         else
         {
-            activatedProfileHeader.setTag(DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper));
+            activatedProfileHeader.setTag(DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper));
 
-            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper));
+            activeProfileName.setText(DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper));
             if (profile.getIsIconResourceID())
             {
-                if (profile._iconBitmap != null)
-                    activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                if (bitmap != null)
+                    activeProfileIcon.setImageBitmap(bitmap);
                 else {
-                    //int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().PPApplication.PACKAGE_NAME);
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    activeProfileIcon.setImageResource(res); // icon resource
+                    if (profile._iconBitmap != null)
+                        activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                    else {
+                        //int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().PPApplication.PACKAGE_NAME);
+                        int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
+                        activeProfileIcon.setImageResource(res); // icon resource
+                    }
                 }
             }
             else
             {
-                activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                if (bitmap != null)
+                    activeProfileIcon.setImageBitmap(bitmap);
+                else
+                    activeProfileIcon.setImageBitmap(profile._iconBitmap);
             }
         }
 
@@ -549,12 +562,12 @@ public class ActivatorListFragment extends Fragment {
                 activityDataWrapper.restartEventsWithAlert(getActivity());
             }
             else
-            if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
+            if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
             }
             else
-                EditorActivity.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
+                GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
         }
     }
 

@@ -1,8 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -42,7 +42,6 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_profile_icon_color_chooser, null);
         dialogBuilder.setView(layout);
 
@@ -68,7 +67,7 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
         }
         ta.recycle();
 
-        this.defaultColor = ProfileIconPreferenceAdapterX.getIconColor(preference.imageIdentifier/*, prefContext*/);
+        this.defaultColor = ProfileStatic.getIconDefaultColor(preference.imageIdentifier/*, prefContext*/);
 
         // default icon color --------------------------------
 
@@ -187,7 +186,6 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
                 dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
                 LayoutInflater inflater = activity.getLayoutInflater();
-                @SuppressLint("InflateParams")
                 View layout = inflater.inflate(R.layout.dialog_custom_color_preference, null);
                 dialogBuilder.setView(layout);
 
@@ -240,12 +238,15 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
             }
         }
 
-        String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
+        boolean nightModeOn = (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                                    == Configuration.UI_MODE_NIGHT_YES;
+
+        //String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
 
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("dark")) {
+        if (/*applicationTheme.equals("dark")*/nightModeOn) {
             if (position == 2) // dark gray color
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }
@@ -256,7 +257,7 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
         darkerCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("dark")) {
+        if (/*applicationTheme.equals("dark")*/nightModeOn) {
             if (position == 2) // dark gray color
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }

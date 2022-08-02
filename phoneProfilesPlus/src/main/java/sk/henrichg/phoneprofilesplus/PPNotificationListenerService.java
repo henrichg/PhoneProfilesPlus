@@ -1,24 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
-//import android.annotation.SuppressLint;
-//import android.content.BroadcastReceiver;
 import android.content.Context;
-//import android.content.Intent;
-//import android.content.IntentFilter;
-//import android.media.AudioManager;
-//import android.os.Build;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-//import android.text.TextUtils;
 
 import androidx.core.app.NotificationManagerCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class PPNotificationListenerService extends NotificationListenerService {
 
@@ -51,6 +39,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
 
@@ -79,14 +72,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+        boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(getApplicationContext());
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
                 return;
         }
         else {
             if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
-                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                if (GlobalUtils.isNowTimeBetweenTimes(
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time
@@ -112,7 +105,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
 //        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
 
-        //final Context appContext = getApplicationContext();
+        final Context appContext = getApplicationContext();
 
 //        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 //        long time = sbn.getPostTime() + gmtOffset;
@@ -129,7 +122,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
 
                 if (PPApplication.logEnabled()) {
-                    @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String alarmTimeS = sdf.format(sbn.getPostTime());
                     PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
@@ -189,8 +181,10 @@ public class PPNotificationListenerService extends NotificationListenerService {
             });
             */
 
+            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 5);
+            /*
             Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
+                    .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
                     .build();
 
             OneTimeWorkRequest worker =
@@ -223,6 +217,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
         }
     }
 
@@ -235,14 +230,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+        boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(getApplicationContext());
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
                 return;
         }
         else {
             if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
-                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                if (GlobalUtils.isNowTimeBetweenTimes(
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time
@@ -268,7 +263,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "is not PPP");
 
-        //final Context appContext = getApplicationContext();
+        final Context appContext = getApplicationContext();
 
         //getNotifiedPackages(context);
         //removeNotifiedPackage(sbn.getPackageName());
@@ -313,8 +308,10 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
         */
 
+        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 5);
+        /*
         Data workData = new Data.Builder()
-                .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
+                .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
                 .build();
 
         OneTimeWorkRequest worker =
@@ -347,6 +344,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
+        */
 
     }
 
@@ -543,8 +541,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     */
 
     // Convenience method for sending an {@link android.content.Intent} with {@link #ACTION_REQUEST_INTERRUPTION_FILTER}.
-/*    @SuppressLint("InlinedApi")
-    public static void requestInterruptionFilter(final Context context, final int zenMode) {
+/* public static void requestInterruptionFilter(final Context context, final int zenMode) {
         try {
             boolean a60 = //(android.os.Build.VERSION.SDK_INT == 23) &&
                     Build.VERSION.RELEASE.equals("6.0");
@@ -613,7 +610,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 /*
     class NLServiceReceiver extends BroadcastReceiver {
 
-        @SuppressLint("InlinedApi")
         @Override
         public void onReceive(Context context, Intent intent) {
 //            PPApplication.logE("[IN_BROADCAST] PPNotificationListenerService.NLServiceReceiver.onReceive", "xxx");

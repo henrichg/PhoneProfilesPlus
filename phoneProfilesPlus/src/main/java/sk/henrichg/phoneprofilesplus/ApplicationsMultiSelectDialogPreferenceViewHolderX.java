@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -34,13 +33,12 @@ class ApplicationsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.Vi
         itemView.setOnClickListener(this);
     }
 
-    @SuppressLint("SetTextI18n")
     void bindApplication(Application application) {
         this.application = application;
 
         // Display Application data
-        if (EditorActivity.getApplicationsCache() != null)
-            imageViewIcon.setImageBitmap(EditorActivity.getApplicationsCache().getApplicationIcon(application, true));
+        if (PPApplication.getApplicationsCache() != null)
+            imageViewIcon.setImageBitmap(PPApplication.getApplicationsCache().getApplicationIcon(application, true));
         textViewAppName.setText(application.appLabel);
 
         // Tag the CheckBox with the Application it is displaying, so that we

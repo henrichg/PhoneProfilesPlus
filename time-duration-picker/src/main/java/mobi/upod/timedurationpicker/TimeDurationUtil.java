@@ -73,8 +73,7 @@ class TimeDurationUtil {
       @param duration duration in milliseconds
      * @return string representation of the duration.
      */
-    /*@SuppressLint("DefaultLocale")
-    static String formatHoursMinutesSeconds(long duration) {
+    /* static String formatHoursMinutesSeconds(long duration) {
         return String.format("%d:%02d:%02d", hoursOf(duration), minutesInHourOf(duration), secondsInMinuteOf(duration));
     }*/
 
@@ -83,8 +82,7 @@ class TimeDurationUtil {
       @param duration duration in milliseconds
      * @return string representation of the duration.
      */
-    /*@SuppressLint("DefaultLocale")
-    static String formatMinutesSeconds(long duration) {
+    /* static String formatMinutesSeconds(long duration) {
         return String.format("%d:%02d", minutesOf(duration), secondsInMinuteOf(duration));
     }*/
 
@@ -93,8 +91,7 @@ class TimeDurationUtil {
       @param duration duration in milliseconds
      * @return string representation of the duration.
      */
-    /*@SuppressLint("DefaultLocale")
-    static String formatSeconds(long duration) {
+    /* static String formatSeconds(long duration) {
         return String.format("%d", secondsInMinuteOf(duration));
     }*/
 }

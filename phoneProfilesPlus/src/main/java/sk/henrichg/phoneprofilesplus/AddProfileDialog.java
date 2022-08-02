@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -20,7 +19,7 @@ class AddProfileDialog
     private final EditorProfileListFragment profileListFragment;
 
     final AlertDialog mDialog;
-    private final Activity activity;
+    final Activity activity;
 
     private final LinearLayout linlaProgress;
     private final ListView listView;
@@ -36,7 +35,6 @@ class AddProfileDialog
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_profile_preference, null);
         dialogBuilder.setView(layout);
 
@@ -65,7 +63,6 @@ class AddProfileDialog
 
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void onShow(/*DialogInterface dialog*/) {
         AddProfileDialog.GetProfilesAsyncTask asyncTask = new AddProfileDialog.GetProfilesAsyncTask(this, activity, profileListFragment.activityDataWrapper);
         asyncTask.execute();
@@ -160,7 +157,7 @@ class AddProfileDialog
             if (activity != null) {
                 boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 Profile profile;
-                profile = DataWrapper.getNonInitializedProfile(
+                profile = DataWrapperStatic.getNonInitializedProfile(
                         activity.getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
                 profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);

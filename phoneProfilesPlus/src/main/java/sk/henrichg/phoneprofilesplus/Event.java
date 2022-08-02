@@ -1,7 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.app.Notification.DEFAULT_SOUND;
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -28,9 +30,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static android.app.Notification.DEFAULT_SOUND;
-import static android.app.Notification.DEFAULT_VIBRATE;
 
 class Event {
 
@@ -88,6 +87,9 @@ class Event {
     EventPreferencesSoundProfile _eventPreferencesSoundProfile;
     EventPreferencesPeriodic _eventPreferencesPeriodic;
     EventPreferencesVolumes _eventPreferencesVolumes;
+    EventPreferencesActivatedProfile _eventPreferencesActivatedProfile;
+    EventPreferencesRoaming _eventPreferencesRoaming;
+    EventPreferencesVPN _eventPreferencesVPN;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -437,6 +439,21 @@ class Event {
         );
     }
 
+    private void createEventPreferencesActivatedProfile()
+    {
+        this._eventPreferencesActivatedProfile = new EventPreferencesActivatedProfile(this, false, 0, 0);
+    }
+
+    private void createEventPreferencesRoaming()
+    {
+        this._eventPreferencesRoaming = new EventPreferencesRoaming(this, false, false, false, 0);
+    }
+
+    private void createEventPreferencesVPN()
+    {
+        this._eventPreferencesVPN = new EventPreferencesVPN(this, false, 0);
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -460,6 +477,9 @@ class Event {
         createEventPreferencesSoundProfile();
         createEventPreferencesPeriodic();
         createEventPreferencesVolumes();
+        createEventPreferencesActivatedProfile();
+        createEventPreferencesRoaming();
+        createEventPreferencesVPN();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -506,6 +526,12 @@ class Event {
             createEventPreferencesPeriodic();
         if (this._eventPreferencesVolumes == null)
             createEventPreferencesVolumes();
+        if (this._eventPreferencesActivatedProfile == null)
+            createEventPreferencesActivatedProfile();
+        if (this._eventPreferencesRoaming == null)
+            createEventPreferencesRoaming();
+        if (this._eventPreferencesVPN == null)
+            createEventPreferencesVPN();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -527,6 +553,9 @@ class Event {
         this._eventPreferencesSoundProfile.copyPreferences(fromEvent);
         this._eventPreferencesPeriodic.copyPreferences(fromEvent);
         this._eventPreferencesVolumes.copyPreferences(fromEvent);
+        this._eventPreferencesActivatedProfile.copyPreferences(fromEvent);
+        this._eventPreferencesRoaming.copyPreferences(fromEvent);
+        this._eventPreferencesVPN.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -572,7 +601,13 @@ class Event {
                 (this._eventPreferencesPeriodic._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesVolumes._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesActivatedProfile._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesRoaming._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesVPN._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -626,11 +661,17 @@ class Event {
             runnable = runnable && this._eventPreferencesPeriodic.isRunnable(appContext);
         if (this._eventPreferencesVolumes._enabled)
             runnable = runnable && this._eventPreferencesVolumes.isRunnable(appContext);
+        if (this._eventPreferencesActivatedProfile._enabled)
+            runnable = runnable && this._eventPreferencesActivatedProfile.isRunnable(appContext);
+        if (this._eventPreferencesRoaming._enabled)
+            runnable = runnable && this._eventPreferencesRoaming.isRunnable(appContext);
+        if (this._eventPreferencesVPN._enabled)
+            runnable = runnable && this._eventPreferencesVPN.isRunnable(appContext);
 
         return runnable;
     }
 
-    public int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled) {
+    public int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled, boolean againCheckInDelay) {
         int accessibilityEnabled = 1;
         boolean someEnabled = true;
         if (checkSomeSensorEnabled) {
@@ -655,51 +696,60 @@ class Event {
                             this._eventPreferencesDeviceBoot._enabled ||
                             this._eventPreferencesSoundProfile._enabled ||
                             this._eventPreferencesPeriodic._enabled ||
-                            this._eventPreferencesVolumes._enabled;
+                            this._eventPreferencesVolumes._enabled ||
+                            this._eventPreferencesActivatedProfile._enabled ||
+                            this._eventPreferencesRoaming._enabled ||
+                            this._eventPreferencesVPN._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
-                accessibilityEnabled = this._eventPreferencesTime.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesTime.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesBattery._enabled)
-                accessibilityEnabled = this._eventPreferencesBattery.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesBattery.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesCall._enabled)
-                accessibilityEnabled = this._eventPreferencesCall.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesCall.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesAccessories._enabled)
-                accessibilityEnabled = this._eventPreferencesAccessories.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesAccessories.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesCalendar._enabled)
-                accessibilityEnabled = this._eventPreferencesCalendar.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesCalendar.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesWifi._enabled)
-                accessibilityEnabled = this._eventPreferencesWifi.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesWifi.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesScreen._enabled)
-                accessibilityEnabled = this._eventPreferencesScreen.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesScreen.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesBluetooth._enabled)
-                accessibilityEnabled = this._eventPreferencesBluetooth.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesBluetooth.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesSMS._enabled)
-                accessibilityEnabled = this._eventPreferencesSMS.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesSMS.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesNotification._enabled)
-                accessibilityEnabled = this._eventPreferencesNotification.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesNotification.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesApplication._enabled)
-                accessibilityEnabled = this._eventPreferencesApplication.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesApplication.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesLocation._enabled)
-                accessibilityEnabled = this._eventPreferencesLocation.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesLocation.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesOrientation._enabled)
-                accessibilityEnabled = this._eventPreferencesOrientation.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesOrientation.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesMobileCells._enabled)
-                accessibilityEnabled = this._eventPreferencesMobileCells.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesMobileCells.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesNFC._enabled)
-                accessibilityEnabled = this._eventPreferencesNFC.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesNFC.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesRadioSwitch._enabled)
-                accessibilityEnabled = this._eventPreferencesRadioSwitch.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesRadioSwitch.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesAlarmClock._enabled)
-                accessibilityEnabled = this._eventPreferencesAlarmClock.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesAlarmClock.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesDeviceBoot._enabled)
-                accessibilityEnabled = this._eventPreferencesDeviceBoot.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesDeviceBoot.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesSoundProfile._enabled)
-                accessibilityEnabled = this._eventPreferencesSoundProfile.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesSoundProfile.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesPeriodic._enabled)
-                accessibilityEnabled = this._eventPreferencesPeriodic.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesPeriodic.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesVolumes._enabled)
-                accessibilityEnabled = this._eventPreferencesVolumes.isAccessibilityServiceEnabled(context);
+                accessibilityEnabled = this._eventPreferencesVolumes.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesActivatedProfile._enabled)
+                accessibilityEnabled = this._eventPreferencesActivatedProfile.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesRoaming._enabled)
+                accessibilityEnabled = this._eventPreferencesRoaming.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesVPN._enabled)
+                accessibilityEnabled = this._eventPreferencesVPN.isAccessibilityServiceEnabled(context, againCheckInDelay);
         }
 
         return accessibilityEnabled;
@@ -759,6 +809,9 @@ class Event {
         this._eventPreferencesSoundProfile.loadSharedPreferences(preferences);
         this._eventPreferencesPeriodic.loadSharedPreferences(preferences);
         this._eventPreferencesVolumes.loadSharedPreferences(preferences);
+        this._eventPreferencesActivatedProfile.loadSharedPreferences(preferences);
+        this._eventPreferencesRoaming.loadSharedPreferences(preferences);
+        this._eventPreferencesVPN.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -820,6 +873,9 @@ class Event {
         this._eventPreferencesSoundProfile.saveSharedPreferences(preferences);
         this._eventPreferencesPeriodic.saveSharedPreferences(preferences);
         this._eventPreferencesVolumes.saveSharedPreferences(preferences);
+        this._eventPreferencesActivatedProfile.saveSharedPreferences(preferences);
+        this._eventPreferencesRoaming.saveSharedPreferences(preferences);
+        this._eventPreferencesVPN.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -973,14 +1029,12 @@ class Event {
                 hasVibrator = (vibrator != null) && vibrator.hasVibrator();
             }
 
-            //noinspection IfStatementWithIdenticalBranches
+            Preference preference = prefMng.findPreference(key);
             if (hasVibrator) {
-                Preference preference = prefMng.findPreference(key);
                 if (preference != null)
                     preference.setVisible(true);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false, false);
             } else {
-                Preference preference = prefMng.findPreference(key);
                 if (preference != null)
                     preference.setVisible(false);
             }
@@ -1105,7 +1159,7 @@ class Event {
                     if (delayStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + GlobalGUIRoutines.getDurationString(delayStart);
+                        summary = summary + StringFormatUtils.getDurationString(delayStart);
                     }
                     if (notificationSoundStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1141,7 +1195,7 @@ class Event {
                     if (delayEndChanged) {
                         /*if (!summary.isEmpty())*/ summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + GlobalGUIRoutines.getDurationString(delayEnd);
+                        summary = summary + StringFormatUtils.getDurationString(delayEnd);
                     }
                     if (notificationSoundEndChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1159,7 +1213,11 @@ class Event {
         }
     }
 
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    public void setSummary(PreferenceManager prefMng,
+                           String key,
+                           SharedPreferences preferences,
+                           Context context,
+                           boolean alsoSensors)
     {
         if (key.equals(PREF_EVENT_NAME) ||
             key.equals(PREF_EVENT_PROFILE_START) ||
@@ -1230,50 +1288,58 @@ class Event {
                     preference.setEnabled(true);
             }
         }
-
         setCategorySummary(prefMng, key, preferences, context);
-        _eventPreferencesTime.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesBattery.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesBattery.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesCall.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesCall.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesAccessories.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesAccessories.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesCalendar.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesWifi.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesSMS.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesNotification.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesNotification.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesApplication.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesApplication.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesLocation.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesLocation.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesOrientation.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesOrientation.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesMobileCells.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesMobileCells.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesNFC.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesNFC.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesRadioSwitch.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesAlarmClock.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesSoundProfile.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesPeriodic.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesVolumes.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
+
+        if (alsoSensors) {
+            _eventPreferencesTime.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesBattery.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesBattery.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesCall.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesCall.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesAccessories.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesAccessories.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesCalendar.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesWifi.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesSMS.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesNotification.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesNotification.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesApplication.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesApplication.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesLocation.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesLocation.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesOrientation.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesOrientation.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesMobileCells.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesMobileCells.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesNFC.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesNFC.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesRadioSwitch.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesAlarmClock.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesSoundProfile.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesPeriodic.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesVolumes.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesActivatedProfile.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesRoaming.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesRoaming.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesVPN.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
+        }
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -1285,30 +1351,31 @@ class Event {
         if (preference != null)
             preference.setTitle("[»»] " + context.getString(R.string.event_preferences_noPauseByManualActivation));
 
-        setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NAME, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PROFILE_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PROFILE_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_PRIORITY, preferences, context);
-        setSummary(prefMng, PREF_EVENT_DELAY_START, preferences, context);
-        setSummary(prefMng, PREF_EVENT_DELAY_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_AT_END_DO, preferences, context);
-        setSummary(prefMng, PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_IGNORE_MANUAL_ACTIVATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context);
-        //setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context);
-        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NAME, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_PROFILE_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_PROFILE_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_PRIORITY, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_DELAY_START, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_DELAY_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_AT_END_DO, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_IGNORE_MANUAL_ACTIVATION, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context, false);
+        //setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, preferences, context, false);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, preferences, context, false);
         setCategorySummary(prefMng, "", preferences, context);
+
         _eventPreferencesTime.setAllSummary(prefMng, preferences, context);
         _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesBattery.setAllSummary(prefMng, preferences, context);
@@ -1351,6 +1418,12 @@ class Event {
         _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesVolumes.setAllSummary(prefMng, preferences, context);
         _eventPreferencesVolumes.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesActivatedProfile.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesActivatedProfile.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesRoaming.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesRoaming.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesVPN.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context, boolean addPassStatus)
@@ -1395,8 +1468,20 @@ class Event {
                 description = description + "<li>" + desc + "</li>";
         }
 
+        if (_eventPreferencesRoaming._enabled) {
+            String desc = _eventPreferencesRoaming.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
         if (_eventPreferencesRadioSwitch._enabled) {
             String desc = _eventPreferencesRadioSwitch.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesVPN._enabled) {
+            String desc = _eventPreferencesVPN.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
                 description = description + "<li>" + desc + "</li>";
         }
@@ -1485,34 +1570,43 @@ class Event {
                 description = description + "<li>" + desc + "</li>";
         }
 
+        if (_eventPreferencesActivatedProfile._enabled) {
+            String desc = _eventPreferencesActivatedProfile.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
         if (!description.isEmpty())
             description = "<ul>" + description + "</ul>";
 
         return description;
     }
 
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
-        _eventPreferencesTime.checkPreferences(prefMng, context);
-        _eventPreferencesBattery.checkPreferences(prefMng, context);
-        _eventPreferencesCall.checkPreferences(prefMng, context);
-        _eventPreferencesAccessories.checkPreferences(prefMng, context);
-        _eventPreferencesCalendar.checkPreferences(prefMng, context);
-        _eventPreferencesWifi.checkPreferences(prefMng, context);
-        _eventPreferencesScreen.checkPreferences(prefMng, context);
-        _eventPreferencesBluetooth.checkPreferences(prefMng, context);
-        _eventPreferencesSMS.checkPreferences(prefMng, context);
-        _eventPreferencesNotification.checkPreferences(prefMng, context);
-        _eventPreferencesApplication.checkPreferences(prefMng, context);
-        _eventPreferencesLocation.checkPreferences(prefMng, context);
-        _eventPreferencesOrientation.checkPreferences(prefMng, context);
-        _eventPreferencesMobileCells.checkPreferences(prefMng, context);
-        _eventPreferencesNFC.checkPreferences(prefMng, context);
-        _eventPreferencesRadioSwitch.checkPreferences(prefMng, context);
-        _eventPreferencesAlarmClock.checkPreferences(prefMng, context);
-        _eventPreferencesDeviceBoot.checkPreferences(prefMng, context);
-        _eventPreferencesSoundProfile.checkPreferences(prefMng, context);
-        _eventPreferencesPeriodic.checkPreferences(prefMng, context);
-        _eventPreferencesVolumes.checkPreferences(prefMng, context);
+    public void checkSensorsPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        _eventPreferencesTime.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesBattery.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesCall.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesAccessories.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesCalendar.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesWifi.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesScreen.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesBluetooth.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesSMS.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesNotification.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesApplication.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesLocation.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesOrientation.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesMobileCells.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesNFC.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesRadioSwitch.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesAlarmClock.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesDeviceBoot.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesSoundProfile.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesPeriodic.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesVolumes.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesActivatedProfile.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesRoaming.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesVPN.checkPreferences(prefMng, onlyCategory, context);
     }
 
     /*
@@ -1737,7 +1831,7 @@ class Event {
             if (mergedProfile == null) {
                 if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
                     (!this._ignoreManualActivation) ||
-                    (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
+                    (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
                     long activatedProfileId = 0;
                     Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
                     if (activatedProfile != null)
@@ -1758,7 +1852,7 @@ class Event {
             } else {
                 if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
                     (!this._ignoreManualActivation) ||
-                    (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
+                    (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
                     mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
 
                     //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
@@ -1819,7 +1913,7 @@ class Event {
         boolean profileActivated = false;
         if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
             (!this._ignoreManualActivation) ||
-            (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
+            (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
             if (activateReturnProfile/* && canActivateReturnProfile()*/) {
                 if (mergedProfile == null) {
                     Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
@@ -2033,7 +2127,7 @@ class Event {
 //                PPApplication.logE("[FIFO_TEST] Event.pauseEvent","doActivateEndProfile-restart events");
 //                PPApplication.logE("[FIFO_TEST] Event.pauseEvent","    event._name="+_name);
                     // do not reactivate profile to avoid infinite loop
-                    dataWrapper.restartEventsWithDelay(5, false, true, true, PPApplication.ALTYPE_UNDEFINED);
+                    dataWrapper.restartEventsWithDelay(5, false, true, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
                     profileActivated = true;
                 }
 
@@ -2264,111 +2358,30 @@ class Event {
     }
 
     void setSensorsWaiting() {
-        //if (_eventPreferencesApplication._enabled)
-            _eventPreferencesApplication.setSensorPassed(_eventPreferencesApplication.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesApplication.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesBattery._enabled)
-            _eventPreferencesBattery.setSensorPassed(_eventPreferencesBattery.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesBattery.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesBluetooth._enabled)
-            _eventPreferencesBluetooth.setSensorPassed(_eventPreferencesBluetooth.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesBluetooth.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesCalendar._enabled)
-            _eventPreferencesCalendar.setSensorPassed(_eventPreferencesCalendar.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesCalendar.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesCall._enabled)
-            _eventPreferencesCall.setSensorPassed(_eventPreferencesCall.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesCall.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesLocation._enabled)
-            _eventPreferencesLocation.setSensorPassed(_eventPreferencesLocation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesLocation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesMobileCells._enabled)
-            _eventPreferencesMobileCells.setSensorPassed(_eventPreferencesMobileCells.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesMobileCells.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesNFC._enabled)
-            _eventPreferencesNFC.setSensorPassed(_eventPreferencesNFC.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesNFC.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesNotification._enabled)
-            _eventPreferencesNotification.setSensorPassed(_eventPreferencesNotification.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesNotification.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesOrientation._enabled)
-            _eventPreferencesOrientation.setSensorPassed(_eventPreferencesOrientation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesOrientation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesAccessories._enabled)
-            _eventPreferencesAccessories.setSensorPassed(_eventPreferencesAccessories.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesAccessories.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesRadioSwitch._enabled)
-            _eventPreferencesRadioSwitch.setSensorPassed(_eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesRadioSwitch.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesScreen._enabled)
-            _eventPreferencesScreen.setSensorPassed(_eventPreferencesScreen.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesScreen.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesSMS._enabled)
-            _eventPreferencesSMS.setSensorPassed(_eventPreferencesSMS.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesSMS.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesTime._enabled)
-            _eventPreferencesTime.setSensorPassed(_eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesTime.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesWifi._enabled)
-            _eventPreferencesWifi.setSensorPassed(_eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesWifi.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesAlarmClock._enabled)
-            _eventPreferencesAlarmClock.setSensorPassed(_eventPreferencesAlarmClock.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesAlarmClock.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesDeviceBoot._enabled)
+        _eventPreferencesApplication.setSensorPassed(_eventPreferencesApplication.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesBattery.setSensorPassed(_eventPreferencesBattery.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesBluetooth.setSensorPassed(_eventPreferencesBluetooth.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesCalendar.setSensorPassed(_eventPreferencesCalendar.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesCall.setSensorPassed(_eventPreferencesCall.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesLocation.setSensorPassed(_eventPreferencesLocation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesMobileCells.setSensorPassed(_eventPreferencesMobileCells.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesNFC.setSensorPassed(_eventPreferencesNFC.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesNotification.setSensorPassed(_eventPreferencesNotification.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesOrientation.setSensorPassed(_eventPreferencesOrientation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesAccessories.setSensorPassed(_eventPreferencesAccessories.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesRadioSwitch.setSensorPassed(_eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesScreen.setSensorPassed(_eventPreferencesScreen.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesSMS.setSensorPassed(_eventPreferencesSMS.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesTime.setSensorPassed(_eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesWifi.setSensorPassed(_eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesAlarmClock.setSensorPassed(_eventPreferencesAlarmClock.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesDeviceBoot.setSensorPassed(_eventPreferencesDeviceBoot.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesDeviceBoot.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesSoundProfile._enabled)
         _eventPreferencesSoundProfile.setSensorPassed(_eventPreferencesSoundProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesSoundProfile.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesPeriodic._enabled)
         _eventPreferencesPeriodic.setSensorPassed(_eventPreferencesPeriodic.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesPeriodic.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-        //if (_eventPreferencesVolumes._enabled)
         _eventPreferencesVolumes.setSensorPassed(_eventPreferencesVolumes.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        //else
-        //    _eventPreferencesPeriodic.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
+        _eventPreferencesActivatedProfile.setSensorPassed(_eventPreferencesActivatedProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesRoaming.setSensorPassed(_eventPreferencesRoaming.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesVPN.setSensorPassed(_eventPreferencesVPN.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2398,6 +2411,9 @@ class Event {
             _eventPreferencesSoundProfile.setSystemEventForStart(context);
             _eventPreferencesPeriodic.setSystemEventForStart(context);
             _eventPreferencesVolumes.setSystemEventForStart(context);
+            _eventPreferencesActivatedProfile.setSystemEventForStart(context);
+            _eventPreferencesRoaming.setSystemEventForStart(context);
+            _eventPreferencesVPN.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2425,6 +2441,9 @@ class Event {
             _eventPreferencesSoundProfile.setSystemEventForPause(context);
             _eventPreferencesPeriodic.setSystemEventForPause(context);
             _eventPreferencesVolumes.setSystemEventForPause(context);
+            _eventPreferencesActivatedProfile.setSystemEventForPause(context);
+            _eventPreferencesRoaming.setSystemEventForPause(context);
+            _eventPreferencesVPN.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2452,10 +2471,12 @@ class Event {
             _eventPreferencesSoundProfile.removeSystemEvent(context);
             _eventPreferencesPeriodic.removeSystemEvent(context);
             _eventPreferencesVolumes.removeSystemEvent(context);
+            _eventPreferencesActivatedProfile.removeSystemEvent(context);
+            _eventPreferencesRoaming.removeSystemEvent(context);
+            _eventPreferencesVPN.removeSystemEvent(context);
         }
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     void setDelayStartAlarm(DataWrapper dataWrapper)
     {
         removeDelayStartAlarm(dataWrapper);
@@ -2510,7 +2531,6 @@ class Event {
 
                     //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
@@ -2527,7 +2547,6 @@ class Event {
 
                         Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -2596,7 +2615,6 @@ class Event {
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
@@ -2615,7 +2633,6 @@ class Event {
 
                         Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -2659,7 +2676,7 @@ class Event {
 
         if (_isInDelayStart) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_start_acronym) +
-                    ": " + GlobalGUIRoutines.getDurationString(_delayStart) +")";
+                    ": " + StringFormatUtils.getDurationString(_delayStart) +")";
             PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, evenName, null, "");
         }
 
@@ -2696,7 +2713,6 @@ class Event {
                 intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
                 //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("Event.removeDelayStartAlarm", "alarm found");
@@ -2718,7 +2734,6 @@ class Event {
         //PPApplication.logE("[HANDLER] Event.removeDelayStartAlarm", "removed");
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     void setDelayEndAlarm(DataWrapper dataWrapper, boolean forRestartEvents)
     {
         removeDelayEndAlarm(dataWrapper);
@@ -2781,7 +2796,6 @@ class Event {
 
                     //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
@@ -2798,7 +2812,6 @@ class Event {
 
                         Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -2868,7 +2881,6 @@ class Event {
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
@@ -2888,7 +2900,6 @@ class Event {
 
                         Intent editorIntent = new Intent(_context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -2935,7 +2946,7 @@ class Event {
 
         if (_isInDelayEnd) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_end_acronym) +
-                    ": " + GlobalGUIRoutines.getDurationString(_delayEnd) +")";
+                    ": " + StringFormatUtils.getDurationString(_delayEnd) +")";
             PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, evenName, null, "");
         }
 
@@ -2990,7 +3001,6 @@ class Event {
                 intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("Event.removeDelayEndAlarm", "alarm found");
@@ -3047,6 +3057,11 @@ class Event {
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
         //boolean checked = false;
+
+        if (preferenceKey.equals(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED)) {
+            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            return preferenceAllowed;
+        }
 
         if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
         {
@@ -3134,11 +3149,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
-                        boolean simExists;
-                        synchronized (PPApplication.simCardsMutext) {
-                            simExists = PPApplication.simCardsMutext.simCardsDetected &&
-                                    PPApplication.simCardsMutext.sim0Exists;
-                        }
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -3183,11 +3194,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
-                        boolean simExists;
-                        synchronized (PPApplication.simCardsMutext) {
-                            simExists = PPApplication.simCardsMutext.simCardsDetected &&
-                                    PPApplication.simCardsMutext.sim0Exists;
-                        }
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -3220,11 +3227,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
-                        boolean simExists;
-                        synchronized (PPApplication.simCardsMutext) {
-                            simExists = PPApplication.simCardsMutext.simCardsDetected &&
-                                    PPApplication.simCardsMutext.sim0Exists;
-                        }
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -3273,6 +3276,39 @@ class Event {
         //if (checked)
         //    return preferenceAllowed;
         */
+
+        if (preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED) ||
+                preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED_NO_CHECK_SIM))
+        {
+            if (PPApplication.HAS_FEATURE_TELEPHONY) {
+                // device has telephony
+                TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    if (preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED)) {
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+                        if (simExists)
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        else {
+                            if (!Permissions.checkPhone(appContext)) {
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                            }
+                            else
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
+                    }
+                    else
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                }
+                else
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
         return preferenceAllowed;
@@ -3335,12 +3371,12 @@ class Event {
 
     //----------------------------------
 
-    boolean notifyEventStart(Context context, boolean playSound, boolean canPlayAlsoInSilentMode) {
+    void notifyEventStart(Context context/*, boolean playSound, boolean canPlayAlsoInSilentMode*/) {
         String notificationSoundStart = _notificationSoundStart;
         boolean notificationVibrateStart = _notificationVibrateStart;
-        boolean playAlsoInSilentMode = false;
-        if (canPlayAlsoInSilentMode)
-            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
+        //boolean playAlsoInSilentMode = false;
+        //if (canPlayAlsoInSilentMode)
+        //    playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundStart.isEmpty() || notificationVibrateStart) {
 
@@ -3366,7 +3402,6 @@ class Event {
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                         .setAutoCancel(false); // clear notification after click
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pi = PendingIntent.getActivity(context, (int) _id, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
                 mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -3378,9 +3413,10 @@ class Event {
                 // Android 12 - this do not starts activity - OK
                 Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
                 deleteIntent.putExtra(PPApplication.EXTRA_EVENT_ID, _id);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, (int) _id, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setDeleteIntent(deletePendingIntent);
+
+                mBuilder.setGroup(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_GROUP);
 
                 Notification notification = mBuilder.build();
                 if (Build.VERSION.SDK_INT < 26) {
@@ -3404,38 +3440,40 @@ class Event {
                 StartEventNotificationBroadcastReceiver.setAlarm(this, context);
             }
 
-            if (playSound)
-                if (PhoneProfilesService.getInstance() != null)
+            //if (playSound)
+                if (PhoneProfilesService.getInstance() != null) {
                     PhoneProfilesService.getInstance().playNotificationSound(
                             notificationSoundStart,
-                            notificationVibrateStart,
-                            playAlsoInSilentMode);
+                            notificationVibrateStart/*,
+                            false*//*playAlsoInSilentMode*/);
+                }
 
-            return true;
+            //return true;
         }
-        return false;
+        //return false;
     }
 
-    boolean notifyEventEnd(/*Context context*/ boolean playSound,
-                           boolean canPlayAlsoInSilentMode) {
+    void notifyEventEnd(/*Context context*/ /*boolean playSound,
+                           boolean canPlayAlsoInSilentMode*/) {
         String notificationSoundEnd = _notificationSoundEnd;
         boolean notificationVibrateEnd = _notificationVibrateEnd;
-        boolean playAlsoInSilentMode = false;
-        if (canPlayAlsoInSilentMode)
-            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
+        //boolean playAlsoInSilentMode = false;
+        //if (canPlayAlsoInSilentMode)
+        //    playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
-            if (playSound)
-                if (PhoneProfilesService.getInstance() != null)
+            //if (playSound)
+                if (PhoneProfilesService.getInstance() != null) {
                     PhoneProfilesService.getInstance().playNotificationSound(
                             notificationSoundEnd,
-                            notificationVibrateEnd,
-                            playAlsoInSilentMode);
+                            notificationVibrateEnd/*,
+                            false*//*playAlsoInSilentMode*/);
+                }
 
-            return true;
+            //return true;
         }
-        return false;
+        //return false;
     }
 
 }

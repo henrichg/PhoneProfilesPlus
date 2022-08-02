@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -105,7 +104,7 @@ class EventPreferencesNFC extends EventPreferences {
                 if (this._permanentRun)
                     descr = descr + "<b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + StringFormatUtils.getDurationString(this._duration) + "</b>";
             }
         }
 
@@ -160,6 +159,13 @@ class EventPreferencesNFC extends EventPreferences {
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_NFC_ENABLED) ||
             key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
@@ -200,12 +206,15 @@ class EventPreferencesNFC extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_CATEGORY);
             if (preference != null) {
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_NFC_ENABLED, false);
+                boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_NFC_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NFC_TAG).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                if (enabled)
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                else
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
         }
         else {
@@ -230,26 +239,30 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context)
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context)
     {
-        boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
-        Preference nfcTagsPreference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
-        Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NFC_PERMANENT_RUN);
-        Preference durationPreference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
-        if (nfcTagsPreference != null)
-            nfcTagsPreference.setEnabled(enabled);
-        if (permanentRunPreference != null)
-            permanentRunPreference.setEnabled(enabled);
-
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        if (preferences != null) {
-            boolean permanentRun = preferences.getBoolean(PREF_EVENT_NFC_PERMANENT_RUN, false);
-            enabled = enabled && (!permanentRun);
-            if (durationPreference != null)
-                durationPreference.setEnabled(enabled);
-        }
+        if (!onlyCategory) {
+            if (prefMng.findPreference(PREF_EVENT_NFC_ENABLED) != null) {
+                boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+                Preference nfcTagsPreference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
+                Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NFC_PERMANENT_RUN);
+                Preference durationPreference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
+                if (nfcTagsPreference != null)
+                    nfcTagsPreference.setEnabled(enabled);
+                if (permanentRunPreference != null)
+                    permanentRunPreference.setEnabled(enabled);
 
-        setSummary(prefMng, PREF_EVENT_NFC_ENABLED, preferences, context);
+                if (preferences != null) {
+                    boolean permanentRun = preferences.getBoolean(PREF_EVENT_NFC_PERMANENT_RUN, false);
+                    enabled = enabled && (!permanentRun);
+                    if (durationPreference != null)
+                        durationPreference.setEnabled(enabled);
+                }
+
+                setSummary(prefMng, PREF_EVENT_NFC_ENABLED, preferences, context);
+            }
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 
@@ -320,7 +333,6 @@ class EventPreferencesNFC extends EventPreferences {
                 intent.setAction(PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, NFCEventEndBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("EventPreferencesNFC.removeAlarm", "alarm found");
@@ -335,7 +347,6 @@ class EventPreferencesNFC extends EventPreferences {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_NFC_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(long alarmTime, Context context)
     {
         if (!_permanentRun) {
@@ -353,7 +364,6 @@ class EventPreferencesNFC extends EventPreferences {
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -361,7 +371,6 @@ class EventPreferencesNFC extends EventPreferences {
                     if (ApplicationPreferences.applicationUseAlarmClock) {
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -443,10 +452,10 @@ class EventPreferencesNFC extends EventPreferences {
                         PPApplication.logE("EventPreferencesNFC.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                     }*/
 
-                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_NFC_TAG))
+                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_NFC_TAG)
                         eventsHandler.nfcPassed = true;
                     else if (!_permanentRun) {
-                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_NFC_EVENT_END))
+                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_NFC_EVENT_END)
                             eventsHandler.nfcPassed = false;
                         else
                             eventsHandler.nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

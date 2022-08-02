@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,10 +68,11 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 final long _time = now.getTimeInMillis() + gmtOffset;
 
                 final Context appContext = getApplicationContext();
-                PPApplication.startHandlerThread(/*"NFCTagReadActivity.OnTagReadListener.onTagRead"*/);
-                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                //PPApplication.startHandlerThread(/*"NFCTagReadActivity.OnTagReadListener.onTagRead"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
 
                     //Context appContext= appContextWeakRef.get();
@@ -85,7 +85,9 @@ public class NFCTagReadActivity extends AppCompatActivity {
                     //}
 
                     //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
-                });
+                }; //);
+                PPApplication.createEventsHandlerExecutor();
+                PPApplication.eventsHandlerExecutor.submit(runnable);
 
                 try {
                     NFCTagReadActivity.this.finish();
@@ -117,6 +119,11 @@ public class NFCTagReadActivity extends AppCompatActivity {
         });
         */
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

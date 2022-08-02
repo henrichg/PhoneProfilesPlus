@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Spannable;
@@ -9,6 +10,7 @@ import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -68,6 +70,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             profileEndIndicator = itemView.findViewById(R.id.event_list_item_profile_end_pref_indicator);
         }
 
+        // don't delete this - it is workaround for set this LinearLayout non-clickable
+        LinearLayout buttonsLayout = itemView.findViewById(R.id.event_list_item_buttons_root);
+        buttonsLayout.setOnClickListener(v -> {});
+
         itemView.setOnClickListener(this);
     }
 
@@ -84,7 +90,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //boolean isAccessibilityServiceEnabled = (event.isAccessibilityServiceEnabled(context, true) == 1);
 
             //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-            boolean manualProfileActivation = DataWrapper.getIsManualProfileActivation(false, context.getApplicationContext());
+            boolean manualProfileActivation = DataWrapperStatic.getIsManualProfileActivation(false, context.getApplicationContext());
             //dataWrapper.invalidateDataWrapper();
 
             int statusRes = R.drawable.ic_event_status_stop; //GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
@@ -125,7 +131,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //TypedArray themeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorSecondary});
             //ColorStateList textColorSecondary = themeArray.getColorStateList(0);
 
-            if (EventsPrefsFragment.isRedTextNotificationRequired(event, context)) {
+            if (EventsPrefsFragment.isRedTextNotificationRequired(event, false, context)) {
 //                if (event._name.equals("Nočný hovor"))
 //                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- RED TEXT ---");
                 //if (!isRunnable)
@@ -151,7 +157,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 //                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- STOPPED ---");
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
-                //noinspection ConstantConditions
                 eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(context));
                 //eventName.setTextColor(ContextCompat.getColor(context, R.color.eventStopTextColor));
             }
@@ -251,7 +256,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             {
                 if (eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(context, true);
-                    eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription, true, false, 0, 0));
+                    eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, false, 0, 0));
                 }
             }
 
@@ -270,23 +275,32 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (event._manualProfileActivation)
                     profileName = "[M] " + profileName;
                 if (event._delayStart > 0)
-                    profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayStart) + "] " + profileName;
+                    profileName = "[" + StringFormatUtils.getDurationString(event._delayStart) + "] " + profileName;
                 profileStartName.setText(profileName);
                 if (profile.getIsIconResourceID())
                 {
-                    if (profile._iconBitmap != null)
-                        profileStartIcon.setImageBitmap(profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+                    if (bitmap != null)
+                        profileStartIcon.setImageBitmap(bitmap);
                     else {
-                        //holder.profileStartIcon.setImageBitmap(null);
-                        //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                        //        context.PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(profile.getIconIdentifier());
-                        profileStartIcon.setImageResource(res); // icon resource
+                        if (profile._iconBitmap != null)
+                            profileStartIcon.setImageBitmap(profile._iconBitmap);
+                        else {
+                            //holder.profileStartIcon.setImageBitmap(null);
+                            //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            //        context.PPApplication.PACKAGE_NAME);
+                            int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
+                            profileStartIcon.setImageResource(res); // icon resource
+                        }
                     }
                 }
                 else
                 {
-                    profileStartIcon.setImageBitmap(profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+                    if (bitmap != null)
+                        profileStartIcon.setImageBitmap(bitmap);
+                    else
+                        profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
                 if (applicationEditorPrefIndicator)
@@ -304,7 +318,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else
             {
-                if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE) {
+//                Log.e("EditorEventListViewHolder.bindEvent", "event._fkProfileStart="+event._fkProfileStart);
+                //if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE) {
                     profileStartName.setText(R.string.profile_preference_profile_end_no_activate);
                     profileStartIcon.setImageResource(R.drawable.ic_empty);
                     if (applicationEditorPrefIndicator) {
@@ -315,8 +330,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             //profileStartIndicator.setImageResource(R.drawable.ic_empty);
                             profileStartIndicator.setVisibility(View.GONE);
                     }
-                }
-                else {
+                //}
+                /*else {
                     profileStartName.setText(R.string.profile_preference_profile_not_set);
                     profileStartIcon.setImageResource(R.drawable.ic_profile_default);
                     if (applicationEditorPrefIndicator)
@@ -327,7 +342,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         if (profileStartIndicator != null)
                             profileStartIndicator.setImageResource(R.drawable.ic_empty);
                     }
-                }
+                }*/
             }
 
             // profile end
@@ -351,17 +366,15 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
                 profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true,
                         applicationEditorPrefIndicator, false);
-                //noinspection IfStatementWithIdenticalBranches
                 if (profile != null) {
                     String profileName;
-                    //noinspection IfStatementWithIdenticalBranches
                     //if (event._atEndHowUndo == 0) {
                         if (event._manualProfileActivationAtEnd)
                             profileName = "[M] " +profile._name;
                         else
                             profileName = profile._name;
                         if (event._delayEnd > 0)
-                            profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
+                            profileName = "[" + StringFormatUtils.getDurationString(event._delayEnd) + "] " + profileName;
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                             profileName = profileName + " + " + context.getString(R.string.event_preference_profile_undone);
                         else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
@@ -377,17 +390,26 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //}
                     profileEndName.setText(profileName);
                     if (profile.getIsIconResourceID()) {
-                        if (profile._iconBitmap != null)
-                            profileEndIcon.setImageBitmap(profile._iconBitmap);
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+                        if (bitmap != null)
+                            profileEndIcon.setImageBitmap(bitmap);
                         else {
-                            //holder.profileEndIcon.setImageBitmap(null);
-                            //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            //        context.PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(profile.getIconIdentifier());
-                            profileEndIcon.setImageResource(res); // icon resource
+                            if (profile._iconBitmap != null)
+                                profileEndIcon.setImageBitmap(profile._iconBitmap);
+                            else {
+                                //holder.profileEndIcon.setImageBitmap(null);
+                                //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                //        context.PPApplication.PACKAGE_NAME);
+                                int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
+                                profileEndIcon.setImageResource(res); // icon resource
+                            }
                         }
                     } else {
-                        profileEndIcon.setImageBitmap(profile._iconBitmap);
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+                        if (bitmap != null)
+                            profileEndIcon.setImageBitmap(bitmap);
+                        else
+                            profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
                     if (applicationEditorPrefIndicator) {
@@ -404,7 +426,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 } else {
                     String profileName = "";
                     if (event._delayEnd > 0)
-                        profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] ";
+                        profileName = "[" + StringFormatUtils.getDurationString(event._delayEnd) + "] ";
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) {
                         if (event._manualProfileActivationAtEnd)
                             profileName = "[M] ";
@@ -414,10 +436,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         profileName = profileName + context.getString(R.string.event_preference_profile_restartEvents);
                     else {
                         //if (event._atEndHowUndo == 0) {
-                            if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
+                            //if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
                                 profileName = profileName + context.getString(R.string.profile_preference_profile_end_no_activate);
-                            else
-                                profileName = profileName + context.getString(R.string.profile_preference_profile_not_set);
+                            //else
+                            //    profileName = profileName + context.getString(R.string.profile_preference_profile_not_set);
                         //}
                     }
                     profileEndName.setText(profileName);

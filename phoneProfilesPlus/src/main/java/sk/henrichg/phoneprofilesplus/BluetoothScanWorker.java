@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
-import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
@@ -36,9 +35,9 @@ public class BluetoothScanWorker extends Worker {
     static final String WORK_TAG  = "BluetoothScanJob";
     static final String WORK_TAG_SHORT  = "BluetoothScanJobShort";
 
-    public static BluetoothAdapter bluetooth = null;
+    public static volatile BluetoothAdapter bluetooth = null;
 
-    private static List<BluetoothDeviceData> tmpScanLEResults = null;
+    private static volatile List<BluetoothDeviceData> tmpScanLEResults = null;
 
     private static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
     private static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";
@@ -69,25 +68,27 @@ public class BluetoothScanWorker extends Worker {
             if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
                 cancelWork(context, false/*, null*/);
-                //PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- END");
+//                PPApplication.logE("[IN_WORKER] BluetoothScanWorker.doWork", "---------------------------------------- END - not enabled bluetooth");
                 return Result.success();
             }
 
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("2")) {
                 //PPApplication.logE("BluetoothScanWorker.doWork", "update in power save mode is not allowed");
                 cancelWork(context, false/*, null*/);
+//                PPApplication.logE("[IN_WORKER] BluetoothScanWorker.doWork", "---------------------------------------- END - scanInPowerSaveMode == 2");
                 return Result.success();
             }
             else {
                 if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2")) {
-                    if (PhoneProfilesService.isNowTimeBetweenTimes(
+                    if (GlobalUtils.isNowTimeBetweenTimes(
                             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                         // not scan bluetooth in configured time
 //                        PPApplication.logE("BluetoothScanWorker.doWork", "-- END - scan in time = 2 -------");
                         cancelWork(context, false/*, null*/);
+//                        PPApplication.logE("[IN_WORKER] BluetoothScanWorker.doWork", "---------------------------------------- END - not scan bluetooth in configured time");
                         return Result.success();
                     }
                 }
@@ -101,6 +102,21 @@ public class BluetoothScanWorker extends Worker {
                 startScanner(context, false);
             }
 
+//            PPApplication.logE("[EXECUTOR_CALL]  ***** BluetoothScanWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
+            final Context appContext = context;
+            //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            Runnable runnable = () -> {
+//                long start1 = System.currentTimeMillis();
+//                PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
+                BluetoothScanWorker.scheduleWork(appContext, false);
+//                long finish = System.currentTimeMillis();
+//                long timeElapsed = finish - start1;
+//                PPApplication.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
+                //worker.shutdown();
+            };
+            PPApplication.createDelayedEventsHandlerExecutor();
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            /*
             //PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
             //scheduleWork(context.getApplicationContext(), false);
             OneTimeWorkRequest worker =
@@ -128,6 +144,7 @@ public class BluetoothScanWorker extends Worker {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
             /*
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -184,14 +201,14 @@ public class BluetoothScanWorker extends Worker {
 
                     int interval = ApplicationPreferences.applicationEventBluetoothScanInterval;
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                    boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
                     if (isPowerSaveMode) {
                         if (ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
                             interval = 2 * interval;
                     }
                     else {
                         if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("1")) {
-                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
@@ -364,7 +381,7 @@ public class BluetoothScanWorker extends Worker {
                             break;
                         }
 
-                        PPApplication.sleep(500);
+                        GlobalUtils.sleep(200);
                     } while (SystemClock.uptimeMillis() - start < BluetoothScanner.CLASSIC_BT_SCAN_DURATION * 1000);
 
                     //PPApplication.logE("BluetoothScanWorker.waitForFinish", "END WAIT FOR FINISH");
@@ -672,7 +689,6 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    @SuppressLint("NewApi")
     static void startLEScan(final Context context)
     {
         //PPApplication.logE("BluetoothScanWorker.startLEScan", "xxx");
@@ -728,7 +744,6 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    @SuppressLint("NewApi")
     static void stopLEScan(final Context context) {
         //PPApplication.logE("%%%%BLE BluetoothScanWorker.stopLEScan", "xxx");
         if (BluetoothScanner.bluetoothLESupported(/*context*/)) {
@@ -748,6 +763,7 @@ public class BluetoothScanWorker extends Worker {
                         }
 
                         BluetoothScanner.bluetoothLEScanner.stopScan(BluetoothScanner.bluetoothLEScanCallback21);
+                        BluetoothScanner.bluetoothLEScanCallback21 = null;
 
                         //PPApplication.logE("%%%%BLE BluetoothScanWorker.stopLEScan", "stopped");
                     } catch (Exception e) {
@@ -1119,8 +1135,11 @@ public class BluetoothScanWorker extends Worker {
 
                 if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
+                    PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, "SENSOR_TYPE_BLUETOOTH_SCANNER", 5);
+
+                    /*
                     Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
+                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
                             .build();
 
                     OneTimeWorkRequest worker =
@@ -1147,12 +1166,13 @@ public class BluetoothScanWorker extends Worker {
 
 //                                PPApplication.logE("[WORKER_CALL] BluetoothScanWorker.finishCLScan", "xxx");
                                 //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
+                    */
 
                     /*PPApplication.startHandlerThread("BluetoothScanWorker.finishCLScan");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

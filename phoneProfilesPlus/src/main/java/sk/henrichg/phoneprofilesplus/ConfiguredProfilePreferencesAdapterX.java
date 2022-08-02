@@ -1,7 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,18 +77,57 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        String applicationTheme = ApplicationPreferences.applicationTheme(context.getApplicationContext(), true);
+        //String applicationTheme = ApplicationPreferences.applicationTheme(context.getApplicationContext(), true);
+        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                                    == Configuration.UI_MODE_NIGHT_YES;
 
         if (configuredPreferences.preferenceIcon == 0) {
             holder.preferenceIcon.setVisibility(View.GONE);
         }
         else {
-            holder.preferenceIcon.setImageResource(configuredPreferences.preferenceIcon);
+            Paint paint = new Paint();
+
+            float brightness;
+            if (/*applicationTheme.equals("dark")*/nightModeOn) {
+                //if (disabled)
+                //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
+                //else
+                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                brightness = 64f;
+            } else {
+                //if (disabled)
+                //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
+                //else
+                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                brightness = 50f;
+            }
+
+            if (configuredPreferences.preferenceIconDisabled) {
+                ColorMatrix saturationCM = new ColorMatrix();
+                saturationCM.setSaturation(0);
+                paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
+                //paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
+            }
+
+            Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), configuredPreferences.preferenceIcon);
+
+            Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas _canvas = new Canvas(bitmapResult);
+            _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
+
+            if (configuredPreferences.preferenceIconDisabled) {
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, brightness);
+            }
+
+            holder.preferenceIcon.setImageBitmap(bitmapResult);
+
+            /*
+            //holder.preferenceIcon.setImageResource(configuredPreferences.preferenceIcon);
 
             if (applicationTheme.equals("dark")) {
-                if (configuredPreferences.preferenceIconDisabled)
-                    holder.preferenceIcon.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP);
-                else
+                //if (configuredPreferences.preferenceIconDisabled)
+                //    holder.preferenceIcon.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP);
+                //else
                     holder.preferenceIcon.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP);
             } else {
                 if (configuredPreferences.preferenceIconDisabled)
@@ -88,6 +135,7 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
                 else
                     holder.preferenceIcon.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP);
             }
+            */
 
             holder.preferenceIcon.setVisibility(View.VISIBLE);
         }
@@ -95,6 +143,43 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             holder.preferenceIcon2.setVisibility(View.GONE);
         }
         else {
+            Paint paint = new Paint();
+
+            float brightness;
+            if (/*applicationTheme.equals("dark")*/nightModeOn) {
+                //if (disabled)
+                //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
+                //else
+                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
+                brightness = 64f;
+            } else {
+                //if (disabled)
+                //    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
+                //else
+                paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+                brightness = 40f;
+            }
+
+            if (configuredPreferences.preferenceIcon2Disabled) {
+                ColorMatrix saturationCM = new ColorMatrix();
+                saturationCM.setSaturation(0);
+                paint.setColorFilter(new ColorMatrixColorFilter(saturationCM));
+                //paint.setAlpha(ProfilePreferencesIndicator.DISABLED_ALPHA);
+            }
+
+            Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), configuredPreferences.preferenceIcon2);
+
+            Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas _canvas = new Canvas(bitmapResult);
+            _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
+
+            if (configuredPreferences.preferenceIcon2Disabled) {
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, brightness);
+            }
+
+            holder.preferenceIcon2.setImageBitmap(bitmapResult);
+
+            /*
             holder.preferenceIcon2.setImageResource(configuredPreferences.preferenceIcon2);
 
             if (applicationTheme.equals("dark")) {
@@ -108,6 +193,7 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
                 else
                     holder.preferenceIcon2.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP);
             }
+            */
 
             holder.preferenceIcon2.setVisibility(View.VISIBLE);
         }

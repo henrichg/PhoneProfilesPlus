@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +44,6 @@ public class WallpaperViewPreferenceX extends Preference {
     }
 
     //@Override
-    @SuppressLint("StaticFieldLeak")
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
@@ -273,7 +271,6 @@ public class WallpaperViewPreferenceX extends Preference {
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns._ID));
             cursor.close();
-            //noinspection UnnecessaryLocalVariable
             Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
             //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri1="+uri);
             return uri;
@@ -284,7 +281,6 @@ public class WallpaperViewPreferenceX extends Preference {
             if (file.exists()) {
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.Images.Media.DATA, imageFile);
-                //noinspection UnnecessaryLocalVariable
                 Uri uri = context.getContentResolver().insert(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                 //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

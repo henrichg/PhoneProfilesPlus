@@ -44,7 +44,7 @@ public class RootShell {
     // # Public Variables #
     // --------------------
 
-    public static boolean debugMode = false;
+    public static volatile boolean debugMode = false;
 
     public static final String version = "rootshell v1.6";
 

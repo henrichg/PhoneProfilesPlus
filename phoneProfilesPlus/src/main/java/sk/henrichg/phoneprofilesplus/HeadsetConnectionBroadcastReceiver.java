@@ -6,8 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -76,7 +74,9 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
             if (broadcast)
             {
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThreadBroadcast(/*"HeadsetConnectionBroadcastReceiver.onReceive"*/);
+                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION, "SENSOR_TYPE_HEADSET_CONNECTION", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -93,12 +93,12 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                            boolean accessoryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ACCESSORY) > 0;
-                            dataWrapper.invalidateDataWrapper();
+                            //DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
+                            //boolean accessoryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ACCESSORY) > 0;
+                            //dataWrapper.invalidateDataWrapper();
 
-                            if (accessoryEventsExists)
-                            {*/
+                            //if (accessoryEventsExists)
+                            //{
                             // start events handler
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] HeadsetConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_HEADSET_CONNECTION");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -120,6 +120,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 });
+                */
             }
         }
 

@@ -62,8 +62,8 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
 
         setWidgetLayoutResource(R.layout.preference_widget_applications_preference); // resource na layout custom preference - TextView-ImageView
 
-        if (EditorActivity.getApplicationsCache() == null)
-            EditorActivity.createApplicationsCache();
+        if (PPApplication.getApplicationsCache() == null)
+            PPApplication.createApplicationsCache(false);
 
         //applicationsCache = EditorActivity.getApplicationsCache();
     }
@@ -98,8 +98,8 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
         applicationList.clear();
 
         // change checked state by value
-        if (EditorActivity.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = EditorActivity.getApplicationsCache().getApplicationList(true);
+        if (PPApplication.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(true);
             if (cachedApplicationList != null) {
                 String[] splits = value.split("\\|");
                 for (Application application : cachedApplicationList) {
@@ -164,7 +164,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
             } else if (systemSettings.equals("accessibility_2.0")) {
                 // PPPExtender
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_7_0;
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_LATEST;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -173,7 +173,8 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, true)) {
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
+                        /*, "ApplicationsMultiSelectDialogPreferenceX.getSummaryForPreferenceCategory (accessibility_2.0)"*/)) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
@@ -185,7 +186,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
             } else if (systemSettings.equals("accessibility_5.0")) {
                 // PPPExtender
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_7_0;
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_LATEST;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -194,7 +195,8 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, true)) {
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
+                        /*, "ApplicationsMultiSelectDialogPreferenceX.getSummaryForPreferenceCategory (accessibility_5.0)"*/)) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);

@@ -35,7 +35,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     static final String PREF_START_TARGET_HELPS = "editor_event_list_adapter_start_target_helps";
     static final String PREF_START_TARGET_HELPS_ORDER = "editor_event_list_adapter_start_target_helps_order";
     static final String PREF_START_TARGET_HELPS_STATUS = "editor_event_list_adapter_start_target_helps_status";
-    static final String PREF_START_TARGET_HELPS_FINISHED = "editor_event_list_adapter_start_target_helps_finished";
+    //static final String PREF_START_TARGET_HELPS_FINISHED = "editor_event_list_adapter_start_target_helps_finished";
 
     EditorEventListAdapter(EditorEventListFragment f, DataWrapper pdw, int filterType,
                            OnStartDragItemListener dragStartListener)
@@ -351,7 +351,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 }
 
                 DatabaseHandler.getInstance(activityDataWrapper.context).setEventStartOrder(activityDataWrapper.eventList);  // set events _startOrder and write it into db
-                activityDataWrapper.restartEventsWithDelay(15, true, false, false, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+                activityDataWrapper.restartEventsWithDelay(15, true, false, RestartEventsWithDelayWorker.WORK_TAG_2, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
             }
         }
         notifyItemMoved(fromPosition, toPosition);
@@ -553,10 +553,10 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                    ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
+                    //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
 
                 }
 
@@ -574,7 +574,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
 
                     editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                     editor.apply();
 
@@ -582,7 +582,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
 
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                    ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
+                    //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
 
                 }
             });
@@ -590,10 +590,10 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
 
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
-            editor.apply();
-            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = false;
+            //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+            //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
+            //editor.apply();
+            //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = false;
 
             sequence.start();
         }

@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -16,8 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-
+import androidx.core.content.ContextCompat;
 
 public class ActivityLogActivity extends AppCompatActivity {
 
@@ -25,7 +24,6 @@ public class ActivityLogActivity extends AppCompatActivity {
     private ListView listView;
     private ActivityLogAdapter activityLogAdapter;
 
-    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
@@ -82,6 +80,10 @@ public class ActivityLogActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
@@ -173,14 +175,52 @@ public class ActivityLogActivity extends AppCompatActivity {
             //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
             LayoutInflater inflater = getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_info_preference, null);
             dialogBuilder.setView(layout);
 
             TextView infoTextView = layout.findViewById(R.id.info_pref_dialog_info_text);
 
-            //String message = "<br><b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
-            String message = "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
+            String message = "";
+
+            message = message + "<b>" + getString(R.string.activity_log_help_message_colors) + ":</b><br>";
+
+            message = message + getString(R.string.activity_log_help_message_colors_profile_activation) + ": ";
+            int color = ContextCompat.getColor(this, R.color.altype_profile);
+            String colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+
+            message = message + getString(R.string.activity_log_help_message_colors_event_start) + ": ";
+            color = ContextCompat.getColor(this, R.color.altype_eventStart);
+            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+
+            message = message + getString(R.string.activity_log_help_message_colors_event_end) + ": ";
+            color = ContextCompat.getColor(this, R.color.altype_eventEnd);
+            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+
+            message = message + getString(R.string.activity_log_help_message_colors_restart_events) + ": ";
+            color = ContextCompat.getColor(this, R.color.altype_restartEvents);
+            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+
+            message = message + getString(R.string.activity_log_help_message_colors_event_delay_start_end) + ": ";
+            color = ContextCompat.getColor(this, R.color.altype_eventDelayStartEnd);
+            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+
+            message = message + getString(R.string.activity_log_help_message_colors_error) + ": ";
+            color = ContextCompat.getColor(this, R.color.altype_error);
+            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+
+            message = message + getString(R.string.activity_log_help_message_colors_others) + ": ";
+            color = ContextCompat.getColor(this, R.color.altype_other);
+            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+
+            message = message + "<br>";
+            message = message + "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
 
             message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":</b><br>";
@@ -216,7 +256,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b><br>";
             message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes);
 
-            infoTextView.setText(GlobalGUIRoutines.fromHtml(message, true, false, 0, 0));
+            infoTextView.setText(StringFormatUtils.fromHtml(message, true, false, 0, 0));
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
 

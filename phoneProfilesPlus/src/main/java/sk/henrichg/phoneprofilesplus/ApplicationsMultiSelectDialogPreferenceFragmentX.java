@@ -87,16 +87,15 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
             asyncTask.cancel(true);
         }
 
-        if (EditorActivity.getApplicationsCache() != null) {
-            EditorActivity.getApplicationsCache().cancelCaching();
-            if (!EditorActivity.getApplicationsCache().cached)
-                EditorActivity.getApplicationsCache().clearCache(false);
+        if (PPApplication.getApplicationsCache() != null) {
+            PPApplication.getApplicationsCache().cancelCaching();
+            if (!PPApplication.getApplicationsCache().cached)
+                PPApplication.getApplicationsCache().clearCache(false);
         }
 
         preference.fragment = null;
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void refreshListView(final boolean notForUnselect) {
         asyncTask = new RefreshListViewAsyncTask(notForUnselect, preference, this, prefContext);
         asyncTask.execute();
@@ -138,9 +137,9 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
             ApplicationsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (EditorActivity.getApplicationsCache() != null)
-                    if (!EditorActivity.getApplicationsCache().cached)
-                        EditorActivity.getApplicationsCache().cacheApplicationsList(prefContext);
+                if (PPApplication.getApplicationsCache() != null)
+                    if (!PPApplication.getApplicationsCache().cached)
+                        PPApplication.getApplicationsCache().cacheApplicationsList(prefContext);
 
                 preference.getValueAMSDP();
             }
@@ -158,9 +157,9 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
             ApplicationsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (EditorActivity.getApplicationsCache() != null)
-                    if (!EditorActivity.getApplicationsCache().cached)
-                        EditorActivity.getApplicationsCache().clearCache(false);
+                if (PPApplication.getApplicationsCache() != null)
+                    if (!PPApplication.getApplicationsCache().cached)
+                        PPApplication.getApplicationsCache().clearCache(false);
 
                 fragment.listAdapter.notifyDataSetChanged();
                 if (notForUnselect) {

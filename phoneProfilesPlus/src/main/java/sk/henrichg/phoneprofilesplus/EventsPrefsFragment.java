@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -288,7 +287,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //PPApplication.logE("EventsPrefsFragment.onActivityCreated", "xxx");
+//        PPApplication.logE("EventsPrefsFragment.onActivityCreated", "xxx");
 
         if (getActivity() == null)
             return;
@@ -320,7 +319,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         setRedTextToPreferences();
 
-        event.checkPreferences(prefMng, context);
+        // update preference summary and also category summary
+        event.checkSensorsPreferences(prefMng, !nestedFragment, context);
 
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
@@ -817,7 +817,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (smsPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             smsPreference.setOnPreferenceClickListener(preference120 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_7_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -876,7 +876,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (callPreference != null) {
             //callPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             callPreference.setOnPreferenceClickListener(preference123 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_7_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -918,7 +918,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference124 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_7_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -960,7 +960,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference125 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_7_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -1078,11 +1078,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             final Context context = getActivity().getBaseContext();
 
-            event._eventPreferencesApplication.checkPreferences(prefMng, context);
-            event._eventPreferencesOrientation.checkPreferences(prefMng, context);
-            event._eventPreferencesSMS.checkPreferences(prefMng, context);
-            event._eventPreferencesCall.checkPreferences(prefMng, context);
-            event._eventPreferencesNotification.checkPreferences(prefMng, context);
+            event._eventPreferencesApplication.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesSMS.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.onResume");
             PPApplication.updateGUI(true, false, context);
@@ -1139,8 +1139,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        event.checkPreferences(prefMng, getActivity());
-        event.setSummary(prefMng, key, sharedPreferences, getActivity());
+        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity());
+        event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
 
         setRedTextToPreferences();
 
@@ -1169,13 +1169,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             PPApplication.restartNotificationScanner(context);
 
-            event._eventPreferencesNotification.checkPreferences(prefMng, context);
+            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
-            event._eventPreferencesApplication.checkPreferences(prefMng, context);
-            event._eventPreferencesOrientation.checkPreferences(prefMng, context);
-            event._eventPreferencesSMS.checkPreferences(prefMng, context);
-            event._eventPreferencesCall.checkPreferences(prefMng, context);
+            event._eventPreferencesApplication.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesSMS.checkPreferences(prefMng, !nestedFragment, context);
+            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
 
             event._eventPreferencesApplication.setSummary(prefMng,
                     EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, preferences, context);
@@ -1191,25 +1191,25 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesTime.checkPreferences(prefMng, context);
+            event._eventPreferencesTime.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_CALENDAR_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesCalendar.checkPreferences(prefMng, context);
+            event._eventPreferencesCalendar.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+            event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS) {
-            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+            event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_BLUETOOTH_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
+            event._eventPreferencesBluetooth.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_LOCATION_APP_SETTINGS) {
-            event._eventPreferencesLocation.checkPreferences(prefMng, context);
+            event._eventPreferencesLocation.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_PERIODIC_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesPeriodic.checkPreferences(prefMng, context);
+            event._eventPreferencesPeriodic.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
@@ -1228,13 +1228,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }*/
         }
         if (requestCode == RESULT_ORIENTATION_SCANNING_SETTINGS) {
-            event._eventPreferencesOrientation.checkPreferences(prefMng, context);
+            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) {
-            event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
+            event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_NOTIFICATION_SCANNING_APP_SETTINGS) {
-            event._eventPreferencesNotification.checkPreferences(prefMng, context);
+            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_WIFI_LOCATION_SYSTEM_SETTINGS) {
             WifiSSIDPreferenceX preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);
@@ -1242,7 +1242,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setLocationEnableStatus();
             }
 
-            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+            event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (2)");
             PPApplication.updateGUI(true, false, context);
@@ -1253,7 +1253,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setLocationEnableStatus();
             }
 
-            event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
+            event._eventPreferencesBluetooth.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (3)");
             PPApplication.updateGUI(true, false, context);
@@ -1264,7 +1264,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setLocationEnableStatus();
             }
 
-            event._eventPreferencesLocation.checkPreferences(prefMng, context);
+            event._eventPreferencesLocation.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (4)");
             PPApplication.updateGUI(true, false, context);
@@ -1275,7 +1275,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setLocationEnableStatus();
             }
 
-            event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
+            event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (5)");
             PPApplication.updateGUI(true, false, context);
@@ -1283,15 +1283,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
             PPApplication.restartTwilightScanner(context);
 
-            event._eventPreferencesTime.checkPreferences(prefMng, context);
+            event._eventPreferencesTime.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (6)");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
 
-            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context);
-            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context);
+            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context, false);
+            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context, false);
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE)) {
             RingtonePreferenceX preference = prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND_START);
@@ -1411,7 +1411,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
     */
 
-    static boolean isRedTextNotificationRequired(Event event, Context context) {
+    static boolean isRedTextNotificationRequired(Event event, boolean againCheckInDelay, Context context) {
         Context appContext = context.getApplicationContext();
         boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
         boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0;
@@ -1419,7 +1419,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;
         }*/
-        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false) == 1;
+        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
+//        if (/*(event != null) &&*/ event._name.equals("Nočný hovor")) {
+//            PPApplication.logE("EventsPrefsFragment.isRedTextNotificationRequired", "isAccessibilityEnabled=" + event.isAccessibilityServiceEnabled(appContext, false, false));
+//        }
+
         boolean eventIsRunnable = event.isRunnable(appContext, false);
 
 //        if (event._name.equals("At home")) {
@@ -1541,16 +1545,19 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
 
             // not enabled accessibility service
-            int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false);
-            if (accessibilityEnabled == 1) {
+            int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false, false);
+//            Log.e("EventsPrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
+            /*if (accessibilityEnabled == 1) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                Log.e("EventsPrefsFragment.setRedTextToPreferences", "extenderVersion="+extenderVersion);
                 if (extenderVersion != 0) {
                     // PPPE is installed
+                    Log.e("EventsPrefsFragment.setRedTextToPreferences", "accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
                     if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2)
                         // Extender is not connected
                         accessibilityEnabled = 0;
                 }
-            }
+            }*/
             Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
             if (accessibilityEnabled == 1) {
                 if (preference != null) {
@@ -1693,7 +1700,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.refreshListView(true, Integer.MAX_VALUE);
     }
 
-    @SuppressLint("SetTextI18n")
     private void installExtenderFromGitHub() {
         if (getActivity() == null)
             return;
@@ -1702,7 +1708,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
         dialogBuilder.setView(layout);
 
@@ -1782,7 +1787,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             dialog.show();
     }
 
-    @SuppressLint("SetTextI18n")
     private void installExtender() {
         if (getActivity() == null) {
             return;
@@ -1793,7 +1797,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 
@@ -1851,7 +1854,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 

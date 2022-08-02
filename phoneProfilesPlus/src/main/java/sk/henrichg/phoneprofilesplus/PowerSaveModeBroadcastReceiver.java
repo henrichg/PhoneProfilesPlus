@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
@@ -49,7 +47,9 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (Event.getGlobalEventsRunning()) {
-            PPApplication.startHandlerThreadBroadcast(/*"PowerSaveModeBroadcastReceiver.onReceive"*/);
+            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE, "SENSOR_TYPE_POWER_SAVE_MODE", 0);
+            /*
+            PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
@@ -85,6 +85,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             });
+            */
         }
 
     }

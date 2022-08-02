@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,7 +54,6 @@ public class ImportantInfoActivityForceScrollFragment extends Fragment {
         }
     }
 
-    @SuppressLint({"SetTextI18n", "BatteryLife"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

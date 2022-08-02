@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="IconLocation">
+        <ignore path="/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/AndroidClearChroma/src/main/res/drawable/acch_draughtboard.webp" />
+        <ignore path="/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/AndroidClearChroma/src/main/res/drawable/acch_draughtboard.webp" />
+    </issue>
+</lint>

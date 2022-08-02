@@ -366,15 +366,16 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
         boolean sim1Exists;
         boolean sim2Exists;
-        synchronized (PPApplication.simCardsMutext) {
-            sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
-            sim2Exists = sim1Exists;
-            sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-            sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+        if (getActivity() != null) {
+            Context appContext = getActivity().getApplicationContext();
+            sim1Exists = GlobalUtils.hasSIMCard(appContext, 1);
+            sim2Exists = GlobalUtils.hasSIMCard(appContext, 2);
+        } else {
+            sim1Exists = false;
+            sim2Exists = false;
         }
 
         RelativeLayout connectedCellRelLa;
-        //noinspection IfStatementWithIdenticalBranches
         if ((Build.VERSION.SDK_INT >= 26) && (phoneCount > 1)) {
             if (!sim1Exists) {
                 connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim1);
@@ -443,7 +444,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     void setLocationEnableStatus() {
         if (Build.VERSION.SDK_INT >= 28) {
             String statusText;
-            if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
+            if (!GlobalUtils.isLocationEnabled(prefContext)) {
                 /*if (Build.VERSION.SDK_INT < 28)
                     statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
                             prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
@@ -510,7 +511,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean forRescan, final int renameCellId)
     {
         rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, renameCellId, preference, this, prefContext);
@@ -747,11 +747,13 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             MobileCellsPreferenceFragmentX fragment = fragmentWeakRef.get();
             if (fragment != null) {
 
-                synchronized (PPApplication.simCardsMutext) {
-                    sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
-                    sim2Exists = sim1Exists;
-                    sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                    sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                if (fragment.getActivity() != null) {
+                    Context appContext = fragment.getActivity().getApplicationContext();
+                    sim1Exists = GlobalUtils.hasSIMCard(appContext, 1);
+                    sim2Exists = GlobalUtils.hasSIMCard(appContext, 2);
+                } else {
+                    sim1Exists = false;
+                    sim2Exists = false;
                 }
 
                 _cellName = fragment.cellName.getText().toString();

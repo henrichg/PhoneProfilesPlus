@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Handler;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +45,6 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         return inflater.inflate(R.layout.dialog_brightness_preference, null, false);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
@@ -214,9 +212,9 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                     if (_automatic == 1)
                         allowed = preference.adaptiveAllowed;
                     if (allowed) {
-                        int __value = Profile.convertPercentsToBrightnessManualValue(_value, context);
+                        int __value = ProfileStatic.convertPercentsToBrightnessManualValue(_value, context);
                         Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
-                        setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(_value, context));
+                        setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(_value, context));
                     }
                 }
             }
@@ -303,13 +301,14 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                     Settings.System.putFloat(context.getContentResolver(),
                             Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, value);
                 } catch (Exception ee) {
-                    PPApplication.startHandlerThread(/*"BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness"*/);
-                    final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                    __handler.post(() -> {
+                    //PPApplication.startHandlerThread(/*"BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness"*/);
+                    //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                    //__handler.post(() -> {
+                    Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
 
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ + " " + value;
                                 //if (PPApplication.isSELinuxEnforcing())
@@ -317,7 +316,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                                 Command command = new Command(0, false, command1); //, command2);
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    PPApplication.commandWait(command, "BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
+                                    RootUtils.commandWait(command, "BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness", Log.getStackTraceString(e));
@@ -327,7 +326,9 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                         }
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
-                    });
+                    }; //);
+                    PPApplication.createBasicExecutorPool();
+                    PPApplication.basicExecutorPool.submit(runnable);
                 }
             }
         }
@@ -349,9 +350,9 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 if (preference.automatic == 1)
                     allowed = preference.adaptiveAllowed;
                 if (allowed) {
-                    int __value = Profile.convertPercentsToBrightnessManualValue(value, context);
+                    int __value = ProfileStatic.convertPercentsToBrightnessManualValue(value, context);
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
-                    setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(value, context));
+                    setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(value, context));
                 }
             }
         }

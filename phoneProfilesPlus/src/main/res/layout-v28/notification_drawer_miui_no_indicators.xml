@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/notification_activated_profile_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/restart_events_notification_icon_size"
+        android:layout_height="@dimen/restart_events_notification_icon_size"
         android:padding="2dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
@@ -28,8 +29,8 @@
 
         <ImageView
             android:id="@+id/notification_activated_profile_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/profile_icon_notification_icon_size"
+            android:layout_height="@dimen/profile_icon_notification_icon_size"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
@@ -51,18 +52,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/profile_name_default"
                 style="@style/TextAppearance.Compat.Notification.Title"
+                android:textSize="16dp"
                 android:ellipsize="end"
-                android:maxLines="1" />
-
-<!--            <ImageView-->
-<!--                android:id="@+id/notification_activated_profile_pref_indicator"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="14dp"-->
-<!--                android:layout_marginTop="2dp"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:contentDescription="@string/profile_preferences_indicator_image"-->
-<!--                android:scaleType="@integer/profilePrefIndicatorScaleType"-->
-<!--                android:src="@drawable/ic_empty" />-->
+                android:maxLines="1"
+                tools:ignore="SpUsage" />
 
         </LinearLayout>
 

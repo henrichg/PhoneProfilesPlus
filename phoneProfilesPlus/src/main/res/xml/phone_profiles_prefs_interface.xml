@@ -12,6 +12,19 @@
         app:entries="@array/themeArray"
         app:entryValues="@array/themeValues"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.RestartEventsIconColorChooserPreferenceX
+        app:title="@string/phone_profiles_pref_applicationRestartEventsIconColor"
+        app:key="applicationRestartEventsIconColor"
+        app:defaultValue="-1"
+        app:layout="@layout/mp_preference_material_widget" />
+
+<!--    <SwitchPreferenceCompat-->
+<!--        app:key="applicationIncreaseBrightnessForProfileIcon"-->
+<!--        app:title="@string/phone_profiles_pref_applicationIncreaseBrightnessForProfileIcon"-->
+<!--        app:defaultValue="false"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationHomeLauncher"
         app:summary="@string/array_pref_launcher_activator"

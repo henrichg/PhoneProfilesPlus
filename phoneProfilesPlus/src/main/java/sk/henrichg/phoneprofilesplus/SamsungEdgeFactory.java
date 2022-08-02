@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.text.style.StyleSpan;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+
+import androidx.core.graphics.ColorUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -36,11 +39,16 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         String applicationSamsungEdgeIconLightness;
         boolean applicationSamsungEdgeCustomIconLightness;
         boolean applicationSamsungEdgeChangeColorsByNightMode;
+        //String applicationSamsungEdgeBackgroundColorNightModeOff;
+        //String applicationSamsungEdgeBackgroundColorNightModeOn;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
             applicationSamsungEdgeIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
             applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
             applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+            //applicationSamsungEdgeBackgroundColorNightModeOff = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff;
+            //applicationSamsungEdgeBackgroundColorNightModeOn = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn;
 
             if (Build.VERSION.SDK_INT >= 30) {
                 if (applicationSamsungEdgeChangeColorsByNightMode) {
@@ -48,11 +56,11 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationSamsungEdgeIconLightness = "75";
+                            applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationSamsungEdgeIconLightness = "62";
+                            applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                             break;
                     }
                 }
@@ -60,15 +68,15 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         }
 
         int monochromeValue = 0xFF;
-        if (applicationSamsungEdgeIconLightness.equals("0")) monochromeValue = 0x00;
-        if (applicationSamsungEdgeIconLightness.equals("12")) monochromeValue = 0x20;
-        if (applicationSamsungEdgeIconLightness.equals("25")) monochromeValue = 0x40;
-        if (applicationSamsungEdgeIconLightness.equals("37")) monochromeValue = 0x60;
-        if (applicationSamsungEdgeIconLightness.equals("50")) monochromeValue = 0x80;
-        if (applicationSamsungEdgeIconLightness.equals("62")) monochromeValue = 0xA0;
-        if (applicationSamsungEdgeIconLightness.equals("75")) monochromeValue = 0xC0;
-        if (applicationSamsungEdgeIconLightness.equals("87")) monochromeValue = 0xE0;
-        //if (applicationSamsungEdgeIconLightness.equals("100")) monochromeValue = 0xFF;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) monochromeValue = 0x00;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) monochromeValue = 0x20;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) monochromeValue = 0x40;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) monochromeValue = 0x60;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) monochromeValue = 0x80;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) monochromeValue = 0xA0;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) monochromeValue = 0xC0;
+        if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) monochromeValue = 0xE0;
+        //if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 0xFF;
 
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),
@@ -140,7 +148,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         RemoteViews row;
         //if (!applicationSamsungEdgeGridLayout)
-        //    row=new RemoteViews(context.PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
+        //    row=new RemoteViews(context.PPApplication.PACKAGE_NAME, R.layout.samsung_edge_widget_item);
         //else
             row=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_item);
 
@@ -150,11 +158,23 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             String applicationSamsungEdgeLightnessT;
             boolean applicationSamsungEdgeHeader;
             boolean applicationSamsungEdgeChangeColorsByNightMode;
+            String applicationSamsungEdgeIconColor;
+            boolean applicationSamsungEdgeBackgroundType;
+            String applicationSamsungEdgeLightnessB;
+            String applicationSamsungEdgeBackgroundColor;
+            String applicationSamsungEdgeBackgroundColorNightModeOff;
+            String applicationSamsungEdgeBackgroundColorNightModeOn;
 
             synchronized (PPApplication.applicationPreferencesMutex) {
                 applicationSamsungEdgeLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
                 applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
                 applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+                applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
+                applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType;
+                applicationSamsungEdgeLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB;
+                applicationSamsungEdgeBackgroundColor = ApplicationPreferences.applicationSamsungEdgeBackgroundColor;
+                applicationSamsungEdgeBackgroundColorNightModeOff = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff;
+                applicationSamsungEdgeBackgroundColorNightModeOn = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn;
 
                 if (Build.VERSION.SDK_INT >= 30) {
                     if (applicationSamsungEdgeChangeColorsByNightMode) {
@@ -162,82 +182,103 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                                 context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                         switch (nightModeFlags) {
                             case Configuration.UI_MODE_NIGHT_YES:
-                                applicationSamsungEdgeLightnessT = "100"; // lightness of text = white
+                                applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                                applicationSamsungEdgeBackgroundType = true; // background type = color
+                                applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
+                                //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
                                 break;
                             case Configuration.UI_MODE_NIGHT_NO:
                             case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                                applicationSamsungEdgeLightnessT = "0"; // lightness of text = black
+                                applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                                applicationSamsungEdgeBackgroundType = true; // background type = not color
+                                applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
+                                //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
                                 break;
                         }
                     }
                 }
             }
 
+            Bitmap bitmap = null;
+            if (applicationSamsungEdgeIconColor.equals("0")) {
+                if (applicationSamsungEdgeChangeColorsByNightMode ||
+                    ((!applicationSamsungEdgeBackgroundType) &&
+                        (Integer.parseInt(applicationSamsungEdgeLightnessB) <= 25)) ||
+                    (applicationSamsungEdgeBackgroundType &&
+                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationSamsungEdgeBackgroundColor)) < 0.23)))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            }
             if (profile.getIsIconResourceID()) {
-                if (profile._iconBitmap != null)
-                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                if (bitmap != null)
+                    row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, bitmap);
                 else {
-                    row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
+                    if (profile._iconBitmap != null)
+                        row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, profile._iconBitmap);
+                    else
+                        row.setImageViewResource(R.id.widget_samsung_edge_item_profile_icon,
                             /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME));*/
-                            Profile.getIconResource(profile.getIconIdentifier()));
+                                ProfileStatic.getIconResource(profile.getIconIdentifier()));
                 }
             } else {
-                row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                if (bitmap != null)
+                    row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, bitmap);
+                else
+                    row.setImageViewBitmap(R.id.widget_samsung_edge_item_profile_icon, profile._iconBitmap);
             }
             int red = 0xFF;
             int green;
             int blue;
-            if (applicationSamsungEdgeLightnessT.equals("0")) red = 0x00;
-            if (applicationSamsungEdgeLightnessT.equals("12")) red = 0x20;
-            if (applicationSamsungEdgeLightnessT.equals("25")) red = 0x40;
-            if (applicationSamsungEdgeLightnessT.equals("37")) red = 0x60;
-            if (applicationSamsungEdgeLightnessT.equals("50")) red = 0x80;
-            if (applicationSamsungEdgeLightnessT.equals("62")) red = 0xA0;
-            if (applicationSamsungEdgeLightnessT.equals("75")) red = 0xC0;
-            if (applicationSamsungEdgeLightnessT.equals("87")) red = 0xE0;
-            //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) red = 0x00;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) red = 0x20;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) red = 0x40;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) red = 0x60;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) red = 0x80;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) red = 0xA0;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) red = 0xC0;
+            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) red = 0xE0;
+            //if (applicationWidgetListLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) red = 0xFF;
             green = red;
             blue = red;
             if (!applicationSamsungEdgeHeader) {
                 if (profile._checked) {
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
+                    row.setTextViewTextSize(R.id.widget_samsung_edge_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
 
                     //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                    row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.argb(0xFF, red, green, blue));
                     //else
-                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.parseColor("#33b5e5"));
+                    //	row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.parseColor("#33b5e5"));
                 } else {
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
+                    row.setTextViewTextSize(R.id.widget_samsung_edge_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
 
                     //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
+                    row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.argb(0xCC, red, green, blue));
                     //else
-                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                    //	row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.argb(0xFF, red, green, blue));
                 }
             } else {
-                row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
+                row.setTextViewTextSize(R.id.widget_samsung_edge_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 14);
 
-                row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                row.setTextColor(R.id.widget_samsung_edge_item_profile_name, Color.argb(0xFF, red, green, blue));
             }
             if ((!applicationSamsungEdgeHeader) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
-                Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper);
+                Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper);
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
+                row.setTextViewText(R.id.widget_samsung_edge_item_profile_name, sb);
             } else {
                 Spannable profileName = profile.getProfileNameWithDuration("", "", true, false, context.getApplicationContext());
-                row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
+                row.setTextViewText(R.id.widget_samsung_edge_item_profile_name, profileName);
             }
             /*if (!applicationSamsungEdgeGridLayout) {
                 if (applicationSamsungEdgePrefIndicator) {
                     if (profile._preferencesIndicator != null)
-                        row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
+                        row.setImageViewBitmap(R.id.widget_samsung_edge_profile_pref_indicator, profile._preferencesIndicator);
                     else
-                        row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                        row.setImageViewResource(R.id.widget_samsung_edge_profile_pref_indicator, R.drawable.ic_empty);
                 }
                 else
-                    row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                    row.setImageViewResource(R.id.widget_samsung_edge_profile_pref_indicator, R.drawable.ic_empty);
             }*/
 
             Intent i = new Intent();
@@ -249,7 +290,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                 extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
             extras.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
             i.putExtras(extras);
-            row.setOnClickFillInIntent(R.id.widget_profile_list_item, i);
+            row.setOnClickFillInIntent(R.id.widget_samsung_edge_item, i);
 
         }
 
@@ -298,11 +339,16 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         Profile restartEvents = null;
         if (Event.getGlobalEventsRunning()) {
-            restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+            //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+            restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
+                    "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);
         }
+        _dataWrapper.invalidateDataWrapper();
 
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
         createProfilesDataWrapper(false);
         //dataWrapper.invalidateProfileList();
         if (restartEvents != null)

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -27,7 +28,6 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     public static final String EXTRA_TAG_NAME = "tag_name";
     public static final String EXTRA_TAG_DB_ID = "tag_db_id";
 
-    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
@@ -96,6 +96,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 //ToastCompat.makeText(getApplicationContext(), "tag read:"+tagData, Toast.LENGTH_LONG).show();
 
                 int[] attrs = {R.attr.activityWhiteTextColor};
+                @SuppressLint("ResourceType")
                 TypedArray ta = obtainStyledAttributes(attrs);
                 int color = ta.getResourceId(0, android.R.color.black);
                 writableTextView.setTextColor(ContextCompat.getColor(getBaseContext(), color));
@@ -154,6 +155,11 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             NFCTagWriteActivity.this.finish();
         });
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
 
@@ -31,7 +29,9 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"NotificationEventEndBroadcastReceiver.doWork"*/);
+            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 0);
+            /*
+            PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
@@ -66,6 +66,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             });
+            */
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {

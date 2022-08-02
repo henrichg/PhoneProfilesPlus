@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/restart_events_notification_icon_size"
+        android:layout_height="@dimen/restart_events_notification_icon_size"
         android:padding="2dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/notification_activated_profile_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/profile_icon_notification_icon_size"
+            android:layout_height="@dimen/profile_icon_notification_icon_size"
             android:layout_marginStart="3dp"
             android:layout_marginEnd="6dp"
             android:layout_centerVertical="true"
@@ -44,30 +44,12 @@
             android:id="@+id/notification_activated_profile_linLa1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/notification_activated_profile_icon" >
 
-            <TextView
-                android:id="@+id/notification_activated_profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/profile_name_default"
-                style="@style/TextAppearance.Compat.Notification.Title"
-                android:ellipsize="end"
-                android:maxLines="1" />
-
-<!--            <ImageView-->
-<!--                android:id="@+id/notification_activated_profile_pref_indicator"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="14dp"-->
-<!--                android:layout_marginTop="2dp"-->
-<!--                android:layout_marginStart="5dp"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:contentDescription="@string/profile_preferences_indicator_image"-->
-<!--                android:scaleType="@integer/profilePrefIndicatorScaleType"-->
-<!--                android:src="@drawable/ic_empty" />-->
+            <include layout="@layout/notification_text" />
 
         </LinearLayout>
 

@@ -8,6 +8,7 @@
         android:id="@+id/profile_multiselect_pref_dlg_item_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
         android:layout_centerVertical="true"
         android:checked="false"
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:text="@string/profile_name_default"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:ellipsize="end"
             android:maxLines="1"/>
 

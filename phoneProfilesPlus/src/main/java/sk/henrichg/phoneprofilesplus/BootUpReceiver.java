@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 
 public class BootUpReceiver extends BroadcastReceiver {
@@ -48,11 +47,12 @@ public class BootUpReceiver extends BroadcastReceiver {
             //PPApplication.setApplicationStarted(context, false);
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"BootUpReceiver.onReceive2"*/);
-            final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"BootUpReceiver.onReceive2"*/);
+            //final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler2.post(() -> {
+            //__handler2.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
                 //Context appContext= appContextWeakRef.get();
@@ -73,7 +73,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                             PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, "");
 
-                            boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                            boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                             PPApplication.logE("BootUpReceiver.onReceive", "serviceStarted=" + serviceStarted);
 
                             //PPApplication.sleep(3000);
@@ -125,7 +125,9 @@ public class BootUpReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
 
             //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- end");
 

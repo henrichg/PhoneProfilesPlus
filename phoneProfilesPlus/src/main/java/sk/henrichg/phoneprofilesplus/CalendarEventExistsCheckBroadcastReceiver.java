@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 
 public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver {
@@ -14,13 +13,13 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
 
         String action = intent.getAction();
         if (action != null) {
-            //PPApplication.logE("EventTimeBroadcastReceiver.onReceive", "action=" + action);
+            //PPApplication.logE("CalendarEventExistsCheckBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
         }
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        //PPApplication.logE("[HANDLER] EventTimeBroadcastReceiver.doWork", "useHandler="+useHandler);
+        //PPApplication.logE("[HANDLER] CalendarEventExistsCheckBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -29,12 +28,13 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"EventTimeBroadcastReceiver.doWork"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler.post(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.doWork");
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CalendarEventExistsCheckBroadcastReceiver.doWork");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -75,11 +75,13 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createEventsHandlerExecutor();
+            PPApplication.eventsHandlerExecutor.submit(runnable);
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.logE("EventTimeBroadcastReceiver.doWork", "handle events");
+                    PPApplication.logE("CalendarEventExistsCheckBroadcastReceiver.doWork", "handle events");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
                 }

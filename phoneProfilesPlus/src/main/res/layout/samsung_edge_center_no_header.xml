@@ -2,12 +2,12 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/widget_profile_list_root"
+    android:id="@+id/widget_samsung_edge_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 <LinearLayout
-    android:id="@+id/widget_profile_list_liLa1"
+    android:id="@+id/widget_samsung_edge_liLa1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -15,7 +15,7 @@
     tools:ignore="UselessParent">
 
     <GridView
-        android:id="@+id/widget_profile_grid"
+        android:id="@+id/widget_samsung_edge_grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -27,28 +27,17 @@
         android:stretchMode="columnWidth"
         android:divider="@android:color/transparent"
         android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay" />
+        android:scrollbarStyle="outsideOverlay"
+        android:listSelector="@drawable/widget_ripple_list_item" />
 
     <TextView
-        android:id="@+id/widget_profiles_list_empty"
+        android:id="@+id/widget_samsung_edge_empty"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:text="@string/profile_list_empty"
         android:gravity="center"
         android:textSize="15dp"
         tools:ignore="SpUsage" />
-
-    <!--<TextView
-        android:id="@+id/widget_profiles_list_empty"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:shadowColor="#ffffffff"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="3"
-        android:text="@string/profile_list_empty"
-        android:gravity="center"
-        android:textSize="15sp" />-->
 
 </LinearLayout>
 

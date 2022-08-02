@@ -11,6 +11,7 @@
         android:id="@+id/event_pref_dlg_item_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
         android:checked="false"
         android:focusable="false" />
@@ -56,7 +57,7 @@
             android:paddingEnd="10dp"
             android:paddingTop="5dp"
             android:text="@string/profile_preference_profile_not_set"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:ellipsize="end"
             android:maxLines="1"/>
 
@@ -84,7 +85,7 @@
             android:paddingEnd="10dp"
             android:paddingTop="5dp"
             android:text="@string/profile_preference_profile_not_set"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:ellipsize="end"
             android:maxLines="1"/>
 

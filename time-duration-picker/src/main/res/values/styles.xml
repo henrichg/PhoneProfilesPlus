@@ -11,7 +11,7 @@
         <item name="android:textSize">12sp</item>
     </style>
     <style name="TextAppearance.TimeDurationPicker.Button">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/dialpladTextSize</item>
     </style>
 
     <style name="TextAppearance.TimeDurationPicker.Display.Large">
@@ -75,6 +75,7 @@
         <item name="android:minWidth">@dimen/touchable</item>
         <item name="android:minHeight">@dimen/touchable</item>
         <item name="android:textAppearance">@style/TextAppearance.TimeDurationPicker.Display</item>
-        <item name="android:background">?selectableItemBackground</item>
+        <!-- rounded selector -->
+        <item name="android:background">@drawable/numpad_ripple_background</item>
     </style>
 </resources>

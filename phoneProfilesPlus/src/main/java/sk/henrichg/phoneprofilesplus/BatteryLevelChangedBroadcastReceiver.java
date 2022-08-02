@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -181,7 +179,9 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
             if (Event.getGlobalEventsRunning()) {
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThreadBroadcast(/*"BatteryLevelChangedBroadcastReceiver.onReceive"*/);
+                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BATTERY_WITH_LEVEL, "SENSOR_TYPE_BATTERY_WITH_LEVEL", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -217,6 +217,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 });
+                */
             }
         }
     }

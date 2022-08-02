@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -15,14 +16,12 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-import java.util.Calendar;
-
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.util.Calendar;
 
 public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
@@ -128,7 +127,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
         intent.setAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
         //intent.setClass(context, CheckCriticalPPPReleasesBroadcastReceiver.class);
 
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -136,7 +134,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             if (ApplicationPreferences.applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -162,7 +159,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 intent.setAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
                 //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     alarmManager.cancel(pendingIntent);
@@ -183,7 +179,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
         String line;
         try {
             while ((line = reader.readLine()) != null) {
-                //noinspection StringConcatenationInsideStringBufferAppend
                 sb.append(line + "n");
             }
         } catch (IOException e) {
@@ -285,7 +280,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                                         .setAutoCancel(true); // clear notification after click
 
-                                @SuppressLint("UnspecifiedImmutableFlag")
                                 PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
                                 mBuilder.setContentIntent(pi);
                                 mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -300,13 +294,15 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CODE, versionCodeInReleases);
                                 disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CRITICAL, critical);
 
-                                @SuppressLint("UnspecifiedImmutableFlag")
                                 PendingIntent pDisableIntent = PendingIntent.getActivity(appContext, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                                 NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
-                                        R.drawable.ic_action_exit_app,
+                                        //R.drawable.ic_action_exit_app,
+                                        R.drawable.ic_empty,
                                         appContext.getString(R.string.critical_github_release_notification_disable_button),
                                         pDisableIntent);
                                 mBuilder.addAction(actionBuilder.build());
+
+                                mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
 
                                 Notification notification = mBuilder.build();
                                 if (Build.VERSION.SDK_INT < 26) {

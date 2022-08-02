@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -26,9 +25,7 @@ class ActivityLogAdapter extends CursorAdapter {
     //private final int KEY_AL_DURATION_DELAY;
     private final int KEY_AL_PROFILE_EVENT_COUNT;
 
-    @SuppressLint("UseSparseArrays")
     private final HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
-    @SuppressLint("UseSparseArrays")
     private final HashMap<Integer, Integer> activityTypeColors = new HashMap<>();
 
     ActivityLogAdapter(Context context, Cursor cursor) {
@@ -97,9 +94,10 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE, R.string.altype_afterEndOfActivationTime_defaultProfile);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS, R.string.altype_afterEndOfActivationTime_restartEvents);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE, R.string.altype_afterEndOfActivationTime_specificProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN, R.string.altype_profileError_setVPN);
 
         //int otherColor = R.color.altype_other;
-        /*//noinspection SwitchStatementWithTooFewBranches
+        /*
         switch (ApplicationPreferences.applicationTheme(context, true)) {
 //            case "color":
 //                otherColor = R.color.altype_other;
@@ -141,6 +139,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.color.altype_error);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, R.color.altype_other);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, R.color.altype_other);
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START, R.color.altype_other);
@@ -185,7 +184,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
         //noinspection ConstantConditions
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
-        rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
 
         int logType = cursor.getInt(KEY_AL_LOG_TYPE);
         //noinspection ConstantConditions
@@ -225,7 +224,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
         //noinspection ConstantConditions
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
-        rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
 
         int logType = cursor.getInt(KEY_AL_LOG_TYPE);
         //noinspection ConstantConditions

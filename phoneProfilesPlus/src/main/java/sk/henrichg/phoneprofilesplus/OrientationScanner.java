@@ -274,12 +274,12 @@ class OrientationScanner implements SensorEventListener {
                     Context context = service.getApplicationContext();
 
                     Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION)
+                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION)
                             .build();
 
                     String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
 
-                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                    boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
                     if (isPowerSaveMode) {
                         if (applicationEventOrientationScanInPowerSaveMode.equals("2"))
                             // start scanning in power save mode is not allowed
@@ -287,7 +287,7 @@ class OrientationScanner implements SensorEventListener {
                     }
                     else {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2")) {
-                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                                 // not scan in configured time
@@ -304,7 +304,7 @@ class OrientationScanner implements SensorEventListener {
                     }
                     else {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("1")) {
-                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
@@ -317,7 +317,7 @@ class OrientationScanner implements SensorEventListener {
 
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG)
+                                    .addTag(MainWorker.ORIENTATION_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(interval, TimeUnit.SECONDS)
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
@@ -340,7 +340,7 @@ class OrientationScanner implements SensorEventListener {
 //                                PPApplication.logE("[WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxx");
                                 //workManager.enqueue(worker);
                                 // MUST BE KEEP !!! REPLACE cause to not call worker, because is replaced with delat again !!!
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
+                                workManager.enqueueUniqueWork(MainWorker.ORIENTATION_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
                             }
                         }
                     } catch (Exception e) {

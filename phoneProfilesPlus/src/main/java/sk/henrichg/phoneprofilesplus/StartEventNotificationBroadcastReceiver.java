@@ -1,12 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
@@ -40,7 +38,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 intent.setAction(PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER);
                 //intent.setClass(context, StartEventNotificationBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("StartEventNotificationBroadcastReceiver.removeAlarm", "alarm found");
@@ -59,7 +56,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     static void setAlarm(Event event, Context context)
     {
         //if (!_permanentRun) {
@@ -73,7 +69,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -90,7 +85,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -149,7 +143,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
 
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -167,7 +160,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -208,10 +200,11 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
         if (useHandler) {
-            PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationBroadcastReceiver.doWork"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationBroadcastReceiver.doWork"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
                 if (event_id != 0) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
 
@@ -229,7 +222,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             Event event = databaseHandler.getEvent(event_id);
                             if (event != null)
-                                event.notifyEventStart(appContext, true, true);
+                                event.notifyEventStart(appContext/*, true, true*/);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.doWork");
                         } catch (Exception e) {
@@ -245,13 +238,15 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 }
-            });
+            }; //);
+            PPApplication.createEventsHandlerExecutor();
+            PPApplication.eventsHandlerExecutor.submit(runnable);
         }
         else {
             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
             Event event = databaseHandler.getEvent(event_id);
             if (event != null)
-                event.notifyEventStart(appContext, true, true);
+                event.notifyEventStart(appContext/*, true, true*/);
         }
     }
 

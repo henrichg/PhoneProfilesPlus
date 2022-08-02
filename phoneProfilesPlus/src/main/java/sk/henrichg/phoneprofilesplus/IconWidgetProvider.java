@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -9,14 +8,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class IconWidgetProvider extends AppWidgetProvider {
@@ -29,10 +29,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //        PPApplication.logE("[IN_LISTENER] IconWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
             final Context appContext = context;
-            PPApplication.startHandlerThreadWidget();
-            final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            //PPApplication.startHandlerThreadWidget();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
@@ -41,12 +42,15 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 //if ((appContext != null) && (appWidgetManager != null)) {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
                 //}
-            });
+            }; //);
+            PPApplication.createDelayedGuiExecutor();
+            PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
 
     private static void _onUpdate(Context context, AppWidgetManager appWidgetManager,
                           /*Profile _profile, DataWrapper _dataWrapper,*/ int[] appWidgetIds) {
+
         String applicationWidgetIconLightness;
         String applicationWidgetIconColor;
         boolean applicationWidgetIconCustomIconLightness;
@@ -62,6 +66,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetIconShowProfileDuration;
         int applicationWidgetIconRoundedCornersRadius;
         boolean applicationWidgetIconChangeColorsByNightMode;
+        boolean applicationWidgetIconUseDynamicColors;
+        String applicationWidgetIconBackgroundColorNightModeOff;
+        String applicationWidgetIconBackgroundColorNightModeOn;
+        String applicationWidgetIconLayoutHeight;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
@@ -79,8 +88,18 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
             applicationWidgetIconChangeColorsByNightMode = ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode;
+            applicationWidgetIconUseDynamicColors = ApplicationPreferences.applicationWidgetIconUseDynamicColors;
+            applicationWidgetIconBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetIconBackgroundColorNightModeOff;
+            applicationWidgetIconBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetIconBackgroundColorNightModeOn;
+            applicationWidgetIconLayoutHeight = ApplicationPreferences.applicationWidgetIconLayoutHeight;
 
-            if (Build.VERSION.SDK_INT >= 31) {
+            // "Rounded corners" parameter is removed, is forced to true
+            if (!applicationWidgetIconRoundedCorners) {
+                //applicationWidgetIconRoundedCorners = true;
+                applicationWidgetIconRoundedCornersRadius = 1;
+            }
+
+            if (Build.VERSION.SDK_INT >= 30) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetIconRoundedCorners = true;
@@ -94,35 +113,38 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
                     //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
-                    applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
+                    //applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
                     applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
-                if (/*PPApplication.isPixelLauncherDefault(context) ||*/
-                        applicationWidgetIconChangeColorsByNightMode) {
+                if (Build.VERSION.SDK_INT < 31)
+                    applicationWidgetIconUseDynamicColors = false;
+                if ((/*PPApplication.isPixelLauncherDefault(context) ||*/
+                        applicationWidgetIconChangeColorsByNightMode &&
+                        (!applicationWidgetIconUseDynamicColors))) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            //applicationWidgetIconBackground = "100"; // fully opaque
+                            //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetIconBackgroundType = true; // background type = color
-                            applicationWidgetIconBackgroundColor = String.valueOf(0x2f2f2f); // color of background
+                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetIconBackgroundColorNightModeOn)); // color of background
                             //applicationWidgetIconShowBorder = false; // do not show border
-                            applicationWidgetIconLightnessBorder = "100";
-                            applicationWidgetIconLightnessT = "100"; // lightness of text = white
+                            applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                            applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                             //applicationWidgetIconColor = "0"; // icon type = colorful
-                            applicationWidgetIconLightness = "75";
+                            applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            //applicationWidgetIconBackground = "100"; // fully opaque
+                            //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetIconBackgroundType = true; // background type = color
-                            applicationWidgetIconBackgroundColor = String.valueOf(0xf0f0f0); // color of background
+                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetIconBackgroundColorNightModeOff)); // color of background
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "0";
-                            applicationWidgetIconLightnessT = "0"; // lightness of text = black
+                            applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                             //applicationWidgetIconColor = "0"; // icon type = colorful
-                            applicationWidgetIconLightness = "62";
+                            applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                             break;
                     }
                 }
@@ -132,31 +154,31 @@ public class IconWidgetProvider extends AppWidgetProvider {
         //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightness="+ApplicationPreferences.applicationWidgetIconLightness);
         int monochromeValue = 0xFF;
         switch (applicationWidgetIconLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 monochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 monochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 monochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 monochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 monochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 monochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 monochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 monochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 //noinspection ConstantConditions
                 monochromeValue = 0xFF;
                 break;
@@ -196,32 +218,32 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 blueBackground = Color.blue(bgColor);
             } else {
                 switch (applicationWidgetIconLightnessB) {
-                    case "0":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                         //noinspection ConstantConditions
                         redBackground = 0x00;
                         break;
-                    case "12":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                         redBackground = 0x20;
                         break;
-                    case "25":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                         redBackground = 0x40;
                         break;
-                    case "37":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                         redBackground = 0x60;
                         break;
-                    case "50":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                         redBackground = 0x80;
                         break;
-                    case "62":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                         redBackground = 0xA0;
                         break;
-                    case "75":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                         redBackground = 0xC0;
                         break;
-                    case "87":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                         redBackground = 0xE0;
                         break;
-                    case "100":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                         redBackground = 0xFF;
                         break;
                 }
@@ -232,32 +254,32 @@ public class IconWidgetProvider extends AppWidgetProvider {
             //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconBackground="+ApplicationPreferences_applicationWidgetIconBackground);
             int alphaBackground = 0x40;
             switch (applicationWidgetIconBackground) {
-                case "0":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                     alphaBackground = 0x00;
                     break;
-                case "12":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                     alphaBackground = 0x20;
                     break;
-                case "25":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                     //noinspection ConstantConditions
                     alphaBackground = 0x40;
                     break;
-                case "37":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                     alphaBackground = 0x60;
                     break;
-                case "50":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                     alphaBackground = 0x80;
                     break;
-                case "62":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                     alphaBackground = 0xA0;
                     break;
-                case "75":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                     alphaBackground = 0xC0;
                     break;
-                case "87":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                     alphaBackground = 0xE0;
                     break;
-                case "100":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                     alphaBackground = 0xFF;
                     break;
             }
@@ -269,31 +291,31 @@ public class IconWidgetProvider extends AppWidgetProvider {
             int blueBorder;
             if (applicationWidgetIconShowBorder) {
                 switch (applicationWidgetIconLightnessBorder) {
-                    case "0":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                         redBorder = 0x00;
                         break;
-                    case "12":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                         redBorder = 0x20;
                         break;
-                    case "25":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                         redBorder = 0x40;
                         break;
-                    case "37":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                         redBorder = 0x60;
                         break;
-                    case "50":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                         redBorder = 0x80;
                         break;
-                    case "62":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                         redBorder = 0xA0;
                         break;
-                    case "75":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                         redBorder = 0xC0;
                         break;
-                    case "87":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                         redBorder = 0xE0;
                         break;
-                    case "100":
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                         //noinspection ConstantConditions
                         redBorder = 0xFF;
                         break;
@@ -305,31 +327,31 @@ public class IconWidgetProvider extends AppWidgetProvider {
             //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconLightnessT="+applicationWidgetIconLightnessT);
             int redText = 0xFF;
             switch (applicationWidgetIconLightnessT) {
-                case "0":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                     redText = 0x00;
                     break;
-                case "12":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                     redText = 0x20;
                     break;
-                case "25":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                     redText = 0x40;
                     break;
-                case "37":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                     redText = 0x60;
                     break;
-                case "50":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                     redText = 0x80;
                     break;
-                case "62":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                     redText = 0xA0;
                     break;
-                case "75":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                     redText = 0xC0;
                     break;
-                case "87":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                     redText = 0xE0;
                     break;
-                case "100":
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                     //noinspection ConstantConditions
                     redText = 0xFF;
                     break;
@@ -347,9 +369,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 if (applicationWidgetIconShowProfileDuration)
-                    profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper);
+                    profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper);
                 else
-                    profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", false, true, false, dataWrapper);
+                    profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, false, "", false, true, false, dataWrapper);
             } else {
                 // create empty profile and set icon resource
                 profile = new Profile();
@@ -374,26 +396,132 @@ public class IconWidgetProvider extends AppWidgetProvider {
             for (int widgetId : appWidgetIds) {
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowProfileDuration="+applicationWidgetIconShowProfileDuration);
+
+                //Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
+                //bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ICON);
+                //appWidgetManager.updateAppWidgetOptions(widgetId, bundle);
+
                 RemoteViews remoteViews;
-                if (applicationWidgetIconHideProfileName) {
-                    //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
-                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_no_profile_name);
-                }
-                else {
-                    if ((profile._endOfActivationType == 0) &&
-                            (profile._duration > 0) &&
-                            (applicationWidgetIconShowProfileDuration)) {
-                        //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget);
-                    } else
-                    if ((profile._endOfActivationType == 1) &&
-                            (applicationWidgetIconShowProfileDuration)) {
-                        //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget);
+
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
+                        applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors)) {
+                    if (applicationWidgetIconLayoutHeight.equals("0")) {
+                        if (applicationWidgetIconHideProfileName) {
+                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_no_profile_name);
+                        } else {
+                            if ((profile._endOfActivationType == 0) &&
+                                    (profile._duration > 0) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget);
+                            } else if ((profile._endOfActivationType == 1) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget);
+                            } else {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_one_line_text);
+                            }
+                        }
+                    } else if (applicationWidgetIconLayoutHeight.equals("1")) {
+                        if (applicationWidgetIconHideProfileName) {
+                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_higher_widget_no_profile_name);
+                        } else {
+                            if ((profile._endOfActivationType == 0) &&
+                                    (profile._duration > 0) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_higher_widget);
+                            } else if ((profile._endOfActivationType == 1) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_higher_widget);
+                            } else {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_higher_widget_one_line_text);
+                            }
+                        }
+                    } else {
+                        if (applicationWidgetIconHideProfileName) {
+                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_highest_widget_no_profile_name);
+                        } else {
+                            if ((profile._endOfActivationType == 0) &&
+                                    (profile._duration > 0) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_highest_widget);
+                            } else if ((profile._endOfActivationType == 1) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_highest_widget);
+                            } else {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_highest_widget_one_line_text);
+                            }
+                        }
                     }
-                    else {
-                        //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_one_line_text);
+                } else {
+                    if (applicationWidgetIconLayoutHeight.equals("0")) {
+                        if (applicationWidgetIconHideProfileName) {
+                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_no_profile_name_dn);
+                        } else {
+                            if ((profile._endOfActivationType == 0) &&
+                                    (profile._duration > 0) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_dn);
+                            } else if ((profile._endOfActivationType == 1) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_dn);
+                            } else {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_one_line_text_dn);
+                            }
+                        }
+                    } else if (applicationWidgetIconLayoutHeight.equals("1")) {
+                        if (applicationWidgetIconHideProfileName) {
+                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_higher_widget_no_profile_name_dn);
+                        } else {
+                            if ((profile._endOfActivationType == 0) &&
+                                    (profile._duration > 0) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_higher_widget_dn);
+                            } else if ((profile._endOfActivationType == 1) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_higher_widget_dn);
+                            } else {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_higher_widget_one_line_text_dn);
+                            }
+                        }
+                    } else {
+                        if (applicationWidgetIconHideProfileName) {
+                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_highest_widget_no_profile_name_dn);
+                        } else {
+                            // profile._endOfActivationType - 0 = duration, 1 = end time
+                            if ((profile._endOfActivationType == 0) &&
+                                    (profile._duration > 0) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_highest_widget_dn);
+                            } else if ((profile._endOfActivationType == 1) &&
+                                    (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_highest_widget_dn);
+                            } else {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_highest_widget_one_line_text_dn);
+                            }
+                        }
                     }
                 }
 
@@ -484,7 +612,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconRoundedCorners="+applicationWidgetIconRoundedCorners);
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowBorder="+applicationWidgetIconShowBorder);
-                if (applicationWidgetIconRoundedCorners) {
+                //if (applicationWidgetIconRoundedCorners) {
                     remoteViews.setViewVisibility(R.id.widget_icon_background, View.VISIBLE);
                     remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.GONE);
                     if (applicationWidgetIconShowBorder)
@@ -492,14 +620,19 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     else
                         remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.GONE);
                     remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", 0x00000000);
-                    remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
-                    //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
+                            applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors))
+                        remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
+
                     remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", alphaBackground);
-                    //else
-                    //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", alpha);
-                    if (applicationWidgetIconShowBorder)
-                        remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                } else {
+
+                    if (applicationWidgetIconShowBorder) {
+                        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
+                                applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors))
+                            remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                    }
+                /*} else {
                     remoteViews.setViewVisibility(R.id.widget_icon_background, View.GONE);
                     remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.GONE);
                     if (applicationWidgetIconShowBorder)
@@ -507,28 +640,50 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     else
                         remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.GONE);
                     remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
-                        /*remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", 0x00000000);
-                        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                        remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", 0);
-                        //else
-                        //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", 0);*/
                     if (applicationWidgetIconShowBorder)
                         remoteViews.setInt(R.id.widget_icon_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                }
+                }*/
 
+                Bitmap bitmap = null;
+                if (applicationWidgetIconColor.equals("0")) {
+                    if (applicationWidgetIconChangeColorsByNightMode ||
+                        ((!applicationWidgetIconBackgroundType) &&
+                             (Integer.parseInt(applicationWidgetIconLightnessB) <= 25)) ||
+                         (applicationWidgetIconBackgroundType &&
+                             (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetIconBackgroundColor)) < 0.23)))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                }
                 if (isIconResourceID) {
-                    if (profile._iconBitmap != null)
-                        remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
+                    if (bitmap != null)
+                        remoteViews.setImageViewBitmap(R.id.icon_widget_icon, bitmap);
                     else {
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                        int iconResource = Profile.getIconResource(iconIdentifier);
-                        remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
+                        if (profile._iconBitmap != null)
+                            remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
+                        else {
+                            //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                            int iconResource = ProfileStatic.getIconResource(iconIdentifier);
+                            remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
+                        }
                     }
                 } else {
-                    remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
+                    if (bitmap != null)
+                        remoteViews.setImageViewBitmap(R.id.icon_widget_icon, bitmap);
+                    else {
+                        remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
+                    }
                 }
 
-                remoteViews.setTextColor(R.id.icon_widget_name, Color.argb(0xFF, redText, greenText, blueText));
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
+                        applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors))
+                    remoteViews.setTextColor(R.id.icon_widget_name, Color.argb(0xFF, redText, greenText, blueText));
+                else {
+                    // must be removed android:textColor in layout
+                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
+                    if (color != 0) {
+                        remoteViews.setTextColor(R.id.icon_widget_name, color);
+                    }
+                }
 
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);
                 if (!applicationWidgetIconHideProfileName)
@@ -539,7 +694,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 // clear all opened activities
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 //remoteViews.setOnClickPendingIntent(R.id.icon_widget_icon, pendingIntent);
                 //remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
@@ -559,7 +713,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             //PPApplication.logE("IconWidgetProvider.onUpdate", Log.getStackTraceString(e));
         //}
 
-        //dataWrapper.invalidateDataWrapper();
+        dataWrapper.invalidateDataWrapper();
     }
 
     @Override
@@ -577,10 +731,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 if ((ids != null) && (ids.length > 0)) {
                     final Context appContext = context;
                     final AppWidgetManager appWidgetManager = manager;
-                    PPApplication.startHandlerThreadWidget();
-                    final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+                    //PPApplication.startHandlerThreadWidget();
+                    //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
                     //__handler.post(new PPHandlerThreadRunnable(context, manager) {
-                    __handler.post(() -> {
+                    //__handler.post(() -> {
+                    Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
@@ -589,7 +744,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         //if ((appContext != null) && (appWidgetManager != null)) {
                             _onUpdate(appContext, appWidgetManager, ids);
                         //}
-                    });
+                    }; //);
+                    PPApplication.createDelayedGuiExecutor();
+                    PPApplication.delayedGuiExecutor.submit(runnable);
                 }
             }
         }
@@ -607,31 +764,31 @@ public class IconWidgetProvider extends AppWidgetProvider {
         //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightness="+ApplicationPreferences.applicationWidgetIconLightness);
         int monochromeValue = 0xFF;
         switch (applicationWidgetIconLightness) {
-            case "0":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 monochromeValue = 0x00;
                 break;
-            case "12":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
                 monochromeValue = 0x20;
                 break;
-            case "25":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
                 monochromeValue = 0x40;
                 break;
-            case "37":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
                 monochromeValue = 0x60;
                 break;
-            case "50":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
                 monochromeValue = 0x80;
                 break;
-            case "62":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
                 monochromeValue = 0xA0;
                 break;
-            case "75":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
                 monochromeValue = 0xC0;
                 break;
-            case "87":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
                 monochromeValue = 0xE0;
                 break;
-            case "100":
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                 monochromeValue = 0xFF;
                 break;
         }

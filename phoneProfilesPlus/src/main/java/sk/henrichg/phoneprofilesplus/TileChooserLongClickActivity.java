@@ -1,7 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,27 +36,33 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        ComponentName qsTile = intent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME);
-        if (qsTile != null) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ComponentName qsTile = intent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME);
+            if (qsTile != null) {
 //            PPApplication.logE("LongClickTileChooserActivity.onCreate", "className="+qsTile.getClassName());
-            if (qsTile.getClassName().contains("PPTileService1"))
-                tileId = 1;
-            else
-            if (qsTile.getClassName().contains("PPTileService2"))
-                tileId = 2;
-            else
-            if (qsTile.getClassName().contains("PPTileService3"))
-                tileId = 3;
-            else
-            if (qsTile.getClassName().contains("PPTileService4"))
-                tileId = 4;
-            else
-            if (qsTile.getClassName().contains("PPTileService5"))
-                tileId = 5;
+                if (qsTile.getClassName().contains("PPTileService1"))
+                    tileId = 1;
+                else if (qsTile.getClassName().contains("PPTileService2"))
+                    tileId = 2;
+                else if (qsTile.getClassName().contains("PPTileService3"))
+                    tileId = 3;
+                else if (qsTile.getClassName().contains("PPTileService4"))
+                    tileId = 4;
+                else if (qsTile.getClassName().contains("PPTileService5"))
+                    tileId = 5;
+            }
+            //else {
+                //PPApplication.logE("LongClickTileChooserActivity.onCreate", "qsTile is null");
+            //}
         }
-//        else {
-//            PPApplication.logE("LongClickTileChooserActivity.onCreate", "qsTile is null");
-//        }
+        //else {
+            // add dialog for displaying not support for change tile parameter for this android api
+        //}
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
@@ -146,7 +154,7 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
 
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorActivity.onStart", "application is not started");
@@ -171,7 +179,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
-            //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorActivity.onStart", "application is started");

@@ -22,7 +22,6 @@
 
 package com.stericson.rootshell.execution;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -326,7 +325,6 @@ public class Command {
         }
     }
 
-    @SuppressLint("HandlerLeak")
     private class CommandHandler extends Handler {
 
         static final String ACTION = "action";

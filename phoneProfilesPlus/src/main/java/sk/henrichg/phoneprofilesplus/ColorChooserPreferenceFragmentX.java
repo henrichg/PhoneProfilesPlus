@@ -43,7 +43,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         int preselect = -1;
         for (int i = 0; i < preference.mColors.length; i++) {
-            if (preference.mColors[i] == Integer.parseInt(preference.value)) {
+            if (preference.mColors[i] == ColorChooserPreferenceX.parseValue(preference.value)) {
                 preselect = i;
                 break;
             }
@@ -60,7 +60,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         ImageView check = (ImageView) customColorLayout.getChildAt(0);
 
-        int customColor = Integer.parseInt(preference.value);
+        int customColor = ColorChooserPreferenceX.parseValue(preference.value);
 
         if(Color.red(customColor) +
                 Color.green(customColor) +
@@ -132,13 +132,12 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
                     //LayoutInflater inflater = getLayoutInflater();
                     // WARNING - use this for get transparent beckround of EditText celector handler
                     LayoutInflater inflater = LayoutInflater.from(preference.context);
-                    @SuppressLint("InflateParams")
                     View layout = inflater.inflate(R.layout.dialog_custom_color_preference, null);
                     dialogBuilder.setView(layout);
 
                     final ChromaColorView chromaColorView = layout.findViewById(R.id.custom_color_chroma_color_view);
                     //PPApplication.logE("CustomColorDialogPreferenceFragmentX.onBindDialogView", "preference.value="+preference.value);
-                    chromaColorView.setCurrentColor(Integer.parseInt(preference.value));
+                    chromaColorView.setCurrentColor(ColorChooserPreferenceX.parseValue(preference.value));
                     chromaColorView.setColorMode(ColorMode.values()[0]);
                     chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);
 

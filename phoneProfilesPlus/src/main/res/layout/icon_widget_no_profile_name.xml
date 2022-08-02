@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/one_row_widget_height_higher"
     android:gravity="center"
+    android:orientation="vertical"
     android:background="#40000000"
     tools:ignore="Overdraw" >
 
@@ -12,6 +13,7 @@
         android:id="@+id/widget_icon_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
         android:visibility="gone"
@@ -28,8 +30,8 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default"
@@ -41,6 +43,7 @@
         android:id="@+id/widget_icon_not_rounded_border"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
         android:visibility="gone"
@@ -50,6 +53,7 @@
         android:id="@+id/widget_icon_rounded_border"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
         android:visibility="gone"

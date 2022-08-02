@@ -100,6 +100,7 @@ public class FastScroller {
         int TEXT_BOUNDS = 0;
         int FONT_METRICS = 1;
     }
+    @Retention(SOURCE)
     @IntDef({PopupPosition.ADJACENT, PopupPosition.CENTER})
     public @interface PopupPosition {
         int ADJACENT = 0;
@@ -244,7 +245,6 @@ public class FastScroller {
                         String sectionName = mRecyclerView.scrollToPositionAtProgress(touchFraction);
                         mPopup.setSectionName(sectionName);
                         mPopup.animateVisibility(!sectionName.isEmpty());
-                        //noinspection deprecation
                         mRecyclerView.invalidate(mPopup.updateFastScrollerBounds(mRecyclerView, mThumbPosition.y));
                     }
                 }
@@ -323,7 +323,6 @@ public class FastScroller {
         mThumbPosition.set(x, y);
         mInvalidateTmpRect.set(mThumbPosition.x + mOffset.x, mOffset.y, mThumbPosition.x + mOffset.x + mTrackWidth, mRecyclerView.getHeight() + mOffset.y);
         mInvalidateRect.union(mInvalidateTmpRect);
-        //noinspection deprecation
         mRecyclerView.invalidate(mInvalidateRect);
     }
 
@@ -337,7 +336,6 @@ public class FastScroller {
         mOffset.set(x, y);
         mInvalidateTmpRect.set(mThumbPosition.x + mOffset.x, mOffset.y, mThumbPosition.x + mOffset.x + mTrackWidth, mRecyclerView.getHeight() + mOffset.y);
         mInvalidateRect.union(mInvalidateTmpRect);
-        //noinspection deprecation
         mRecyclerView.invalidate(mInvalidateRect);
     }
 
@@ -401,13 +399,11 @@ public class FastScroller {
     public void setThumbColor(@ColorInt int color) {
         mThumbActiveColor = color;
         mThumb.setColor(color);
-        //noinspection deprecation
         mRecyclerView.invalidate(mInvalidateRect);
     }
 
     public void setTrackColor(@ColorInt int color) {
         mTrack.setColor(color);
-        //noinspection deprecation
         mRecyclerView.invalidate(mInvalidateRect);
     }
 

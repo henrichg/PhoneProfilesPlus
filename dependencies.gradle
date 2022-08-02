@@ -27,18 +27,19 @@
 // 6200 = enable notification scanning when any non-stopped event has Notification sensor
 // 6700 = separated shortcut parameters from widhet icon parameters
 // 6730 = changed one row widget "Higher layout" parameter to "Layout height"
+// 6800 = removed widgets parameter "Rounded corners", Force set rounded corners = true, radius = 1.
 
 ext.ppVersions = [
-    publishVersion: '5.3.1',
-    publishVersionCode: 6745,
+    publishVersion: '6.0',
+    publishVersionCode: 6770,
 
     minSdk: 24,
     targetSdk: 28,
-    compileSdk: 31,
-    buildTools: '32.0.0',
+    compileSdk: 32,
+    buildTools: '33.0.0',
 
-    appcompatXLib: '1.4.1',
+    appcompatXLib: '1.4.2',
     recyclerView: '1.2.1',
 
-    acra: '5.9.3'
+    acra: '5.9.6'
 ]

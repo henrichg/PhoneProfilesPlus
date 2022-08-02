@@ -89,7 +89,6 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
         preference.fragment = null;
     }
 
-    @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean notForUnselect) {
         asyncTask = new RefreshListViewAsyncTask(notForUnselect, preference, this, prefContext);
         asyncTask.execute();
@@ -134,18 +133,18 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
                 //    EditorActivity.getContactGroupsCache().getContactGroupList(prefContext);
 
                 // must be first
-                PhoneProfilesService.createContactsCache(prefContext.getApplicationContext(), false);
-                ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                PPApplication.createContactsCache(prefContext.getApplicationContext(), false);
+                ContactsCache contactsCache = PPApplication.getContactsCache();
                 if (contactsCache != null) {
                     while (contactsCache.getCaching())
-                        PPApplication.sleep(100);
+                        GlobalUtils.sleep(100);
                 }
                 //must be seconds, this ads groups int contacts
-                PhoneProfilesService.createContactGroupsCache(prefContext.getApplicationContext(), false);
-                ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+                PPApplication.createContactGroupsCache(prefContext.getApplicationContext(), false);
+                ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
                 if (contactGroupsCache != null) {
                     while (contactGroupsCache.getCaching())
-                        PPApplication.sleep(100);
+                        GlobalUtils.sleep(100);
                 }
 
                 preference.getValueCMSDP();

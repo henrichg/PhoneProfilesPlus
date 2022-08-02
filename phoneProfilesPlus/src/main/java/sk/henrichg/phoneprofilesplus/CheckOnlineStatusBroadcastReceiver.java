@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -26,11 +25,12 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
         //deviceIsOnline = isOnline(context.getApplicationContext());
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast();
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //PPApplication.startHandlerThreadBroadcast();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(
         //        context.getApplicationContext()) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //          PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CheckOnlineStatusBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
@@ -45,6 +45,9 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
 
                     LocationScanner.onlineStatusChanged(appContext);
 
+//                    boolean isNetworkRoaming = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).isNetworkRoaming();
+//                    Log.e("CheckOnlineStatusBroadcastReceiver.onReceive", "isNetworkRoaming="+isNetworkRoaming);
+
                 } catch (Exception e) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
@@ -57,7 +60,9 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createBasicExecutorPool();
+        PPApplication.basicExecutorPool.submit(runnable);
 
 
 //        PPApplication.logE("[LOCAL_BROADCAST_CALL] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");

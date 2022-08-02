@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -14,7 +14,6 @@ public class GitHubAssetsScreenshotActivity extends AppCompatActivity {
 
     static final String EXTRA_IMAGE = "image";
 
-    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
@@ -40,6 +39,11 @@ public class GitHubAssetsScreenshotActivity extends AppCompatActivity {
         Button closeButton = findViewById(R.id.github_assets_screenshot_activity_close);
         closeButton.setOnClickListener(v -> finish());
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

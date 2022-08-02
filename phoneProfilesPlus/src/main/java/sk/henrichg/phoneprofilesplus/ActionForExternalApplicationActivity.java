@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
     private long profile_id = 0;
     private long event_id = 0;
 
-    // !!! do change this actions, these are for Tasker !!!!
+    // !!! do NOT change this actions, these are for Tasker !!!!
     static final String ACTION_ACTIVATE_PROFILE = PPApplication.PACKAGE_NAME + ".ACTION_ACTIVATE_PROFILE";
     private static final String ACTION_RESTART_EVENTS = PPApplication.PACKAGE_NAME + ".ACTION_RESTART_EVENTS";
     private static final String ACTION_ENABLE_RUN_FOR_EVENT = PPApplication.PACKAGE_NAME + ".ACTION_ENABLE_RUN_FOR_EVENT";
@@ -87,12 +86,17 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onStart()
     {
         super.onStart();
 
         if (action != null) {
-            boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+            boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
             if (!serviceStarted) {
 //                PPApplication.logE("ActionForExternalApplicationActivity.onStart", "application not started");
 
@@ -144,7 +148,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 //                            PPApplication.logE("ActionForExternalApplicationActivity.onStart", "profile=" + profile._name);
                             //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                             //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
-                            if (!PhoneProfilesService.displayPreferencesErrorNotification(profile, null, getApplicationContext())) {
+                            if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, getApplicationContext())) {
 //                                PPApplication.logE("&&&&&&& ActionForExternalApplicationActivity.onStart", "called is DataWrapper.activateProfileFromMainThread");
                                 dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this, false);
                             } else
@@ -178,11 +182,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 //                            PPApplication.logE("ActionForExternalApplicationActivity.onStart", "event=" + event._name);
                             if (event.getStatus() != Event.ESTATUS_RUNNING) {
                                 final Context appContext = getApplicationContext();
-                                PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
-                                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
+                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                                 //__handler.post(new PPHandlerThreadRunnable(
                                 //        getApplicationContext(), dataWrapper, event) {
-                                __handler.post(() -> {
+                                //__handler.post(() -> {
+                                Runnable runnable = () -> {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
                                     //Context appContext= appContextWeakRef.get();
@@ -219,7 +224,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                });
+                                }; //);
+                                PPApplication.createBasicExecutorPool();
+                                PPApplication.basicExecutorPool.submit(runnable);
                             }
                         }
                         else
@@ -241,11 +248,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 //                            PPApplication.logE("ActionForExternalApplicationActivity.onStart", "event=" + event._name);
                             if (event.getStatus() == Event.ESTATUS_RUNNING) {
                                 final Context appContext = getApplicationContext();
-                                PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.11"*/);
-                                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.11"*/);
+                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                                 //__handler.post(new PPHandlerThreadRunnable(
                                 //        getApplicationContext(), dataWrapper, event) {
-                                __handler.post(() -> {
+                                //__handler.post(() -> {
+                                Runnable runnable = () -> {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.11");
 
                                     //Context appContext= appContextWeakRef.get();
@@ -278,7 +286,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                });
+                                }; //);
+                                PPApplication.createBasicExecutorPool();
+                                PPApplication.basicExecutorPool.submit(runnable);
                             }
                         }
                         else
@@ -300,11 +310,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 //                            PPApplication.logE("ActionForExternalApplicationActivity.onStart", "event=" + event._name);
                             if (event.getStatus() != Event.ESTATUS_STOP) {
                                 final Context appContext = getApplicationContext();
-                                PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.2"*/);
-                                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.2"*/);
+                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                                 //__handler.post(new PPHandlerThreadRunnable(
                                 //        getApplicationContext(), dataWrapper, event) {
-                                __handler.post(() -> {
+                                //__handler.post(() -> {
+                                Runnable runnable = () -> {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
                                     //Context appContext= appContextWeakRef.get();
@@ -342,7 +353,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                });
+                                }; //);
+                                PPApplication.createBasicExecutorPool();
+                                PPApplication.basicExecutorPool.submit(runnable);
                             }
                         }
                         else
@@ -407,6 +420,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        mBuilder.setGroup(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_GROUP);
+
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(getApplicationContext());
         try {
             mNotificationManager.notify(

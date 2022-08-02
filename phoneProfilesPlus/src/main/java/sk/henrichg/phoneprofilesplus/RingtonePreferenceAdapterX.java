@@ -89,12 +89,14 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
         if (ringtone.contains("content://media/internal")) {
             holder.ringtonePath.setVisibility(View.VISIBLE);
             holder.ringtonePath.setText(R.string.ringtone_pref_dlg_system_tone);
+            holder.ringtoneTypeImage.setVisibility(View.VISIBLE);
             holder.ringtoneTypeImage.setImageResource(R.drawable.ic_ringtone_system);
         }
         else
         if (ringtone.contains("content://media/external")) {
             holder.ringtonePath.setVisibility(View.VISIBLE);
             holder.ringtonePath.setText(R.string.ringtone_pref_dlg_extenal_tone);
+            holder.ringtoneTypeImage.setVisibility(View.VISIBLE);
             holder.ringtoneTypeImage.setImageResource(R.drawable.ic_ringtone_external);
         }
         else {
@@ -107,6 +109,7 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
                 }
             } else*/
                 holder.ringtonePath.setVisibility(View.GONE);
+                holder.ringtoneTypeImage.setVisibility(View.GONE);
         }
 
         return vi;

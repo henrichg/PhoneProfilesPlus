@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -114,7 +113,6 @@ public class ActivatorActivity extends AppCompatActivity {
         }
     };
 
-    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,8 +163,8 @@ public class ActivatorActivity extends AppCompatActivity {
 //            Log.e("ActivatorActivity.onCreate", "25%="+Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext()));
             //if (actualBightnessMode != Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
             if (actualBrightness <
-                    Profile.convertPercentsToBrightnessManualValue(15, getApplicationContext())) {
-                layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(35, getApplicationContext()) / (float) 255;
+                    ProfileStatic.convertPercentsToBrightnessManualValue(15, getApplicationContext())) {
+                layoutParams.screenBrightness = ProfileStatic.convertPercentsToBrightnessManualValue(35, getApplicationContext()) / (float) 255;
                 win.setAttributes(layoutParams);
             }
             //}
@@ -211,6 +209,11 @@ public class ActivatorActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
@@ -240,6 +243,8 @@ public class ActivatorActivity extends AppCompatActivity {
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver"));
 
             refreshGUI(/*true,*/ false);
+
+            Permissions.grantNotificationsPermission(this);
         }
         else {
             if (!isFinishing())
@@ -248,6 +253,18 @@ public class ActivatorActivity extends AppCompatActivity {
 
         //-----------------------------------------------------------------------------------------
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
+        {
+            PhoneProfilesNotification.drawProfileNotification(true, getApplicationContext());
+            DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+            IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+        }
     }
 
     @SuppressWarnings("SameReturnValue")
@@ -281,7 +298,7 @@ public class ActivatorActivity extends AppCompatActivity {
 
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorActivity.onStart", "application is not started");
@@ -306,7 +323,6 @@ public class ActivatorActivity extends AppCompatActivity {
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
-            //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorActivity.onStart", "application is started");
@@ -651,7 +667,7 @@ public class ActivatorActivity extends AppCompatActivity {
 
                         editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
                         editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                        editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                        //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                         editor.apply();
 
@@ -661,7 +677,7 @@ public class ActivatorActivity extends AppCompatActivity {
 
                         ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
                         ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
-                        ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
+                        //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
 
                         final Handler handler = new Handler(getMainLooper());
                         handler.postDelayed(() -> {

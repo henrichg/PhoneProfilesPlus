@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -21,7 +20,7 @@ class AddEventDialog
     final EditorEventListFragment eventListFragment;
 
     final AlertDialog mDialog;
-    private final Activity activity;
+    final Activity activity;
 
     final LinearLayout linlaProgress;
     final LinearLayout rellaData;
@@ -39,8 +38,7 @@ class AddEventDialog
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.dialog_event_preference, null);
+        View layout = inflater.inflate(R.layout.dialog_add_event, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();
@@ -70,7 +68,6 @@ class AddEventDialog
 
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void onShow(/*DialogInterface dialog*/) {
          GetEventsAsyncTask asyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
          asyncTask.execute();
@@ -164,7 +161,7 @@ class AddEventDialog
             Activity activity = activityWeakRef.get();
             if (activity != null) {
                 Event event;
-                event = DataWrapper.getNonInitializedEvent(activity.getString(R.string.event_name_default), 0);
+                event = DataWrapperStatic.getNonInitializedEvent(activity.getString(R.string.event_name_default), 0);
                 eventList.add(event);
                 for (int index = 0; index < 6; index++) {
                     event = dataWrapper.getPredefinedEvent(index, false, activity);

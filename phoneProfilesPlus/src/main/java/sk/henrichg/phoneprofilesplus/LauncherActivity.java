@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -39,6 +40,11 @@ public class LauncherActivity extends AppCompatActivity {
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
         //PPApplication.logE("LauncherActivity.onCreate", "startupSource="+startupSource);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
@@ -175,7 +181,7 @@ public class LauncherActivity extends AppCompatActivity {
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
 
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
 //            if (PPApplication.logEnabled()) {
 //                PPApplication.logE("LauncherActivity.startPPServiceWhenNotStarted", "application is not started");
@@ -201,7 +207,6 @@ public class LauncherActivity extends AppCompatActivity {
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
-            //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
 //                if (PPApplication.logEnabled()) {
 //                    PPApplication.logE("LauncherActivity.startPPServiceWhenNotStarted", "application is started");

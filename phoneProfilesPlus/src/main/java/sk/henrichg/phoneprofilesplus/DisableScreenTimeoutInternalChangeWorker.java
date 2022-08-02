@@ -6,10 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+// DO NOT REMOVE. MUST EXISTS !!!
 public class DisableScreenTimeoutInternalChangeWorker extends Worker {
 
     static final String WORK_TAG = "disableScreenTimeoutInternalChangeWork";
 
+    @SuppressWarnings("unused")
     public DisableScreenTimeoutInternalChangeWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
@@ -19,9 +21,9 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        try {
-//            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- START");
+        /*try {
+            long start = System.currentTimeMillis();
+            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- START");*/
 
             /*if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -33,7 +35,6 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
             if (workManager != null) {
                 ListenableFuture<List<WorkInfo>> statuses;
                 statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                //noinspection TryWithIdenticalCatches
                 try {
                     List<WorkInfo> workInfoList = statuses.get();
                     for (WorkInfo workInfo : workInfoList) {
@@ -54,24 +55,55 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
             //PPApplication.logE("DisableScreenTimeoutInternalChangeWorker.doWork", "foundEnqueued="+foundEnqueued);
 
             if (!foundEnqueued)*/
-                ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
+            /*    ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
 
-//            long finish = System.currentTimeMillis();
-//            long timeElapsed = finish - start;
-//            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+            long finish = System.currentTimeMillis();
+            long timeElapsed = finish - start;
+            PPApplication.logE("[IN_WORKER]  DisableScreenTimeoutInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);*/
             return Result.success();
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             //Log.e("DisableScreenTimeoutInternalChangeWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(PPApplication.pid);
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
+            //Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            //Runnable r = new Runnable() {
+            //    public void run() {
+            //        android.os.Process.killProcess(PPApplication.pid);
+            //    }
+            //};
+            //_handler.postDelayed(r, 1000);
             return Result.failure();
-        }
+        }*/
     }
 
+/*
+    static void enqueueWork() {
+        OneTimeWorkRequest disableInternalChangeWorker =
+                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                        .addTag(DisableInternalChangeWorker.WORK_TAG)
+                        .setInitialDelay(5, TimeUnit.SECONDS)
+                        .build();
+        try {
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                    //if (PPApplication.logEnabled()) {
+//                    ListenableFuture<List<WorkInfo>> statuses;
+//                    statuses = workManager.getWorkInfosForUniqueWork(DisableInternalChangeWorker.WORK_TAG);
+//                    try {
+//                        List<WorkInfo> workInfoList = statuses.get();
+//                        PPApplication.logE("[TEST BATTERY] DisableInternalChangeWorker.enqueueWork", "for=" + DisableInternalChangeWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                    } catch (Exception ignored) {
+//                    }
+//                    //}
+
+//                    PPApplication.logE("[WORKER_CALL] DisableInternalChangeWorker.enqueueWork", "xxx");
+                    workManager.enqueueUniqueWork(DisableInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                }
+            }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+*/
 }

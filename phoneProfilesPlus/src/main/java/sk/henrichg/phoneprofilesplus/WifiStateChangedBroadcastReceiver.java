@@ -7,12 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
-import android.os.Handler;
 import android.os.PowerManager;
-
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,10 +38,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 //                PPApplication.logE("[APP_START] WifiStateChangedBroadcastReceiver.onReceive", "wifiState="+wifiState);
 
-                PPApplication.startHandlerThreadBroadcast(/*"WifiStateChangedBroadcastReceiver.onReceive.1"*/);
-                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                //PPApplication.startHandlerThreadBroadcast(/*"WifiStateChangedBroadcastReceiver.onReceive.1"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-                __handler.post(() -> {
+                //__handler.post(() -> {
+                Runnable __runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
 
                     //Context appContext= appContextWeakRef.get();
@@ -74,17 +70,13 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         if (!PhoneProfilesService.getInstance().connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                                             WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                             if (wifiManager != null) {
-                                                //noinspection deprecation
                                                 List<WifiConfiguration> list = null;
                                                 if (Permissions.hasPermission(appContext, Manifest.permission.ACCESS_FINE_LOCATION))
-                                                    //noinspection deprecation
                                                     list = wifiManager.getConfiguredNetworks();
                                                 if (list != null) {
-                                                    //noinspection deprecation
                                                     for (WifiConfiguration i : list) {
                                                         if (i.SSID != null && i.SSID.equals(PhoneProfilesService.getInstance().connectToSSID)) {
                                                             //wifiManager.disconnect();
-                                                            //noinspection deprecation
                                                             wifiManager.enableNetwork(i.networkId, true);
                                                             //wifiManager.reconnect();
                                                             break;
@@ -112,6 +104,23 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                         // start scan
                                         if (ApplicationPreferences.prefEventWifiScanRequest) {
+//                                            PPApplication.logE("[EXECUTOR_CALL]  ***** WifiStateChangedBroadcastReceiver.onReceive", "schedule");
+
+                                            //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                                            Runnable runnable = () -> {
+//                                                long start = System.currentTimeMillis();
+//                                                PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- START");
+                                                WifiScanWorker.startScan(appContext);
+//                                                long finish = System.currentTimeMillis();
+//                                                long timeElapsed = finish - start;
+//                                                PPApplication.logE("[IN_EXECUTOR]  ***** WifiStateChangedBroadcastReceiver.onReceive", "--------------- END - timeElapsed="+timeElapsed);
+                                                //worker.shutdown();
+                                            };
+                                            PPApplication.createDelayedEventsHandlerExecutor();
+                                            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+
+
+                                            /*
                                             OneTimeWorkRequest worker =
                                                     new OneTimeWorkRequest.Builder(MainWorker.class)
                                                             .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
@@ -133,12 +142,13 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 //                                                        //}
 
 //                                                        PPApplication.logE("[WORKER_CALL] WifiStateChangedBroadcastReceiver.onReceive", "xxx");
-                                                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                                                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN, ExistingWorkPolicy.REPLACE, worker);
                                                     }
                                                 }
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);
                                             }
+                                            */
                                         }
                                     }
 
@@ -180,7 +190,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     //}
-                });
+                }; //);
+                PPApplication.createEventsHandlerExecutor();
+                PPApplication.eventsHandlerExecutor.submit(__runnable);
             }
         }
 

@@ -7,7 +7,8 @@
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:baselineAligned="false" >
+    android:baselineAligned="false"
+    android:background="?attr/listViewItemBackground" >
 
     <include layout="@layout/mp_preference_material_body" />
 

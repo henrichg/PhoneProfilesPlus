@@ -32,7 +32,6 @@ class InputStreamUtil {
         }
     }
 
-    @SuppressWarnings("unused")
     static void copy(InputStream is, OutputStream out) {
         try {
             byte[] buffer = new byte[1024];

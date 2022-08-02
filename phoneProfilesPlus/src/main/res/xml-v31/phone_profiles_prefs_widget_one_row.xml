@@ -19,17 +19,28 @@
         app:entries="@array/widgetOneRowLayoutHeightArray"
         app:entryValues="@array/widgetOneRowLayoutHeightValues"
         app:layout="@layout/mp_preference_material_widget" />
-<!--    <SwitchPreferenceCompat-->
-<!--        app:key="applicationWidgetOneRowHigherLayout"-->
-<!--        app:title="@string/phone_profiles_pref_applicationWidgetHigherLayout"-->
-<!--        app:defaultValue="false"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
 
     <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowChangeColorsByNightMode"
         app:title="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode"
         app:summary="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary"
         app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowUseDynamicColors"
+        app:title="@string/phone_profiles_pref_applicationWidgetUseDynamicColors"
+        app:defaultValue="true"
+        app:dependency="applicationWidgetOneRowChangeColorsByNightMode"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOff"
+        app:key="applicationWidgetOneRowBackgroundColorNightModeOff"
+        app:defaultValue="#fffcfcfc"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOn"
+        app:key="applicationWidgetOneRowBackgroundColorNightModeOn"
+        app:defaultValue="#ff201a18"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
@@ -69,11 +80,11 @@
         app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
-        app:key="applicationWidgetOneRowRoundedCorners"
-        app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
-        app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <SwitchPreferenceCompat-->
+<!--        app:key="applicationWidgetOneRowRoundedCorners"-->
+<!--        app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"-->
+<!--        app:defaultValue="true"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationWidgetOneRowRoundedCornersRadius"
         app:summary="@string/phone_profiles_pref_applicationWidgetCornerRadius"

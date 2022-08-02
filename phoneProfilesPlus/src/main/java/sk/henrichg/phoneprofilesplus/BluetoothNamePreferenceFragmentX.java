@@ -236,7 +236,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
     void setLocationEnableStatus() {
         //if (Build.VERSION.SDK_INT >= 23) {
             String statusText;
-            if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
+            if (!GlobalUtils.isLocationEnabled(prefContext)) {
                 statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
                         "* " + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
 
@@ -299,7 +299,6 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         }*/
     }
 
-    @SuppressLint("StaticFieldLeak")
     void refreshListView(boolean forRescan, final String scrollToBTName)
     {
         rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, scrollToBTName,

@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -32,7 +30,9 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
             if (calendarEventsExists)
             {*/
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThreadBroadcast(/*"CalendarProviderChangedBroadcastReceiver.onReceive"*/);
+                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED, "SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED", 0);
+                /*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
@@ -67,6 +67,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
                         }
                     //}
                 });
+                */
             //}
 
         }

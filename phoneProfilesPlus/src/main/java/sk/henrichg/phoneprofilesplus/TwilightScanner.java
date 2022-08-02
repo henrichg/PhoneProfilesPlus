@@ -19,14 +19,8 @@ import android.os.SystemClock;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 class TwilightScanner {
 
@@ -87,8 +81,10 @@ class TwilightScanner {
                 if (Event.getGlobalEventsRunning()) {
                     //PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
 
+                    PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_TIME, "SENSOR_TYPE_TIME", 10);
+                    /*
                     Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_TIME)
+                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_TIME)
                             .build();
 
                     OneTimeWorkRequest worker =
@@ -115,12 +111,13 @@ class TwilightScanner {
 
 //                                PPApplication.logE("[WORKER_CALL] TwilightScanner.setTwilightState", "xxx");
                                 //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
+                    */
 
                     /*
                     PPApplication.startHandlerThread();//"TwilightScanner.setTwilightState"
@@ -195,7 +192,6 @@ class TwilightScanner {
         return distance >= totalAccuracy;
     }
 
-    @SuppressLint("HandlerLeak")
     private final class LocationHandler extends Handler {
         private static final int MSG_ENABLE_LOCATION_UPDATES = 1;
         private static final int MSG_GET_NEW_LOCATION_UPDATE = 2;
@@ -358,7 +354,8 @@ class TwilightScanner {
                             mLocationManager.getProviders(new Criteria(), true).iterator();
                     //noinspection WhileLoopReplaceableByForEach
                     while (providers.hasNext()) {
-                        @SuppressLint("MissingPermission") final Location lastKnownLocation =
+                        @SuppressLint("MissingPermission")
+                        final Location lastKnownLocation =
                                 mLocationManager.getLastKnownLocation(providers.next());
                         // pick the most recent location
                         if (location == null || (lastKnownLocation != null &&
@@ -400,7 +397,6 @@ class TwilightScanner {
             updateTwilightState(true/*, true*/);
         }
 
-        @SuppressLint("UnspecifiedImmutableFlag")
         void updateTwilightState(boolean setAlarm/*, boolean log*/) {
             if (mLocation == null) {
                 setTwilightState(null);
@@ -505,7 +501,6 @@ class TwilightScanner {
                 // remove alarm
                 try {
                     Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
                     if (pendingIntent != null) {
                         if (mAlarmManager != null)
@@ -521,7 +516,6 @@ class TwilightScanner {
                 Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
 
                 if (mAlarmManager != null) {
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
                     if (pendingIntent != null) {
                         //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");

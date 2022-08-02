@@ -134,6 +134,13 @@ class EventPreferencesScreen extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
                     @SuppressWarnings("unused") Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_SCREEN_ENABLED) ||
             key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
             boolean value = preferences.getBoolean(key, false);
@@ -161,12 +168,15 @@ class EventPreferencesScreen extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
             if (preference != null) {
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_SCREEN_ENABLED, false);
+                boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_SCREEN_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SCREEN).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                if (enabled)
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                else
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
         }
         else {
@@ -180,28 +190,32 @@ class EventPreferencesScreen extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context)
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context)
     {
-        final Preference eventTypePreference = prefMng.findPreference(PREF_EVENT_SCREEN_EVENT_TYPE);
-        final PreferenceManager _prefMng = prefMng;
-
-        if (eventTypePreference != null) {
-            eventTypePreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                String sNewValue = (String) newValue;
-                int iNewValue;
-                if (sNewValue.isEmpty())
-                    iNewValue = 100;
-                else
-                    iNewValue = Integer.parseInt(sNewValue);
-
-                setWhenUnlockedTitle(_prefMng, iNewValue);
-
-                return true;
-            });
-        }
-
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
+        if (!onlyCategory) {
+            if (prefMng.findPreference(PREF_EVENT_SCREEN_ENABLED) != null) {
+                final Preference eventTypePreference = prefMng.findPreference(PREF_EVENT_SCREEN_EVENT_TYPE);
+                final PreferenceManager _prefMng = prefMng;
+
+                if (eventTypePreference != null) {
+                    eventTypePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                        String sNewValue = (String) newValue;
+                        int iNewValue;
+                        if (sNewValue.isEmpty())
+                            iNewValue = 100;
+                        else
+                            iNewValue = Integer.parseInt(sNewValue);
+
+                        setWhenUnlockedTitle(_prefMng, iNewValue);
+
+                        return true;
+                    });
+                }
+
+                setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
+            }
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 

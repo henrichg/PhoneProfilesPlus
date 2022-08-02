@@ -39,7 +39,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
 
     private ImageView imageView;
     ImageView dialogIcon;
-    private final Context prefContext;
+    final Context prefContext;
 
     static final int RESULT_LOAD_IMAGE = 1971;
 
@@ -87,7 +87,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
         return a.getString(index);  // icon is returned as string
     }
 
-    private Bitmap getBitmap() {
+    Bitmap getBitmap() {
         int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
         int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
         return BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, true, false, prefContext);
@@ -113,7 +113,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
         try {
             customColor = Integer.parseInt(splits[3]);
         } catch (Exception e) {
-            customColor = ProfileIconPreferenceAdapterX.getIconColor(imageIdentifier/*, prefContext*/);
+            customColor = ProfileStatic.getIconDefaultColor(imageIdentifier/*, prefContext*/);
         }
 
         /*if (!isImageResourceID) {
@@ -284,7 +284,6 @@ public class ProfileIconPreferenceX extends DialogPreference {
         }*/
     }
 
-    @SuppressLint("StaticFieldLeak")
     void updateIcon(final boolean inDialog) {
         new UpdateIconAsyncTask(inDialog, this, prefContext).execute();
     }
@@ -383,6 +382,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
 
     private static class UpdateIconAsyncTask extends AsyncTask<Void, Integer, Void> {
 
+        @SuppressLint("StaticFieldLeak")
         ImageView _imageView;
         Bitmap bitmap;
 
@@ -419,17 +419,21 @@ public class ProfileIconPreferenceX extends DialogPreference {
             if ((preference != null) && (prefContext != null)) {
                 if (preference.isImageResourceID) {
                     // je to resource id
-                    if (preference.useCustomColor) {
-                        //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(preference.imageIdentifier);
-                        //bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
-                        bitmap = BitmapManipulator.getBitmapFromResource(res, true, prefContext);
+
+                    int res = ProfileStatic.getIconResource(preference.imageIdentifier);
+                    bitmap = BitmapManipulator.getBitmapFromResource(res, true, prefContext);
+
+                    if (preference.useCustomColor)
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, prefContext*/);
-                    }
+
                 } else {
                     // je to file
                     bitmap = preference.getBitmap();
                 }
+
+                Bitmap _bitmap = ProfileStatic.increaseProfileIconBrightnessForPreference(bitmap, preference);
+                if (_bitmap != null)
+                    bitmap = _bitmap;
             }
             return null;
         }
@@ -443,21 +447,10 @@ public class ProfileIconPreferenceX extends DialogPreference {
             Context prefContext = prefContextWeakRef.get();
             if ((preference != null) && (prefContext != null)) {
                 if (_imageView != null) {
-                    if (preference.isImageResourceID) {
-                        // je to resource id
-                        if (preference.useCustomColor)
-                            _imageView.setImageBitmap(bitmap);
-                        else {
-                            //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(preference.imageIdentifier);
-                            _imageView.setImageResource(res); // icon resource
-                        }
-                    } else {
-                        // je to file
-                        if (bitmap != null)
-                            _imageView.setImageBitmap(bitmap);
-                        else
-                            _imageView.setImageResource(R.drawable.ic_profile_default);
+                    if (bitmap != null)
+                        _imageView.setImageBitmap(bitmap);
+                    else {
+                        _imageView.setImageResource(R.drawable.ic_profile_default);
                     }
                 }
             }

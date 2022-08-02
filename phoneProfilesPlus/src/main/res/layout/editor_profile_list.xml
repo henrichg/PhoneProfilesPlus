@@ -11,11 +11,12 @@
         android:id="@+id/editor_profiles_activated_profile_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginEnd="9dp"
         android:layout_marginTop="-6dp"
         android:layout_marginBottom="5dp"
-        android:padding="6dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         android:layout_alignParentTop="true">
 
         <RelativeLayout
@@ -52,7 +53,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text="@string/empty_string"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -61,7 +62,7 @@
                 <ImageView
                     android:id="@+id/editor_profiles_activated_profile_pref_indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="14dp"
+                    android:layout_height="@dimen/profile_preferences_indicator_height"
                     android:layout_marginTop="2dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_indicator_image"
@@ -97,7 +98,7 @@
         <View
             android:id="@+id/editor_profiles_list_divider1"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_gravity="top"
@@ -119,7 +120,7 @@
             android:layout_height="match_parent"
             android:text="@string/profile_list_empty"
             android:gravity="center"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:visibility="gone" />
 
         <LinearLayout
@@ -140,7 +141,7 @@
         <View
             android:id="@+id/editor_profiles_list_divider2"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="?attr/dialogDivider"

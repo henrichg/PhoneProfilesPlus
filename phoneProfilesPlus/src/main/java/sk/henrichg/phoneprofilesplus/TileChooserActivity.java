@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -119,6 +120,11 @@ public class TileChooserActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onStart()
     {
         super.onStart();
@@ -171,7 +177,7 @@ public class TileChooserActivity extends AppCompatActivity {
 
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorActivity.onStart", "application is not started");
@@ -196,7 +202,6 @@ public class TileChooserActivity extends AppCompatActivity {
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
-            //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorActivity.onStart", "application is started");

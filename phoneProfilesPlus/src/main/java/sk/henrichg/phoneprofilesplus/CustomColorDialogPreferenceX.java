@@ -236,7 +236,6 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         int value;
         int defaultValue;
 
-        @SuppressWarnings("unused")
         SavedState(Parcel source)
         {
             super(source);

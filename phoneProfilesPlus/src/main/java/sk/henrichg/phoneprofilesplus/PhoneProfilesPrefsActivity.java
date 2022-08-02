@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.view.MenuItem;
 
@@ -43,6 +42,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     private boolean fromFinish = false;
     private boolean invalidateEditor = false;
+
+    //int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
@@ -112,13 +113,49 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         useAlarmClockEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
 
-        String extraScrollTo;
+        String extraScrollTo; //= null;
         Intent intent = getIntent();
+        //String action = intent.getAction();
         if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
             // activity is started from notification, scroll to notifications category
             extraScrollTo = "categoryNotificationsRoot";
             //extraScrollToType = "category";
         }
+        /*else if ((action != null) && action.equals(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE)) {
+            appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
+
+            int widgetType = 0;
+            PackageManager packageManager = getApplicationContext().getPackageManager();
+            AppWidgetProviderInfo providerInfo = appWidgetManager.getAppWidgetInfo(appWidgetId);
+            Log.e("PhoneProfilesPrefsActivity.onCreate", "packageManager="+packageManager);
+            Log.e("PhoneProfilesPrefsActivity.onCreate", "providerInfo="+providerInfo);
+            if ((packageManager != null) && (providerInfo != null)) {
+                String widgetLabel = providerInfo.loadLabel(packageManager);
+                Log.e("PhoneProfilesPrefsActivity.onCreate", "widgetLabel="+widgetLabel);
+                Log.e("PhoneProfilesPrefsActivity.onCreate", "string="+getString(R.string.widget_label_one_row));
+                if (widgetLabel != null) {
+                    if (widgetLabel.equals(getString(R.string.widget_label_icon)))
+                        widgetType = PPApplication.WIDGET_TYPE_ICON;
+                    else
+                    if (widgetLabel.equals(getString(R.string.widget_label_one_row)))
+                        widgetType = PPApplication.WIDGET_TYPE_ONE_ROW;
+                    else
+                    if (widgetLabel.equals(getString(R.string.widget_label_list)))
+                        widgetType = PPApplication.WIDGET_TYPE_LIST;
+                }
+            }
+
+            if (widgetType == PPApplication.WIDGET_TYPE_ICON)
+                extraScrollTo = "categoryWidgetIconRoot";
+            else
+            if (widgetType == PPApplication.WIDGET_TYPE_ONE_ROW)
+                extraScrollTo = "categoryWidgetOneRowRoot";
+            else
+            if (widgetType == PPApplication.WIDGET_TYPE_LIST)
+                extraScrollTo = "categoryWidgetListRoot";
+        }*/
         else {
             extraScrollTo = intent.getStringExtra(EXTRA_SCROLL_TO);
             //extraScrollToType = intent.getStringExtra(EXTRA_SCROLL_TO_TYPE);
@@ -127,29 +164,23 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         PhoneProfilesPrefsFragment preferenceFragment = new PhoneProfilesPrefsRoot();
         if (extraScrollTo != null) {
             switch (extraScrollTo) {
-                case "applicationInterfaceCategoryRoot":
-                    preferenceFragment = new PhoneProfilesPrefsInterface();
-                    break;
-                case "categoryApplicationStartRoot":
-                    preferenceFragment = new PhoneProfilesPrefsApplicationStart();
-                    break;
                 case "categorySystemRoot":
                     preferenceFragment = new PhoneProfilesPrefsSystem();
                     break;
                 case "categoryPermissionsRoot":
                     preferenceFragment = new PhoneProfilesPrefsPermissions();
                     break;
-                case "categoryNotificationsRoot":
-                    preferenceFragment = new PhoneProfilesPrefsNotifications();
-                    break;
                 case "profileActivationCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsProfileActivation();
                     break;
-                case "specialProfileParametersCategoryRoot":
-                    preferenceFragment = new PhoneProfilesPrefsSpecialProfileParameters();
-                    break;
                 case "eventRunCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsEventRun();
+                    break;
+                case "categoryNotificationsRoot":
+                    preferenceFragment = new PhoneProfilesPrefsNotifications();
+                    break;
+                case "specialProfileParametersCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsSpecialProfileParameters();
                     break;
                 case "periodicScanningCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsPeriodicScanning();
@@ -172,6 +203,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 case "notificationScanningCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsNotificationScanning();
                     break;
+                case "applicationInterfaceCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsInterface();
+                    break;
+                case "categoryApplicationStartRoot":
+                    preferenceFragment = new PhoneProfilesPrefsApplicationStart();
+                    break;
                 case "categoryActivatorRoot":
                     preferenceFragment = new PhoneProfilesPrefsActivator();
                     break;
@@ -187,7 +224,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 case "categoryWidgetIconRoot":
                     preferenceFragment = new PhoneProfilesPrefsWidgetIcon();
                     break;
-                case "categoryShortcutIconRoot":
+                case "categoryShortcutRoot":
                     preferenceFragment = new PhoneProfilesPrefsShortcut();
                     break;
                 case "categorySamsungEdgePanelRoot":
@@ -204,6 +241,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                     .replace(R.id.activity_preferences_settings, preferenceFragment)
                     .commit();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
@@ -260,7 +302,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
-        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorActivity.onStart", "application is not started");
@@ -285,7 +327,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
-            //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorActivity.onStart", "application is started");
@@ -372,11 +413,16 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             // for startActivityForResult
             returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
             Permissions.grantRootChanged = false;
-            setResult(RESULT_OK, returnIntent);
+
+            //if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+            //    Intent resultValue = new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            //    setResult(RESULT_OK, resultValue);
+            //} else
+                setResult(RESULT_OK, returnIntent);
         }
         else {
             Permissions.grantRootChanged = false;
-            setResult(RESULT_CANCELED, returnIntent);
+            setResult(RESULT_CANCELED);//, returnIntent);
         }
 
         super.finish();
@@ -392,8 +438,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-        //if (backgroundScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
-        //    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODICSCANNING_DISABLED_SCANNING_BY_PROFILE, false);
         if (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
         if (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning)
@@ -406,6 +450,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
         if (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, false);
+        if (periodicScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, false);
         editor.apply();
 
         PPApplication.loadApplicationPreferences(getApplicationContext());
@@ -431,17 +477,16 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             // PPApplication.recordException(e);
         //}
 
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+        dataWrapper.setDynamicLauncherShortcutsFromMainThread();
+
+        /*
         if (PhoneProfilesService.getInstance() != null) {
             synchronized (PPApplication.applicationPreferencesMutex) {
                 PPApplication.doNotShowProfileNotification = true;
             }
             PhoneProfilesService.getInstance().clearProfileNotification();
         }
-
-        // do not use this, background color will not be changed with this
-        /*NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null)
-            notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);*/
 
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(() -> {
@@ -453,8 +498,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 // forServiceStart must be true because of call of clearProfileNotification()
                 PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
             }
-        }, 1000);
-//        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.doPreferenceChanges");
+        }, 1000);*/
+        //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
+
+        //        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.doPreferenceChanges");
         PPApplication.updateGUI(true, false, getApplicationContext());
 
         if (Permissions.grantRootChanged) {
@@ -505,7 +552,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged ||
                 (periodicScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) ||
                 periodicScanInterval != ApplicationPreferences.applicationEventPeriodicScanningScanInterval) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart orientation scanner");
+            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart periodic scanning scanner");
             PPApplication.restartPeriodicScanningScanner(appContext);
         }
 
@@ -555,11 +602,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            //PPApplication.startHandlerThreadBroadcast();
+            //final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
             //        appContext) {
-            __handler2.post(() -> {
+            //__handler2.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
 
                 //Context appContext= appContextWeakRef.get();
@@ -595,7 +643,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
         }
 
         /*
@@ -689,6 +739,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR_DEFAULT_VALUE));
+            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON_DEFAULT_VALUE));
         }
 
     }
@@ -833,8 +885,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, ApplicationPreferences.PREF_APPLICATION_ALERT_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND, ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE, ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND, ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE, ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, ApplicationPreferences.PREF_NOTIFICATION_TOAST_DEFAULT_VALUE));
         }
 
@@ -1178,7 +1230,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_DEFAULT_VALUE));
+            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR_DEFAULT_VALUE));
@@ -1186,6 +1238,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_DEFAULT_VALUE));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS,ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE));
         }
     }
 
@@ -1217,7 +1272,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_DEFAULT_VALUE));
+            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR_DEFAULT_VALUE));
@@ -1225,6 +1280,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_DEFAULT_VALUE));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS,ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE));
         }
     }
 
@@ -1247,6 +1305,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
             //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsWidgetIcon");
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, ApplicationPreferences.pplicationWidgetIconChangeColorsByNightModeDefaultValue(getContext())));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, ApplicationPreferences.applicationWidgetIconBackgroundDefaultValue(getContext())));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE_DEFAULT_VALUE));
@@ -1254,7 +1313,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_DEFAULT_VALUE));
+            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_DEFAULT_VALUE));
@@ -1262,6 +1321,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS,ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE));
         }
     }
 
@@ -1321,6 +1383,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE));
         }
     }
 

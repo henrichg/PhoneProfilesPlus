@@ -49,7 +49,6 @@ final class SafeToastContext extends ContextWrapper {
     @Override
     public Object getSystemService(@NonNull String name) {
       if (Context.WINDOW_SERVICE.equals(name)) {
-        // noinspection ConstantConditions
         return new WindowManagerWrapper((WindowManager) getBaseContext().getSystemService(name));
       }
       return super.getSystemService(name);

@@ -93,14 +93,13 @@ class RunApplicationEditorDialogX
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_run_applications_editor, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();
 
         mDelayValue = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay);
-        mDelayValue.setText(GlobalGUIRoutines.getDurationString(startApplicationDelay));
+        mDelayValue.setText(StringFormatUtils.getDurationString(startApplicationDelay));
 
         mSelectedAppIcon = layout.findViewById(R.id.run_applications_editor_dialog_selectedIcon);
         mSelectedAppName = layout.findViewById(R.id.run_applications_editor_dialog_selectedAppName);
@@ -115,7 +114,7 @@ class RunApplicationEditorDialogX
             if (iValue > 86400)
                 iValue = 86400;
 
-            mDelayValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+            mDelayValue.setText(StringFormatUtils.getDurationString(iValue));
 
             startApplicationDelay = iValue;
         }, startApplicationDelay * 1000L, TimeDurationPicker.HH_MM_SS);
@@ -225,10 +224,10 @@ class RunApplicationEditorDialogX
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
-        if (EditorActivity.getApplicationsCache() == null)
-            EditorActivity.createApplicationsCache();
+        if (PPApplication.getApplicationsCache() == null)
+            PPApplication.createApplicationsCache(false);
 
-        cachedApplicationList = EditorActivity.getApplicationsCache().getApplicationList(false);
+        cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(false);
 
         fillApplicationList();
         updateSelectedAppViews();
@@ -277,7 +276,6 @@ class RunApplicationEditorDialogX
         if (cachedApplicationList != null) {
             for (Application _application : cachedApplicationList) {
                 boolean add = false;
-                //noinspection RedundantIfStatement
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     add = true;
                 if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
@@ -286,17 +284,15 @@ class RunApplicationEditorDialogX
                     if (selectedApplication != null) {
                         switch (selectedApplication.type) {
                             case Application.TYPE_APPLICATION:
-                                if (selectedApplication.packageName.equals(_application.packageName))
+                                if (selectedApplication.packageName.equals(_application.packageName)) {
                                     selectedPosition = pos;
+                                }
                                 break;
                             case Application.TYPE_SHORTCUT:
                                 if (selectedApplication.packageName.equals(_application.packageName) &&
-                                        selectedApplication.activityName.equals(_application.activityName))
+                                        selectedApplication.activityName.equals(_application.activityName)) {
                                     selectedPosition = pos;
-                                break;
-                            case Application.TYPE_INTENT:
-                                if (selectedApplication.intentId == _application.intentId)
-                                    selectedPosition = pos;
+                                }
                                 break;
                         }
                     }
@@ -330,7 +326,6 @@ class RunApplicationEditorDialogX
             int pos = 0;
             for (Application _application : cachedApplicationList) {
                 boolean search = false;
-                //noinspection RedundantIfStatement
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     search = true;
                 if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
@@ -351,7 +346,7 @@ class RunApplicationEditorDialogX
         if (selectedPosition != -1) {
             selectedApplication = getSelectedApplication();
             if (selectedApplication != null) {
-                applicationIcon = EditorActivity.getApplicationsCache().getApplicationIcon(selectedApplication, false);
+                applicationIcon = PPApplication.getApplicationsCache().getApplicationIcon(selectedApplication, false);
             }
         }
         if (selectedApplication != null) {
@@ -430,20 +425,22 @@ class RunApplicationEditorDialogX
         int position = (int) view.getTag();
         final Application application = applicationList.get(position);
 
-        /*boolean canDelete = true;
+        boolean canDelete = true;
         if (application.type == Application.TYPE_INTENT) {
             for (PPIntent ppIntent : preference.intentDBList) {
                 if (ppIntent._id == application.intentId) {
                     //Log.e("RunApplicationEditorDialogX.showEditMenu", "ppIntent._usedCount="+ppIntent._usedCount);
-                    canDelete = (ppIntent._usedCount == 0) && (!ppIntent._doNotDelete);
+                    canDelete = /*(ppIntent._usedCount == 0) &&*/
+                            (!ppIntent._doNotDelete) &&
+                            (position != selectedPosition);
                     break;
                 }
             }
         }
         if (canDelete)
-            new MenuInflater(context).inflate(R.menu.applications_intent_editor_dlg_item_edit, popup.getMenu());
-        else*/
-            new MenuInflater(context).inflate(R.menu.applications_intent_editor_dlg_item_edit_no_delete, popup.getMenu());
+            new MenuInflater(context).inflate(R.menu.run_applications_intent_editor_dlg_item_edit, popup.getMenu());
+        else
+            new MenuInflater(context).inflate(R.menu.run_applications_intent_editor_dlg_item_edit_no_delete, popup.getMenu());
 
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
@@ -457,7 +454,7 @@ class RunApplicationEditorDialogX
                 startEditor(newApplication);
                 return true;
             }
-            /*else
+            else
             if (itemId == R.id.applications_intent_editor_dlg_item_menu_delete) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                 dialogBuilder.setTitle(activity.getString(R.string.profile_context_item_delete));
@@ -487,7 +484,7 @@ class RunApplicationEditorDialogX
                     dialog.show();
 
                 return true;
-            }*/
+            }
             else {
                 return false;
             }
@@ -532,7 +529,7 @@ class RunApplicationEditorDialogX
         if (preference.intentDBList != null) {
             for (PPIntent ppIntent : preference.intentDBList) {
                 if (ppIntent._id == originalApplication.intentId) {
-                    newPPIntent = ppIntent.duplicate();
+                    newPPIntent = ppIntent.duplicate(/*false*/);
                     break;
                 }
             }
@@ -559,14 +556,15 @@ class RunApplicationEditorDialogX
         return newApplication;
     }
 
-    /*
     @SuppressLint("NotifyDataSetChanged")
     private void deleteIntent(Application application) {
         if (application == null)
             return;
 
+        // delete intent from table "intents"
         DatabaseHandler.getInstance(preference.context.getApplicationContext()).deleteIntent(application.intentId);
 
+        // remove intent from intent list
         if (preference.intentDBList != null) {
             for (PPIntent ppIntent : preference.intentDBList) {
                 if (ppIntent._id == application.intentId) {
@@ -576,9 +574,10 @@ class RunApplicationEditorDialogX
             }
         }
 
-        // position of deleting application
+        // position of deleted application
         int position = applicationList.indexOf(application);
 
+        // remove intent from application list
         applicationList.remove(application);
 
         if (position == selectedPosition) {
@@ -601,7 +600,6 @@ class RunApplicationEditorDialogX
 
         RunApplicationEditorDialogX.this.preference.updateGUI();
     }
-    */
 
     public void show() {
         if (!activity.isFinishing())

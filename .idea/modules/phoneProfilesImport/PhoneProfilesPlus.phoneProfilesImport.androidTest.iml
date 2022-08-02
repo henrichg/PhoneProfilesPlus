@@ -29,7 +29,7 @@
     <content url="file://$MODULE_DIR$/../../../phoneProfilesImport/build/generated/source/buildConfig/androidTest/debug" />
     <content url="file://$MODULE_DIR$/../../../phoneProfilesImport/src/androidTest" />
     <content url="file://$MODULE_DIR$/../../../phoneProfilesImport/src/androidTestDebug" />
-    <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 32 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.phoneProfilesImport.main" scope="TEST" />
   </component>

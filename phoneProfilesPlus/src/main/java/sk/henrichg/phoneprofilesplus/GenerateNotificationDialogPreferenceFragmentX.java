@@ -35,8 +35,8 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
     private EditText notificationTitleEdtText = null;
     private EditText notificationBodyEdtText = null;
 
-    @NonNull
     @SuppressLint("SetTextI18n")
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //PPApplication.logE("GenerateNotificationDialogPreferenceFragmentX.onCreateDialog", "xxx");
@@ -69,7 +69,6 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
         });
 
         LayoutInflater inflater = ((Activity)prefContext).getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_generate_notification_preference, null);
         dialogBuilder.setView(layout);
 

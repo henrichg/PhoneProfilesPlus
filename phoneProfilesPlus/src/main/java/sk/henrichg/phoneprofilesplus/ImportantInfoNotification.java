@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +11,6 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 class ImportantInfoNotification {
-
-    // this version code must by <= version code in dependencies.gradle
-    static final int VERSION_CODE_FOR_NEWS = 4651;
 
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
@@ -28,6 +24,8 @@ class ImportantInfoNotification {
             int show = 0;
             int packageVersionCode = PPApplication.getVersionCode(pInfo);
             int savedVersionCode = getShowInfoNotificationOnStartVersion(context);
+//            PPApplication.logE("ImportantInfoNotification.showInfoNotification", "packageVersionCode="+packageVersionCode);
+//            PPApplication.logE("ImportantInfoNotification.showInfoNotification", "savedVersionCode="+savedVersionCode);
 
             // do not show notification, version code is not saved
             // typically it is for new users
@@ -38,7 +36,7 @@ class ImportantInfoNotification {
 
             if (packageVersionCode > savedVersionCode) {
                 show = canShowNotification(packageVersionCode, savedVersionCode, context);
-                //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
+//                PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
             }
             else {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -76,7 +74,7 @@ class ImportantInfoNotification {
 
         //PPApplication.logE("ImportantInfoNotification.canShowNotification", "packageVersionCode="+packageVersionCode);
 
-        boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean newsLatest = (packageVersionCode >= PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS);
         //boolean news4550 = ((packageVersionCode >= 4550) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         //boolean news4340 = ((packageVersionCode >= 4340) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         //boolean news3670 = ((packageVersionCode >= 3670) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -94,8 +92,7 @@ class ImportantInfoNotification {
 
         if (newsLatest) {
             // change to false for not show notification
-            //noinspection ConstantConditions
-            news = false;
+            news = PPApplication.SHOW_IMPORTANT_INFO_NEWS;
         }
 
         /*if (news4550) {
@@ -115,7 +112,6 @@ class ImportantInfoNotification {
             //    PPApplication.logE("ImportantInfoNotification.canShowNotification", "callSensorsCount=" + callSensorsCount);
             //}
 
-            //noinspection RedundantIfStatement
             if (!sensorExists)
                 news = false;
             else {
@@ -129,7 +125,6 @@ class ImportantInfoNotification {
             boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
             if (!sensorExists)
                 sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
-            //noinspection RedundantIfStatement
             if (!sensorExists)
                 news = false;
             else {
@@ -179,7 +174,6 @@ class ImportantInfoNotification {
         Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(EXTRA_FIRST_INSTALLATION, firstInstallation);
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);

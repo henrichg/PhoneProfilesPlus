@@ -2,7 +2,8 @@
 <!-- size = (74 x n) - 2 -->
 <!-- old size (70 x n) - 30 --> 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="40dp" 
+    xmlns:tools="http://schemas.android.com/tools"
+    android:minWidth="40dp"
     android:minHeight="40dp"
     android:minResizeWidth="40dp"
     android:minResizeHeight="40dp"
@@ -11,5 +12,10 @@
     android:updatePeriodMillis="0"
     android:previewImage="@drawable/icon_widget_preview"
     android:description="@string/icon_widget_description"
-    android:widgetCategory="home_screen">
-</appwidget-provider>
+    android:widgetCategory="home_screen"
+
+    android:configure="sk.henrichg.phoneprofilesplus.LaunchWidgetIconConfigurationActivity"
+    android:widgetFeatures="reconfigurable"
+    tools:targetApi="p" />
+<!--    android:widgetFeatures="reconfigurable|configuration_optional" />-->
+

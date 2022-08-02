@@ -1,12 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
@@ -14,7 +12,6 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -38,7 +35,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                 intent.setAction(PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
                 //intent.setClass(context, LocationScannerSwitchGPSBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.removeAlarm", "alarm found");
@@ -55,7 +51,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
         //PPApplication.logE("[HANDLER] LocationScannerSwitchGPSBroadcastReceiver.removeAlarm", "removed");
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     static void setAlarm(Context context)
     {
         removeAlarm(context);
@@ -76,7 +71,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                 intent.setAction(PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
                 //intent.setClass(context, LocationScannerSwitchGPSBroadcastReceiver.class);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -93,7 +87,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -140,7 +133,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             intent.setAction(PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
             //intent.setClass(context, LocationScannerSwitchGPSBroadcastReceiver.class);
 
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -160,7 +152,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -169,15 +160,15 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 
                     long alarmTime = SystemClock.elapsedRealtime() + delay * 1000L;
 
-                    if (PPApplication.logEnabled()) {
-                        Calendar now = Calendar.getInstance();
-                        now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
-                        now.add(Calendar.MILLISECOND, (int)alarmTime);
-                        long _alarmTime = now.getTimeInMillis();
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String result = sdf.format(_alarmTime);
+//                    if (PPApplication.logEnabled()) {
+//                        Calendar now = Calendar.getInstance();
+//                        now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
+//                        now.add(Calendar.MILLISECOND, (int)alarmTime);
+//                        long _alarmTime = now.getTimeInMillis();
+//                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                        String result = sdf.format(_alarmTime);
 //                        PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                    }
+//                    }
 
                     //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
@@ -193,11 +184,12 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
     static void doWork(final Context appContext) {
 //        PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
 
-        PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
-        final Handler __handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        //PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
+        //final Handler __handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
         //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
         //        appContext) {
-        __handler2.post(() -> {
+        //__handler2.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationScannerSwitchGPSBroadcastReceiver.doWork");
 
             //Context appContext= appContextWeakRef.get();
@@ -224,14 +216,16 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //                                PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "LocationScanner.useGPS="+LocationScanner.useGPS);
                                 locationScanner.stopLocationUpdates();
 
-                                PPApplication.sleep(1000);
+                                GlobalUtils.sleep(1000);
 
                                 if (ApplicationPreferences.applicationEventLocationUseGPS &&
                                         (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
                                     // force useGPS
                                     LocationScanner.useGPS = true;
-                                else
-                                    LocationScanner.useGPS = !LocationScanner.useGPS;
+                                else {
+                                    boolean useGPS = LocationScanner.useGPS;
+                                    LocationScanner.useGPS = !useGPS;
+                                }
 
                                 // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
                                 String provider = locationScanner.startLocationUpdates();
@@ -252,7 +246,9 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createScannersExecutor();
+        PPApplication.scannersExecutor.submit(runnable);
     }
 
 }

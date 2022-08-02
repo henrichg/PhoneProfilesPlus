@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
@@ -150,7 +149,10 @@ public class TileChooserListFragment extends Fragment {
             this.dataWrapper.profileList.sort(new ProfileComparator());
 
             // add restart events
-            Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+            //Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+            Profile profile = DataWrapperStatic.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
+                    "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+            profile.generateIconBitmap(dataWrapper.context, false, 0, false);
             this.dataWrapper.profileList.add(0, profile);
 
             return null;
@@ -171,6 +173,7 @@ public class TileChooserListFragment extends Fragment {
 
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
+                this.dataWrapper.clearProfileList();
 
                 synchronized (fragment.activityDataWrapper.profileList) {
                     if (fragment.activityDataWrapper.profileList.size() == 0)
@@ -203,12 +206,10 @@ public class TileChooserListFragment extends Fragment {
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        //if (activityDataWrapper != null)
-        //    activityDataWrapper.invalidateDataWrapper();
-        activityDataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
     }
 
-    @SuppressLint("StaticFieldLeak")
     void chooseTile(final int position)
     {
         if (getActivity() != null) {

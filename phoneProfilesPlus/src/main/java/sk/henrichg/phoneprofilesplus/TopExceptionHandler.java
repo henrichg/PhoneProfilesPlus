@@ -32,7 +32,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     @SuppressWarnings("StringConcatenationInLoop")
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
     {
-//        PPApplication.logE("TopExceptionHandler.uncaughtException", "xxxx");
+//        PPApplication.logE("TopExceptionHandler.uncaughtException", "defaultUEH="+defaultUEH);
 
         try {
             if (PPApplication.lockDeviceActivity != null) {
@@ -108,7 +108,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         if (defaultUEH != null) {
             boolean ignore = false;
-            //noinspection RedundantIfStatement
             if (t.getName().equals("FinalizerWatchdogDaemon") && (e instanceof TimeoutException)) {
                 // ignore these exceptions
                 // java.util.concurrent.TimeoutException: com.android.internal.os.BinderInternal$GcWatcher.finalize() timed out after 10 seconds
@@ -126,10 +125,20 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 }
             //}
 
+            // this is only for debuging, how is handled ignored exceptions
+            //if (e instanceof java.lang.RuntimeException) {
+            //    if ((e.getMessage() != null) && (e.getMessage().equals("Test Crash"))) {
+            //        PPApplication.logE("TopExceptionHandler.uncaughtException", "it is 'Test Crash'");
+            //        ignore = true;
+            //    }
+            //}
+
             if (!ignore) {
                 //Delegates to Android's error handling
                 defaultUEH.uncaughtException(t, e);
-            }
+            } else
+                //Prevents the service/app from freezing
+                System.exit(2);
         }
         else
             //Prevents the service/app from freezing
@@ -143,7 +152,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             /*File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory()))
-                //noinspection ResultOfMethodCallIgnored
                 exportDir.mkdirs();
 
             File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);*/
@@ -179,7 +187,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         /*File sd = Environment.getExternalStorageDirectory();
         File exportDir = new File(sd, PPApplication.EXPORT_PATH);
         if (!(exportDir.exists() && exportDir.isDirectory()))
-            //noinspection ResultOfMethodCallIgnored
             exportDir.mkdirs();
 
         File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);*/

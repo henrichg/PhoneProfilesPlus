@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -61,6 +60,11 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     protected void onStart()
     {
         super.onStart();
@@ -86,10 +90,11 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             final String _cellName = cellNameTextView.getText().toString();
 
             final Context appContext = getApplicationContext();
-            PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onStart (1)");
 
                 //Context appContext= appContextWeakRef.get();
@@ -163,7 +168,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         //PPApplication.logE("[TEST BATTERY] NotUsedMobileCellsDetectedActivity.onStart()", "xxx");
 
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
-                            PhoneProfilesService.getInstance().getMobileCellsScanner().handleEvents(/*appContext*/);
+                            PhoneProfilesService.getInstance().getMobileCellsScanner().handleEvents(appContext);
                         }
                         // must be higher then delay in handleEvents
 //                        PPApplication.logE("###### PPApplication.updateGUI", "from=NotUsedMobileCellsDetectedActivity.onStart");
@@ -182,7 +187,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
 
             NotUsedMobileCellsDetectedActivity.this.finish();
         });
@@ -194,10 +201,11 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             final String _cellName = cellNameTextView.getText().toString();
 
             final Context appContext = getApplicationContext();
-            PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onStart (2)");
 
                 //Context appContext= appContextWeakRef.get();
@@ -232,13 +240,14 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
 
             NotUsedMobileCellsDetectedActivity.this.finish();
         });
 
         LayoutInflater inflater = getLayoutInflater();
-        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_not_used_mobile_cells_detected, null);
         dialogBuilder.setView(layout);
 
@@ -383,7 +392,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             if (activity != null) {
                 activity.cellIdTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
                 activity.lastConnectTimeTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
-                        GlobalGUIRoutines.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
+                        StringFormatUtils.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
                 if (!cellName.isEmpty())
                     activity.cellNameTextView.setText(cellName);
 

@@ -71,7 +71,7 @@ public class LocationSensorWorker extends Worker {
                             .build();
         }
         else {
-            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
 
             // check power save mode
             String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
@@ -83,7 +83,7 @@ public class LocationSensorWorker extends Worker {
             }
             else {
                 if (ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2")) {
-                    if (PhoneProfilesService.isNowTimeBetweenTimes(
+                    if (GlobalUtils.isNowTimeBetweenTimes(
                             ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
                         // not scan wi-fi in configured time
@@ -106,7 +106,7 @@ public class LocationSensorWorker extends Worker {
                 }
                 else {
                     if (ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("1")) {
-                        if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        if (GlobalUtils.isNowTimeBetweenTimes(
                                 ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
                             interval = 2 * interval;

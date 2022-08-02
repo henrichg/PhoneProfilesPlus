@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 
 /**
@@ -45,11 +44,12 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
             return;
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast();
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //PPApplication.startHandlerThreadBroadcast();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(
         //        context.getApplicationContext()) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //          PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=SimStateChangedBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
@@ -69,21 +69,9 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 //                        }
 //                    }
 
-                    PPApplication.initSIMCards();
-                    synchronized (PPApplication.simCardsMutext) {
-                        PPApplication.simCardsMutext.sim0Exists = PPApplication.hasSIMCard(appContext, 0);
-                        PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(appContext, 1);
-                        PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(appContext, 2);
-                        PPApplication.simCardsMutext.simCardsDetected = true;
-//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim0Exists="+PPApplication.simCardsMutext.sim0Exists);
-//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim1Exists="+PPApplication.simCardsMutext.sim1Exists);
-//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim2Exists="+PPApplication.simCardsMutext.sim2Exists);
-//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.simCardsDetected="+PPApplication.simCardsMutext.simCardsDetected);
-                    }
-
-                    PhoneProfilesService.registerPhoneCallsListener(false, appContext);
-                    PPApplication.sleep(1000);
-                    PhoneProfilesService.registerPhoneCallsListener(true, appContext);
+                    PPApplication.registerPhoneCallsListener(false, appContext);
+                    GlobalUtils.sleep(1000);
+                    PPApplication.registerPhoneCallsListener(true, appContext);
 
                     PPApplication.restartMobileCellsScanner(appContext);
 
@@ -113,7 +101,9 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createEventsHandlerExecutor();
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
 }

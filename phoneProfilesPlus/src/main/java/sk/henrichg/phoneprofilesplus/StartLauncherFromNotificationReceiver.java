@@ -4,7 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
+
+import java.util.concurrent.TimeUnit;
 
 // Disable action button
 public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
@@ -18,10 +19,48 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
             if (action != null) {
                 //PPApplication.logE("StartLauncherFromNotificationReceiver.onReceive", "action="+action);
 
-                if (action.equals(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
+                if (action.equals(PhoneProfilesNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
+
+//                    PPApplication.logE("[EXECUTOR_CALL]  ***** StartLauncherFromNotificationReceiver.onReceive", "schedule");
+
+                    final Context appContext = context.getApplicationContext();
+                    //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    Runnable runnable = () -> {
+//                        long start = System.currentTimeMillis();
+//                        PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- START");
+
+                            // intent to LauncherActivity, for click on notification
+                            Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
+                            // clear all opened activities
+                            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+                            // setup startupSource
+                            launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+                            appContext.startActivity(launcherIntent);
+
+//                            long finish = System.currentTimeMillis();
+//                            long timeElapsed = finish - start;
+//                            PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- END - timeElapsed="+timeElapsed);
+                        //worker.shutdown();
+                    };
+                    PPApplication.createDelayedGuiExecutor();
+                    if ((Build.VERSION.SDK_INT >= 29) &&
+                            ApplicationPreferences.applicationNotificationLauncher.equals("activator")) {
+                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+                            if (Build.VERSION.SDK_INT >= 30)
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+                            else
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 1000, TimeUnit.MILLISECONDS);
+                        }
+                        else
+                            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+                    }
+                    else
+                        PPApplication.delayedGuiExecutor.submit(runnable);
+
+                    /*
                     final Context appContext = context.getApplicationContext();
                     //Handler _handler = new Handler(appContext.getMainLooper());
-                    PPApplication.startHandlerThreadBroadcast(/*"WifiAPStateChangeBroadcastReceiver.onReceive"*/);
+                    PPApplication.startHandlerThreadBroadcast();
                     final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     //PPApplication.PPHandlerThreadRunnable r = new PPApplication.PPHandlerThreadRunnable(
                     //        context.getApplicationContext()) {
@@ -33,7 +72,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                             // intent to LauncherActivity, for click on notification
                             Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
                             // clear all opened activities
-                            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+                            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             // setup startupSource
                             launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
                             appContext.startActivity(launcherIntent);
@@ -53,6 +92,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                     }
                     else
                         __handler.post(r);
+                    */
                 }
             }
         }

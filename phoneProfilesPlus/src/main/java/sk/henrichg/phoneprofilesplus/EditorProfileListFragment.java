@@ -1,11 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -46,9 +50,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 //import me.drakeet.support.toast.ToastCompat;
 
@@ -170,6 +171,8 @@ public class EditorProfileListFragment extends Fragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+//        Log.e("EditorProfileListFragment.onViewCreated", "xxxxx");
+
         doOnViewCreated(view, true);
 
         //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
@@ -177,7 +180,7 @@ public class EditorProfileListFragment extends Fragment
             showTargetHelps();
     }
 
-    @SuppressLint({"InflateParams", "NotifyDataSetChanged"})
+    @SuppressLint("NotifyDataSetChanged")
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.editor_profiles_activated_profile_pref_indicator);
@@ -456,7 +459,7 @@ public class EditorProfileListFragment extends Fragment
         @Override
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
-            if ((_dataWrapper.profileList.size() == 0) && PPApplication.restoreFinished)
+            if ((_dataWrapper.profileList.size() == 0) /*&& PPApplication.restoreFinished*/)
             {
                 if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_PROFILES_FIRST_START, true)) {
                     // no profiles in DB, generate default profiles
@@ -496,10 +499,13 @@ public class EditorProfileListFragment extends Fragment
                 progressBarHandler.removeCallbacks(progressBarRunnable);
                 fragment.progressBar.setVisibility(GONE);
 
+                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+
                 // get local profileList
                 _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.copyProfileList(_dataWrapper);
+                _dataWrapper.clearProfileList();
 
                 synchronized (fragment.activityDataWrapper.profileList) {
                     if (fragment.activityDataWrapper.profileList.size() == 0)
@@ -516,8 +522,6 @@ public class EditorProfileListFragment extends Fragment
                 fragment.listView.setAdapter(fragment.profileListAdapter);
 
                 // update activity for activated profile
-                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
-
                 Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
                                 applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
@@ -529,7 +533,7 @@ public class EditorProfileListFragment extends Fragment
 //                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.LoadProfileListAsyncTask.onPostExecute");
                     PPApplication.updateGUI(true, false, _dataWrapper.context);
                     if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
-                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
+                        PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
                                 fragment.getString(R.string.toast_predefined_profiles_generated),
                                 Toast.LENGTH_SHORT);
                 }
@@ -563,6 +567,8 @@ public class EditorProfileListFragment extends Fragment
     {
         super.onDestroy();
 
+//        Log.e("EditorProfileListFragment.onDestroy", "xxxxx");
+
         if (isAsyncTaskPendingOrRunning()) {
             stopRunningAsyncTask();
         }
@@ -572,9 +578,8 @@ public class EditorProfileListFragment extends Fragment
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        //if (activityDataWrapper != null)
-        //    activityDataWrapper.invalidateDataWrapper();
-        //activityDataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
     }
 
     @Override
@@ -879,7 +884,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else
         {
-            Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
+            Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
             for (Object span : spansToRemove) {
@@ -891,16 +896,25 @@ public class EditorProfileListFragment extends Fragment
             activeProfileName.setText(profileName);
             if (profile.getIsIconResourceID())
             {
-                if (profile._iconBitmap != null)
-                    activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                if (bitmap != null)
+                    activeProfileIcon.setImageBitmap(bitmap);
                 else {
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    activeProfileIcon.setImageResource(res); // icon resource
+                    if (profile._iconBitmap != null)
+                        activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                    else {
+                        int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
+                        activeProfileIcon.setImageResource(res); // icon resource
+                    }
                 }
             }
             else
             {
-                activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                if (bitmap != null)
+                    activeProfileIcon.setImageBitmap(bitmap);
+                else
+                    activeProfileIcon.setImageBitmap(profile._iconBitmap);
             }
         }
 
@@ -937,6 +951,9 @@ public class EditorProfileListFragment extends Fragment
                 if (profileListAdapter != null)
                     profileListAdapter.activateProfile(profile);
                 updateHeader(profile);
+
+                activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+
              }
              //if (resultCode == Activity.RESULT_CANCELED)
              //{
@@ -947,12 +964,12 @@ public class EditorProfileListFragment extends Fragment
 
     public void activateProfile(Profile profile/*, boolean interactive*/)
     {
-        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
+        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
             PPApplication.showToastForProfileActivation = true;
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         }
         else
-            EditorActivity.showDialogAboutRedText(profile, null, true, false, false, false, getActivity());
+            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, false, false, getActivity());
     }
 
     /*private void setProfileSelection(Profile profile) {
@@ -1239,7 +1256,7 @@ public class EditorProfileListFragment extends Fragment
     {
         final Profile profile = (Profile) view.getTag();
 
-        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
+        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
 
             //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
             Context _context = view.getContext();
@@ -1336,12 +1353,11 @@ public class EditorProfileListFragment extends Fragment
                 popup.show();
         }
         else
-            EditorActivity.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
+            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
     }
 
     /*
     void changeShowInActivator(final Profile profile) {
-        //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(getString(R.string.profile_string_0) + ": " + profile._name);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -1542,7 +1558,7 @@ public class EditorProfileListFragment extends Fragment
                                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
 
                                 editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                                //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                                 editor.apply();
 
@@ -1554,7 +1570,7 @@ public class EditorProfileListFragment extends Fragment
                                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
                                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+                                //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
                             }
                         });
                 sequence.continueOnCancel(true)
@@ -1602,10 +1618,10 @@ public class EditorProfileListFragment extends Fragment
             //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
-            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+            //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
             editor.apply();
             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
-            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
+            //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
         }
     }
 
@@ -1750,7 +1766,7 @@ public class EditorProfileListFragment extends Fragment
                     _dataWrapper.copyProfileList(fragment.activityDataWrapper);
 
                     for (Profile profile : _dataWrapper.profileList) {
-                        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, _dataWrapper.context))
+                        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, _dataWrapper.context))
                             redTextVisible = true;
                     }
                 }
@@ -1759,7 +1775,6 @@ public class EditorProfileListFragment extends Fragment
             return null;
         }
 
-        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void result)
         {

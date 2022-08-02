@@ -7,10 +7,14 @@
     <dimen name="activity_margin_start">0dp</dimen>
     <dimen name="activity_margin_end">0dp</dimen>
 
-    <dimen name="run_stop_indicator_width">48dp</dimen>
-    <dimen name="run_stop_indicator_height">22dp</dimen>
+    <dimen name="editor_profiles_item_buttons_end_margin">2dp</dimen>
+    <dimen name="editor_events_item_buttons_end_margin">0dp</dimen>
+
+    <dimen name="activator_toolbar_height">25dp</dimen>
+    <dimen name="run_stop_indicator_width">50dp</dimen>
+    <dimen name="run_stop_indicator_height">24dp</dimen>
     <dimen name="run_stop_indicator_margin_top">0dp</dimen>
-    <dimen name="run_stop_indicator_margin_end_editor">13dp</dimen>
+    <dimen name="run_stop_indicator_margin_end_editor">12dp</dimen>
     <dimen name="run_stop_indicator_margin_end_activator">10dp</dimen>
 
     <dimen name="activator_min_width_minor">65%</dimen>
@@ -21,17 +25,20 @@
     <dimen name="dialog_min_width_minor">85%</dimen>
     <dimen name="dialog_min_width_major">85%</dimen>
 
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="divider_margin">15dp</dimen>
+
     <dimen name="dialog_corner_radius">10dp</dimen>
     <dimen name="dialog_transparent_padding">15dp</dimen>
     <dimen name="dialog_background_padding">3dp</dimen>
     <dimen name="popup_menu_transparent_padding_width">0dp</dimen>
-    <dimen name="popup_menu_transparent_padding_height">7dp</dimen>
+    <dimen name="popup_menu_transparent_padding_height">0dp</dimen>
 <!--    <dimen name="activatior_transparent_padding">0dp</dimen>-->
 
     <dimen name="popup_window_corner_radius">10dp</dimen>
     <dimen name="popup_menu_corner_radius">10dp</dimen>
     <dimen name="button_corner_radius">7dp</dimen>
-    <dimen name="profile_icon_corner_radius">3dp</dimen>
+    <dimen name="profile_icon_corner_radius">10dp</dimen>
 
     <dimen name="alert_dialog_top_padding">10dp</dimen>
 
@@ -49,7 +56,7 @@
     <dimen name="gui_info_popup_title_size">16sp</dimen>
     <dimen name="gui_info_popup_text_size">15sp</dimen>
 
-    <dimen name="event_status_drawable_padding">8dp</dimen>
+    <dimen name="event_status_drawable_padding">10dp</dimen>
 
 <!--    <dimen name="editor_bottom_bar_height">67dp</dimen>-->
 
@@ -66,5 +73,19 @@
     <dimen name="popup_widow_event_status_width">350dp</dimen>
     <dimen name="popup_widow_dialog_help_width">300dp</dimen>
     <dimen name="popup_window_run_stop_indicator_width">300dp</dimen>
+
+    <dimen name="restart_events_notification_icon_size">30dp</dimen>
+    <dimen name="restart_events_notification_compat_icon_size">25dp</dimen>
+    <dimen name="profile_icon_notification_icon_size">35dp</dimen>
+    <dimen name="profile_icon_notification_compat_no_decoration_icon_size">21dp</dimen>
+
+    <dimen name="profile_preferences_indicator_height">15dp</dimen>
+    <dimen name="profile_preferences_indicator_in_event_height">13dp</dimen>
+
+    <dimen name="time_duration_value_button_top_bottom_padding">7dp</dimen>
+
+    <dimen name="one_row_widget_height">60dp</dimen>
+    <dimen name="one_row_widget_height_higher">70dp</dimen>
+    <dimen name="one_row_widget_height_highest">85dp</dimen>
 
 </resources>

@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.PowerManager;
 
 public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
@@ -29,7 +27,9 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadBroadcast(/*"SMSEventEndBroadcastReceiver.doWork"*/);
+            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_SMS_EVENT_END, "SENSOR_TYPE_SMS_EVENT_END", 0);
+            /*
+            PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
@@ -64,6 +64,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             });
+            */
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {

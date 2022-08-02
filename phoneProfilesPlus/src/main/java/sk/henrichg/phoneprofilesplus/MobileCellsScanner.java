@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,14 +28,14 @@ class MobileCellsScanner {
     MobileCellsListener mobileCellsListenerSIM1 = null;
     MobileCellsListener mobileCellsListenerSIM2 = null;
 
-    static String lastRunningEventsNotOutside = "";
-    static String lastPausedEventsOutside = "";
+    static volatile String lastRunningEventsNotOutside = "";
+    static volatile String lastPausedEventsOutside = "";
 
-    //static boolean forceStart = false;
+    //static volatile boolean forceStart = false;
 
-    static boolean enabledAutoRegistration = false;
-    static int durationForAutoRegistration = 0;
-    static String cellsNameForAutoRegistration = "";
+    static volatile boolean enabledAutoRegistration = false;
+    static volatile int durationForAutoRegistration = 0;
+    static volatile String cellsNameForAutoRegistration = "";
     @SuppressWarnings("Convert2Diamond")
     static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
@@ -80,7 +79,6 @@ class MobileCellsScanner {
                                 if (subscriptionInfo.getSimSlotIndex() == 0) {
                                     if (telephonyManagerSIM1 == null) {
 //                                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionId=" + subscriptionId);
-                                        //noinspection ConstantConditions
                                         telephonyManagerSIM1 = telephonyManager.createForSubscriptionId(subscriptionId);
                                         mobileCellsListenerSIM1 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM1);
                                     }
@@ -88,7 +86,6 @@ class MobileCellsScanner {
                                 if (subscriptionInfo.getSimSlotIndex() == 1) {
                                     if (telephonyManagerSIM2 == null) {
 //                                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionId=" + subscriptionId);
-                                        //noinspection ConstantConditions
                                         telephonyManagerSIM2 = telephonyManager.createForSubscriptionId(subscriptionId);
                                         mobileCellsListenerSIM2 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM2);
                                     }
@@ -114,10 +111,9 @@ class MobileCellsScanner {
         MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
     }
 
-    @SuppressLint("InlinedApi")
     void connect() {
 //        PPApplication.logE("MobileCellsScanner.connect", "xxx");
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+        boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
         if (/*PPApplication.*/isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
                 // start scanning in power save mode is not allowed
@@ -125,7 +121,7 @@ class MobileCellsScanner {
         }
         else {
             if (ApplicationPreferences.applicationEventMobileCellScanInTimeMultiply.equals("2")) {
-                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                if (GlobalUtils.isNowTimeBetweenTimes(
                         ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo)) {
                     // not scan in configured time
@@ -230,13 +226,13 @@ class MobileCellsScanner {
             mobileCellsListenerSIM2.rescanMobileCells();
     }
 
-    void handleEvents(/*final Context appContext*/) {
+    void handleEvents(final Context appContext) {
         if (mobileCellsListenerDefault != null)
-            mobileCellsListenerDefault.handleEvents();
+            mobileCellsListenerDefault.handleEvents(appContext);
         if (mobileCellsListenerSIM1 != null)
-            mobileCellsListenerSIM1.handleEvents();
+            mobileCellsListenerSIM1.handleEvents(appContext);
         if (mobileCellsListenerSIM2 != null)
-            mobileCellsListenerSIM2.handleEvents();
+            mobileCellsListenerSIM2.handleEvents(appContext);
     }
 
     int getRegisteredCell(int forSimCard) {

@@ -25,11 +25,14 @@
         android:id="@+id/connect_to_ssid_pref_dlg_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:clipToPadding="false"
         android:choiceMode="singleChoice"
         android:scrollbarStyle="outsideOverlay"
-        android:divider="@android:color/transparent" />
+        android:divider="@android:color/transparent"
+        android:listSelector="?attr/listViewItemBackground" />
 
 </LinearLayout>

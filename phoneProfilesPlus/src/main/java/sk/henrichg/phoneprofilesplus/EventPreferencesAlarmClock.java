@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -98,7 +97,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 if (this._permanentRun)
                     descr = descr + "<b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + StringFormatUtils.getDurationString(this._duration) + "</b>";
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
@@ -183,6 +182,13 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (preferences == null)
+            return;
+
+        Preference preference = prefMng.findPreference(key);
+        if (preference == null)
+            return;
+
         if (key.equals(PREF_EVENT_ALARM_CLOCK_ENABLED) ||
             key.equals(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
@@ -234,12 +240,15 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_CATEGORY);
             if (preference != null) {
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, false);
+                boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ALARM_CLOCK).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                if (enabled)
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                else
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
             }
         }
         else {
@@ -261,9 +270,13 @@ class EventPreferencesAlarmClock extends EventPreferences {
     }
 
     @Override
-    void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_ENABLED, preferences, context);
+        if (!onlyCategory) {
+            if (prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_ENABLED) != null) {
+                setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_ENABLED, preferences, context);
+            }
+        }
         setCategorySummary(prefMng, preferences, context);
     }
 
@@ -332,7 +345,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("EventPreferencesAlarmClock.removeAlarm", "alarm found");
@@ -347,7 +359,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_ALARM_CLOCK_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(long alarmTime, Context context)
     {
         if (!_permanentRun) {
@@ -363,7 +374,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -371,7 +381,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
                     if (ApplicationPreferences.applicationUseAlarmClock) {
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -469,10 +478,10 @@ class EventPreferencesAlarmClock extends EventPreferences {
                             PPApplication.logE("EventPreferencesAlarmClock.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                         }*/
 
-                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK))
+                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_ALARM_CLOCK)
                             eventsHandler.alarmClockPassed = true;
                         else if (!_permanentRun) {
-                            if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
+                            if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END)
                                 eventsHandler.alarmClockPassed = false;
                             else
                                 eventsHandler.alarmClockPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

@@ -17,8 +17,6 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
     private String defaultValue;
     private boolean savedInstanceState;
 
-    boolean dualSIMSupported = false;
-
     int voiceValue = 0;
     int smsValue = 0;
     int dataValue = 0;
@@ -63,36 +61,34 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
 
     private void setSummaryDSDP()
     {
-        if (dualSIMSupported) {
-            String prefVolumeDataSummary;
+        String prefVolumeDataSummary;
 
-            prefVolumeDataSummary = _context.getString(R.string.default_sim_subscription_voice) + ": ";
-            String[] arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
-            try {
-                prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[voiceValue];
-            } catch (Exception ignored) {
-            }
-
-            prefVolumeDataSummary = prefVolumeDataSummary + "; ";
-
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_sms) + ": ";
-            arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMSMSArray);
-            try {
-                prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[smsValue];
-            } catch (Exception ignored) {
-            }
-
-            prefVolumeDataSummary = prefVolumeDataSummary + "; ";
-
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_data) + ": ";
-            arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMDataArray);
-            try {
-                prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[dataValue];
-            } catch (Exception ignored) {
-            }
-
-            setSummary(prefVolumeDataSummary);
+        prefVolumeDataSummary = _context.getString(R.string.default_sim_subscription_voice) + ": ";
+        String[] arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
+        try {
+            prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[voiceValue];
+        } catch (Exception ignored) {
         }
+
+        prefVolumeDataSummary = prefVolumeDataSummary + "; ";
+
+        prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_sms) + ": ";
+        arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMSMSArray);
+        try {
+            prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[smsValue];
+        } catch (Exception ignored) {
+        }
+
+        prefVolumeDataSummary = prefVolumeDataSummary + "; ";
+
+        prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_data) + ": ";
+        arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMDataArray);
+        try {
+            prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[dataValue];
+        } catch (Exception ignored) {
+        }
+
+        setSummary(prefVolumeDataSummary);
     }
 
     String getSValue() {

@@ -100,10 +100,10 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
             asyncTask.cancel(true);
         }
 
-        if (EditorActivity.getApplicationsCache() != null) {
-            EditorActivity.getApplicationsCache().cancelCaching();
-            if (!EditorActivity.getApplicationsCache().cached)
-                EditorActivity.getApplicationsCache().clearCache(false);
+        if (PPApplication.getApplicationsCache() != null) {
+            PPApplication.getApplicationsCache().cancelCaching();
+            if (!PPApplication.getApplicationsCache().cached)
+                PPApplication.getApplicationsCache().clearCache(false);
         }
 
         preference.fragment = null;
@@ -114,7 +114,6 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
         itemTouchHelper.startDrag(viewHolder);
     }
 
-    @SuppressLint("StaticFieldLeak")
     void refreshListView(final boolean afterEdit) {
         asyncTask = new RefreshListViewAsyncTask(afterEdit, preference, this, prefContext);
         asyncTask.execute();
@@ -161,9 +160,9 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
             RunApplicationsDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (EditorActivity.getApplicationsCache() != null)
-                    if (!EditorActivity.getApplicationsCache().cached)
-                        EditorActivity.getApplicationsCache().cacheApplicationsList(prefContext);
+                if (PPApplication.getApplicationsCache() != null)
+                    if (!PPApplication.getApplicationsCache().cached)
+                        PPApplication.getApplicationsCache().cacheApplicationsList(prefContext);
 
                 List<PPIntent> _intentDBList = DatabaseHandler.getInstance(prefContext.getApplicationContext()).getAllIntents();
                 preference.intentDBList.clear();
@@ -196,9 +195,9 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
-                if (EditorActivity.getApplicationsCache() != null)
-                    if (!EditorActivity.getApplicationsCache().cached)
-                        EditorActivity.getApplicationsCache().clearCache(false);
+                if (PPApplication.getApplicationsCache() != null)
+                    if (!PPApplication.getApplicationsCache().cached)
+                        PPApplication.getApplicationsCache().clearCache(false);
 
                 fragment.applicationsListView.setAdapter(fragment.listAdapter);
                 fragment.rellaDialog.setVisibility(View.VISIBLE);

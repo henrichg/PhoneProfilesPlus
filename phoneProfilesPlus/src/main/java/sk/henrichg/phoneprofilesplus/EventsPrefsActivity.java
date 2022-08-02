@@ -57,7 +57,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     };
 
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
+    //public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         newEventMode = getIntent().getIntExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
         predefinedEventIndex = getIntent().getIntExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
-        if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
+        if (getIntent().getBooleanExtra(DataWrapperStatic.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
             if (dataWrapper.getEventById(event_id) == null) {
@@ -115,6 +115,11 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
             showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
@@ -340,7 +345,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         {
             // create new event - default is TIME
             if (predefinedEventIndex == 0)
-                event = DataWrapper.getNonInitializedEvent(context.getString(R.string.event_name_default), 0);
+                event = DataWrapperStatic.getNonInitializedEvent(context.getString(R.string.event_name_default), 0);
             else
                 event = dataWrapper.getPredefinedEvent(predefinedEventIndex-1, false, getBaseContext());
             showSaveMenu = true;
@@ -552,12 +557,14 @@ public class EventsPrefsActivity extends AppCompatActivity {
         // save preferences into profile
         dataWrapper.getEventTimelineList(true);
 
+        //noinspection IfStatementWithIdenticalBranches
         if (event.getStatus() == Event.ESTATUS_STOP)
         {
-            PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -607,13 +614,16 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
         }
         else {
-            PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
+            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -656,7 +666,9 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         }
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
         }
     }
 
@@ -723,10 +735,10 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 public void onSequenceFinish() {
                     //targetHelpsSequenceStarted = false;
 
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                    editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.apply();
-                    ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = true;
+                    //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                    //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                    //editor.apply();
+                    //ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = true;
 
                 }
 
@@ -744,10 +756,10 @@ public class EventsPrefsActivity extends AppCompatActivity {
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
 
-            editor = ApplicationPreferences.getEditor(getApplicationContext());
-            editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
-            editor.apply();
-            ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = false;
+            //editor = ApplicationPreferences.getEditor(getApplicationContext());
+            //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+            //editor.apply();
+            //ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = false;
 
             sequence.start();
         }
@@ -787,7 +799,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsStartOfEventsOthers extends EventsPrefsFragment {
 
         @Override
@@ -796,7 +807,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsEndOfEventsOthers extends EventsPrefsFragment {
 
         @Override
@@ -805,7 +815,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsTimeParameters extends EventsPrefsFragment {
 
         @Override
@@ -814,7 +823,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsCalendarParameters extends EventsPrefsFragment {
 
         @Override
@@ -823,7 +831,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsBatteryParameters extends EventsPrefsFragment {
 
         @Override
@@ -832,7 +839,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsCallParameters extends EventsPrefsFragment {
 
         @Override
@@ -841,7 +847,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsSMSParameters extends EventsPrefsFragment {
 
         @Override
@@ -850,7 +855,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsRadioSwitchParameters extends EventsPrefsFragment {
 
         @Override
@@ -859,7 +863,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsLocationParameters extends EventsPrefsFragment {
 
         @Override
@@ -868,7 +871,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsWifiParameters extends EventsPrefsFragment {
 
         @Override
@@ -877,7 +879,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsBluetoothParameters extends EventsPrefsFragment {
 
         @Override
@@ -886,7 +887,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsMobileCellsParameters extends EventsPrefsFragment {
 
         @Override
@@ -895,7 +895,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsAccessoriesParameters extends EventsPrefsFragment {
 
         @Override
@@ -904,7 +903,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsScreenParameters extends EventsPrefsFragment {
 
         @Override
@@ -913,7 +911,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsNotificationsParameters extends EventsPrefsFragment {
 
         @Override
@@ -922,7 +919,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsApplicationsParameters extends EventsPrefsFragment {
 
         @Override
@@ -931,7 +927,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsOrientationParameters extends EventsPrefsFragment {
 
         @Override
@@ -940,7 +935,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsNFCParameters extends EventsPrefsFragment {
 
         @Override
@@ -949,7 +943,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsAlarmClockParameters extends EventsPrefsFragment {
 
         @Override
@@ -958,7 +951,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsDeviceBootParameters extends EventsPrefsFragment {
 
         @Override
@@ -967,7 +959,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsSoundProfileParameters extends EventsPrefsFragment {
 
         @Override
@@ -976,7 +967,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsPeriodicParameters extends EventsPrefsFragment {
 
         @Override
@@ -985,12 +975,35 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     static public class EventsPrefsVolumesParameters extends EventsPrefsFragment {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.event_prefs_volumes_sensor, rootKey);
+        }
+    }
+
+    static public class EventsPrefsActivatedProfileParameters extends EventsPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.event_prefs_activated_profile_sensor, rootKey);
+        }
+    }
+
+    static public class EventsPrefsRoamingParameters extends EventsPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.event_prefs_roaming_sensor, rootKey);
+        }
+    }
+
+    static public class EventsPrefsVPNParameters extends EventsPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.event_prefs_vpn_sensor, rootKey);
         }
     }
 

@@ -8,7 +8,6 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -98,7 +97,6 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         return inflater.inflate(R.layout.dialog_volume_preference, null, false);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
@@ -194,11 +192,12 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         final Context appContext = context.getApplicationContext();
         final AudioManager audioManager = preference.audioManager;
-        PPApplication.startHandlerThreadPlayTone();
-        final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+        //PPApplication.startHandlerThreadPlayTone();
+        //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
         //__handler.post(new StopPlayRingtoneRunnable(
         //        context.getApplicationContext(), preference.audioManager) {
-        __handler.post(() -> {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onDialogClosed");
 
             //Context appContext = appContextWeakRef.get();
@@ -211,7 +210,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                    DisableVolumesInternalChangeWorker.enqueueWork();
+                    PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                 }
                 if (VolumeDialogPreferenceX.mediaPlayer != null) {
                     try {
@@ -227,7 +226,9 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                     }
                 }
             //}
-        });
+        }; //);
+        PPApplication.createPlayToneExecutor();
+        PPApplication.playToneExecutor.submit(runnable);
 
         preference.fragment = null;
     }
@@ -305,17 +306,18 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                 EventPreferencesVolumes.internalChange = true;
                 preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                DisableVolumesInternalChangeWorker.enqueueWork();
+                PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
             }
             ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume);
 
             final Context appContext = context.getApplicationContext();
             //final AudioManager audioManager = preference.audioManager;
-            PPApplication.startHandlerThreadPlayTone();
-            final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+            //PPApplication.startHandlerThreadPlayTone();
+            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
             //__handler.post(new PlayRingtoneRunnable(
             //        context.getApplicationContext(), preference.audioManager) {
-            __handler.post(() -> {
+            //__handler.post(() -> {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onStopTrackingTouch");
 
                 //Context appContext = appContextWeakRef.get();
@@ -399,7 +401,9 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                         PPApplication.recordException(e);
                     }
                 //}
-            });
+            }; //);
+            PPApplication.createPlayToneExecutor();
+            PPApplication.playToneExecutor.submit(runnable);
             /*
             try {
                 preference.mediaPlayer.start();

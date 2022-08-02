@@ -13,6 +13,8 @@
         android:id="@+id/dialog_color_chooser_scroll_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
         tools:ignore="UselessParent">
@@ -33,7 +35,9 @@
                     android:id="@+id/dialog_color_chooser_grid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
                     app:columnCount="4"
                     app:rowCount="5"
                     app:orientation="vertical"
@@ -48,8 +52,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView1"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check_dark"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription"/>
@@ -65,8 +69,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView2"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check_dark"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -82,8 +86,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView3"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -99,8 +103,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView4"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -116,8 +120,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView5"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -133,8 +137,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView7"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -150,8 +154,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView8"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -167,8 +171,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView9"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -184,8 +188,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView10"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -201,8 +205,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView11"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -218,8 +222,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView12"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -235,8 +239,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView13"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -252,8 +256,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView14"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -269,8 +273,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView15"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -286,8 +290,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView16"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -303,8 +307,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView17"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check_dark"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -320,8 +324,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView18"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check_dark"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -337,8 +341,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView19"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check_dark"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -354,8 +358,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView20"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -371,8 +375,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView21"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_check"
                             android:layout_gravity="center"
                             tools:ignore="ContentDescription" />
@@ -396,8 +400,8 @@
 
                         <ImageView
                             android:id="@+id/dialog_color_chooser_imageView22"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_check"
                             tools:ignore="ContentDescription" />
@@ -414,7 +418,7 @@
                         android:gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:text="@string/colorChooser_pref_dialog_customColor"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textColor="?attr/colorAccent"
                         android:textStyle="bold"
                         android:background="?attr/buttonBackground"

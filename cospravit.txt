@@ -1,4 +1,16 @@
-Preco uz noe je PPP v GPlay:
+Ked nejde git push, skus v terminaly AS:
+git config credential.helper store
+
+--------------------------------
+Hadanie warningov v kode:
+Toto hladaj:
+@SuppressLint
+@SuppressWarnings
+//noinspection
+
+--------------------------------
+
+Preco uz nie je PPP v GPlay:
 
 Google restrictions:
 1. Android - All Wi-Fi related functions not working since Android 10.
@@ -7,6 +19,19 @@ Google restrictions:
   and in PPP must be target sdk = 28. Android 10 is 29.
 
 In stores, in which is currently deployed PPP, restriction about target sdk not exists.
+
+----------------------------------------
+
+indicator color and its complementary color:
+dark tema: indicator:62a9f8 -> accent:f8b162 -> event delay:#F862F4
+light tema: indicator:4289d8 -> accent:cc893e -> event delay:#D842D4
+
+https://www.canva.com/colors/color-wheel/
+
+------------------------
+
+Widget Preview Builder:
+https://play.google.com/store/apps/details?id=lav.widgetpreviewbuilder.free&hl=en_US&gl=US
 
 ------------------------
 funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
@@ -96,15 +121,6 @@ Ako disablovat lockscreen, 2 kroky:
 2. nastavit lockscreen timeout 
   Settings.Secure - lock_screen_lock_after_timeout (milisekundy)
 
---------
-
-4. sprav notifikaciu ako dasboard, kde budu ikony profilov, klikom na ikonu sa profil aktivuje.
-   poradie bude take iste ako pro aktivatore. Ak sa nezmestia na jednu notifikaciu, spravit dalsiu.
-   Notifikacia bude mat prioritu nastavitelnu, default bude Minimal. Uzivatel si bude moct zmenit, aby sa
-   takat notifikacia zobrazila aj v lockscreene. ;-)
-
---------
-
 ---------- PIN/password
 
 1. ako zrusim pin/heslo
@@ -138,6 +154,8 @@ DevicePolicyManager.PASSWORD_QUALITY_COMPLEX - heslo?
 --------------------------------
 
 NFC tag senzor - NEFUNGUJE PRI CITANI TAGU NA POZADI!
+
+ZE BY UZ OPRAVENE? DLHO SA NIKTO NESTAZOVAL.
 
 Tu mas ako sa to id cita: https://gist.github.com/luixal/5768921.
 
@@ -182,22 +200,6 @@ Direct boot:
   Alebo, ze by pomohlo toto?
     https://stackoverflow.com/questions/51377089/android-crashlytics-fails-on-direct-boot-due-to-disk-encryption
 
-----------------------------------------
-
-Extender:
-- Vypada to, ze parametrov, ktore pouzivaju Extender je stale viac.
-- Co tak spravit daky dialog, z ktoreho sa bude dat Extender managovat?
-- Aby nemuseli byt pri kazdom profil/event parametri 3 dalsie kvoli Extenderu.
-- Pridaj dakde v Editore daku indikaciu, ze je Extender vyzadovany v novej verzii.
-  Nieco uz o tom mas v Important info, notifikacia o tom sa zobrazi po upgrade PPP.
-
-----------------------------------------
-
-EventsHandler.handleEvents()
-- volane strasne vela krat zaujima ma restart udalosti a samotny orientacny senzor
-- SENSOR_TYPE_DEVICE_ORIENTATION
-  - z OrientationScanner.runEventsHandlerForOrientationChange() - zisti, aky thread to pouziva
-  - z PPPExtenderBroadcastRecveiver.onReceive() - je to volane v HandlerThread - vroadcast treba, lebo senzor sleduje aplikacie na popredi
 
 --------------
 
@@ -222,50 +224,7 @@ Battery historian:
 
 ------------------
 
-Toto daj do Important info. Je to ako nastavit PPP pre znizenie spotreby baterie:
-
-1. Battery optimization, must by dislabled - it is PPP Settings/System/Ignore battery optimization
-2. Scanning intervals, set it >= recommended
-    - Background scanning = 15 minutes
-    - Location scanning = 15 minutes
-    - Wi-Fi scanning = 15 minutes
-    - Bluetooth scanning = 15 minutes
-    - Orientation scanning = 10 seconds
-3. For location scanning disable "Use GPS when not in Power Save mode". This is required only when another location sources are not available.
-    Location sources used by Android:
-    - Wi-Fi
-    - Bluetooth
-    - network
-    - mobile cells
-    - GPS
-4. For increasing location accuracy, you can force usage of Wi-Fi and BLuetooth as source. For this, enable it in Location system setting "Wi-Fi and Bluetooth scanning"
-5. Battery sensor: do not use battery levels when are not needed. Set levels: 0%-100%
-
----------------------
-
-Orientation sensor:
-Light senzor sa generuje hrozne casto. Na Samsungu donekonecna a par krat za sekundu.
-Spravil som sice:
-- ze sa neregistruje, ak ziadna udalost ho nepouziva
-- ze sa ma handler volat az o polovicu intervalu
-Ale aj tak to musi zrat vela. Kazdych 5 sekund volat eventsHandler je proste vela.
-Zatial mam nenapadlo, co s tym. Do nastaveni senzora daj aspon info preference o tom ze check light zerie bateriu.
-
------------------------
-
-Co je toto? Nastavenie tonu pri aktivacii profilu? Prehratie tonu na notifikacu?
-Zistujem, ktory ton je nastaveny (najdi kde), preco by som ho mal aj prehravat? Nemam to nastavene.
-2020-09-07 00:05:35.217 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:05:55.189 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:26:45.609 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:26:46.097 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:26:52.669 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:28:43.189 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-2020-09-07 00:29:03.187 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
-
-------------------------
-
-am mám funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
+mám funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
 
 nastavení-aplikace- aplikace-PPP-podrobnosti o spotřebě energie-spouštění aplikací:
 Spravovat automaticky - ne
@@ -335,46 +294,7 @@ Takto sa nastavuje tiemout pri aktivacii profilu:
   cize len sa hodnota ulozi do ApplicationPreferences.prefActivatedProfileScreenTimeout.
 Toto cele chapem.
 
------
-
-Extender v obchode:
-
-*** IMPORTANT ***
-- It is "plugin", so does NOT work standalone!
-- Designed for co-working with 'PhoneProfilesPlus' application. Without it, this application do nothing.
-
 -----------------------
-
-Ako stiahnut najnovsiu verziu:
-
-https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk
-https://github.com/henrichg/PhoneProfilesPlusExtender/releases/latest/download/PhoneProfilesPlusExtender.apk
-
------------------------
-
-Airplane mod bez rootu:
-
-Hladaj v:
-/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid
-pripona suboru: xml
-retazec: BIND_VOICE_INTERACTION
-
-volaj toto:
-Intent intent = new Intent(PPPVoiceService.ACTION_ASSISTANT);
-intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
-intent.putExtra("airplane_mode_enabled", z3);
-mo15668c0().sendBroadcast(intent);
-
-Ako zistit default asistenta:
-https://stackoverflow.com/questions/40500143/how-to-get-default-device-assistance-app-in-android-by-code
-Alebo asi lepsie: Macrodroid class: common/C5258c1.java
-
-Ako nastavit default asistenta:
-activity.startActivity(new Intent("android.settings.VOICE_INPUT_SETTINGS"));
-- Settings.ACTION_VOICE_INPUT_SETTINGS
-Alebo Macrodroid class: permissions/PermissionRequestActivity.java
-
---------------------------
 
 Zmena hlasitosti profilom:
 
@@ -451,9 +371,6 @@ if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (r
         }
     }
     static boolean getMergedRingNotificationVolumes() {
-        //PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "force set="+ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context));
-        //PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "merged="+ApplicationPreferences.preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true));
-
         if (ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes > 0)
             return ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes == 1;
         else
@@ -464,35 +381,6 @@ Ak v Settings menim ringtone na Pixeli, meni sa STREAM_RING aj STREAM_NOTIFICATI
 Ale ako pozeram, tak sa to ignoruje, tie zmeny v observeri, lebo prave aktivujem porfil.
 To je to, co to ma aj robit.
 Tak preco kua to na tej Xperii robi inac? Jedine mi zostava to testnut u Marta. Logovat si to.
-
---------
-
-root:
-Moze sa stat, ze bootnem do nie-root particie (S10ka).
-No a vtedy pre kazdy parameter mi to pise, ze nie je grantnuty root.
-No nemoze byt, ked nie je rootnuty.
-Vsade testujem premennu ApplicationPreferences.applicationNeverAskForGrantRoot.
-A v red error text mam checkbox, ktory tu premenu anstavuje.
-
-No a teraz co spravit s tym? Ta premenna by mala mat funkcionalitu aku ma.
-Lebo iny uzivatel chcel, ze sice ma rottnuty mobil, ale nechce grantovat root.
-Nema pre PPP nastaveny permanentny grant. Nechce to.
-
-Podla mna by som asi mal spravit to, ze ak nie je mobil rootnuty, malo by to proste len zakazat
-premenne a nezobrazovat red text. Pozri to.
-
-Zatial tu premennu sprav tak, ze je to spriahnute s tym, ci je root. Nie ci je grantnuty.
-Cize v PPService.doForFirsStart() ju nastav na false, ak je mobil rootnuty.
-
----------
-
-Ako zdetegovat, ci servis bezi:
-  boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
-
-Ako si pytat nastavenie Atutostart:
-Podobne ako:
-  IgnoreBatteryOptimizationNotification.showNotification(context, false);
-Volat vsade tam, kde je volane aj to.
 
 ------------------
 
@@ -507,12 +395,124 @@ Je to aplikacia SysteUI Tunner. Mas ho v S10.
 --------------
 
 Vyskusaj nahodit mobilne data s WRITE_SECURE_SETTINGS:
-Nefunguje :-(
+NEFUNGUJE :-(
 boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data", r4) // r4 = 1 - zapnut, 0 - vypnut
 boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data1", r5)  // r5 = 1 - zapnut, 0 - vypnut
 boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data2", r5)  // r5 = 1 - zapnut, 0 - vypnut
 
--------------------
+--------------------
+
+Night light (blue light filter):
+
+Vypada to, ze takto sa to robi:
+
+if (isActive) {
+    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
+        prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 0)
+        writeSecure("twilight_mode", 0)
+    } else {
+        prefManager.saveOption(SettingsType.SECURE, "night_display_activated", 0)
+        writeSecure("night_display_activated", 0)
+    }
+} else {
+    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
+        prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 1)
+        writeSecure("twilight_mode", 1)
+    } else {
+        prefManager.saveOption(SettingsType.SECURE, "night_display_activated", 1)
+        writeSecure("night_display_activated", 1)
+    }
+}
+
+fun Context.writeSecure(key: String?, value: Any?): Boolean {
+    if (key.isNullOrBlank()) return false
+    return try {
+        Settings.Secure.putString(contentResolver, key, value?.toString())
+        true
+    } catch (e: SecurityException) {
+        false;
+    }
+}
+
+const val TWILIGHT_MODE = "twilight_mode"
+const val NIGHT_DISPLAY_ACTIVATED = "night_display_activated"
+const val NIGHT_DISPLAY_AUTO_MODE = "night_display_auto_mode"
+const val NIGHT_DISPLAY_COLOR_TEMPERATURE = "night_display_color_temperature"
+// tiet dve este musim zistit, ci vobec vie nastavit.
+// v aplikacii to nie je
+const val NIGHT_DISPLAY_CUSTOM_START_TIME = "night_display_custom_start_time"
+const val NIGHT_DISPLAY_CUSTOM_END_TIME = "night_display_custom_end_time"
+
+// pre API 24
+writeSecure(NightModeView.TWILIGHT_MODE, info.twilightMode)
+
+// pre API 25+
+writeSecure(NightModeView.NIGHT_DISPLAY_ACTIVATED, info.nightModeActivated)
+writeSecure(NightModeView.NIGHT_DISPLAY_AUTO_MODE, info.nightModeAuto)
+writeSecure(NightModeView.NIGHT_DISPLAY_COLOR_TEMPERATURE, info.nightModeTemp)
+
+Zdroj: https://github.com/zacharee/Tweaker/blob/master/app/src/main/java/com/zacharee1/systemuituner/services/tiles/NightModeTile.kt
+
+Bude potrebovat WRITE_SECURE_SETTINGS.
+Testovane cez System UI Tuner s grantnutym WRITE_SECURE_SETTINGS na Pixel 3a.
+
+---
+Testni to potom este na Samsungu, ci to ide. Neviem, niekde som cital, ze to zhasne obrazovku
+a pomoze len restart mobilu. Len neviem ci to bolo pri tomto.
+!!! Hm, tak ako som pisal. Na Samsungu to zhaslo obrazovku.
+!!! Aj ked zmenim len automaticke zapinanie.
+!!! Takze toto urcite nemozem spravit.
+!!! Ale? Mozno System UI tuner zapise len pri zmene automatiky aj to zapnutie. A to je mozno problem.
+!!! Testni, testni testni.
+
+Mozno taky test tam dat, ze nech si uzivatel skusi a za par sekund vrati, teda ak to pojde.
+Vyskusaj aj to. Testuj na Galaxy S10.
+Ak to vrati, tak potom to sprav tak, ze uzivatel musi cez test dako prejst. A len ak potvrdi
+(najlepsie 2x) ze to nezhaslo obrazovku, tak to nastav ako povolene.
+
+Cize sprav na to dialog s tymi 3 parametrami:
+1. nemenit/zapnut/vypnut
+2. automaticke zapinanie
+3. teplota farby
+4. Test tlacitko a len ak ho potvrdi, tak povolit OK.
+   To s tym OK, to treba ten preference spravit dako inac nez obycajne.
+   S pouiztim public Dialog onCreateDialog(Bundle savedInstanceState)
+---
+
+Toto je, ked to hore nepojde. Cize zavolanie Settings. Take uz mam pri nejakych parametroch profilu:
+
+ACTION_NIGHT_DISPLAY_SETTINGS
+
+Zdroj: https://developer.android.com/reference/android/provider/Settings#ACTION_NIGHT_DISPLAY_SETTINGS
+
+Sprav aspon toto, lebo na Galaxy mi to hore vyplo obrazovku. :-(
+
+------------------
+
+EventsHandler.handleEvents()
+- volane strasne vela krat zaujima ma restart udalosti a samotny orientacny senzor
+- SENSOR_TYPE_DEVICE_ORIENTATION
+  - z OrientationScanner.runEventsHandlerForOrientationChange() - zisti, aky thread to pouziva
+  - z PPPExtenderBroadcastRecveiver.onReceive() - je to volane v HandlerThread - vroadcast treba, lebo senzor sleduje aplikacie na popredi
+
+------------------------
+
+sprav notifikaciu ako dasboard, kde budu ikony profilov, klikom na ikonu sa profil aktivuje.
+   poradie bude take iste ako pro aktivatore. Ak sa nezmestia na jednu notifikaciu, spravit dalsiu.
+   Notifikacia bude mat prioritu nastavitelnu, default bude Minimal. Uzivatel si bude moct zmenit, aby sa
+   takat notifikacia zobrazila aj v lockscreene. ;-)
+
+--------
+
+Orientation sensor:
+Light senzor sa generuje hrozne casto. Na Samsungu donekonecna a par krat za sekundu.
+Spravil som sice:
+- ze sa neregistruje, ak ziadna udalost ho nepouziva
+- ze sa ma handler volat az o polovicu intervalu
+Ale aj tak to musi zrat vela. Kazdych 5 sekund volat eventsHandler je proste vela.
+Zatial mam nenapadlo, co s tym. Do nastaveni senzora daj aspon info preference o tom ze check light zerie bateriu.
+
+-----------------------
 
 Vraj synchronizacia kontaktov. Testuje sa tam ContactsContract.Contacts.CONTACT_LAST_UPDATED_TIMESTAMP
 A len novsie ako posledna synchronizacia (zapisat si treba cas poslednej do sharend preferences),
@@ -524,37 +524,129 @@ https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
 
 --------------------
 
-- Added ringtone type icon into Ringtone preference dialog.
-- Added application settings into acra crash report.
-- Added grant Uri permission into for play notification sound.
-- Added into Editor menu/"Backup/restore"/"Restore settings" set parameters into "do not change"/"not configured" which requires grant Uri permission, when this grant now working.
-- Added monochrome launcher icon (Android 13). Not tested.
-- Added (but currently commented): Support for app multi-language settings. Requires AndroidX appcompat 1.6.0+ (Android 13).
-- Added Google Play restrictions information into README.md
-- Removed Amazon store due to store restrictions. Not allowed is change of device settings which requires superuser permission (root).
-- Changed "Actual version:" to "Installed version:" in check releases dialogs.
-- Change: small dialog layout changes.
-- Changes of "traffic light" in Activator and Editor.
-- Change: better Intent editor layout.
-- Changed display of event sensor names in Editor event list.
-- Change in Location editor: calc zoom, start of displaying map, layout without start/end margin in all device sizes.
-- Change in Location editor: start of displaying map.
-- Change: replaced bold preferences in Settings by arrows.
-- Change: converted png images to to webp.
-- Change: profile parameter "Disable events run" changed to "Enable events run".
-- Change: disable OK button in "Generate notification" dialog if notification title is not set.
-- Change: added "Unselect all" button into Profile multiselect dialog.
-- Change: display "None installed" in live wallpaper dialog, when live wallpapers was not installed.
-- Change: Location sensor and get provider for get last known location.
-- Change: generated notification when location provider is not returned.
-- Changed screenshots size for F-Droid. Maybe will be synchronized also in F-Droid application.
-- Fix: changed dialog buttons for custom color dialog from Yes/No to OK/Cancel.
-- Fixed display of custom color for profiles icon.
-- Fixed not allowed profile parameters change when old version of Extender is installed.
-- Fixed call of TopExceptionHandler. Maybe this fixes also ACRA notification after restart of PPP (for example package upgrade).
-- Fixed generated ACRA notification for exception android.os.DeadSystemException.
-- Fixed bad working "Lock screen" profile parameter.
-- Fixed set screen timeout.
-- Fixed not working title style in preferences.
-- Maybe fixed not displayed map in Location editor, when map is not cached.
-- Maybe fixed start of map display in Location editor. Will be displayed immediately at end of map load.
+Detekcia VPNky:
+
+PhoneProfilesService.registerAllTheTimeCallbacks(), ale sprav speci len pre tento senzor, pozri ine
+ako sa robi.
+
+Cize callback na to by malo ist pridat. Staci pouzit:
+.addTransportType(NetworkCapabilities.TRANSPORT_VPN)
+
+A na detekciu v doHandleEvent:
+
+Network activeNetwork = connectivityManager.getActiveNetwork();
+NetworkCapabilities caps = connectivityManager.getNetworkCapabilities(activeNetwork);
+boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+- toto vyuzijem aj pre Profile._deviceVPN, kde pridam, ci chce
+  nastavovat aj ked uz ma nastavene (cize vlastne restartnut). Dobre pre vyriesenie problemu
+  uzivatela, co sa stazoval, ze mu to restartuje (vypne/zapne VPN), co nechce aby robilo.
+
+Vid: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
+
+------------------
+
+Co tak uplne nahradit HandlerThread Executorom?
+
+ExecutorService es = Executors.newFixedThreadPool( 3 ) ;  // Specify number of threads.
+Thready zostanu zive, pripadne sa replacnu pri chybe.
+
+Existuje podobne a to funguje tak ze si vytvara thready po svojom, mnozstvo nie je dolezite.
+ExecutorService es = Executors.newCachedThreadPool() ;
+Tu thread po asi minute, ak uz nie je treba (nebezi nic v nom) sa zrusi.
+
+Otazne ale je, ako to bude, s akou prioritou. Lebo tu som malicko navysoval:
+handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE);
+
+Ze by takto? Zavolat priamo v Runnable?
+Thread.currentThread().setPriority([1..5]);
+
+Alebo zlozitejsie:
+    private ScheduledExecutorService schdExctr = Executors.newSingleThreadScheduledExecutor(new ThreadFactory() {
+        private ThreadFactory defaultThreadFactory = Executors.defaultThreadFactory();
+
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread t = defaultThreadFactory.newThread(r);
+            t.setPriority(Thread.MIN_PRIORITY);
+            return t;
+        }
+    });
+Cize treba custom ThreadFactory priradit.
+Hm, zaujimave. :-)
+
+Vid: https://stackoverflow.com/questions/59100491/short-but-frequent-jobs-handlerthread-or-threadpoolexecutor
+"HandlerThread is a structure that creates a singular thread and uses a queue to execute tasks
+!!! but always loops and waits for messages which consumes power !!!,
+while ThreadPoolExecutor creates multiple threads for each job and deletes threads when the jobs are done,"
+
+Hm, hm.
+
+-------------------
+
+- Added support for Android 13.
+- Changed PhoneProfilesPlus icon.
+- Added monochrome launcher icon.
+- Added dymanic colors support (Android 12+)
+- Added support for Notifications permission (Android 13+).
+- Added change of application language.
+
+- Added "Enable periodic scanning" into profile parameters.
+- Added "Dark mode" to profile.
+- Added "VPN" parameter into profile preferences.
+- Added event senzor "Roaming sensor".
+- Added "VPN sensor" to event.
+- Added "Share PPP settings", for example to Google Drive.
+- Added parameter "Use dynamic colors" for widgets.
+- Added "Background color - dark mode on", "Background color - dark mode off" for all widgets and Samsung Edge panel.
+- Added parameter "Layout height" for Icon widget.
+- Added application parameter for change of "Restart events" icon color.
+- Added switch Wi-Fi in airplane mode for profile parameter "Wi-Fi".
+- Added configuration activity for widgets and Samsung Edge panel.
+- Added delete of Intents in "Run applications, shortcuts, Intents" editor.
+- Added info how to configure airplane mode radios.
+- Added News about recommendation of application notification configuration.
+- Added News for "Choose language".
+
+- Change: speed-up of PPP, less memory and battery consumption.
+- Changes in GUI - layouts, colors, text sizees, rounded corners, icons, ...
+- Change: start of PPService immediately at start of device.
+- Change: important Extender version.
+- Change: save event id, which activates profile. Also for "Undo the profile" and "Restart events" from end of events.
+- Change: force location network provider when device is in power save mode.
+- Change: get best provider, when is returned not any enabled provider,… but in power save mode force return network provider.
+- Change: restart events with delay - added support for alarm clock.
+- Change: Check immediately if sim card is inserted.
+- Change: better native style of "Activated profile" notification. Indicator is hidden in collapsed type. Profile icon is hidden for collapsed type (only Android 12+).
+- Change: Set native notification style for all devices with Android 12+.
+- Change: added double arrow for passed sensor.
+- Change: update dynamic shortcuts after profile parameters change.
+- Change: do not show notification about not enabled accessibility service at PPP start.
+- Change: generation of dynamic shortcuts are changed. Displayed are profiles in Quick Tiles.
+- Change: airplane mode in profile. Added options for user to use root or assistant.
+- Change: added special reason for check of preferences: two sim cards existence.
+- Change: play notification for profile activation, event start end, restart events, end of duration.
+- Change: smaller length of vibration.
+- Change: moved news about new Extender version moved at top in "Important info"
+- Change: immediately change notification after notification parameters change.
+- Change: updated libraries versions.
+- Fixed bad displayed dynamic shortcuts in Nova launcher.
+- Fixed not working Order spinner in Editor.
+- Fixed critical bug in default assistant support (for switch airplane mode) by e-amil from Google.
+- Fixed not displayed "Default SIM card" summary at initial time.
+- Fixed set "mobile data"="No change" after PPP start, because is completely disabled sim card after reboot, when airplane mode is enabled (Android 8-).
+- Fixed set of text and "restart events" icon color in notification by night mode for Android 9.
+- Fixed Autostart for huawei devices.
+- Fixed not changed GUI after profile duration.
+- Fixed display of monochromatic widgets and application notification and widgets.
+- Fix: use check for night mode when context is activity context.
+- Fixed check of accessibility service status.
+- Fixed not working dark mode detection.
+- Fixed displayed red text even if accessibility service enabled.
+- Fixed displayed "Radios: section of profile when airplane mode is ON and device is rooted.
+- Fixed "Restart events" icon for Nova Launcher/Sesame.
+- Fix: fixed click to profile and event list buttons in items.
+- Fix: fixed clear of applications cache at Editor start.
+- Fixed set Collator when language is changed.
+- Fixed get collator for sor languages. Must be used application locale.
+- Other fixes.
+- Updated translations.

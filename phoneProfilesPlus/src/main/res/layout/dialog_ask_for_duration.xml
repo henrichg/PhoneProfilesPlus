@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:text="00:00:00 - 00:05:00"
             tools:ignore="HardcodedText"/>
 
@@ -89,8 +89,8 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:paddingTop="6dp"
-                        android:paddingBottom="7dp"
+                        android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
+                        android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
                         android:textSize="16sp"
                         android:textColor="?attr/colorAccent"
                         android:textStyle="bold"
@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_hours_label"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
                 <SeekBar
                     android:id="@+id/duration_pref_dlg_hours"
                     android:layout_width="match_parent"
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_minutes_label"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
                 <SeekBar
                     android:id="@+id/duration_pref_dlg_minutes"
                     android:layout_width="match_parent"
@@ -168,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_seconds_label"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
                 <SeekBar
                     android:id="@+id/duration_pref_dlg_seconds"
                     android:layout_width="match_parent"
@@ -183,7 +183,7 @@
         <View
             android:id="@+id/ask_for_duration_dlg_divider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginStart="0dp"
@@ -264,7 +264,7 @@
                 <ImageView
                     android:id="@+id/ask_for_duration_dlg_profile_pref_indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="14dp"
+                    android:layout_height="@dimen/profile_preferences_indicator_height"
                     android:layout_marginTop="2dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_indicator_image"

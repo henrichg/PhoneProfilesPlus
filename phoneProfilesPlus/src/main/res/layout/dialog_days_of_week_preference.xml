@@ -1,12 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/days_of_week_pref_dlg_listview"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:gravity="center"
-    android:clipToPadding="false"
-    android:scrollbarStyle="outsideOverlay"
-    android:divider="@android:color/transparent"
-    android:paddingTop="@dimen/alert_dialog_top_padding" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/days_of_week_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
+    <View
+        android:id="@+id/days_of_week_pref_dlg_listview_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="?attr/dialogDivider" />
+
+    <ListView
+        android:id="@+id/days_of_week_pref_dlg_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:gravity="center"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:divider="@android:color/transparent"
+        android:listSelector="?attr/listViewItemBackground" />
+
+    <LinearLayout
+        android:id="@+id/days_of_week_pref_dlg_et_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/days_of_week_pref_dlg_listview_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="?attr/dialogDivider" />
+
+        <Button
+            android:id="@+id/days_of_week_pref_dlg_button_all_nothing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/days_of_week_pref_dialog_button_all_nothing"
+            android:minHeight="40dp"
+            android:textColor="@color/action_button_text_color"
+            android:textStyle="bold"
+            android:background="?attr/buttonBackground"
+            style="?android:attr/borderlessButtonStyle" />
+
+    </LinearLayout>
+
+</LinearLayout>

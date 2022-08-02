@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_one_row_root"
     android:layout_width="match_parent"
-    android:layout_height="85dp"
+    android:layout_height="@dimen/one_row_widget_height_highest"
     android:gravity="center"
     android:background="#40000000"
     tools:ignore="Overdraw" >
@@ -38,8 +38,8 @@
 
             <ImageView
                 android:id="@+id/widget_one_row_header_restart_events"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
                 android:layout_centerInParent="true"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/menu_restart_events"
@@ -60,8 +60,8 @@
 
             <ImageView
                 android:id="@+id/widget_one_row_header_profile_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="5dp"
                 android:adjustViewBounds="true"
@@ -78,28 +78,10 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="@string/profile_name_default"
-                android:textColor="#33b5e5"
-                android:textSize="17sp"
+                android:textSize="21dp"
                 android:ellipsize="end"
-                android:maxLines="1"/>
-
-            <!--<TextView
-                android:id="@+id/widget_one_row_header_profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@id/widget_one_row_header_profile_icon"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:shadowColor="#ffffffff"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="3"
-                android:text="@string/profile_name_default"
-                android:textColor="#33b5e5"
-                android:textSize="16sp"
-                android:ellipsize="end"
-                android:maxLines="1"/>-->
+                android:maxLines="1"
+                tools:ignore="SpUsage"/>
 
         </RelativeLayout>
 

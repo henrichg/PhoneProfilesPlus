@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +27,6 @@ public class AboutApplicationActivity extends AppCompatActivity {
     //static final int EMAIL_BODY_SUPPORT = 1;
     //static final int EMAIL_BODY_TRANSLATIONS = 2;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
@@ -440,6 +438,14 @@ public class AboutApplicationActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        Button closeButton = findViewById(R.id.about_application_close);
+        closeButton.setOnClickListener(view -> finish());
+
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

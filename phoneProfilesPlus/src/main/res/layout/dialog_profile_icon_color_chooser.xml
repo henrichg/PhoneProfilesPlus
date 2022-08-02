@@ -14,6 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
@@ -56,7 +58,7 @@
                         android:gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:text="@string/colorChooser_pref_dialog_defaultIconColor"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:clickable="true"
                         android:focusable="true" />
                 </LinearLayout>
@@ -446,7 +448,7 @@
                         android:gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:text="@string/colorChooser_pref_dialog_customIconColor"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textColor="?attr/colorAccent"
                         android:textStyle="bold"
                         android:background="?attr/buttonBackground"

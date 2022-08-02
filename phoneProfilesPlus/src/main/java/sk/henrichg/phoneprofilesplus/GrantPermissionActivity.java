@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -31,7 +30,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private int grantType;
     private ArrayList<Permissions.PermissionType> permissions;
-    static private ArrayList<Permissions.PermissionType> permissionsForRecheck;
+    static private volatile ArrayList<Permissions.PermissionType> permissionsForRecheck;
     private boolean mergedProfile;
     private boolean forceGrant;
     //private boolean mergedNotification;
@@ -65,6 +64,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private boolean showRequestAccessFineLocation = false;
     private boolean showRequestAccessBackgroundLocation = false;
     private boolean showRequestCamera = false;
+    private boolean showRequestMicrophone = false;
 
     private boolean[][] whyPermissionType = null;
     private boolean rationaleAlreadyShown = false;
@@ -141,6 +141,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
             showNotification();
             started = true;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
@@ -286,6 +291,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         showRequestAccessFineLocation = false;
         showRequestAccessBackgroundLocation = false;
         showRequestCamera = false;
+        showRequestMicrophone = false;
 
         if (permissions != null) {
             whyPermissionType = new boolean[20][100];
@@ -344,6 +350,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     showRequestCamera = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
                     whyPermissionType[15][permissionType.type] = true;
                 }
+                if (permissionType.permission.equals(Manifest.permission.RECORD_AUDIO)) {
+                    showRequestMicrophone = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[16][permissionType.type] = true;
+                }
             }
         }
 
@@ -358,7 +368,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestAccessBackgroundLocation ||
                 //showRequestAccessNotificationPolicy ||
                 showRequestDrawOverlays||
-                showRequestCamera);
+                showRequestCamera ||
+                showRequestMicrophone);
     }
 
     private void showRationale(final Context context) {
@@ -390,6 +401,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)
                 showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_IMPORT)
+                showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
+            else if (grantType == Permissions.GRANT_TYPE_SHARED_IMPORT)
                 showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
                 showRequestString = context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text1) + "<br><br>";
@@ -534,6 +547,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
+            if (showRequestMicrophone) {
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_microphone) + "</b>";
+                String whyPermissionString = getWhyPermissionString(whyPermissionType[16]);
+                //if (whyPermissionString != null)
+                whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
+            }
             if (!whyString.isEmpty())
                 showRequestString = "<ul>" + whyString + "</ul>";
 
@@ -554,6 +575,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
             else if (grantType == Permissions.GRANT_TYPE_IMPORT)
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
+            else if (grantType == Permissions.GRANT_TYPE_SHARED_IMPORT)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
             else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text2);
@@ -584,7 +607,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.permissions_alert_title);
-            dialogBuilder.setMessage(GlobalGUIRoutines.fromHtml(showRequestString, true, false, 0, 0));
+            dialogBuilder.setMessage(StringFormatUtils.fromHtml(showRequestString, true, false, 0, 0));
             dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 int iteration = 4;
                 if (showRequestWriteSettings)
@@ -792,6 +815,15 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_BACGROUND_LOCATION:
                         s = getString(R.string.permission_why_profile_background_location);
                         break;
+                    case Permissions.PERMISSION_PROFILE_MICROPHONE:
+                        s = getString(R.string.permission_why_profile_default_assistant);
+                        break;
+                    case Permissions.PERMISSION_EVENT_ROAMING_PREFERENCES:
+                        s = getString(R.string.permission_why_event_roaming_preferences);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_WIREGUARD:
+                        s = getString(R.string.permission_why_profile_wireguard);
+                        break;
                 }
             }
         }
@@ -952,7 +984,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             intent.putExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, grantAlsoContacts);
             intent.putExtra(Permissions.EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, grantAlsoBackgroundLocation);
 
-            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(pi);
             mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
@@ -961,6 +992,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             //}
+
+            mBuilder.setGroup(PPApplication.GRANT_PERMISSIONS_NOTIFICATION_GROUP);
+
             NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
             try {
                 // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
@@ -982,7 +1016,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
 //        PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "requestCode=" + requestCode);
 
-        //noinspection SwitchStatementWithTooFewBranches
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CODE:
             case BACKGROUND_LOCATION_PERMISSIONS_REQUEST_CODE: {
@@ -1599,7 +1632,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void finishGrant() {
         final Context context = getApplicationContext();
 
@@ -1611,6 +1643,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         PPApplication.registerContentObservers(context);
         PPApplication.registerCallbacks(context);
+        PPApplication.registerPhoneCallsListener(true, context);
+
 
         /*
         if (forGUI && (profile != null))
@@ -1669,7 +1703,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //    Permissions.editorActivity.doExportData();
         }
         else
-        if (grantType == Permissions.GRANT_TYPE_IMPORT) {
+        if ((grantType == Permissions.GRANT_TYPE_IMPORT) ||
+            (grantType == Permissions.GRANT_TYPE_SHARED_IMPORT)) {
             Intent returnIntent = new Intent();
             returnIntent.putExtra(Permissions.EXTRA_APPLICATION_DATA_PATH, applicationDataPath);
             setResult(Activity.RESULT_OK,returnIntent);
@@ -1698,7 +1733,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PPApplication.restartBluetoothScanner(context);
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
@@ -1707,7 +1742,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.calendarsMultiSelectDialogPreference != null)
                 Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG) {
@@ -1718,7 +1753,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.contactGroupsMultiSelectDialogPreference != null)
                 Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EVENT) {
@@ -1741,7 +1776,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             }
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
@@ -1754,7 +1789,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.locationGeofenceEditorActivity.getLastLocation();*/
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
@@ -1770,7 +1805,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.mobileCellsPreference != null)
                 Permissions.mobileCellsPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {

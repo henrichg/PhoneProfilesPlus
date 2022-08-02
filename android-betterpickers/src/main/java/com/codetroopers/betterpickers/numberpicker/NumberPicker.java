@@ -628,6 +628,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
 
+    @SuppressWarnings("unused")
     private static class SavedState extends BaseSavedState {
 
         int mInputPointer;

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +48,6 @@ class BluetoothNamePreferenceAdapterX extends BaseAdapter
         //int position;
     }
 
-    @SuppressLint("SetTextI18n")
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         // BluetoothDevice to display

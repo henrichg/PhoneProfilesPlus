@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -664,6 +665,11 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putParcelable(RunApplicationEditorDialogX.EXTRA_APPLICATION, application);
@@ -739,7 +745,8 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
                     action = Intent.ACTION_CALL_BUTTON;
                     break;
                 case "ACTION_CARRIER_SETUP":
-                    action = Intent.ACTION_CARRIER_SETUP;
+                    if (Build.VERSION.SDK_INT >=26)
+                        action = Intent.ACTION_CARRIER_SETUP;
                     break;
                 case "ACTION_CHOOSER":
                     action = Intent.ACTION_CHOOSER;
@@ -769,7 +776,6 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
                     action = Intent.ACTION_INSERT_OR_EDIT;
                     break;
                 case "ACTION_INSTALL_PACKAGE":
-                    //noinspection deprecation
                     action = Intent.ACTION_INSTALL_PACKAGE;
                     break;
                 case "ACTION_MAIN":
@@ -836,7 +842,6 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
                     action = Intent.ACTION_SYSTEM_TUTORIAL;
                     break;
                 case "ACTION_UNINSTALL_PACKAGE":
-                    //noinspection deprecation
                     action = Intent.ACTION_UNINSTALL_PACKAGE;
                     break;
                 case "ACTION_VIEW":
@@ -1052,7 +1057,8 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
                             intent.addCategory(Intent.CATEGORY_TEST);
                             break;
                         case "CATEGORY_TYPED_OPENABLE":
-                            intent.addCategory(Intent.CATEGORY_TYPED_OPENABLE);
+                            if (Build.VERSION.SDK_INT >=26)
+                                intent.addCategory(Intent.CATEGORY_TYPED_OPENABLE);
                             break;
                         case "CATEGORY_UNIT_TEST":
                             intent.addCategory(Intent.CATEGORY_UNIT_TEST);
@@ -1061,7 +1067,8 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
                             intent.addCategory(Intent.CATEGORY_VOICE);
                             break;
                         case "CATEGORY_VR_HOME":
-                            intent.addCategory(Intent.CATEGORY_VR_HOME);
+                            if (Build.VERSION.SDK_INT >=26)
+                                intent.addCategory(Intent.CATEGORY_VR_HOME);
                             break;
                     }
                 }

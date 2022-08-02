@@ -49,7 +49,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
         if (contactGroupsCache != null) {
             synchronized (PPApplication.contactsCacheMutex) {
                 List<ContactGroup> contactGroupList = contactGroupsCache.getList();
@@ -125,7 +125,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     private void getValue() {
         // fill with strings of contact groups separated with |
         value = "";
-        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
         if (contactGroupsCache != null) {
             synchronized (PPApplication.contactsCacheMutex) {
                 List<ContactGroup> contactGroupList = contactGroupsCache.getList();

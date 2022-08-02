@@ -26,28 +26,37 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/act_prof_subToolbar"
             android:layout_width="match_parent"
-            android:layout_height="23dp"
-            android:layout_marginTop="0dp" >
+            android:layout_height="@dimen/activator_toolbar_height"
+            android:layout_marginTop="0dp">
 
             <RelativeLayout
                 android:id="@+id/act_prof_toolbar_reLa1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
-                <ImageView
-                    android:id="@+id/act_prof_run_stop_indicator"
+                <androidx.cardview.widget.CardView
                     android:layout_width="@dimen/run_stop_indicator_width"
                     android:layout_height="@dimen/run_stop_indicator_height"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/run_stop_indicator_margin_end_activator"
                     android:layout_marginTop="@dimen/run_stop_indicator_margin_top"
-                    android:padding="5dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/run_stop_events_indicator"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_traffic_light_stopped"
-                    android:background="?attr/selectableItemBackground" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="15dp"
+                    app:cardBackgroundColor="@android:color/transparent">
+
+                    <ImageView
+                        android:id="@+id/act_prof_run_stop_indicator"
+                        android:layout_width="@dimen/run_stop_indicator_width"
+                        android:layout_height="match_parent"
+                        android:padding="6dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/run_stop_events_indicator"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_traffic_light_stopped"
+                        android:background="?attr/selectableItemBackground" />
+
+                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 
