@@ -282,15 +282,18 @@ public class DataWrapperStatic {
 
     static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
     {
-
         if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
         {
             if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
-                if (eventTimelineList.size() > 0)
+                int timeLinelistCount = eventTimelineList.size();
+                if (timeLinelistCount > 0)
                 {
-                    EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size()-1);
-                    long event_id = eventTimeLine._fkEvent;
+                    long event_id;
+                    synchronized (dataWrapper.eventTimelines) {
+                        EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size() - 1);
+                        event_id = eventTimeLine._fkEvent;
+                    }
                     Event event = dataWrapper.getEventById(event_id);
                     if (event != null)
                     {
