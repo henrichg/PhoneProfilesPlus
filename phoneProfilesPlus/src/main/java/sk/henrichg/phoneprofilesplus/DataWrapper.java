@@ -45,7 +45,7 @@ public class DataWrapper {
     @SuppressWarnings("Convert2Diamond")
     final List<Event> eventList = Collections.synchronizedList(new ArrayList<Event>());
     @SuppressWarnings("Convert2Diamond")
-    private final List<EventTimeline> eventTimelines = Collections.synchronizedList(new ArrayList<EventTimeline>());
+    final List<EventTimeline> eventTimelines = Collections.synchronizedList(new ArrayList<EventTimeline>());
 
     //static final String EXTRA_INTERACTIVE = "interactive";
 
