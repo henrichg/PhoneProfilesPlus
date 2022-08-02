@@ -31,3 +31,4 @@
 - priority, profile which will by activated on start/end, ignore manual profile activation, sound notification, undo profile activated before start of event, event start delay
 - event types: time, calendar, battery, call, accessories, WiFi (SSID), Screen (on/off), Bluetooth, SMS, Notifications, Applications, Location, Orientation, Mobile cells, NFC tags, Radios, Alarm clock.
 
+[Privacy Policy](https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html)
