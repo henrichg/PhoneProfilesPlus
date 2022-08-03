@@ -31,8 +31,8 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
