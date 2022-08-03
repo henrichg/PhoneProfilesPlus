@@ -30,7 +30,7 @@
 // 6800 = removed widgets parameter "Rounded corners", Force set rounded corners = true, radius = 1.
 
 ext.ppVersions = [
-    publishVersion: '6.0',
+    publishVersion: '6.0.0.1b',
     publishVersionCode: 6775,
 
     minSdk: 24,
