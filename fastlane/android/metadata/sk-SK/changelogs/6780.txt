@@ -1,0 +1,2 @@
+6.0, 6.0.0.1
+- Zoznam zmien: https://henrichg.github.io/PhoneProfilesPlus/FDroid_ChangeLog_SK
