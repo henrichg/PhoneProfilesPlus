@@ -589,7 +589,6 @@ Hm, hm.
 - Added dymanic colors support (Android 12+)
 - Added support for Notifications permission (Android 13+).
 - Added change of application language.
-
 - Added "Enable periodic scanning" into profile parameters.
 - Added "Dark mode" to profile.
 - Added "VPN" parameter into profile preferences.
@@ -606,7 +605,6 @@ Hm, hm.
 - Added info how to configure airplane mode radios.
 - Added News about recommendation of application notification configuration.
 - Added News for "Choose language".
-
 - Change: speed-up of PPP, less memory and battery consumption.
 - Changes in GUI - layouts, colors, text sizees, rounded corners, icons, ...
 - Change: start of PPService immediately at start of device.
@@ -632,21 +630,11 @@ Hm, hm.
 - Fixed bad displayed dynamic shortcuts in Nova launcher.
 - Fixed not working Order spinner in Editor.
 - Fixed critical bug in default assistant support (for switch airplane mode) by e-amil from Google.
-- Fixed not displayed "Default SIM card" summary at initial time.
-- Fixed set "mobile data"="No change" after PPP start, because is completely disabled sim card after reboot, when airplane mode is enabled (Android 8-).
-- Fixed set of text and "restart events" icon color in notification by night mode for Android 9.
 - Fixed Autostart for huawei devices.
-- Fixed not changed GUI after profile duration.
 - Fixed display of monochromatic widgets and application notification and widgets.
-- Fix: use check for night mode when context is activity context.
 - Fixed check of accessibility service status.
 - Fixed not working dark mode detection.
 - Fixed displayed red text even if accessibility service enabled.
-- Fixed displayed "Radios: section of profile when airplane mode is ON and device is rooted.
-- Fixed "Restart events" icon for Nova Launcher/Sesame.
-- Fix: fixed click to profile and event list buttons in items.
-- Fix: fixed clear of applications cache at Editor start.
-- Fixed set Collator when language is changed.
-- Fixed get collator for sor languages. Must be used application locale.
+- Fixed displayed "Radios" section of profile when airplane mode is ON and device is rooted.
 - Other fixes.
 - Updated translations.
