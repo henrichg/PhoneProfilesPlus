@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/one_row_widget_height_higher"
+    android:layout_height="@dimen/one_row_widget_height_highest"
     android:gravity="center"
-    android:background="?android:attr/colorBackground"
-    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
+    android:background="#40000000"
     tools:ignore="Overdraw">
 
     <ImageView
@@ -16,9 +15,8 @@
         android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
-        android:tint="?android:attr/colorBackground"
         android:visibility="gone"
-        tools:ignore="ContentDescription,UseAppTint" />
+        tools:ignore="ContentDescription" />
 
     <RelativeLayout
         android:id="@+id/icon_widget_relLa1"
@@ -31,10 +29,9 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default"
@@ -51,8 +48,6 @@
             android:gravity="center_horizontal"
             android:maxLines="2"
             tools:ignore="SpUsage" />
-<!--        android:textSize="12dp"-->
-<!--        android:textColor="?android:attr/textColorPrimary"-->
 
     </RelativeLayout>
 
@@ -73,9 +68,8 @@
         android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
-        android:tint="?android:attr/textColorSecondary"
         android:visibility="gone"
-        tools:ignore="ContentDescription,UseAppTint" />
+        tools:ignore="ContentDescription" />
 
 </FrameLayout>
 

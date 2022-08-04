@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/one_row_widget_height_higher"
+    android:layout_height="match_parent"
     android:gravity="center"
-    android:background="?android:attr/colorBackground"
-    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
-    tools:ignore="Overdraw">
+    android:orientation="vertical"
+    android:background="#40000000"
+    tools:ignore="Overdraw" >
 
     <ImageView
         android:id="@+id/widget_icon_background"
@@ -16,9 +16,8 @@
         android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
-        android:tint="?android:attr/colorBackground"
         android:visibility="gone"
-        tools:ignore="ContentDescription,UseAppTint" />
+        tools:ignore="ContentDescription" />
 
     <RelativeLayout
         android:id="@+id/icon_widget_relLa1"
@@ -31,28 +30,27 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default"
             android:contentDescription="@string/profile_preferences_profileIcon"/>
+<!--        android:layout_alignParentTop="true"-->
 
         <TextView
             android:id="@+id/icon_widget_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/icon_widget_icon"
             android:autoSizeTextType="uniform"
             android:text="@string/profile_name_default"
             android:gravity="center_horizontal"
-            android:maxLines="2"
-            tools:ignore="SpUsage" />
-<!--        android:textSize="12dp"-->
-<!--        android:textColor="?android:attr/textColorPrimary"-->
+            android:maxLines="1"
+            tools:ignore="SpUsage"/>
 
     </RelativeLayout>
 
@@ -73,9 +71,8 @@
         android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
-        android:tint="?android:attr/textColorSecondary"
         android:visibility="gone"
-        tools:ignore="ContentDescription,UseAppTint" />
+        tools:ignore="ContentDescription" />
 
 </FrameLayout>
 

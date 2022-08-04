@@ -46,11 +46,12 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/icon_widget_icon"
+            android:autoSizeTextType="uniform"
             android:text="@string/profile_name_default"
-            android:textSize="14dp"
             android:gravity="center_horizontal"
             android:maxLines="2"
             tools:ignore="SpUsage" />
+<!--        android:textSize="14dp"-->
 <!--        android:textColor="?android:attr/textColorPrimary"-->
 
     </RelativeLayout>
