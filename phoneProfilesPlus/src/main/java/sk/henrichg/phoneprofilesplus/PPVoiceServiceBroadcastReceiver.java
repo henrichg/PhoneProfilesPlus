@@ -20,7 +20,14 @@ public final class PPVoiceServiceBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //C0330j.m960e(intent, "intent");
         String action = intent.getAction();
+//        PPApplication.logE("PPVoiceServiceBroadcastReceiver.onReceive", "action="+action);
         if (action.equals(PPVoiceService.ACTION_ASSISTANT)) {
+//            PPApplication.logE("PPVoiceServiceBroadcastReceiver.onReceive", "voiceService="+voiceService);
+//            PPApplication.logE("PPVoiceServiceBroadcastReceiver.onReceive", "voiceService active="+VoiceInteractionService.isActiveService(context, new ComponentName(context, PPVoiceService.class)));
+//            PPApplication.logE("PPVoiceServiceBroadcastReceiver.onReceive", "intent.getExtras()="+intent.getExtras());
+//            PPApplication.logE("PPVoiceServiceBroadcastReceiver.onReceive", "ACTION="+intent.getStringExtra("ACTION"));
+//            PPApplication.logE("PPVoiceServiceBroadcastReceiver.onReceive", "EXTRA_AIRPLANE_MODE_ENABLED="+intent.getBooleanExtra(Settings.EXTRA_AIRPLANE_MODE_ENABLED, false));
+
             voiceService.showSession(intent.getExtras(), 0);
         }
     }

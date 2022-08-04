@@ -12,10 +12,12 @@ public final class PPVoiceSessionService extends VoiceInteractionSessionService 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleHelper.onAttach(base));
+//        Log.e("PPVoiceSessionService.attachBaseContext", "xxx");
     }
 
     /* renamed from: a */
     public PPVoiceInteractionSession onNewSession(Bundle bundle) {
+//        PPApplication.logE("PPVoiceSessionService.onNewSession", "xxx");
         return new PPVoiceInteractionSession(this);
     }
 }

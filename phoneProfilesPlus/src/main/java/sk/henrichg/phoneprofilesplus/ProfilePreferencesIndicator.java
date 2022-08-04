@@ -870,7 +870,8 @@ class ProfilePreferencesIndicator {
             // airplane mode
             if (profile._deviceAirplaneMode != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3)) {
+                    if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3) ||
+                            (profile._deviceAirplaneMode == 4)  || (profile._deviceAirplaneMode == 6)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + ": " +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
@@ -883,7 +884,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._deviceAirplaneMode == 2) {
+                    if ((profile._deviceAirplaneMode == 2) || (profile._deviceAirplaneMode == 5)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + ": " +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);

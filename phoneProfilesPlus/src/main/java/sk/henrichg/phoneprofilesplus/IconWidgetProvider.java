@@ -13,7 +13,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -406,7 +405,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
                         applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors)) {
-                    Log.e("IconWidgetProvider._onUpdate", "layoutHeight="+applicationWidgetIconLayoutHeight);
+//                    Log.e("IconWidgetProvider._onUpdate", "layoutHeight="+applicationWidgetIconLayoutHeight);
                     if (applicationWidgetIconLayoutHeight.equals("0")) {
                         if (applicationWidgetIconHideProfileName) {
                             //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
