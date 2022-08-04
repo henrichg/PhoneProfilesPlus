@@ -1692,8 +1692,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     break;
                 case Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE:
                     String defaultValueS = Profile.defaultValuesString.get(key);
-                    if (!preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValueS).equals(defaultValueS))
+                    if (!preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValueS).equals(defaultValueS)) {
                         title = getString(preferenceTitleId);
+                        notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                        notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                    }
                     break;
                 default:
                     /*String defaultValue =
@@ -2364,7 +2367,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)),
-                    R.array.hardwareModeValues, R.array.hardwareModeArray, context);
+                    R.array.airplaneModeValues, R.array.airplaneModeArray, context);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
 
@@ -4904,20 +4907,25 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)) {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+//            Log.e("ProfilesPrefsFragment.setSummaryRadios", "preferenceAllowed.allowed="+preferenceAllowed.allowed);
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    boolean errorColor = false;
-                    if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                    boolean errorColor; // = false;
+                    /*if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT))
                         preference.setEnabled(false);
-                    else
+                    else*/
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT) {
+//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "preferenceAllowed.notAllowedReason="+preferenceAllowed.notAllowedReason);
+//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    //}
+//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "errorColor="+errorColor);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, false, errorColor);
                 } else {
                     preference.setEnabled(true);

@@ -101,32 +101,48 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
             }
-        }
-        boolean assistantParameter = false;
-        if (profile != null) {
-            assistantParameter = profile._deviceAirplaneMode >= 4;
-        } else if (sharedPreferences != null) {
-            assistantParameter = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
-        }
-        if (Build.VERSION.SDK_INT <= 30) {
-            if (assistantParameter) {
-                // check if default Assistent is set to PPP
-                if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else {
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT;
-                    //if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
-                    //    preferenceAllowed.notAllowedRoot = true;
-                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
-                    //}
-                }
-            }
         } else {
-            if (assistantParameter) {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
+//            Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "not rooted");
+            boolean assistantParameter = true;
+            if (profile != null) {
+                assistantParameter = profile._deviceAirplaneMode >= 4;
+            } else if (sharedPreferences != null) {
+                assistantParameter = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
             }
+            //if (Build.VERSION.SDK_INT <= 30) {
+//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "assistant (1)");
+                if (assistantParameter) {
+                    // check if default Assistent is set to PPP
+                    if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
+//                        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "is default assistant");
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+//                        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "is not defaultassistant");
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT;
+                        //if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
+                        //    preferenceAllowed.notAllowedRoot = true;
+                        //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
+                        //}
+                    }
+                } else {
+//                    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "reason = is not rooted");
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
+                        preferenceAllowed.notAllowedRoot = true;
+                    }
+                }
+            /*} else {
+                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "assistant (2)");
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                if (assistantParameter) {
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
+                    preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+                } else {
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                }
+            }*/
         }
     }
 
