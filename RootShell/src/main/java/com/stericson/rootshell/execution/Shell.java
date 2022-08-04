@@ -280,7 +280,7 @@ public class Shell {
         add(
                 new Command(
                         -1,
-                        false,
+                        //false,
                         "cd " + context.getApplicationInfo().dataDir)
         );
     }

@@ -199,7 +199,7 @@ class Installer
 
             try
             {
-                Command command = new Command(0, false, "chmod " + mode + " " + filesPath + File.separator + destName);
+                Command command = new Command(0, /*false,*/ "chmod " + mode + " " + filesPath + File.separator + destName);
                 Shell.startRootShell().add(command);
                 commandWait(command);
 

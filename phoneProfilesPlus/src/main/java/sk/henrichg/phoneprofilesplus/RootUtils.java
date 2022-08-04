@@ -330,7 +330,7 @@ public class RootUtils {
                 //noinspection RegExpRedundantEscape
                 final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
 
-                Command command = new Command(0, false, "service list") {
+                Command command = new Command(0, /*false,*/ "service list") {
                     @Override
                     public void commandOutput(int id, String line) {
 //                        PPApplication.logE("PPApplication.getServicesList", "line=" + line);

@@ -5916,6 +5916,7 @@ public class PhoneProfilesService extends Service
         }*/
 
         if (PPApplication.twilightScanner == null) {
+            // keep this: it is required to use handlerThreadBroadcast for cal listener
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             __handler.post(() -> {
@@ -5930,13 +5931,8 @@ public class PhoneProfilesService extends Service
 
     private void stopTwilightScanner() {
         if (PPApplication.twilightScanner != null) {
-            // keep this: it is required to use handlerThreadBroadcast for cal listener
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(() -> {
-                PPApplication.twilightScanner.stop();
-                PPApplication.twilightScanner = null;
-            });
+            PPApplication.twilightScanner.stop();
+            PPApplication.twilightScanner = null;
         }
     }
 

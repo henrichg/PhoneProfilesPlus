@@ -313,7 +313,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                                 String command1 = "settings put system " + Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ + " " + value;
                                 //if (PPApplication.isSELinuxEnforcing())
                                 //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                Command command = new Command(0, false, command1); //, command2);
+                                Command command = new Command(0, /*false,*/ command1); //, command2);
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     RootUtils.commandWait(command, "BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");

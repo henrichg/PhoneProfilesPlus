@@ -17,17 +17,16 @@ public class JavaCommand extends Command
         this.javaCommand = true;
     }
 
-    /**
-     * Constructor for executing Java commands rather than binaries
-     *
-     * @param context     needed to execute java command.
+    /*
+      Constructor for executing Java commands rather than binaries
+
+      @param context     needed to execute java command.
      */
-    @SuppressWarnings("unused")
-    public JavaCommand(int id, boolean handlerEnabled, Context context, String... command) {
-        super(id, handlerEnabled, command);
-        this.context = context;
-        this.javaCommand = true;
-    }
+//    public JavaCommand(int id, boolean handlerEnabled, Context context, String... command) {
+//        super(id, handlerEnabled, command);
+//        this.context = context;
+//        this.javaCommand = true;
+//    }
 
     /**
      * Constructor for executing Java commands rather than binaries
