@@ -46,7 +46,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/icon_widget_icon"
             android:text="@string/profile_name_default"
-            android:textSize="13dp"
+            android:textSize="15dp"
             android:gravity="center_horizontal"
             android:maxLines="1"
             tools:ignore="SpUsage"/>
