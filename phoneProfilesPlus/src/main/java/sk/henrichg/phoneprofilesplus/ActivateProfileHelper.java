@@ -36,6 +36,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.os.ServiceManager;
 import android.os.UserHandle;
@@ -7434,12 +7435,10 @@ class ActivateProfileHelper {
                         case 1:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
                             try {
-                                //PPApplication.startHandlerThreadProfileActivation();
-                                //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                                //        context.getApplicationContext()) {
-                                //__handler.post(() -> {
-                                Runnable runnable = () -> {
+                                // keep this: it is required to use handlerThreadBroadcast for cal listener
+                                PPApplication.startHandlerThreadBroadcast();
+                                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                                __handler.post(() -> {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -7469,9 +7468,7 @@ class ActivateProfileHelper {
                                             }
                                         }
                                     }
-                                }; //);
-                                PPApplication.createProfileActiationExecutorPool();
-                                PPApplication.profileActiationExecutorPool.submit(runnable);
+                                });
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
@@ -7479,12 +7476,10 @@ class ActivateProfileHelper {
                         case 2:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
                             try {
-                                //PPApplication.startHandlerThreadProfileActivation();
-                                //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                                //        context.getApplicationContext()) {
-                                //__handler.post(() -> {
-                                Runnable runnable = () -> {
+                                // keep this: it is required to use handlerThreadBroadcast for cal listener
+                                PPApplication.startHandlerThreadBroadcast();
+                                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                                __handler.post(() -> {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -7514,10 +7509,7 @@ class ActivateProfileHelper {
                                             }
                                         }
                                     }
-                                }; //);
-                                PPApplication.createProfileActiationExecutorPool();
-                                PPApplication.profileActiationExecutorPool.submit(runnable);
-
+                                });
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
