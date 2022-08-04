@@ -307,6 +307,10 @@ public class MainWorker extends Worker {
 
         //}
 
+        Intent intent = new Intent(getApplicationContext(), GrantNotificationPermissionAtFirstStartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        appContext.startActivity(intent);
+
         final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
         if (Event.getGlobalEventsRunning()) {
@@ -508,7 +512,7 @@ public class MainWorker extends Worker {
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
 
         if (startForExternalApplication) {
-            Intent intent = new Intent(startForExternalAppAction);
+            intent = new Intent(startForExternalAppAction);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_PROFILE)

@@ -2912,7 +2912,7 @@ class Permissions {
             dialog.show();
     }
 
-    static void grantNotificationsPermission(final Activity activity) {
+    static boolean grantNotificationsPermission(final Activity activity) {
         if (Build.VERSION.SDK_INT >= 33) {
             NotificationManager notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
@@ -2967,9 +2967,12 @@ class Permissions {
 
                     if (!activity.isFinishing())
                         dialog.show();
+
+                    return true;
                 }
             }
         }
+        return false;
     }
 
 }

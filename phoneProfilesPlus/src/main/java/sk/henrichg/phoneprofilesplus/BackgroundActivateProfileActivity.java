@@ -71,29 +71,33 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         }
 
         if (activityStarted) {
-            if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-                    (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
-                    (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
-                if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
-                    //if (Event.getGlobalEventsRunning()) {
-                        // set theme and language for dialog alert ;-)
-                        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false);
-                        //GlobalGUIRoutines.setLanguage(this);
-
-                        dataWrapper.restartEventsWithAlert(this);
-                    //} else
-                    //    finish();
-                } else {
-                    PPApplication.showToastForProfileActivation = true;
-                    dataWrapper.activateProfile(profile_id, startupSource, this, true);
-                }
+            if (!Permissions.grantNotificationsPermission(this)) {
+                activateProfile();
             }
-
-            Permissions.grantNotificationsPermission(this);
         }
         else {
             if (!isFinishing())
                 finish();
+        }
+    }
+
+    private void activateProfile() {
+        if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+            if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
+                //if (Event.getGlobalEventsRunning()) {
+                // set theme and language for dialog alert ;-)
+                GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false);
+                //GlobalGUIRoutines.setLanguage(this);
+
+                dataWrapper.restartEventsWithAlert(this);
+                //} else
+                //    finish();
+            } else {
+                PPApplication.showToastForProfileActivation = true;
+                dataWrapper.activateProfile(profile_id, startupSource, this, true);
+            }
         }
     }
 
@@ -133,25 +137,15 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         dataWrapper = null;
     }
 
-    /*
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
-            if (data != null) {
-                long profileId = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-                int startupSource = data.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
-                boolean mergedProfile = data.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
-                boolean activateProfile = data.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, false);
-
-                if (activateProfile) {
-                    Profile profile = dataWrapper.getProfileById(profileId, false, false, mergedProfile);
-                    dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, this);
-                }
-            }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE) {
+            activateProfile();
+            //if (!isFinishing())
+            //    finish();
         }
     }
-    */
 
     @Override
     public void finish()
