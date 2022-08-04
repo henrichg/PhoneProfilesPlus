@@ -5634,7 +5634,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
             }
         }
-        /*if (Build.VERSION.SDK_INT <= 30) {
+        /*if (Build.VERSION.SDK_INT >= 30) {
             if (key.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS)) {
                 // RECORD_AUDIO must be granted for set PPP as default assistant
                 // must be enabled when PPP is defult assistant

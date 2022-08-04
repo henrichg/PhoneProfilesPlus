@@ -5904,10 +5904,12 @@ class ActivateProfileHelper {
         }
         else
         if (useAssistant && isPPPSetAsDefaultAssistant(context)) {
-            Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
-            intent.putExtra("ACTION", Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE);
-            intent.putExtra(Settings.EXTRA_AIRPLANE_MODE_ENABLED, mode);
-            context.sendBroadcast(intent);
+            if (Build.VERSION.SDK_INT >= 30) {
+                Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
+                intent.putExtra("ACTION", Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE);
+                intent.putExtra(Settings.EXTRA_AIRPLANE_MODE_ENABLED, mode);
+                context.sendBroadcast(intent);
+            }
         }
     }
 

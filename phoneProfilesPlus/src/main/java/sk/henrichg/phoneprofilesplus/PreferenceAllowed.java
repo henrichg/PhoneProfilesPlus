@@ -109,7 +109,7 @@ class PreferenceAllowed {
             } else if (sharedPreferences != null) {
                 assistantParameter = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
             }
-            //if (Build.VERSION.SDK_INT <= 30) {
+            if (Build.VERSION.SDK_INT >= 30) {
 //                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "assistant (1)");
                 if (assistantParameter) {
                     // check if default Assistent is set to PPP
@@ -133,16 +133,12 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedRoot = true;
                     }
                 }
-            /*} else {
-                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "assistant (2)");
+            } else {
+//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "assistant (2)");
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                if (assistantParameter) {
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
-                    preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
-                } else {
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                }
-            }*/
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
+                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+            }
         }
     }
 
