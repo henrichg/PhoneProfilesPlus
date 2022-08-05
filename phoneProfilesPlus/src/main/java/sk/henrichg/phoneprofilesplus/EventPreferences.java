@@ -72,23 +72,19 @@ abstract class EventPreferences {
 
     String getPassStatusString(String sensorTitle, boolean addPassStatus, int eventType, Context context) {
         if (Event.getGlobalEventsRunning() && addPassStatus && (this._event != null) && (this._event.getStatusFromDB(context) != Event.ESTATUS_STOP)) {
-            //Log.e("EventPreferences.getPassStatusString", "_event="+_event._name + "->_sensorPassed="+this._sensorPassed);
             int sensorPassed = getSensorPassedFromDB(eventType, context);
             if (/*(!Event.getGlobalEventsRunning()) ||*/ (sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);
-//                Log.e("EventPreferences.getPassStatusString", "waiting labelColor="+Integer.toHexString(labelColor));
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
                 return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ "+sensorTitle+" ]");
             }
             if ((sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_PASSED) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_PASSED, context);
-//                Log.e("EventPreferences.getPassStatusString", "passed labelColor="+Integer.toHexString(labelColor));
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
                 return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ » "+sensorTitle+" ]");
             }
             else {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_NOT_PASSED, context);
-//                Log.e("EventPreferences.getPassStatusString", "not passed labelColor="+Integer.toHexString(labelColor));
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
                 return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ "+sensorTitle+" ]");
             }

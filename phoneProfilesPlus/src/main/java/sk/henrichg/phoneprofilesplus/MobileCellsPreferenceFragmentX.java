@@ -87,8 +87,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        //Log.e("MobileCellsPreferenceFragmentX.onBindDialogView", "xxx");
-
         refreshListViewBroadcastReceiver = new MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver(/*preference*/);
         LocalBroadcastManager.getInstance(prefContext).registerReceiver(refreshListViewBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView"));
@@ -411,8 +409,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        //Log.e("MobileCellsPreferenceFragmentX.onDialogClosed", "xxx");
-
         if (positiveResult) {
             preference.persistValue();
         }
@@ -822,14 +818,10 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 Context prefContext = prefContextWeakRef.get();
                 if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
-//                    Log.e("MobileCellsPreferenceFragmentX.refreshListView", "in doInBackground");
-//                    Log.e("MobileCellsPreferenceFragmentX.refreshListView", "PPApplication.mobileCellsScanner="+PPApplication.mobileCellsScanner);
-
                     if (forRescan) {
 //                        PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", " **** forRescan");
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
 //                            PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", " **** registerCell");
-//                            Log.e("MobileCellsPreferenceFragmentX.refreshListView", "scanner started");
                             PhoneProfilesService.getInstance().getMobileCellsScanner().registerCell();
 
                             //PPApplication.sleep(200);
@@ -859,14 +851,11 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         // add registered cell
                         //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "search registered cell from scanner");
 
-//                        Log.e("MobileCellsPreferenceFragmentX.refreshListView", "scanner started");
-
                         MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
 
                         if ((Build.VERSION.SDK_INT >= 26) && (fragment.phoneCount > 1)) {
                             if (sim1Exists) {
                                 int registeredCell = scanner.getRegisteredCell(1);
-//                                Log.e("MobileCellsPreferenceFragmentX.refreshListView", "registeredCell from sim 1 ="+registeredCell);
                                 long lastConnectedTime = scanner.getLastConnectedTime(1);
                                 for (MobileCellsData cell : _cellsList) {
                                     if (cell.cellId == registeredCell) {
@@ -892,7 +881,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                             }
                             if (sim2Exists) {
                                 int registeredCell = scanner.getRegisteredCell(2);
-//                                Log.e("MobileCellsPreferenceFragmentX.refreshListView", "registeredCell from sim 2 ="+registeredCell);
                                 long lastConnectedTime = scanner.getLastConnectedTime(2);
                                 for (MobileCellsData cell : _cellsList) {
                                     if (cell.cellId == registeredCell) {
@@ -918,7 +906,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                             }
                         } else {
                             int registeredCell = scanner.getRegisteredCell(0);
-//                            Log.e("MobileCellsPreferenceFragmentX.refreshListView", "registeredCell from default="+registeredCell);
                             long lastConnectedTime = scanner.getLastConnectedTime(0);
                             for (MobileCellsData cell : _cellsList) {
                                 if (cell.cellId == registeredCell) {

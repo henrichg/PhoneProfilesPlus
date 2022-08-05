@@ -175,7 +175,6 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
 
                 /*
                 if (!afterEdit) {
-                    Log.e("RunApplicationsDialogPreferenceFragmentX.refreshListView", "fill oldApplicationsList");
                     preference.oldApplicationsList.clear();
                     preference.oldApplicationsList.addAll(preference.applicationsList);
                 }

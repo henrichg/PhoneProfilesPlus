@@ -123,8 +123,6 @@ public class MainWorker extends Worker {
                     //    LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
                     //    break;
                     //case CLOSE_ALL_APPLICATIONS_WORK_TAG:
-                        //Log.e("DelayedWorksWorker.doWork", "DELAYED_WORK_CLOSE_ALL_APPLICATIONS");
-                        //Log.e("DelayedWorksWorker.doWork", "PPApplication.blockProfileEventActions="+PPApplication.blockProfileEventActions);
                     //    if (!PPApplication.blockProfileEventActions) {
                     //        try {
                     //            Intent startMain = new Intent(Intent.ACTION_MAIN);

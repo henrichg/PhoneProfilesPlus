@@ -100,14 +100,10 @@ class DatabaseHandlerImportExport {
                             try {
                                 String[] splits = value.split("\\|");
                                 int volume = Integer.parseInt(splits[0]);
-                                //Log.e("DatabaseHandler.importDB", "old max ringtone volume="+maximumVolumeRing);
-                                //Log.e("DatabaseHandler.importDB", "old ringtone volume="+volume);
                                 float fVolume = volume;
                                 float percentage = fVolume / maximumVolumeRing * 100f;
                                 fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING) / 100f * percentage;
                                 volume = Math.round(fVolume);
-                                //Log.e("DatabaseHandler.importDB", "new max ringtone volume="+audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
-                                //Log.e("DatabaseHandler.importDB", "new ringtone volume="+volume);
                                 if (splits.length == 3)
                                     values.put(DatabaseHandler.KEY_VOLUME_RINGTONE, volume + "|" + splits[1] + "|" + splits[2]);
                                 else
@@ -397,7 +393,6 @@ class DatabaseHandlerImportExport {
                             } catch (Exception e) {
                                 //isGranted = false;
                             }
-//                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_ICON -isGranted=" + isGranted);
                         }
                         if (!isGranted) {
                             values.clear();
@@ -422,7 +417,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -448,7 +442,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE_SIM1 isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -474,7 +467,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_RINGTONE_SIM2 isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -500,7 +492,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -526,7 +517,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION_SIM1 isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -552,7 +542,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_NOTIFICATION_SIM2 isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -578,7 +567,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_SOUND_ALARM isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -602,7 +590,6 @@ class DatabaseHandlerImportExport {
                             } catch (Exception e) {
                                 //isGranted = false;
                             }
-//                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DEVICE_WALLPAPER isGranted=" + isGranted);
                         }
                         if (!isGranted) {
                             values.clear();
@@ -630,7 +617,6 @@ class DatabaseHandlerImportExport {
                             } catch (Exception e) {
                                 //isGranted = false;
                             }
-//                            Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DEVICE_WALLPAPER_FOLDER isGranted=" + isGranted);
                         }
                         if (!isGranted) {
                             values.clear();
@@ -656,7 +642,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_DURATION_NOTIFICATION_SOUND isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -704,7 +689,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_E_NOTIFICATION_SOUND_START isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -727,7 +711,6 @@ class DatabaseHandlerImportExport {
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** DatabaseHandler.afterImportDb", "KEY_E_NOTIFICATION_SOUND_END isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 values.clear();
@@ -745,8 +728,6 @@ class DatabaseHandlerImportExport {
             if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                 cursorImportDB.close();
         }
-
-//        Log.e("*********** DatabaseHandler.afterImportDb", "*** END ***");
 
     }
 

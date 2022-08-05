@@ -259,8 +259,6 @@ class DatabaseHandlerOthers {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS)) {
-                                    //Log.e("*********** DatabaseHandler.disableNotAllowedPreferences", "KEY_DEVICE_MOBILE_DATA");
-                                    //Log.e("*********** DatabaseHandler.disableNotAllowedPreferences", "preferenceAllowed.notAllowedReason="+preferenceAllowed.notAllowedReason);
                                     values.clear();
                                     values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA, 0);
                                     db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1030,7 +1028,6 @@ class DatabaseHandlerOthers {
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-//                    Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();

@@ -230,7 +230,6 @@ class ActivatorListAdapter extends BaseAdapter
             if (profile.getIsIconResourceID()) {
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
                 //double luminance = ColorUtils.calculateLuminance(iconColor);
-                //Log.e("ActivatorListAdapter.getView", "profile="+profile._name+" - luminance="+luminance);
                 if (bitmap != null)
                     holder.profileIcon.setImageBitmap(bitmap);
                 else {
@@ -312,9 +311,6 @@ class ActivatorListAdapter extends BaseAdapter
         }
 
         if (ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
-
-            //Log.e("ActivatorListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
-
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.apply();

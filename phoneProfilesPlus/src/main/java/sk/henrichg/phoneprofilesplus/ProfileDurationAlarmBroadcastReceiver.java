@@ -39,16 +39,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         if (profile == null)
             return;
 
-//        Log.e("sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver.setAlarm", "xxx");
-
         if ((profile._endOfActivationType == 0) &&
                 (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                 (profile._duration > 0)) {
 
             // duration for start is > 0
             // set alarm
-
-//            Log.e("sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver.setAlarm", "duration");
 
             Calendar now = Calendar.getInstance();
             now.add(Calendar.SECOND, profile._duration);
@@ -176,8 +172,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         else
         if (profile._endOfActivationType == 1) {
 
-//            Log.e("sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver.setAlarm", "time (1)");
-
             Calendar now = Calendar.getInstance();
 
             Calendar configuredTime = Calendar.getInstance();
@@ -189,8 +183,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
                 // configured time is not expired
                 // set alarm
-
-//                Log.e("sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver.setAlarm", "time (2)");
 
                 long alarmTime = configuredTime.getTimeInMillis();
 

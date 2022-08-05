@@ -160,9 +160,7 @@ public class WallpaperViewPreferenceX extends Preference {
                     try {
                         File pictures = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
                         String fileName = pictures.getName();
-                        //Log.e("ProfileIconPreferenceX.startGallery", "fileName=" + fileName);
                         Uri picturesUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:" + fileName);
-                        //Log.e("ProfileIconPreferenceX.startGallery", "picturesUri=" + picturesUri);
                         if (picturesUri != null)
                             intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
                     } catch (Exception ignored) {

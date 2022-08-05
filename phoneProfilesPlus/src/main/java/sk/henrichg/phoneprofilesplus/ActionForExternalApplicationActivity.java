@@ -49,7 +49,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                 profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
                 if (profileName != null) {
                     profileName = profileName.trim();
-                    //Log.e("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
                     if (!profileName.isEmpty()) {
                         //dataWrapper.fillProfileList(false, false);
@@ -60,14 +59,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                 break;
                             }
                         }*/
-                        //Log.e("ActionForExternalApplicationActivity.onCreate", "profile_id="+profile_id);
                     }
                 }
             } else if (!action.equals(ACTION_RESTART_EVENTS)) {
                 eventName = intent.getStringExtra(ActionForExternalApplicationActivity.EXTRA_EVENT_NAME);
                 if (eventName != null) {
                     eventName = eventName.trim();
-                    //Log.e("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
 
                     if (!eventName.isEmpty()) {
                         event_id = dataWrapper.getEventIdByName(eventName, true);
@@ -78,7 +75,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                 break;
                             }
                         }*/
-                        //Log.e("ActionForExternalApplicationActivity.onCreate", "event_id=" + event_id);
                     }
                 }
             }

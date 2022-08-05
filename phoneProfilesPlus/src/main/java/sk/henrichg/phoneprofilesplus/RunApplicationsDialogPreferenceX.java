@@ -114,7 +114,6 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
         //    _value = oldValue;
         //else
             _value = value;
-        //Log.e("RunApplicationsDialogPreferenceX.getValueAMSDP", "_value="+_value);
 
         final List<Application> _applicationsList = new ArrayList<>();
 

@@ -340,9 +340,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= 29) {
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
                         showRequestAccessBackgroundLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-//                        Log.e("GrantPermissionActivity.canShowRationale", "ACCESS_BACKGROUND_LOCATION showRequestAccessBackgroundLocation="+showRequestAccessBackgroundLocation);
-//                        Log.e("GrantPermissionActivity.canShowRationale", "ACCESS_BACKGROUND_LOCATION forceGrant="+forceGrant);
-//                        Log.e("GrantPermissionActivity.canShowRationale", "ACCESS_BACKGROUND_LOCATION permissionType.type="+permissionType.type);
                         whyPermissionType[14][permissionType.type] = true;
                     }
                 }
@@ -1406,7 +1403,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT >= 29) {
                             if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
                                 granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-//                                Log.e("GrantPermissionActivity", "onActivityResult = ACCESS_BACKGROUND_LOCATION granted="+granted);
                             }
                         }
 
@@ -1580,7 +1576,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                        PPApplication.logE("GrantPermissionActivity.requestPermissions", "permArray[i]=" + permArray[i]);
                     }
 
-//                    Log.e("GrantPermissionActivity.recheckPermissions", "grantBackgroundLocation="+grantBackgroundLocation);
                     if (grantBackgroundLocation)
                         ActivityCompat.requestPermissions(this, permArray, BACKGROUND_LOCATION_PERMISSIONS_REQUEST_CODE);
                     else
@@ -1636,7 +1631,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
         final Context context = getApplicationContext();
 
         if (grantAlsoBackgroundLocation) {
-//            Log.e("GrantPermissionActivity.finishGrant", "ACCESS_BACKGROUND_LOCATION");
             Permissions.grantBackgroundLocation(context, this);
             finish();
         }

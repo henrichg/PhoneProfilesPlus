@@ -155,12 +155,8 @@ public class ActivatorActivity extends AppCompatActivity {
         if (ApplicationPreferences.applicationActivatorIncreaseBrightness) {
             Window win = getWindow();
             WindowManager.LayoutParams layoutParams = win.getAttributes();
-//            Log.e("ActivatorActivity.onCreate", "layoutParams.screenBrightness="+layoutParams.screenBrightness);
 //            int actualBightnessMode = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
             int actualBrightness = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-//            Log.e("ActivatorActivity.onCreate", "actualBightnessMode="+actualBightnessMode);
-//            Log.e("ActivatorActivity.onCreate", "actualBrightness="+actualBrightness);
-//            Log.e("ActivatorActivity.onCreate", "25%="+Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext()));
             //if (actualBightnessMode != Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
             if (actualBrightness <
                     ProfileStatic.convertPercentsToBrightnessManualValue(15, getApplicationContext())) {

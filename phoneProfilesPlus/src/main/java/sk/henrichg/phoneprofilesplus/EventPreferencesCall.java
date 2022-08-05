@@ -491,9 +491,6 @@ class EventPreferencesCall extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
             return -1;
-//        Log.e("EventPreferencesCall.isAccessibilityServiceEnabled", "_event._name="+_event._name);
-//        Log.e("EventPreferencesCall.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
-//        Log.e("EventPreferencesCall.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
         if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
             if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                             /*, "EventPreferencesCall.isAccessibilityServiceEnabled"*/))
@@ -715,7 +712,6 @@ class EventPreferencesCall extends EventPreferences {
                 }*/
 
                 if (!split.isEmpty()) {
-                    //Log.e("EventPreferencesCall.isPhoneNumberConfigured", "split=" + split);
 
                     ContactsCache contactsCache = PPApplication.getContactsCache();
                     if (contactsCache == null)
@@ -729,30 +725,21 @@ class EventPreferencesCall extends EventPreferences {
                                 boolean found = false;
                                 if (PhoneNumberUtils.compare(__phoneNumber, "917994279")) {
                                     found = true;
-                                    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "_phoneNumber=" + __phoneNumber);
-                                    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "contact.contactId=" + contact.contactId);
-                                    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "contact.groups=" + contact.groups);
                                 }*/
 
                                 if (contact.groups != null) {
                                     long groupId = contact.groups.indexOf(Long.valueOf(split));
                                     if (groupId != -1) {
                                         // group found in contact
-                                        //if (found)
-                                        //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "groupId="+groupId);
                                         if (contact.phoneId != 0) {
                                             String _phoneNumber = contact.phoneNumber;
                                             if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                                 phoneNumberFound = true;
-                                                //if (found)
-                                                //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "phoneNumberFound="+phoneNumberFound);
                                                 break;
                                             }
                                         }
                                     }
                                 }
-                                //else
-                                //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "group is null");
                             }
                         }
                     }

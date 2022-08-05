@@ -62,13 +62,10 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         // change checked state by value
         if (daysOfWeekList != null)
         {
-            //Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "value="+value);
             String[] splits = value.split("\\|");
             boolean allIsConfigured = false;
             for (String split : splits) {
-                //Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "split="+split);
                 if (split.equals(allValue)) {
-                    //Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "allIsConfigured");
                     allIsConfigured = true;
                     for (DayOfWeek dayOfWeek : daysOfWeekList)
                         dayOfWeek.checked = true;
@@ -112,7 +109,6 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
             for (int i = 0; i < 7; i++)
                 allIsConfigured = allIsConfigured && daySet[i];
         }
-        //Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "allIsConfigured");
         //PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "value="+value);
         String[] shortNamesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
         for ( int i = 1; i < 8; i++ ) {

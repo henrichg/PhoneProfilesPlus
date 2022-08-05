@@ -1345,9 +1345,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     String tagName = data.getStringExtra(NFCTagReadActivity.EXTRA_TAG_NAME);
                     String tagUid = data.getStringExtra(NFCTagReadActivity.EXTRA_TAG_UID);
                     long tagDbId = data.getLongExtra(NFCTagReadActivity.EXTRA_TAG_DB_ID, 0);
-                    Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagName="+tagName);
-                    Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagUid="+tagUid);
-                    Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagDbId="+tagDbId);
                     preference.setNFCTagFromEditor(tagName, tagUid, tagDbId);
                 }
             }
@@ -1359,9 +1356,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     String tagName = data.getStringExtra(NFCTagWriteActivity.EXTRA_TAG_NAME);
                     //String tagUid = data.getStringExtra(NFCTagWriteActivity.EXTRA_TAG_UID);
                     long tagDbId = data.getLongExtra(NFCTagWriteActivity.EXTRA_TAG_DB_ID, 0);
-                    //Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagName=" + tagName);
-                    //Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagUid=" + tagUid);
-                    //Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagDbId=" + tagDbId);
                     preference.setNFCTagFromEditor(tagName, "", tagDbId);
                 }
             }
@@ -1546,13 +1540,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not enabled accessibility service
             int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false, false);
-//            Log.e("EventsPrefsFragment.setRedTextToPreferences", "accessibilityEnabled="+accessibilityEnabled);
             /*if (accessibilityEnabled == 1) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                Log.e("EventsPrefsFragment.setRedTextToPreferences", "extenderVersion="+extenderVersion);
                 if (extenderVersion != 0) {
                     // PPPE is installed
-                    Log.e("EventsPrefsFragment.setRedTextToPreferences", "accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
                     if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2)
                         // Extender is not connected
                         accessibilityEnabled = 0;

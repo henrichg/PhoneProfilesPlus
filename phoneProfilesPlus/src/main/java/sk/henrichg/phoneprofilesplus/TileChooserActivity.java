@@ -109,12 +109,9 @@ public class TileChooserActivity extends AppCompatActivity {
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         /*if (getSupportActionBar() != null) {
-            Log.e("TileChooserActivity.onCreate", "not null");
             getSupportActionBar().setTitle(R.string.title_activity_tile_chooser);
             getSupportActionBar().setElevation(0);
-        }
-        else
-            Log.e("TileChooserActivity.onCreate", "null");*/
+        }*/
 
         setTitle(R.string.title_activity_tile_chooser);
     }

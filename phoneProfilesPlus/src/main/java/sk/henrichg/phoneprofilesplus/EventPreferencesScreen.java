@@ -34,7 +34,6 @@ class EventPreferencesScreen extends EventPreferences {
         super(event, enabled);
 
         this._eventType = eventType;
-        //Log.e("EventPreferencesScreen", "eventType="+this._eventType);
         this._whenUnlocked = whenUnlocked;
     }
 
@@ -118,7 +117,6 @@ class EventPreferencesScreen extends EventPreferences {
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
 
-                //Log.e("EventPreferencesScreen.setSummary", "_eventType="+_eventType);
                 int typeValue = Integer.parseInt(listPreference.getValue());
                 setWhenUnlockedTitle(prefMng, typeValue);
             }
@@ -221,12 +219,9 @@ class EventPreferencesScreen extends EventPreferences {
 
     private void setWhenUnlockedTitle(PreferenceManager prefMng, int eventTypeValue)
     {
-        //Log.e("EventPreferencesScreen.setWhenUnlockedTitle", "eventTypeValue="+eventTypeValue);
-
         final SwitchPreferenceCompat whenUnlockedPreference = prefMng.findPreference(PREF_EVENT_SCREEN_WHEN_UNLOCKED);
 
         if (whenUnlockedPreference != null) {
-            //Log.e("EventPreferencesScreen.setWhenUnlockedTitle", "change title");
             if (eventTypeValue == EventPreferencesScreen.ETYPE_SCREENON)
                 whenUnlockedPreference.setTitle(R.string.event_preferences_screen_start_when_unlocked);
             else

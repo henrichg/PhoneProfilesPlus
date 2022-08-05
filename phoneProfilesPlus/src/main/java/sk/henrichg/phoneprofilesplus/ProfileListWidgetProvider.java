@@ -375,7 +375,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //{
         if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                 applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
-//            Log.e("ProfileListWidgetProvider.buildLayout", "old layout");
             if (applicationWidgetListHeader) {
                 if (!applicationWidgetListGridLayout) {
                     if (applicationWidgetListPrefIndicator)
@@ -395,7 +394,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header);
             }
         } else {
-//            Log.e("ProfileListWidgetProvider.buildLayout", "NEW layout");
             if (applicationWidgetListHeader) {
                 if (!applicationWidgetListGridLayout) {
                     if (applicationWidgetListPrefIndicator)
@@ -523,8 +521,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 /*else {
                     // but must be removed android:tint in layout
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOutline, context);
-                    Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
-                    Log.e("ProfileListWidgetProvider.buildLayout", "roundedBorder="+roundedBorder);
                     if (color != 0) {
                         widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", color);
                     }
@@ -655,7 +651,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             else {
                 // must be removed android:textColor in layout
                 int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
                 if (color != 0) {
                     widget.setTextColor(R.id.widget_profile_list_header_profile_name, color);
                 }
@@ -679,7 +674,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             /*else {
                 // but must be removed android:tint in layout
                 int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOutline, context);
-    //                Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
                 if (color != 0) {
                     Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_black, false, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, color);
@@ -696,7 +690,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 // good, color of this is as in notification ;-)
                 // but must be removed android:tint in layout
                 int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
-//                Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
                 if (color != 0) {
                     bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                     bitmap = BitmapManipulator.recolorBitmap(bitmap, color);

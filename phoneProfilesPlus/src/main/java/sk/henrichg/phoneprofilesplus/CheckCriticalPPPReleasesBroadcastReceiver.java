@@ -54,7 +54,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(alarm.getTimeInMillis());
-//            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "now=" + result);
+//            PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "now=" + result);
 //        }
 
         long lastAlarm = ApplicationPreferences.
@@ -62,7 +62,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(lastAlarm);
-//            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
+//            PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
 //        }
 
         long alarmTime;
@@ -74,7 +74,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //            if (PPApplication.logEnabled()) {
 //                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                String result = sdf.format(alarm.getTimeInMillis());
-//                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
 //            }
 
             alarmTime = alarm.getTimeInMillis();
@@ -103,7 +103,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarm.getTimeInMillis());
-//                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                    PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
 //                }
 
                 alarmTime = alarm.getTimeInMillis();
@@ -117,7 +117,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarmTime);
-//                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
+//                    PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
 //                }
             }
         }

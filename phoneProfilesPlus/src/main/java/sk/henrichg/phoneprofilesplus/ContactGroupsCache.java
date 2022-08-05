@@ -100,10 +100,6 @@ class ContactGroupsCache {
                         if (mCursorGroup != null) {
                             while (mCursorGroup.moveToNext()) {
                                 long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-//                                if (name.equals("Family")) {
-//                                    Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
-//                                    Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
-//                                }
                                 addGroup(contactId, contactGroupId, _contactList);
                                 //contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
                             }

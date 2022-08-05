@@ -1239,24 +1239,19 @@ class ActivateProfileHelper {
                     //         change of mute state bad affects silent mode (is not working)
 
                     if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "mute - ring");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "mute - notification");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "mute - system");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "mute - dtmf");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                 }
                 if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
-//                Log.e("ActivateProfileHelper.setVolumes", "mute - music");
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
             } else {
@@ -1265,24 +1260,19 @@ class ActivateProfileHelper {
                     //         change of mute state bad affects silent mode (is not working)
 
                     if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - ring");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - notification");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - system");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - dtmf");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                 }
                 if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
-//                Log.e("ActivateProfileHelper.setVolumes", "unmute - music");
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
             }
@@ -2024,7 +2014,6 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundNotificationChange == 1) {
-                //Log.e("ActivateProfileHelper.setTones", "_soundNotification="+profile._soundNotification);
                 if (!profile._soundNotification.isEmpty()) {
                     try {
                         String[] splits = profile._soundNotification.split("\\|");
@@ -2825,7 +2814,6 @@ class ActivateProfileHelper {
     }
 
     static Uri getUriOfSavedTone(Context context, String savedTone, int toneType) {
-        //Log.e("ActivateProfileHelper.getUriOfSavedTone", "savedTone="+savedTone);
         Uri toneUri;
         boolean uriFound = false;
         if (savedTone.equals("")) {
@@ -2864,9 +2852,6 @@ class ActivateProfileHelper {
                 }
             }
         }
-        //if (toneUri != null)
-        //    Log.e("ActivateProfileHelper.getUriOfSavedTone", "toneUri="+toneUri.toString());
-        //Log.e("ActivateProfileHelper.getUriOfSavedTone", "uriFound="+uriFound);
         if (uriFound)
             return toneUri;
         else
@@ -5724,7 +5709,6 @@ class ActivateProfileHelper {
         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
         if (powerManager != null) {
             try {
-                Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+PPApplication.keepScreenOnWakeLock);
                 if (PPApplication.keepScreenOnWakeLock == null)
                     PPApplication.keepScreenOnWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
                             PowerManager.ACQUIRE_CAUSES_WAKEUP, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_createKeepScreenOnView");
@@ -5735,7 +5719,6 @@ class ActivateProfileHelper {
             }
             try {
                 if ((PPApplication.keepScreenOnWakeLock != null) && (!PPApplication.keepScreenOnWakeLock.isHeld())) {
-                    Log.e("ActivateProfileHelper.createKeepScreenOnView", "acquire");
                     PPApplication.keepScreenOnWakeLock.acquire();
                 }
             } catch (Exception e) {
@@ -5835,7 +5818,6 @@ class ActivateProfileHelper {
             //PhoneProfilesService service = PhoneProfilesService.getInstance();
 
             /*try {
-                Log.e("ActivateProfileHelper.removeKeepScreenOnView", "keepScreenOnWakeLock="+PPApplication.keepScreenOnWakeLock);
                 if ((PPApplication.keepScreenOnWakeLock != null) && PPApplication.keepScreenOnWakeLock.isHeld())
                     PPApplication.keepScreenOnWakeLock.release();
             } catch (Exception e) {

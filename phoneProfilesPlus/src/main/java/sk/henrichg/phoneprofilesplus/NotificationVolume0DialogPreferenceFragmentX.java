@@ -35,19 +35,13 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference.prefContext);
 
-        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "before layout inflater");
-
         LayoutInflater inflater = ((Activity)preference.prefContext).getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_notification_volume_0_preference, null);
         dialogBuilder.setView(layout);
 
-        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after layout inflater");
-
         dialogBuilder.setTitle(preference.getDialogTitle());
 
         String message = "";
-
-        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "before configure builder");
 
         //if (uriId.isEmpty())
         //    message = getString(R.string.profile_preferences_volumeNotificationVolume0_toneNotInstalled) + "\n\n";
@@ -84,8 +78,6 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after configure builder");
-
         AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -97,8 +89,6 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 //                if (negative != null) negative.setAllCaps(false);
 //            }
 //        });
-
-        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after create dialog");
 
         TextView text = layout.findViewById(R.id.notification_0_pref_dialog_text);
         text.setText(message);

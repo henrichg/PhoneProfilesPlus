@@ -353,13 +353,11 @@ class EventPreferencesOrientation extends EventPreferences {
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MAX))
         {
 //            PPApplication.logE("[LOCAL_BROADCAST_CALL] EventPreferencesOrientation.setSummary", "xxx");
-//            Log.e("EventPreferencesOrientation.setSummary", "XXX");
             Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
             boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);
             if (preferences.getBoolean(PREF_EVENT_ORIENTATION_CHECK_LIGHT, false)) {
-//                Log.e("EventPreferencesOrientation.setSummary", "checkLight = true");
                 Preference currentLightValuePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
                 if (currentLightValuePreference != null) {
                     currentLightValuePreference.setEnabled(hasLight);
@@ -379,7 +377,6 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             else {
-//                Log.e("EventPreferencesOrientation.setSummary", "checkLight = false");
                 Preference currentLightValuePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
                 if (currentLightValuePreference != null) {
                     currentLightValuePreference.setEnabled(false);
@@ -661,9 +658,6 @@ class EventPreferencesOrientation extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
             return -1;
-//        Log.e("EventPreferencesOrientation.isAccessibilityServiceEnabled", "_event._name="+_event._name);
-//        Log.e("EventPreferencesOrientation.isAccessibilityServiceEnabled", "_enabled="+this._enabled);
-//        Log.e("EventPreferencesOrientation.isAccessibilityServiceEnabled", "runnable="+isRunnable(context));
         if ((_event.getStatus() != Event.ESTATUS_STOP) && (_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
             if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "EventPreferencesOrientation.isAccessibilityServiceEnabled"*/))

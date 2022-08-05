@@ -429,7 +429,6 @@ class RunApplicationEditorDialogX
         if (application.type == Application.TYPE_INTENT) {
             for (PPIntent ppIntent : preference.intentDBList) {
                 if (ppIntent._id == application.intentId) {
-                    //Log.e("RunApplicationEditorDialogX.showEditMenu", "ppIntent._usedCount="+ppIntent._usedCount);
                     canDelete = /*(ppIntent._usedCount == 0) &&*/
                             (!ppIntent._doNotDelete) &&
                             (position != selectedPosition);

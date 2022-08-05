@@ -3855,7 +3855,6 @@ public class PhoneProfilesService extends Service
         // required for calendar event
         registerReceiverForActivatedProfileSensor(true, dataWrapper);
 
-        //Log.e("------ PhoneProfilesService.registerReceiversAndWorkers", "fromCommand="+fromCommand);
         WifiScanWorker.initialize(appContext, !fromCommand);
         BluetoothScanWorker.initialize(appContext, !fromCommand);
 
@@ -4086,9 +4085,7 @@ public class PhoneProfilesService extends Service
             File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory())) {
-                Log.e("PhoneProfilesService.doForFirstStart", "create PPP folder - start");
                 boolean created = exportDir.mkdirs();
-                Log.e("PhoneProfilesService.doForFirstStart", "created="+created);
                 try {
                     exportDir.setReadable(true, false);
                 } catch (Exception ee) {
@@ -5564,19 +5561,6 @@ public class PhoneProfilesService extends Service
 //        PPApplication.logE("[IN_LISTENER] PhoneProfilesService.onConfigurationChanged", "xxx");
 
         PPApplication.updateGUI(false, false, getApplicationContext());
-//
-//        int nightModeFlags =
-//                newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
-//        switch (nightModeFlags) {
-//            case Configuration.UI_MODE_NIGHT_YES:
-//                Log.e("PhoneProfilesService.onConfigurationChanged", "UI_MODE_NIGHT_YES");
-//                break;
-//            case Configuration.UI_MODE_NIGHT_NO:
-//            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-//                Log.e("PhoneProfilesService.onConfigurationChanged", "UI_MODE_NIGHT_NO");
-//                break;
-//        }
-
     }
 
     // Location ----------------------------------------------------------------
@@ -5631,7 +5615,6 @@ public class PhoneProfilesService extends Service
         }*/
 
         if (PPApplication.mobileCellsScanner == null) {
-//            Log.e("PhoneProfilesService.startMobileCellsScanner", "START");
             PPApplication.mobileCellsScanner = new MobileCellsScanner(getApplicationContext());
             PPApplication.mobileCellsScanner.connect();
         }
@@ -5642,7 +5625,6 @@ public class PhoneProfilesService extends Service
 
     private void stopMobileCellsScanner() {
         if (PPApplication.mobileCellsScanner != null) {
-//            Log.e("PhoneProfilesService.stopMobileCellsScanner", "STOP");
             PPApplication.mobileCellsScanner.disconnect();
             PPApplication.mobileCellsScanner = null;
         }

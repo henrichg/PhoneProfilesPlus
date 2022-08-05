@@ -184,8 +184,8 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.getEmuiRomName"
                                                 //+"|PPApplication.isEMUIROM"
                                                 //+"|PPApplication.isMIUIROM"
-                                                +"|PPApplication.attachBaseContext"
-                                                +"|PPApplication.startPPServiceWhenNotStarted"
+                                                //+"|PPApplication.attachBaseContext"
+                                                //+"|PPApplication.startPPServiceWhenNotStarted"
                                                 +"|PPApplication.exitApp"
                                                 +"|PPApplication._exitApp"
                                                 //+"|PPApplication.createProfileNotificationChannel"
@@ -212,7 +212,6 @@ public class PPApplication extends Application
                                                 +"|DataWrapper.firstStartEvents"
                                                 //+"|DataWrapper.setProfileActive"
                                                 //+"|DataWrapper.activateProfileOnBoot"
-                                                +"|BootUpReceiver"
                                                 +"|BootUpReceiver"
                                                 //+"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
@@ -1668,8 +1667,6 @@ public class PPApplication extends Application
             return;
 
         try {
-            //Log.e("***** PPApplication.logIntoFile", "--- START");
-
             /*File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory()))
@@ -1680,7 +1677,6 @@ public class PPApplication extends Application
 
             File path = instance.getApplicationContext().getExternalFilesDir(null);
             File logFile = new File(path, LOG_FILENAME);
-            //Log.e("***** PPApplication.logIntoFile", "logFile="+logFile.getAbsolutePath());
 
             if (logFile.length() > 1024 * 10000)
                 resetLog();
@@ -3641,7 +3637,6 @@ public class PPApplication extends Application
         }
         catch (Exception ex)
         {
-            //Log.e("PPApplication.getSystemProperty", "Unable to read sysprop " + propName, ex);
             PPApplication.recordException(ex);
             return null;
         }
@@ -3893,8 +3888,6 @@ public class PPApplication extends Application
             protected void onPostExecute(String result) {
                 try {
                     if (result != null) {
-                        //Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", result);
-
                         String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
                         String html = "<html>" + head + "<body>" + result + "</body></html>";
 

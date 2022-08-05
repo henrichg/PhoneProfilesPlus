@@ -496,8 +496,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_RADIO_SWITCH).size() == 0;
-//                Log.e("EventPreferencesRadioSwitch.setCategorySummary", "enabled="+enabled);
-//                Log.e("EventPreferencesRadioSwitch.setCategorySummary", "permissionGranted="+permissionGranted);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));

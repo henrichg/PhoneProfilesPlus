@@ -48,7 +48,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(alarm.getTimeInMillis());
-//            Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
+//            PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
 //        }
 
         long lastAlarm = ApplicationPreferences.
@@ -56,7 +56,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(lastAlarm);
-//            Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
+//            PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
 //        }
 
         long alarmTime;
@@ -68,7 +68,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 //            if (PPApplication.logEnabled()) {
 //                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                String result = sdf.format(alarm.getTimeInMillis());
-//                Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
 //            }
 
             alarmTime = alarm.getTimeInMillis();
@@ -87,7 +87,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarm.getTimeInMillis());
-//                    Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                    PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
 //                }
 
                 alarmTime = alarm.getTimeInMillis();
@@ -102,7 +102,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarmTime);
-//                    Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
+//                    PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
 //                }
             }
         }

@@ -95,7 +95,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                //Log.e("ImportantInfoActivity.viewPager.onPageSelected", "position="+position);
                 if (position == 1) {
                     if (expandableLayoutSystem != null) {
                         if (!expandableLayoutSystem.isExpanded()) {

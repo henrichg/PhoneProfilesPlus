@@ -113,15 +113,11 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         if (telephonyManager.isNetworkRoaming()) {
             // In Roaming
-            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - telephony manager - network");
         } else {
             // Not in Roaming
-            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - telephony manager - network");
         }
         if (serviceState.getDataRoaming()) {
-            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - data");
         } else {
-            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - data");
         }
         */
 
@@ -132,18 +128,14 @@ public class PhoneCallsListener extends PhoneStateListener {
         // You can also check roaming state using this
         if (serviceState.getRoaming()) {
             // In Roaming
-//            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - network");
             networkRoaming = true;
         } else {
             // Not in Roaming
-//            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - network");
             networkRoaming = false;
         }
         if (serviceState.getDataRoaming()) {
-//            Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - service state - data");
             dataRoaming = true;
         } else {
-//            Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - service state - data");
             dataRoaming = false;
         }
 

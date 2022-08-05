@@ -40,7 +40,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(alarm.getTimeInMillis());
-//            Log.e("DonationBroadcastReceiver.setAlarm", "now=" + result);
+//            PPApplication.logE("DonationBroadcastReceiver.setAlarm", "now=" + result);
 //        }
 
         long lastAlarm = ApplicationPreferences.
@@ -48,7 +48,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(lastAlarm);
-//            Log.e("DonationBroadcastReceiver.setAlarm", "lastAlarm=" + result);
+//            PPApplication.logE("DonationBroadcastReceiver.setAlarm", "lastAlarm=" + result);
 //        }
 
         long alarmTime;
@@ -59,7 +59,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             if (PPApplication.logEnabled()) {
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 String result = sdf.format(alarm.getTimeInMillis());
-                Log.e("DonationBroadcastReceiver.setAlarm", "alarm=" + result);
+                PPApplication.logE("DonationBroadcastReceiver.setAlarm", "alarm=" + result);
             }
 
             alarmTime = alarm.getTimeInMillis();
@@ -88,7 +88,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarm.getTimeInMillis());
-//                    Log.e("DonationBroadcastReceiver.setAlarm", "alarm=" + result);
+//                    PPApplication.logE("DonationBroadcastReceiver.setAlarm", "alarm=" + result);
 //                }
 
                 alarmTime = alarm.getTimeInMillis();
@@ -103,7 +103,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarmTime);
-//                    Log.e("DonationBroadcastReceiver.setAlarm", "alarm 2=" + result);
+//                    PPApplication.logE("DonationBroadcastReceiver.setAlarm", "alarm 2=" + result);
 //                }
             }
         }

@@ -76,7 +76,6 @@ class ContactsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.ViewHo
                 found = true;
             }
         } catch (Exception ignored) {}
-//            Log.e("ContactsMultiSelectDialogPreferenceViewHolderX.bindContact", "found="+found);
         if (!found) {
             if (contact.accountType.equals("com.osp.app.signin"))
                 accountType = context.getString(R.string.contact_account_type_samsung_account);

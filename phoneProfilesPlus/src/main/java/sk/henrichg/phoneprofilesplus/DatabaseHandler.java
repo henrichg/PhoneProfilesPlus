@@ -638,35 +638,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 onCreate(db);
                 */
 
-//                Log.e("DatabaseHandler.onUpgrade", "createTables");
                 DatabaseHandlerCreateUpdateDB.createTables(db);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_PROFILES)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_PROFILES);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_MERGED_PROFILE)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_MERGED_PROFILE);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_EVENTS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_EVENTS);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_EVENT_TIMELINE)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_EVENT_TIMELINE);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_ACTIVITY_LOG)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_ACTIVITY_LOG);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_GEOFENCES)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_GEOFENCES);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_SHORTCUTS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_SHORTCUTS);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_MOBILE_CELLS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_MOBILE_CELLS);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_NFC_TAGS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_NFC_TAGS);
-//                Log.e("DatabaseHandler.onUpgrade", "createTableColumsWhenNotExists (TABLE_INTENTS)");
                 DatabaseHandlerCreateUpdateDB.createTableColumsWhenNotExists(db, TABLE_INTENTS);
-//                Log.e("DatabaseHandler.onUpgrade", "createIndexes");
                 DatabaseHandlerCreateUpdateDB.createIndexes(db);
 
-//                Log.e("DatabaseHandler.onUpgrade", "updateDB");
                 DatabaseHandlerCreateUpdateDB.updateDb(this, db, oldVersion);
 
-//                Log.e("DatabaseHandler.onUpgrade", "afterUpdateDB");
                 DatabaseHandlerCreateUpdateDB.afterUpdateDb(db);
 
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);

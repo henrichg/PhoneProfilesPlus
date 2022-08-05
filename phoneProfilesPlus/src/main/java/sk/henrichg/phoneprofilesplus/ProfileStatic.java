@@ -21,7 +21,6 @@ public class ProfileStatic {
 
     public static String getIconIdentifier(String icon)
     {
-        //Log.e("ProfileStatic.getIconIdentifier", "_icon="+_icon);
         String value;
         try {
             String[] splits = icon.split("\\|");

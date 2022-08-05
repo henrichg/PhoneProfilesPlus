@@ -537,7 +537,6 @@ public class EditorActivity extends AppCompatActivity
                     ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
                 }
 
-                //Log.e("EditorActivity.filterSpinner.onItemSelected", "position=" + position);
                 selectFilterItem(editorSelectedView, position, true/*, true*/);
             }
 
@@ -595,9 +594,6 @@ public class EditorActivity extends AppCompatActivity
             }
 //            ApplicationPreferences.editorEventsViewSelectedItem(getApplicationContext());
             filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
-//            Log.e("EditorActivity.onCreate", "editorSelectedView="+editorSelectedView);
-//            Log.e("EditorActivity.onCreate", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
-//            Log.e("EditorActivity.onCreate", "filterEventsSelectedItem="+filterEventsSelectedItem);
         //}
 
         //startTargetHelps = false;
@@ -768,7 +764,6 @@ public class EditorActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-//        Log.e("EditorActivity.onResume", "xxx");
         savedInstanceStateChanged = false;
     }
 
@@ -826,7 +821,6 @@ public class EditorActivity extends AppCompatActivity
             restoreAsyncTask.cancel(true);
         }
 
-//        Log.e("EditorActivity.onDestroy", "savedInstanceStateChanged="+savedInstanceStateChanged);
         if (!savedInstanceStateChanged) {
             // no destroy caches on orientation change
             Runnable runnable = () -> {
@@ -946,7 +940,6 @@ public class EditorActivity extends AppCompatActivity
 
         /*
         boolean activityExists = GlobalGUIRoutines.activityActionExists(Intent.ACTION_OPEN_DOCUMENT_TREE, getApplicationContext());
-        Log.e("EditorActivity.onPrepareOptionsMenu", "ACTION_OPEN_DOCUMENT_TREE activityExists="+activityExists);
         menuItem = menu.findItem(R.id.menu_import);
         if (menuItem != null) {
             menuItem.setVisible(activityExists);
@@ -966,7 +959,6 @@ public class EditorActivity extends AppCompatActivity
             menuItem.setEnabled(activityExists);
         }*/
         /*activityExists = GlobalGUIRoutines.activityActionExists(Intent.ACTION_OPEN_DOCUMENT, getApplicationContext());
-        Log.e("EditorActivity.onPrepareOptionsMenu", "ACTION_OPEN_DOCUMENT activityExists="+activityExists);
         menuItem = menu.findItem(R.id.menu_restore_shared_settings);
         if (menuItem != null) {
             menuItem.setVisible(activityExists);
@@ -1401,9 +1393,6 @@ public class EditorActivity extends AppCompatActivity
             String storedLanguage = LocaleHelper.getLanguage(getApplicationContext());
             String storedCountry = LocaleHelper.getCountry(getApplicationContext());
             String storedScript = LocaleHelper.getScript(getApplicationContext());
-//            Log.e("EditorActivity.onOptionsItemSelected", "storedLanguage="+storedLanguage);
-//            Log.e("EditorActivity.onOptionsItemSelected", "storedCountry="+storedCountry);
-//            Log.e("EditorActivity.onOptionsItemSelected", "storedScript="+storedScript);
 
             final String[] languageValues = getResources().getStringArray(R.array.chooseLanguageValues);
             ArrayList<Language> languages = new ArrayList<>();
@@ -1434,10 +1423,6 @@ public class EditorActivity extends AppCompatActivity
                         loc = new Locale.Builder().setLanguage(sLanguage).setScript(script).build();
                     if (!country.isEmpty() && !script.isEmpty())
                         loc = new Locale.Builder().setLanguage(sLanguage).setRegion(country).setScript(script).build();
-
-//                    Log.e("EditorActivity.onOptionsItemSelected", "sLanguage="+sLanguage);
-//                    Log.e("EditorActivity.onOptionsItemSelected", "country="+country);
-//                    Log.e("EditorActivity.onOptionsItemSelected", "script="+script);
 
                     language.language = sLanguage;
                     language.country = country;
@@ -1485,13 +1470,6 @@ public class EditorActivity extends AppCompatActivity
                 }
             }
 
-            //Log.e("MainActivity.onOptionsItemSelected", "defualt language="+Locale.getDefault().getDisplayLanguage());
-            // this is list of locales by order in system settings. Index 0 = default locale in system
-            //LocaleListCompat locales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
-            //for (int i = 0; i < locales.size(); i++) {
-            //    Log.e("MainActivity.onOptionsItemSelected", "language="+locales.get(i).getDisplayLanguage());
-            //}
-
             AlertDialog chooseLanguageDialog = new AlertDialog.Builder(this)
                     .setTitle(R.string.menu_choose_language)
                     .setCancelable(true)
@@ -1503,10 +1481,6 @@ public class EditorActivity extends AppCompatActivity
                         defaultLanguage = language.language;
                         defaultCountry = language.country;
                         defaultScript = language.script;
-
-//                        Log.e("EditorActivity.onOptionsItemSelected", "defaultLanguage="+defaultLanguage);
-//                        Log.e("EditorActivity.onOptionsItemSelected", "defaultCountry="+defaultCountry);
-//                        Log.e("EditorActivity.onOptionsItemSelected", "defaultScript="+defaultScript);
 
                         LocaleHelper.setLocale(getApplicationContext(),
                                 defaultLanguage, defaultCountry, defaultScript, true);
@@ -1600,7 +1574,6 @@ public class EditorActivity extends AppCompatActivity
                         filterItems);
                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                 filterSpinner.setAdapter(filterSpinnerAdapter);
-//                Log.e("EditorActivity.selectViewItem (0)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
                 EditorActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
                 Fragment fragment = EditorActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment instanceof EditorProfileListFragment)
@@ -1628,7 +1601,6 @@ public class EditorActivity extends AppCompatActivity
                         filterItems);
                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                 filterSpinner.setAdapter(filterSpinnerAdapter);
-//                Log.e("EditorActivity.selectViewItem (1)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
                 EditorActivity.this.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
                 Fragment fragment = EditorActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment instanceof EditorEventListFragment) {
@@ -2614,7 +2586,6 @@ public class EditorActivity extends AppCompatActivity
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
@@ -2639,7 +2610,6 @@ public class EditorActivity extends AppCompatActivity
                                 } catch (Exception e) {
                                     //isGranted = false;
                                 }
-//                                Log.e("*********** EditorActivity.importApplicationPreferences", "isGranted=" + isGranted);
                             }
                             if (!isGranted) {
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
@@ -3012,14 +2982,12 @@ public class EditorActivity extends AppCompatActivity
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         savedInstanceStateChanged = true;
-//        Log.e("EditorActivity.onSaveInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
     }
 
     @Override
     public void onRestoreInstanceState(@NonNull Bundle outState) {
         super.onRestoreInstanceState(outState);
         savedInstanceStateChanged = false;
-//        Log.e("EditorActivity.onRestoreInstanceState", "savedInstanceStateChanged="+savedInstanceStateChanged);
     }
 
      @Override
@@ -3115,7 +3083,6 @@ public class EditorActivity extends AppCompatActivity
                                 fragment.scrollToProfile = profile;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
                                         .setSelection(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
-//                                Log.e("EditorActivity.redrawProfileListFragment", "position=0");
                                 editorActivity.selectFilterItem(0, ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                             }
                             else
@@ -3300,7 +3267,6 @@ public class EditorActivity extends AppCompatActivity
                                 fragment.scrollToEvent = event;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
                                         .setSelection(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
-//                                Log.e("EditorActivity.redrawEventListFragment", "position=0");
                                 editorActivity.selectFilterItem(1, ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                             }
                             else

@@ -405,7 +405,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
                         applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors)) {
-//                    Log.e("IconWidgetProvider._onUpdate", "layoutHeight="+applicationWidgetIconLayoutHeight);
                     if (applicationWidgetIconLayoutHeight.equals("0")) {
                         if (applicationWidgetIconHideProfileName) {
                             //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
@@ -680,7 +679,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 else {
                     // must be removed android:textColor in layout
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
                     if (color != 0) {
                         remoteViews.setTextColor(R.id.icon_widget_name, color);
                     }

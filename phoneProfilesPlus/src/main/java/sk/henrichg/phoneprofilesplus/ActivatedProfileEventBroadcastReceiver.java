@@ -59,18 +59,14 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
 
                         Profile activatedProfile = dataWrapper.getProfileById(profileId, false, false, false);
                         if (activatedProfile != null) {
-//                            Log.e("ActivatedProfileEventBroadcastReceiver.doWork", "activatedProfile._name=" + activatedProfile._name);
-//                            Log.e("ActivatedProfileEventBroadcastReceiver.doWork", "activatedProfile._id=" + activatedProfile._id);
 
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             for (Event _event : dataWrapper.eventList) {
                                 if ((_event._eventPreferencesActivatedProfile._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
                                     if (_event._eventPreferencesActivatedProfile.isRunnable(context)) {
                                         int oldRunning = _event._eventPreferencesActivatedProfile._running;
-//                                        Log.e("ActivatedProfileEventBroadcastReceiver.onReceive", "oldRunning=" + oldRunning);
 
                                         long startProfile = _event._eventPreferencesActivatedProfile._startProfile;
-//                                        Log.e("ActivatedProfileEventBroadcastReceiver.onReceive", "startProfile=" + startProfile);
                                         if (activatedProfile._id == startProfile) {
                                             _event._eventPreferencesActivatedProfile._running =
                                                     EventPreferencesActivatedProfile.RUNNING_RUNNING;
@@ -79,7 +75,6 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                                                     updateActivatedProfileSensorRunningParameter(_event);
                                         }
                                         long endProfile = _event._eventPreferencesActivatedProfile._endProfile;
-//                                        Log.e("ActivatedProfileEventBroadcastReceiver.onReceive", "endProfile=" + endProfile);
                                         if (activatedProfile._id == endProfile) {
                                             _event._eventPreferencesActivatedProfile._running =
                                                     EventPreferencesActivatedProfile.RUNNING_NOTRUNNING;
@@ -87,11 +82,9 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                                             databaseHandler.
                                                     updateActivatedProfileSensorRunningParameter(_event);
                                         }
-//                                        Log.e("ActivatedProfileEventBroadcastReceiver.onReceive", "running=" + _event._eventPreferencesActivatedProfile._running);
 
                                         if (oldRunning != _event._eventPreferencesActivatedProfile._running) {
                                             // running was changed, call EventsHandler
-//                                            Log.e("### ActivatedProfileEventBroadcastReceiver.onReceive", "call EventsHandler");
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ACTIVATED_PROFILE);
                                         }
