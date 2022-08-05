@@ -103,7 +103,7 @@ public class MainWorker extends Worker {
                     //case HANDLE_EVENTS_PERIODIC_WORK_TAG:
                         int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
                         if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
-                            PPApplication.logE("MainWorker.doWork", "sensorType="+sensorType);
+                            //PPApplication.logE("MainWorker.doWork", "sensorType="+sensorType);
                             // start events handler
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.doWork: sensorType="+sensorType);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
