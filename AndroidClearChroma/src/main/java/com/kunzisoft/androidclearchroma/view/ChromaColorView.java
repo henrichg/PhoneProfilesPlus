@@ -104,7 +104,6 @@ public class ChromaColorView extends RelativeLayout {
         //colorEditButton = root.findViewById(R.id.acch_color_edit_button);
 
         //FragmentManager fragmentManager = context.getSupportFragmentManager();
-        //Log.e("ChromaColorView.init", "fragmentManager="+fragmentManager);
 
         createView(true);
     }
@@ -170,8 +169,6 @@ public class ChromaColorView extends RelativeLayout {
         InputFilter inputFilter_colorEdit = new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-//                Log.e("ChromaColorView.inputFilter_colorEdit", "source=" + source);
-//                Log.e("ChromaColorView.inputFilter_colorEdit", "dest=" + dest);
 
                 boolean keepOriginal = true;
                 StringBuilder sb = new StringBuilder(end - start);
@@ -227,31 +224,22 @@ public class ChromaColorView extends RelativeLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                //Log.e("ChromaColorView.afterTextChanged", "not initialize");
                 if (editable.length() >= 6) {
                     String value = editable.toString();
 
-//                    Log.e("ChromaColorView.afterTextChanged", "value (1)="+value);
                     if (value.startsWith("#"))
                         value = value.replace("#", "");
                     if (value.length() > 6)
                         value = value.substring(value.length() - 6);
-//                    Log.e("ChromaColorView.afterTextChanged", "value (2)="+value);
 
                     String color = "#FF" + value;
-//                    Log.e("ChromaColorView.afterTextChanged", "color="+color);
-                    //Log.e("ChromaColorView.afterTextChanged", "currentColor="+currentColor);
                     try {
                         int editedColor = Color.parseColor(color);
-                        //Log.e("ChromaColorView.afterTextChanged", "editedColor="+editedColor);
 
                         if (currentColor != editedColor) {
-                            //Log.e("ChromaColorView.afterTextChanged", "color changed");
                             currentColor = editedColor;
                             createView(false);
                         }
-                        //else
-                        //    Log.e("ChromaColorView.afterTextChanged", "color not changed");
 
                     } catch (Exception ignored) {}
                 }

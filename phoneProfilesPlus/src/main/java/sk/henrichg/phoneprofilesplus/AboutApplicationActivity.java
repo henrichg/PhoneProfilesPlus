@@ -73,10 +73,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
         ImageView appIcon = findViewById(R.id.about_application_application_icon);
         try {
             Drawable drawable = getPackageManager().getApplicationIcon(PPApplication.PACKAGE_NAME);
-            Log.e("AboutApplicationActivity.onCreate", "drawable.class="+drawable.getClass().getName());
             if (Build.VERSION.SDK_INT >= 26) {
                 if (drawable instanceof AdaptiveIconDrawable) {
-                    Log.e("AboutApplicationActivity.onCreate", "AdaptiveIconDrawable");
                     drawable = ((AdaptiveIconDrawable) drawable).getForeground();
                 }
             }
@@ -383,7 +381,6 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<ReviewInfo> task) {
                     if (task.isSuccessful()) {
-                        Log.e("AboutApplicationActivity.ReviewManager.onComplete", "xxx (1)");
                         reviewInfo = task.getResult();
                         CharSequence str1 = getString(R.string.about_application_rate_in_googlePlay) + ".";
                         SpannableString sbt = new SpannableString(str1);
@@ -396,18 +393,15 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
                             @Override
                             public void onClick(@NonNull View textView) {
-                                Log.e("AboutApplicationActivity.ReviewManager.onClick", "xxx");
                                 Task<Void> flow = manager.launchReviewFlow(activity, reviewInfo);
                                 flow.addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Log.e("AboutApplicationActivity.ReviewManager.onComplete", "xxx (2)");
                                     }
                                 });
                                 flow.addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(Exception e) {
-                                        Log.e("AboutApplicationActivity.ReviewManager.onFailure", "xxx (2)");
                                     }
                                 });
                             }

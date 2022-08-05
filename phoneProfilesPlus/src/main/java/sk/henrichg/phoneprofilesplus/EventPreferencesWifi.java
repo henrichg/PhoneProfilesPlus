@@ -444,7 +444,6 @@ class EventPreferencesWifi extends EventPreferences {
                                         } else*/ {
                                             //NetworkInfo networkInfo = connManager.getNetworkInfo(network);
                                             //if ((networkInfo != null) && networkInfo.isConnected()) {
-//                                            Log.e("EventPreferencesWifi.doHandleEvent", "call of connManager.getNetworkCapabilities");
                                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                                 if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                                                     wifiConnected = WifiNetworkCallback.connected;

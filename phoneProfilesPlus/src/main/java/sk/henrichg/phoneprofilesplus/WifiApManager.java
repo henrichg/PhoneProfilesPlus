@@ -368,8 +368,13 @@ final class WifiApManager {
             }
         }
 
-        MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
-        _startTethering30(context, callback, new Handler());
+        // keep this: it is required to use handlerThreadBroadcast for cal listener
+        PPApplication.startHandlerThreadBroadcast();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(() -> {
+            MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
+            _startTethering30(context, callback, __handler);
+        });
     }
 
     // Thanks to author of MacroDroid application.

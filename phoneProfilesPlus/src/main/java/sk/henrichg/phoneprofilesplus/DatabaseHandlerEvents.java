@@ -1350,9 +1350,7 @@ public class DatabaseHandlerEvents {
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_ENABLED)) == 1);
                 eventPreferences._checkNetwork = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK)) == 1);
-//                Log.e("DatabaseHandlerEvents.getEventPreferencesRoaming", "KEY_E_ROAMING_CHECK_NETWORK="+cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK)));
                 eventPreferences._checkData = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_DATA)) == 1);
-//                Log.e("DatabaseHandlerEvents.getEventPreferencesRoaming", "KEY_E_ROAMING_CHECK_DATA="+cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_CHECK_DATA)));
                 eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED)));
             }
@@ -1831,9 +1829,7 @@ public class DatabaseHandlerEvents {
 
         values.put(DatabaseHandler.KEY_E_ROAMING_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_ROAMING_CHECK_NETWORK, (eventPreferences._checkNetwork) ? 1 : 0);
-//        Log.e("DatabaseHandlerEvents.updateEventPreferencesRoaming", "eventPreferences._checkNetwork="+eventPreferences._checkNetwork);
         values.put(DatabaseHandler.KEY_E_ROAMING_CHECK_DATA, (eventPreferences._checkData) ? 1 : 0);
-//        Log.e("DatabaseHandlerEvents.updateEventPreferencesRoaming", "eventPreferences._checkData="+eventPreferences._checkData);
         values.put(DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(DatabaseHandler.KEY_E_ROAMING_FOR_SIM_CARD, eventPreferences._forSIMCard);
 

@@ -221,7 +221,6 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     else {
                         // must be removed android:textColor in layout
                         int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
                         if (color != 0) {
                             row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
                         }
@@ -235,7 +234,6 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     else {
                         // must be removed android:textColor in layout
                         int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
                         if (color != 0) {
                             row.setTextColor(R.id.widget_profile_list_item_profile_name,
                                     Color.argb(0xCC, Color.red(color), Color.green(color), Color.blue(color)));
@@ -249,7 +247,6 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 else {
                     // must be removed android:textColor in layout
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
                     if (color != 0) {
                         row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
                     }

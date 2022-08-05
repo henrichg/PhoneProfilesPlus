@@ -2278,7 +2278,6 @@ public class Profile {
     // getting icon identifier
     public String getIconIdentifier()
     {
-        //Log.e("Profile.getIconIdentifier", "_icon="+_icon);
         String value;
         try {
             String[] splits = _icon.split("\\|");
@@ -3041,12 +3040,9 @@ public class Profile {
 
     void releaseIconBitmap()
     {
-//        Log.e("Profile.releaseIconBitmap", "profile="+_name);
         if (_iconBitmap != null)
         {
-//            Log.e("Profile.releaseIconBitmap", "_iconBitmap");
             if (!_iconBitmap.isRecycled()) {
-//                Log.e("Profile.releaseIconBitmap", "not recycled");
                 _iconBitmap.recycle();
             }
             _iconBitmap = null;
@@ -3304,7 +3300,6 @@ public class Profile {
             }
             if (accessibilityEnabled == -98) {
                 // Extender is in right version
-//                Log.e("Profile.isAccessibilityServiceEnabled", "profile="+_name);
                 if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "Profile.isAccessibilityServiceEnabled (profile=" + _name + ")"*/))
                     // accessibility enabled

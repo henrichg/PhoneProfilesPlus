@@ -242,7 +242,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
             @Override
             public boolean longPressHelper(GeoPoint p) {
-                //Log.e("MapView", "long click");
                 return false;
             }
         }));
@@ -477,8 +476,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        Log.e("LocationGeofenceEditorActivityOSM.onStart", "xxx");
-
         GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         if (checkOnlineStatusBroadcatReceiver == null) {
@@ -688,7 +685,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
     private void showErrorLocationDialog() {
         if (!errorLocationDisplayed) {
-//            Log.e("LocationGeofenceEditorActivityOSM.showErrorLocationDialog", "xxx");
             errorLocationDisplayed = true;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LocationGeofenceEditorActivityOSM.this);
@@ -765,7 +761,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.startLocationUpdates");
                 if (!activity.isFinishing() && !activity.isDestroyed()) {
                     if (activity.mLastLocation == null) {
-//                        Log.e("LocationGeofenceEditorActivityOSM.startLocationUpdates", "************** show error dialog from handler");
                         showErrorLocationDialog();
                     }
                 }
@@ -836,7 +831,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
 
         if (((!mListenerEnabled) || (!locationEnabled)) && showErrorDialog) {
-//            Log.e("LocationGeofenceEditorActivityOSM.startLocationUpdates", "************** show error dialog");
             showErrorLocationDialog();
         }
     }
@@ -967,7 +961,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 pkg = intent.getPackage();
             //noinspection StatementWithEmptyBody
             if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
-                //Log.e("LocationGeofenceEditorActivityOSM", "ignoring startActivityForResult exception ", e);
                 //PPApplication.recordException(e);
             } else {
                 PPApplication.recordException(e);

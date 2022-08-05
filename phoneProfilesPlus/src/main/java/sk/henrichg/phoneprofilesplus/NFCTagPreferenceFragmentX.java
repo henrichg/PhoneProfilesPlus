@@ -252,8 +252,6 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                 return true;
             }
                 /*case R.id.nfc_tag_pref_item_menu_readNfcUid:
-                    Log.e("NFCTagPreference.showEditMenu.readNfcUid", "tagInItem._name="+tagInItem._name);
-                    Log.e("NFCTagPreference.showEditMenu.readNfcUid", "tagInItem._id="+tagInItem._id);
                     Intent nfcTagIntent = new Intent(context, NFCTagReadActivity.class);
                     nfcTagIntent.putExtra(NFCTagReadActivity.EXTRA_TAG_NAME, tagInItem._name);
                     nfcTagIntent.putExtra(NFCTagReadActivity.EXTRA_TAG_DB_ID, tagInItem._id);

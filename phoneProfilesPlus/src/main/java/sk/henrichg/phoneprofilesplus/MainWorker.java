@@ -103,7 +103,7 @@ public class MainWorker extends Worker {
                     //case HANDLE_EVENTS_PERIODIC_WORK_TAG:
                         int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
                         if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
-                            PPApplication.logE("MainWorker.doWork", "sensorType="+sensorType);
+                            //PPApplication.logE("MainWorker.doWork", "sensorType="+sensorType);
                             // start events handler
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.doWork: sensorType="+sensorType);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -123,8 +123,6 @@ public class MainWorker extends Worker {
                     //    LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
                     //    break;
                     //case CLOSE_ALL_APPLICATIONS_WORK_TAG:
-                        //Log.e("DelayedWorksWorker.doWork", "DELAYED_WORK_CLOSE_ALL_APPLICATIONS");
-                        //Log.e("DelayedWorksWorker.doWork", "PPApplication.blockProfileEventActions="+PPApplication.blockProfileEventActions);
                     //    if (!PPApplication.blockProfileEventActions) {
                     //        try {
                     //            Intent startMain = new Intent(Intent.ACTION_MAIN);
@@ -306,6 +304,10 @@ public class MainWorker extends Worker {
 //        PPApplication.setApplicationFullyStarted(appContext, showToast);
 
         //}
+
+        Intent intent = new Intent(getApplicationContext(), GrantNotificationPermissionAtFirstStartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        appContext.startActivity(intent);
 
         final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
@@ -508,7 +510,7 @@ public class MainWorker extends Worker {
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
 
         if (startForExternalApplication) {
-            Intent intent = new Intent(startForExternalAppAction);
+            intent = new Intent(startForExternalAppAction);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_PROFILE)

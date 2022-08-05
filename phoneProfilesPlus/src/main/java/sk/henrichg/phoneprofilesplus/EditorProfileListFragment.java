@@ -171,8 +171,6 @@ public class EditorProfileListFragment extends Fragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        Log.e("EditorProfileListFragment.onViewCreated", "xxxxx");
-
         doOnViewCreated(view, true);
 
         //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
@@ -210,14 +208,12 @@ public class EditorProfileListFragment extends Fragment
                             return;
 
                         headerHeight = activatedProfileHeader.getMeasuredHeight();
-                        Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
                         hideAnimator = ValueAnimator.ofInt(headerHeight / 4, 0);
                         hideAnimator.setDuration(500);
                         hideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             @Override
                             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                                 int val = (Integer) valueAnimator.getAnimatedValue();
-                                //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
                                 ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
                                 layoutParams.height = val * 4;
                                 activatedProfileHeader.setLayoutParams(layoutParams);
@@ -229,7 +225,6 @@ public class EditorProfileListFragment extends Fragment
                             @Override
                             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                                 int val = (Integer) valueAnimator.getAnimatedValue();
-                                //Log.e("showAnimator.onAnimationUpdate", "val="+val);
                                 ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
                                 layoutParams.height = val * 4;
                                 activatedProfileHeader.setLayoutParams(layoutParams);
@@ -566,8 +561,6 @@ public class EditorProfileListFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
-
-//        Log.e("EditorProfileListFragment.onDestroy", "xxxxx");
 
         if (isAsyncTaskPendingOrRunning()) {
             stopRunningAsyncTask();
@@ -1037,8 +1030,6 @@ public class EditorProfileListFragment extends Fragment
                 profilePos = profileListAdapter.getItemPosition(profile);
             //else
             //    profilePos = listView.getCheckedItemPosition();
-
-            //Log.e("EditorProfileListFragment.updateListView", "profilePos="+profilePos);
 
             /*if (loadProfileId != 0) {
                 if (getActivity() != null) {

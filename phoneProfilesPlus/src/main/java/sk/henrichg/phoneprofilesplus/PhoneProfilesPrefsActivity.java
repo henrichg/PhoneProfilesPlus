@@ -129,12 +129,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             int widgetType = 0;
             PackageManager packageManager = getApplicationContext().getPackageManager();
             AppWidgetProviderInfo providerInfo = appWidgetManager.getAppWidgetInfo(appWidgetId);
-            Log.e("PhoneProfilesPrefsActivity.onCreate", "packageManager="+packageManager);
-            Log.e("PhoneProfilesPrefsActivity.onCreate", "providerInfo="+providerInfo);
             if ((packageManager != null) && (providerInfo != null)) {
                 String widgetLabel = providerInfo.loadLabel(packageManager);
-                Log.e("PhoneProfilesPrefsActivity.onCreate", "widgetLabel="+widgetLabel);
-                Log.e("PhoneProfilesPrefsActivity.onCreate", "string="+getString(R.string.widget_label_one_row));
                 if (widgetLabel != null) {
                     if (widgetLabel.equals(getString(R.string.widget_label_icon)))
                         widgetType = PPApplication.WIDGET_TYPE_ICON;

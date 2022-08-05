@@ -46,7 +46,6 @@ public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragm
 
         boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                                 == Configuration.UI_MODE_NIGHT_YES;
-//        Log.e("BetterNumberPickerPreferenceFragmentX", "nightModeOn="+nightModeOn);
 
         if (/*ApplicationPreferences.applicationTheme(context, true).equals("dark")*/nightModeOn)
             mNumberPicker.setTheme(R.style.BetterPickersDialogFragment);

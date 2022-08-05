@@ -1007,7 +1007,7 @@ class Permissions {
     static void checkProfileMicrophone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return /*true*/;
 
-        if (Build.VERSION.SDK_INT <= 30) {
+        if (Build.VERSION.SDK_INT >= 26) {
             try {
                 if ((profile._deviceAirplaneMode >= 4)/* &&
                         (!PPApplication.isRooted(false))*/) {
@@ -1184,8 +1184,6 @@ class Permissions {
     static boolean checkLocation(Context context) {
         try {
             if (Build.VERSION.SDK_INT >= 29) {
-//                if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED)
-//                    Log.e("Permissions.checkLocation", "ACCESS_BACKGROUND_LOCATION granted");
 
                 return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                         (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
@@ -1610,7 +1608,7 @@ class Permissions {
 
     static boolean checkMicrophone(Context context) {
         try {
-            if (Build.VERSION.SDK_INT <= 30)
+            if (Build.VERSION.SDK_INT >= 26)
                 return (ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED);
             else
                 return true;
@@ -1680,7 +1678,6 @@ class Permissions {
                         if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
                                 permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
                                 permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
-//                                Log.e("Permissions.grantProfilePermissions", "ACCESS_BACKGROUND_LOCATION add EXTRA_GRANT_ALSO_BACKGROUND_LOCATION");
                             intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                             break;
                         }
@@ -1932,7 +1929,6 @@ class Permissions {
                         if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
                                 permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
                                 permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
-//                                Log.e("Permissions.grantEventPermissions", "ACCESS_BACKGROUND_LOCATION add EXTRA_GRANT_ALSO_BACKGROUND_LOCATION");
                             intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                             break;
                         }
@@ -2284,8 +2280,6 @@ class Permissions {
     }
 
     static void grantBackgroundLocation(Context context, GrantPermissionActivity activity) {
-//        Log.e("Permissions.grantBackgroundLocation", "ACCESS_BACKGROUND_LOCATION");
-
         // separated grand of background location must by for api 30+
         if (android.os.Build.VERSION.SDK_INT >= 29) {
             boolean grantedOldLocationTypes =
@@ -2295,7 +2289,6 @@ class Permissions {
 
             if (grantedOldLocationTypes && (!grantedBackgroundLocation)) {
                 try {
-//                    Log.e("Permissions.grantBackgroundLocation", "ACCESS_BACKGROUND_LOCATION not granted");
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_BACGROUND_LOCATION, permission.ACCESS_BACKGROUND_LOCATION));
 
@@ -2912,7 +2905,7 @@ class Permissions {
             dialog.show();
     }
 
-    static void grantNotificationsPermission(final Activity activity) {
+    static boolean grantNotificationsPermission(final Activity activity) {
         if (Build.VERSION.SDK_INT >= 33) {
             NotificationManager notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
@@ -2967,9 +2960,12 @@ class Permissions {
 
                     if (!activity.isFinishing())
                         dialog.show();
+
+                    return true;
                 }
             }
         }
+        return false;
     }
 
 }

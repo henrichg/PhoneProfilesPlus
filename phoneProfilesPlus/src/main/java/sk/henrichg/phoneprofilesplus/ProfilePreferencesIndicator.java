@@ -57,8 +57,6 @@ class ProfilePreferencesIndicator {
                               int indicatorsType, float indicatorsLightnessValue,
                               Context context, Canvas canvas)
     {
-//        Log.e("ProfilePreferencesIndicator.addIndicator", "indicatorsType="+indicatorsType);
-
         Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
 
         if (indicatorsType == DataWrapper.IT_FOR_EDITOR) {
@@ -92,7 +90,6 @@ class ProfilePreferencesIndicator {
             (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND) ||
                 (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_DARK_BACKGROUND) ||
                 (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND)) {
-//            Log.e("ProfilePreferencesIndicator.addIndicator", "indicatorsType="+indicatorsType);
             Paint paint = new Paint();
 
             boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
@@ -103,7 +100,6 @@ class ProfilePreferencesIndicator {
             if ((Build.VERSION.SDK_INT >= 31) &&
                     (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND)) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
-//            Log.e("ProfilePreferencesIndicator.addIndicator", "dynamicColor="+String.format("#%06X", 0xFFFFFF & dynamicColor));
                 if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 }
@@ -191,14 +187,12 @@ class ProfilePreferencesIndicator {
         if (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_DYNAMIC_COLORS) {
             // this is only for API 31+
 
-//            Log.e("ProfilePreferencesIndicator.addIndicator", "IT_FOR_NOTIFICATION_MONOCHROME_INDICATORS");
             Paint paint = new Paint();
 
             boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                                         == Configuration.UI_MODE_NIGHT_YES;
 
             int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
-//            Log.e("ProfilePreferencesIndicator.addIndicator", "dynamicColor="+String.format("#%06X", 0xFFFFFF & dynamicColor));
             if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
                 paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
             }
@@ -328,7 +322,6 @@ class ProfilePreferencesIndicator {
 
             if (!monochrome) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
-//                Log.e("ProfilePreferencesIndicator.addIndicator", "dynamicColor="+String.format("#%06X", 0xFFFFFF & dynamicColor));
                 if ((dynamicColor != 0) && (!disabled)/* && (!monochrome)*/) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 }
@@ -870,7 +863,8 @@ class ProfilePreferencesIndicator {
             // airplane mode
             if (profile._deviceAirplaneMode != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3)) {
+                    if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3) ||
+                            (profile._deviceAirplaneMode == 4)  || (profile._deviceAirplaneMode == 6)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + ": " +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
@@ -883,7 +877,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._deviceAirplaneMode == 2) {
+                    if ((profile._deviceAirplaneMode == 2) || (profile._deviceAirplaneMode == 5)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + ": " +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
@@ -2196,8 +2190,6 @@ class ProfilePreferencesIndicator {
         //Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
         fillArrays(profile, false, /*monochrome,*/ false, /*indicatorsType,*/ context);
-//        if (indicatorsType == DataWrapper.IT_FOR_WIDGET)
-//            Log.e("ProfilePreferencesIndicator.paint", "indicatorsLightnessValue="+indicatorsLightnessValue);
 
         Bitmap indicatorBitmap;
         if (countDrawables >= 0)

@@ -36,6 +36,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.os.ServiceManager;
 import android.os.UserHandle;
@@ -992,7 +993,7 @@ class ActivateProfileHelper {
 
                     boolean _isAirplaneMode = false;
                     boolean _setAirplaneMode = false;
-                    boolean _useAssisten = false;
+                    boolean _useAssistant = false;
                     if (profile._deviceAirplaneMode != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             _isAirplaneMode = isAirplaneMode(appContext);
@@ -1003,7 +1004,7 @@ class ActivateProfileHelper {
                                     if (!_isAirplaneMode) {
                                         _isAirplaneMode = true;
                                         _setAirplaneMode = true;
-                                        _useAssisten = profile._deviceAirplaneMode == 4;
+                                        _useAssistant = profile._deviceAirplaneMode == 4;
                                     }
                                     break;
                                 case 2:
@@ -1012,7 +1013,7 @@ class ActivateProfileHelper {
                                     if (_isAirplaneMode) {
                                         _isAirplaneMode = false;
                                         _setAirplaneMode = true;
-                                        _useAssisten = profile._deviceAirplaneMode == 5;
+                                        _useAssistant = profile._deviceAirplaneMode == 5;
                                     }
                                     break;
                                 case 3:
@@ -1020,7 +1021,7 @@ class ActivateProfileHelper {
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 3");
                                     _isAirplaneMode = !_isAirplaneMode;
                                     _setAirplaneMode = true;
-                                    _useAssisten = profile._deviceAirplaneMode == 6;
+                                    _useAssistant = profile._deviceAirplaneMode == 6;
                                     break;
                             }
                         }
@@ -1028,7 +1029,7 @@ class ActivateProfileHelper {
                     if (_setAirplaneMode /*&& _isAirplaneMode*/) {
                         // switch ON airplane mode, set it before doExecuteForRadios
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "setAirplaneMode()");
-                        setAirplaneMode(context, _isAirplaneMode, _useAssisten);
+                        setAirplaneMode(context, _isAirplaneMode, _useAssistant);
                         GlobalUtils.sleep(1500);
                         //PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                     }
@@ -1238,24 +1239,19 @@ class ActivateProfileHelper {
                     //         change of mute state bad affects silent mode (is not working)
 
                     if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "mute - ring");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "mute - notification");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "mute - system");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "mute - dtmf");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                 }
                 if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
-//                Log.e("ActivateProfileHelper.setVolumes", "mute - music");
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
             } else {
@@ -1264,24 +1260,19 @@ class ActivateProfileHelper {
                     //         change of mute state bad affects silent mode (is not working)
 
                     if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - ring");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - notification");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - system");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                     if (audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
-//                    Log.e("ActivateProfileHelper.setVolumes", "unmute - dtmf");
                         audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     }
                 }
                 if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
-//                Log.e("ActivateProfileHelper.setVolumes", "unmute - music");
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
             }
@@ -1639,7 +1630,7 @@ class ActivateProfileHelper {
                         (RootUtils.isRooted(false))) {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "settings put global audio_safe_volume_state 2";
-                        Command command = new Command(0, false, command1);
+                        Command command = new Command(0, /*false,*/ command1);
                         try {
                             //EventPreferencesVolumes.internalChange = true;
                             //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "disable safe volume with root");
@@ -1825,12 +1816,12 @@ class ActivateProfileHelper {
                                         command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                                         String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
                                         String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
-                                        command = new Command(0, false, command1, command2, command3);
+                                        command = new Command(0, /*false,*/ command1, command2, command3);
                                     } else {
                                         command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                                         //if (PPApplication.isSELinuxEnforcing())
                                         //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                        command = new Command(0, false, command1); //, command2);
+                                        command = new Command(0, /*false,*/ command1); //, command2);
                                     }
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -1911,12 +1902,12 @@ class ActivateProfileHelper {
                                 if (PPApplication.deviceIsPixel) {
                                     command1 = "settings put system " + "vibrate_on" + " 1";
                                     String command2 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
-                                    command = new Command(0, false, command1, command2);
+                                    command = new Command(0, /*false,*/ command1, command2);
                                 } else {
                                     command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                    command = new Command(0, false, command1);
+                                    command = new Command(0, /*false,*/ command1);
                                 }
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -2023,7 +2014,6 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundNotificationChange == 1) {
-                //Log.e("ActivateProfileHelper.setTones", "_soundNotification="+profile._soundNotification);
                 if (!profile._soundNotification.isEmpty()) {
                     try {
                         String[] splits = profile._soundNotification.split("\\|");
@@ -2458,7 +2448,7 @@ class ActivateProfileHelper {
                                                 String command1;
                                                 Command command;
                                                 command1 = "settings put system notification_sound" + " " + uri.toString();
-                                                command = new Command(0, false, command1);
+                                                command = new Command(0, /*false,*/ command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                     RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
@@ -2484,7 +2474,7 @@ class ActivateProfileHelper {
                                                 String command1;
                                                 Command command;
                                                 command1 = "settings put system message" + " " + uri.toString();
-                                                command = new Command(0, false, command1);
+                                                command = new Command(0, /*false,*/ command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                     RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
@@ -2547,7 +2537,7 @@ class ActivateProfileHelper {
                                             String command1;
                                             Command command;
                                             command1 = "settings put system notification_sound" + " \"\"";
-                                            command = new Command(0, false, command1);
+                                            command = new Command(0, /*false,*/ command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                 RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
@@ -2571,7 +2561,7 @@ class ActivateProfileHelper {
                                             String command1;
                                             Command command;
                                             command1 = "settings put system message" + " \"\"";
-                                            command = new Command(0, false, command1);
+                                            command = new Command(0, /*false,*/ command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                 RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
@@ -2640,7 +2630,7 @@ class ActivateProfileHelper {
                                                 String command1;
                                                 Command command;
                                                 command1 = "settings put system notification_sound_2" + " " + uri.toString();
-                                                command = new Command(0, false, command1);
+                                                command = new Command(0, /*false,*/ command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                     RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
@@ -2666,7 +2656,7 @@ class ActivateProfileHelper {
                                                 String command1;
                                                 Command command;
                                                 command1 = "settings put system messageSub1" + " " + uri.toString();
-                                                command = new Command(0, false, command1);
+                                                command = new Command(0, /*false,*/ command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                     RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
@@ -2729,7 +2719,7 @@ class ActivateProfileHelper {
                                             String command1;
                                             Command command;
                                             command1 = "settings put system notification_sound_2" + " \"\"";
-                                            command = new Command(0, false, command1);
+                                            command = new Command(0, /*false,*/ command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                 RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
@@ -2750,7 +2740,7 @@ class ActivateProfileHelper {
                                             String command1;
                                             Command command;
                                             command1 = "settings put system messageSub1" + " \"\"";
-                                            command = new Command(0, false, command1);
+                                            command = new Command(0, /*false,*/ command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                 RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
@@ -2796,7 +2786,7 @@ class ActivateProfileHelper {
                                     String command1;
                                     Command command;
                                     command1 = "settings put system ringtone_sound_use_uniform" + " " + value;
-                                    command = new Command(0, false, command1);
+                                    command = new Command(0, /*false,*/ command1);
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
@@ -2824,7 +2814,6 @@ class ActivateProfileHelper {
     }
 
     static Uri getUriOfSavedTone(Context context, String savedTone, int toneType) {
-        //Log.e("ActivateProfileHelper.getUriOfSavedTone", "savedTone="+savedTone);
         Uri toneUri;
         boolean uriFound = false;
         if (savedTone.equals("")) {
@@ -2863,9 +2852,6 @@ class ActivateProfileHelper {
                 }
             }
         }
-        //if (toneUri != null)
-        //    Log.e("ActivateProfileHelper.getUriOfSavedTone", "toneUri="+toneUri.toString());
-        //Log.e("ActivateProfileHelper.getUriOfSavedTone", "uriFound="+uriFound);
         if (uriFound)
             return toneUri;
         else
@@ -3047,7 +3033,7 @@ class ActivateProfileHelper {
                                 String command1 = "settings put system " + "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/ + " " + value;
                                 //if (PPApplication.isSELinuxEnforcing())
                                 //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                Command command = new Command(0, false, command1); //, command2);
+                                Command command = new Command(0, /*false,*/ command1); //, command2);
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     RootUtils.commandWait(command, "ActivateProfileHelper.setNotificationLed");
@@ -3119,7 +3105,7 @@ class ActivateProfileHelper {
                                     String command1 = "settings put global " + "heads_up_notifications_enabled" + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                    Command command = new Command(0, false, command1); //, command2);
+                                    Command command = new Command(0, /*false,*/ command1); //, command2);
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         RootUtils.commandWait(command, "ActivateProfileHelper.setHeadsUpNotifications");
@@ -3192,7 +3178,7 @@ class ActivateProfileHelper {
                                 String command1 = "settings put system " + "aod_mode" + " " + value;
                                 //if (PPApplication.isSELinuxEnforcing())
                                 //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                Command command = new Command(0, false, command1); //, command2);
+                                Command command = new Command(0, /*false,*/ command1); //, command2);
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     RootUtils.commandWait(command, "ActivateProfileHelper.setAlwaysOnDisplay");
@@ -4233,7 +4219,7 @@ class ActivateProfileHelper {
                                     adaptiveValue;
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                            Command command = new Command(0, false, command1); //, command2);
+                            Command command = new Command(0, /*false,*/ command1); //, command2);
                             try {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 RootUtils.commandWait(command, "ActivateProfileHelper.executeRootForAdaptiveBrightness");
@@ -5723,7 +5709,6 @@ class ActivateProfileHelper {
         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
         if (powerManager != null) {
             try {
-                Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+PPApplication.keepScreenOnWakeLock);
                 if (PPApplication.keepScreenOnWakeLock == null)
                     PPApplication.keepScreenOnWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
                             PowerManager.ACQUIRE_CAUSES_WAKEUP, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_createKeepScreenOnView");
@@ -5734,7 +5719,6 @@ class ActivateProfileHelper {
             }
             try {
                 if ((PPApplication.keepScreenOnWakeLock != null) && (!PPApplication.keepScreenOnWakeLock.isHeld())) {
-                    Log.e("ActivateProfileHelper.createKeepScreenOnView", "acquire");
                     PPApplication.keepScreenOnWakeLock.acquire();
                 }
             } catch (Exception e) {
@@ -5834,7 +5818,6 @@ class ActivateProfileHelper {
             //PhoneProfilesService service = PhoneProfilesService.getInstance();
 
             /*try {
-                Log.e("ActivateProfileHelper.removeKeepScreenOnView", "keepScreenOnWakeLock="+PPApplication.keepScreenOnWakeLock);
                 if ((PPApplication.keepScreenOnWakeLock != null) && PPApplication.keepScreenOnWakeLock.isHeld())
                     PPApplication.keepScreenOnWakeLock.release();
             } catch (Exception e) {
@@ -5889,7 +5872,7 @@ class ActivateProfileHelper {
                 //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                 //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
                 //}
-                Command command = new Command(0, true, command1, command2);
+                Command command = new Command(0, /*false,*/ command1, command2);
                 try {
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     RootUtils.commandWait(command, "ActivateProfileHelper.setAirplaneMode");
@@ -5903,10 +5886,12 @@ class ActivateProfileHelper {
         }
         else
         if (useAssistant && isPPPSetAsDefaultAssistant(context)) {
-            Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
-            intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
-            intent.putExtra("airplane_mode_enabled", mode);
-            context.sendBroadcast(intent);
+            if (Build.VERSION.SDK_INT >= 26) {
+                Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
+                intent.putExtra("ACTION", Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE);
+                intent.putExtra(Settings.EXTRA_AIRPLANE_MODE_ENABLED, mode);
+                context.sendBroadcast(intent);
+            }
         }
     }
 
@@ -6154,7 +6139,7 @@ class ActivateProfileHelper {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "svc data " + (enable ? "enable" : "disable");
                         //PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
-                        Command command = new Command(0, false, command1);
+                        Command command = new Command(0, /*false,*/ command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
                             RootUtils.commandWait(command, "ActivateProfileHelper.setMobileData");
@@ -6256,7 +6241,7 @@ class ActivateProfileHelper {
             synchronized (PPApplication.rootMutex) {
                 String command1 = "svc wifi " + (enable ? "enable" : "disable");
                 //PPApplication.logE("ActivateProfileHelper.setWifiInAirplaneMode", "command=" + command1);
-                Command command = new Command(0, false, command1);
+                Command command = new Command(0, /*false,*/ command1);
                 try {
                     RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
                     RootUtils.commandWait(command, "ActivateProfileHelper.setWifiInAirplaneMode");
@@ -6415,7 +6400,7 @@ class ActivateProfileHelper {
                                                 String command1 = RootUtils.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "command1=" + command1);
                                                 if (command1 != null) {
-                                                    Command command = new Command(0, false, command1)/* {
+                                                    Command command = new Command(0, /*false,*/ command1)/* {
                                                         @Override
                                                         public void commandOutput(int id, String line) {
                                                             PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "command output -> line=" + line);
@@ -6520,7 +6505,7 @@ class ActivateProfileHelper {
                             String command1 = RootUtils.getServiceCommand("wifi", transactionCode, 0, (enable) ? 1 : 0);
                             if (command1 != null) {
                                 //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-command1=" + command1);
-                                Command command = new Command(0, false, command1);
+                                Command command = new Command(0, /*false,*/ command1);
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     RootUtils.commandWait(command, "ActivateProfileHelper.setWifiAP");
@@ -6582,7 +6567,7 @@ class ActivateProfileHelper {
                 synchronized (PPApplication.rootMutex) {
                     String command1 = RootUtils.getJavaCommandFile(CmdNfc.class, "nfc", appContext, enable);
                     if (command1 != null) {
-                        Command command = new Command(0, false, command1);
+                        Command command = new Command(0, /*false,*/ command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                             RootUtils.commandWait(command, "ActivateProfileHelper.setNFC");
@@ -6680,7 +6665,7 @@ class ActivateProfileHelper {
                     */
                     synchronized (PPApplication.rootMutex) {
                         command1 = "settings put secure location_providers_allowed +gps";
-                        Command command = new Command(0, false, command1);
+                        Command command = new Command(0, /*false,*/ command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             RootUtils.commandWait(command, "ActivateProfileHelper.setGPS (1)");
@@ -6735,7 +6720,7 @@ class ActivateProfileHelper {
                     */
                     synchronized (PPApplication.rootMutex) {
                         command1 = "settings put secure location_providers_allowed -gps";
-                        Command command = new Command(0, false, command1);
+                        Command command = new Command(0, /*false,*/ command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             RootUtils.commandWait(command, "ActivateProfileHelper.setGPS (2)");
@@ -6869,7 +6854,7 @@ class ActivateProfileHelper {
                                                 (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);
-                                                Command command = new Command(0, false, command1);
+                                                Command command = new Command(0, /*false,*/ command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                     RootUtils.commandWait(command, "ActivateProfileHelper.setPowerSaveMode");
@@ -6969,7 +6954,7 @@ class ActivateProfileHelper {
                                     }*/
                                     String command1 = RootUtils.getJavaCommandFile(CmdGoToSleep.class, "power", appContext, 0);
                                     if (command1 != null) {
-                                        Command command = new Command(0, false, command1);
+                                        Command command = new Command(0, /*false,*/ command1);
                                         try {
                                             RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                                             RootUtils.commandWait(command, "ActivateProfileHelper.lockDevice");
@@ -7061,7 +7046,7 @@ class ActivateProfileHelper {
                                 command1 = command1 + "2";
                             else
                                 command1 = command1 + "1";
-                            Command command = new Command(0, false, command1);
+                            Command command = new Command(0, /*false,*/ command1);
                             try {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 RootUtils.commandWait(command, "ActivateProfileHelper.setScreenDarkMode");
@@ -7263,7 +7248,7 @@ class ActivateProfileHelper {
 //                                                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command2=" + command2);
 
                                                             if ((command1 != null)/* && (!command2.isEmpty())*/) {
-                                                                Command command = new Command(0, false, command2, command1);
+                                                                Command command = new Command(0, /*false,*/ command2, command1);
                                                                 try {
                                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                                     RootUtils.commandWait(command, "ActivateProfileHelper.setDefaultSimCard");
@@ -7390,7 +7375,7 @@ class ActivateProfileHelper {
                                             //String command1 = PPApplication.getServiceCommand("phone", transactionCode, slotIndex, state);
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
                                             if (command1 != null) {
-                                                Command command = new Command(0, false, command1)/* {
+                                                Command command = new Command(0, /*false,*/ command1)/* {
                                                     @Override
                                                     public void commandOutput(int id, String line) {
                                                         PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command output -> line=" + line);
@@ -7434,12 +7419,10 @@ class ActivateProfileHelper {
                         case 1:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
                             try {
-                                //PPApplication.startHandlerThreadProfileActivation();
-                                //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                                //        context.getApplicationContext()) {
-                                //__handler.post(() -> {
-                                Runnable runnable = () -> {
+                                // keep this: it is required to use handlerThreadBroadcast for cal listener
+                                PPApplication.startHandlerThreadBroadcast();
+                                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                                __handler.post(() -> {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -7469,9 +7452,7 @@ class ActivateProfileHelper {
                                             }
                                         }
                                     }
-                                }; //);
-                                PPApplication.createProfileActiationExecutorPool();
-                                PPApplication.profileActiationExecutorPool.submit(runnable);
+                                });
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
@@ -7479,12 +7460,10 @@ class ActivateProfileHelper {
                         case 2:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
                             try {
-                                //PPApplication.startHandlerThreadProfileActivation();
-                                //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-                                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                                //        context.getApplicationContext()) {
-                                //__handler.post(() -> {
-                                Runnable runnable = () -> {
+                                // keep this: it is required to use handlerThreadBroadcast for cal listener
+                                PPApplication.startHandlerThreadBroadcast();
+                                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                                __handler.post(() -> {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileHelper.execute");
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -7514,10 +7493,7 @@ class ActivateProfileHelper {
                                             }
                                         }
                                     }
-                                }; //);
-                                PPApplication.createProfileActiationExecutorPool();
-                                PPApplication.profileActiationExecutorPool.submit(runnable);
-
+                                });
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }

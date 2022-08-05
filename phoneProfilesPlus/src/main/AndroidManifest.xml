@@ -72,7 +72,8 @@
          functionality and does not receive it from your assistant app, the requesting app will immediately crash.
          The Android RecognitionService functionality is a widely used service. To fix the issue as soon as
          possible, please review the below recommendation." -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" android:maxSdkVersion="30" />
+<!--    <uses-permission android:name="android.permission.RECORD_AUDIO" android:maxSdkVersion="30" />-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-permission android:name="sk.henrichg.phoneprofiles.EXPORT_PP_DATA_PERMISSION" />
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
@@ -473,6 +474,7 @@
         </activity>
         <activity
             android:name=".LaunchWidgetIconConfigurationActivity"
+            android:exported="true"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
@@ -480,6 +482,7 @@
         </activity>
         <activity
             android:name=".LaunchWidgetOneRowConfigurationActivity"
+            android:exported="true"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
@@ -487,6 +490,7 @@
         </activity>
         <activity
             android:name=".LaunchWidgetListConfigurationActivity"
+            android:exported="true"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
@@ -494,6 +498,14 @@
         </activity>
         <activity
             android:name=".LaunchSamsungEdgeConfigurationActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
+            android:name=".GrantNotificationPermissionAtFirstStartActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
@@ -716,6 +728,7 @@
         </service>
 
         <service android:name="sk.henrichg.phoneprofilesplus.PPVoiceService"
+            android:exported="true"
             android:permission="android.permission.BIND_VOICE_INTERACTION"
             tools:ignore="IntentFilterExportedReceiver">
             <meta-data android:name="android.voice_interaction"
@@ -726,6 +739,7 @@
         </service>
 
         <service android:name="sk.henrichg.phoneprofilesplus.PPVoiceSessionService"
+            android:exported="true"
             android:permission="android.permission.BIND_VOICE_INTERACTION"/>
 
         <!-- This service is required, when user needs to configure PPP as default assistant, for -->

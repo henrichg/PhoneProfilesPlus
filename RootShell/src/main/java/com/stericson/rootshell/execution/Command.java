@@ -57,7 +57,8 @@ public class Command {
 
     boolean terminated = false;
 
-    boolean handlerEnabled = true;
+    // !!! PPP do not use handler in Command !!!
+    boolean handlerEnabled = false;
 
     int exitCode = -1;
 
@@ -75,23 +76,23 @@ public class Command {
         this.command = command;
         this.id = id;
 
-        createHandler(RootShell.handlerEnabled);
+        //createHandler(RootShell.handlerEnabled);
     }
 
-    /**
-     * Constructor for executing a normal shell command
-     *
-     * @param id             the id of the command being executed
+    /*
+      Constructor for executing a normal shell command
+
+      @param id             the id of the command being executed
      * @param handlerEnabled when true the handler will be used to call the
      *                       callback methods if possible.
      * @param command        the command, or commands, to be executed.
      */
-    public Command(int id, boolean handlerEnabled, String... command) {
-        this.command = command;
-        this.id = id;
-
-        createHandler(handlerEnabled);
-    }
+//    public Command(int id, boolean handlerEnabled, String... command) {
+//        this.command = command;
+//        this.id = id;
+//
+//        //createHandler(handlerEnabled);
+//    }
 
     /**
      * Constructor for executing a normal shell command
@@ -106,7 +107,7 @@ public class Command {
         this.id = id;
         this.timeout = timeout;
 
-        createHandler(RootShell.handlerEnabled);
+        //createHandler(RootShell.handlerEnabled);
     }
 
     //If you override this you MUST make a final call
@@ -145,6 +146,7 @@ public class Command {
         }
     }
 
+    @SuppressWarnings("unused")
     private void createHandler(boolean handlerEnabled) {
 
         this.handlerEnabled = handlerEnabled;

@@ -232,12 +232,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
                 if (!isImageResourceID) {
                     try {
                         Uri picturesUri = Uri.parse(imageIdentifier);
-                        //Log.e("ProfileIconPreferenceX.startGallery", "picturesUri="+picturesUri);
                         if (picturesUri != null) {
-                            //Log.e("ProfileIconPreferenceX.startGallery", "path="+picturesUri.getPath());
-                            //List<String> segments = picturesUri.getPathSegments();
-                            //for (String segment : segments)
-                            //    Log.e("ProfileIconPreferenceX.startGallery", "segment="+segment);
                             intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
                         }
                         ok = true;
@@ -247,16 +242,9 @@ public class ProfileIconPreferenceX extends DialogPreference {
                 if (!ok) {
                     try {
                         File pictures = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                        //Log.e("ProfileIconPreferenceX.startGallery", "pictures=" + pictures);
                         String fileName = pictures.getName();
-                        //Log.e("ProfileIconPreferenceX.startGallery", "fileName=" + fileName);
                         Uri picturesUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:" + fileName);
-                        //Log.e("ProfileIconPreferenceX.startGallery", "picturesUri=" + picturesUri);
                         if (picturesUri != null) {
-                            //Log.e("ProfileIconPreferenceX.startGallery", "path="+picturesUri.getPath());
-                            //List<String> segments = picturesUri.getPathSegments();
-                            //for (String segment : segments)
-                            //    Log.e("ProfileIconPreferenceX.startGallery", "segment="+segment);
                             intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, picturesUri);
                         }
                     } catch (Exception ignored) {

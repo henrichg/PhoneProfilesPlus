@@ -32,7 +32,6 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
 
         if (profileName != null) {
             profileName = profileName.trim();
-            //Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "profileName="+profileName);
 
             if (!profileName.isEmpty()) {
                 profile_id = dataWrapper.getProfileIdByName(profileName, true);
@@ -43,7 +42,6 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
                         break;
                     }
                 }*/
-                //Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "profile_id="+profile_id);
             }
         }
     }

@@ -64,7 +64,7 @@ public class Runner extends Thread
         {
             try
             {
-                Command command = new Command(0, false, privateFilesPath + "/" + binaryName + " " + parameter);
+                Command command = new Command(0, /*false,*/ privateFilesPath + "/" + binaryName + " " + parameter);
                 Shell.startRootShell().add(command);
                 commandWait(command);
 

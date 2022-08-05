@@ -204,8 +204,6 @@ public class EditorEventListFragment extends Fragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        Log.e("EditorEventListFragment.onViewCreated", "xxxxx");
-
         doOnViewCreated(view, true);
 
         //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
@@ -244,14 +242,12 @@ public class EditorEventListFragment extends Fragment
                             return;
 
                         headerHeight = activatedProfileHeader.getMeasuredHeight();
-                        //Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
                         hideAnimatorHeader = ValueAnimator.ofInt(headerHeight / 4, 0);
                         hideAnimatorHeader.setDuration(500);
                         hideAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             @Override
                             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                                 int val = (Integer) valueAnimator.getAnimatedValue();
-                                //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
                                 ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
                                 layoutParams.height = val * 4;
                                 activatedProfileHeader.setLayoutParams(layoutParams);
@@ -263,7 +259,6 @@ public class EditorEventListFragment extends Fragment
                             @Override
                             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                                 int val = (Integer) valueAnimator.getAnimatedValue();
-                                //Log.e("showAnimator.onAnimationUpdate", "val="+val);
                                 ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
                                 layoutParams.height = val * 4;
                                 activatedProfileHeader.setLayoutParams(layoutParams);
@@ -271,14 +266,12 @@ public class EditorEventListFragment extends Fragment
                         });
 
                         bottomBarHeight = bottomToolbar.getMeasuredHeight();
-                        //Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
                         hideAnimatorBottomBar = ValueAnimator.ofInt(bottomBarHeight / 4, 0);
                         hideAnimatorBottomBar.setDuration(500);
                         hideAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             @Override
                             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                                 int val = (Integer) valueAnimator.getAnimatedValue();
-                                //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
                                 ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
                                 layoutParams.height = val * 4;
                                 bottomToolbar.setLayoutParams(layoutParams);
@@ -290,7 +283,6 @@ public class EditorEventListFragment extends Fragment
                             @Override
                             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                                 int val = (Integer) valueAnimator.getAnimatedValue();
-                                //Log.e("showAnimator.onAnimationUpdate", "val="+val);
                                 ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
                                 layoutParams.height = val * 4;
                                 bottomToolbar.setLayoutParams(layoutParams);
@@ -522,7 +514,6 @@ public class EditorEventListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
-            //Log.e("EditorEventListFragment.LoadEventListAsyncTask","_dataWrapper.eventList.size()="+_dataWrapper.eventList.size());
 
             if ((_dataWrapper.eventList.size() == 0) /*&& PPApplication.restoreFinished*/)
             {
@@ -634,9 +625,6 @@ public class EditorEventListFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
-
-//        Log.e("EditorEventListFragment.onDestroy", "xxxxx");
-
 
         if (isAsyncTaskPendingOrRunning()) {
             stopRunningAsyncTask();
@@ -1092,8 +1080,6 @@ public class EditorEventListFragment extends Fragment
         if ((activeProfileName == null) || (activeProfileIcon == null))
             return;
 
-        //Log.e("***** EditorEventListFragment.updateHeader", "profile="+profile);
-
         String oldDisplayedText = (String)activatedProfileHeader.getTag();
 
         if (profile == null)
@@ -1106,10 +1092,6 @@ public class EditorEventListFragment extends Fragment
         else
         {
             Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
-            //Log.e("EditorEventListFragment.updateHeader", "profileName="+profileName);
-            //Log.e("EditorEventListFragment.updateHeader", "activityDataWrapper="+activityDataWrapper);
-            //String eventName1 = DataWrapper._getLastStartedEventName(activityDataWrapper, profile);
-            //Log.e("EditorEventListFragment.updateHeader", "eventName1="+eventName1);
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
             for (Object span : spansToRemove) {
@@ -1656,9 +1638,7 @@ public class EditorEventListFragment extends Fragment
                 //orderSpinner.getLocationOnScreen(screenLocation);
                 //orderSpinner.getLocationInWindow(screenLocation);
                 //Rect orderSpinnerTarget = new Rect(0, 0, orderSpinner.getHeight(), orderSpinner.getHeight());
-                //Log.e("+++++++++++ EditorEventListFragment.showTargetHelps", "orderSpinner.getHeight()="+orderSpinner.getHeight());
                 //orderSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
-                //Log.e("+++++++++++ EditorEventListFragment.showTargetHelps", "orderSpinnerTarget="+orderSpinnerTarget);
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();

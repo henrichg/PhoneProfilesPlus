@@ -191,7 +191,7 @@ public final class RootToolsInternalMethods {
                 RootTools.log("cp command is available!");
 
                 if (preserveFileAttributes) {
-                    command = new Command(0, false, "cp -fp " + source + " " + destination);
+                    command = new Command(0, /*false,*/ "cp -fp " + source + " " + destination);
                     //Shell.startRootShell().add(command);
                     //commandWait(Shell.startRootShell(), command);
 
@@ -199,7 +199,7 @@ public final class RootToolsInternalMethods {
                     //result = command.getExitCode() == 0;
 
                 } else {
-                    command = new Command(0, false, "cp -f " + source + " " + destination);
+                    command = new Command(0, /*false,*/ "cp -f " + source + " " + destination);
                     //Shell.startRootShell().add(command);
                     //commandWait(Shell.startRootShell(), command);
 
@@ -217,12 +217,12 @@ public final class RootToolsInternalMethods {
                     RootTools.log("busybox cp command is available!");
 
                     if (preserveFileAttributes) {
-                        command = new Command(0, false, "busybox cp -fp " + source + " " + destination);
+                        command = new Command(0, /*false,*/ "busybox cp -fp " + source + " " + destination);
                         //Shell.startRootShell().add(command);
                         //commandWait(Shell.startRootShell(), command);
 
                     } else {
-                        command = new Command(0, false, "busybox cp -f " + source + " " + destination);
+                        command = new Command(0, /*false,*/ "busybox cp -f " + source + " " + destination);
                         //Shell.startRootShell().add(command);
                         //commandWait(Shell.startRootShell(), command);
 
@@ -243,13 +243,13 @@ public final class RootToolsInternalMethods {
                         }
 
                         // copy with cat
-                        command = new Command(0, false, "cat " + source + " > " + destination);
+                        command = new Command(0, /*false,*/ "cat " + source + " > " + destination);
                         Shell.startRootShell().add(command);
                         commandWait(Shell.startRootShell(), command);
 
                         if (preserveFileAttributes) {
                             // set permissions of source to destination
-                            command = new Command(0, false, "chmod " + filePermission + " " + destination);
+                            command = new Command(0, /*false,*/ "chmod " + filePermission + " " + destination);
                             Shell.startRootShell().add(command);
                             commandWait(Shell.startRootShell(), command);
                         }
@@ -333,7 +333,7 @@ public final class RootToolsInternalMethods {
             if (hasUtil("rm", "toolbox")) {
                 RootTools.log("rm command is available!");
 
-                Command command = new Command(0, false, "rm -r " + target);
+                Command command = new Command(0, /*false,*/ "rm -r " + target);
                 Shell.startRootShell().add(command);
                 commandWait(Shell.startRootShell(), command);
 
@@ -345,7 +345,7 @@ public final class RootToolsInternalMethods {
                 if (checkUtil("busybox") && hasUtil("rm", "busybox")) {
                     RootTools.log("busybox rm command is available!");
 
-                    Command command = new Command(0, false, "busybox rm -rf " + target);
+                    Command command = new Command(0, /*false,*/ "busybox rm -rf " + target);
                     Shell.startRootShell().add(command);
                     commandWait(Shell.startRootShell(), command);
 
@@ -386,13 +386,13 @@ public final class RootToolsInternalMethods {
 
             if (foundPaths.size() > 0) {
                 for (String path : foundPaths) {
-                    Command command = new Command(0, false, utilPath + " rm " + path + "/" + util);
+                    Command command = new Command(0, /*false,*/ utilPath + " rm " + path + "/" + util);
                     RootShell.getShell(true).add(command);
                     commandWait(RootShell.getShell(true), command);
 
                 }
 
-                Command command = new Command(0, false, utilPath + " ln -s " + utilPath + " /system/bin/" + util, utilPath + " chmod 0755 /system/bin/" + util);
+                Command command = new Command(0, /*false,*/ utilPath + " ln -s " + utilPath + " /system/bin/" + util, utilPath + " chmod 0755 /system/bin/" + util);
                 RootShell.getShell(true).add(command);
                 commandWait(RootShell.getShell(true), command);
 
@@ -456,7 +456,7 @@ public final class RootToolsInternalMethods {
 
         final List<String> results = new ArrayList<>();
 
-        Command command = new Command(Constants.BBA, false, path + "busybox --list") {
+        Command command = new Command(Constants.BBA, /*false,*/ path + "busybox --list") {
             @Override
             public void commandOutput(int id, String line) {
                 if (id == Constants.BBA) {
@@ -476,7 +476,7 @@ public final class RootToolsInternalMethods {
         if (results.size() <= 0) {
             //try with root...
 
-            command = new Command(Constants.BBA, false, path + "busybox --list") {
+            command = new Command(Constants.BBA, /*false,*/ path + "busybox --list") {
                 @Override
                 public void commandOutput(int id, String line) {
                     if (id == Constants.BBA) {
@@ -508,7 +508,7 @@ public final class RootToolsInternalMethods {
         }
 
         try {
-            Command command = new Command(Constants.BBV, false, path + "busybox") {
+            Command command = new Command(Constants.BBV, /*false,*/ path + "busybox") {
                 @Override
                 public void commandOutput(int id, String line) {
                     line = line.trim();
@@ -541,7 +541,7 @@ public final class RootToolsInternalMethods {
 
             if (version.length() <= 0) {
 
-                command = new Command(Constants.BBV, false, path + "busybox") {
+                command = new Command(Constants.BBV, /*false,*/ path + "busybox") {
                     @Override
                     public void commandOutput(int id, String line) {
                         line = line.trim();
@@ -618,7 +618,7 @@ public final class RootToolsInternalMethods {
      */
     public String getInode(String file) {
         try {
-            Command command = new Command(Constants.GI, false, "/data/local/ls -i " + file) {
+            Command command = new Command(Constants.GI, /*false,*/ "/data/local/ls -i " + file) {
 
                 @Override
                 public void commandOutput(int id, String line) {
@@ -677,7 +677,8 @@ public final class RootToolsInternalMethods {
             try {
 
                 Command command = new Command(
-                        Constants.FPS, false, "ls -l " + file,
+                        Constants.FPS, /*false,*/
+                        "ls -l " + file,
                         "busybox ls -l " + file,
                         "/system/bin/failsafe/toolbox ls -l " + file,
                         "toolbox ls -l " + file) {
@@ -748,7 +749,7 @@ public final class RootToolsInternalMethods {
             Shell shell = RootTools.getShell(true);
 
             Command cmd = new Command(Constants.GET_MOUNTS,
-                    false,
+                    //false,
                     "cat /proc/mounts") {
 
                 @Override
@@ -826,7 +827,7 @@ public final class RootToolsInternalMethods {
         boolean found = false;
         RootTools.log("Looking for Space");
         try {
-            final Command command = new Command(Constants.GS, false, "df " + path) {
+            final Command command = new Command(Constants.GS, /*false,*/ "df " + path) {
 
                 @Override
                 public void commandOutput(int id, String line) {
@@ -898,7 +899,7 @@ public final class RootToolsInternalMethods {
         try {
             final List<String> results = new ArrayList<>();
 
-            Command command = new Command(Constants.GSYM, false, "ls -l " + file) {
+            Command command = new Command(Constants.GSYM, /*false,*/ "ls -l " + file) {
 
                 @Override
                 public void commandOutput(int id, String line) {
@@ -965,7 +966,7 @@ public final class RootToolsInternalMethods {
 
         InternalVariables.symlinks = new ArrayList<>();
 
-        Command command = new Command(0, false, "find " + path + " -type l -exec ls -l {} \\;") {
+        Command command = new Command(0, /*false,*/ "find " + path + " -type l -exec ls -l {} \\;") {
             @Override
             public void commandOutput(int id, String line) {
                 if (id == Constants.GET_SYMLINKS) {
@@ -1059,7 +1060,7 @@ public final class RootToolsInternalMethods {
 
         try {
 
-            Command command = new Command(0, false, box.endsWith("toolbox") ? box + " " + util : box + " --list") {
+            Command command = new Command(0, /*false,*/ box.endsWith("toolbox") ? box + " " + util : box + " --list") {
 
                 @Override
                 public void commandOutput(int id, String line) {
@@ -1179,7 +1180,7 @@ public final class RootToolsInternalMethods {
         InternalVariables.processRunning = false;
 
         try {
-            Command command = new Command(0, false, "ps | grep " + processName) {
+            Command command = new Command(0, /*false,*/ "ps | grep " + processName) {
                 @Override
                 public void commandOutput(int id, String line) {
                     if (line.contains(processName)) {
@@ -1215,7 +1216,7 @@ public final class RootToolsInternalMethods {
 
         try {
 
-            Command command = new Command(0, false, "ps") {
+            Command command = new Command(0, /*false,*/ "ps") {
                 @Override
                 public void commandOutput(int id, String line) {
                     if (line.contains(processName)) {
@@ -1251,7 +1252,7 @@ public final class RootToolsInternalMethods {
             if (!pids.equals("")) {
                 try {
                     // example: kill -9 1234 1222 5343
-                    command = new Command(0, false, "kill -9 " + pids);
+                    command = new Command(0, /*false,*/ "kill -9 " + pids);
                     RootTools.getShell(true).add(command);
                     commandWait(RootTools.getShell(true), command);
 

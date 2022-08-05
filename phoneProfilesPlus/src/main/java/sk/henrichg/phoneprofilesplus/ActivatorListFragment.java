@@ -167,14 +167,12 @@ public class ActivatorListFragment extends Fragment {
                         return;
 
                     headerHeight = activatedProfileHeader.getMeasuredHeight();
-                    Log.e("ActivatorListFragment.doOnViewCreated", "headerHeight="+headerHeight);
                     hideAnimator = ValueAnimator.ofInt(headerHeight / 4, 0);
                     hideAnimator.setDuration(500);
                     hideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator valueAnimator) {
                             int val = (Integer) valueAnimator.getAnimatedValue();
-                            //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
                             ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
                             layoutParams.height = val * 4;
                             activatedProfileHeader.setLayoutParams(layoutParams);
@@ -186,7 +184,6 @@ public class ActivatorListFragment extends Fragment {
                         @Override
                         public void onAnimationUpdate(ValueAnimator valueAnimator) {
                             int val = (Integer) valueAnimator.getAnimatedValue();
-                            //Log.e("showAnimator.onAnimationUpdate", "val="+val);
                             ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
                             layoutParams.height = val * 4;
                             activatedProfileHeader.setLayoutParams(layoutParams);

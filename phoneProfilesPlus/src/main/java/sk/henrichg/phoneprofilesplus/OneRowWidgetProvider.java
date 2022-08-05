@@ -239,7 +239,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 prefIndicatorMonochromeValue = 0xFF;
                 break;
         }
-//        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
 
         int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
         if (applicationWidgetOneRowChangeColorsByNightMode &&
@@ -648,7 +647,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 else {
                     // must be removed android:textColor in layout
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
                     if (color != 0) {
                         remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, color);
                     }
@@ -676,7 +674,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     // good, color of this is as in notification ;-)
                     // but must be removed android:tint in layout
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
-//                    Log.e("ProfileListWidgetProvider.buildLayout", "color="+color);
                     if (color != 0) {
                         bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, color);

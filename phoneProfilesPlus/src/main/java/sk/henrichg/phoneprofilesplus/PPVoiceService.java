@@ -11,7 +11,7 @@ import android.service.voice.VoiceInteractionService;
 /* compiled from: MacroDroidVoiceService.kt */
 public final class PPVoiceService extends VoiceInteractionService {
 
-    static final String ACTION_ASSISTANT = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ASSISTANT";
+    static final String ACTION_ASSISTANT = PPApplication.PACKAGE_NAME + ".ACTION_ASSISTANT";
 
     /* renamed from: a */
     @SuppressWarnings("unused")
@@ -39,6 +39,7 @@ public final class PPVoiceService extends VoiceInteractionService {
 
     public void onReady() {
         super.onReady();
+//        PPApplication.logE("PPVoiceService.onReady", "xxx");
         registerReceiver(this.voiceServiceBroadcastReceiver, new IntentFilter(ACTION_ASSISTANT));
     }
 

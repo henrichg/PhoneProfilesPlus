@@ -74,10 +74,6 @@ public class LocaleHelper {
         String countryToStore = country;
         String scriptToStore = script;
 
-//        Log.e("LocaleHelper.setLocale", "languageToStore="+languageToStore);
-//        Log.e("LocaleHelper.setLocale", "countryToStore="+countryToStore);
-//        Log.e("LocaleHelper.setLocale", "scriptToStore="+scriptToStore);
-
         if (language.equals("[sys]")) {
             LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
             try {
@@ -93,9 +89,6 @@ public class LocaleHelper {
                 script = "";
             }
 
-//            Log.e("LocaleHelper.setLocale", "language="+language);
-//            Log.e("LocaleHelper.setLocale", "country="+country);
-//            Log.e("LocaleHelper.setLocale", "script="+script);
         }
 
         Context localizedContext = updateResources(context, language, country, script, !persist);

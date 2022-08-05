@@ -215,7 +215,6 @@ public class RingtonePreferenceX extends DialogPreference {
                             // /data/user/0/sk.henrichg.phoneprofilesplus/files
                             //PPApplication.logE("RingtonePreferenceX.playRingtone", "soundFile=" + soundFile);
                             //mediaPlayer.setDataSource(soundFile.getAbsolutePath());
-                            Log.e("RingtonePreferenceX.playRingtone", "phoneprofiles_silent.ogg");
                             return;
                         }
                         else*/
@@ -600,10 +599,6 @@ public class RingtonePreferenceX extends DialogPreference {
                             String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
                             String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
                             String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
-                            //Log.e("RingtonePreferenceX.refreshListView", "_uri="+_uri);
-                            //Log.e("RingtonePreferenceX.refreshListView", "_title="+_title);
-                            //Log.e("RingtonePreferenceX.refreshListView", "_id="+_id);
-                            //Log.e("RingtonePreferenceX.refreshListView", "manager.getRingtoneUri()="+manager.getRingtoneUri(cursor.getPosition()));
 
                             // for Samsung do not allow external tones
                             boolean add = true;

@@ -396,8 +396,6 @@ class GlobalGUIRoutines {
                         sbt.setSpan(new StyleSpan(Typeface.NORMAL), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                     if (underline) {
-                        //if (preference.getKey().equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_APPLICATIONS))
-                        //    Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "(3)");
                         if (bold)
                             sbt.setSpan(new UnderlineSpan(), 2, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         else

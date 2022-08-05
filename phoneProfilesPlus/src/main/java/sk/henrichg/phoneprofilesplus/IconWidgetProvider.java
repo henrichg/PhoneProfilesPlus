@@ -679,7 +679,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 else {
                     // must be removed android:textColor in layout
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-//                    Log.e("IconWidgetProvider.buildLayout", "color="+color);
                     if (color != 0) {
                         remoteViews.setTextColor(R.id.icon_widget_name, color);
                     }

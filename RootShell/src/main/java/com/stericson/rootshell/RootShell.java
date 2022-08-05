@@ -126,7 +126,7 @@ public class RootShell {
 
         String cmdToExecute = "ls " + (isDir ? "-d " : " ");
 
-        Command command = new Command(0, false, cmdToExecute + file) {
+        Command command = new Command(0, /*false,*/ cmdToExecute + file) {
             @Override
             public void commandOutput(int id, String line) {
                 RootShell.log(line);
@@ -154,7 +154,7 @@ public class RootShell {
 
         result.clear();
 
-        command = new Command(0, false, cmdToExecute + file) {
+        command = new Command(0, /*false,*/ cmdToExecute + file) {
             @Override
             public void commandOutput(int id, String line) {
                 RootShell.log(line);
@@ -229,7 +229,7 @@ public class RootShell {
 
                 final String currentPath = path;
 
-                Command cc = new Command(0, false, "stat " + path + binaryName) {
+                Command cc = new Command(0, /*false,*/ "stat " + path + binaryName) {
                     @Override
                     public void commandOutput(int id, String line) {
                         if (line.contains("File: ") && line.contains(binaryName)) {
@@ -402,7 +402,7 @@ public class RootShell {
         try {
             RootShell.log("Checking for Root access");
 
-            Command command = new Command(IAG, false, "id") {
+            Command command = new Command(IAG, /*false,*/ "id") {
                 @Override
                 public void commandOutput(int id, String line) {
                     if (id == IAG) {

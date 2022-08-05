@@ -47,7 +47,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(alarm.getTimeInMillis());
-//            Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "now=" + result);
+//            PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "now=" + result);
 //        }
 
         long lastAlarm = ApplicationPreferences.
@@ -55,7 +55,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(lastAlarm);
-//            Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
+//            PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
 //        }
 
         long alarmTime;
@@ -67,7 +67,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 //            if (PPApplication.logEnabled()) {
 //                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                String result = sdf.format(alarm.getTimeInMillis());
-//                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
 //            }
 
             alarmTime = alarm.getTimeInMillis();
@@ -96,7 +96,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarm.getTimeInMillis());
-//                    Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                    PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
 //                }
 
                 alarmTime = alarm.getTimeInMillis();
@@ -110,7 +110,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarmTime);
-//                    Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
+//                    PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
 //                }
             }
         }

@@ -204,7 +204,6 @@ public class NumberPickerBuilder {
      */
     public void show() {
         if (manager == null || styleResId == null) {
-            //Log.e("NumberPickerBuilder", "setFragmentManager() and setStyleResId() must be called.");
             return;
         }
         FragmentTransaction ft = manager.beginTransaction();

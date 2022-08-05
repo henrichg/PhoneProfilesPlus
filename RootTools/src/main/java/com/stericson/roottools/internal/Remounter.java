@@ -118,7 +118,7 @@ public class Remounter
                 try
                 {
                     Command command = new Command(0,
-                            true,
+                            //true,
                             "busybox mount -o remount," + mountType.toLowerCase() + " " + mountPoint.getDevice().getAbsolutePath() + " " + mountPoint.getMountPoint().getAbsolutePath(),
                             "busybox mount -o remount," + mountType.toLowerCase() + " " + file,
                             "busybox mount -o " + mountType.toLowerCase() + ",remount " + mountPoint.getDevice().getAbsolutePath(),

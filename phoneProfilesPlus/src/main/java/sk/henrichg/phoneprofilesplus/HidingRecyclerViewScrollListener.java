@@ -16,7 +16,6 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
         super.onScrolled(recyclerView, dx, dy);
 
         //int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        //Log.e("HidingRecyclerViewScrollListener.onScrolled", "firstVisibleItem="+firstVisibleItem);
         //show views if first item is first visible position and views are hidden
         /*if (firstVisibleItem == 0) {
             if(!controlsVisible) {

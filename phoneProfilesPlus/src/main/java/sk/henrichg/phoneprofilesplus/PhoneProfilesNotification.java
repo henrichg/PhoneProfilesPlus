@@ -602,8 +602,6 @@ public class PhoneProfilesNotification {
                         appContext);
         decoratorColor = notificationIconData.decoratorColor;
 
-//        Log.e("PhoneProfilesService._showProfileNotification", "notificationProfileIconColor="+notificationProfileIconColor);
-//        Log.e("PhoneProfilesService._showProfileNotification", "decoratorColor="+decoratorColor);
         if (notificationProfileIconColor.equals("0"))
             notificationBuilder.setColor(decoratorColor);
 
@@ -726,7 +724,6 @@ public class PhoneProfilesNotification {
                 } else {
                     if (notificationProfileIconColor.equals("0")) {
                         int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
-//                    Log.e("PhoneProfilesService._showProfileNotification", "color="+color);
                         if (color != 0) {
                             contentViewLarge.setTextColor(R.id.notification_activated_profile_name, color);
                             if (contentView != null)
@@ -916,7 +913,6 @@ public class PhoneProfilesNotification {
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
                         if ((Build.VERSION.SDK_INT >= 31) && notificationProfileIconColor.equals("0")) {
                             int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, appContext);
-//                            Log.e("PhoneProfilesService._addRestartEventsToProfileNotification", "color="+String.format("#%06X", 0xFFFFFF & color));
                             if (color != 0) {
                                 restartEventsBitmap = BitmapManipulator.recolorBitmap(restartEventsBitmap, color);
                             } else {
@@ -1396,13 +1392,11 @@ public class PhoneProfilesNotification {
         //if (!doNotShowProfileNotification) {
             //if (PhoneProfilesService.getInstance() != null) {
 //                PPApplication.logE("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
-//                Log.e("PhoneProfilesService.forceDrawProfileNotification", "call of _showProfileNotification()");
 
             clearOldProfileNotification(appContext);
 
             //if (PhoneProfilesService.getInstance() != null) {
             synchronized (PPApplication.showPPPNotificationMutex) {
-//                        Log.e("PhoneProfilesService.forceDrawProfileNotification", "(2))");
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
                 _showProfileNotification(dataWrapper, false);
                 dataWrapper.invalidateDataWrapper();
@@ -1490,7 +1484,6 @@ public class PhoneProfilesNotification {
                                 synchronized (PPApplication.showPPPNotificationMutex) {
                                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
                                     PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
-                                    //Log.e("PhoneProfilesService.drawProfileNotification", "(1)");
                                 }
                             }
                         }
@@ -1535,7 +1528,6 @@ public class PhoneProfilesNotification {
 
 //                    PPApplication.logE("[WORKER_CALL] PhoneProfilesService.showProfileNotification", "xxx");
                         workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                        //Log.e("PhoneProfilesService.drawProfileNotification", "(2)");
                     }
                 }
             } catch (Exception e) {

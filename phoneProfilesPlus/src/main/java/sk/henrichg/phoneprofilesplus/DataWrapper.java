@@ -377,7 +377,6 @@ public class DataWrapper {
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                 //noinspection unused
                 Profile profile = it.next(); // this must be called
-//                  Log.e("DataWrapper.invalidateProfileList", "profile="+profile._name);
                 it.remove();
             }
             profileListFilled = false;
@@ -390,7 +389,6 @@ public class DataWrapper {
             //{
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
-//                    Log.e("DataWrapper.invalidateProfileList", "profile="+profile._name);
                     profile.releaseIconBitmap();
                     profile.releasePreferencesIndicator();
                     it.remove();
