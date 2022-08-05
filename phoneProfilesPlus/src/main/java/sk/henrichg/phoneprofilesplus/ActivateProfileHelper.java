@@ -5904,7 +5904,7 @@ class ActivateProfileHelper {
         }
         else
         if (useAssistant && isPPPSetAsDefaultAssistant(context)) {
-            if (Build.VERSION.SDK_INT >= 30) {
+            if (Build.VERSION.SDK_INT >= 26) {
                 Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
                 intent.putExtra("ACTION", Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE);
                 intent.putExtra(Settings.EXTRA_AIRPLANE_MODE_ENABLED, mode);

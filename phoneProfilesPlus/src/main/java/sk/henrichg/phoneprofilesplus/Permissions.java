@@ -1007,7 +1007,7 @@ class Permissions {
     static void checkProfileMicrophone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return /*true*/;
 
-        if (Build.VERSION.SDK_INT >= 30) {
+        if (Build.VERSION.SDK_INT >= 26) {
             try {
                 if ((profile._deviceAirplaneMode >= 4)/* &&
                         (!PPApplication.isRooted(false))*/) {
@@ -1610,7 +1610,7 @@ class Permissions {
 
     static boolean checkMicrophone(Context context) {
         try {
-            if (Build.VERSION.SDK_INT >= 30)
+            if (Build.VERSION.SDK_INT >= 26)
                 return (ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED);
             else
                 return true;

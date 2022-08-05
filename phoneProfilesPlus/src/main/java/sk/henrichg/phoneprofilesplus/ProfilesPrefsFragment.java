@@ -508,7 +508,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
         }
 
-        if (android.os.Build.VERSION.SDK_INT < 30) {
+        if (android.os.Build.VERSION.SDK_INT < 26) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
             if (preference != null)
             {
@@ -2377,7 +2377,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Permissions.checkProfileMicrophone(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
-            if (/*(!PPApplication.isRooted(true)) &&*/ (profile._deviceAirplaneMode >= 4)) {
+            if ((Build.VERSION.SDK_INT >= 26) && (profile._deviceAirplaneMode >= 4)) {
                 // change only when default assistant is false, becuse may be checked also for another
                 // profile parameters
                 boolean defaultAssistantSet = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context);
@@ -5634,7 +5634,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
             }
         }
-        /*if (Build.VERSION.SDK_INT >= 30) {
+        /*if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS)) {
                 // RECORD_AUDIO must be granted for set PPP as default assistant
                 // must be enabled when PPP is defult assistant
