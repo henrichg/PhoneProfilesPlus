@@ -63,6 +63,7 @@ class PPExecutors {
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
     }
 
+/*
     static void doRestartEventsWithDelay(final boolean alsoRescan, final boolean unblockEventsRun, final int logType, Context context) {
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -120,7 +121,7 @@ class PPExecutors {
         PPApplication.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
-
+*/
     static void handleEvents(Context context, int _sensorType, String _sensorName, int delay) {
 //        PPApplication.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEvents", "schedule - " + _sensorName);
 

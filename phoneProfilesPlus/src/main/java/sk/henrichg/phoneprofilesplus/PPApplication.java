@@ -225,8 +225,8 @@ public class PPApplication extends Application
                                                 //+"|ImportantInfoNotification"
                                                 //+"|ImportantInfoHelpFragment"
 
-//                                                +"|[IN_WORKER]"
-//                                                +"|[WORKER_CALL]"
+                                                +"|[IN_WORKER]"
+                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
 //                                                +"|[EXECUTOR_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
@@ -816,7 +816,7 @@ public class PPApplication extends Application
     static volatile CalendarEventExistsCheckBroadcastReceiver calendarEventExistsCheckBroadcastReceiver = null;
     static volatile PeriodicEventEndBroadcastReceiver periodicEventEndBroadcastReceiver = null;
     static volatile DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
-    static volatile RestartEventsWithDelayBroadcastReceiver restartEventsWithDelayBroadcastReceiver = null;
+    //static volatile RestartEventsWithDelayBroadcastReceiver restartEventsWithDelayBroadcastReceiver = null;
     static volatile ActivatedProfileEventBroadcastReceiver activatedProfileEventBroadcastReceiver = null;
     static volatile VPNNetworkCallback vpnConnectionCallback = null;
 
