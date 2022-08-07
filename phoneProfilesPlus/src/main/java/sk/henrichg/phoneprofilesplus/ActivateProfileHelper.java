@@ -5583,11 +5583,15 @@ class ActivateProfileHelper {
 //                else
 //                    params.gravity = Gravity.END | Gravity.TOP;
                 PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = new BrightnessView(appContext);
-                try {
-                    windowManager.addView(PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView, params);
-                } catch (Exception e) {
-                    PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = null;
-                }
+
+                final Handler handler = new Handler(context.getMainLooper());
+                handler.post(() -> {
+                    try {
+                        windowManager.addView(PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView, params);
+                    } catch (Exception e) {
+                        PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = null;
+                    }
+                });
             }
         }
     }
@@ -5645,12 +5649,15 @@ class ActivateProfileHelper {
                 else
                     params.screenBrightness = profile.getDeviceBrightnessManualValue(appContext) / (float) 255;
                 PPApplication.brightnessView = new BrightnessView(appContext);
-                try {
-                    windowManager.addView(PPApplication.brightnessView, params);
-                } catch (Exception e) {
-                    PPApplication.brightnessView = null;
-                }
 
+                final Handler handler = new Handler(context.getMainLooper());
+                handler.post(() -> {
+                    try {
+                        windowManager.addView(PPApplication.brightnessView, params);
+                    } catch (Exception e) {
+                        PPApplication.brightnessView = null;
+                    }
+                });
                 final Handler handler = new Handler(appContext.getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -5732,6 +5739,7 @@ class ActivateProfileHelper {
             removeKeepScreenOnView(context);
         WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
         if (windowManager != null) {
+            Log.e("ActivateProfileHelper.createKeepScreenOnView", "xxx");
             int type;
             //if (android.os.Build.VERSION.SDK_INT < 25)
             //    type = WindowManager.LayoutParams.TYPE_TOAST;
@@ -5757,7 +5765,18 @@ class ActivateProfileHelper {
             //    params.gravity = Gravity.END | Gravity.TOP;
             PPApplication.keepScreenOnView = new BrightnessView(appContext);
             try {
-                windowManager.addView(PPApplication.keepScreenOnView, params);
+                final Handler handler = new Handler(context.getMainLooper());
+                handler.post(() -> {
+                    try {
+                        windowManager.addView(PPApplication.keepScreenOnView, params);
+                    } catch (Exception e) {
+//                        Log.e("ActivateProfileHelper.setKeepScreenOnPermanent", Log.getStackTraceString(e));
+                        PPApplication.keepScreenOnView = null;
+                        setKeepScreenOnPermanent(context, false);
+                        removeKeepScreenOnNotification(appContext);
+                    }
+                });
+
                 setKeepScreenOnPermanent(context, true);
 
                 String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
@@ -5801,6 +5820,7 @@ class ActivateProfileHelper {
                 }
 
             } catch (Exception e) {
+//                Log.e("ActivateProfileHelper.setKeepScreenOnPermanent", Log.getStackTraceString(e));
                 PPApplication.keepScreenOnView = null;
                 setKeepScreenOnPermanent(context, false);
                 removeKeepScreenOnNotification(appContext);
