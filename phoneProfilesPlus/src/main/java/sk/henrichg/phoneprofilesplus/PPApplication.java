@@ -983,7 +983,9 @@ public class PPApplication extends Application
         createDelayedEventsHandlerExecutor();
         createDelayedProfileActivationExecutor();
 
+        // keep this: it is required to use handlerThreadBroadcast for cal listener
         startHandlerThreadBroadcast();
+
         startHandlerThreadOrientationScanner(); // for seconds interval
         //startHandlerThread(/*"PPApplication.onCreate"*/);
         //startHandlerThreadCancelWork();
