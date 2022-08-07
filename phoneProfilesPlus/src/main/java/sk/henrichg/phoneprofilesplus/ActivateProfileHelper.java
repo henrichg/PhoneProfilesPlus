@@ -5737,7 +5737,7 @@ class ActivateProfileHelper {
 
         if (PPApplication.keepScreenOnView != null)
             removeKeepScreenOnView(context);
-        WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
+        final WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
         if (windowManager != null) {
 //            Log.e("ActivateProfileHelper.createKeepScreenOnView", "xxx");
             int type;
