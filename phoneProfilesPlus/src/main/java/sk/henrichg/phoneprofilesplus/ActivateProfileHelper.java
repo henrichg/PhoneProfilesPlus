@@ -5739,7 +5739,7 @@ class ActivateProfileHelper {
             removeKeepScreenOnView(context);
         WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
         if (windowManager != null) {
-            Log.e("ActivateProfileHelper.createKeepScreenOnView", "xxx");
+//            Log.e("ActivateProfileHelper.createKeepScreenOnView", "xxx");
             int type;
             //if (android.os.Build.VERSION.SDK_INT < 25)
             //    type = WindowManager.LayoutParams.TYPE_TOAST;
