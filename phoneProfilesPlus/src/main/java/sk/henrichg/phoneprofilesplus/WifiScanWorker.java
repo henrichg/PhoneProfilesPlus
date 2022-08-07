@@ -9,6 +9,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
@@ -560,8 +561,8 @@ public class WifiScanWorker extends Worker {
                 wifiLock.acquire();
             //PPApplication.logE("$$$ WifiScanWorker.lock","xxx");
         } catch (Exception e) {
-            //Log.e("WifiScanWorker.lock", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            Log.e("WifiScanWorker.lock", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
         }
     }
 
@@ -570,12 +571,13 @@ public class WifiScanWorker extends Worker {
         try {
             if ((wifiLock != null) && (wifiLock.isHeld())) {
                 wifiLock.release();
-                wifiLock = null;
             }
             //PPApplication.logE("$$$ WifiScanWorker.unlock", "xxx");
         } catch (Exception e) {
-            //Log.e("WifiScanWorker.unlock", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            Log.e("WifiScanWorker.unlock", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
+        } finally {
+            wifiLock = null;
         }
     }
 
