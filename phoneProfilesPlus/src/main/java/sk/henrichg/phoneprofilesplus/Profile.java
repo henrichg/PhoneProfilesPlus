@@ -418,10 +418,10 @@ public class Profile {
             R.drawable.ic_profile_car_4, R.drawable.ic_profile_car_5, R.drawable.ic_profile_car_6,
             R.drawable.ic_profile_car_7, R.drawable.ic_profile_car_8, R.drawable.ic_profile_car_9,
             R.drawable.ic_profile_car_10, R.drawable.ic_profile_car_11, R.drawable.ic_profile_steering_1,
-            R.drawable.ic_profile_airplane_1, R.drawable.ic_profile_airplane_2, R.drawable.ic_profile_airplane_3,
-            R.drawable.ic_profile_ship_1, R.drawable.ic_profile_ship_2, R.drawable.ic_profile_ship_3,
-            R.drawable.ic_profile_tram_1, R.drawable.ic_profile_tickets_1, R.drawable.ic_profile_tickets_2,
-            R.drawable.ic_profile_travel_1,
+            R.drawable.ic_profile_airplane_4, R.drawable.ic_profile_airplane_1, R.drawable.ic_profile_airplane_2,
+            R.drawable.ic_profile_airplane_3, R.drawable.ic_profile_ship_1, R.drawable.ic_profile_ship_2,
+            R.drawable.ic_profile_ship_3, R.drawable.ic_profile_tram_1, R.drawable.ic_profile_tickets_1,
+            R.drawable.ic_profile_tickets_2, R.drawable.ic_profile_travel_1,
 
             R.drawable.ic_profile_culture_1, R.drawable.ic_profile_culture_6, R.drawable.ic_profile_culture_7,
             R.drawable.ic_profile_culture_2, R.drawable.ic_profile_culture_8, R.drawable.ic_profile_culture_9,
@@ -468,7 +468,7 @@ public class Profile {
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
-            0xff28a174, 0xff28a174,
+            0xff28a174, 0xff28a174, 0xff28a174,
 
             // culture
             0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
@@ -557,6 +557,7 @@ public class Profile {
     static final String ic_profile_airplane_1 = "ic_profile_airplane_1";
     static final String ic_profile_airplane_2 = "ic_profile_airplane_2";
     static final String ic_profile_airplane_3 = "ic_profile_airplane_3";
+    static final String ic_profile_airplane_4 = "ic_profile_airplane_4";
     static final String ic_profile_ship_1 = "ic_profile_ship_1";
     static final String ic_profile_ship_2 = "ic_profile_ship_2";
     static final String ic_profile_ship_3 = "ic_profile_ship_3";
@@ -663,6 +664,7 @@ public class Profile {
         profileIconIdMap.put(ic_profile_car_10, R.drawable.ic_profile_car_10);
         profileIconIdMap.put(ic_profile_car_11, R.drawable.ic_profile_car_11);
         profileIconIdMap.put(ic_profile_steering_1, R.drawable.ic_profile_steering_1);
+        profileIconIdMap.put(ic_profile_airplane_4, R.drawable.ic_profile_airplane_4);
         profileIconIdMap.put(ic_profile_airplane_1, R.drawable.ic_profile_airplane_1);
         profileIconIdMap.put(ic_profile_airplane_2, R.drawable.ic_profile_airplane_2);
         profileIconIdMap.put(ic_profile_airplane_3, R.drawable.ic_profile_airplane_3);
@@ -770,6 +772,7 @@ public class Profile {
         profileIconNotifyId.put(ic_profile_car_10, R.drawable.ic_profile_car_10_notify);
         profileIconNotifyId.put(ic_profile_car_11, R.drawable.ic_profile_car_11_notify);
         profileIconNotifyId.put(ic_profile_steering_1, R.drawable.ic_profile_steering_1_notify);
+        profileIconNotifyId.put(ic_profile_airplane_4, R.drawable.ic_profile_airplane_4_notify);
         profileIconNotifyId.put(ic_profile_airplane_1, R.drawable.ic_profile_airplane_1_notify);
         profileIconNotifyId.put(ic_profile_airplane_2, R.drawable.ic_profile_airplane_2_notify);
         profileIconNotifyId.put(ic_profile_airplane_3, R.drawable.ic_profile_airplane_3_notify);
@@ -877,6 +880,7 @@ public class Profile {
         profileIconNotifyColorId.put(ic_profile_car_10, R.drawable.ic_profile_car_10_notify_color);
         profileIconNotifyColorId.put(ic_profile_car_11, R.drawable.ic_profile_car_11_notify_color);
         profileIconNotifyColorId.put(ic_profile_steering_1, R.drawable.ic_profile_steering_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_airplane_4, R.drawable.ic_profile_airplane_4_notify_color);
         profileIconNotifyColorId.put(ic_profile_airplane_1, R.drawable.ic_profile_airplane_1_notify_color);
         profileIconNotifyColorId.put(ic_profile_airplane_2, R.drawable.ic_profile_airplane_2_notify_color);
         profileIconNotifyColorId.put(ic_profile_airplane_3, R.drawable.ic_profile_airplane_3_notify_color);
