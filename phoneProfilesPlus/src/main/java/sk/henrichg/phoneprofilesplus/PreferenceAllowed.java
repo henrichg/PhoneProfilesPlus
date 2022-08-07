@@ -126,12 +126,25 @@ class PreferenceAllowed {
                         //}
                     }
                 } else {
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                    if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
-                        preferenceAllowed.notAllowedRoot = true;
+                    if (profile != null) {
+                        if (profile._deviceAirplaneMode != 0) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                            preferenceAllowed.notAllowedRoot = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                                preferenceAllowed.notAllowedRoot = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
                     }
-                }
+                    }
             } else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 if (assistantParameter) {
