@@ -5765,10 +5765,12 @@ class ActivateProfileHelper {
             //    params.gravity = Gravity.END | Gravity.TOP;
             PPApplication.keepScreenOnView = new BrightnessView(appContext);
             try {
+                // keep this: it is required to use MainLooper for cal listener
                 final Handler handler = new Handler(context.getMainLooper());
                 handler.post(() -> {
                     try {
                         windowManager.addView(PPApplication.keepScreenOnView, params);
+                        setKeepScreenOnPermanent(context, true);
                     } catch (Exception e) {
 //                        Log.e("ActivateProfileHelper.setKeepScreenOnPermanent", Log.getStackTraceString(e));
                         PPApplication.keepScreenOnView = null;
@@ -5776,8 +5778,6 @@ class ActivateProfileHelper {
                         removeKeepScreenOnNotification(appContext);
                     }
                 });
-
-                setKeepScreenOnPermanent(context, true);
 
                 String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
                                 "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\"";
