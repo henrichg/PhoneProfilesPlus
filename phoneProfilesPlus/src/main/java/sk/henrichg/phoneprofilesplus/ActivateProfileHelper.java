@@ -5764,67 +5764,61 @@ class ActivateProfileHelper {
             //else
             //    params.gravity = Gravity.END | Gravity.TOP;
             PPApplication.keepScreenOnView = new BrightnessView(appContext);
-            try {
-                // keep this: it is required to use MainLooper for cal listener
-                final Handler handler = new Handler(context.getMainLooper());
-                handler.post(() -> {
-                    try {
-                        windowManager.addView(PPApplication.keepScreenOnView, params);
-                        setKeepScreenOnPermanent(context, true);
-                    } catch (Exception e) {
-//                        Log.e("ActivateProfileHelper.setKeepScreenOnPermanent", Log.getStackTraceString(e));
-                        PPApplication.keepScreenOnView = null;
-                        setKeepScreenOnPermanent(context, false);
-                        removeKeepScreenOnNotification(appContext);
-                    }
-                });
-
-                String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
-                                "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\"";
-                String nText = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"" +
-                                " " + context.getString(R.string.keep_screen_on_active_notification_title_1) + " " +
-                                "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\". " +
-                                context.getString(R.string.keep_screen_on_active_notification_decription_1) +
-                                " \"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off) + "\", " +
-                                context.getString(R.string.keep_screen_on_active_notification_decription_2) +
-                                " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
-                                "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\".";
-
-                PPApplication.createKeepScreenOnNotificationChannel(appContext);
-                NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
-                        .setSmallIcon(R.drawable.ic_information_notify) // notification icon
-                        .setContentTitle(nTitle) // title for notification
-                        .setContentText(nText) // message for notification
-                        .setAutoCancel(true); // clear notification after click
-                mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
-                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
-                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                mBuilder.setOngoing(true);
-
-                mBuilder.setGroup(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_GROUP);
-
-                Notification notification = mBuilder.build();
-                notification.vibrate = null;
-                notification.defaults &= ~DEFAULT_VIBRATE;
-
-                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+            // keep this: it is required to use MainLooper for cal listener
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.post(() -> {
                 try {
-                    mNotificationManager.notify(
-                            PPApplication.KEEP_SCREEN_ON_NOTIFICATION_TAG,
-                            PPApplication.KEEP_SCREEN_ON_NOTIFICATION_ID, notification);
-                } catch (Exception e) {
-                    //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                }
+                    windowManager.addView(PPApplication.keepScreenOnView, params);
+                    setKeepScreenOnPermanent(context, true);
 
-            } catch (Exception e) {
-//                Log.e("ActivateProfileHelper.setKeepScreenOnPermanent", Log.getStackTraceString(e));
-                PPApplication.keepScreenOnView = null;
-                setKeepScreenOnPermanent(context, false);
-                removeKeepScreenOnNotification(appContext);
-            }
+
+                    String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
+                            "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\"";
+                    String nText = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"" +
+                            " " + context.getString(R.string.keep_screen_on_active_notification_title_1) + " " +
+                            "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\". " +
+                            context.getString(R.string.keep_screen_on_active_notification_decription_1) +
+                            " \"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off) + "\", " +
+                            context.getString(R.string.keep_screen_on_active_notification_decription_2) +
+                            " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
+                            "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\".";
+
+                    PPApplication.createKeepScreenOnNotificationChannel(appContext);
+                    NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
+                            .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                            .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                            .setContentTitle(nTitle) // title for notification
+                            .setContentText(nText) // message for notification
+                            .setAutoCancel(true); // clear notification after click
+                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+                    mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+                    mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                    mBuilder.setOngoing(true);
+
+                    mBuilder.setGroup(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_GROUP);
+
+                    Notification notification = mBuilder.build();
+                    notification.vibrate = null;
+                    notification.defaults &= ~DEFAULT_VIBRATE;
+
+                    NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+                    try {
+                        mNotificationManager.notify(
+                                PPApplication.KEEP_SCREEN_ON_NOTIFICATION_TAG,
+                                PPApplication.KEEP_SCREEN_ON_NOTIFICATION_ID, notification);
+                    } catch (Exception e) {
+                        //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    }
+                } catch (Exception e) {
+//                        Log.e("ActivateProfileHelper.setKeepScreenOnPermanent", Log.getStackTraceString(e));
+                    PPApplication.keepScreenOnView = null;
+                    setKeepScreenOnPermanent(context, false);
+                    removeKeepScreenOnNotification(appContext);
+                }
+            });
+
         }
     }
 
