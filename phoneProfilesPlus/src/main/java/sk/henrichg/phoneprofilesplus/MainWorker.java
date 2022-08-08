@@ -204,7 +204,7 @@ public class MainWorker extends Worker {
                             // answer from Extender not returned
                             PPApplication.restartAllScanners(appContext, false);
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-                            dataWrapper.restartEventsWithDelay(5, true, false, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
+                            dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
                         }
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:

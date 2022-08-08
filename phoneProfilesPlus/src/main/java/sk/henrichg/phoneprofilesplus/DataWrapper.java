@@ -2433,12 +2433,12 @@ public class DataWrapper {
     }
 
     // delay is in seconds
-    void restartEventsWithDelay(int delay, final boolean alsoRescan, final boolean unblockEventsRun,
-                                String tag, final int logType)
+    void restartEventsWithDelay(final boolean longDelay, final boolean alsoRescan, final boolean unblockEventsRun,
+                                final int logType)
     {
 //        PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
 
-        if (tag.equals(RestartEventsWithDelayWorker.WORK_TAG_2)) {
+        if (longDelay) {
 
             Data workData = new Data.Builder()
                     .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
@@ -2449,10 +2449,9 @@ public class DataWrapper {
             OneTimeWorkRequest restartEventsWithDelayWorker;
             restartEventsWithDelayWorker =
                     new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
-                            //.addTag(RestartEventsWithDelayWorker.WORK_TAG)
-                            .addTag(tag)
+                            .addTag(RestartEventsWithDelayWorker.WORK_TAG_2)
                             .setInputData(workData)
-                            .setInitialDelay(delay, TimeUnit.SECONDS)
+                            .setInitialDelay(15, TimeUnit.SECONDS)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
@@ -2472,7 +2471,7 @@ public class DataWrapper {
 //                         PPApplication.logE("[WORKER_CALL] DataWrapper.restartEventsWithDelay", "xxx");
                         //workManager.enqueue(restartEventsWithDelayWorker);
                         //if (replace)
-                        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                        workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_2, ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
                         //else
                         //    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_APPEND, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
                     }
@@ -2525,7 +2524,7 @@ public class DataWrapper {
                 }
             };
             PPApplication.createDelayedEventsHandlerExecutor();
-            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 

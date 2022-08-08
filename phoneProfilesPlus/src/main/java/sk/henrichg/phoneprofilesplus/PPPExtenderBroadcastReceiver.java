@@ -96,7 +96,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 //dataWrapper2.fillProfileList(false, false);
                                 PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper2);
                                 PPApplication.restartAllScanners(appContext, false);
-                                dataWrapper2.restartEventsWithDelay(5, true, false, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
+                                dataWrapper2.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             }
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");

@@ -491,7 +491,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
                                 //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
-                                dataWrapper.restartEventsWithDelay(3, false, true, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
+                                dataWrapper.restartEventsWithDelay(false, false, true, PPApplication.ALTYPE_UNDEFINED);
                             } else {
                                 doActivateProfile = true;
 
@@ -531,7 +531,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
 //                                PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
-                                dataWrapper.restartEventsWithDelay(5, false, true, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
+                                dataWrapper.restartEventsWithDelay(false, false, true, PPApplication.ALTYPE_UNDEFINED);
                             }
                         }
 
