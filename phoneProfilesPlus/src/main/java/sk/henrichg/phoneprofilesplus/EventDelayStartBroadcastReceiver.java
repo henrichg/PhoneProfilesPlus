@@ -17,8 +17,6 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void doWork(boolean useHandler, Context context) {
-        //PPApplication.logE("[HANDLER] EventDelayStartBroadcastReceiver.doWork", "useHandler="+useHandler);
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;

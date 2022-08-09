@@ -79,11 +79,6 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
         }
         */
 
-        /* In Samsung S8 lowLevel is configured to 105 :-(
-        int _level = appContext.getResources().getInteger(com.android.internal.R.integer.config_lowBatteryWarningLevel);
-        PPApplication.logE("BatteryLevelChangedBroadcastReceiver.onReceive", "lowLevel=" + Math.round(_level / (float) scale * 100));
-        */
-
         if ((PPApplication.isCharging != _isCharging) ||
             ((_plugged != -1) && (PPApplication.plugged != _plugged)) ||
             ((_level != -1) && (PPApplication.batteryPct != _batteryPct))) {

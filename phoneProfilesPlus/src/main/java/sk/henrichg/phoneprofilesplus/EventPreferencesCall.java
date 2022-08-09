@@ -806,8 +806,6 @@ class EventPreferencesCall extends EventPreferences {
         if (this._startTime == 0) {
             // alarm for end is not set
             if (Permissions.checkContacts(dataWrapper.context)) {
-                //PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission granted");
-
                 int callEventType = ApplicationPreferences.prefEventCallEventType;
                 long callTime = ApplicationPreferences.prefEventCallEventTime;
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;

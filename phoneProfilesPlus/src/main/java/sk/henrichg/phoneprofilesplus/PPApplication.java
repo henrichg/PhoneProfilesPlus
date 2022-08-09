@@ -3668,7 +3668,6 @@ public class PPApplication extends Application
 
 
                 //Profile.setActivatedProfileForDuration(context, 0);
-    //            PPApplication.logE("[FIFO_TEST] PPApplication._exitApp", "#### clear");
                 if (dataWrapper != null) {
                     synchronized (PPApplication.profileActivationMutex) {
                         List<String> activateProfilesFIFO = new ArrayList<>();

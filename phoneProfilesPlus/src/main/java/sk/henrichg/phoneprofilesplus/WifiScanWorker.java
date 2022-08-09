@@ -308,8 +308,6 @@ public class WifiScanWorker extends Worker {
                     PPApplication._cancelWork(WORK_TAG_SHORT, false);
                 }
 
-//                PPApplication.logE("[FIFO_TEST] WifiScanWorker._cancelWork", "CANCELED");
-
             } catch (Exception e) {
                 //Log.e("WifiScanWorker._cancelWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);

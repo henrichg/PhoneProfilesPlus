@@ -475,14 +475,6 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-//        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("PhoneCallsListener.callEnded", "incoming=" + incoming);
-//            PPApplication.logE("PhoneCallsListener.callEnded", "missed=" + missed);
-////            PPApplication.logE("PhoneCallsListener.callEnded", "speakerphoneSelected=" + speakerphoneSelected);
-////            PPApplication.logE("PhoneCallsListener.callEnded", "savedSpeakerphone=" + savedSpeakerphone);
-//        }
-
-//            PPApplication.logE("PhoneCallsListener.callEnded", "call of stopSimulatingRingingCall");
             PhoneProfilesService.stopSimulatingRingingCall(false, context.getApplicationContext());
 
         // audio mode is set to MODE_IN_CALL by system
@@ -540,7 +532,6 @@ public class PhoneCallsListener extends PhoneStateListener {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "disable ringer mode change internal change");
                 RingerModeChangeReceiver.internalChange = false;
             }
         }, 3000);*/

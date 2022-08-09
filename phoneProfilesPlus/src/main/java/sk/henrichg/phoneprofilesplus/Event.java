@@ -1827,7 +1827,6 @@ class Event {
                         mergedProfile._id = 0;
                     } else {
                         long profileId = _fkProfileStart;
-//                    PPApplication.logE("[FIFO_TEST] Event.startEvent", "#### add profileId=" + profileId);
                         dataWrapper.fifoAddProfile(profileId, _id);
                     }
                 } else {
@@ -1912,7 +1911,6 @@ class Event {
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/
                         {
-//                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### remove last profile");
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
@@ -1975,7 +1973,6 @@ class Event {
                         } else {
                             long profileId = _fkProfileEnd;
 
-//                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + profileId);
                             dataWrapper.fifoAddProfile(profileId, _id);
                         }
                     }
@@ -2006,7 +2003,6 @@ class Event {
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/
                         {
-//                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### merge profile for Undo");
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
@@ -2018,7 +2014,6 @@ class Event {
                                         String[] splits = fromFifo.split("\\|");
                                         if (!splits[1].equals(String.valueOf(_id))) {
                                             // profile is not from this event
-//                                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profile for Undo fromFifo="+fromFifo);
                                             newActivateProfilesFIFO.add(fromFifo);
                                         }
                                     }
@@ -2066,8 +2061,6 @@ class Event {
                 if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart && !forRestartEvents) {
                     // test of forRestartEvents is required!!!
                     // Do not restart events when is event paused during restart events !!!
-//                PPApplication.logE("[FIFO_TEST] Event.pauseEvent","doActivateEndProfile-restart events");
-//                PPApplication.logE("[FIFO_TEST] Event.pauseEvent","    event._name="+_name);
                     // do not reactivate profile to avoid infinite loop
                     dataWrapper.restartEventsWithDelay(false, false, true, PPApplication.ALTYPE_UNDEFINED);
                     profileActivated = true;
@@ -2484,8 +2477,6 @@ class Event {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
-                                //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
-
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id);
@@ -2711,8 +2702,6 @@ class Event {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
-//                                PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
-
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id);

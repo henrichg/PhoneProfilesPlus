@@ -384,7 +384,6 @@ class EventPreferencesWifi extends EventPreferences {
                 WifiManager wifiManager = (WifiManager) eventsHandler.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 if (wifiManager == null) {
                     eventsHandler.notAllowedWifi = true;
-//                    PPApplication.logE("[FIFO_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (1)");
                 }
                 else {
 
@@ -531,7 +530,6 @@ class EventPreferencesWifi extends EventPreferences {
                                     else {
                                         // not allowed for screen Off
                                         eventsHandler.notAllowedWifi = true;
-//                                        PPApplication.logE("[FIFO_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (2)");
                                     }
                                 } else {
 
@@ -606,7 +604,6 @@ class EventPreferencesWifi extends EventPreferences {
                                     else {
                                         // not allowed, no scan results
                                         eventsHandler.notAllowedWifi = true;
-                                        //PPApplication.logE("[FIFO_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (3)");
                                     }
                                 }
                             }
@@ -622,7 +619,6 @@ class EventPreferencesWifi extends EventPreferences {
                 }
             } else {
                 eventsHandler.notAllowedWifi = true;
-//                PPApplication.logE("[FIFO_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (4)");
             }
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {

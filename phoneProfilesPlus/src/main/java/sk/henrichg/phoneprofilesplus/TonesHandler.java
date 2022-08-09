@@ -93,8 +93,6 @@ class TonesHandler {
         manager.setType(type);
         Cursor cursor = manager.getCursor();
 
-        //PPApplication.logE("TonesHandler.getToneName", "_uri="+_uri);
-
         while (cursor.moveToNext()) {
             String id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
             String uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);

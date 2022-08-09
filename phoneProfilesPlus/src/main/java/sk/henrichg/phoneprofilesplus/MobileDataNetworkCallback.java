@@ -63,8 +63,6 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
                 _doConnection(context);
 
-//               PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileDataNetworkCallback.doConnection");
-
             } catch (Exception e) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 PPApplication.recordException(e);

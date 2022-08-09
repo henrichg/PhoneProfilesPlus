@@ -459,7 +459,7 @@ public class MainWorker extends Worker {
                         PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
 
 //                    } catch (Exception eee) {
-//                        PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
+//                        Log.e("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
 //                        //PPApplication.recordException(eee);
 //                    } finally {
 //                        if ((wakeLock != null) && wakeLock.isHeld()) {

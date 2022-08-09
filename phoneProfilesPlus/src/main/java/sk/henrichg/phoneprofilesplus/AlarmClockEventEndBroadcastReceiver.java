@@ -17,8 +17,6 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        //PPApplication.logE("[HANDLER] AlarmClockEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
-
         //Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))

@@ -223,7 +223,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         // moved to cancelWork
         //PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode);
 
-        //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
 
     static void doWork(Context context, String profileName, String runApplicationData) {
