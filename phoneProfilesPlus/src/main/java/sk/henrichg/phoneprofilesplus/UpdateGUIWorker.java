@@ -10,8 +10,6 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("unused")
 public class UpdateGUIWorker extends Worker {
 
-    //final Context context;
-
     static final String WORK_TAG = "updateGUIWork";
 
     public UpdateGUIWorker(
@@ -24,18 +22,6 @@ public class UpdateGUIWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-//        PPApplication.logE("[IN_WORKER]  UpdateGUIWorker.doWork", "xxxx EMPTY xxxx");
-/*        try {
-
-            Context appContext = context.getApplicationContext();
-            PPApplication.forceUpdateGUI(appContext, true, true);
-
-            return Result.success();
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-            return Result.failure();
-        }*/
-
         return Result.success();
     }
 

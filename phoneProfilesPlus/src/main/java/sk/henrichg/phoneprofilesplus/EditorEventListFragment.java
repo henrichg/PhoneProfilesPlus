@@ -455,7 +455,6 @@ public class EditorEventListFragment extends Fragment
 
         orderLabel.setOnClickListener(v -> orderSpinner.performClick());
 
-        //PPApplication.logE("EditorEventListFragment.doOnViewCreated", "orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
         changeEventOrder(orderSelectedItem, fromOnViewCreated);
     }
@@ -646,20 +645,12 @@ public class EditorEventListFragment extends Fragment
 
     void startEventPreferencesActivity(Event event, int predefinedEventIndex)
     {
-        /*
-        PPApplication.logE("EditorEventListFragment.startEventPreferencesActivity", "event="+event);
-        if (event != null)
-            PPApplication.logE("EditorEventListFragment.startEventPreferencesActivity", "event._name="+event._name);
-        PPApplication.logE("EditorEventListFragment.startEventPreferencesActivity", "predefinedEventIndex="+predefinedEventIndex);
-        */
-
         int editMode;
 
         if (event != null)
         {
             // edit event
             int eventPos = eventListAdapter.getItemPosition(event);
-            //PPApplication.logE("EditorEventListFragment.startEventPreferencesActivity", "eventPos="+eventPos);
             /*int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
             if ((eventPos <= first) || (eventPos >= last)) {
@@ -682,8 +673,6 @@ public class EditorEventListFragment extends Fragment
 
         }
 
-        //PPApplication.logE("EditorEventListFragment.startEventPreferencesActivity", "editMode="+editMode);
-
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
         onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
@@ -705,7 +694,7 @@ public class EditorEventListFragment extends Fragment
                     //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
                     //__handler.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
+//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
                         //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                         //Event event = eventWeakRef.get();
@@ -725,7 +714,7 @@ public class EditorEventListFragment extends Fragment
                                 }
 
                             } catch (Exception e) {
-//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -754,7 +743,7 @@ public class EditorEventListFragment extends Fragment
                 //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
                     //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                     //Event event = eventWeakRef.get();
@@ -774,7 +763,7 @@ public class EditorEventListFragment extends Fragment
                             }
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -797,9 +786,7 @@ public class EditorEventListFragment extends Fragment
                 ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
             // restart events
-            //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-//            PPApplication.logE("[APP_START] EditorEventListFragment.runStopEvent", "(1)");
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
@@ -828,9 +815,7 @@ public class EditorEventListFragment extends Fragment
                 ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
             // restart events
-            //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-//            PPApplication.logE("[APP_START] EditorEventListFragment.runStopEvent", "(2)");
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
@@ -904,9 +889,7 @@ public class EditorEventListFragment extends Fragment
         DatabaseHandler.getInstance(activityDataWrapper.context).deleteEvent(event);
 
         // restart events
-        //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         //activityDataWrapper.restartEvents(false, true, true, true, true);
-//        PPApplication.logE("[APP_START] EditorEventListFragment.deleteEvent", "xxx");
         activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
         eventListAdapter.notifyDataSetChanged();
@@ -1265,7 +1248,6 @@ public class EditorEventListFragment extends Fragment
             }
         }
         else {
-            //PPApplication.logE("[OPT] EditorEventListFragment.changeListOrder", "xxx");
             synchronized (activityDataWrapper.eventList) {
                 listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
@@ -1407,8 +1389,6 @@ public class EditorEventListFragment extends Fragment
         if (activityDataWrapper == null)
             return;
 
-        //PPApplication.logE("EditorEventListFragment.refreshGUI", "refresh="+refresh);
-
         EditorEventListFragment.RefreshGUIAsyncTask asyncTask =
                 new EditorEventListFragment.RefreshGUIAsyncTask(
                         refreshIcons, setPosition, eventId, this, activityDataWrapper);
@@ -1445,14 +1425,11 @@ public class EditorEventListFragment extends Fragment
 //                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
 //                    } else
 //                        pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
-//                    //PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
 //
 //                    if (!refresh) {
 //                        String pNameHeader = PPApplication.prefActivityProfileName3;
-//                        //PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 //
 //                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-//                            //PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
 //                            doNotRefresh = true;
 //                            return null;
 //                        }
@@ -1502,12 +1479,10 @@ public class EditorEventListFragment extends Fragment
                 if ((getActivity() != null) && (!getActivity().isFinishing())) {
                     if (!doNotRefresh) {
                         if (profileFromDB != null) {
-                            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
                             if (profileFromDataWrapper != null)
                                 profileFromDataWrapper._checked = true;
                             updateHeader(profileFromDataWrapper);
                         } else {
-                            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
                             updateHeader(null);
                         }
                         updateListView(null, false, _refreshIcons, setPosition);
@@ -1525,14 +1500,11 @@ public class EditorEventListFragment extends Fragment
             pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
         else
             pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
-        //PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
 
         if (!refresh) {
             String pNameHeader = PPApplication.prefActivityProfileName3;
-            //PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
             if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                //PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
                 return;
             }
         }
@@ -1561,14 +1533,12 @@ public class EditorEventListFragment extends Fragment
         }
 
         if (profileFromDB != null) {
-            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
                     ApplicationPreferences.applicationEditorPrefIndicator, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);
         } else {
-            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
             updateHeader(null);
         }
         updateListView(null, false, refreshIcons, setPosition, eventId);*/
@@ -1865,12 +1835,6 @@ public class EditorEventListFragment extends Fragment
         int _eventsOrderType = getEventsOrderType();
         //setStatusBarTitle();
 
-//        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("EditorActivity.changeEventOrder", "filterType="+filterType);
-//            PPApplication.logE("EditorActivity.changeEventOrder", "orderSelectedItem=" + orderSelectedItem);
-//            PPApplication.logE("EditorActivity.changeEventOrder", "_eventsOrderType=" + _eventsOrderType);
-//        }
-
         changeListOrder(_eventsOrderType, fromOnViewCreated);
 
         orderSpinner.setSelection(orderSelectedItem);
@@ -2107,14 +2071,11 @@ public class EditorEventListFragment extends Fragment
                         pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
                     } else
                         pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
-                    //PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
 
                     if (!refresh) {
                         String pNameHeader = PPApplication.prefActivityProfileName3;
-                        //PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
                         if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                            //PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
                             doNotRefresh = true;
                             return null;
                         }
@@ -2171,12 +2132,10 @@ public class EditorEventListFragment extends Fragment
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
                     if (!doNotRefresh) {
                         if (profileFromDB != null) {
-                            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
                             if (profileFromDataWrapper != null)
                                 profileFromDataWrapper._checked = true;
                             fragment.updateHeader(profileFromDataWrapper);
                         } else {
-                            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
                             fragment.updateHeader(null);
                         }
                         fragment.updateListView(null, false, refreshIcons, setPosition/*, eventId*/);

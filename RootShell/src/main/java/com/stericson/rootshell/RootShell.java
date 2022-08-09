@@ -55,7 +55,8 @@ public class RootShell {
      * By disabling this all callbacks will be called from a thread other than
      * the main UI thread.
      */
-    public static final boolean handlerEnabled = true;
+    @SuppressWarnings("unused")
+    public static final boolean handlerEnabled = false;
 
 
     /**

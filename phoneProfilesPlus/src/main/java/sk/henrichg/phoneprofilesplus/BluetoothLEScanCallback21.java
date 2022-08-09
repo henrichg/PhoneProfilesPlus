@@ -41,7 +41,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
 
             //Context appContext= appContextWeakRef.get();
             //BluetoothDevice device = deviceWeakRef.get();
@@ -62,7 +62,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
                     BluetoothScanWorker.addLEScanResult(deviceData);
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -95,8 +95,6 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         }
 
         for (ScanResult result : results) {
-            //PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());
-
             final BluetoothDevice device = result.getDevice();
 
             final Context appContext = context.getApplicationContext();
@@ -105,7 +103,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
             //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBluetoothLECallback", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadBluetoothLECallback", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
 
                 //Context appContext= appContextWeakRef.get();
                 //BluetoothDevice device = deviceWeakRef.get();
@@ -121,17 +119,14 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
                         //String btAddress = device.getAddress();
                         String btName = device.getName();
-                        //PPApplication.logE("BluetoothLEScanCallback21.onBatchScanResults", "deviceAddress=" + btAddress);
-                        //PPApplication.logE("BluetoothLEScanCallback21.onBatchScanResults", "deviceName=" + btName);
 
                         BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
                                 BluetoothScanWorker.getBluetoothType(device), false, 0, false, true);
 
                         BluetoothScanWorker.addLEScanResult(deviceData);
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanCallback21.onBatchScanResults");
                     } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

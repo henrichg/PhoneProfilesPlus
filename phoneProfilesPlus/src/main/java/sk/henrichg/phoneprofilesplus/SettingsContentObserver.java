@@ -59,11 +59,6 @@ class SettingsContentObserver  extends ContentObserver {
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
         savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
         savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("[BRSD] SettingsContentObserver.constructor", "brightness mode=" + savedBrightnessMode);
-            PPApplication.logE("[BRSD] SettingsContentObserver.constructor", "manual brightness value=" + savedBrightness);
-            PPApplication.logE("[BRSD] SettingsContentObserver.constructor", "adaptive brightness value=" + savedAdaptiveBrightness);
-        }*/
     }
 
     /*
@@ -79,24 +74,10 @@ class SettingsContentObserver  extends ContentObserver {
 
         try {
             int currentVolume = audioManager.getStreamVolume(volumeStream);
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " currentVolume=" + currentVolume);
-                PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " previousVolume=" + previousVolume);
-                PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "internalChange=" + RingerModeChangeReceiver.internalChange);
-                if (volumeStream == AudioManager.STREAM_RING) {
-                    PPApplication.logE("[VOL] SettingsContentObserver.volumeChangeDetect", "currentVolume=" + currentVolume);
-                    PPApplication.logE("[VOL] SettingsContentObserver.volumeChangeDetect", "maxVolume=" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
-                }
-            }*/
 
             int delta = previousVolume - currentVolume;
 
-//            PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect", "volumeStream="+volumeStream);
-//            PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect", "currentVolume="+currentVolume);
-//            PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect", "delta="+delta);
-
             if (delta > 0) {
-//                PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect (1)", "internaChange="+RingerModeChangeReceiver.internalChange);
                 if (!RingerModeChangeReceiver.internalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
@@ -115,7 +96,6 @@ class SettingsContentObserver  extends ContentObserver {
                     }
                 }
             } else if (delta < 0) {
-//                PPApplication.logE("[VOLUMES] SettingsContentObserver.volumeChangeDetect (2)", "internaChange="+RingerModeChangeReceiver.internalChange);
                 if (!RingerModeChangeReceiver.internalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
@@ -145,27 +125,8 @@ class SettingsContentObserver  extends ContentObserver {
     public void onChange(boolean selfChange, Uri uri) {
         //super.onChange(selfChange);
 
-//        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=SettingsContentObserver.onChange");
-
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "current thread="+Thread.currentThread());
-
-//        if (uri != null)
-//            PPApplication.logE("[TEST BATTERY] SettingsContentObserver.onChange", "uri="+uri.toString());
-//        else
-//            PPApplication.logE("[TEST BATTERY] SettingsContentObserver.onChange", "without Uri");
-
-        /*if (PPApplication.logEnabled()) {
-            //int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-            //PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_RING + " currentVolume=" + currentVolume);
-            //currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-            //PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_NOTIFICATION + " currentVolume=" + currentVolume);
-            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            if (audioManager != null) {
-                int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-                PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "STREAM_MUSIC=" + currentVolume);
-            }
-        }*/
 
         boolean okSetting = false;
         boolean volumeChange = false;
@@ -249,10 +210,6 @@ class SettingsContentObserver  extends ContentObserver {
 
             }
             //previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
-            //int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-            //PPApplication.logE("[VOL] SettingsContentObserver.onChange", "STREAM_VOICE_CALL="+value);
-            //int value = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            //PPApplication.logE("[VOL] SettingsContentObserver.onChange", "STREAM_MUSIC="+value);
             //////////////
         }
         if (volumeChange) {
@@ -262,7 +219,6 @@ class SettingsContentObserver  extends ContentObserver {
                     // application is started
 
                     if (Event.getGlobalEventsRunning()) {
-                        //PPApplication.logE("SettingsContentObserver.onChange","xxx");
 
                         // !!! must be used MainWorker with delay, because is often called this onChange
                         // for change volumes
@@ -287,7 +243,6 @@ class SettingsContentObserver  extends ContentObserver {
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
-//                                PPApplication.logE("[TEST BATTERY] SettingsContentObserver.onChange", "for=" + MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                            } catch (Exception ignored) {
 //                            }
 //                            //}
@@ -325,7 +280,6 @@ class SettingsContentObserver  extends ContentObserver {
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_VOLUMES);
 
-                                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SettingsContentObserver.onChange");
                             } catch (Exception e) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
@@ -362,21 +316,7 @@ class SettingsContentObserver  extends ContentObserver {
             savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
             savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
             savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
-//            if (PPApplication.logEnabled()) {
-//                PPApplication.logE("[BRSD] SettingsContentObserver.onChange (1)", "brightness mode=" + savedBrightnessMode);
-//                PPApplication.logE("[BRSD] SettingsContentObserver.onChange (1)", "manual brightness value=" + savedBrightness);
-//                PPApplication.logE("[BRSD] SettingsContentObserver.onChange (1)", "adaptive brightness value=" + savedAdaptiveBrightness);
-//            }
         }
-
-//        if (PPApplication.logEnabled()) {
-//            int value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-//            PPApplication.logE("[BRS] SettingsContentObserver.onChange", "brightness mode=" + value);
-//            value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-//            PPApplication.logE("[BRS] SettingsContentObserver.onChange", "manual brightness value=" + value);
-//            float fValue = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
-//            PPApplication.logE("[BRS] SettingsContentObserver.onChange", "adaptive brightness value=" + fValue);
-//        }
 
         /////////////
     }

@@ -46,7 +46,6 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCStateChangedBroadcastReceiver.onReceive");
                             } catch (Exception e) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);

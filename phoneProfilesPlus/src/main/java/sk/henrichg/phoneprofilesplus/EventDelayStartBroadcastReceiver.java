@@ -12,7 +12,6 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
         if (action != null) {
-            //PPApplication.logE("EventDelayStartBroadcastReceiver.onReceive", "action=" + action);
             doWork(true, context);
         }
     }
@@ -50,7 +49,6 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventDelayStartBroadcastReceiver.doWork (1)");
                         } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
@@ -66,15 +64,9 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                 });
                 */
             } else {
-                //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
-                //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventDelayStartBroadcastReceiver.doWork (2)");
-
-
 //                PPApplication.logE("[EVENTS_HANDLER_CALL] EventDelayStartBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_START (2)");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
-
-                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventDelayStartBroadcastReceiver.doWork (2)");
             }
         }
     }

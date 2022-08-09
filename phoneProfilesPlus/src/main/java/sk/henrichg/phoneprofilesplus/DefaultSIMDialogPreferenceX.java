@@ -34,7 +34,6 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
         sValue = getPersistedString((String) defaultValue);
         this.defaultValue = (String)defaultValue;
 
-        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onSetInitialValue");
         getValueDSDP();
         setSummaryDSDP();
     }

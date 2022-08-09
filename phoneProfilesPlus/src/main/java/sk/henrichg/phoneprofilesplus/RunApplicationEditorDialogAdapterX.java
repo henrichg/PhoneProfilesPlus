@@ -34,10 +34,7 @@ class RunApplicationEditorDialogAdapterX extends RecyclerView.Adapter<RunApplica
     @Override
     public void onBindViewHolder(@NonNull RunApplicationEditorDialogViewHolderX holder, int position) {
         // Application to display
-        //PPApplication.logE("ApplicationEditorDialogAdapter.onCreateViewHolder", "dialog.applicationList.size="+dialog.applicationList.size());
         Application application = dialog.applicationList.get(position);
-        //PPApplication.logE("ApplicationEditorDialogAdapter.onCreateViewHolder", "position="+position);
-        //PPApplication.logE("ApplicationEditorDialogAdapter.onCreateViewHolder", "application="+application);
 
         holder.bindApplication(application, position);
     }
@@ -55,11 +52,9 @@ class RunApplicationEditorDialogAdapterX extends RecyclerView.Adapter<RunApplica
     @Override
     public int getItemCount() {
         /*if (dialog.cachedApplicationList == null) {
-            //PPApplication.logE("ApplicationEditorDialogAdapter.getItemCount", "getItemCount=0");
             return 0;
         }
         else*/ {
-            //PPApplication.logE("ApplicationEditorDialogAdapter.getItemCount", "getItemCount="+dialog.applicationList.size());
             return dialog.applicationList.size();
         }
     }

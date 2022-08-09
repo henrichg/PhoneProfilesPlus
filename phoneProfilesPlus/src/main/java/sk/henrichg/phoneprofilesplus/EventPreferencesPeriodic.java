@@ -292,8 +292,6 @@ class EventPreferencesPeriodic extends EventPreferences {
 
     private long computeAlarm()
     {
-//        PPApplication.logE("EventPreferencesPeriodic.computeAlarm","_duration="+_duration);
-
         Calendar calEndTime = Calendar.getInstance();
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -316,8 +314,6 @@ class EventPreferencesPeriodic extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        //PPApplication.logE("EventPreferencesPeriodic.setSystemRunningEvent","xxx");
-
         removeAlarm(context);
     }
 
@@ -328,8 +324,6 @@ class EventPreferencesPeriodic extends EventPreferences {
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
-
-        //PPApplication.logE("[BOOT] EventPreferencesPeriodic.setSystemPauseEvent","xxx");
 
         removeAlarm(context);
 
@@ -343,8 +337,6 @@ class EventPreferencesPeriodic extends EventPreferences {
     void removeSystemEvent(Context context)
     {
         removeAlarm(context);
-
-        //PPApplication.logE("EventPreferencesPeriodic.removeSystemEvent", "xxx");
     }
 
     void removeAlarm(Context context)
@@ -357,8 +349,6 @@ class EventPreferencesPeriodic extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    //PPApplication.logE("EventPreferencesPeriodic.removeAlarm", "alarm found");
-
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
@@ -371,16 +361,7 @@ class EventPreferencesPeriodic extends EventPreferences {
 
     private void setAlarm(long alarmTime, Context context)
     {
-        //PPApplication.logE("EventPreferencesPeriodic.setAlarm","_permanentRun="+_permanentRun);
-        //PPApplication.logE("EventPreferencesPeriodic.setAlarm","_startTime="+_startTime);
-
         if (_startTime > 0) {
-//            if (PPApplication.logEnabled()) {
-//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                String result = sdf.format(alarmTime);
-//                PPApplication.logE("EventPreferencesPeriodic.setAlarm", "endTime=" + result);
-//            }
-
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER);
 
@@ -417,13 +398,9 @@ class EventPreferencesPeriodic extends EventPreferences {
             if (_event.getStatus() == Event.ESTATUS_PAUSE) {
                 // len ak nebezi pocitaj counter
 
-//                PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "_counter=" + _counter);
-//                PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "=multipleInterval=" + multipleInterval);
-
                 if (_counter < multipleInterval) {
                     _counter += 1;
                     DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
-//                    PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "_counter=" + _counter);
                 }
                 if (_counter >= multipleInterval) {
                     _counter = 0;
@@ -453,7 +430,6 @@ class EventPreferencesPeriodic extends EventPreferences {
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
-//                                PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationRemoved", "for=" + MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                            } catch (Exception ignored) {
 //                            }
 //                            //}
@@ -483,7 +459,6 @@ class EventPreferencesPeriodic extends EventPreferences {
     void saveStartTime(DataWrapper dataWrapper) {
         if (this._startTime == 0) {
             // alarm for end is not set
-//            PPApplication.logE("######### EventPreferencesPeriodic.saveStartTime", "set _startTime");
 
             Calendar calendar = Calendar.getInstance();
             this._startTime = calendar.getTimeInMillis();
@@ -496,10 +471,8 @@ class EventPreferencesPeriodic extends EventPreferences {
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
-//            PPApplication.logE("######### EventPreferencesPeriodic.doHandleEvent", "xxx");
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "allowed");
 
                 // compute start time
 
@@ -507,27 +480,11 @@ class EventPreferencesPeriodic extends EventPreferences {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     long startTime = _startTime - gmtOffset;
 
-//                    if (PPApplication.logEnabled()) {
-//                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                        String alarmTimeS = sdf.format(startTime);
-//                        PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "startTime=" + alarmTimeS);
-//                    }
-
                     // compute end datetime
                     long endAlarmTime = computeAlarm();
-//                    if (PPApplication.logEnabled()) {
-//                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                        String alarmTimeS = sdf.format(endAlarmTime);
-//                        PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "endAlarmTime=" + alarmTimeS);
-//                    }
 
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
-//                    if (PPApplication.logEnabled()) {
-//                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                        String alarmTimeS = sdf.format(nowAlarmTime);
-//                        PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
-//                    }
 
                     if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PERIODIC)
                         eventsHandler.periodicPassed = true;
@@ -554,12 +511,8 @@ class EventPreferencesPeriodic extends EventPreferences {
             } else
                 eventsHandler.notAllowedPeriodic = true;
 
-//            PPApplication.logE("######### EventPreferencesPeriodic.doHandleEvent", "periodicPassed=" + eventsHandler.periodicPassed);
-//            PPApplication.logE("######### EventPreferencesPeriodic.doHandleEvent", "notAllowedPeriodic=" + eventsHandler.notAllowedPeriodic);
-
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-//                PPApplication.logE("######### EventPreferencesPeriodic.doHandleEvent", "periodic - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_PERIODIC);
             }

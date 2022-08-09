@@ -806,8 +806,6 @@ class EventPreferencesOrientation extends EventPreferences {
 
     /*long computeAlarm(Context context)
     {
-        //PPApplication.logE("EventPreferencesSMS.computeAlarm","xxx");
-
         Calendar calEndTime = Calendar.getInstance();
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -841,8 +839,6 @@ class EventPreferencesOrientation extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        //PPApplication.logE("EventPreferencesOrientation.setSystemRunningEvent","xxx");
-
         removeAlarm(context);
     }
 
@@ -854,20 +850,12 @@ class EventPreferencesOrientation extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","_event._name="+_event._name);
-
         removeAlarm(context);
-
-        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","isRunnable()="+isRunnable(context));
-        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","_enabled="+_enabled);
 
         if (!(isRunnable(context) && _enabled))
             return;
 
-        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","runnable and enabled");
-
         long alarmTime = computeAlarm(context);
-        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","alarmTime="+alarmTime);
 
         if (alarmTime > 0)
             setAlarm(alarmTime, context);
@@ -878,7 +866,6 @@ class EventPreferencesOrientation extends EventPreferences {
     {
         removeAlarm(context);
 
-        //PPApplication.logE("EventPreferencesOrientation.removeSystemEvent", "xxx");
     }
     */
 
@@ -1054,30 +1041,8 @@ class EventPreferencesOrientation extends EventPreferences {
                                         int min = Integer.parseInt(_lightMin);
                                         int max = Integer.parseInt(_lightMax);
                                         lLightPassed = (light >= min) && (light <= max);
-                                        /*if (PPApplication.logEnabled()) {
-                                            PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "light=" + light);
-                                            PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "min=" + min);
-                                            PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "max=" + max);
-                                        }*/
                                     }
                                 }
-
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "configuredDisplay=" + configuredDisplay);
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "configuredSide=" + configuredSide);
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "configuredDistance=" + configuredDistance);
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "configuredLight=" + configuredLight);
-
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "hasAccelerometer=" + hasAccelerometer);
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "hasMagneticField=" + hasMagneticField);
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "hasProximity=" + hasProximity);
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "hasLight=" + hasLight);
-
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lDisplayPassed=" + lDisplayPassed);
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lSidePassed=" + lSidePassed);
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lDistancePassed=" + lDistancePassed);
-                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lLightPassed=" + lLightPassed);
-                                }*/
 
                                 if (configuredDisplay || configuredSide || configuredDistance || configuredLight) {
                                     eventsHandler.orientationPassed = true;
@@ -1111,7 +1076,6 @@ class EventPreferencesOrientation extends EventPreferences {
                 eventsHandler.notAllowedOrientation = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "orientation - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_ORIENTATION);
             }

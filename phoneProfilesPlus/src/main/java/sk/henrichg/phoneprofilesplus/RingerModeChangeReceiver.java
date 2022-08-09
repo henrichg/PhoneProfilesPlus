@@ -14,17 +14,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] RingerModeChangeReceiver.onReceive", "xxx");
 
-        /*if (PPApplication.logEnabled()) {
-            final AudioManager _audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            if (_audioManager != null) {
-                int ringerMode = _audioManager.getRingerMode();
-                PPApplication.logE("********** RingerModeChangeReceiver.onReceive", "ringerMode=" + ringerMode);
-            }
-        }*/
-
-//        PPApplication.logE("[VOLUMES] RingerModeChangeReceiver.onReceive", "internaChange="+RingerModeChangeReceiver.internalChange);
         if (!internalChange) {
-            //PPApplication.logE("RingerModeChangeReceiver.onReceive", "!internalChange");
             synchronized (PPApplication.notUnlinkVolumesMutex) {
                 notUnlinkVolumes = true;
             }
@@ -37,11 +27,9 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
 
     private static int getRingerMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
-        //PPApplication.logE("********** RingerModeChangeReceiver.getRingerMode", "ringerMode="+ringerMode);
         // convert to profile ringerMode
         int pRingerMode = 0;
         int systemZenMode = ActivateProfileHelper.getSystemZenMode(context/*, -1*/);
-        //PPApplication.logE("RingerModeChangeReceiver.getRingerMode", "systemZenMode=" + systemZenMode);
         if (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) {
             switch (ringerMode) {
                 case AudioManager.RINGER_MODE_NORMAL:
@@ -61,14 +49,11 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         else
             pRingerMode = Profile.RINGERMODE_ZENMODE;
 
-        //PPApplication.logE("RingerModeChangeReceiver.getRingerMode", "pRingerMode=" + pRingerMode);
-
         return pRingerMode;
     }
 
     public static void setRingerMode(Context context, AudioManager audioManager/*, String from*/) {
         int pRingerMode = getRingerMode(context, audioManager);
-        //PPApplication.logE("********* RingerModeChangeReceiver.setRingerMode", "from="+from+" pRingerMode="+pRingerMode);
         if (pRingerMode != 0) {
             int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
             ActivateProfileHelper.saveZenMode(context, systemZenMode);

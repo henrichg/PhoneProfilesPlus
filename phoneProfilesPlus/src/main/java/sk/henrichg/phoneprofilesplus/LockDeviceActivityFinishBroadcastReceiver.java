@@ -29,8 +29,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    //PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "alarm found");
-
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
@@ -39,7 +37,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             PPApplication.recordException(e);
         }
         PPApplication._cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
-        //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 
     static void setAlarm(Context context)
@@ -64,12 +61,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     Calendar now = Calendar.getInstance();
                     now.add(Calendar.SECOND, delay);
                     long alarmTime = now.getTimeInMillis();
-
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String result = sdf.format(alarmTime);
-                        PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                    }*/
 
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -131,13 +122,11 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "for=" + MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK + " workInfoList.size()=" + workInfoList.size());
 //                        } catch (Exception ignored) {
 //                        }
 //                        //}
 
 //                            PPApplication.logE("[WORKER_CALL] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "xxx");
-                            //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
                             workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                         }
                     }
@@ -161,12 +150,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     Calendar now = Calendar.getInstance();
                     now.add(Calendar.SECOND, delay);
                     long alarmTime = now.getTimeInMillis();
-
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String result = sdf.format(alarmTime);
-                        PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                    }*/
 
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -195,16 +178,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     /*
                     long alarmTime = SystemClock.elapsedRealtime() + delay * 1000;
 
-//                        if (PPApplication.logEnabled()) {
-//                            Calendar now = Calendar.getInstance();
-//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
-//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
-//                            long _alarmTime = now.getTimeInMillis();
-//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                            String result = sdf.format(_alarmTime);
-//                            PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.setAlarm", "alarmTime=" + result);
-//                        }
-
                     //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else //if (android.os.Build.VERSION.SDK_INT >= 19)
@@ -218,7 +191,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
     }
 
     static void doWork() {
-        //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.doWork", "xxx");
         //if (PhoneProfilesService.getInstance() != null) {
             if (PPApplication.lockDeviceActivity != null) {
                 PPApplication.lockDeviceActivity.finish();

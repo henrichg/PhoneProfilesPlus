@@ -42,34 +42,16 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
     {
         removeAlarm(context);
 
-        //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "xxx");
-
         Calendar alarm = Calendar.getInstance();
-//        if (PPApplication.logEnabled()) {
-//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//            String result = sdf.format(alarm.getTimeInMillis());
-//            PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
-//        }
 
         long lastAlarm = ApplicationPreferences.
                 getSharedPreferences(context).getLong(PREF_PPP_RELEASE_ALARM, 0);
-//        if (PPApplication.logEnabled()) {
-//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//            String result = sdf.format(lastAlarm);
-//            PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
-//        }
 
         long alarmTime;
 
         // TODO remove for release
         /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
-
-//            if (PPApplication.logEnabled()) {
-//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                String result = sdf.format(alarm.getTimeInMillis());
-//                PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-//            }
 
             alarmTime = alarm.getTimeInMillis();
         } else*/
@@ -84,12 +66,6 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                 alarm.set(Calendar.SECOND, 0);
                 alarm.set(Calendar.MILLISECOND, 0);
 
-//                if (PPApplication.logEnabled()) {
-//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                    String result = sdf.format(alarm.getTimeInMillis());
-//                    PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-//                }
-
                 alarmTime = alarm.getTimeInMillis();
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
@@ -98,12 +74,6 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             }
             else {
                 alarmTime = lastAlarm;
-
-//                if (PPApplication.logEnabled()) {
-//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                    String result = sdf.format(alarmTime);
-//                    PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
-//                }
             }
         }
 
@@ -161,8 +131,6 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.doWork", "xxx");
-
         //if (useHandler) {
             final Context appContext = context.getApplicationContext();
             //PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
@@ -171,7 +139,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             //        context.getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -213,7 +181,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                         setAlarm(appContext);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -318,8 +286,6 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
                     response -> {
-//                        PPApplication.logE("CheckPPPReleasesBroadcastReceiver._doWork", "response="+response);
-
                         boolean showNotification;
                         boolean critical = true;
                         String versionNameInReleases = "";
@@ -347,17 +313,17 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             }
 
                         } catch (Exception e) {
-//                            PPApplication.logE("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+//                            Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
                         }
 
                     },
                     error -> {
-//                        PPApplication.logE("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(error));
+//                        Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(error));
                     });
             queue.add(stringRequest);
 
         } catch (Exception e) {
-//            PPApplication.logE("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+//            Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
         }
     }
 

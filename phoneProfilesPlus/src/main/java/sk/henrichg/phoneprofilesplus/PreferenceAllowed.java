@@ -271,7 +271,6 @@ class PreferenceAllowed {
                             NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                             if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                                 mobileDataSupported = true;
-//                                PPApplication.logE("[CONNECTIVITY_TEST] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "mobileDataSupported="+mobileDataSupported);
                                 break;
                             }
                             //}
@@ -422,7 +421,6 @@ class PreferenceAllowed {
                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                 if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                                     mobileDataSupported = true;
-//                                    PPApplication.logE("[CONNECTIVITY_TEST] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM", "mobileDataSupported="+mobileDataSupported);
                                     break;
                                 }
                                 //}
@@ -615,12 +613,8 @@ class PreferenceAllowed {
             else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceGPS=" + profile._deviceGPS);
                 if ((profile != null) && (profile._deviceGPS != 0)) {
                     //return preferenceAllowed;
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceGPS");
                     //preferenceAllowed.notAllowedRoot = true;
                     preferenceAllowed.notAllowedG1 = true;
                 }
@@ -631,9 +625,6 @@ class PreferenceAllowed {
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
 
-//            if ((profile != null) && (profile._name.equals("Low battery"))) {
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [IN PREF_PROFILE_DEVICE_GPS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PREFERENCE_ALLOWED) ? "true" : "false"));
-//            }
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(PreferenceAllowed preferenceAllowed,
@@ -688,12 +679,8 @@ class PreferenceAllowed {
         else {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                if (profile != null)
-//                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceLocationMode=" + profile._deviceLocationMode);
             if ((profile != null) && (profile._deviceLocationMode != 0)) {
                 //return preferenceAllowed;
-//                    if (profile._name.equals("Low battery"))
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceLocationMode");
                 //preferenceAllowed.notAllowedRoot = true;
                 preferenceAllowed.notAllowedG1 = true;
             }
@@ -711,8 +698,6 @@ class PreferenceAllowed {
 
         if (PPApplication.HAS_FEATURE_NFC)
         {
-            //PPApplication.logE("PPApplication.hardwareCheck","NFC=presented");
-
             // device has nfc
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 if (profile != null) {
@@ -756,12 +741,8 @@ class PreferenceAllowed {
             else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceNFC=" + profile._deviceNFC);
                 if ((profile != null) && (profile._deviceNFC != 0)) {
                     //return preferenceAllowed;
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceNFC");
                     //preferenceAllowed.notAllowedRoot = true;
                     preferenceAllowed.notAllowedG1 = true;
                 }
@@ -769,14 +750,10 @@ class PreferenceAllowed {
         }
         else
         {
-            //PPApplication.logE("PPApplication.hardwareCheck","NFC=not presented");
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
 
-//            if ((profile != null) && (profile._name.equals("Low battery"))) {
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [IN PREF_PROFILE_DEVICE_NFC] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PREFERENCE_ALLOWED) ? "true" : "false"));
-//            }
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(PreferenceAllowed preferenceAllowed,
@@ -906,10 +883,6 @@ class PreferenceAllowed {
         //    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_android_version);
         //}
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);
-                PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason=" + preferenceAllowed.notAllowedReason);
-            }*/
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(PreferenceAllowed preferenceAllowed,
@@ -1143,11 +1116,7 @@ class PreferenceAllowed {
         else {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._devicePowerSaveMode=" + profile._devicePowerSaveMode);
             if ((profile != null) && (profile._devicePowerSaveMode != 0)) {
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_devicePowerSaveMode");
                 //preferenceAllowed.notAllowedRoot = true;
                 preferenceAllowed.notAllowedG1 = true;
             }
@@ -1561,12 +1530,8 @@ class PreferenceAllowed {
             else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._headsUpNotifications=" + profile._headsUpNotifications);
                 if ((profile != null) && (profile._headsUpNotifications != 0)) {
                     //return preferenceAllowed;
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_headsUpNotifications");
                     //preferenceAllowed.notAllowedRoot = true;
                     preferenceAllowed.notAllowedG1 = true;
                 }
@@ -1722,12 +1687,8 @@ class PreferenceAllowed {
             else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._screenDarkMode=" + profile._screenDarkMode);
                 if ((profile != null) && (profile._screenDarkMode != 0)) {
                     //return preferenceAllowed;
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_screenDarkMode");
                     preferenceAllowed.notAllowedG1 = true;
                 }
             }

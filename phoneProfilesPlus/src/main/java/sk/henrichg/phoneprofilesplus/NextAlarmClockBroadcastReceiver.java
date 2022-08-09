@@ -27,13 +27,11 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         //if (android.os.Build.VERSION.SDK_INT >= 21) {
             String action = intent.getAction();
             if ((action != null) && action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
-//                PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "action ok");
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
                     AlarmManager.AlarmClockInfo alarmClockInfo = alarmManager.getNextAlarmClock();
                     if (alarmClockInfo != null) {
-//                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo != null");
 
                         long _time = alarmClockInfo.getTriggerTime();
 
@@ -44,16 +42,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                         if (infoPendingIntent != null) {
                             String packageName = infoPendingIntent.getCreatorPackage();
-//                            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
                             if (packageName != null) {
                                 if (!packageName.equals(PPApplication.PACKAGE_NAME)) {
-//                                    if (PPApplication.logEnabled()) {
-//                                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                                        String result = sdf.format(_time);
-//                                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "_time=" + result);
-//                                    }
-
-                                    //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
 
                                     // com.google.android.deskclock - Google Clock
                                     // com.sec.android.app.clockpackage - Samsung Clock
@@ -89,17 +79,13 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                         setAlarm(_time, packageName, alarmManager, context);
                                 }
                             } /*else {
-                                //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName == null");
                                 setAlarm(_time, "", alarmManager, context);
                             }*/
                         } /*else {
-                            //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent == null");
                             setAlarm(_time, "", alarmManager, context);
                         }*/
                     }
                     else {
-//                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo == null");
-
                         setEventAlarmClockTime(context, 0);
                         setEventAlarmClockPackageName(context, "");
                         removeAlarm(alarmManager, context);
@@ -118,7 +104,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         // cancel alarm
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null) {
-            //PPApplication.logE("NextAlarmClockBroadcastReceiver.removeAlarm", "alarm found");
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
@@ -138,12 +123,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             // AlarmClockBroadcastReceiver for example from Editor
             //if (instance.alarmClockBroadcastReceiver != null) {
             //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
-
-            /*if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarmTime);
-                PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime=" + result);
-            }*/
 
             //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
             Intent intent = new Intent();

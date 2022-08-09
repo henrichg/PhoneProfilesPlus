@@ -45,16 +45,11 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
     }
 
     private void doConnection() {
-//        PPApplication.logE("[TEST BATTERY] MobileDataNetworkCallback.doConnection", "xxx");
-//        PPApplication.logE("[TEST BATTERY] MobileDataNetworkCallback.doConnection", "current thread="+Thread.currentThread());
-
         //final Context appContext = getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
-
-        //PPApplication.logE("[TEST BATTERY] MobileDataNetworkCallback.doConnection", "connected or disconnected");
 
         if (Build.VERSION.SDK_INT >= 26) {
             // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
@@ -90,7 +85,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
             //        appContext) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileDataNetworkCallback.doConnection");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileDataNetworkCallback.doConnection");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -104,10 +99,8 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
                         MobileDataNetworkCallback.this._doConnection(appContext);
 
-//                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileDataNetworkCallback.doConnection");
-
                     } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -125,30 +118,17 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
     }
 
     private void _doConnection(Context appContext) {
-//        PPApplication.logE("$$$ MobileDataNetworkCallback._doConnection", "isConnected=" + connected);
-
         if (Event.getGlobalEventsRunning()) {
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
 
-                //PPApplication.logE("$$$ MobileDataNetworkCallback._doConnection", "wifi is not scanned");
-
                 if (PhoneProfilesService.getInstance() != null) {
 
-//                    if (connected) {
-//                        int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
-//                        PPApplication.logE("$$$ MobileDataNetworkCallback._doConnection", "defaultSubscriptionId=" + defaultSubscriptionId);
-//                    }
-
-
                     // start events handler
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MobileDataNetworkCallback._doConnection");
 
 //                                    PPApplication.logE("[EVENTS_HANDLER_CALL] MobileDataNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MobileDataNetworkCallback._doConnection");
                 }
         }
     }

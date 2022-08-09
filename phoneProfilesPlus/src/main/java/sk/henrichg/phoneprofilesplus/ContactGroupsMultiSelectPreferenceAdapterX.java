@@ -100,8 +100,6 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
                 // Display ContactGroup data
                 textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
 
-//                PPApplication.logE("ContactGroupsMultiSelectPreferenceAdapterX.getView", "contactGroup.accountType="+contactGroup.accountType);
-
                 boolean found = false;
                 PackageManager packageManager = context.getPackageManager();
                 try {
@@ -111,7 +109,6 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
                         found = true;
                     }
                 } catch (Exception ignored) {}
-//                PPApplication.logE("ContactGroupsMultiSelectPreferenceAdapterX.getView", "found="+found);
                 if (!found) {
                     if (contactGroup.accountType.equals("com.osp.app.signin"))
                         contactGroup.accountType = context.getString(R.string.contact_account_type_samsung_account);

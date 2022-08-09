@@ -265,12 +265,10 @@ public class WallpaperViewPreferenceX extends Preference {
                 new String[] { MediaStore.Images.Media._ID },
                 MediaStore.Images.Media.DATA + "=? ",
                 new String[] { imageFile }, null);
-        //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","cursor="+cursor);
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns._ID));
             cursor.close();
             Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
-            //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri1="+uri);
             return uri;
         } else {
             if (cursor != null)
@@ -286,7 +284,6 @@ public class WallpaperViewPreferenceX extends Preference {
                 //    ContentResolver resolver = context.getApplicationContext().getContentResolver();
                 //    resolver.takePersistableUriPermission(uri, takeFlags);
                 //}
-                //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri2="+uri);
                 return uri;
             } else {
                 return null;

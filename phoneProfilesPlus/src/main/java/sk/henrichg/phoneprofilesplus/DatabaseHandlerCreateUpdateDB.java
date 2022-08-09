@@ -500,8 +500,6 @@ class DatabaseHandlerCreateUpdateDB {
         List<String> columns = new ArrayList<>();
         Cursor cursor = null;
         try {
-//            PPApplication.logE("DatabaseHandlerCreateUpdateDB.getTableColums", db.toString());
-
             //cursor = db.rawQuery("PRAGMA DatabaseHandler.TABLE_info("+ table +")", null);
             //cursor = db.rawQuery("PRAGMA phoneProfilesManager.TABLE_info("+ table +")", null);
 
@@ -963,18 +961,11 @@ class DatabaseHandlerCreateUpdateDB {
                         String icon = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ICON));
                         int wallpaperChange = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE));
 
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
-                        }*/
-
                         ContentValues values = new ContentValues();
 
                         try {
                             String[] splits = icon.split("\\|");
                             String isIconResourceId = splits[1];
-                            //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
                             if (!isIconResourceId.equals("1")) {
                                 values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
                             }
@@ -988,7 +979,6 @@ class DatabaseHandlerCreateUpdateDB {
                         }
                         values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER, "-");
 
-                        //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "values.size()=" + values.size());
                         if (values.size() > 0) {
                             db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?", new String[]{String.valueOf(id)});
                         }

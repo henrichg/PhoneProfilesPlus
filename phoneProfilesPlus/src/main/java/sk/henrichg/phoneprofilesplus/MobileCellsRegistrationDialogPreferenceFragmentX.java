@@ -48,8 +48,6 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //PPApplication.logE("MobileCellsRegistrationDialogPreferenceFragmentX.onCreateDialog", "xxx");
-
         preference = (MobileCellsRegistrationDialogPreferenceX)getPreference();
         prefContext = preference.getContext();
         preference.fragment = this;
@@ -336,8 +334,6 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
             MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(prefContext, iValue);
             MobileCellsScanner.durationForAutoRegistration = iValue;
             MobileCellsScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
-            //PPApplication.logE("MobileCellsRegistrationDialogPreferenceFragmentX.startRegistration",
-            //        "cellsNameForAutoRegistration="+MobileCellsScanner.cellsNameForAutoRegistration);
             MobileCellsScanner.startAutoRegistration(prefContext.getApplicationContext(), false);
 
             preference.value = String.valueOf(iValue);
@@ -348,7 +344,6 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
     }
 
     void setCellNameText(String text) {
-        //PPApplication.logE("MobileCellsRegistrationDialogPreferenceFragmentX.setCellNameText", "text="+text);
         mCellsName.setText(text);
     }
 

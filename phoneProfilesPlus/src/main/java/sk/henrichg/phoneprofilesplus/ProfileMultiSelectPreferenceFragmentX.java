@@ -92,8 +92,6 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
 
     private void getValuePMSDP(boolean notForUnselect)
     {
-        //PPApplication.logE("ProfileMultiSelectPreferenceX.getValueAMSDP","value="+preference.value);
-
         synchronized (preference.dataWrapper.profileList) {
             for (Profile profile : preference.dataWrapper.profileList)
                 profile._checked = false;

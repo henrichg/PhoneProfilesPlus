@@ -23,8 +23,6 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onCreate", "xxx");
-
         Intent intent = getIntent();
         profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
 
@@ -58,8 +56,6 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
 
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
-//            PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onStart", "application not started");
-
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             PPApplication.setApplicationStarted(getApplicationContext(), true);
@@ -84,8 +80,6 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             return;
         }
 
-//        PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onStart", "application started");
-
         PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION,
                 null, profileName, "");
 
@@ -93,11 +87,9 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             Profile profile = dataWrapper.getProfileById(profile_id, false, false, false);
             if (profile != null) {
 
-//                PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onCreate", "profile=" + profile._name);
                 //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                 //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
                 if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, getApplicationContext())) {
-//                    PPApplication.logE("&&&&&&& ActivateProfileFromExternalApplicationActivity.onStart", "called is DataWrapper.activateProfileFromMainThread");
                     dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this, false);
                 } else
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);

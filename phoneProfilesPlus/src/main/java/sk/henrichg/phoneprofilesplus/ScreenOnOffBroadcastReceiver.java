@@ -18,7 +18,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
         /*if (intent != null)
-            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
         else
             return;*/
         if (intent == null)
@@ -32,14 +31,13 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         if (action == null)
             return;
 
-        //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "before start handler");
         final Context appContext = context.getApplicationContext();
         //PPApplication.startHandlerThreadBroadcast(/*"ScreenOnOffBroadcastReceiver.onReceive"*/);
         //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
+//            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
 
@@ -52,20 +50,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //if (PPApplication.logEnabled()) {
-                    //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
-                    //}
-
-//                    PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", " start wakelock - action="+action);
-
                     switch (action) {
                         case Intent.ACTION_SCREEN_ON: {
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
 
                             PPApplication.isScreenOn = true;
 
                             if (!ApplicationPreferences.prefLockScreenDisabled) {
-//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - start");
                                 // enable/disable keyguard
                                 try {
                                     //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
@@ -75,7 +65,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }
-//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - end");
                             }
 
                             // reset brightness
@@ -149,12 +138,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                             // change screen timeout
                             // WARNING: must be called after PPApplication.isScreenOn = true;
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on - setScreenTimeout - start");
                             setProfileScreenTimeoutSavedWhenScreenOff(appContext);
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on - setScreenTimeout - end");
 
                             // restart scanners for screen on when any is enabled
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on - restart scanners - start");
                             boolean restart = false;
                             if (ApplicationPreferences.applicationEventLocationEnableScanning)
                                 restart = true;
@@ -169,18 +155,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                                 restart = true;
                             if (restart) {
-                                //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_ON");
                                 // for screenOn=true -> used only for Location scanner - start scan with GPS On
                                 PPApplication.restartAllScanners(appContext, false);
                             }
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on - restart scanners - end");
                             break;
                         }
                         case Intent.ACTION_SCREEN_OFF: {
-//                        if (PPApplication.logEnabled()) {
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
-//                            PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
-//                        }
 
                             PPApplication.isScreenOn = false;
 //                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
@@ -195,31 +175,24 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //                            }
 
                             // call this, because device may not be locked immediately after screen off
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off - lock device set alarm - start");
                             KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                             if (keyguardManager != null) {
                                 boolean keyguardShowing = keyguardManager.isKeyguardLocked();
-//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "keyguardShowing=" + keyguardShowing);
 
                                 if (!keyguardShowing) {
                                     int lockDeviceTime = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 0);
-                                    //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "lockDeviceTime="+lockDeviceTime);
                                     if (lockDeviceTime > 0) {
                                         if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SCREEN) > 0) {
                                             // call this only when any event with screen sensor exists
                                             // it is not needed to call it again for calendar sensor, because was called for screen off
-//                                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "call LockDeviceAfterScreenOffBroadcastReceiver.setAlarm");
                                             LockDeviceAfterScreenOffBroadcastReceiver.setAlarm(lockDeviceTime, appContext);
                                         }
                                     }
                                 }
                             }
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off - lock device set alarm - end");
 
-                            //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_OFF");
 
                             // for screen off restart scanners only when it is required for any scanner
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off - lock device set alarm - restart scanners - start");
                             boolean restart = false;
                             if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning &&
                                     ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)
@@ -244,7 +217,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 //PPApplication.setBlockProfileEventActions(true);
                                 PPApplication.restartAllScanners(appContext, false);
                             }
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off - lock device set alarm - restart scanners - end");
 
                             final Handler handler1 = new Handler(appContext.getMainLooper());
                             handler1.post(() -> {
@@ -262,18 +234,13 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             break;
                         }
                         case Intent.ACTION_USER_PRESENT:
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present");
-
                             PPApplication.isScreenOn = true;
 
                             // change screen timeout
                             // WARNING: must be called after PPApplication.isScreenOn = true;
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - setScrteenTimeput - start");
                             setProfileScreenTimeoutSavedWhenScreenOff(appContext);
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - setScrteenTimeput - end");
 
                             if (ApplicationPreferences.prefLockScreenDisabled) {
-//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - start");
                                 // enable/disable keyguard
                                 try {
                                     //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
@@ -283,14 +250,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }
-//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action user present - switch keyguard - end");
                             }
 
                             break;
                     }
 
                     if (Event.getGlobalEventsRunning()) {
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
 //                        PPApplication.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SCREEN");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -301,44 +266,33 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
                         }
 
-//                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
                     }
 
                     PhoneProfilesNotification.drawProfileNotification(false, appContext);
 
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "end of handler post");
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
-                    }*/
-
-//                    PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", " end wakelock - action="+action);
-
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
                             wakeLock.release();
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", " wakelock released");
                         } catch (Exception e) {
-//                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", Log.getStackTraceString(e));
+//                            Log.e("@@@ ScreenOnOffBroadcastReceiver.onReceive", Log.getStackTraceString(e));
                         }
                     }
                 }
             //}
 
-//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
+//            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
         }; //);
         PPApplication.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
-        //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "after start handler");
     }
 
     private void setProfileScreenTimeoutSavedWhenScreenOff(Context appContext) {
         final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff;
-        //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout=" + screenTimeout);
         if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
             if (PPApplication.screenTimeoutHandler != null) {
                 PPApplication.screenTimeoutHandler.post(() -> ActivateProfileHelper.setScreenTimeout(screenTimeout, false, appContext));

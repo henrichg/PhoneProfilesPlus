@@ -83,7 +83,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time
-//                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "-- END - scan in time = 2 -------");
                     return;
                 }
             }
@@ -91,8 +90,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         if (sbn == null)
             return;
-
-        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.getPackageName()="+sbn.getPackageName());
 
         String packageName = sbn.getPackageName();
         if (packageName.equals(PPApplication.PACKAGE_NAME))
@@ -102,8 +99,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //    return;
 
 //        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
-
-//        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
 
         final Context appContext = getApplicationContext();
 
@@ -118,36 +113,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning()) {
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
-
-                if (PPApplication.logEnabled()) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    String alarmTimeS = sdf.format(sbn.getPostTime());
-                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
-                }
-
-                if(sbn.getNotification().tickerText !=null) {
-                    String ticker = sbn.getNotification().tickerText.toString();
-                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "ticker=" + ticker);
-                }
-                Bundle extras = sbn.getNotification().extras;
-                if (extras != null) {
-                    String title;
-                    if (extras.getString("android.title") != null)
-                        title = extras.getString("android.title");
-                    else
-                        title = "";
-                    String text;
-                    if (extras.getCharSequence("android.text") != null)
-                        text = extras.getCharSequence("android.text").toString();
-                    else
-                        text = "";
-                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "title=" + title);
-                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "text=" + text);
-                }
-            }*/
-
             /*
             PPApplication.startHandlerThreadBroadcast();
             final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -169,7 +134,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         //eventsHandler.setEventNotificationParameters("posted");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPNotificationListenerService.onNotificationPosted");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -204,7 +168,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationPosted", "for=" + MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                        } catch (Exception ignored) {
 //                        }
 //                        //}
@@ -241,7 +204,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time
-//                    PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "-- END - scan in time = 2 -------");
                     return;
                 }
             }
@@ -249,8 +211,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         if (sbn == null)
             return;
-
-        //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved","packageName="+sbn.getPackageName());
 
         String packageName = sbn.getPackageName();
         if (packageName.equals(PPApplication.PACKAGE_NAME))
@@ -260,8 +220,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //    return;
 
 //        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "sbn="+sbn);
-
-        //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "is not PPP");
 
         final Context appContext = getApplicationContext();
 
@@ -295,7 +253,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         //eventsHandler.setEventNotificationParameters("removed");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPNotificationListenerService.onNotificationRemoved");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -331,7 +288,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationRemoved", "for=" + MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                        } catch (Exception ignored) {
 //                        }
 //                        //}
@@ -354,7 +310,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onListenerConnected", "xxx");
 
         synchronized (PPApplication.ppNotificationListenerService) {
-            //PPApplication.logE("PPNotificationListenerService.onListenerConnected","xxx");
             connected = true;
         }
     }
@@ -365,7 +320,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onListenerDisconnected", "xxx");
 
         synchronized (PPApplication.ppNotificationListenerService) {
-            //PPApplication.logE("PPNotificationListenerService.onListenerDisconnected","xxx");
             connected = false;
         }
     }
@@ -388,10 +342,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         Build.VERSION.RELEASE.equals("6.0");
         if (//((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||
             a60) {
-            //if (PPApplication.logEnabled()) {
-            //    PPApplication.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
-            //    PPApplication.logE(TAG, "onInterruptionFilterChanged(internalChange=" + RingerModeChangeReceiver.internalChange + ")");
-            //}
             if (!RingerModeChangeReceiver.internalChange) {
 
                 final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
@@ -423,7 +373,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         zenMode = Profile.ZENMODE_ALARMS;
                         break;
                 }
-                //PPApplication.logE("********* PPNotificationListenerService.setZenMode", "from=PPNotificationListenerService.onInterruptionFilterChanged zenMode="+zenMode);
                 if (zenMode != 0) {
                     synchronized (PPApplication.notUnlinkVolumesMutex) {
                         RingerModeChangeReceiver.notUnlinkVolumes = true;
@@ -442,7 +391,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         // convert to profile zenMode
         int zenMode = 0;
         int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
-        //PPApplication.logE("PPNotificationListenerService.getZenMode", "systemZenMode=" + systemZenMode);
         int ringerMode = audioManager.getRingerMode();
         switch (systemZenMode) {
             case ActivateProfileHelper.ZENMODE_ALL:
@@ -466,7 +414,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 zenMode = Profile.ZENMODE_ALARMS;
                 break;
         }
-        //PPApplication.logE("PPNotificationListenerService.getZenMode", "zenMode=" + zenMode);
         return zenMode;
     }
  */
@@ -478,7 +425,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (//((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||
                 a60) {
             int zenMode = getZenMode(context, audioManager);
-            //PPApplication.logE("********* PPNotificationListenerService.setZenMode", "from="+from+" zenMode="+zenMode);
             if (zenMode != 0) {
                 ActivateProfileHelper.saveRingerMode(context, Profile.RINGERMODE_ZENMODE);
                 ActivateProfileHelper.saveZenMode(context, zenMode);
@@ -703,9 +649,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
     private void addNotifiedPackage(String packageName, long time)
     {
         synchronized (PPApplication.notificationsChangeMutex) {
-            PPApplication.logE("PPNotificationListenerService.addNotifiedPackage", "packageName=" + packageName);
-            PPApplication.logE("PPNotificationListenerService.addNotifiedPackage", "time=" + time);
-
             if (notifications == null)
                 notifications = new ArrayList<>();
 
@@ -716,7 +659,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     break;
                 }
             }
-            PPApplication.logE("PPNotificationListenerService.addNotifiedPackage", "found=" + found);
             if (!found) {
                 notifications.add(new PostedNotificationData(packageName, time));
             }
@@ -760,7 +702,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
     {
         synchronized (PPApplication.notificationsChangeMutex) {
             //packageName = ApplicationsCache.getPackageName(packageName);
-            PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "packageName=" + packageName);
 
             if (notifications == null)
                 notifications = new ArrayList<>();
@@ -769,19 +710,16 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 String _packageName = _notification.getPackageName();
                 if (checkEnd) {
                     if (_packageName.endsWith(packageName)) {
-                        PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "_packageName returned=" + _packageName);
                         return _notification;
                     }
                 }
                 else {
                     if (_packageName.equals(packageName)) {
-                        PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "_packageName returned=" + _packageName);
                         return _notification;
                     }
                 }
             }
 
-            PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "_packageName returned=null");
             return null;
         }
     }

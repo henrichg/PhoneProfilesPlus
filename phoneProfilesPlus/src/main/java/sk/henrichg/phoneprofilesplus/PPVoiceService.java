@@ -39,7 +39,6 @@ public final class PPVoiceService extends VoiceInteractionService {
 
     public void onReady() {
         super.onReady();
-//        PPApplication.logE("PPVoiceService.onReady", "xxx");
         registerReceiver(this.voiceServiceBroadcastReceiver, new IntentFilter(ACTION_ASSISTANT));
     }
 

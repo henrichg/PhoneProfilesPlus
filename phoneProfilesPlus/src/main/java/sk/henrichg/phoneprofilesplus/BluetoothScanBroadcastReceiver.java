@@ -31,8 +31,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
         final String action = intent.getAction();
 
-        //PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","action="+action);
-
         if (action == null)
             return;
 
@@ -45,20 +43,13 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             final String deviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
 
-            /*if (action.equals(BluetoothDevice.ACTION_FOUND)) {
-                if (PPApplication.logEnabled()) {
-                    PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive", "device=" + device);
-                    PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive", "deviceName=" + deviceName);
-                }
-            }*/
-
             final Context appContext = context.getApplicationContext();
             //PPApplication.startHandlerThreadBroadcast(/*"BluetoothScanBroadcastReceiver.onReceive"*/);
             //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanBroadcastReceiver.onReceive");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
                 //BluetoothDevice device = deviceWeakRef.get();
@@ -83,8 +74,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                 boolean scanStarted = ApplicationPreferences.prefEventBluetoothWaitForResult;
 
                                 if (scanStarted) {
-                                    //PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "action=" + action);
-
                                     switch (action) {
                                         case BluetoothAdapter.ACTION_DISCOVERY_STARTED:
                                             // may be not invoked if not any BT is around
@@ -112,12 +101,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                     btName = deviceName;
                                                 }
 
-                                                /*if (PPApplication.logEnabled()) {
-                                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_d=" + btNameD);
-                                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_e=" + btNameE);
-                                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceAddress=" + device.getAddress());
-                                                }*/
-
                                                 if (BluetoothScanner.tmpBluetoothScanResults == null)
                                                     BluetoothScanner.tmpBluetoothScanResults = new ArrayList<>();
 
@@ -136,7 +119,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                         }
                                                     }
                                                 }
-                                                //PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "found=" + found);
                                                 if (!found) {
                                                     BluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
                                                             BluetoothScanWorker.getBluetoothType(device), false, 0, false, true));
@@ -156,9 +138,8 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanBroadcastReceiver.onReceive");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

@@ -171,16 +171,10 @@ public class DataWrapperStatic {
     // 2. no any forceRun event is running
     static boolean getIsManualProfileActivation(boolean afterDuration, Context context)
     {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("DataWrapper.getIsManualProfileActivation", "ApplicationPreferences.prefEventsBlocked=" + ApplicationPreferences.prefEventsBlocked);
-            PPApplication.logE("DataWrapper.getIsManualProfileActivation", "ApplicationPreferences.prefForceRunEventRunning=" + ApplicationPreferences.prefForceRunEventRunning);
-        }*/
         if (afterDuration)
             //return ApplicationPreferences.prefEventsBlocked;
             return Event.getEventsBlocked(context);
         else {
-//            PPApplication.logE("[APP_START] DataWrapper.getIsManualProfileActivation", "Event.getEventsBlocked(context)="+Event.getEventsBlocked(context));
-//            PPApplication.logE("[APP_START] DataWrapper.getIsManualProfileActivation", "Event.getForceRunEventRunning(context)="+Event.getForceRunEventRunning(context));
             //if (!ApplicationPreferences.prefEventsBlocked)
             if (!Event.getEventsBlocked(context))
                 return false;
@@ -631,7 +625,6 @@ public class DataWrapperStatic {
 
                     int shortcutsCount = 0;
                     for (Profile profile : countedProfiles) {
-//                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name + " count="+profile._activationByUserCount);
                         profile.generateIconBitmap(context, false, 0, false);
                         shortcuts.add(createShortcutInfo(profile, false, context));
                         ++shortcutsCount;
@@ -642,7 +635,6 @@ public class DataWrapperStatic {
                     //int shortcutsCount = countedProfiles.size();
                     if (shortcutsCount < limit) {
                         for (Profile profile : notCountedProfiles) {
-//                            PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
                             profile.generateIconBitmap(context, false, 0, false);
                             shortcuts.add(createShortcutInfo(profile, false, context));
                             ++shortcutsCount;
@@ -650,10 +642,6 @@ public class DataWrapperStatic {
                                 break;
                         }
                     }
-
-//                    for (ShortcutInfo info : shortcuts) {
-//                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "profile in shortcut=" +info.getShortLabel());
-//                    }
 
                     //noinspection ConstantConditions
                     if (shortcuts.size() > 0)

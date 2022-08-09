@@ -425,8 +425,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     }
 
     Profile getProfileFromPreferences(long profile_id, int new_profile_mode, int predefinedProfileIndex) {
-        //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "xxx");
-
         Profile profile = createProfile(profile_id, new_profile_mode, predefinedProfileIndex, true);
 
         if (profile != null) {
@@ -465,7 +463,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 profile._soundRingtone = splits[0]+"|1";
             else*/
                 profile._soundRingtone = splits[0];//+"|0";
-            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundRingtone=" + profile._soundRingtone);
 
             profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
@@ -475,7 +472,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 profile._soundNotification = splits[0]+"|1";
             else*/
                 profile._soundNotification = splits[0];//+"|0";
-            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotification=" + profile._soundNotification);
 
             profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
@@ -485,7 +481,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 profile._soundAlarm = splits[0]+"|1";
             else*/
                 profile._soundAlarm = splits[0];//+"|0";
-            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundAlarm=" + profile._soundAlarm);
 
             profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, ""));
             profile._deviceWiFi = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI, ""));
@@ -569,7 +564,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 profile._soundRingtoneSIM1 = splits[0]+"|1";
             else*/
             profile._soundRingtoneSIM1 = splits[0];//+"|0";
-            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundRingtoneSIM1=" + profile._soundRingtoneSIM1);
             profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
             splits = toneString.split("\\|");
@@ -578,7 +572,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 profile._soundNotificationSIM1 = splits[0]+"|1";
             else*/
             profile._soundNotificationSIM1 = splits[0];//+"|0";
-            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM1=" + profile._soundNotificationSIM1);
             profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, "");
             splits = toneString.split("\\|");
@@ -587,7 +580,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 profile._soundRingtoneSIM2 = splits[0]+"|1";
             else*/
             profile._soundRingtoneSIM2 = splits[0];//+"|0";
-            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundRingtoneSIM2=" + profile._soundRingtoneSIM2);
             profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
             splits = toneString.split("\\|");
@@ -596,15 +588,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 profile._soundNotificationSIM2 = splits[0]+"|1";
             else*/
             profile._soundNotificationSIM2 = splits[0];//+"|0";
-            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM2=" + profile._soundNotificationSIM2);
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
             profile._applicationDisableGloabalEventsRun = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, ""));
             profile._deviceVPNSettingsPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, ""));
             profile._applicationDisablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, ""));
             profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "");
         }
-
-        //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");
 
         return profile;
     }
@@ -636,24 +625,20 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 DatabaseHandler.getInstance(getApplicationContext()).updateProfile(profile);
 
                 // restart Events
-//                PPApplication.logE("[BLOCK_ACTIONS] ProfilesPrefsActivity.savePreferences", "true");
                 PPApplication.setBlockProfileEventActions(true);
                 if (Event.getGlobalEventsRunning()) {
                     if (!DataWrapperStatic.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
-//                        PPApplication.logE("[APP_START] ProfilesPrefsActivity.savePreferences", "xxx");
                         dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
                     }
                     else {
                         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                            //PPApplication.logE("&&&&&&& ProfilePrefsActivity.savePreferences", "(1) called is DataWrapper.activateProfileFromMainThread");
                             dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                         }
                     }
                 }
                 else {
                     if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                        //PPApplication.logE("&&&&&&& ProfilePrefsActivity.savePreferences", "(2) called is DataWrapper.activateProfileFromMainThread");
                         dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                     }
                 }

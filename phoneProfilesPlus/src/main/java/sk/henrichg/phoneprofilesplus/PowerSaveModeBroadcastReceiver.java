@@ -40,8 +40,6 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         if (ApplicationPreferences.applicationEventOrientationEnableScanning)
             restart = true;
         if (restart) {
-            //PPApplication.logE("[XXX] PowerSaveModeBroadcastReceiver.onReceive", "restartAllScanners");
-            //PPApplication.logE("[RJS] PowerSaveModeBroadcastReceiver.onReceive", "restart all scanners");
             // for screenOn=true -> used only for Location scanner - start scan with GPS On
             PPApplication.restartAllScanners(appContext, true);
         }
@@ -71,7 +69,6 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PowerSaveModeBroadcastReceiver.onReceive");
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);

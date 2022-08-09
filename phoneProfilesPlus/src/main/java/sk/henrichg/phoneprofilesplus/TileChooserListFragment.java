@@ -213,9 +213,7 @@ public class TileChooserListFragment extends Fragment {
     void chooseTile(final int position)
     {
         if (getActivity() != null) {
-//            PPApplication.logE("TileChooserListFragment.chooseTile", "position=" + position);
             int tileId = ((TileChooserActivity)getActivity()).tileId;
-//            PPApplication.logE("TileChooserListFragment.chooseTile", "tileId="+tileId);
             Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver" + tileId);
             intent.putExtra(QuickTileChooseTileBroadcastReceiver.EXTRA_QUICK_TILE_ID, tileId);
 
@@ -224,15 +222,12 @@ public class TileChooserListFragment extends Fragment {
                 synchronized (activityDataWrapper.profileList) {
                     profile = activityDataWrapper.profileList.get(position);
                 }
-//                PPApplication.logE("TileChooserListFragment.chooseTile", "profile="+profile);
 
                 if (profile != null) {
                     if (position == 0) {
                         intent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
-//                        PPApplication.logE("TileChooserListFragment.chooseTile", "profile._id="+Profile.RESTART_EVENTS_PROFILE_ID);
                     }
                     else {
-//                        PPApplication.logE("TileChooserListFragment.chooseTile", "profile._id="+profile._id);
                         intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                     }
                 }
@@ -256,7 +251,6 @@ public class TileChooserListFragment extends Fragment {
             getActivity().getApplicationContext().sendBroadcast(intent);
             //LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
             getActivity().finish();
-//            PPApplication.logE("TileChooserListFragment.chooseTile", "after send broadcast");
         }
     }
 

@@ -68,7 +68,6 @@ class TwilightScanner {
     private void setTwilightState(TwilightState state) {
         synchronized (mLock) {
             if ((mTwilightState == null) || (state == null) || !mTwilightState.equals(state)) {
-                //PPApplication.logE("TwilightScanner.setTwilightState", "Twilight state changed: " + state);
 
                 mTwilightState = state;
 
@@ -79,7 +78,6 @@ class TwilightScanner {
                     return;
 
                 if (Event.getGlobalEventsRunning()) {
-                    //PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
 
                     PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_TIME, "SENSOR_TYPE_TIME", 10);
                     /*
@@ -104,7 +102,6 @@ class TwilightScanner {
 //                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
 //                                try {
 //                                    List<WorkInfo> workInfoList = statuses.get();
-//                                    PPApplication.logE("[TEST BATTERY] TwilightScanner.setTwilightState", "for=" + MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                                } catch (Exception ignored) {
 //                                }
 //                                //}
@@ -133,12 +130,9 @@ class TwilightScanner {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=TwilightScanner.setTwilightState");
-
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
 
-                                PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=TwilightScanner.setTwilightState");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -156,12 +150,8 @@ class TwilightScanner {
     }
 
     TwilightState getTwilightState(/*boolean log*/) {
-        //if (log)
-        //    PPApplication.logE("TwilightScanner.getTwilightState", "xxx");
         synchronized (mLock) {
             mLocationHandler.updateTwilightState(false/*, log*/);
-            //if (log)
-            //    PPApplication.logE("TwilightScanner.getTwilightState", "END");
             return mTwilightState;
         }
     }
@@ -246,10 +236,6 @@ class TwilightScanner {
                     final boolean hasMoved = hasMoved(mLocation, location);
                     final boolean hasBetterAccuracy = mLocation == null
                             || location.getAccuracy() < mLocation.getAccuracy();
-                    /*PPApplication.logE("TwilightScanner.handleMessage",
-                            "Processing new location: " + location
-                            + ", hasMoved=" + hasMoved
-                            + ", hasBetterAccuracy=" + hasBetterAccuracy);*/
 
                     if (hasMoved || hasBetterAccuracy) {
                         setLocation(location);
@@ -258,7 +244,6 @@ class TwilightScanner {
                 }
 
                 case MSG_GET_NEW_LOCATION_UPDATE:
-                    //PPApplication.logE("TwilightScanner.handleMessage", "MSG_GET_NEW_LOCATION_UPDATE");
                     if (!mNetworkListenerEnabled) {
                         // Don't do anything -- we are still trying to get a
                         // location.
@@ -281,7 +266,6 @@ class TwilightScanner {
                 case MSG_ENABLE_LOCATION_UPDATES:
                     // enable network provider to receive at least location updates for a given
                     // distance.
-                    //PPApplication.logE("TwilightScanner.handleMessage", "MSG_ENABLE_LOCATION_UPDATES");
                     boolean networkLocationEnabled;
                     try {
                         //noinspection ConstantConditions
@@ -340,7 +324,6 @@ class TwilightScanner {
                     break;
 
                 case MSG_DO_TWILIGHT_UPDATE:
-                    //PPApplication.logE("TwilightScanner.handleMessage", "MSG_DO_TWILIGHT_UPDATE");
                     updateTwilightState(true/*, true*/);
                     break;
             }
@@ -385,14 +368,12 @@ class TwilightScanner {
                 location.setTime(System.currentTimeMillis());
                 location.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
 
-                //PPApplication.logE("TwilightScanner.retrieveLocation", "Estimated location from timezone: " + location);
             }
 
             setLocation(location);
         }
 
         private void setLocation(Location location) {
-            //PPApplication.logE("TwilightScanner.setLocation", "xxx");
             mLocation = location;
             updateTwilightState(true/*, true*/);
         }
@@ -404,13 +385,6 @@ class TwilightScanner {
             }
 
             Calendar now = Calendar.getInstance();
-
-            /*if (log)
-                PPApplication.logE("TwilightScanner.updateTwilightState", "now=" + now.getTime());*/
-
-//            Calendar[] twilight = SunriseSunset.getSunriseSunset(Calendar.getInstance(), mLocation.getLatitude(), mLocation.getLongitude());
-//            PPApplication.logE("TwilightScanner.updateTwilightState", "SunriseSunset.getCivilTwilight[0]=" + twilight[0].getTime());
-//            PPApplication.logE("TwilightScanner.updateTwilightState", "SunriseSunset.getCivilTwilight[1]=" + twilight[1].getTime());
 
             // calculate correction
             Calendar[] twilight = SunriseSunset.getSunriseSunset(now, mLocation.getLatitude(), mLocation.getLongitude());
@@ -428,13 +402,6 @@ class TwilightScanner {
             _twilight.set(Calendar.MILLISECOND, 0);
 
             int correction = -_twilight.compareTo(_now);
-            /*if (log) {
-                if (PPApplication.logEnabled()) {
-                    PPApplication.logE("TwilightScanner.updateTwilightState", "_now=" + _now.getTime());
-                    PPApplication.logE("TwilightScanner.updateTwilightState", "_twilight=" + _twilight.getTime());
-                    PPApplication.logE("TwilightScanner.updateTwilightState", "correction=" + correction);
-                }
-            }*/
 
             // calculate today twilight
             _now = Calendar.getInstance();
@@ -474,8 +441,6 @@ class TwilightScanner {
             // set twilight state
             TwilightState state = new TwilightState(isNight, yesterdaySunrise, yesterdaySunset,
                     todaySunrise, todaySunset, tomorrowSunrise, tomorrowSunset, daysSunrise, daysSunset);
-            //if (log)
-            //    PPApplication.logE("TwilightScanner.updateTwilightState", "Updating twilight state: " + state);
 
             setTwilightState(state);
 
@@ -518,7 +483,6 @@ class TwilightScanner {
                 if (mAlarmManager != null) {
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
                     if (pendingIntent != null) {
-                        //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
 
                         mAlarmManager.cancel(pendingIntent);
                         pendingIntent.cancel();
@@ -560,8 +524,6 @@ class TwilightScanner {
     };
 
     static void doWork() {
-        //PPApplication.logE("TwilightScanner.doWork", "xxx");
-
         if (PhoneProfilesService.getInstance() != null) {
             TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
             if (twilightScanner != null) {

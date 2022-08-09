@@ -493,7 +493,6 @@ class EventPreferencesVolumes extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        //PPApplication.logE("EventPreferencesVolumes.setSystemRunningEvent","xxx");
     }
 
     @Override
@@ -504,22 +503,17 @@ class EventPreferencesVolumes extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        //PPApplication.logE("[BOOT] EventPreferencesVolumes.setSystemPauseEvent","xxx");
     }
 
     @Override
     void removeSystemEvent(Context context)
     {
-        //PPApplication.logE("EventPreferencesVolumes.removeSystemEvent", "xxx");
     }
 */
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
-//            PPApplication.logE("######### EventPreferencesVolumes.doHandleEvent", "xxx");
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //PPApplication.logE("[BOOT] EventPreferencesVolumes.doHandleEvent", "allowed");
-
                 AudioManager audioManager = (AudioManager)eventsHandler.context.getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
 
@@ -844,7 +838,6 @@ class EventPreferencesVolumes extends EventPreferences {
 
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-//                PPApplication.logE("######### EventPreferencesVolumes.doHandleEvent", "volumes - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_VOLUMES);
             }

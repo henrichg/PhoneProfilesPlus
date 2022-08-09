@@ -437,13 +437,11 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 if (forRescan) {
-                    //PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","start rescan");
                     WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     WifiScanWorker.startScanner(prefContext, true);
 
                     //PPApplication.sleep(500);
                     //WifiBluetoothScanner.waitForWifiScanEnd(prefContext, this);
-                    //PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","end rescan");
                 }
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);

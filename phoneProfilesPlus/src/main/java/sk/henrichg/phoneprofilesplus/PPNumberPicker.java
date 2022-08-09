@@ -19,7 +19,6 @@ public class PPNumberPicker extends NumberPicker {
 
     protected void updateNumber() {
         super.updateNumber();
-        //PPApplication.logE("PPNumberPicker.updateNumber", "xxx");
 
         BigDecimal number = getEnteredNumber();
 

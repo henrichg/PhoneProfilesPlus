@@ -24,7 +24,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
 
@@ -37,24 +37,18 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //if (PPApplication.logEnabled()) {
-                            //PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "mobileCellId=" + mobileCellId);
-                            //}
-
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             db.addMobileCellsToList(localCellsList, mobileCellId);
                             if (!localCellsList.isEmpty()) {
-                                //PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "save mobile cell");
                                 MobileCellsData cell = localCellsList.get(0);
                                 cell.doNotDetect = true;
                                 db.saveMobileCellsList(localCellsList, true, false);
                             }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {

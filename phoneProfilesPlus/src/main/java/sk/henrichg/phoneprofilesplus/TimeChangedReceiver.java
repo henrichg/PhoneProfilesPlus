@@ -16,7 +16,6 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
         if ((intent != null) && (intent.getAction() != null)) {
             final String action = intent.getAction();
-            //PPApplication.logE("TimeChangedReceiver.onReceive", "action="+action);
             if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)/* ||
                     action.equals(Intent.ACTION_TIME_CHANGED) ||
                     action.equals(Intent.ACTION_TIME_TICK)*/) {
@@ -32,11 +31,6 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     long uptimeDifference = SystemClock.elapsedRealtime() - PPApplication.lastUptimeTime;
                     long epochDifference = System.currentTimeMillis() - PPApplication.lastEpochTime;
                     long timeChange = Math.abs(uptimeDifference - epochDifference);
-                    if (PPApplication.logEnabled()) {
-                        PPApplication.logE("TimeChangedReceiver.onReceive", "uptimeDifference=" + uptimeDifference);
-                        PPApplication.logE("TimeChangedReceiver.onReceive", "epochDifference=" + epochDifference);
-                        PPApplication.logE("TimeChangedReceiver.onReceive", "timeChange=" + timeChange);
-                    }
 
                     // Time has changed more than 1 minute
                     timeChanged = timeChange > 1000 * 60;
@@ -48,17 +42,14 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 /*if (action.equals(Intent.ACTION_TIME_CHANGED)) {
                     timeChanged = false;
                     String isAutoTime = Settings.Global.getString(appContext.getContentResolver(), Settings.Global.AUTO_TIME);
-                    PPApplication.logE("TimeChangedReceiver.onReceive", "isAutoTime="+isAutoTime);
                     if ((isAutoTime != null) && isAutoTime.equals("0")) {
                         timeChanged = true;
                     }
                 }
 
-                PPApplication.logE("TimeChangedReceiver.onReceive", "timeChanged="+timeChanged);
                 */
 
                 //if (timeChanged) {
-                    //PPApplication.logE("TimeChangedReceiver.onReceive", "do time change");
 
                     final Context appContext = context.getApplicationContext();
                     //PPApplication.startHandlerThreadBroadcast(/*"TimeChangedReceiver.onReceive"*/);
@@ -67,7 +58,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     //        context.getApplicationContext()) {
                     //__handler.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
+//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
                         //if (appContext != null) {
@@ -81,10 +72,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                                 doWork(appContext, false);
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=TimeChangedReceiver.onReceive");
-
                             } catch (Exception e) {
-//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -104,8 +93,6 @@ public class TimeChangedReceiver extends BroadcastReceiver {
     }
 
     static void doWork(Context appContext, boolean logRestart/*, boolean forceRestart*/) {
-//        PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
-
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
         dataWrapper.fillProfileList(false, false);
@@ -131,7 +118,6 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 //        PPApplication.logE("[WORKER_CALL] TimeChangedReceiver.doWork", "xxx");
         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
         LockDeviceActivityFinishBroadcastReceiver.doWork();
-//        PPApplication.logE("TimeChangedReceiver.doWork", "call of LocationScannerSwitchGPSBroadcastReceiver.doWork, useGPS=true");
         LocationScanner.useGPS = true;
         LocationScannerSwitchGPSBroadcastReceiver.doWork(appContext);
 
@@ -149,19 +135,15 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         //dataWrapper.restartEventsWithRescan(false, false, false, false);
         /*if (forceRestart) {
             if (!DataWrapper.getIsManualProfileActivation(false)) {
-                PPApplication.logE("*********** restartEvents", "from TimeChangedReceiver.doWork() - 1");
                 dataWrapper.restartEventsWithRescan(true, false, true, false);
             }
             else {
-                PPApplication.logE("*********** restartEvents", "from TimeChangedReceiver.doWork() - 2");
                 dataWrapper.restartEventsWithRescan(false, false, true, false);
             }
         }
         else {
-            PPApplication.logE("*********** restartEvents", "from TimeChangedReceiver.doWork() - 3");
             dataWrapper.restartEventsWithRescan(false, false, false, false);
         }*/
-//        PPApplication.logE("[APP_START] TimeChangedReceiver.doWork", "xxxx");
         dataWrapper.restartEventsWithRescan(true, true, false, false, logRestart, false);
     }
 

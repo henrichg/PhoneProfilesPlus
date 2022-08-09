@@ -1471,27 +1471,7 @@ public class Profile {
 
     void mergeProfiles(long withProfileId, DataWrapper dataWrapper/*, boolean setDuration*/)
     {
-        //PPApplication.logE("$$$ mergeProfiles","_id="+_id);
-        //PPApplication.logE("$$$ mergeProfiles","withProfileId="+withProfileId);
-
         Profile withProfile = dataWrapper.getProfileById(withProfileId, false, false, false);
-
-        /*
-        PPApplication.logE("$$$ mergeProfiles", "**** START");
-        PPApplication.logE("$$$ mergeProfiles", "**** this.profileName=" + _name);
-        PPApplication.logE("$$$ mergeProfiles", "**** this.profileId=" + _id);
-        PPApplication.logE("$$$ mergeProfiles", "**** this._volumeRingerMode=" + _volumeRingerMode);
-        PPApplication.logE("$$$ mergeProfiles", "**** this._volumeZenMode=" + _volumeZenMode);
-        PPApplication.logE("$$$ mergeProfiles", "**** this._volumeRingtone=" + _volumeRingtone);
-        PPApplication.logE("$$$ mergeProfiles", "**** this._volumeNotification=" + _volumeNotification);
-
-        PPApplication.logE("$$$ mergeProfiles", "**** withProfile.profileName=" + withProfile._name);
-        PPApplication.logE("$$$ mergeProfiles", "**** withProfile.profileId=" + withProfile._id);
-        PPApplication.logE("$$$ mergeProfiles", "**** withProfile._volumeRingerMode=" + withProfile._volumeRingerMode);
-        PPApplication.logE("$$$ mergeProfiles", "**** withProfile._volumeZenMode=" + withProfile._volumeZenMode);
-        PPApplication.logE("$$$ mergeProfiles", "**** withProfile._volumeRingtone=" + withProfile._volumeRingtone);
-        PPApplication.logE("$$$ mergeProfiles", "**** withProfile._volumeNotification=" + withProfile._volumeNotification);
-        */
 
         if (withProfile != null) {
             if (this._id == 0) {
@@ -1830,15 +1810,6 @@ public class Profile {
                                     DataWrapper.getProfileNameWithManualIndicatorAsString(withProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
                                     profileIcon, 0);*/
 
-            /*
-            PPApplication.logE("$$$ mergeProfiles", "**** END");
-            PPApplication.logE("$$$ mergeProfiles", "**** this.profileName=" + _name);
-            PPApplication.logE("$$$ mergeProfiles", "**** this.profileId=" + _id);
-            PPApplication.logE("$$$ mergeProfiles", "**** this._volumeRingerMode=" + _volumeRingerMode);
-            PPApplication.logE("$$$ mergeProfiles", "**** this._volumeZenMode=" + _volumeZenMode);
-            PPApplication.logE("$$$ mergeProfiles", "**** this._volumeRingtone=" + _volumeRingtone);
-            PPApplication.logE("$$$ mergeProfiles", "**** this._volumeNotification=" + _volumeNotification);
-            */
         }
     }
 
@@ -1847,13 +1818,9 @@ public class Profile {
     // return: false = compared profiles are not the same
     boolean compareProfile(Profile withProfile)
     {
-        //PPApplication.logE("$$$ compareProfiles","name="+_name);
-
         if (withProfile != null) {
-            //PPApplication.logE("$$$ compareProfiles","withProfile="+withProfile._name);
 
             if (this._id != withProfile._id) {
-                //PPApplication.logE("$$$ compareProfiles","_id");
                 return false;
             }
 
@@ -1862,7 +1829,6 @@ public class Profile {
                     // duration
                     if (this._duration > 0) {
                         if (this._afterDurationDo != withProfile._afterDurationDo) {
-                            //PPApplication.logE("$$$ compareProfiles","_afterDurationDo");
                             return false;
                         }
                     }
@@ -1881,7 +1847,6 @@ public class Profile {
                     if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
                         // configured time is not expired
                         if (this._afterDurationDo != withProfile._afterDurationDo) {
-                            //PPApplication.logE("$$$ compareProfiles","_afterDurationDo");
                             return false;
                         }
                     }
@@ -1889,388 +1854,297 @@ public class Profile {
             }
 
             if (this._volumeRingerMode != withProfile._volumeRingerMode) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeRingerMode");
                 return false;
             }
             if (this._volumeZenMode != withProfile._volumeZenMode) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeZenMode");
                 return false;
             }
             if ((this._volumeRingerMode == 1) || (this._volumeRingerMode == 4)) {
                 if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging) {
-                    //PPApplication.logE("$$$ compareProfiles","_vibrateWhenRinging 1");
                     return false;
                 }
                 if (this._vibrateNotifications != withProfile._vibrateNotifications) {
-                    //PPApplication.logE("$$$ compareProfiles","_vibrateNotifications 1");
                     return false;
                 }
             }
             if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
                 if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging) {
-                    //PPApplication.logE("$$$ compareProfiles","_vibrateWhenRinging 2");
                     return false;
                 }
                 if (this._vibrateNotifications != withProfile._vibrateNotifications) {
-                    //PPApplication.logE("$$$ compareProfiles","_vibrateNotifications 2");
                     return false;
                 }
             }
             if (!this._volumeRingtone.equals(withProfile._volumeRingtone)) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeRingtone");
                 return false;
             }
             if (!this._volumeNotification.equals(withProfile._volumeNotification)) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeNotification");
                 return false;
             }
             if (!this._volumeMedia.equals(withProfile._volumeMedia)) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeMedia");
                 return false;
             }
             if (!this._volumeAlarm.equals(withProfile._volumeAlarm)) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeAlarm");
                 return false;
             }
             if (!this._volumeSystem.equals(withProfile._volumeSystem)) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeSystem");
                 return false;
             }
             if (!this._volumeVoice.equals(withProfile._volumeVoice)) {
-                //PPApplication.logE("$$$ compareProfiles","this._volumeVoice="+this._volumeVoice);
-                //PPApplication.logE("$$$ compareProfiles","withProfile._volumeVoice="+withProfile._volumeVoice);
-                //PPApplication.logE("$$$ compareProfiles","_volumeVoice");
                 return false;
             }
             if (this._soundRingtoneChange != withProfile._soundRingtoneChange) {
-                //PPApplication.logE("$$$ compareProfiles","_soundRingtoneChange");
                 return false;
             }
             if (this._soundRingtoneChange != 0) {
                 if (!this._soundRingtone.equals(withProfile._soundRingtone)) {
-                    //PPApplication.logE("$$$ compareProfiles","_soundRingtone");
                     return false;
                 }
             }
             if (this._soundNotificationChange != withProfile._soundNotificationChange) {
-                //PPApplication.logE("$$$ compareProfiles","_soundNotificationChange");
                 return false;
             }
             if (this._soundNotificationChange != 0) {
                 if (!this._soundNotification.equals(withProfile._soundNotification)) {
-                    //PPApplication.logE("$$$ compareProfiles","_soundNotification");
                     return false;
                 }
             }
             if (this._soundAlarmChange != withProfile._soundAlarmChange) {
-                //PPApplication.logE("$$$ compareProfiles","_soundAlarmChange");
                 return false;
             }
             if (this._soundAlarmChange != 0) {
                 if (!this._soundAlarm.equals(withProfile._soundAlarm)) {
-                    //PPApplication.logE("$$$ compareProfiles","_soundAlarm");
                     return false;
                 }
             }
             if (this._deviceAirplaneMode != withProfile._deviceAirplaneMode) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceAirplaneMode");
                 return false;
             }
             if (this._deviceMobileData != withProfile._deviceMobileData) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceMobileData");
                 return false;
             }
             if (this._deviceMobileDataPrefs != withProfile._deviceMobileDataPrefs) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceMobileDataPrefs");
                 return false;
             }
             if (this._deviceWiFi != withProfile._deviceWiFi) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceWiFi");
                 return false;
             }
             if (this._deviceBluetooth != withProfile._deviceBluetooth) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceBluetooth");
                 return false;
             }
             if (this._deviceGPS != withProfile._deviceGPS) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceGPS");
                 return false;
             }
             if (this._deviceLocationServicePrefs != withProfile._deviceLocationServicePrefs) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceLocationServicePrefs");
                 return false;
             }
             if (this._deviceScreenTimeout != withProfile._deviceScreenTimeout) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceScreenTimeout");
                 return false;
             }
             if (!this._deviceBrightness.equals(withProfile._deviceBrightness)) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceBrightness");
                 return false;
             }
             if (this._deviceWallpaperChange != withProfile._deviceWallpaperChange) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceWallpaperChange");
                 return false;
             }
             if (this._deviceWallpaperChange != 0) {
                 if (!this._deviceWallpaper.equals(withProfile._deviceWallpaper)) {
-                    //PPApplication.logE("$$$ compareProfiles","_deviceWallpaper");
                     return false;
                 }
                 if (!this._deviceLiveWallpaper.equals(withProfile._deviceLiveWallpaper)) {
-                    //PPApplication.logE("$$$ compareProfiles","_deviceLiveWallpaper");
                     return false;
                 }
                 if (this._deviceWallpaperFor != withProfile._deviceWallpaperFor) {
-                    //PPApplication.logE("$$$ compareProfiles","_deviceWallpaperFor");
                     return false;
                 }
                 if (!this._deviceWallpaperFolder.equals(withProfile._deviceWallpaperFolder)) {
-                    //PPApplication.logE("$$$ compareProfiles","_deviceWallpaperFolder");
                     return false;
                 }
             }
             if (this._deviceRunApplicationChange != withProfile._deviceRunApplicationChange) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceRunApplicationChange");
                 return false;
             }
             if (this._deviceRunApplicationChange != 0) {
                 if (!this._deviceRunApplicationPackageName.equals(withProfile._deviceRunApplicationPackageName)) {
-                    //PPApplication.logE("$$$ compareProfiles","_deviceRunApplicationPackageName");
                     return false;
                 }
             }
             if (this._deviceAutoSync != withProfile._deviceAutoSync) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceAutoSync");
                 return false;
             }
             if (this._deviceAutoRotate != withProfile._deviceAutoRotate) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceAutoRotate");
                 return false;
             }
             if (this._volumeSpeakerPhone != withProfile._volumeSpeakerPhone) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeSpeakerPhone");
                 return false;
             }
             if (this._deviceNFC != withProfile._deviceNFC) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceNFC");
                 return false;
             }
             if (this._deviceKeyguard != withProfile._deviceKeyguard) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceKeyguard");
                 return false;
             }
             if (this._vibrationOnTouch != withProfile._vibrationOnTouch) {
-                //PPApplication.logE("$$$ compareProfiles","_vibrationOnTouch");
                 return false;
             }
             if (this._deviceWiFiAP != withProfile._deviceWiFiAP) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceWiFiAP");
                 return false;
             }
             if (this._devicePowerSaveMode != withProfile._devicePowerSaveMode) {
-                //PPApplication.logE("$$$ compareProfiles","_devicePowerSaveMode");
                 return false;
             }
             if (this._deviceNetworkType != withProfile._deviceNetworkType) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceNetworkType");
                 return false;
             }
             if (this._notificationLed != withProfile._notificationLed) {
-                //PPApplication.logE("$$$ compareProfiles","_notificationLed");
                 return false;
             }
             if (this._lockDevice != withProfile._lockDevice) {
-                //PPApplication.logE("$$$ compareProfiles","_lockDevice");
                 return false;
             }
             if (!this._deviceConnectToSSID.equals(withProfile._deviceConnectToSSID)) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceConnectToSSID");
                 return false;
             }
             if (this._applicationDisableWifiScanning != withProfile._applicationDisableWifiScanning) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisableWifiScanning");
                 return false;
             }
             if (this._applicationDisableBluetoothScanning != withProfile._applicationDisableBluetoothScanning) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisableBluetoothScanning");
                 return false;
             }
             if (this._deviceWiFiAPPrefs != withProfile._deviceWiFiAPPrefs) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceWiFiAPPrefs");
                 return false;
             }
             if (this._applicationDisableLocationScanning != withProfile._applicationDisableLocationScanning) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisableLocationScanning");
                 return false;
             }
             if (this._applicationDisableMobileCellScanning != withProfile._applicationDisableMobileCellScanning) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisableMobileCellScanning");
                 return false;
             }
             if (this._applicationDisableOrientationScanning != withProfile._applicationDisableOrientationScanning) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisableOrientationScanning");
                 return false;
             }
             if (this._headsUpNotifications != withProfile._headsUpNotifications) {
-                //PPApplication.logE("$$$ compareProfiles","_headsUpNotifications");
                 return false;
             }
             if (this._deviceForceStopApplicationChange != withProfile._deviceForceStopApplicationChange) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceForceStopApplicationChange");
                 return false;
             }
             if (this._deviceForceStopApplicationChange != 0) {
                 if (!this._deviceForceStopApplicationPackageName.equals(withProfile._deviceForceStopApplicationPackageName)) {
-                    //PPApplication.logE("$$$ compareProfiles","_deviceForceStopApplicationPackageName");
                     return false;
                 }
             }
             if (this._deviceNetworkTypePrefs != withProfile._deviceNetworkTypePrefs) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceNetworkTypePrefs");
                 return false;
             }
             if (this._deviceCloseAllApplications != withProfile._deviceCloseAllApplications) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceCloseAllApplications");
                 return false;
             }
             if (this._screenDarkMode != withProfile._screenDarkMode) {
-                //PPApplication.logE("$$$ compareProfiles","_screenDarkMode");
                 return false;
             }
             if (this._dtmfToneWhenDialing != withProfile._dtmfToneWhenDialing) {
-                //PPApplication.logE("$$$ compareProfiles","_dtmfToneWhenDialing");
                 return false;
             }
             if (this._soundOnTouch != withProfile._soundOnTouch) {
-                //PPApplication.logE("$$$ compareProfiles","_soundOnTouch");
                 return false;
             }
             if (!this._volumeDTMF.equals(withProfile._volumeDTMF)) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeDTMF");
                 return false;
             }
             if (!this._volumeAccessibility.equals(withProfile._volumeAccessibility)) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeAccessibility");
                 return false;
             }
             if (!this._volumeBluetoothSCO.equals(withProfile._volumeBluetoothSCO)) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeBluetoothSCO");
                 return false;
             }
             if (this._alwaysOnDisplay != withProfile._alwaysOnDisplay) {
-                //PPApplication.logE("$$$ compareProfiles","_alwaysOnDisplay");
                 return false;
             }
             if (this._screenOnPermanent != withProfile._screenOnPermanent) {
-                //PPApplication.logE("$$$ compareProfiles","_screenOnPermanent");
                 return false;
             }
             if (this._volumeMuteSound != withProfile._volumeMuteSound) {
-                //PPApplication.logE("$$$ compareProfiles","_volumeMuteSound");
                 return false;
             }
             if (this._deviceLocationMode != withProfile._deviceLocationMode) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceLocationMode");
                 return false;
             }
             if (this._applicationDisableNotificationScanning != withProfile._applicationDisableNotificationScanning) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisableNotificationScanning");
                 return false;
             }
             if (!this._generateNotification.equals(withProfile._generateNotification)) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisableNotificationScanning");
                 return false;
             }
             if (this._cameraFlash != withProfile._cameraFlash) {
                 return false;
             }
             if (this._deviceNetworkTypeSIM1 != withProfile._deviceNetworkTypeSIM1) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceNetworkTypeSIM1");
                 return false;
             }
             if (this._deviceNetworkTypeSIM2 != withProfile._deviceNetworkTypeSIM2) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceNetworkTypeSIM2");
                 return false;
             }
             if (this._deviceMobileDataSIM1 != withProfile._deviceMobileDataSIM1) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceMobileDataSIM1");
                 return false;
             }
             if (this._deviceMobileDataSIM2 != withProfile._deviceMobileDataSIM2) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceMobileDataSIM2");
                 return false;
             }
             if (!this._deviceDefaultSIMCards.equals(withProfile._deviceDefaultSIMCards)) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceDefaultSIMCards");
                 return false;
             }
             if (this._deviceOnOffSIM1 != withProfile._deviceOnOffSIM1) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceOnOffSIM1");
                 return false;
             }
             if (this._deviceOnOffSIM2 != withProfile._deviceOnOffSIM2) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceOnOffSIM2");
                 return false;
             }
             if (this._soundRingtoneChangeSIM1 != withProfile._soundRingtoneChangeSIM1) {
-                //PPApplication.logE("$$$ compareProfiles","_soundRingtoneChangeSIM1");
                 return false;
             }
             if (this._soundRingtoneChangeSIM1 != 0) {
                 if (!this._soundRingtoneSIM1.equals(withProfile._soundRingtoneSIM1)) {
-                    //PPApplication.logE("$$$ compareProfiles","_soundRingtoneSIM1");
                     return false;
                 }
             }
             if (this._soundRingtoneChangeSIM2 != withProfile._soundRingtoneChangeSIM2) {
-                //PPApplication.logE("$$$ compareProfiles","_soundRingtoneChangeSIM2");
                 return false;
             }
             if (this._soundRingtoneChangeSIM2 != 0) {
                 if (!this._soundRingtoneSIM2.equals(withProfile._soundRingtoneSIM2)) {
-                    //PPApplication.logE("$$$ compareProfiles","_soundRingtoneSIM2");
                     return false;
                 }
             }
             if (this._soundNotificationChangeSIM1 != withProfile._soundNotificationChangeSIM1) {
-                //PPApplication.logE("$$$ compareProfiles","_soundNotificationChangeSIM1");
                 return false;
             }
             if (this._soundNotificationChangeSIM1 != 0) {
                 if (!this._soundNotificationSIM1.equals(withProfile._soundNotificationSIM1)) {
-                    //PPApplication.logE("$$$ compareProfiles","_soundNotificationSIM1");
                     return false;
                 }
             }
             if (this._soundNotificationChangeSIM2 != withProfile._soundNotificationChangeSIM2) {
-                //PPApplication.logE("$$$ compareProfiles","_soundNotificationChangeSIM2");
                 return false;
             }
             if (this._soundNotificationChangeSIM2 != 0) {
                 if (!this._soundNotificationSIM2.equals(withProfile._soundNotificationSIM2)) {
-                    //PPApplication.logE("$$$ compareProfiles","_soundNotificationSIM2");
                     return false;
                 }
             }
             if (this._soundSameRingtoneForBothSIMCards != withProfile._soundSameRingtoneForBothSIMCards) {
-                //PPApplication.logE("$$$ compareProfiles","_soundSameRingtoneForBothSIMCards");
                 return false;
             }
             if (this._applicationDisableGloabalEventsRun != withProfile._applicationDisableGloabalEventsRun) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisableGloabalEventsRun");
                 return false;
             }
             if (this._deviceVPNSettingsPrefs != withProfile._deviceVPNSettingsPrefs) {
-                //PPApplication.logE("$$$ compareProfiles","_deviceVPNSettingsPrefs");
                 return false;
             }
             if (this._applicationDisablePeriodicScanning != withProfile._applicationDisablePeriodicScanning) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisablePeriodicScanning");
                 return false;
             }
             if (!this._deviceVPN.equals(withProfile._deviceVPN)) {
-                //PPApplication.logE("$$$ compareProfiles","_applicationDisablePeriodicScanning");
                 return false;
             }
 
@@ -2878,7 +2752,6 @@ public class Profile {
             }
             else
             if (monochrome) {
-                //PPApplication.logE("generateIconBitmap", "monochromeValue="+monochromeValue);
                 float monoValue = 255f;
                 if (monochromeValue == 0x00) monoValue = -255f;
                 if (monochromeValue == 0x20) monoValue = -192f;

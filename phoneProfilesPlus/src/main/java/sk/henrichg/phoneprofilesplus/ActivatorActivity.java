@@ -117,8 +117,6 @@ public class ActivatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //PPApplication.logE("ActivatorActivity.onCreate", "xxx");
-
         GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -226,8 +224,6 @@ public class ActivatorActivity extends AppCompatActivity {
             return;
         }
 
-        //PPApplication.logE("ActivatorActivity.onStart", "xxx");
-
         if (activityStarted) {
             Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
             intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
@@ -265,7 +261,6 @@ public class ActivatorActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-//        PPApplication.logE("[APP_START] ActivatorActivity.showNotStartedToast", "setApplicationFullyStarted");
         PPApplication.setApplicationFullyStarted(getApplicationContext());
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
@@ -296,13 +291,6 @@ public class ActivatorActivity extends AppCompatActivity {
         // this is for list widget header
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("EditorActivity.onStart", "application is not started");
-                PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                if (PhoneProfilesService.getInstance() != null)
-                    PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-            }*/
-
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
@@ -320,12 +308,6 @@ public class ActivatorActivity extends AppCompatActivity {
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EditorActivity.onStart", "application is started");
-                    PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                    if (PhoneProfilesService.getInstance() != null)
-                        PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-                }*/
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
 
@@ -343,9 +325,6 @@ public class ActivatorActivity extends AppCompatActivity {
 
                 return true;
             }
-            //else {
-            //    PPApplication.logE("EditorActivity.onStart", "application and service is started");
-            //}
         }
 
         return false;
@@ -434,7 +413,6 @@ public class ActivatorActivity extends AppCompatActivity {
 
                 // ignore manual profile activation
                 // and unblock forceRun events
-                //PPApplication.logE("$$$ restartEvents", "from ActivatorActivity.onOptionsItemSelected menu_restart_events");
                 dataWrapper.restartEventsWithAlert(this);
             }
             return true;

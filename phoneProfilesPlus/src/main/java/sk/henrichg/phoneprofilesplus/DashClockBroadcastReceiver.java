@@ -33,7 +33,6 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
                 {
                     dashClockExtension.updateExtension();
                 }
-                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DashClockBroadcastReceiver.onReceive");
             }
         });*/
 

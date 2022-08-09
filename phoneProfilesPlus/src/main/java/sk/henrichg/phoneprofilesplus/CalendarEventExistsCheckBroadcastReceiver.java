@@ -13,7 +13,6 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
 
         String action = intent.getAction();
         if (action != null) {
-            //PPApplication.logE("CalendarEventExistsCheckBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
         }
     }
@@ -34,7 +33,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
             //        context.getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CalendarEventExistsCheckBroadcastReceiver.doWork");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CalendarEventExistsCheckBroadcastReceiver.doWork");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -56,15 +55,11 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
 
                         for (Event _event : dataWrapper.eventList) {
                             if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-//                            PPApplication.logE("[CALENDAR] CalendarEventExistsCheckBroadcastReceiver.doWork", "setAlarm() - event._id=" + _event._id);
                                 _event._eventPreferencesCalendar.setAlarm(/*true,*/ 0, appContext, true);
                             }
                         }
-
-
-//                    PPApplication.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "END run");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -81,7 +76,6 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.logE("CalendarEventExistsCheckBroadcastReceiver.doWork", "handle events");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
                 }

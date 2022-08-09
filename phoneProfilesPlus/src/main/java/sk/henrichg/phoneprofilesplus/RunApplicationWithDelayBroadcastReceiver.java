@@ -39,7 +39,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
 
@@ -54,9 +54,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
                         doWork(appContext, profileName, runApplicationData);
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -108,12 +107,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         now.add(Calendar.SECOND, startApplicationDelay);
                         long alarmTime = now.getTimeInMillis();
 
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String result = sdf.format(alarmTime);
-                            PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);
-                        }*/
-
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -140,17 +133,12 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
-                            /*if (PPApplication.logEnabled()) {
-                                PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay=" + startApplicationDelay);
-                                PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
-                            }*/
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
-//                                PPApplication.logE("[TEST BATTERY] RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "for=" + MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode + " workInfoList.size()=" + workInfoList.size());
 //                            } catch (Exception ignored) {
 //                            }
 //                            //}
@@ -186,12 +174,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         now.add(Calendar.SECOND, startApplicationDelay);
                         long alarmTime = now.getTimeInMillis();
 
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String result = sdf.format(alarmTime);
-                            PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);
-                        }*/
-
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -199,16 +181,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
                         long alarmTime = SystemClock.elapsedRealtime() + startApplicationDelay * 1000L;
-
-//                        if (PPApplication.logEnabled()) {
-//                            Calendar now = Calendar.getInstance();
-//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
-//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
-//                            long _alarmTime = now.getTimeInMillis();
-//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                            String result = sdf.format(_alarmTime);
-//                            PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "alarmTime=" + result);
-//                        }
 
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
@@ -240,8 +212,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm", "alarm found");
-
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
@@ -257,8 +227,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     }
 
     static void doWork(Context context, String profileName, String runApplicationData) {
-        //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.doWork", "runApplicationData="+runApplicationData);
-
         //final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))

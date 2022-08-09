@@ -92,14 +92,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         super.onCreate(savedInstanceState);
 
-        //PPApplication.logE("PhoneProfilesPrefsFragment.onCreate", "xxx");
-
         // is required for to not call onCreate and onDestroy on orientation change
         //noinspection deprecation
         setRetainInstance(true);
 
         nestedFragment = !(this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsRoot);
-        //PPApplication.logE("PhoneProfilesPrefsFragment.onCreate", "nestedFragment="+nestedFragment);
 
         initPreferenceFragment(/*savedInstanceState*/);
         //prefMng = getPreferenceManager();
@@ -125,8 +122,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference preference)
     {
-        //PPApplication.logE("PhoneProfilesPrefsFragment.onDisplayPreferenceDialog", "xxx");
-
         PreferenceDialogFragmentCompat dialogFragment = null;
 
         if (preference instanceof DurationDialogPreferenceX)
@@ -237,8 +232,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        //PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "xxx");
 
         if (getActivity() == null)
             return;
@@ -606,9 +599,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 WifiScanWorker.wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
             boolean isScanAlwaysAvailable = WifiScanWorker.wifi.isScanAlwaysAvailable();
-
-            PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "locationMode="+locationMode);
-            PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "isScanAlwaysAvailable="+isScanAlwaysAvailable);
 
             if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!isScanAlwaysAvailable)) {*/
             preference = findPreference(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
@@ -1017,16 +1007,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
-//            PPApplication.logE("****** PhoneProfilesPrefsFragment.onActivityCreated", "(1)");
             final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
-//            PPApplication.logE("****** PhoneProfilesPrefsFragment.onActivityCreated", "(2)");
             if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getActivity().getApplicationContext())) {
-//                PPApplication.logE("****** PhoneProfilesPrefsFragment.onActivityCreated", "available");
                 preference.setOnPreferenceClickListener(preference119 -> {
                     boolean success;
                     try {
                         success = autoStartPermissionHelper.getAutoStartPermission(getActivity());
-//                        PPApplication.logE("****** PhoneProfilesPrefsFragment.onActivityCreated", "success="+success);
                     }catch (Exception e) {
                         Log.e("****** PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
                         success = false;
@@ -1248,23 +1234,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             KillerManager.init(getActivity());
             DeviceBase device = KillerManager.getDevice();
             if (device != null) {
-                if (PPApplication.logEnabled()) {
-                    PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "device="+device.toString());
-                    PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "device="+device.getDeviceManufacturer());
-                    String debugInfo = device.getExtraDebugInformations(getActivity());
-                    if (debugInfo != null)
-                        PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", debugInfo);
-                    else
-                        PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "no extra debug info");
-                }
                 Intent intent = device.getActionPowerSaving(getActivity());
-                PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "intent="+intent);
                 if (intent != null && ActionsUtils.isIntentAvailable(getActivity(), intent))
                     intentFound = true;
                 //if (intent != null && GlobalGUIRoutines.activityIntentExists(intent, getActivity()))
                 //    intentFound = true;
             }
-            PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "intentFound="+intentFound);*/
             /*
             if (KillerManager.isActionAvailable(getActivity(), KillerManager.Actions.ACTION_POWERSAVING)) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -1760,7 +1735,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onDestroy()
     {
         super.onDestroy();
-        //PPApplication.logE("PhoneProfilesPrefsFragment.onDestroy", "xxx");
 
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
@@ -1775,8 +1749,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        //PPApplication.logE("PhoneProfilesPrefsFragment.onSharedPreferenceChanged", "key="+key);
-
         setSummary(key);
         try {
             SharedPreferences.Editor editor = applicationPreferences.edit();
@@ -1799,8 +1771,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //activity.finish();
             }
         }*/
-
-        //PPApplication.logE("PhoneProfilesPrefsFragment.onSharedPreferenceChanged", "xxx 2");
 
         /*
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING)) {
@@ -1833,11 +1803,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     void doOnActivityResult(int requestCode, int resultCode/*, Intent data*/)
     {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "xxx");
-            PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "requestCode="+requestCode);
-        }*/
-
         if ((requestCode == RESULT_APPLICATION_PERMISSIONS) ||
                 (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) ||
                 //(requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
@@ -1853,7 +1818,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
                         boolean canWrite = Settings.System.canWrite(context);
                         permissionsChanged = Permissions.getWriteSystemSettingsPermission(context) != canWrite;
-                        //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "canWrite=" + permissionsChanged);
                         if (canWrite)
                             Permissions.setShowRequestWriteSettingsPermission(context, true);
                     }
@@ -1861,96 +1825,81 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         boolean notificationPolicyGranted = (mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted());
                         permissionsChanged = Permissions.getNotificationPolicyPermission(context) != notificationPolicyGranted;
-                        PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "notificationPolicyGranted=" + permissionsChanged);
                         if (notificationPolicyGranted)
                             Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
                     }*/
                     if (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {
                         boolean canDrawOverlays = Settings.canDrawOverlays(context);
                         permissionsChanged = Permissions.getDrawOverlayPermission(context) != canDrawOverlays;
-                        //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "canDrawOverlays=" + permissionsChanged);
                         if (canDrawOverlays)
                             Permissions.setShowRequestDrawOverlaysPermission(context, true);
                     }
                     if (requestCode == RESULT_APPLICATION_PERMISSIONS) {
                         boolean calendarPermission = Permissions.checkCalendar(context);
                         permissionsChanged = Permissions.getCalendarPermission(context) != calendarPermission;
-                        //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "calendarPermission=" + permissionsChanged);
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!calendarPermission);
                         if (!permissionsChanged) {
                             boolean contactsPermission = Permissions.checkContacts(context);
                             permissionsChanged = Permissions.getContactsPermission(context) != contactsPermission;
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "contactsPermission=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!contactsPermission);
                         }
                         if (!permissionsChanged) {
                             boolean locationPermission = Permissions.checkLocation(context);
                             permissionsChanged = Permissions.getLocationPermission(context) != locationPermission;
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "locationPermission=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!locationPermission);
                         }
                         if (!permissionsChanged) {
                             boolean smsPermission = Permissions.checkSMS(context);
                             permissionsChanged = Permissions.getSMSPermission(context) != smsPermission;
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "smsPermission=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!smsPermission);
                         }
                         if (!permissionsChanged) {
                             boolean phonePermission = Permissions.checkPhone(context);
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "phonePermission=" + phonePermission);
                             permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "permissionsChanged=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!phonePermission);
                         }
                         if (!permissionsChanged) {
                             boolean storagePermission = Permissions.checkReadStorage(context);
                             permissionsChanged = Permissions.getReadStoragePermission(context) != storagePermission;
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "storagePermission=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!storagePermission);
                         }
                         if (!permissionsChanged) {
                             boolean storagePermission = Permissions.checkWriteStorage(context);
                             permissionsChanged = Permissions.getWriteStoragePermission(context) != storagePermission;
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "storagePermission=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!storagePermission);
                         }
                         if (!permissionsChanged) {
                             boolean cameraPermission = Permissions.checkCamera(context);
                             permissionsChanged = Permissions.getCameraPermission(context) != cameraPermission;
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "cameraPermission=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!cameraPermission);
                         }
                         if (!permissionsChanged) {
                             boolean microphonePermission = Permissions.checkMicrophone(context);
                             permissionsChanged = Permissions.getMicrophonePermission(context) != microphonePermission;
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "microphonePermission=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!microphonePermission);
                         }
                         if (!permissionsChanged) {
                             boolean sensorsPermission = Permissions.checkSensors(context);
                             permissionsChanged = Permissions.getSensorsPermission(context) != sensorsPermission;
-                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "sensorsPermission=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!sensorsPermission);
                         }
                     }
 
                     Permissions.saveAllPermissions(context, permissionsChanged);
-                    //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "permissionsChanged=" + permissionsChanged);
 
                     if (permissionsChanged) {
                         //DataWrapper dataWrapper = new DataWrapper(context, false, 0);
 
-//                        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsFragment.doOnActivityResult");
                         PPApplication.updateGUI(true, false, context);
 
                         if (finishActivity) {
@@ -2004,11 +1953,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (requestCode == LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "RESULT_GEOFENCE_EDITOR");
             if (resultCode == Activity.RESULT_OK) {
-                //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "RESULT_OK");
                 LocationGeofencePreferenceX preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
-                //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "preference="+preference);
                 if (preference != null) {
                     preference.setGeofenceFromEditor(/*geofenceId*/);
                 }
@@ -2052,11 +1998,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
         }
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "savedInstanceState=" + savedInstanceState);
-            PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "getContext()=" + getContext());
-        }*/
-
         preferences.registerOnSharedPreferenceChangeListener(this);
 
         /*if (savedInstanceState == null) {
@@ -2067,7 +2008,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-        //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsFragment");
     }
 
     void updateSharedPreferences() {
@@ -2077,7 +2017,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     void loadSharedPreferences(SharedPreferences preferences, SharedPreferences applicationPreferences) {
-        //PPApplication.logE("PhoneProfilesPrefsFragment.loadSharedPreferences", "xxx");
         SharedPreferences.Editor editor = preferences.edit();
         updateSharedPreferences(editor, applicationPreferences);
         editor.apply();

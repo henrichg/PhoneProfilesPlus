@@ -66,8 +66,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        //PPApplication.logE("EventsPrefsActivity.onCreate", "xxx");
-
         setContentView(R.layout.activity_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
@@ -406,7 +404,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         if (event != null)
         {
-            //PPApplication.logE("EventsPrefsActivity.loadPreferences", "event._status="+event.getStatus());
             // must be used handler for rewrite toolbar title/subtitle
             final String eventName = event._name;
             Handler handler = new Handler(getMainLooper());
@@ -502,7 +499,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
     Event getEventFromPreferences(long event_id, int new_event_mode, int predefinedEventIndex) {
         final Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
         if (event != null) {
-            //PPApplication.logE("EventsPrefsActivity.getEventFromPreferences", "event._status="+event.getStatus());
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             event.saveSharedPreferences(preferences, getApplicationContext());
         }
@@ -511,14 +507,9 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
-        //PPApplication.logE("EventsPrefsActivity.savePreferences","new_event_mode="+new_event_mode);
-
         final Event event = getEventFromPreferences(event_id, new_event_mode, predefinedEventIndex);
         if (event == null)
             return;
-
-        //PPApplication.logE("EventsPrefsActivity.savePreferences","event._name="+event._name);
-        //PPApplication.logE("EventsPrefsActivity.savePreferences", "event._status="+event.getStatus());
 
         event.setSensorsWaiting();
 
@@ -534,11 +525,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
             event_id = event._id;
 
             // restart Events
-            //PPApplication.logE("$$$ restartEvents","from EventsPrefsActivity.savePreferences");
-//            PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.savePreferences", "true");
             PPApplication.setBlockProfileEventActions(true);
             //dataWrapper.restartEvents(false, true, true, true, true);
-//            PPApplication.logE("[APP_START] EventsPrefsActivity.savePreferences", "xxx");
             dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
         }
         else
@@ -565,7 +553,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                 //Event event = eventWeakRef.get();
@@ -591,19 +579,15 @@ public class EventsPrefsActivity extends AppCompatActivity {
                                             true, true, true);
                                 }
 
-                                //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-//                                PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (1)", "true");
                                 PPApplication.setBlockProfileEventActions(true);
                             }
                             // restart Events
                             //dataWrapper.restartEvents(false, true, true, true, false);
-//                            PPApplication.logE("[APP_START] EventsPrefsActivity.saveUpdateOfPreferences", "(1))");
                             dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
                         }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.1");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -624,7 +608,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                 //Event event = eventWeakRef.get();
@@ -646,16 +630,12 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         event.doLogForPauseEvent(dataWrapper.context, false);
 
                         // restart Events
-                        //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-//                        PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (2)", "true");
                         PPApplication.setBlockProfileEventActions(true);
                         //dataWrapper.restartEvents(false, true, true, true, false);
-//                        PPApplication.logE("[APP_START] EventsPrefsActivity.saveUpdateOfPreferences", "(2)");
                         dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.2");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -1008,8 +988,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
     }
 
     void changeCurentLightSensorValue() {
-//        PPApplication.logE("EventsPrefsActivity.changeCurentLightSensorValue", "xxx");
-
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null)
             ((EventsPrefsFragment)fragment).changeCurentLightSensorValue();

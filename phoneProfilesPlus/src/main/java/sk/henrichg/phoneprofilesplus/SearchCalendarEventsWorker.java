@@ -37,23 +37,16 @@ public class SearchCalendarEventsWorker extends Worker {
 //            long start = System.currentTimeMillis();
 //            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- START");
 
-            //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- START");
-
             if (!PPApplication.getApplicationStarted(true)) {
                 // application is not started
-                //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
                 return Result.success();
             }
 
             if (Event.getGlobalEventsRunning()) {
                 // start events handler
-                //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=SearchCalendarEventsWorker.doWork");
-
 //                PPApplication.logE("[EVENTS_HANDLER_CALL] SearchCalendarEventsWorker.doWork", "sensorType=SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS);
-
-                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SearchCalendarEventsWorker.doWork");
             }
 
 //            PPApplication.logE("[EXECUTOR_CALL]  ***** SearchCalendarEventsWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
@@ -71,7 +64,6 @@ public class SearchCalendarEventsWorker extends Worker {
             PPApplication.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             /*
-            //PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
             //scheduleWork(false);
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -87,7 +79,6 @@ public class SearchCalendarEventsWorker extends Worker {
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
-//                                PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker.doWork", "for=" + MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                            } catch (Exception ignored) {
 //                            }
 //                            //}
@@ -105,13 +96,10 @@ public class SearchCalendarEventsWorker extends Worker {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
                     scheduleWork(false);
                 }
             }, 1500);
             */
-
-            //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;
@@ -141,13 +129,7 @@ public class SearchCalendarEventsWorker extends Worker {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "---------------------------------------- START");
-                        PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "shortInterval=" + shortInterval);
-                    }*/
-
                     if (!shortInterval) {
-                        //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "delay work");
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SearchCalendarEventsWorker.class)
                                 .setInitialDelay(24, TimeUnit.HOURS)
                                 .addTag(SearchCalendarEventsWorker.WORK_TAG)
@@ -158,7 +140,6 @@ public class SearchCalendarEventsWorker extends Worker {
 //                        statuses = workManager.getWorkInfosForUniqueWork(SearchCalendarEventsWorker.WORK_TAG);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker._scheduleWork", "for=" + SearchCalendarEventsWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                        } catch (Exception ignored) {
 //                        }
 //                        //}
@@ -166,7 +147,6 @@ public class SearchCalendarEventsWorker extends Worker {
 //                        PPApplication.logE("[WORKER_CALL] SearchCalendarEventsWorker._scheduleWork", "(1)");
                         workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     } else {
-                        //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "start now work");
                         //waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SearchCalendarEventsWorker.class)
                                 .addTag(SearchCalendarEventsWorker.WORK_TAG_SHORT)
@@ -177,7 +157,6 @@ public class SearchCalendarEventsWorker extends Worker {
 //                        statuses = workManager.getWorkInfosForUniqueWork(SearchCalendarEventsWorker.WORK_TAG_SHORT);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker._scheduleWork", "for=" + SearchCalendarEventsWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
 //                        } catch (Exception ignored) {
 //                        }
 //                        //}
@@ -186,7 +165,6 @@ public class SearchCalendarEventsWorker extends Worker {
                         workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     }
 
-                    //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "---------------------------------------- END");
                 }
             }
         } catch (Exception e) {
@@ -197,8 +175,6 @@ public class SearchCalendarEventsWorker extends Worker {
 
     // shortInterval = true is called only from PPService.scheduleSearchCalendarEventsWorker and TimeVjangedReceiver.doWork
     static void scheduleWork(final boolean shortInterval) {
-        //PPApplication.logE("SearchCalendarEventsWorker.scheduleWork", "shortInterval="+shortInterval);
-
         if (shortInterval) {
             _cancelWork(false);
             //PPApplication.sleep(5000);
@@ -231,8 +207,6 @@ public class SearchCalendarEventsWorker extends Worker {
                     PPApplication._cancelWork(WORK_TAG_SHORT, false);
                 }
 
-                //PPApplication.logE("SearchCalendarEventsWorker._cancelWork", "CANCELED");
-
             } catch (Exception e) {
                 //Log.e("SearchCalendarEventsWorker._cancelWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
@@ -242,7 +216,6 @@ public class SearchCalendarEventsWorker extends Worker {
 
     private static void waitForFinish(boolean shortWork) {
         if (!isWorkRunning(shortWork)) {
-            //PPApplication.logE("SearchCalendarEventsWorker.waitForFinish", "NOT RUNNING");
             return;
         }
 
@@ -251,7 +224,6 @@ public class SearchCalendarEventsWorker extends Worker {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
-                    //PPApplication.logE("SearchCalendarEventsWorker.waitForFinish", "START WAIT FOR FINISH");
                     long start = SystemClock.uptimeMillis();
                     do {
 
@@ -264,7 +236,6 @@ public class SearchCalendarEventsWorker extends Worker {
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
-                            //PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
                                 if (state == WorkInfo.State.RUNNING) {
@@ -278,14 +249,12 @@ public class SearchCalendarEventsWorker extends Worker {
                             e.printStackTrace();
                         }
                         if (allFinished) {
-                            //PPApplication.logE("SearchCalendarEventsWorker.waitForFinish", "FINISHED");
                             break;
                         }
 
                         GlobalUtils.sleep(200);
                     } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
-                    //PPApplication.logE("SearchCalendarEventsWorker.waitForFinish", "END WAIT FOR FINISH");
                 }
             }
         } catch (Exception e) {
@@ -295,8 +264,6 @@ public class SearchCalendarEventsWorker extends Worker {
     }
 
     static void cancelWork(final boolean useHandler) {
-        //PPApplication.logE("SearchCalendarEventsWorker.cancelWork", "xxx");
-
         _cancelWork(useHandler);
 
         /*if (useHandler) {
@@ -325,7 +292,6 @@ public class SearchCalendarEventsWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        //PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
@@ -354,7 +320,6 @@ public class SearchCalendarEventsWorker extends Worker {
     }
 
     static boolean isWorkScheduled(boolean shortWork) {
-        //PPApplication.logE("SearchCalendarEventsWorker.isWorkScheduled", "xxx");
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
@@ -367,7 +332,6 @@ public class SearchCalendarEventsWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        //PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();

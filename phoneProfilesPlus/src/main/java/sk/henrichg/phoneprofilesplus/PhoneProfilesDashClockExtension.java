@@ -75,7 +75,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         //__handler.post(new PPHandlerThreadRunnable(dataWrapper.context, dataWrapper) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
 
             //Context appContext= appContextWeakRef.get();
             //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -83,7 +83,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             if (/*(appContext != null) && (dataWrapper != null) &&*/ (instance != null)) {
 
                 try {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesDashClockExtension.onUpdateData", "do it");
+//                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesDashClockExtension.onUpdateData", "do it");
 
                     //profile = Profile.getMappedProfile(
                     //                            _dataWrapper.getActivatedProfile(true, false), this);

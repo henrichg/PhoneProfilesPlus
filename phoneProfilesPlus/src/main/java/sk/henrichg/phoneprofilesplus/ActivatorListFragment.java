@@ -604,13 +604,8 @@ public class ActivatorListFragment extends Fragment {
 //
 //                    if (!refresh) {
 //                        String pNameHeader = PPApplication.prefActivityProfileName1;
-//                        //if (PPApplication.logEnabled()) {
-//                        //    PPApplication.logE("ActivatorListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
-//                        //    PPApplication.logE("ActivatorListFragment.refreshGUI", "pName=" + pName);
-//                        //}
 //
 //                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-//                            //PPApplication.logE("ActivatorListFragment.refreshGUI", "activated profile NOT changed");
 //                            doNotRefresh = true;
 //                            return null;
 //                        }
@@ -807,13 +802,8 @@ public class ActivatorListFragment extends Fragment {
 
                     if (!refresh) {
                         String pNameHeader = PPApplication.prefActivityProfileName1;
-                        //if (PPApplication.logEnabled()) {
-                        //    PPApplication.logE("ActivatorListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
-                        //    PPApplication.logE("ActivatorListFragment.refreshGUI", "pName=" + pName);
-                        //}
 
                         if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                            //PPApplication.logE("ActivatorListFragment.refreshGUI", "activated profile NOT changed");
                             doNotRefresh = true;
                             return null;
                         }

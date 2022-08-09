@@ -36,7 +36,6 @@ public class VPNDialogPreferenceX extends DialogPreference {
         // Get the persistent value and correct it for the minimum value.
         sValue = getPersistedString((String) defaultValue);
         this.defaultValue = (String)defaultValue;
-        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onSetInitialValue");
         getValueVDP();
         setSummaryVDP();
     }
@@ -161,7 +160,6 @@ public class VPNDialogPreferenceX extends DialogPreference {
         if ((state == null) || (!state.getClass().equals(VPNDialogPreferenceX.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
-            //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onRestoreInstanceState");
             getValueVDP();
             setSummaryVDP();
             return;
@@ -173,7 +171,6 @@ public class VPNDialogPreferenceX extends DialogPreference {
         sValue = myState.sValue;
         defaultValue = myState.defaultValue;
 
-        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onRestoreInstanceState");
         getValueVDP();
         setSummaryVDP();
     }

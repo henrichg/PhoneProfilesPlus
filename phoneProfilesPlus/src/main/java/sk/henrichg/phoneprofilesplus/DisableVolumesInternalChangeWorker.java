@@ -21,60 +21,7 @@ public class DisableVolumesInternalChangeWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        /*try {
-            long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork", "--------------- START");
-
-//            PPApplication.logE("[VOLUMES] DisableVolumesInternalChangeWorker.doWork", "internaChange=FALSE");
-            EventPreferencesVolumes.internalChange = false;
-
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER]  DisableVolumesInternalChangeWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);*/
-            return Result.success();
-        /*} catch (Exception e) {
-            //Log.e("DisableVolumesInternalChangeWorker.doWork", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
-            //Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            //Runnable r = new Runnable() {
-            //    public void run() {
-            //        android.os.Process.killProcess(PPApplication.pid);
-            //    }
-            //};
-            //_handler.postDelayed(r, 1000);
-            return Result.failure();
-        }*/
+        return Result.success();
     }
 
-/*
-    static void enqueueWork() {
-        OneTimeWorkRequest disableInternalChangeWorker =
-                new OneTimeWorkRequest.Builder(DisableVolumesInternalChangeWorker.class)
-                        .addTag(DisableVolumesInternalChangeWorker.WORK_TAG)
-                        .setInitialDelay(5, TimeUnit.SECONDS)
-                        .build();
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-
-//                    //if (PPApplication.logEnabled()) {
-//                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosForUniqueWork(DisableVolumesInternalChangeWorker.WORK_TAG);
-//                    try {
-//                        List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[TEST BATTERY] DisableVolumesInternalChangeWorker.enqueueWork", "for=" + DisableInternalChangeWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                    } catch (Exception ignored) {
-//                    }
-//                    //}
-
-//                    PPApplication.logE("[WORKER_CALL] DisableVolumesInternalChangeWorker.enqueueWork", "xxx");
-                    workManager.enqueueUniqueWork(DisableVolumesInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                }
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
-    }
- */
 }

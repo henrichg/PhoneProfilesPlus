@@ -22,12 +22,10 @@ public final class PPVoiceInteractionSession extends VoiceInteractionSession {
     public PPVoiceInteractionSession(Context context) {
         super(context);
         //C0330j.m960e(context, "context");
-//        PPApplication.logE("PPVoiceInteractionSession", "xxx");
     }
 
     public void onHandleAssist(Bundle bundle, AssistStructure assistStructure, AssistContent assistContent) {
         super.onHandleAssist(bundle, assistStructure, assistContent);
-//        PPApplication.logE("PPVoiceInteractionSession.onHandleAssist", "xxx");
         /*ArrayList arrayList = new ArrayList();
         for (Macro next : C6023h.m25685n().mo17464l()) {
             Iterator<Trigger> it = next.mo17345I().iterator();
@@ -54,7 +52,6 @@ public final class PPVoiceInteractionSession extends VoiceInteractionSession {
     public void onPrepareShow(Bundle bundle, int i) {
         //C0330j.m960e(bundle, "bundle");
         super.onPrepareShow(bundle, i);
-//        PPApplication.logE("PPVoiceInteractionSession.onPrepareShow", "xxx");
         String string = bundle.getString("ACTION");
         if (string == null) {
             string = "";

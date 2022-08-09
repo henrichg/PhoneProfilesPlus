@@ -60,8 +60,6 @@ public class LocationSensorWorker extends Worker {
     }
 
     static void enqueueWork(boolean immediate, Context context) {
-//        PPApplication.logE("##### LocationSensorWorker.enqueueWork", "immediate=" + immediate);
-
         OneTimeWorkRequest worker = null;
 
         if (immediate) {
@@ -87,7 +85,6 @@ public class LocationSensorWorker extends Worker {
                             ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
                         // not scan wi-fi in configured time
-//                        PPApplication.logE("LocationSensorWorker.enqueueWork", "-- END - scan in time = 2 -------");
                         canScan = false;
                     }
                 }
@@ -99,7 +96,6 @@ public class LocationSensorWorker extends Worker {
                     // interval is in minutes
                     interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60);
                 }
-//                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "ApplicationPreferences.applicationEventLocationUpdateInterval=" + ApplicationPreferences.applicationEventLocationUpdateInterval);
                 if (isPowerSaveMode) {
                     if (applicationEventLocationUpdateInPowerSaveMode.equals("1"))
                         interval = 2 * interval;
@@ -110,11 +106,9 @@ public class LocationSensorWorker extends Worker {
                                 ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
                             interval = 2 * interval;
-//                            PPApplication.logE("LocationSensorWorker.enqueueWork", "scan in time - 2x interval");
                         }
                     }
                 }
-//                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "interval=" + interval);
 
                 worker =
                         new OneTimeWorkRequest.Builder(LocationSensorWorker.class)
@@ -125,7 +119,6 @@ public class LocationSensorWorker extends Worker {
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
-            //PPApplication.logE("##### LocationSensorWorker.enqueueWork", "workManager="+workManager);
             if (workManager != null) {
 
 //                //if (PPApplication.logEnabled()) {
@@ -133,7 +126,6 @@ public class LocationSensorWorker extends Worker {
 //                statuses = workManager.getWorkInfosForUniqueWork(LOCATION_SENSOR_WORK_TAG);
 //                try {
 //                    List<WorkInfo> workInfoList = statuses.get();
-//                    PPApplication.logE("[TEST BATTERY] LocationSensorWorker.enqueueWork", "for=" + LOCATION_SENSOR_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                } catch (Exception ignored) {
 //                }
 //                //}

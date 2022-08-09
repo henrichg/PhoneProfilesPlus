@@ -74,7 +74,6 @@ class PPExecutors {
         if (logType != PPApplication.ALTYPE_UNDEFINED)
             PPApplication.addActivityLog(appContext, logType, null, null, "");
         //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
-//            PPApplication.logE("[APP_START] PPExecutors.doRestartEventsWithDelay", "xxx");
         dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);
         //dataWrapper.invalidateDataWrapper();
     }
@@ -143,14 +142,9 @@ class PPExecutors {
                 }
 
                 if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
-                    //PPApplication.logE("PPExecutors.handleEvents", "sensorType="+sensorType);
                     // start events handler
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PPExecutors.handleEvents: sensorType="+sensorType);
-
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(sensorType);
-
-//                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPExecutors.handleEvents");
                 }
 
 //                long finish = System.currentTimeMillis();

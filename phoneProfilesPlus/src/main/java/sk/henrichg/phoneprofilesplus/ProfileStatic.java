@@ -239,10 +239,6 @@ public class ProfileStatic {
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
         //noinspection UnnecessaryLocalVariable
         int percentage = BrightnessLookup.lookup(_settingsValue, true);
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("getBrightnessPercentage_A9", "settingsValue=" + settingsValue);
-            PPApplication.logE("getBrightnessPercentage_A9", "percentage=" + percentage);
-        }*/
         return percentage;
     }
 
@@ -255,7 +251,6 @@ public class ProfileStatic {
         float systemValue = convertGammaToLinear(value, minValue, maxValue);
         if (PPApplication.romIsOnePlus)
             systemValue = systemValue * 4; // convert from 256 to 1024
-        PPApplication.logE("getBrightnessValue_A9", "float systemValue="+systemValue);
 
         int maximumValue = 255;
         if (PPApplication.romIsOnePlus)
@@ -270,11 +265,6 @@ public class ProfileStatic {
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             systemValue = systemValue * 16; // convert from 256 to 4096
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("getBrightnessValue_A9", "percentage=" + percentage);
-            PPApplication.logE("getBrightnessValue_A9", "systemValue=" + systemValue);
-        }*/
-
         return Math.round(systemValue);
     }
 
@@ -284,9 +274,6 @@ public class ProfileStatic {
     {
         int maximumValue;// = getMaximumScreenBrightnessSetting();
         int minimumValue;// = getMinimumScreenBrightnessSetting();
-
-        //PPApplication.logE("convertPercentsToBrightnessManualValue", "maximumValue="+getMaximumScreenBrightnessSetting(context.getApplicationContext()));
-        //PPApplication.logE("convertPercentsToBrightnessManualValue", "minimumValue="+getMinimumScreenBrightnessSetting(context.getApplicationContext()));
 
         //if (maximumValue-minimumValue > 255) {
         minimumValue = 0;
@@ -313,62 +300,43 @@ public class ProfileStatic {
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
-                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
-            /*else {
-                PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
-            }*/
             value = Settings.System.getInt(context.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS, defaultValue);
         }
         else {
-            /*if (PPApplication.logEnabled()) {
-                try {
-                    int oldValue = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
-                    PPApplication.logE("convertPercentsToBrightnessManualValue", "oldValue=" + oldValue);
-                } catch (Settings.SettingNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }*/
             if ((Build.VERSION.SDK_INT > 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
-                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else {
-                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
                 value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
             }
         }
 
-        //PPApplication.logE("convertPercentsToBrightnessManualValue", "value="+value);
         return value;
     }
 
@@ -382,23 +350,19 @@ public class ProfileStatic {
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
-                //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT > 28");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and Nexus");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsLG)) {
-                //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else {
-                //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 NOT called");
                 //if (maximumValue-minimumValue > 255) {
                 //int minimumValue = 0;
                 int maximumValue = 255;
@@ -430,33 +394,24 @@ public class ProfileStatic {
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
-                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT > 28");
                 exponentialLevel = true;
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and Nexus");
                 exponentialLevel = true;
             }
             else
             if ((Build.VERSION.SDK_INT == 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsung and !LG");
                 exponentialLevel = true;
             }
-            /*else {
-                PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=false");
-            }*/
 
             if (!exponentialLevel)
                 value = (percentage - 50) / 50f;
             else {
 //                int maximumValue;// = getMaximumScreenBrightnessSetting();
 //                int minimumValue;// = getMinimumScreenBrightnessSetting();
-
-                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "maximumValue="+getMaximumScreenBrightnessSetting(context.getApplicationContext()));
-                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "minimumValue="+getMinimumScreenBrightnessSetting(context.getApplicationContext()));
 
                 //if (maximumValue-minimumValue > 255) {
 //                minimumValue = 0;
@@ -879,9 +834,6 @@ public class ProfileStatic {
     static PreferenceAllowed isProfilePreferenceAllowed(String preferenceKey, Profile profile,
                                                         SharedPreferences sharedPreferences,
                                                         boolean fromUIThread, Context context) {
-//        if (profile != null)
-//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "profile != null - START");
-
         if ((profile != null) && (!preferenceKey.equals("-")) && (sharedPreferences == null)) {
             sharedPreferences = context.getApplicationContext().getSharedPreferences("temp_isProfilePreferenceAllowed", Context.MODE_PRIVATE);
             profile.saveProfileToSharedPreferences(sharedPreferences);
@@ -1022,78 +974,23 @@ public class ProfileStatic {
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, profile, sharedPreferences, fromUIThread);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(preferenceAllowed, profile, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             if (Build.VERSION.SDK_INT >= 28) {
                 PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//                if (profile._name.equals("Zuhause Tag")) {
-//                    PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                    PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                    PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//                }
             }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_KEYGUARD(preferenceAllowed, context);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_CONNECT_TO_SSID(preferenceAllowed);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING(preferenceAllowed);
@@ -1102,57 +999,17 @@ public class ProfileStatic {
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING(preferenceAllowed);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS(preferenceAllowed);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(preferenceAllowed, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE(preferenceAllowed, context);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM(preferenceAllowed, profile, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-//            if (profile._name.equals("Zuhause Tag")) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS] preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS] preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
-//            }
 
             if (preferenceAllowed.notAllowedG1 || preferenceAllowed.notAllowedRoot)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;

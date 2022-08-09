@@ -282,8 +282,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
     private long computeAlarm()
     {
-        //PPApplication.logE("EventPreferencesAlarmClock.computeAlarm","xxx");
-
         Calendar calEndTime = Calendar.getInstance();
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -306,8 +304,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        //PPApplication.logE("EventPreferencesAlarmClock.setSystemRunningEvent","xxx");
-
         removeAlarm(context);
     }
 
@@ -318,8 +314,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
-
-        //PPApplication.logE("EventPreferencesAlarmClock.setSystemPauseEvent","xxx");
 
         removeAlarm(context);
 
@@ -333,8 +327,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
     void removeSystemEvent(Context context)
     {
         removeAlarm(context);
-
-        //PPApplication.logE("EventPreferencesAlarmClock.removeSystemEvent", "xxx");
     }
 
     void removeAlarm(Context context)
@@ -347,8 +339,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    //PPApplication.logE("EventPreferencesAlarmClock.removeAlarm", "alarm found");
-
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
@@ -363,12 +353,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
     {
         if (!_permanentRun) {
             if (_startTime > 0) {
-                /*if (PPApplication.logEnabled()) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    String result = sdf.format(alarmTime);
-                    PPApplication.logE("EventPreferencesAlarmClock.setAlarm", "endTime=" + result);
-                }*/
-
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER);
 
@@ -456,27 +440,10 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                         long startTime = _startTime - gmtOffset;
 
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String alarmTimeS = sdf.format(startTime);
-                            PPApplication.logE("EventPreferencesAlarmClock.doHandleEvent", "startTime=" + alarmTimeS);
-                        }*/
-
                         // compute end datetime
                         long endAlarmTime = computeAlarm();
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String alarmTimeS = sdf.format(endAlarmTime);
-                            PPApplication.logE("EventPreferencesAlarmClock.doHandleEvent", "endAlarmTime=" + alarmTimeS);
-                        }*/
-
                         Calendar now = Calendar.getInstance();
                         long nowAlarmTime = now.getTimeInMillis();
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String alarmTimeS = sdf.format(nowAlarmTime);
-                            PPApplication.logE("EventPreferencesAlarmClock.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
-                        }*/
 
                         if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_ALARM_CLOCK)
                             eventsHandler.alarmClockPassed = true;
@@ -510,7 +477,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 eventsHandler.notAllowedAlarmClock = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesAlarmClock.doHandleEvent", "alarm clock - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_ALARM_CLOCK);
             }

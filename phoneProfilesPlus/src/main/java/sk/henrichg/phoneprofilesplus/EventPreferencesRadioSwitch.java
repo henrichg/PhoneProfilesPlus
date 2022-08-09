@@ -728,7 +728,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         if (wifiManager != null) {
                             int wifiState = wifiManager.getWifiState();
                             boolean enabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifi enabled=" + enabled);
 
                             boolean connected = false;
                             ConnectivityManager connManager = null;
@@ -747,7 +746,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                             NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                             if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                                                 connected = WifiNetworkCallback.connected;
-//                                                PPApplication.logE("[CONNECTIVITY_TEST] EventPreferencesRadioSwitch.doHandleEvent", "connected="+connected);
                                                 break;
                                             }
                                         } catch (Exception e) {
@@ -757,7 +755,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                     }
                                 }
                             }
-//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifi connected=" + connected);
 
                             tested = true;
                             if (_wifi == 1)
@@ -791,11 +788,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                         if (bluetoothAdapter != null) {
                             boolean enabled = bluetoothAdapter.isEnabled();
-//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetooth enabled=" + enabled);
 
                             BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
                             boolean connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
-//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetooth connected=" + connected);
 
                             tested = true;
                             if (_bluetooth == 1)
@@ -816,7 +811,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
                 if ((_mobileData != 0) && PPApplication.HAS_FEATURE_TELEPHONY) {
                     boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 0);
-//                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileData enabled=" + enabled);
 
                     boolean connected = false;
                     ConnectivityManager connManager = null;
@@ -828,17 +822,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         PPApplication.recordException(e);
                     }
                     if (connManager != null) {
-//                        PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "connManager != null");
                         Network[] networks = connManager.getAllNetworks();
                         if ((networks != null) && (networks.length > 0)) {
-//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "networks.length > 0");
                             for (Network network : networks) {
                                 try {
                                     NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                     if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-//                                        PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "(NetworkCapabilities.TRANSPORT_CELLULAR");
                                         connected = MobileDataNetworkCallback.connected;
-//                                        PPApplication.logE("[CONNECTIVITY_TEST] EventPreferencesRadioSwitch.doHandleEvent", "connected="+connected);
                                         break;
                                     }
                                 } catch (Exception e) {
@@ -848,7 +838,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                         }
                     }
-//                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileData connected=" + connected);
 
                     tested = true;
                     if (_mobileData == 1)
@@ -885,7 +874,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                         if (Permissions.checkPhone(eventsHandler.context.getApplicationContext())) {
                                             int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
                                             int defaultSIM = GlobalUtils.getSIMCardFromSubscriptionId(eventsHandler.context, defaultSubscriptionId);
-//                                        PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "defaultSubscriptionId=" + defaultSubscriptionId);
                                             if (_mobileData == 5)
                                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 1);
                                             else
@@ -914,7 +902,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     if (locationManager != null) {
                         enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                         //}
-                        //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "gpsState=" + enabled);
                         tested = true;
                         if (_gps == 1)
                             eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -930,7 +917,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(eventsHandler.context);
                     if (nfcAdapter != null) {
                         boolean enabled = nfcAdapter.isEnabled();
-                        //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "nfcState=" + enabled);
                         tested = true;
                         if (_nfc == 1)
                             eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -942,7 +928,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (_airplaneMode != 0) {
 
                     boolean enabled = ActivateProfileHelper.isAirplaneMode(eventsHandler.context);
-                    //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "airplaneModeState=" + enabled);
                     tested = true;
                     if (_airplaneMode == 1)
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -1046,7 +1031,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 eventsHandler.notAllowedRadioSwitch = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesRadioSwitch.doHandleEvent", "radio switch - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_RADIO_SWITCH);
             }

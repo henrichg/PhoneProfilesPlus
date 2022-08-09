@@ -18,14 +18,11 @@ class ImportantInfoNotification {
     static final String EXTRA_FIRST_INSTALLATION = "first_installation";
 
     static void showInfoNotification(Context context) {
-        //PPApplication.logE("ImportantInfoNotification.showInfoNotification","xxx");
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
             int show = 0;
             int packageVersionCode = PPApplication.getVersionCode(pInfo);
             int savedVersionCode = getShowInfoNotificationOnStartVersion(context);
-//            PPApplication.logE("ImportantInfoNotification.showInfoNotification", "packageVersionCode="+packageVersionCode);
-//            PPApplication.logE("ImportantInfoNotification.showInfoNotification", "savedVersionCode="+savedVersionCode);
 
             // do not show notification, version code is not saved
             // typically it is for new users
@@ -36,11 +33,9 @@ class ImportantInfoNotification {
 
             if (packageVersionCode > savedVersionCode) {
                 show = canShowNotification(packageVersionCode, savedVersionCode, context);
-//                PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
             }
             else {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "extenderVersion="+extenderVersion);
                 if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
                     show = 2;
 
@@ -49,7 +44,6 @@ class ImportantInfoNotification {
             setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
 
             if (/*(savedVersionCode == 0) ||*/ getShowInfoNotificationOnStart(context, packageVersionCode)) {
-                //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show notification");
 
                 if (show == 1)
                     showNotification(context, false/*savedVersionCode == 0*/,
@@ -72,8 +66,6 @@ class ImportantInfoNotification {
         boolean news = false;
         boolean newExtender = false;
 
-        //PPApplication.logE("ImportantInfoNotification.canShowNotification", "packageVersionCode="+packageVersionCode);
-
         boolean newsLatest = (packageVersionCode >= PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS);
         //boolean news4550 = ((packageVersionCode >= 4550) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         //boolean news4340 = ((packageVersionCode >= 4340) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -84,11 +76,6 @@ class ImportantInfoNotification {
         boolean afterInstall = savedVersionCode == 0;
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("ImportantInfoNotification.canShowNotification", "newsLatest=" + newsLatest);
-            PPApplication.logE("ImportantInfoNotification.canShowNotification", "extenderVersion=" + extenderVersion);
-        }*/
 
         if (newsLatest) {
             // change to false for not show notification
@@ -106,11 +93,6 @@ class ImportantInfoNotification {
             boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS);
             if (!sensorExists)
                 sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL);
-
-            //if (PPApplication.logEnabled()) {
-            //    PPApplication.logE("ImportantInfoNotification.canShowNotification", "smsSensorsCount=" + smsSensorsCount);
-            //    PPApplication.logE("ImportantInfoNotification.canShowNotification", "callSensorsCount=" + callSensorsCount);
-            //}
 
             if (!sensorExists)
                 news = false;

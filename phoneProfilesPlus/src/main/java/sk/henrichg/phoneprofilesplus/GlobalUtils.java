@@ -31,19 +31,14 @@ public class GlobalUtils {
         //    KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
         if (PPApplication.keyguardManager != null) {
             secureKeyguard = PPApplication.keyguardManager.isKeyguardSecure();
-//            PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "secureKeyguard=" + secureKeyguard);
             if (!secureKeyguard) {
-//                PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "getLockScreenDisabled=" + ApplicationPreferences.prefLockScreenDisabled);
 
                 if (PPApplication.isScreenOn) {
-//                    PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "screen on");
 
                     if (ApplicationPreferences.prefLockScreenDisabled) {
-//                        PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "disableKeyguard()");
                         reenableKeyguard(context);
                         disableKeyguard(context);
                     } else {
-//                        PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "reenableKeyguard()");
                         reenableKeyguard(context);
                     }
                 }
@@ -53,8 +48,6 @@ public class GlobalUtils {
 
     private static void disableKeyguard(Context context)
     {
-//        PPApplication.logE("$$$ GlobalUtils.disableKeyguard","keyguardLock="+PPApplication.keyguardLock);
-
         if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(context.getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
             try {
                 PPApplication.keyguardLock.disableKeyguard();
@@ -67,8 +60,6 @@ public class GlobalUtils {
 
     static void reenableKeyguard(Context context)
     {
-//        PPApplication.logE("$$$ GlobalUtils.reenableKeyguard","keyguardLock="+PPApplication.keyguardLock);
-
         if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(context.getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
             try {
                 PPApplication.keyguardLock.reenableKeyguard();
@@ -151,12 +142,10 @@ public class GlobalUtils {
         if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis())
         {
             // endTime is over midnight
-            //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","startTime >= endTime");
 
             if ((nowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
                     (nowTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis())) {
                 // now is between midnight and endTime
-                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","now is between midnight and endTime");
 
                 calStartTime.add(Calendar.DAY_OF_YEAR, -1);
             }
@@ -164,23 +153,18 @@ public class GlobalUtils {
             if ((nowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
                     (nowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
                 // now is between startTime and midnight
-                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","now is between startTime and midnight");
 
                 calEndTime.add(Calendar.DAY_OF_YEAR, 1);
             }
             else {
                 // now is before start time
-                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","now is before start time");
 
                 calEndTime.add(Calendar.DAY_OF_YEAR, 1);
             }
         }
         else {
-            //    PPApplication.logE("EventPreferencesTime.computeAlarm","startTime < endTime");
-
             if (nowTime.getTimeInMillis() > hoursEndTime.getTimeInMillis()) {
                 // now is after end time, compute for tomorrow
-                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes", "nowTime > endTime");
 
                 calStartTime.add(Calendar.DAY_OF_YEAR, 1);
                 calEndTime.add(Calendar.DAY_OF_YEAR, 1);
@@ -215,24 +199,17 @@ public class GlobalUtils {
                 int batteryPct;
 
                 //int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-                //PPApplication.logE("DataWrapper.isPowerSaveMode", "status=" + status);
                 int plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
                 isCharging = plugged == BatteryManager.BATTERY_PLUGGED_AC
                         || plugged == BatteryManager.BATTERY_PLUGGED_USB
                         || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
                 //isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 //             status == BatteryManager.BATTERY_STATUS_FULL;
-                //PPApplication.logE("DataWrapper.isPowerSaveMode", "isCharging=" + isCharging);
                 if (!isCharging) {
                     int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                     int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                    //if (PPApplication.logEnabled()) {
-                    //    PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
-                    //    PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
-                    //}
 
                     batteryPct = Math.round(level / (float) scale * 100);
-                    //PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);
 
                     if (applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5))
                         return true;
@@ -272,7 +249,6 @@ public class GlobalUtils {
             }
             enabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
-        //PPApplication.logE("PhoneProfilesService.isLocationEnabled", "enabled="+enabled);
         return enabled;
     }
 
@@ -296,13 +272,10 @@ public class GlobalUtils {
                 return null;
             }
             if (services != null) {
-                //PPApplication.logE("PhoneProfilesService.getServiceInfo", "services.size()="+services.size());
                 try {
                     //ActivityManager.RunningServiceInfo serviceInfo = null;
                     for (ActivityManager.RunningServiceInfo service : services) {
-                        //PPApplication.logE("PhoneProfilesService.getServiceInfo", "service.service.getClassName()="+service.service.getClassName());
                         if (serviceClass.getName().equals(service.service.getClassName())) {
-                            //PPApplication.logE("PhoneProfilesService.getServiceInfo", "service running");
                             //serviceInfo = service;
                             return service;
                         }
@@ -314,7 +287,6 @@ public class GlobalUtils {
                 }
             }
         }
-        //PPApplication.logE("PhoneProfilesService.getServiceInfo", "false");
         return null;
     }
 
@@ -323,13 +295,11 @@ public class GlobalUtils {
         if (inForeground)
             isRunning = isRunning && isInForeground;
 
-        //PPApplication.logE("PhoneProfilesService.isServiceRunning", "isRunning="+isRunning);
         return isRunning;*/
 
         ActivityManager.RunningServiceInfo service = getServiceInfo(context, serviceClass);
         if (service != null) {
             if (inForeground) {
-                //PPApplication.logE("PhoneProfilesService.isServiceRunning", "service.foreground=" + service.foreground);
                 return service.foreground;
             } else
                 return true;
@@ -449,9 +419,6 @@ public class GlobalUtils {
                                 }
                             }
                         }
-//                        PPApplication.logE("PPApplication.getCallState", "callStateSIM1="+callStateSIM1);
-//                        PPApplication.logE("PPApplication.getCallState", "callStateSIM2="+callStateSIM2);
-
                         if ((callStateSIM1 == TelephonyManager.CALL_STATE_RINGING) ||
                                 (callStateSIM2 == TelephonyManager.CALL_STATE_RINGING))
                             return TelephonyManager.CALL_STATE_RINGING;

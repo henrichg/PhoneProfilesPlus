@@ -243,7 +243,6 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
         int tagPos = (int)view.getTag();
         final NFCTag tagInItem = preference.nfcTagList.get(tagPos);
-        //PPApplication.logE("NFCTagPreference.showEditMenu", "tagInItem._name="+tagInItem._name);
 
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
@@ -260,7 +259,6 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
             else
             if (itemId == R.id.nfc_tag_pref_dlg_item_menu_change) {
                 if (!nfcTagName.getText().toString().isEmpty()) {
-                    //PPApplication.logE("NFCTagPreference.showEditMenu.change", "tagInItem._name="+tagInItem._name);
                     String[] splits = preference.value.split("\\|");
                     preference.value = "";
                     boolean found = false;
@@ -273,19 +271,16 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                                     preference.value = preference.value + "|";
                                 //noinspection StringConcatenationInLoop
                                 preference.value = preference.value + tag;
-                                //PPApplication.logE("NFCTagPreference.showEditMenu.change", "value="+preference.value);
                             } else
                                 found = true;
                         }
                     }
-                    //PPApplication.logE("NFCTagPreference.showEditMenu.change", "found="+found);
                     if (found) {
                         // add item tag with new name
                         if (!preference.value.isEmpty())
                             preference.value = preference.value + "|";
                         preference.value = preference.value + nfcTagName.getText().toString();
                     }
-                    //PPApplication.logE("NFCTagPreference.showEditMenu.change", "value=" + preference.value);
                     tagInItem._name = nfcTagName.getText().toString();
                     DatabaseHandler.getInstance(prefContext.getApplicationContext()).updateNFCTag(tagInItem);
                     refreshListView("");

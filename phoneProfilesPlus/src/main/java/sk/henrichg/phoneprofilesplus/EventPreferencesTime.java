@@ -341,7 +341,6 @@ class EventPreferencesTime extends EventPreferences {
     {
         Calendar cal = Calendar.getInstance();
         int firstDayOfWeek = cal.getFirstDayOfWeek();
-        //PPApplication.logE("EventPreferencesTime.getDayOfWeekByLocale", "firstDayOfWeek="+firstDayOfWeek);
 
         int resDayOfWeek = dayOfWeek + (firstDayOfWeek-1);
         if (resDayOfWeek > 6)
@@ -551,14 +550,6 @@ class EventPreferencesTime extends EventPreferences {
 
     private long computeAlarm(boolean startEvent, @SuppressWarnings("unused") Context context)
     {
-        /*boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-        if (testEvent) {
-            if (PPApplication.logEnabled()) {
-                PPApplication.logE("EventPreferencesTime.computeAlarm", "eventName=" + _event._name);
-                PPApplication.logE("EventPreferencesTime.computeAlarm", "startEvent=" + startEvent);
-            }
-        }*/
-
         Calendar now = Calendar.getInstance();
 
         Calendar calStartTime = Calendar.getInstance();
@@ -634,26 +625,13 @@ class EventPreferencesTime extends EventPreferences {
             calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
             calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
 
-            /*if (testEvent) {
-                if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EventPreferencesTime.computeAlarm", "callStartTime=" + DateFormat.getDateFormat(context).format(calStartTime.getTimeInMillis()) +
-                            " " + DateFormat.getTimeFormat(context).format(calStartTime.getTimeInMillis()));
-                    PPApplication.logE("EventPreferencesTime.computeAlarm", "callEndTime=" + DateFormat.getDateFormat(context).format(calEndTime.getTimeInMillis()) +
-                            " " + DateFormat.getTimeFormat(context).format(calEndTime.getTimeInMillis()));
-                }
-            }*/
-
             if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis())
             {
                 // endTime is over midnight
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.computeAlarm","startTime >= endTime");
 
                 if ((nowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
                     (nowTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis())) {
                     // now is between midnight and endTime
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.computeAlarm","now is between midnight and endTime");
 
                     calStartTime.add(Calendar.DAY_OF_YEAR, -1);
                 }
@@ -661,27 +639,19 @@ class EventPreferencesTime extends EventPreferences {
                 if ((nowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
                     (nowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
                     // now is between startTime and midnight
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.computeAlarm","now is between startTime and midnight");
 
                     calEndTime.add(Calendar.DAY_OF_YEAR, 1);
                 }
                 else {
                     // now is before start time
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.computeAlarm","now is before start time");
 
                     calEndTime.add(Calendar.DAY_OF_YEAR, 1);
                 }
             }
             else {
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.computeAlarm","startTime < endTime");
 
                 if (nowTime.getTimeInMillis() > hoursEndTime.getTimeInMillis()) {
                     // now is after end time, compute for tomorrow
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.computeAlarm", "nowTime > endTime");
 
                     calStartTime.add(Calendar.DAY_OF_YEAR, 1);
                     calEndTime.add(Calendar.DAY_OF_YEAR, 1);
@@ -702,16 +672,8 @@ class EventPreferencesTime extends EventPreferences {
             //noinspection StatementWithEmptyBody
             if (daysOfWeek[startDayOfWeek]) {
                 // week for startTime is selected
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is selected");
             } else {
                 // week for startTime is not selected,
-                /*if (testEvent) {
-                    if (PPApplication.logEnabled()) {
-                        PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is NOT selected");
-                        PPApplication.logE("EventPreferencesTime.computeAlarm", "startDayOfWeek=" + startDayOfWeek);
-                    }
-                }*/
 
                 // search for selected day of week
                 boolean found = false;
@@ -733,36 +695,19 @@ class EventPreferencesTime extends EventPreferences {
                     }
                 }
                 if (found) {
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.computeAlarm", "daysToAdd=" + daysToAdd);
                     calStartTime.add(Calendar.DAY_OF_YEAR, daysToAdd);
                     calEndTime.add(Calendar.DAY_OF_YEAR, daysToAdd);
                 }
             }
             //////////////////////
 
-            /*if (testEvent) {
-                if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EventPreferencesTime.computeAlarm", "callStartTime=" + DateFormat.getDateFormat(context).format(calStartTime.getTimeInMillis()) +
-                            " " + DateFormat.getTimeFormat(context).format(calStartTime.getTimeInMillis()));
-                    PPApplication.logE("EventPreferencesTime.computeAlarm", "callEndTime=" + DateFormat.getDateFormat(context).format(calEndTime.getTimeInMillis()) +
-                            " " + DateFormat.getTimeFormat(context).format(calEndTime.getTimeInMillis()));
-                }
-            }*/
-            ////////////////////////////
         }
         else {
             if (PhoneProfilesService.getInstance() != null) {
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.computeAlarm", "PPService started");
                 TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
                 if (twilightScanner != null) {
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightScanner started");
                     TwilightState twilightState = twilightScanner.getTwilightState(/*false*//*testEvent*/);
                     if (twilightState != null) {
-                        //if (testEvent)
-                        //    PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightState set");
                         setAlarm = true;
 
                         if ((twilightState.getTodaySunset() != -1) && (twilightState.getTodaySunrise() != -1)) {
@@ -796,8 +741,6 @@ class EventPreferencesTime extends EventPreferences {
                             boolean inMorning =
                                 (hoursNowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
                                 (hoursNowTime.getTimeInMillis() < middayTime.getTimeInMillis());
-                            //if (testEvent)
-                            //    PPApplication.logE("EventPreferencesTime.computeAlarm", "inMorning="+inMorning);
 
                             if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
                                 Calendar todaySunset = Calendar.getInstance();
@@ -815,8 +758,6 @@ class EventPreferencesTime extends EventPreferences {
                                     calStartTime.setTimeInMillis(twilightState.getTodaySunset());
                                     calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
                                 }
-                                //if (testEvent)
-                                //    PPApplication.logE("EventPreferencesTime.computeAlarm", "now.compareTo(calEndTime) > 0="+(now.compareTo(calEndTime) > 0));
                                 if (now.compareTo(calEndTime) > 0)
                                     calStartTime.setTimeInMillis(twilightState.getTodaySunset());
                             }
@@ -841,8 +782,6 @@ class EventPreferencesTime extends EventPreferences {
                                     calEndTime.setTimeInMillis(twilightState.getTodaySunrise());
                                 else
                                     calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
-                                //if (testEvent)
-                                //    PPApplication.logE("EventPreferencesTime.computeAlarm", "now.compareTo(calEndTime) > 0="+(now.compareTo(calEndTime) > 0));
                                 if (now.compareTo(calEndTime) > 0)
                                     calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
                             }
@@ -858,14 +797,10 @@ class EventPreferencesTime extends EventPreferences {
                             ///// set calendar for startTime and endTime
                             boolean previousDayUsed = false;
                             if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis()) {
-                                if (testEvent)
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime >= endTime");
 
                                 if ((hoursNowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
                                     (hoursNowTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis())) {
                                     // now is between midnight and endTime
-                                    if (testEvent)
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "now is between midnight and endTime");
 
                                     startIndex = 0;
 
@@ -877,25 +812,17 @@ class EventPreferencesTime extends EventPreferences {
                                 } else if ((hoursNowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
                                         (hoursNowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
                                     // now is between startTime and midnight
-                                    if (testEvent)
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "now is between startTime and midnight");
 
                                     //calEndTime.add(Calendar.DAY_OF_YEAR, 1);
                                 } else {
                                     // now is before start time
-                                    if (testEvent)
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "now is before start time");
 
                                     //calEndTime.add(Calendar.DAY_OF_YEAR, 1);
                                 }
                             } else {
-                                if (testEvent)
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime < endTime");
 
                                 if (hoursNowTime.getTimeInMillis() > hoursEndTime.getTimeInMillis()) {
                                     // endTime is before actual time, compute for tomorrow
-                                    if (testEvent)
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "nowTime > endTime");
 
                                     calStartTime.add(Calendar.DAY_OF_YEAR, 1);
                                     //calEndTime.add(Calendar.DAY_OF_YEAR, 1);
@@ -905,8 +832,6 @@ class EventPreferencesTime extends EventPreferences {
 
                             //// get day by selected day of week
                             int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
-                            //if (testEvent)
-                            //    PPApplication.logE("EventPreferencesTime.computeAlarm", "startDayOfWeek="+startDayOfWeek);
                             boolean[] daysOfWeek = new boolean[8];
                             daysOfWeek[Calendar.SUNDAY] = this._sunday;
                             daysOfWeek[Calendar.MONDAY] = this._monday;
@@ -919,16 +844,8 @@ class EventPreferencesTime extends EventPreferences {
                             //noinspection StatementWithEmptyBody
                             if (daysOfWeek[startDayOfWeek]) {
                                 // week for startTime is selected
-                                //if (testEvent)
-                                //    PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is selected");
                             } else {
                                 // week for startTime is not selected,
-                                /*if (testEvent) {
-                                    if (PPApplication.logEnabled()) {
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is NOT selected");
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "startDayOfWeek=" + startDayOfWeek);
-                                    }
-                                }*/
 
                                 // search for selected day of week
                                 boolean found = false;
@@ -948,59 +865,13 @@ class EventPreferencesTime extends EventPreferences {
                                         }
                                     }
                                 }
-                                /*if (found) {
-                                    if (testEvent)
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "NEW startDayOfWeek="+startDayOfWeek);
-                                }*/
                             }
                             //////////////////////
 
                             long[] twilightDaysSunrise = twilightState.getDaysSunrise();
                             long[] twilightDaysSunset = twilightState.getDaysSunset();
 
-                            /*if (testEvent) {
-                                if (PPApplication.logEnabled()) {
-                                    Calendar t = Calendar.getInstance();
-                                    t.setTimeInMillis(twilightState.getYesterdaySunrise());
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getYesterdaySunrise()=" +
-                                            DateFormat.getDateFormat(context).format(twilightState.getYesterdaySunrise()) + " " +
-                                            DateFormat.getTimeFormat(context).format(twilightState.getYesterdaySunrise()) + " " + t.get(Calendar.DAY_OF_WEEK));
-                                    t.setTimeInMillis(twilightState.getYesterdaySunset());
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getYesterdaySunset()=" +
-                                            DateFormat.getDateFormat(context).format(twilightState.getYesterdaySunset()) + " " +
-                                            DateFormat.getTimeFormat(context).format(twilightState.getYesterdaySunset()) + " " + t.get(Calendar.DAY_OF_WEEK));
-                                    t.setTimeInMillis(twilightState.getTodaySunrise());
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getTodaySunrise()=" +
-                                            DateFormat.getDateFormat(context).format(twilightState.getTodaySunrise()) + " " +
-                                            DateFormat.getTimeFormat(context).format(twilightState.getTodaySunrise()) + " " + t.get(Calendar.DAY_OF_WEEK));
-                                    t.setTimeInMillis(twilightState.getTodaySunset());
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getTodaySunset()=" +
-                                            DateFormat.getDateFormat(context).format(twilightState.getTodaySunset()) + " " +
-                                            DateFormat.getTimeFormat(context).format(twilightState.getTodaySunset()) + " " + t.get(Calendar.DAY_OF_WEEK));
-                                    t.setTimeInMillis(twilightState.getTomorrowSunrise());
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getTomorrowSunrise()=" +
-                                            DateFormat.getDateFormat(context).format(twilightState.getTomorrowSunrise()) + " " +
-                                            DateFormat.getTimeFormat(context).format(twilightState.getTomorrowSunrise()) + " " + t.get(Calendar.DAY_OF_WEEK));
-                                    t.setTimeInMillis(twilightState.getTomorrowSunset());
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getTomorrowSunset()=" +
-                                            DateFormat.getDateFormat(context).format(twilightState.getTomorrowSunset()) + " " +
-                                            DateFormat.getTimeFormat(context).format(twilightState.getTomorrowSunset()) + " " + t.get(Calendar.DAY_OF_WEEK));
-
-                                    for (int i = 0; i < 9; i++) {
-                                        t = Calendar.getInstance();
-                                        t.setTimeInMillis(twilightDaysSunrise[i]);
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightDaysSunrise[" + i + "]=" + DateFormat.getDateFormat(context).format(twilightDaysSunrise[i]) +
-                                                " " + DateFormat.getTimeFormat(context).format(twilightDaysSunrise[i]) + " " + t.get(Calendar.DAY_OF_WEEK));
-                                        t.setTimeInMillis(twilightDaysSunset[i]);
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightDaysSunset[" + i + "]=" + DateFormat.getDateFormat(context).format(twilightDaysSunset[i]) +
-                                                " " + DateFormat.getTimeFormat(context).format(twilightDaysSunset[i]) + " " + t.get(Calendar.DAY_OF_WEEK));
-                                    }
-                                }
-                            }*/
-
                             if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
-                                //if (testEvent)
-                                //    PPApplication.logE("EventPreferencesTime.computeAlarm", "from sunrise to sunset");
 
                                 for (int daysIndex = 1; daysIndex < 9; daysIndex++) {
 
@@ -1037,8 +908,6 @@ class EventPreferencesTime extends EventPreferences {
                                 }
                             }
                             else {
-                                //if (testEvent)
-                                //    PPApplication.logE("EventPreferencesTime.computeAlarm", "from sunset to sunrise");
 
                                 for (int daysIndex = 1; daysIndex < 9; daysIndex++) {
 
@@ -1066,44 +935,21 @@ class EventPreferencesTime extends EventPreferences {
                                             else
                                                 setAlarm = false;
 
-                                            //if (testEvent)
-                                            //    PPApplication.logE("EventPreferencesTime.computeAlarm", "daysIndex OK="+daysIndex);
                                             break;
                                         }
-                                        /*else {
-                                            if (testEvent)
-                                                PPApplication.logE("EventPreferencesTime.computeAlarm", "daysIndex NOT OK="+daysIndex);
-                                        }*/
                                     }
                                     else
                                         setAlarm = false;
                                 }
                             }
-                            /*if (testEvent) {
-                                if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "callStartTime=" + DateFormat.getDateFormat(context).format(calStartTime.getTimeInMillis()) +
-                                            " " + DateFormat.getTimeFormat(context).format(calStartTime.getTimeInMillis()));
-                                    PPApplication.logE("EventPreferencesTime.computeAlarm", "callEndTime=" + DateFormat.getDateFormat(context).format(calEndTime.getTimeInMillis()) +
-                                            " " + DateFormat.getTimeFormat(context).format(calEndTime.getTimeInMillis()));
-                                }
-                            }*/
                             ////////////////////////////
 
                         }
                         else
                             setAlarm = false;
                     }
-                    /*else
-                    if (testEvent)
-                        PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightState NOT set");*/
                 }
-                /*else
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightScanner NOT started");*/
             }
-            /*else
-            if (testEvent)
-                PPApplication.logE("EventPreferencesTime.computeAlarm", "PPService NOT started");*/
         }
 
         if (setAlarm) {
@@ -1123,10 +969,6 @@ class EventPreferencesTime extends EventPreferences {
     void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
-
-//        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-//        if (testEvent)
-//            PPApplication.logE("EventPreferencesTime.setSystemEventForStart","xxx");
 
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
@@ -1150,10 +992,6 @@ class EventPreferencesTime extends EventPreferences {
     void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
-
-//        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-//        if (testEvent)
-//            PPApplication.logE("EventPreferencesTime.setSystemEventForPause","xxx");
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
@@ -1180,19 +1018,10 @@ class EventPreferencesTime extends EventPreferences {
 
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
-
-//        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-//        if (testEvent) {
-//            //PPApplication.logE("EventPreferencesTime.removeSystemEvent","forceNotUseAlarmClock="+ApplicationPreferences.forceNotUseAlarmClock);
-//            PPApplication.logE("EventPreferencesTime.removeSystemEvent", "xxx");
-//        }
     }
 
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
-        /*boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-        if (testEvent)
-            PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name);*/
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
@@ -1201,36 +1030,22 @@ class EventPreferencesTime extends EventPreferences {
                 intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
                 //intent.setClass(context, EventPreferencesTime.class);
 
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.removeAlarm", "from alarm clock");
 
                 try {
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode=" + (int) _event._id);
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent=" + pendingIntent);
                     if (pendingIntent != null) {
                         alarmManager.cancel(pendingIntent);
                         pendingIntent.cancel();
-                        //if (testEvent)
-                        //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
 
                 try {
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode=" + (-(int) _event._id));
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, -(int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
-                    //if (testEvent)
-                    //    PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent=" + pendingIntent);
                     if (pendingIntent != null) {
                         alarmManager.cancel(pendingIntent);
                         pendingIntent.cancel();
-                        //if (testEvent)
-                        //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -1244,35 +1059,17 @@ class EventPreferencesTime extends EventPreferences {
 
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
-        /*boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-        if (testEvent)
-            PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name);*/
-
-        /*if (testEvent)
-            if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarmTime);
-                if (startEvent)
-                    PPApplication.logE("EventPreferencesTime.setAlarm", "startTime=" + result);
-                else
-                    PPApplication.logE("EventPreferencesTime.setAlarm", "endTime=" + result);
-            }*/
-
         boolean applicationUseAlarmClock = ApplicationPreferences.applicationUseAlarmClock;
 
         // not set alarm if alarmTime is over.
         Calendar now = Calendar.getInstance();
         if (applicationUseAlarmClock) {
             if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET)) {
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.setAlarm", "alarm clock is over");
                 return;
             }
         }
         else {
             if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_OFFSET)) {
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.setAlarm", "alarm is over");
                 return;
             }
         }
@@ -1301,8 +1098,6 @@ class EventPreferencesTime extends EventPreferences {
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm clock set");
             }
             else {
                 //if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -1311,8 +1106,6 @@ class EventPreferencesTime extends EventPreferences {
                 //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 //else
                 //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm set");
             }
         }
     }
@@ -1323,14 +1116,6 @@ class EventPreferencesTime extends EventPreferences {
             if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
-//                boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-
-//                if (testEvent) {
-//                    if (PPApplication.logEnabled()) {
-//                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "------- event._id=" + _event._id);
-//                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "------- event._name=" + _event._name);
-//                    }
-//                }
 
                 // compute start datetime
                 long startAlarmTime;
@@ -1339,29 +1124,8 @@ class EventPreferencesTime extends EventPreferences {
                 startAlarmTime = computeAlarm(true, eventsHandler.context);
                 endAlarmTime = computeAlarm(false, eventsHandler.context);
 
-//                if (startAlarmTime > 0) {
-//                    String alarmTimeS = DateFormat.getDateFormat(eventsHandler.context).format(startAlarmTime) +
-//                            " " + DateFormat.getTimeFormat(eventsHandler.context).format(startAlarmTime);
-//                }
-//                else
-//                if (testEvent)
-//                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "startAlarmTime=not alarm computed");
-//                if (endAlarmTime > 0) {
-//                    String alarmTimeS = DateFormat.getDateFormat(eventsHandler.context).format(endAlarmTime) +
-//                            " " + DateFormat.getTimeFormat(eventsHandler.context).format(endAlarmTime);
-//                    if (testEvent)
-//                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "endAlarmTime=" + alarmTimeS);
-//                }
-//                else
-//                if (testEvent)
-//                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "endAlarmTime=not alarm computed");
-
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
-//                String alarmTimeS = DateFormat.getDateFormat(eventsHandler.context).format(nowAlarmTime) +
-//                        " " + DateFormat.getTimeFormat(eventsHandler.context).format(nowAlarmTime);
-//                if (testEvent)
-//                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
 
                 /*boolean[] daysOfWeek =  new boolean[8];
                 daysOfWeek[Calendar.SUNDAY] = event._eventPreferencesTime._sunday;
@@ -1378,20 +1142,14 @@ class EventPreferencesTime extends EventPreferences {
                 //if (daysOfWeek[startDayOfWeek])
                 //{
                 // startTime of week is selected
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.doHandleEvent","startTime of week is selected");
                 if ((startAlarmTime > 0) && (endAlarmTime > 0))
                     eventsHandler.timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
                 else
                     eventsHandler.timePassed = false;
                 /*}
                 else {
-                    PPApplication.logE("EventPreferencesTime.doHandleEvent","startTime of week is NOT selected");
                     timePassed = false;
                 }*/
-
-//                if (testEvent)
-//                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "timePassed=" + eventsHandler.timePassed);
 
                 if (!eventsHandler.notAllowedTime) {
                     if (eventsHandler.timePassed)
@@ -1403,7 +1161,6 @@ class EventPreferencesTime extends EventPreferences {
                 eventsHandler.notAllowedTime = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesTime.doHandleEvent", "time - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_TIME);
             }

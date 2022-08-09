@@ -56,9 +56,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        //PPApplication.logE("PhoneProfilesPrefsActivity.onCreate", "savedInstanceState="+savedInstanceState);
-
-
         setContentView(R.layout.activity_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
@@ -269,7 +266,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-//        PPApplication.logE("[APP_START] PhoneProfilesPrefsActivity.showNotStartedToast", "setApplicationFullyStarted");
         PPApplication.setApplicationFullyStarted(getApplicationContext());
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
@@ -300,13 +296,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         // this is for list widget header
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("EditorActivity.onStart", "application is not started");
-                PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                if (PhoneProfilesService.getInstance() != null)
-                    PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-            }*/
-
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
@@ -324,12 +313,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EditorActivity.onStart", "application is started");
-                    PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                    if (PhoneProfilesService.getInstance() != null)
-                        PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-                }*/
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
 
@@ -347,9 +330,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
                 return true;
             }
-            //else {
-            //    PPApplication.logE("EditorActivity.onStart", "application and service is started");
-            //}
         }
 
         return false;
@@ -383,9 +363,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-//        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "activityStarted="+activityStarted);
-//        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "fromFinish="+fromFinish);
-
         if (activityStarted) {
             if (!fromFinish)
                 doPreferenceChanges();
@@ -397,8 +374,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     public void finish() {
         // finish is called before of onStop()
-
-//        PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
 
         fromFinish = true;
 
@@ -425,7 +400,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     private void doPreferenceChanges() {
-//        PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "xxx");
         final Context appContext = getApplicationContext();
 
         PhoneProfilesPrefsFragment fragment = (PhoneProfilesPrefsFragment)getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
@@ -497,30 +471,25 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }, 1000);*/
         //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 
-        //        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.doPreferenceChanges");
         PPApplication.updateGUI(true, false, getApplicationContext());
 
         if (Permissions.grantRootChanged) {
-            //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "grant root changed");
             invalidateEditor = true;
         }
 
         boolean permissionsChanged = Permissions.getPermissionsChanged(appContext);
 
         if (permissionsChanged) {
-            //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "permissions changed");
             invalidateEditor = true;
         }
 
         /*if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
         {
-            PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "language changed");
             GlobalGUIRoutines.setLanguage(this);
             invalidateEditor = true;
         }*/
         if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
         {
-            //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "theme changed");
             //EditorActivity.setTheme(this, false);
             GlobalGUIRoutines.switchNightMode(appContext, false);
             invalidateEditor = true;
@@ -532,12 +501,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }*/
         if (showEditorPrefIndicator != ApplicationPreferences.applicationEditorPrefIndicator)
         {
-            //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "show editor pref. indicator changed");
             invalidateEditor = true;
         }
         if (hideEditorHeaderOrBottomBar != ApplicationPreferences.applicationEditorHideHeaderOrBottomBar)
         {
-            //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "hide editor header or bottom bar changed");
             invalidateEditor = true;
         }
         /*if (showEditorHeader != ApplicationPreferences.applicationEditorHeader(appContext))
@@ -548,52 +515,44 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged ||
                 (periodicScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) ||
                 periodicScanInterval != ApplicationPreferences.applicationEventPeriodicScanningScanInterval) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart periodic scanning scanner");
             PPApplication.restartPeriodicScanningScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning) ||
                 (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval)) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart wifi scanner");
             PPApplication.restartWifiScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning) ||
                 (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval)) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart bluetooth scanner");
             PPApplication.restartBluetoothScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning) ||
                 (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval)) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart location scanner");
             PPApplication.restartLocationScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning) ||
                 orientationScanInterval != ApplicationPreferences.applicationEventOrientationScanInterval) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart orientation scanner");
             PPApplication.restartOrientationScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart notification scanner");
             PPApplication.restartNotificationScanner(appContext);
         }
 
         if (permissionsChanged ||
                 mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart phone state scanner");
             PPApplication.restartMobileCellsScanner(appContext);
         }
 
         if (permissionsChanged) {
-            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart twilight scanner");
             PPApplication.restartTwilightScanner(appContext);
         }
 
@@ -604,7 +563,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             //        appContext) {
             //__handler2.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -616,7 +575,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "use alarm clock enabled changed");
                         /*if (DataWrapper.getIsManualProfileActivation(false, appContext))
                             x
                         else*/
@@ -624,11 +582,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                         //PPApplication.restartEvents(appContext, true, true);
 
                         // change of this parameter is as change of local time
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges (2)");
+//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges (2)");
                         TimeChangedReceiver.doWork(appContext, true);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -692,8 +650,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsRoot");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -707,7 +663,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         /*
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsRoot");
         }
         */
     }
@@ -716,8 +671,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsInterface");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)){
@@ -730,7 +683,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsInterface");
             editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.applicationThemeDefaultValue()));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE));
@@ -745,8 +697,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsApplicationStart");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -759,7 +709,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsApplicationStart");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, ApplicationPreferences.PREF_APPLICATION_ACTIVATE_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_EVENTS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_START_EVENTS, ApplicationPreferences.PREF_APPLICATION_START_EVENTS_DEFAULT_VALUE));
@@ -771,8 +720,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsSystem");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -785,7 +732,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsSystem");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK_DEFAULT_VALUE));
@@ -797,8 +743,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsPermissions");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -812,7 +756,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         /*
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsPermissions");
         }
         */
     }
@@ -821,8 +764,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsNotifications");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -835,7 +776,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsNotifications");
             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, ApplicationPreferences.notificationStatusBarStyleDefaultValue()));
@@ -844,7 +784,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE));
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsNotifications custom color="+fromPreference.getInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF));
             editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, fromPreference.getInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, ApplicationPreferences.notificationShowProfileIconDefaultValue()));
@@ -862,8 +801,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsProfileActivation");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -876,7 +813,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsProfileActivation");
             editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE, ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE_DEFAULT_VALUE));
@@ -892,8 +828,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsSpecialProfileParameters");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -906,7 +840,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsProfileActivation");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_DEFAULT_VALUE));
         }
 
@@ -916,8 +849,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsEventRun");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -930,7 +861,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsEventRun");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT_DEFAULT_VALUE));
         }
@@ -940,8 +870,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsPeriodicScanning");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -954,7 +882,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsPeriodicScanning");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
@@ -969,8 +896,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsLocationScanning");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -983,7 +908,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsLocationScanning");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
@@ -1000,8 +924,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsWifiScanning");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1014,7 +936,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsWifiScanning");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT_DEFAULT_VALUE));
@@ -1031,8 +952,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsBluetoothScanning");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1045,7 +964,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsBluetoothScanning");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL_DEFAULT_VALUE));
@@ -1062,8 +980,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsMobileCellsScanning");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1076,7 +992,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsMobileCellsScanning");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
@@ -1091,8 +1006,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsOrientationScanning");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1105,7 +1018,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsOrientationScanning");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
@@ -1120,8 +1032,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsNotificationScanning");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1134,7 +1044,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsNotificationScanning");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE));
@@ -1148,8 +1057,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsActivator");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1162,7 +1069,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsActivator");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, ApplicationPreferences.PREF_APPLICATION_CLOSE_DEFAULT_VALUE));
@@ -1177,8 +1083,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsEditor");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1191,7 +1095,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsEditor");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS_DEFAULT_VALUE));
@@ -1202,8 +1105,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsWidgetList");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1216,7 +1117,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsWidgetList");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, ApplicationPreferences.applicationWidgetListChangeColorsByNightModeDefaultValue(getContext())));
@@ -1244,8 +1144,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsWidgetOneRow");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1258,7 +1156,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsWidgetOneRow");
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT_DEFAULT_VALUE));
             //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightModeDefaultValue(getContext())));
@@ -1286,8 +1183,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsWidgetIcon");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1300,7 +1195,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsWidgetIcon");
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, ApplicationPreferences.pplicationWidgetIconChangeColorsByNightModeDefaultValue(getContext())));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, ApplicationPreferences.applicationWidgetIconBackgroundDefaultValue(getContext())));
@@ -1327,8 +1221,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsShortcut");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1341,7 +1233,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsShortcut");
             editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR_DEFAULT_VALUE));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
@@ -1353,8 +1244,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsSamsungEdgePanel");
-
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
             if ((getContext() != null) && (preferences != null)) {
@@ -1367,7 +1256,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsSamsungEdgePanel");
             editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER_DEFAULT_VALUE));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightModeDefaultValue()));

@@ -1159,8 +1159,6 @@ class DatabaseHandlerImportExport {
                     File exportedDB = new File(sd, DatabaseHandler.EXPORT_DBFILENAME);
 
                     if (exportedDB.exists()) {
-                        //PPApplication.logE("DatabaseHandler.importDB", "exportedDB.getAbsolutePath()="+exportedDB.getAbsolutePath());
-
                         try {
                             //noinspection ResultOfMethodCallIgnored
                             exportedDB.setReadable(true, false);
@@ -1232,7 +1230,6 @@ class DatabaseHandlerImportExport {
                 //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e2));
                 //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
                 PPApplication.recordException(e2);
-                //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e2));
             }
             return ret;
         } finally {

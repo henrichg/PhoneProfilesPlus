@@ -35,9 +35,6 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
         criticalRelease = intent.getBooleanExtra(EXTRA_PPP_RELEASE_CRITICAL, true);
         versionCode = intent.getIntExtra(EXTRA_PPP_RELEASE_CODE, 0);
 
-//        PPApplication.logE("CheckCriticalGitHubReleasesDisableActivity._doWork", "versionCode=" + versionCode);
-//        PPApplication.logE("CheckCriticalGitHubReleasesDisableActivity._doWork", "criticalRelease=" + criticalRelease);
-
         activityStarted = true;
 
         // close notification drawer - broadcast pending intent not close it :-/
@@ -112,7 +109,6 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
     }
 
 //    private boolean showNotStartedToast() {
-////        PPApplication.logE("[APP_START] CheckCriticalGitHubReleasesDisableActivity.showNotStartedToast", "xxx");
 //        boolean applicationStarted = PPApplication.getApplicationStarted(true);
 //        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
 //        if (!applicationStarted) {

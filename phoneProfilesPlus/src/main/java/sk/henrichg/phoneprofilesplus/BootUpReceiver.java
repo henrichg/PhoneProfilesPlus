@@ -35,7 +35,6 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-//            PPApplication.logE("[BLOCK_ACTIONS] BootUpReceiver.onReceive", "true");
             PPApplication.setBlockProfileEventActions(true);
 
             if (PPApplication.logEnabled()) {
@@ -53,7 +52,7 @@ public class BootUpReceiver extends BroadcastReceiver {
             //        context.getApplicationContext()) {
             //__handler2.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -67,7 +66,6 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                         if (ApplicationPreferences.applicationStartOnBoot) {
                             PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
-                            //PPApplication.logE("BootUpReceiver.onReceive", "bootUpCompleted="+bootUpCompleted);
 
                             PPApplication.deviceBoot = true;
 
@@ -98,7 +96,6 @@ public class BootUpReceiver extends BroadcastReceiver {
                         } else {
                             if (PPApplication.logEnabled()) {
                                 PPApplication.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");
-                                //PPApplication.logE("PPApplication.exitApp", "from BootUpReceiver.onReceive shutdown=false");
                             }
                             PPApplication.deviceBoot = false;
 
@@ -112,9 +109,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                             PPApplication.exitApp(false, appContext, dataWrapper, null, false, true);
                         }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BootUpReceiver.onReceive2");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -128,8 +124,6 @@ public class BootUpReceiver extends BroadcastReceiver {
             }; //);
             PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
-
-            //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- end");
 
         }
 

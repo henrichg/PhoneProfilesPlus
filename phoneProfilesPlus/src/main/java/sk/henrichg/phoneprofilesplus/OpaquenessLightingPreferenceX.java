@@ -93,8 +93,6 @@ public class OpaquenessLightingPreferenceX extends DialogPreference {
     {
         super(context, attrs);
 
-        //PPApplication.logE("ProfilePreferenceX.ProfilePreferenceX", "xxx");
-
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.OpaquenessLightingPference);
 
         showLighting = typedArray.getBoolean(R.styleable.OpaquenessLightingPference_showLighting, false);
