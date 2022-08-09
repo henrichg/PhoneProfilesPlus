@@ -182,7 +182,7 @@ class ApplicationsCache {
     {
         for (Application application : applicationsList) {
             Bitmap icon = getApplicationIcon(application, false);
-            if (!icon.isRecycled())
+            if ((icon != null) && (!icon.isRecycled()))
                 icon.recycle();
         }
         applicationsList.clear();
@@ -190,7 +190,7 @@ class ApplicationsCache {
 
         for (Application application : applicationsNoShortcutsList) {
             Bitmap icon = getApplicationIcon(application, true);
-            if (!icon.isRecycled())
+            if ((icon != null) && (!icon.isRecycled()))
                 icon.recycle();
         }
         applicationsNoShortcutsList.clear();
