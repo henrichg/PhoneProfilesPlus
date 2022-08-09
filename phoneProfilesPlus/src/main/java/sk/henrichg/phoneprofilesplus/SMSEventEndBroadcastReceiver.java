@@ -8,7 +8,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] SMSEventEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] SMSEventEndBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {

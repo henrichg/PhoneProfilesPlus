@@ -29,7 +29,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
     private static final String PREF_CRITICAL_PPP_RELEASE_ALARM = "critical_github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
 

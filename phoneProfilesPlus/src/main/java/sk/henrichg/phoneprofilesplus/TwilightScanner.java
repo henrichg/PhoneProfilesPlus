@@ -509,7 +509,7 @@ class TwilightScanner {
     private final BroadcastReceiver mUpdateLocationReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] TwilightScanner.mUpdateLocationReceiver", "xxx");
+            PPApplication.logE("[IN_BROADCAST] TwilightScanner.mUpdateLocationReceiver", "xxx");
 
             if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(intent.getAction())
                     && !intent.getBooleanExtra("state", false)) {

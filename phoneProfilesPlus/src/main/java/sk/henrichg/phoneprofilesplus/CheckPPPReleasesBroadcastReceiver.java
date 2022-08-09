@@ -31,7 +31,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
     private static final String PREF_PPP_RELEASE_ALARM = "github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
             doWork(/*true,*/ context);

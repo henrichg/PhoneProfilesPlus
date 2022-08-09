@@ -583,6 +583,55 @@ Hm, hm.
 
 -------------------
 
+Broadcasty pre alarmy:
+
+setExactAndAllowWhileIdle():
+PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES
+x                PPApplication.checkCriticalPPPReleasesBroadcastReceiver = new CheckCriticalPPPReleasesBroadcastReceiver();
+PPApplication.ACTION_CHECK_GITHUB_RELEASES
+x                PPApplication.checkPPPReleasesBroadcastReceiver = new CheckPPPReleasesBroadcastReceiver();
+PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES
+x                PPApplication.checkRequiredExtenderReleasesBroadcastReceiver = new CheckRequiredExtenderReleasesBroadcastReceiver();
+PPApplication.ACTION_DONATION
+x                PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
+PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER
+x                PPApplication.eventDelayStartBroadcastReceiver = new EventDelayStartBroadcastReceiver();
+PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER
+x                PPApplication.eventDelayEndBroadcastReceiver = new EventDelayEndBroadcastReceiver();
+PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER
+x                    PPApplication.alarmClockEventEndBroadcastReceiver = new AlarmClockEventEndBroadcastReceiver();
+PhoneProfilesService.ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER
+x                    PPApplication.calendarEventExistsCheckBroadcastReceiver = new CalendarEventExistsCheckBroadcastReceiver();
+PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER
+x                    PPApplication.eventCalendarBroadcastReceiver = new EventCalendarBroadcastReceiver();
+PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER
+x                    PPApplication.missedCallEventEndBroadcastReceiver = new MissedCallEventEndBroadcastReceiver();
+PhoneProfilesService.ACTION_DEVICE_BOOT_EVENT_END_BROADCAST_RECEIVER
+x                    PPApplication.deviceBootEventEndBroadcastReceiver = new DeviceBootEventEndBroadcastReceiver();
+PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER
+x                    PPApplication.nfcEventEndBroadcastReceiver = new NFCEventEndBroadcastReceiver();
+PhoneProfilesService.ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER
+x                    PPApplication.notificationEventEndBroadcastReceiver = new NotificationEventEndBroadcastReceiver();
+PhoneProfilesService.ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER
+x                    PPApplication.periodicEventEndBroadcastReceiver = new PeriodicEventEndBroadcastReceiver();
+PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER
+x                    PPApplication.smsEventEndBroadcastReceiver = new SMSEventEndBroadcastReceiver();
+PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER
+x                    PPApplication.eventTimeBroadcastReceiver = new EventTimeBroadcastReceiver();
+PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER
+x                        PPApplication.locationScannerSwitchGPSBroadcastReceiver = new LocationScannerSwitchGPSBroadcastReceiver();
+PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER
+x                PPApplication.profileDurationAlarmBroadcastReceiver = new ProfileDurationAlarmBroadcastReceiver();
+PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER
+x                PPApplication.runApplicationWithDelayBroadcastReceiver = new RunApplicationWithDelayBroadcastReceiver();
+PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER
+x                PPApplication.startEventNotificationBroadcastReceiver = new StartEventNotificationBroadcastReceiver();
+TwilightScanner.ACTION_UPDATE_TWILIGHT_STATE
+x
+
+-------------------
+
+
 - Added support for Android 13.
 - Changed PhoneProfilesPlus icon.
 - Added monochrome launcher icon.

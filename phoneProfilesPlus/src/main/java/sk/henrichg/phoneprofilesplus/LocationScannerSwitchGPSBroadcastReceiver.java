@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
 
         final Context appContext = context.getApplicationContext();
 

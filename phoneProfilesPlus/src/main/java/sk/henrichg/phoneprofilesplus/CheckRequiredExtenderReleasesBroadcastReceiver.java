@@ -22,7 +22,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
     private static final String PREF_REQUIRED_EXTENDER_RELEASE_ALARM = "required_extender_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
 
