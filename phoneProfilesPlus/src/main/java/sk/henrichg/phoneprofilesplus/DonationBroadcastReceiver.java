@@ -23,7 +23,8 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
     private static final String PREF_NOTIFY_DONATION_ALARM = "notify_donation_alarm";
 
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] DonationBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] DonationBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST_ALARM] DonationBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
             doWork(/*true,*/ context);

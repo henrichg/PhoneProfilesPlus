@@ -22,7 +22,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     static final String EXTRA_FOR_RESTART_EVENTS = "for_restart_events";
 
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST_ALARM] ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
             final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);

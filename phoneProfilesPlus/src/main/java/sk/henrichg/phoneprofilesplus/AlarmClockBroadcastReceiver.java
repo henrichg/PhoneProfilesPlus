@@ -13,7 +13,8 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] AlarmClockBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] AlarmClockBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST_ALARM] AlarmClockBroadcastReceiver.onReceive", "xxx");
 
         if (!PPApplication.getApplicationStarted(true))
             return;

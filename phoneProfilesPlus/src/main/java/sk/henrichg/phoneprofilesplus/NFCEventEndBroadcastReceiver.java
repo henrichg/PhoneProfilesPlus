@@ -8,7 +8,8 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] NFCEventEndBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] NFCEventEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST_ALARM] NFCEventEndBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {
