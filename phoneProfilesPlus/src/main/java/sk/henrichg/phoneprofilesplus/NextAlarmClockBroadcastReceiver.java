@@ -43,6 +43,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                         if (infoPendingIntent != null) {
                             String packageName = infoPendingIntent.getCreatorPackage();
+                            PPApplication.logE("[IN_BROADCAST_ALARM] NextAlarmClockBroadcastReceiver.onReceive", "packageName="+packageName);
                             if (packageName != null) {
                                 if (!packageName.equals(PPApplication.PACKAGE_NAME)) {
 
