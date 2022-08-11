@@ -33,8 +33,8 @@ __[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobi
 __[APKPure PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)__  
 __[APKPure application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)__
 
-__[F-Droid PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
-&nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
+__[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
+&nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 __[F-Droid application (download)](https://www.f-droid.org/)__
 
 ---
