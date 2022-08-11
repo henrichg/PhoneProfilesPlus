@@ -11,8 +11,8 @@ PhoneProfilesPlus
 
 __[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__  
 Latest version is 4.2.0.3 and will never by upgraded.  
-Reason: Google restrictions:  
-1. Android - All Wi-Fi related functions not working since Android 10.  
+Reason: Google restrictions:
+1. Android - All Wi-Fi related functions not working since Android 10.
 2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:  
    `targetSdkVersion targetSdk`  
    and in PPP must be target sdk = 28. Android 10 is 29.
@@ -33,8 +33,8 @@ __[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobi
 __[APKPure PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)__  
 __[APKPure application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)__
 
-__[F-Droid PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
-&nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
+__[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
+&nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 __[F-Droid application (download)](https://www.f-droid.org/)__
 
 ---
@@ -66,18 +66,18 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Screenshots
 - [[1]](art/phoneScreenshots/01.png),
-[[2]](art/phoneScreenshots/02.png),
-[[3]](art/phoneScreenshots/03.png),
-[[4]](art/phoneScreenshots/04.png),
-[[5]](art/phoneScreenshots/05.png),
-[[6]](art/phoneScreenshots/06.png),
-[[7]](art/phoneScreenshots/07.png),
-[[8]](art/phoneScreenshots/08.png),
-[[9]](art/phoneScreenshots/09.png),
-[[10]](art/phoneScreenshots/10.png),
-[[11]](art/phoneScreenshots/11.png),
-[[12]](art/phoneScreenshots/12.png),
-[[13]](art/phoneScreenshots/13.png)
+  [[2]](art/phoneScreenshots/02.png),
+  [[3]](art/phoneScreenshots/03.png),
+  [[4]](art/phoneScreenshots/04.png),
+  [[5]](art/phoneScreenshots/05.png),
+  [[6]](art/phoneScreenshots/06.png),
+  [[7]](art/phoneScreenshots/07.png),
+  [[8]](art/phoneScreenshots/08.png),
+  [[9]](art/phoneScreenshots/09.png),
+  [[10]](art/phoneScreenshots/10.png),
+  [[11]](art/phoneScreenshots/11.png),
+  [[12]](art/phoneScreenshots/12.png),
+  [[13]](art/phoneScreenshots/13.png)
 
 ##### Supported Android versions
 
