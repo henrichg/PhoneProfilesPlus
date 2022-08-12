@@ -278,7 +278,7 @@ public class ProfileStatic {
         //if (maximumValue-minimumValue > 255) {
         minimumValue = 0;
         maximumValue = 255;
-        if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28))
+        if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
             maximumValue = 1023;
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
@@ -290,7 +290,7 @@ public class ProfileStatic {
         if (percentage == Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
             // brightness is not set, change it to default manual brightness value
             int defaultValue = 128;
-            if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28))
+            if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
                 defaultValue = 512;
             else
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
@@ -366,8 +366,11 @@ public class ProfileStatic {
                 //if (maximumValue-minimumValue > 255) {
                 //int minimumValue = 0;
                 int maximumValue = 255;
-                if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28))
+                if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
                     maximumValue = 1023;
+                else
+                if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 31))
+                    maximumValue = 8191;
                 else
                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
                     maximumValue = 4095;
