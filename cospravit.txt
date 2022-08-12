@@ -631,7 +631,34 @@ x
 
 -------------------
 
+Brightness:
 
+Index = co znamena
+-----
+0 = level
+1 = menit, nememnit
+2 = automatic
+3 = from shared profile
+4 = menit level
+
+OnePlus, Android 12:
+brightniss 0%:
+2022-08-12 20:37:10.360 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
+2022-08-12 20:37:10.360 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=1
+2022-08-12 20:37:10.360 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=16.0
+
+brightness 100%:
+2022-08-12 20:37:46.257 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
+2022-08-12 20:37:46.257 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
+2022-08-12 20:37:46.257 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=8191.0
+
+brightness 50%:
+2022-08-12 20:38:39.122 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
+2022-08-12 20:38:39.122 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=128
+2022-08-12 20:38:39.122 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=4082.0
+
+
+-------------------
 - Added support for Android 13.
 - Changed PhoneProfilesPlus icon.
 - Added monochrome launcher icon.

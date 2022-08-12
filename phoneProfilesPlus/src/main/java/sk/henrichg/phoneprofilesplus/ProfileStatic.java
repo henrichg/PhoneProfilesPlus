@@ -279,6 +279,7 @@ public class ProfileStatic {
     ///////////////
 
     // tbis is called only from DatabaseHandlerCreateUpdateDB.updateDB for oldVersion < 1165
+    // Used is only for manual brightness.
     static long convertBrightnessToPercents(int value/*, int maxValue, int minValue*/)
     {
         long percentage;
@@ -307,6 +308,8 @@ public class ProfileStatic {
                 int maximumValue = 255;
                 if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
                     maximumValue = 1023;
+
+                // for OnePlus widh Android 12+ is max value 255
                 //else
                 //if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 31))
                 //    maximumValue = 255;
