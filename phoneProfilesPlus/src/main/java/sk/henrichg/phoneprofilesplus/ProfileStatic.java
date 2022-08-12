@@ -388,9 +388,9 @@ public class ProfileStatic {
             if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
                 defaultValue = 512;
             else
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT == 28))
                 defaultValue = 2048;
-
+            else
             if ((Build.VERSION.SDK_INT > 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
