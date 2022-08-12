@@ -219,6 +219,8 @@ public class ProfileStatic {
             return (value - min) / (max - min);
         }
     */
+
+    // used only in convertBrightnessToPercents(), is only for manual brightness
     private static int getBrightnessPercentageWithLookup(int settingsValue/*, int minValue, int maxValue*/) {
         /*final float value;
         float _settingsValue = settingsValue;
@@ -246,7 +248,39 @@ public class ProfileStatic {
         return percentage;
     }
 
-    private static int getBrightnessValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
+    private static int getBrightnessManualValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
+        //int spaceMax = GAMMA_SPACE_MAX_256;
+        //if (PPApplication.romIsOnePlus)
+        //    spaceMax = GAMMA_SPACE_MAX_1024;
+        //int value = Math.round((GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1));
+        /*float value = (GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1);
+        float systemValue = convertGammaToLinear(value, minValue, maxValue);
+        if (PPApplication.romIsOnePlus)
+            systemValue = systemValue * 4; // convert from 256 to 1024
+
+        int maximumValue = 255;
+        if (PPApplication.romIsOnePlus)
+            maximumValue = 1023;
+        if (systemValue > maximumValue)
+            systemValue = maximumValue;*/
+
+        int systemValue = BrightnessLookup.lookup(percentage, false);
+        if (PPApplication.deviceIsOnePlus) {
+            if (Build.VERSION.SDK_INT < 31)
+                systemValue = systemValue * 4; // convert from 256 to 1024
+
+            // for OnePlus widh Android 12+ is max value 255
+            //else
+            //    systemValue = systemValue;
+        }
+        else
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            systemValue = systemValue * 16; // convert from 256 to 4096
+
+        return Math.round(systemValue);
+    }
+
+    private static int getBrightnessAdaptiveValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
         //int spaceMax = GAMMA_SPACE_MAX_256;
         //if (PPApplication.romIsOnePlus)
         //    spaceMax = GAMMA_SPACE_MAX_1024;
@@ -361,17 +395,17 @@ public class ProfileStatic {
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
-                defaultValue = getBrightnessValueWithLookup(50/*, minimumValue, maximumValue*/);
+                defaultValue = getBrightnessManualValueWithLookup(50/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                defaultValue = getBrightnessValueWithLookup(50/*, minimumValue, maximumValue*/);
+                defaultValue = getBrightnessManualValueWithLookup(50/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                defaultValue = getBrightnessValueWithLookup(50/*, minimumValue, maximumValue*/);
+                defaultValue = getBrightnessManualValueWithLookup(50/*, minimumValue, maximumValue*/);
             }
             value = Settings.System.getInt(context.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS, defaultValue);
@@ -381,17 +415,17 @@ public class ProfileStatic {
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
                     (!PPApplication.deviceIsLenovo)) {
-                value = getBrightnessValueWithLookup(percentage/*, minimumValue, maximumValue*/);
+                value = getBrightnessManualValueWithLookup(percentage/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                value = getBrightnessValueWithLookup(percentage/*, minimumValue, maximumValue*/);
+                value = getBrightnessManualValueWithLookup(percentage/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                value = getBrightnessValueWithLookup(percentage/*, minimumValue, maximumValue*/);
+                value = getBrightnessManualValueWithLookup(percentage/*, minimumValue, maximumValue*/);
             }
             else {
                 value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
@@ -452,15 +486,15 @@ public class ProfileStatic {
                 if (PPApplication.deviceIsOnePlus) {
                     //noinspection ConstantConditions
                     if (Build.VERSION.SDK_INT < 31)
-                        value = (getBrightnessValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 512) / 512f;
+                        value = (getBrightnessAdaptiveValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 512) / 512f;
                     else
-                        value = (getBrightnessValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 4096) / 4096f;
+                        value = (getBrightnessAdaptiveValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 4096) / 4096f;
                 }
                 else
                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-                    value = (getBrightnessValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 2048) / 2048f;
+                    value = (getBrightnessAdaptiveValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 2048) / 2048f;
                 else
-                    value = (getBrightnessValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 128) / 128f;
+                    value = (getBrightnessAdaptiveValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 128) / 128f;
             }
         }
 
