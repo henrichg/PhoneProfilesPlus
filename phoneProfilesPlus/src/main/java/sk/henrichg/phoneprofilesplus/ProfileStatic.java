@@ -280,6 +280,8 @@ public class ProfileStatic {
 
     // tbis is called only from DatabaseHandlerCreateUpdateDB.updateDB for oldVersion < 1165
     // Used is only for manual brightness.
+    // in db in old version was value, not percentage and this method converts this old brightness
+    // value to percentage
     static long convertBrightnessToPercents(int value/*, int maxValue, int minValue*/)
     {
         long percentage;
