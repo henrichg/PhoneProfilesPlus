@@ -232,8 +232,12 @@ public class ProfileStatic {
         int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX_256) * 100);*/
 
         int _settingsValue = settingsValue;
-        if (PPApplication.deviceIsOnePlus)
-            _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
+        if (PPApplication.deviceIsOnePlus) {
+            if (Build.VERSION.SDK_INT < 31)
+                _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
+            else
+                _settingsValue = Math.round(settingsValue / 32f); // convert from 8192 to 256
+        }
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
@@ -259,8 +263,12 @@ public class ProfileStatic {
             systemValue = maximumValue;*/
 
         int systemValue = BrightnessLookup.lookup(percentage, false);
-        if (PPApplication.deviceIsOnePlus)
-            systemValue = systemValue * 4; // convert from 256 to 1024
+        if (PPApplication.deviceIsOnePlus) {
+            if (Build.VERSION.SDK_INT < 31)
+                systemValue = systemValue * 4; // convert from 256 to 1024
+            else
+                systemValue = systemValue * 32; // convert from 256 to 8192
+        }
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             systemValue = systemValue * 16; // convert from 256 to 4096
@@ -368,9 +376,9 @@ public class ProfileStatic {
                 int maximumValue = 255;
                 if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
                     maximumValue = 1023;
-                else
-                if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 31))
-                    maximumValue = 8191;
+                //else
+                //if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 31))
+                //    maximumValue = 255;
                 else
                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
                     maximumValue = 4095;
@@ -423,8 +431,12 @@ public class ProfileStatic {
 //                    maximumValue = 1023;
                 //}
 
-                if (PPApplication.deviceIsOnePlus)
-                    value = (getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/) - 512) / 512f;
+                if (PPApplication.deviceIsOnePlus) {
+                    //if (Build.VERSION.SDK_INT < 31)
+                        value = (getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/) - 512) / 512f;
+                    //else
+                    //    value = (getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/) - 8192) / 8192f;
+                }
                 else
                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
                     value = (getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/) - 2048) / 2048f;
