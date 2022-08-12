@@ -372,19 +372,11 @@ class ContactGroupsCache {
         if (_contactList == null)
             return;
 
-        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-            Log.e("ContactsCache.addGroup", "contactGroupId=" + contactGroupId);
-            Log.e("ContactsCache.addGroup", "contactId=" + contactId);
-        }*/
         for (Contact contact : _contactList) {
             boolean contactFound = false;
 
             if (contact.contactId == contactId) {
                 contactFound = true;
-                /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                    Log.e("ContactsCache.addGroup", "contact found");
-                    Log.e("ContactsCache.addGroup", "contact.phoneNumber="+contact.phoneNumber);
-                }*/
 
                 synchronized (PPApplication.contactsCacheMutex) {
                     if (contact.groups == null)
@@ -395,9 +387,6 @@ class ContactGroupsCache {
                     for (long groupId : contact.groups) {
                         if (groupId == contactGroupId) {
                             groupFound = true;
-                            /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                                Log.e("ContactsCache.addGroup", "group found");
-                            }*/
                             break;
                         }
                     }

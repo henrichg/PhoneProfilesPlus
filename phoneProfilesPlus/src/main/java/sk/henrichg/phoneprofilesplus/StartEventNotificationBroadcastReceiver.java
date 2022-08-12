@@ -21,7 +21,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
-        PPApplication.logE("[IN_BROADCAST_ALARM] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
             final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);

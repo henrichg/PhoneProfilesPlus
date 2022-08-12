@@ -275,7 +275,6 @@ public class RootUtils {
                             "base=/system\n" +
                             "export CLASSPATH=" + context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0).applicationInfo.sourceDir + "\n" +
                             "exec app_process $base/bin " + mainClass.getName() + " " + cmdParam + " \"$@\"\n";
-            //Log.e("PPApplication.getJavaCommandFile", "cmd="+cmd);
 
             /*String dir = context.getPackageManager().getApplicationInfo(context.PPApplication.PACKAGE_NAME, 0).dataDir;
             File fDir = new File(dir);

@@ -23,7 +23,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
-        PPApplication.logE("[IN_BROADCAST_ALARM] ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
             final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);

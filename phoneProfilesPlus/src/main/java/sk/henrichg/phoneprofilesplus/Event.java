@@ -2067,7 +2067,8 @@ class Event {
 
                     // keep wakelock awake 5 secods
                     // this may do restart after 5 seconds also in Doze mode
-                    GlobalUtils.sleep(5000);
+                    // removed: consume battery
+                    //GlobalUtils.sleep(5000);
 
                     profileActivated = true;
                 }

@@ -9,7 +9,7 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] AlarmClockEventEndBroadcastReceiver.onReceive", "xxx");
-        PPApplication.logE("[IN_BROADCAST_ALARM] AlarmClockEventEndBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] AlarmClockEventEndBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {

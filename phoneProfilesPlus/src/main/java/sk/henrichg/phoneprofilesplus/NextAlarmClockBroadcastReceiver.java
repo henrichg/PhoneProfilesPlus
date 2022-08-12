@@ -17,7 +17,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
-        PPApplication.logE("[IN_BROADCAST_ALARM] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
 
         if (intent == null)
             return;
@@ -43,7 +43,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                         if (infoPendingIntent != null) {
                             String packageName = infoPendingIntent.getCreatorPackage();
-                            PPApplication.logE("[IN_BROADCAST_ALARM] NextAlarmClockBroadcastReceiver.onReceive", "packageName="+packageName);
+//                            PPApplication.logE("[IN_BROADCAST_ALARM] NextAlarmClockBroadcastReceiver.onReceive", "packageName="+packageName);
                             if (packageName != null) {
                                 if (!packageName.equals(PPApplication.PACKAGE_NAME)) {
 

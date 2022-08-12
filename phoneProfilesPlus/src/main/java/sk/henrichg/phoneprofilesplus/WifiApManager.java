@@ -373,8 +373,6 @@ final class WifiApManager {
                 PPApplication.recordException(e);
             }
         //}
-        //else
-        //    Log.e("WifiApManager._startTethering30", "myOnStartTetheringCallbackAbstractObj is null");
     }
 
     // Thanks to author of MacroDroid application.
@@ -386,7 +384,6 @@ final class WifiApManager {
             Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
             //noinspection ConstantConditions
             if (declaredMethod == null) {
-//                Log.e("WifiApManager.stopTethering30", "stopTetheringMethod is null");
                 return;
             }
             declaredMethod.invoke(connectivityManager, new Object[]{0});

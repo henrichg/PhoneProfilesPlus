@@ -23,7 +23,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
-        PPApplication.logE("[IN_BROADCAST_ALARM] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
 

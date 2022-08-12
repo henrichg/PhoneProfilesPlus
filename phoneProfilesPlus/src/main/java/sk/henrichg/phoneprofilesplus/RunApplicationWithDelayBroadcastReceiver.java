@@ -24,7 +24,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
-        PPApplication.logE("[IN_BROADCAST_ALARM] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
