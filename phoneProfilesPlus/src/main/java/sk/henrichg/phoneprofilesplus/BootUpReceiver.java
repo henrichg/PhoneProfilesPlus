@@ -92,6 +92,21 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                            PPApplication.logE("[START_PP_SERVICE] BootUpReceiver.onReceive", "xxx");
                                 PPApplication.startPPService(appContext, serviceIntent);
+                            } else {
+                                // start events handler
+
+                                PPApplication.registerPhoneCallsListener(false, appContext);
+                                GlobalUtils.sleep(1000);
+                                PPApplication.registerPhoneCallsListener(true, appContext);
+
+                                PPApplication.restartMobileCellsScanner(appContext);
+
+                                if (Event.getGlobalEventsRunning()) {
+
+//                                    PPApplication.logE("[EVENTS_HANDLER_CALL] BootUpReceiver.onReceive", "sensorType=SENSOR_TYPE_BOOT_COMPLETED");
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BOOT_COMPLETED);
+                                }
                             }
                         } else {
                             if (PPApplication.logEnabled()) {

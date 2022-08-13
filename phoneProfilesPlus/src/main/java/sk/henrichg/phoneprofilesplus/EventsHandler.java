@@ -146,6 +146,7 @@ class EventsHandler {
     static final int SENSOR_TYPE_ROAMING = 50;
     static final int SENSOR_TYPE_VPN = 51;
     static final int SENSOR_TYPE_SIM_STATE_CHANGED = 52;
+    static final int SENSOR_TYPE_BOOT_COMPLETED = 53;
     static final int SENSOR_TYPE_ALL = 999;
 
     public EventsHandler(Context context) {
@@ -784,6 +785,7 @@ class EventsHandler {
             case SENSOR_TYPE_EVENT_DELAY_END:
             case SENSOR_TYPE_DEVICE_IDLE_MODE:
             case SENSOR_TYPE_SIM_STATE_CHANGED:
+            case SENSOR_TYPE_BOOT_COMPLETED:
                 return true;
         }
         return false;
