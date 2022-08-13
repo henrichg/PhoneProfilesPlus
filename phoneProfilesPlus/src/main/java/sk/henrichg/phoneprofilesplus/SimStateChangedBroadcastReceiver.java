@@ -32,7 +32,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] SimStateChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] SimStateChangedBroadcastReceiver.onReceive", "xxx");
 
         if (intent == null)
             return;
@@ -61,6 +61,10 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":SimStateChangedBroadcastReceiver_onReceive");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
+
+                    GlobalUtils.hasSIMCard(appContext, 0);
+                    GlobalUtils.hasSIMCard(appContext, 1);
+                    GlobalUtils.hasSIMCard(appContext, 2);
 
                     PPApplication.registerPhoneCallsListener(false, appContext);
                     GlobalUtils.sleep(1000);

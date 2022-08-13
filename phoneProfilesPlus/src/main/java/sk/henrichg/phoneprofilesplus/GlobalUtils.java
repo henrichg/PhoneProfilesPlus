@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.location.LocationManager;
@@ -440,54 +441,75 @@ public class GlobalUtils {
         return TelephonyManager.CALL_STATE_IDLE;
     }
 
-    static boolean hasSIMCard(Context appContext, int simCard) {
-        TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManager != null) {
-            if ((Build.VERSION.SDK_INT < 26) || (simCard == 0)) {
-                return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
-            } else {
-                boolean hasSIM = false;
-                if (Permissions.checkPhone(appContext)) {
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(context);
-                    if (mSubscriptionManager != null) {
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                        } catch (SecurityException e) {
-                            PPApplication.recordException(e);
-                        }
-                        if (subscriptionList != null) {
-                            for (int i = 0; i < subscriptionList.size(); i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                if (subscriptionInfo != null) {
-                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    //if (simCard == 0) {
-                                    //    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                    //        // sim card is ready
-                                    //        hasSIM = true;
-                                    //        break;
-                                    //    }
-                                    //}
-                                    //else {
-                                    if (simCard == (slotIndex + 1)) {
-                                        if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                            // sim card is ready
-                                            hasSIM = true;
-                                            break;
-                                        }
-                                    }
-                                    //}
+    @SuppressLint("NewApi")
+    static private boolean _hasSIMCard(Context appContext, TelephonyManager telephonyManager, int simCard) {
+        //PPApplication.logE("GlobalUtils._hasSIMCard", "simCard="+simCard);
+        boolean hasSIM = false;
+        if (Permissions.checkPhone(appContext)) {
+            SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+            //SubscriptionManager.from(context);
+            if (mSubscriptionManager != null) {
+                List<SubscriptionInfo> subscriptionList = null;
+                try {
+                    // Loop through the subscription list i.e. SIM list.
+                    subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                } catch (SecurityException e) {
+                    PPApplication.recordException(e);
+                }
+                if (subscriptionList != null) {
+                    for (int i = 0; i < subscriptionList.size(); i++) {
+                        // Get the active subscription ID for a given SIM card.
+                        SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                        if (subscriptionInfo != null) {
+                            int slotIndex = subscriptionInfo.getSimSlotIndex();
+                            //if (simCard == 0) {
+                            //    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                            //        // sim card is ready
+                            //        hasSIM = true;
+                            //        break;
+                            //    }
+                            //}
+                            //else {
+                            if (simCard == (slotIndex + 1)) {
+                                if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                    // sim card is ready
+                                    hasSIM = true;
+                                    break;
                                 }
                             }
+                            //}
                         }
                     }
                 }
-                return hasSIM;
+            }
+        } else
+            PPApplication.logE("GlobalUtils._hasSIMCard", "Phone not granted");
+
+        //PPApplication.logE("GlobalUtils._hasSIMCard", "hasSIM="+hasSIM);
+        return hasSIM;
+    }
+
+    static boolean hasSIMCard(Context appContext, int simCard) {
+        PPApplication.logE("GlobalUtils.hasSIMCard", "simCard="+simCard);
+        TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            if (Build.VERSION.SDK_INT < 26) {
+                PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY));
+                return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
+            } else {
+                if (simCard == 0) {
+                    boolean hasSIM1 = _hasSIMCard(appContext, telephonyManager, 1);
+                    boolean hasSIM2 = _hasSIMCard(appContext, telephonyManager, 2);
+                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(hasSIM1 || hasSIM2));
+                    return hasSIM1 || hasSIM2;
+                } else {
+                    boolean hasSIM = _hasSIMCard(appContext, telephonyManager, simCard);
+                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+hasSIM);
+                    return hasSIM;
+                }
             }
         }
+        PPApplication.logE("GlobalUtils.hasSIMCard", "--- false ---");
         return false;
     }
 
