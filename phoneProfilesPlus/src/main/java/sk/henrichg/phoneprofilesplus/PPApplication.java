@@ -3330,6 +3330,36 @@ public class PPApplication extends Application
         }
     }
 
+    public static void registerReceiversForCallSensor(boolean register, Context context) {
+        try {
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            if (register)
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR, true);
+            else
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR, true);
+            PPApplication.runCommand(context, commandIntent);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+
+    public static void registerReceiversForSMSSensor(boolean register, Context context) {
+        try {
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            if (register)
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR, true);
+            else
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR, true);
+            PPApplication.runCommand(context, commandIntent);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+
 /*
     public static void restartEvents(Context context, boolean unblockEventsRun, boolean reactivateProfile) {
         try {
