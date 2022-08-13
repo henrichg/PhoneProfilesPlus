@@ -329,7 +329,8 @@ public class ProfileStatic {
             if ((Build.VERSION.SDK_INT > 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
-                    (!PPApplication.deviceIsLenovo)) {
+                    (!PPApplication.deviceIsLenovo) &&
+                    (!PPApplication.deviceIsDoogee)) {
                 percentage = getBrightnessPercentageWithLookup(value/*, minValue, maxValue*/);
             }
             else
