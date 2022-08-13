@@ -73,7 +73,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.restartMobileCellsScanner(appContext);
 
                     if (Event.getGlobalEventsRunning()) {
-                        if (PhoneProfilesService.getInstance() != null) {
+                        //if (PhoneProfilesService.getInstance() != null) {
 
                             // start events handler
 
@@ -84,7 +84,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                        }
+                        //}
                     }
 
                 } catch (Exception e) {
