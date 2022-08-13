@@ -85,6 +85,7 @@ public class ProfileStatic {
         return value;
     }
 
+    /*
     static boolean getDeviceBrightnessChange(String _deviceBrightness)
     {
         int value;
@@ -96,6 +97,7 @@ public class ProfileStatic {
         }
         return value == 0; // in preference dialog is checked=No change
     }
+    */
 
     static boolean getDeviceBrightnessAutomatic(String _deviceBrightness)
     {
@@ -280,21 +282,22 @@ public class ProfileStatic {
         return Math.round(systemValue);
     }
 
-    private static int getBrightnessAdaptiveValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
+    /*
+    private static int getBrightnessAdaptiveValueWithLookup(int percentage) {
         //int spaceMax = GAMMA_SPACE_MAX_256;
         //if (PPApplication.romIsOnePlus)
         //    spaceMax = GAMMA_SPACE_MAX_1024;
         //int value = Math.round((GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1));
-        /*float value = (GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1);
-        float systemValue = convertGammaToLinear(value, minValue, maxValue);
-        if (PPApplication.romIsOnePlus)
-            systemValue = systemValue * 4; // convert from 256 to 1024
+        //float value = (GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1);
+        //float systemValue = convertGammaToLinear(value, minValue, maxValue);
+        //if (PPApplication.romIsOnePlus)
+        //    systemValue = systemValue * 4; // convert from 256 to 1024
 
-        int maximumValue = 255;
-        if (PPApplication.romIsOnePlus)
-            maximumValue = 1023;
-        if (systemValue > maximumValue)
-            systemValue = maximumValue;*/
+        //int maximumValue = 255;
+        //if (PPApplication.romIsOnePlus)
+        //    maximumValue = 1023;
+        //if (systemValue > maximumValue)
+        //    systemValue = maximumValue;
 
         int systemValue = BrightnessLookup.lookup(percentage, false);
         if (PPApplication.deviceIsOnePlus) {
@@ -309,6 +312,7 @@ public class ProfileStatic {
 
         return Math.round(systemValue);
     }
+    */
 
     ///////////////
 
@@ -394,7 +398,8 @@ public class ProfileStatic {
             if ((Build.VERSION.SDK_INT > 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
-                    (!PPApplication.deviceIsLenovo)) {
+                    (!PPApplication.deviceIsLenovo) &&
+                    (!PPApplication.deviceIsDoogee)) {
                 defaultValue = getBrightnessManualValueWithLookup(50/*, minimumValue, maximumValue*/);
             }
             else
@@ -414,7 +419,8 @@ public class ProfileStatic {
             if ((Build.VERSION.SDK_INT > 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
                     (!PPApplication.deviceIsOnePlus) &&
-                    (!PPApplication.deviceIsLenovo)) {
+                    (!PPApplication.deviceIsLenovo) &&
+                    (!PPApplication.deviceIsDoogee)) {
                 value = getBrightnessManualValueWithLookup(percentage/*, minimumValue, maximumValue*/);
             }
             else
@@ -435,6 +441,7 @@ public class ProfileStatic {
         return value;
     }
 
+    /*
     // This returns values -1..1
     // In OnePlus with Android 12 values in Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ are 0..8191. Why???
     //      This is problem when OnePlus is rooted !!!
@@ -461,7 +468,7 @@ public class ProfileStatic {
             else
             if ((Build.VERSION.SDK_INT == 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
-                    (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
+                    (!PPApplication.deviceIsLG)) {
                 exponentialLevel = true;
             }
 
@@ -486,20 +493,21 @@ public class ProfileStatic {
                 if (PPApplication.deviceIsOnePlus) {
                     //noinspection ConstantConditions
                     if (Build.VERSION.SDK_INT < 31)
-                        value = (getBrightnessAdaptiveValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 512) / 512f;
+                        value = (getBrightnessAdaptiveValueWithLookup(percentage/) - 512) / 512f;
                     else
-                        value = (getBrightnessAdaptiveValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 4096) / 4096f;
+                        value = (getBrightnessAdaptiveValueWithLookup(percentage) - 4096) / 4096f;
                 }
                 else
                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-                    value = (getBrightnessAdaptiveValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 2048) / 2048f;
+                    value = (getBrightnessAdaptiveValueWithLookup(percentage) - 2048) / 2048f;
                 else
-                    value = (getBrightnessAdaptiveValueWithLookup(percentage/*, minimumValue, maximumValue*/) - 128) / 128f;
+                    value = (getBrightnessAdaptiveValueWithLookup(percentage) - 128) / 128f;
             }
         }
 
         return value;
     }
+    */
 
     /*
     static boolean getGenerateNotificationGenerate(String _generateNotification)

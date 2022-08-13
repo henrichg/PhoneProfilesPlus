@@ -403,6 +403,7 @@ public class PPApplication extends Application
     static final boolean deviceIsLenovo = isLenovo();
     static final boolean deviceIsPixel = isPixel();
     static final boolean deviceIsSony = isSony();
+    static final boolean deviceIsDoogee = isDoogee();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
     static final boolean romIsGalaxy = isGalaxyROM();
@@ -1078,6 +1079,7 @@ public class PPApplication extends Application
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsLenovo=" + deviceIsLenovo);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsPixel=" + deviceIsPixel);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsSony=" + deviceIsSony);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsDoogee=" + deviceIsDoogee);
 
             PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
@@ -3314,6 +3316,20 @@ public class PPApplication extends Application
         }
     }
 
+    public static void registerPPPExtenderReceiverForSMSCall(boolean register, Context context) {
+        try {
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            if (register)
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, true);
+            else
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, true);
+            PPApplication.runCommand(context, commandIntent);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+
 /*
     public static void restartEvents(Context context, boolean unblockEventsRun, boolean reactivateProfile) {
         try {
@@ -3545,6 +3561,12 @@ public class PPApplication extends Application
         return Build.BRAND.equalsIgnoreCase("sony") ||
                 Build.MANUFACTURER.equalsIgnoreCase("sony") ||
                 Build.FINGERPRINT.toLowerCase().contains("sony");
+    }
+
+    private static boolean isDoogee() {
+        return Build.BRAND.equalsIgnoreCase("doogee") ||
+                Build.MANUFACTURER.equalsIgnoreCase("doogee") ||
+                Build.FINGERPRINT.toLowerCase().contains("doogee");
     }
 
     private static String getReadableModVersion() {

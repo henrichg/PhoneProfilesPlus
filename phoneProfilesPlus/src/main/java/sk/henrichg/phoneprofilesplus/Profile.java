@@ -2615,11 +2615,13 @@ public class Profile {
         return ProfileStatic.convertPercentsToBrightnessManualValue(percentage, context);
     }
 
+    /*
     float getDeviceBrightnessAdaptiveValue(Context context)
     {
         int percentage = getDeviceBrightnessValue();
         return ProfileStatic.convertPercentsToBrightnessAdaptiveValue(percentage, context);
     }
+    */
 
     /*
     public void setDeviceBrightnessManualValue(int value)

@@ -90,7 +90,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 DataWrapper dataWrapper2 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 dataWrapper2.fillEventList();
                                 //dataWrapper2.fillProfileList(false, false);
-                                PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper2);
+                                PhoneProfilesService.getInstance().registerPPPExtenderReceiver(true, dataWrapper2);
                                 PPApplication.restartAllScanners(appContext, false);
                                 dataWrapper2.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             }

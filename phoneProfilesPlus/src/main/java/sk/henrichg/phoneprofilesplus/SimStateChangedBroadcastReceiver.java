@@ -67,8 +67,10 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                     GlobalUtils.hasSIMCard(appContext, 2);
 
                     PPApplication.registerPhoneCallsListener(false, appContext);
+                    PPApplication.registerPPPExtenderReceiverForSMSCall(false, appContext);
                     GlobalUtils.sleep(1000);
                     PPApplication.registerPhoneCallsListener(true, appContext);
+                    PPApplication.registerPPPExtenderReceiverForSMSCall(true, appContext);
 
                     PPApplication.restartMobileCellsScanner(appContext);
 

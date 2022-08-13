@@ -153,6 +153,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_RESCAN_SCANNERS = "rescan_scanners";
     //static final String EXTRA_STOP_SIMULATING_RINGING_CALL = "stop_simulating_ringing_call";
     //static final String EXTRA_STOP_SIMULATING_RINGING_CALL_NO_DISABLE_INTERNAL_CHANGE = "stop_simulating_ringing_call_no_disable_internal_change";
+    static final String EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER = "register_ppp_extender_for_sms_call_receivers";
+    static final String EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER = "unregister_ppp_extender_for_sms_call_receivers";
 
     //static final String EXTRA_SHOW_TOAST = "show_toast";
 
@@ -435,7 +437,7 @@ public class PhoneProfilesService extends Service
         registerAllTheTimeRequiredSystemReceivers(false);
         registerAllTheTimeContentObservers(false);
         registerAllTheTimeCallbacks(false);
-        registerPPPPExtenderReceiver(false, null);
+        registerPPPExtenderReceiver(false, null);
         unregisterEventsReceiversAndWorkers(true);
 
         if (Build.VERSION.SDK_INT < 31) {
@@ -1941,7 +1943,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void unregisterPPPPExtenderReceiver(int type) {
+    private void unregisterPPPExtenderReceiver(int type) {
         Context appContext = getApplicationContext();
 
         if (type == PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER) {
@@ -2018,14 +2020,75 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    void registerPPPPExtenderReceiver(boolean register, DataWrapper dataWrapper) {
+    void registerPPPExtenderReceiverForSMSCall(boolean register, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
         if (!register) {
-            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
-            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
-            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
-            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
-            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
+            unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+            unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
+        }
+        if (register) {
+            boolean smsAllowed = false;
+            boolean callAllowed = false;
+            boolean smsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
+            if (smsExists)
+                smsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED);
+            boolean callExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
+            if (callExists)
+                callAllowed = (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED);
+            if (smsAllowed || callAllowed) {
+                if (smsAllowed) {
+                    if (PPApplication.pppExtenderSMSBroadcastReceiver == null) {
+                        PPApplication.pppExtenderSMSBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        IntentFilter intentFilter23 = new IntentFilter();
+                        intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
+                        appContext.registerReceiver(PPApplication.pppExtenderSMSBroadcastReceiver, intentFilter23,
+                                PPApplication.PPP_EXTENDER_PERMISSION, null);
+                    }
+
+                    // send broadcast to Extender for register sms
+                    Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_SMS_REGISTER);
+                    sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
+                }
+                else
+                    unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+
+                if (callAllowed) {
+                    if (PPApplication.pppExtenderCallBroadcastReceiver == null) {
+                        PPApplication.pppExtenderCallBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        IntentFilter intentFilter23 = new IntentFilter();
+                        intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
+                        appContext.registerReceiver(PPApplication.pppExtenderCallBroadcastReceiver, intentFilter23,
+                                PPApplication.PPP_EXTENDER_PERMISSION, null);
+                    }
+
+                    // send broadcast to Extender for register call
+                    Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_CALL_REGISTER);
+                    sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
+                }
+                else
+                    unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
+            }
+            else {
+                unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+                unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
+            }
+        }
+    }
+
+    void registerPPPExtenderReceiver(boolean register, DataWrapper dataWrapper) {
+        Context appContext = getApplicationContext();
+        if (!register) {
+            unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
+            unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
+            unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+            unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
+            unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
         }
         if (register) {
             boolean forceStopAllowed = false;
@@ -2077,7 +2140,7 @@ public class PhoneProfilesService extends Service
                     sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
                 else
-                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
+                    unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
 
                 if (lockDeviceAllowed) {
                     // send broadcast to Extender for register lock device
@@ -2088,7 +2151,7 @@ public class PhoneProfilesService extends Service
                     sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
                 else
-                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
+                    unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
 
                 if ((applicationsAllowed) || (orientationAllowed)) {
                     if (PPApplication.pppExtenderForegroundApplicationBroadcastReceiver == null) {
@@ -2106,7 +2169,7 @@ public class PhoneProfilesService extends Service
                     sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
                 else
-                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
+                    unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
 
                 if (smsAllowed) {
                     if (PPApplication.pppExtenderSMSBroadcastReceiver == null) {
@@ -2124,7 +2187,7 @@ public class PhoneProfilesService extends Service
                     sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
                 else
-                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+                    unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
 
                 if (callAllowed) {
                     if (PPApplication.pppExtenderCallBroadcastReceiver == null) {
@@ -2142,14 +2205,14 @@ public class PhoneProfilesService extends Service
                     sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
                 else
-                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
+                    unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
             }
             else {
-                unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
-                unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
-                unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
-                unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
-                unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
+                unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
+                unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
+                unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+                unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
+                unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
             }
         }
     }
@@ -4562,7 +4625,7 @@ public class PhoneProfilesService extends Service
                             } else if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                                ppService.registerPPPPExtenderReceiver(true, dataWrapper);
+                                ppService.registerPPPExtenderReceiver(true, dataWrapper);
                                 ppService.reregisterEventsReceiversAndWorkers();
                             } else if (intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_CONTENT_OBSERVERS");
@@ -4586,6 +4649,14 @@ public class PhoneProfilesService extends Service
                             } else if (intent.getBooleanExtra(EXTRA_STOP_SIMULATING_RINGING_CALL_NO_DISABLE_INTERNAL_CHANGE, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
                                 ppService.stopSimulatingRingingCall(false, appContext);*/
+                            }else if (intent.getBooleanExtra(EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, false)) {
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_PPP_EXTENDER_RECEIVER");
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                                registerPPPExtenderReceiverForSMSCall(true, dataWrapper);
+                            } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, false)) {
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_PPP_EXTENDER_RECEIVER");
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                                registerPPPExtenderReceiverForSMSCall(false, dataWrapper);
                             } else if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {

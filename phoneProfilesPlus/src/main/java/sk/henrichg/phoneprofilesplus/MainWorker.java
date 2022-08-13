@@ -359,7 +359,7 @@ public class MainWorker extends Worker {
                         PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
-                        PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+                        PhoneProfilesService.getInstance().registerPPPExtenderReceiver(true, dataWrapper);
                         PhoneProfilesService.getInstance().registerEventsReceiversAndWorkers(false);
 
                         if (PPApplication.deviceBoot) {
@@ -456,7 +456,7 @@ public class MainWorker extends Worker {
                         PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
-                        PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+                        PhoneProfilesService.getInstance().registerPPPExtenderReceiver(true, dataWrapper);
 
 //                    } catch (Exception eee) {
 //                        Log.e("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
