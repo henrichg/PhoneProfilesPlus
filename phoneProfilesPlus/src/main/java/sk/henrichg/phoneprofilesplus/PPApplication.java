@@ -261,6 +261,8 @@ public class PPApplication extends Application
 
                                                 +"|GlobalUtils.hasSIMCard"
                                                 +"|GlobalUtils._hasSIMCard"
+
+                                                +"|SettingsContentObserver.onChange"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

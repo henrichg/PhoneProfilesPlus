@@ -318,9 +318,9 @@ class SettingsContentObserver  extends ContentObserver {
             savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
             savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
 
-//            Log.e("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
-//            Log.e("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
-//            Log.e("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
+            PPApplication.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
+            PPApplication.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
+            PPApplication.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
         }
 
         /////////////
