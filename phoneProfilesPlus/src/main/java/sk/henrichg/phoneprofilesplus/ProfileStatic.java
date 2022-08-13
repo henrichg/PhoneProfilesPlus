@@ -954,10 +954,10 @@ public class ProfileStatic {
                 case Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS:
+                //case Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS:
                     // !!! test this only for preference key !!!
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS(preferenceAllowed, sharedPreferences, fromUIThread);
-                    break;
+                //    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS(preferenceAllowed, sharedPreferences, fromUIThread);
+                //    break;
                 case Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;

@@ -3794,19 +3794,8 @@ class ActivateProfileHelper {
         //}
     }
 
+    /*
     static void executeRootForAdaptiveBrightness(float adaptiveValue, Context context) {
-        /* not working (private secure settings) :-/
-        boolean G1OK = false;
-        if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-            try {
-                Settings.System.putFloat(appContext.getContentResolver(), ADAPTIVE_BRIGHTNESS_SETTING_NAME,
-                        profile.getDeviceBrightnessAdaptiveValue(appContext));
-                G1OK = true;
-            } catch (Exception ee) {
-                Log.e("ActivateProfileHelper.executeRootForAdaptiveBrightness", Log.getStackTraceString(ee));
-            }
-        }
-        if (!G1OK) {*/
         final Context appContext = context.getApplicationContext();
         //PPApplication.startHandlerThreadProfileActivation();
         //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
@@ -3820,7 +3809,7 @@ class ActivateProfileHelper {
             //Profile profile = profileWeakRef.get();
             //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-            //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+            //if ((appContext != null) && (profile != null) ) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -3836,7 +3825,7 @@ class ActivateProfileHelper {
                                     adaptiveValue;
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                            Command command = new Command(0, /*false,*/ command1); //, command2);
+                            Command command = new Command(0, command1); //, command2);
                             try {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 RootUtils.commandWait(command, "ActivateProfileHelper.executeRootForAdaptiveBrightness");
@@ -3864,6 +3853,7 @@ class ActivateProfileHelper {
         PPApplication.profileActiationExecutorPool.submit(runnable);
         //}
     }
+    */
 
     static void executeForInteractivePreferences(final Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
         if (profile == null)
@@ -4351,35 +4341,30 @@ class ActivateProfileHelper {
         if (profile.getDeviceBrightnessChange()) {
             if (Permissions.checkProfileScreenBrightness(appContext, profile, null)) {
                 try {
+                    //noinspection IfStatementWithIdenticalBranches
                     if (profile.getDeviceBrightnessAutomatic()) {
                         Settings.System.putInt(appContext.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         if (profile.getDeviceBrightnessChangeLevel()) {
-                            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, executedProfileSharedPreferences, true, appContext).allowed
-                                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
+//                            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, executedProfileSharedPreferences, true, appContext).allowed
+//                                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                                 Settings.System.putInt(appContext.getContentResolver(),
                                         Settings.System.SCREEN_BRIGHTNESS,
                                         profile.getDeviceBrightnessManualValue(appContext));
 
-                                /*if (android.os.Build.VERSION.SDK_INT < 23) {   // Not working in Android M (exception)
-                                    Settings.System.putFloat(appContext.getContentResolver(),
-                                            ADAPTIVE_BRIGHTNESS_SETTING_NAME,
-                                            profile.getDeviceBrightnessAdaptiveValue(appContext));
-                                } else*/ {
-                                    try {
-                                        Settings.System.putFloat(appContext.getContentResolver(),
-                                                Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
-                                                profile.getDeviceBrightnessAdaptiveValue(appContext));
-                                    } catch (Exception ee) {
-                                        // run service for execute radios
-                                        ActivateProfileHelper.executeRootForAdaptiveBrightness(
-                                                profile.getDeviceBrightnessAdaptiveValue(appContext),
-                                                appContext);
-                                    }
-                                }
-                            }
+//                                try {
+//                                    Settings.System.putFloat(appContext.getContentResolver(),
+//                                            Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
+//                                            profile.getDeviceBrightnessAdaptiveValue(appContext));
+//                                } catch (Exception ee) {
+//                                    // run service for execute radios
+//                                    ActivateProfileHelper.executeRootForAdaptiveBrightness(
+//                                            profile.getDeviceBrightnessAdaptiveValue(appContext),
+//                                            appContext);
+//                                }
+//                            }
                         }
                     } else {
                         Settings.System.putInt(appContext.getContentResolver(),

@@ -2721,9 +2721,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             boolean changeLevel = ProfileStatic.getDeviceBrightnessChangeLevel(value);
             int iValue = ProfileStatic.getDeviceBrightnessValue(value);
 
-            boolean adaptiveAllowed = /*(android.os.Build.VERSION.SDK_INT <= 21) ||*/
-                    (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, preferences, true, context).allowed
-                            == PreferenceAllowed.PREFERENCE_ALLOWED);
+            //boolean adaptiveAllowed =
+            //        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, preferences, true, context).allowed
+            //                == PreferenceAllowed.PREFERENCE_ALLOWED);
 
             String summaryString;
             if (automatic)
@@ -2736,7 +2736,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             else
                 summaryString = context.getString(R.string.preference_profile_manual_brightness);
 
-            if (changeLevel && (adaptiveAllowed || !automatic)) {
+            if (changeLevel /*&& (adaptiveAllowed || !automatic)*/) {
                 String _value = iValue + "/100";
                 summaryString = summaryString + "; " + _value;
             }

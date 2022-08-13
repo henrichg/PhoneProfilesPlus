@@ -1025,6 +1025,7 @@ class PreferenceAllowed {
         }
     }
 
+    /*
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS(PreferenceAllowed preferenceAllowed,
             SharedPreferences sharedPreferences, boolean fromUIThread) {
 
@@ -1057,6 +1058,7 @@ class PreferenceAllowed {
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
         }
     }
+    */
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(PreferenceAllowed preferenceAllowed,
             Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {

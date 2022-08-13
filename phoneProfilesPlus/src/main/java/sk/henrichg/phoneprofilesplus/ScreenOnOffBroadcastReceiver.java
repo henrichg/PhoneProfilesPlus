@@ -94,21 +94,21 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                                             Settings.System.putInt(appContext.getContentResolver(),
                                                                     Settings.System.SCREEN_BRIGHTNESS_MODE,
                                                                     Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-                                                            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, false, appContext).allowed
-                                                                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                                                            //if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, false, appContext).allowed
+                                                            //        == PreferenceAllowed.PREFERENCE_ALLOWED) {
                                                                 Settings.System.putInt(appContext.getContentResolver(),
                                                                         Settings.System.SCREEN_BRIGHTNESS,
                                                                         profile.getDeviceBrightnessManualValue(appContext));
-                                                                try {
-                                                                    Settings.System.putFloat(appContext.getContentResolver(),
-                                                                            Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
-                                                                            profile.getDeviceBrightnessAdaptiveValue(appContext));
-                                                                } catch (Exception ee) {
-                                                                    ActivateProfileHelper.executeRootForAdaptiveBrightness(
-                                                                            profile.getDeviceBrightnessAdaptiveValue(appContext),
-                                                                            appContext);
-                                                                }
-                                                            }
+//                                                                try {
+//                                                                    Settings.System.putFloat(appContext.getContentResolver(),
+//                                                                            Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
+//                                                                            profile.getDeviceBrightnessAdaptiveValue(appContext));
+//                                                                } catch (Exception ee) {
+//                                                                    ActivateProfileHelper.executeRootForAdaptiveBrightness(
+//                                                                            profile.getDeviceBrightnessAdaptiveValue(appContext),
+//                                                                            appContext);
+//                                                                }
+                                                            //}
                                                         } else {
                                                             Settings.System.putInt(appContext.getContentResolver(),
                                                                     Settings.System.SCREEN_BRIGHTNESS_MODE,
