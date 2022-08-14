@@ -227,7 +227,7 @@ public class PPApplication extends Application
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-//                                                +"|[IN_EXECUTOR]"
+                                                +"|[IN_EXECUTOR]"
 //                                                +"|[EXECUTOR_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
                                                 +"|[IN_BROADCAST]"
@@ -3325,6 +3325,7 @@ public class PPApplication extends Application
             else
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, true);
             PPApplication.runCommand(context, commandIntent);
+            Log.e("PPApplication.registerPPPExtenderReceiverForSMSCall", "xxx");
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -3334,12 +3335,12 @@ public class PPApplication extends Application
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             if (register)
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR, true);
             else
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR, true);
             PPApplication.runCommand(context, commandIntent);
+            Log.e("PPApplication.registerReceiversForCallSensor", "xxx");
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -3349,12 +3350,12 @@ public class PPApplication extends Application
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             if (register)
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR, true);
             else
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR, true);
             PPApplication.runCommand(context, commandIntent);
+            Log.e("PPApplication.registerReceiversForSMSSensor", "xxx");
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

@@ -95,6 +95,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                             } else {
                                 // start events handler
 
+                                /*
                                 PPApplication.registerPhoneCallsListener(false, appContext);
                                 PPApplication.registerPPPExtenderReceiverForSMSCall(false, appContext);
                                 PPApplication.registerReceiversForCallSensor(false, appContext);
@@ -106,6 +107,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 PPApplication.registerReceiversForSMSSensor(true, appContext);
 
                                 PPApplication.restartMobileCellsScanner(appContext);
+                                */
 
                                 if (Event.getGlobalEventsRunning()) {
 
