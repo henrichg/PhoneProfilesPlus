@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,9 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
     //private CheckBox sharedProfileChBox = null;
     private CheckBox changeLevelChBox = null;
     private TextView levelText = null;
+
+    private final Handler savedBrightnessHandler = new Handler(Looper.getMainLooper());
+    private final Runnable savedBrightnessRunnable = this::setSavedBrightness;
 
     @SuppressLint("InflateParams")
     @Override
@@ -86,6 +91,14 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             enableViews();
     }
 
+    private void setSavedBrightness() {
+        if (Permissions.checkScreenBrightness(context, null)) {
+            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, SettingsContentObserver.savedBrightnessMode);
+            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, SettingsContentObserver.savedBrightness);
+            //setAdaptiveBrightness(SettingsContentObserver.savedAdaptiveBrightness);
+        }
+    }
+
     @Override
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
@@ -97,11 +110,8 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
         ActivateProfileHelper.brightnessDialogInternalChange = false;
 
-        if (Permissions.checkScreenBrightness(context, null)) {
-            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, SettingsContentObserver.savedBrightnessMode);
-            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, SettingsContentObserver.savedBrightness);
-            //setAdaptiveBrightness(SettingsContentObserver.savedAdaptiveBrightness);
-        }
+        savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+        setSavedBrightness();
 
         /*
         Window win = ((Activity)context).getWindow();
@@ -170,11 +180,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
         if (_noChange == 1)
         {
-            if (Permissions.checkScreenBrightness(context, null)) {
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, SettingsContentObserver.savedBrightnessMode);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, SettingsContentObserver.savedBrightness);
-                //setAdaptiveBrightness(SettingsContentObserver.savedAdaptiveBrightness);
-            }
+            setSavedBrightness();
 
             /*
             Window win = ((Activity)context).getWindow();
@@ -207,6 +213,8 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                     //    }, 200);
                     //}
                 }
+                savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+                savedBrightnessHandler.postDelayed(savedBrightnessRunnable, 5000);
             }
 
             /*
@@ -346,6 +354,8 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                     //setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(value, context));
                 //}
             }
+            savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+            savedBrightnessHandler.postDelayed(savedBrightnessRunnable, 5000);
         }
 
         /*
