@@ -39,7 +39,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             ComponentName qsTile = intent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME);
             if (qsTile != null) {
-//            PPApplication.logE("LongClickTileChooserActivity.onCreate", "className="+qsTile.getClassName());
                 if (qsTile.getClassName().contains("PPTileService1"))
                     tileId = 1;
                 else if (qsTile.getClassName().contains("PPTileService2"))
@@ -51,9 +50,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
                 else if (qsTile.getClassName().contains("PPTileService5"))
                     tileId = 5;
             }
-            //else {
-                //PPApplication.logE("LongClickTileChooserActivity.onCreate", "qsTile is null");
-            //}
         }
         //else {
             // add dialog for displaying not support for change tile parameter for this android api
@@ -100,7 +96,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-//        PPApplication.logE("[APP_START] BackgroundActivateProfileActivity.showNotStartedToast", "setApplicationFullyStarted");
         PPApplication.setApplicationFullyStarted(getApplicationContext());
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
@@ -156,12 +151,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
         // this is for list widget header
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("EditorActivity.onStart", "application is not started");
-                PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                if (PhoneProfilesService.getInstance() != null)
-                    PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-            }*/
 
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
@@ -180,12 +169,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EditorActivity.onStart", "application is started");
-                    PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                    if (PhoneProfilesService.getInstance() != null)
-                        PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-                }*/
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
 
@@ -203,9 +186,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
 
                 return true;
             }
-            //else {
-            //    PPApplication.logE("EditorActivity.onStart", "application and service is started");
-            //}
         }
 
         return false;

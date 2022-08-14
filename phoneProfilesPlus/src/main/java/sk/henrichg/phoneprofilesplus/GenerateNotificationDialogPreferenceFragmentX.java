@@ -39,8 +39,6 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //PPApplication.logE("GenerateNotificationDialogPreferenceFragmentX.onCreateDialog", "xxx");
-
         preference = (GenerateNotificationDialogPreferenceX)getPreference();
         Context prefContext = preference.getContext();
         preference.fragment = this;

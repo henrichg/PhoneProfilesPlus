@@ -25,7 +25,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
             //        context.getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiAPStateChangeBroadcastReceiver.onReceive");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiAPStateChangeBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -47,11 +47,9 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
                         }
                         if (isWifiAPEnabled) {
                             // Wifi AP is enabled - cancel wifi scan work
-                            //PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP enabled");
                             WifiScanWorker.cancelWork(appContext, false);
                         } else {
                             // Wifi AP is disabled - schedule wifi scan work
-                            //PPApplication.logE("[RJS] WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP disabled");
                             if (PhoneProfilesService.getInstance() != null) {
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 dataWrapper.fillEventList();
@@ -59,7 +57,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

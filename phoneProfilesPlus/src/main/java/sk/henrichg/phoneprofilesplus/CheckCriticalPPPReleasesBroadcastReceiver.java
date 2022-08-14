@@ -30,6 +30,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
 
@@ -48,34 +49,16 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
     {
         removeAlarm(context);
 
-//        PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "xxx");
-
         Calendar alarm = Calendar.getInstance();
-//        if (PPApplication.logEnabled()) {
-//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//            String result = sdf.format(alarm.getTimeInMillis());
-//            PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "now=" + result);
-//        }
 
         long lastAlarm = ApplicationPreferences.
                 getSharedPreferences(context).getLong(PREF_CRITICAL_PPP_RELEASE_ALARM, 0);
-//        if (PPApplication.logEnabled()) {
-//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//            String result = sdf.format(lastAlarm);
-//            PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
-//        }
 
         long alarmTime;
 
         // TODO remove for release
         /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
-
-//            if (PPApplication.logEnabled()) {
-//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                String result = sdf.format(alarm.getTimeInMillis());
-//                PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-//            }
 
             alarmTime = alarm.getTimeInMillis();
         } else*/
@@ -100,12 +83,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                     }
                 }*/
 
-//                if (PPApplication.logEnabled()) {
-//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                    String result = sdf.format(alarm.getTimeInMillis());
-//                    PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-//                }
-
                 alarmTime = alarm.getTimeInMillis();
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
@@ -113,12 +90,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 editor.apply();
             } else {
                 alarmTime = lastAlarm;
-
-//                if (PPApplication.logEnabled()) {
-//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                    String result = sdf.format(alarmTime);
-//                    PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
-//                }
             }
         }
 
@@ -207,8 +178,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
                     response -> {
-//                        PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "response="+response);
-
                         boolean showNotification;
                         boolean critical = true;
                         String versionNameInReleases = "";
@@ -288,8 +257,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                                 //}
 
-//                                PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "putExtra - versionCodeInReleases=" + versionCodeInReleases);
-//                                PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "putExtra - critical=" + critical);
                                 Intent disableIntent = new Intent(appContext, CheckCriticalPPPReleasesDisableActivity.class);
                                 disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CODE, versionCodeInReleases);
                                 disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CRITICAL, critical);
@@ -322,17 +289,17 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                             }
 
                         } catch (Exception e) {
-//                            PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//                            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                         }
 
                     },
                     error -> {
-//                        PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
+//                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
                     });
             queue.add(stringRequest);
 
         } catch (Exception e) {
-//            PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
         }
 
     }

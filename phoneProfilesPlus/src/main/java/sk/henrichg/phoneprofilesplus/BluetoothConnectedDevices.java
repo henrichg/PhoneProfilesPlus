@@ -38,8 +38,6 @@ class BluetoothConnectedDevices {
 //                        PPApplication.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
 
                         if (profile == BluetoothProfile.HEADSET) {
-                            //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "HEADSET service connected");
-
                             bluetoothHeadset = (BluetoothHeadset) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -47,7 +45,6 @@ class BluetoothConnectedDevices {
                             if (bluetoothHeadset != null) {
                                 try {
                                     List<BluetoothDevice> devices = bluetoothHeadset.getConnectedDevices();
-                                    //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET size=" + devices.size());
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
@@ -57,13 +54,10 @@ class BluetoothConnectedDevices {
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
                                     //PPApplication.recordException(e);
                                 }
-                                //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET end");
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, bluetoothHeadset);
                             }
                         }
                         if (profile == BluetoothProfile.HEALTH) {
-                            //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "HEALTH service connected");
-
                             bluetoothHealth = (BluetoothHealth) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -71,7 +65,6 @@ class BluetoothConnectedDevices {
                             if (bluetoothHealth != null) {
                                 try {
                                     List<BluetoothDevice> devices = bluetoothHealth.getConnectedDevices();
-                                    //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH size=" + devices.size());
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
@@ -81,13 +74,10 @@ class BluetoothConnectedDevices {
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
                                     //PPApplication.recordException(e);
                                 }
-                                //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH end");
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, bluetoothHealth);
                             }
                         }
                         if (profile == BluetoothProfile.A2DP) {
-                            //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "A2DP service connected");
-
                             bluetoothA2dp = (BluetoothA2dp) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -95,7 +85,6 @@ class BluetoothConnectedDevices {
                             if (bluetoothA2dp != null) {
                                 try {
                                     List<BluetoothDevice> devices = bluetoothA2dp.getConnectedDevices();
-                                    //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP size=" + devices.size());
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
@@ -105,26 +94,19 @@ class BluetoothConnectedDevices {
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
                                     //PPApplication.recordException(e);
                                 }
-                                //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP end");
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, bluetoothA2dp);
                             }
                         }
                     }
 
                     public void onServiceDisconnected(int profile) {
-//                        PPApplication.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceDisconnected", "xxx");
-
-                        //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "xxx");
                         if (profile == BluetoothProfile.HEADSET) {
-                            //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEADSET service disconnected");
                             bluetoothHeadset = null;
                         }
                         if (profile == BluetoothProfile.HEALTH) {
-                            //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEALTH service disconnected");
                             bluetoothHealth = null;
                         }
                         if (profile == BluetoothProfile.A2DP) {
-                            //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "A2DP service disconnected");
                             bluetoothA2dp = null;
                         }
                     }
@@ -138,14 +120,11 @@ class BluetoothConnectedDevices {
                 bluetoothA2dp = null;
 
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
-                //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP start="+okA2DP);
 
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
-                //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET start="+okHEADSET);
 
                 if (Build.VERSION.SDK_INT < 29) {
                     bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
-                    //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start=" + okHEALTH);
                 }
 
                 final Context appContext = context.getApplicationContext();
@@ -156,15 +135,12 @@ class BluetoothConnectedDevices {
                     List<BluetoothDevice> devices;
 
                     devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT);
-                    //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "GATT size=" + devices.size());
                     addConnectedDevices(devices, connectedDevices);
 
                     devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT_SERVER);
-                    //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "GATT_SERVER size=" + devices.size());
                     addConnectedDevices(devices, connectedDevices);
 
 //                    devices = bluetoothManager.getConnectedDevices(BluetoothProfile.SAP);
-//                    //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "SAP size=" + devices.size());
 //                    addConnectedDevices(devices, connectedDevices);
 
                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
@@ -182,10 +158,6 @@ class BluetoothConnectedDevices {
     {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             for (BluetoothDevice device : detectedDevices) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("------ BluetoothConnectedDevices.addConnectedDevice", "device.name=" + device.getName());
-                    PPApplication.logE("------ BluetoothConnectedDevices.addConnectedDevice", "device.address=" + device.getAddress());
-                }*/
                 boolean found = false;
                 for (BluetoothDeviceData _device : connectedDevices) {
                     if (_device.address.equals(device.getAddress())) {
@@ -201,7 +173,6 @@ class BluetoothConnectedDevices {
                         }
                     }
                 }
-                //PPApplication.logE("------ BluetoothConnectedDevices.addConnectedDevice", "found=" + found);
                 if (!found) {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     Calendar now = Calendar.getInstance();

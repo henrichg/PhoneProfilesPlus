@@ -165,7 +165,6 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
                     }
 
                     for (LiveWallpapersData liveWallapaper : liveWallpapersList) {
-                        //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifiConfiguration.ssid="+wifiConfiguration.ssid);
                         if (liveWallapaper.componentName != null)
                             _wallpapersList.add(new LiveWallpapersData(liveWallapaper.wallpaperName, liveWallapaper.componentName));
                     }
@@ -187,8 +186,6 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
-            //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.1", "call async 2");
 
             LiveWallpapersDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
             LiveWallpapersDialogPreferenceX preference = preferenceWeakRef.get();

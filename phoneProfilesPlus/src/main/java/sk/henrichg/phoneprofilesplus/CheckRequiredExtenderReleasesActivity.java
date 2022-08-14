@@ -64,7 +64,6 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
     }
 
 //    private boolean showNotStartedToast() {
-////        PPApplication.logE("[APP_START] CheckRequiredExtenderReleasesActivity.showNotStartedToast", "xxx");
 //        boolean applicationStarted = PPApplication.getApplicationStarted(true);
 //        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
 //        if (!applicationStarted) {

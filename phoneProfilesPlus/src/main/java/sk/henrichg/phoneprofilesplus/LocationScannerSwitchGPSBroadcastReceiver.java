@@ -19,6 +19,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
 
         final Context appContext = context.getApplicationContext();
 
@@ -37,8 +38,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    //PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.removeAlarm", "alarm found");
-
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
@@ -48,7 +47,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
         }
 
         PPApplication.cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
-        //PPApplication.logE("[HANDLER] LocationScannerSwitchGPSBroadcastReceiver.removeAlarm", "removed");
     }
 
     static void setAlarm(Context context)
@@ -65,7 +63,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 
         if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
             if (ApplicationPreferences.applicationUseAlarmClock) {
-//                PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "not ignored battery optimization, use alarm clock");
                 //Intent intent = new Intent(_context, LocationScannerSwitchGPSBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
@@ -79,12 +76,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     now.add(Calendar.SECOND, delay);
                     long alarmTime = now.getTimeInMillis();
 
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String result = sdf.format(alarmTime);
-                        PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                    }*/
-
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -95,7 +86,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             /*int keepResultsDelay = delay * 5;
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
-//                PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "not ignored battery optimization, use worker");
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK)
@@ -105,14 +95,11 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
-                            //PPApplication.logE("[HANDLER] LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
-
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
 //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "for=" + MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK + " workInfoList.size()=" + workInfoList.size());
 //                        } catch (Exception ignored) {
 //                        }
 //                        //}
@@ -138,17 +125,9 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
-//                    PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "ignored battery optimization, use alarm clock");
-
                     Calendar now = Calendar.getInstance();
                     now.add(Calendar.SECOND, delay);
                     long alarmTime = now.getTimeInMillis();
-
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String result = sdf.format(alarmTime);
-                        PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                    }*/
 
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -156,19 +135,8 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
-//                    PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "ignored battery optimization, use exact alarm");
 
                     long alarmTime = SystemClock.elapsedRealtime() + delay * 1000L;
-
-//                    if (PPApplication.logEnabled()) {
-//                        Calendar now = Calendar.getInstance();
-//                        now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
-//                        now.add(Calendar.MILLISECOND, (int)alarmTime);
-//                        long _alarmTime = now.getTimeInMillis();
-//                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                        String result = sdf.format(_alarmTime);
-//                        PPApplication.logE("LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
-//                    }
 
                     //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
@@ -182,15 +150,13 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
     }
 
     static void doWork(final Context appContext) {
-//        PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
-
         //PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
         //final Handler __handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
         //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
         //        appContext) {
         //__handler2.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationScannerSwitchGPSBroadcastReceiver.doWork");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationScannerSwitchGPSBroadcastReceiver.doWork");
 
             //Context appContext= appContextWeakRef.get();
             //if (appContext != null) {
@@ -213,7 +179,6 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //                                  }
 //                              }
 
-//                                PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "LocationScanner.useGPS="+LocationScanner.useGPS);
                                 locationScanner.stopLocationUpdates();
 
                                 GlobalUtils.sleep(1000);
@@ -235,7 +200,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     }
 
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

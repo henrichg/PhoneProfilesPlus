@@ -52,19 +52,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "xxx");
-
         Intent intent = getIntent();
         menuItemId = intent.getIntExtra(EXTRA_MENU_ITEM_ID, 0);
         criticalCheck = intent.getBooleanExtra(EXTRA_CRITICAL_CHECK, false);
         newVersionName = intent.getStringExtra(EXTRA_NEW_VERSION_NAME);
         newVersionCode = intent.getIntExtra(EXTRA_NEW_VERSION_CODE, 0);
         newVersionCritical = intent.getBooleanExtra(EXTRA_NEW_VERSION_CRITICAL, false);
-
-//        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "menuItemId="+menuItemId);
-//        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "criticalCheck="+criticalCheck);
-//        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "newVersionName="+newVersionName);
-//        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "newVersionCode="+newVersionCode);
     }
 
     @Override
@@ -105,8 +98,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 StringRequest stringRequest = new StringRequest(Request.Method.GET,
                         url,
                         response -> {
-//                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "response="+response);
-
                             boolean updateReleasedVersion;
                             newVersionName = "";
                             newVersionCode = 0;
@@ -131,17 +122,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                                     checkInGitHub(activity, true);
                                 }
                             } catch (Exception e) {
-//                            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//                            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                             }
 
                         },
                         error -> {
-//                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
+//                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
                         });
                 queue.add(stringRequest);
 
             } catch (Exception e) {
-//            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
             }
         }
 

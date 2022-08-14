@@ -107,8 +107,6 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
     void getValueAMSDP(/*boolean forOldValue*/)
     {
-        //PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP","value="+value);
-
         String _value;
         //if (forOldValue)
         //    _value = oldValue;
@@ -232,15 +230,6 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
                                 _applicationsList.add(_application);
 
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "packageName=" + packageName);
-                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "activityName=" + activityName);
-                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
-                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutId=" + shortcutId);
-                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
-                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
-                                }*/
-
                                 break;
                             }
                         }
@@ -298,24 +287,14 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
                             _applicationsList.add(_application);
 
-                            /*if (PPApplication.logEnabled()) {
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "intentId=" + intentId);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
-                            }*/
-
                             break;
                         }
                     }
                 }
 
-                //PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "intentPassed=" + intentPassed);
-
                 if (intentPassed)
                     continue;
 
-                //PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "split=" + split);
                 if (!notPassedIntents.isEmpty())
                     //noinspection StringConcatenationInLoop
                     notPassedIntents = notPassedIntents + "|";
@@ -323,7 +302,6 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                 notPassedIntents = notPassedIntents + split;
             }
 
-            //PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "notPassedIntents=" + notPassedIntents);
             if (!notPassedIntents.isEmpty()) {
                 // add not passed intents
                 splits = notPassedIntents.split("\\|");
@@ -356,7 +334,6 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                         _applicationsList.add(_application);
                     }
                 }
-                //PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "added not passed intent");
             }
         }
 
@@ -459,7 +436,6 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                     _value = _value + "#" + application.shortcutId;
 
                 _value = _value + "#" + application.startApplicationDelay;
-                //PPApplication.logE("ApplicationsDialogPreference.onPositive","value="+value);
             }
         }
         return _value;
@@ -624,7 +600,6 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
         //    popup = new PopupMenu(context, view);
 
         final Application application = (Application) view.getTag();
-        //PPApplication.logE("ApplicationsDialogPreference.showEditMenu", "application="+application);
 
         new MenuInflater(_context).inflate(R.menu.run_applications_pref_dlg_item_edit, popup.getMenu());
 
@@ -808,10 +783,8 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
     void updateIntent(PPIntent ppIntent, Application application, int startApplicationDelay) {
         if (ppIntent != null) {
-            //PPApplication.logE("ApplicationsDialogPreference.updateIntent", "ppIntent._id="+ppIntent._id);
             if (ppIntent._id == 0) {
                 DatabaseHandler.getInstance(context.getApplicationContext()).addIntent(ppIntent);
-                //PPApplication.logE("ApplicationsDialogPreference.updateIntent", "ppIntent._id="+ppIntent._id);
                 //intentDBList.add(ppIntent);
             }
             else
@@ -836,8 +809,6 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
             if (fragment != null)
                 fragment.refreshListView(true);
         }
-        //else
-        //    PPApplication.logE("ApplicationsDialogPreference.updateIntent", "ppIntent=null");
 
         if (fragment != null)
             fragment.updateGUI();

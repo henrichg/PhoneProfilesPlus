@@ -535,7 +535,6 @@ class GlobalGUIRoutines {
             Display display = windowManager.getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
-            PPApplication.logE("GlobalGUIRoutines.getAppUsableScreenSize", "size.y="+size.y);
             return size;
         }
         else
@@ -558,7 +557,6 @@ class GlobalGUIRoutines {
             //    }
             //}
 
-            PPApplication.logE("GlobalGUIRoutines.getRealScreenSize", "size.y="+size.y);
             return size;
         }
         else

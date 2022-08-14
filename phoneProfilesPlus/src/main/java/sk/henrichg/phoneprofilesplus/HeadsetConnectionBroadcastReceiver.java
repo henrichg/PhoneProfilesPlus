@@ -61,8 +61,6 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
-        //PPApplication.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","broadcast="+broadcast);
-
         if (broadcast)
         {
             setEventHeadsetParameters(context.getApplicationContext(), connectedWiredHeadphones, connectedWiredMicrophone,
@@ -104,7 +102,6 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=HeadsetConnectionBroadcastReceiver.onReceive");
                             //}
 
                         } catch (Exception e) {

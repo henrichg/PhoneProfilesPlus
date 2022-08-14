@@ -9,10 +9,10 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST]  EventTimeBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM]  EventTimeBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {
-            //PPApplication.logE("EventTimeBroadcastReceiver.onReceive", "action=" + action);
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -44,7 +44,6 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventTimeBroadcastReceiver.onReceive");
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
@@ -62,7 +61,6 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.logE("EventTimeBroadcastReceiver.onReceive", "handle events");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
                 }

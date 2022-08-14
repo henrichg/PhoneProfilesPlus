@@ -136,15 +136,12 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
         setLocationEnableStatus();
 
-        //PPApplication.logE("LocationGeofencePreferenceFragmentX.onBindDialogView", "xxx");
-
         preference.resetSummary();
         preference.refreshListView();
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        //PPApplication.logE("LocationGeofencePreferenceFragmentX.onDialogClosed", "xxx");
         if (preference.onlyEdit == 0) {
             if (positiveResult)
                 preference.persistGeofence(false);

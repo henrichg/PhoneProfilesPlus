@@ -22,7 +22,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             //        context.getApplicationContext()) {
             //__handler2.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -62,9 +62,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             }
                         }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PackageReplacedReceiver.onReceive");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

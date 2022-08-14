@@ -525,7 +525,6 @@ public class EditorProfileListFragment extends Fragment
                 //    fragment.setProfileSelection(profile);
 
                 if (defaultProfilesGenerated) {
-//                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.LoadProfileListAsyncTask.onPostExecute");
                     PPApplication.updateGUI(true, false, _dataWrapper.context);
                     if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
                         PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
@@ -582,13 +581,6 @@ public class EditorProfileListFragment extends Fragment
 
     void startProfilePreferencesActivity(Profile profile, int predefinedProfileIndex)
     {
-        /*
-        PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "profile="+profile);
-        if (profile != null)
-            PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "profile._name="+profile._name);
-        PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "predefinedProfileIndex="+predefinedProfileIndex);
-        */
-
         int editMode;
 
         if (profile != null)
@@ -616,8 +608,6 @@ public class EditorProfileListFragment extends Fragment
             // add new profile
             editMode = EDIT_MODE_INSERT;
         }
-
-        //PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "editMode="+editMode);
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
@@ -658,7 +648,6 @@ public class EditorProfileListFragment extends Fragment
         }
 
         // delete deleted profile from FIFO
-//        PPApplication.logE("[FIFO_TEST] EditorProfileListFragment.deleteProfile", "#### remove deleted profile");
         synchronized (PPApplication.profileActivationMutex) {
             List<String> activateProfilesFIFO = activityDataWrapper.fifoGetActivatedProfiles();
             if (activateProfilesFIFO == null)
@@ -685,12 +674,10 @@ public class EditorProfileListFragment extends Fragment
             //Profile profile = databaseHandler.getActivatedProfile();
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.deleteProfile");
             PPApplication.updateGUI(true, false, activityDataWrapper.context);
         }
         else {
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-//            PPApplication.logE("[APP_START] EditorProfileListFragment.deleteProfile", "xxx");
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
         }
 
@@ -806,7 +793,6 @@ public class EditorProfileListFragment extends Fragment
                     }
                 }
                 //Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
-//                    PPApplication.logE("[FIFO_TEST] EditorProfileListFragment.deleteAllProfiles", "#### clear");
                 synchronized (PPApplication.profileActivationMutex) {
                     List<String> activateProfilesFIFO = new ArrayList<>();
                     activityDataWrapper.fifoSaveProfiles(activateProfilesFIFO);
@@ -824,7 +810,6 @@ public class EditorProfileListFragment extends Fragment
                 //Profile profile = databaseHandler.getActivatedProfile();
                 //Profile profile = profileListAdapter.getActivatedProfile();
                 updateHeader(null);
-//                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.deleteAllProfiles");
                 PPApplication.updateGUI(true, false,  activityDataWrapper.context);
 
                 activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
@@ -1102,8 +1087,6 @@ public class EditorProfileListFragment extends Fragment
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
-        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "refresh="+refresh);
-
         EditorProfileListFragment.RefreshGUIAsyncTask asyncTask =
                 new EditorProfileListFragment.RefreshGUIAsyncTask(
                         refreshIcons, setPosition, profileId, this, activityDataWrapper);
@@ -1138,14 +1121,11 @@ public class EditorProfileListFragment extends Fragment
 //                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
 //                    } else
 //                        pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
-//                    //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
 //
 //                    if (!refresh) {
 //                        String pNameHeader = PPApplication.prefActivityProfileName2;
-//                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 //
 //                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-//                            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
 //                            doNotRefresh = true;
 //                            return null;
 //                        }
@@ -1179,13 +1159,11 @@ public class EditorProfileListFragment extends Fragment
                             profileFromAdapter._checked = false;
 
                         if (profileFromDB != null) {
-                            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
                             if (profileFromDataWrapper != null)
                                 profileFromDataWrapper._checked = true;
                             updateHeader(profileFromDataWrapper);
                             //updateListView(profileFromDataWrapper, false, _refreshIcons, setPosition);
                         } else {
-                            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
                             updateHeader(null);
                             //updateListView(null, false, _refreshIcons, setPosition);
                         }
@@ -1203,14 +1181,11 @@ public class EditorProfileListFragment extends Fragment
             pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
         else
             pName = getString(R.string.profiles_header_profile_name_no_activated);
-        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
 
         if (!refresh) {
             String pNameHeader = PPApplication.prefActivityProfileName2;
-            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
             if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                //PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
                 return;
             }
         }
@@ -1223,7 +1198,6 @@ public class EditorProfileListFragment extends Fragment
             profileFromAdapter._checked = false;
 
         if (profileFromDB != null) {
-            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
                     ApplicationPreferences.applicationEditorPrefIndicator, false);
             if (profileFromDataWrapper != null)
@@ -1231,7 +1205,6 @@ public class EditorProfileListFragment extends Fragment
             updateHeader(profileFromDataWrapper);
             updateListView(profileFromDataWrapper, false, refreshIcons, setPosition, profileId);
         } else {
-            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
             updateHeader(null);
             updateListView(null, false, refreshIcons, setPosition, 0);
         }*/
@@ -1673,14 +1646,11 @@ public class EditorProfileListFragment extends Fragment
                         pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
                     } else
                         pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
-                    //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
 
                     if (!refresh) {
                         String pNameHeader = PPApplication.prefActivityProfileName2;
-                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
                         if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
                             doNotRefresh = true;
                             return null;
                         }
@@ -1719,13 +1689,11 @@ public class EditorProfileListFragment extends Fragment
                         profileFromAdapter._checked = false;
 
                     if (profileFromDB != null) {
-                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
                         if (profileFromDataWrapper != null)
                             profileFromDataWrapper._checked = true;
                         fragment.updateHeader(profileFromDataWrapper);
                         //updateListView(profileFromDataWrapper, false, _refreshIcons, setPosition/*, profileId*/);
                     } else {
-                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
                         fragment.updateHeader(null);
                         //updateListView(null, false, _refreshIcons, setPosition/*, 0*/);
                     }

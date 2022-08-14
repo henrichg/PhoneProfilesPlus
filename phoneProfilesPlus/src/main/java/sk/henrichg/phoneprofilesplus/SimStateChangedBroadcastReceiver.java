@@ -32,7 +32,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] SimStateChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] SimStateChangedBroadcastReceiver.onReceive", "xxx");
 
         if (intent == null)
             return;
@@ -50,7 +50,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
         //        context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//          PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=SimStateChangedBroadcastReceiver.onReceive");
+//          PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=SimStateChangedBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
             //if (appContext != null) {
@@ -62,35 +62,39 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-//                    Bundle extras = _intent.getExtras();
-//                    if (extras != null) {
-//                        for (String key : extras.keySet()) {
-//                            PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", key + " : " + (extras.get(key) != null ? extras.get(key) : "NULL"));
-//                        }
-//                    }
+                    GlobalUtils.hasSIMCard(appContext, 0);
+                    GlobalUtils.hasSIMCard(appContext, 1);
+                    GlobalUtils.hasSIMCard(appContext, 2);
 
                     PPApplication.registerPhoneCallsListener(false, appContext);
+                    PPApplication.registerPPPExtenderReceiverForSMSCall(false, appContext);
+                    PPApplication.registerReceiversForCallSensor(false, appContext);
+                    PPApplication.registerReceiversForSMSSensor(false, appContext);
                     GlobalUtils.sleep(1000);
                     PPApplication.registerPhoneCallsListener(true, appContext);
+                    PPApplication.registerPPPExtenderReceiverForSMSCall(true, appContext);
+                    PPApplication.registerReceiversForCallSensor(true, appContext);
+                    PPApplication.registerReceiversForSMSSensor(true, appContext);
 
                     PPApplication.restartMobileCellsScanner(appContext);
 
                     if (Event.getGlobalEventsRunning()) {
-                        if (PhoneProfilesService.getInstance() != null) {
+                        //if (PhoneProfilesService.getInstance() != null) {
 
                             // start events handler
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=SimStateChangedBroadcastReceiver.onReceive");
+
+//                            PPApplication.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SIM_STATE_CHANGED");
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SIM_STATE_CHANGED);
 
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SimStateChangedBroadcastReceiver.onReceive");
-                        }
+                        //}
                     }
 
                 } catch (Exception e) {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

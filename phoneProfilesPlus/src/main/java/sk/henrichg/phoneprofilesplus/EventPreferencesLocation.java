@@ -327,8 +327,6 @@ class EventPreferencesLocation extends EventPreferences {
     }
 
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
-        //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "_event._name=" + _event._name);
-        //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.sensorType=" + eventsHandler.sensorType);
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -339,7 +337,6 @@ class EventPreferencesLocation extends EventPreferences {
                     //    locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     //else {
                     // not allowed for disabled location scanner
-                    //    PPApplication.logE("EventPreferencesLocation.doHandleEvent", "ignore for disabled scanner");
                     //    notAllowedLocation = true;
                     //}
                     eventsHandler.locationPassed = false;
@@ -350,7 +347,6 @@ class EventPreferencesLocation extends EventPreferences {
                             eventsHandler.locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                         else {
                             // not allowed for screen Off
-                            //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "ignore for screen off");
                             eventsHandler.notAllowedLocation = true;
                         }
                     } else {
@@ -361,17 +357,9 @@ class EventPreferencesLocation extends EventPreferences {
                                 if (scanner != null)
                                     transitionsUpdated = LocationScanner.mTransitionsUpdated;
                             }
-                            //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "transitionsUpdated=" + transitionsUpdated);
                             if (transitionsUpdated) {
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("EventPreferencesLocation.doHandleEvent", "--------");
-                                    PPApplication.logE("EventPreferencesLocation.doHandleEvent", "_eventPreferencesLocation._geofences=" + event._eventPreferencesLocation._geofences);
-                                }*/
-
                                 String[] splits = _geofences.split("\\|");
                                 boolean[] passed = new boolean[splits.length];
-
-                                //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "splits.length=" + splits.length);
 
                                 int i = 0;
                                 for (String _geofence : splits) {
@@ -379,11 +367,6 @@ class EventPreferencesLocation extends EventPreferences {
                                     if (!_geofence.isEmpty()) {
 
                                         int geofenceTransition = DatabaseHandler.getInstance(eventsHandler.context).getGeofenceTransition(Long.parseLong(_geofence));
-                                        /*if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER)
-                                            PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_ENTER");
-                                        else
-                                            PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_EXIT");*/
-
                                         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
                                             passed[i] = true;
                                         }
@@ -410,7 +393,6 @@ class EventPreferencesLocation extends EventPreferences {
                                         }
                                     }
                                 }
-                                //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "locationPassed=" + locationPassed);
                             }
                             else
                                 eventsHandler.notAllowedLocation = true;
@@ -431,13 +413,10 @@ class EventPreferencesLocation extends EventPreferences {
                 eventsHandler.notAllowedLocation = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesLocation.doHandleEvent", "location - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_LOCATION);
             }
         }
-        //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.locationPassed=" + eventsHandler.locationPassed);
-        //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.notAllowedLocation=" + eventsHandler.notAllowedLocation);
     }
 
 }

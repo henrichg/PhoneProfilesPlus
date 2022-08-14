@@ -515,8 +515,6 @@ class EventPreferencesCalendar extends EventPreferences {
 
     private long computeAlarm(boolean startEvent)
     {
-        //PPApplication.logE("EventPreferencesCalendar.computeAlarm","startEvent="+startEvent);
-
         if ((_startTime == 0) || (_endTime == 0))
             return 0;
 
@@ -559,7 +557,6 @@ class EventPreferencesCalendar extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
-//        PPApplication.logE("[CALENDAR] EventPreferencesCalendar.setSystemEventForStart", "event._id=" + _event._id);
         setAlarm(/*true,*/ 0, context, true);
 
         //if (!_eventFound)
@@ -584,7 +581,6 @@ class EventPreferencesCalendar extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
-//        PPApplication.logE("[CALENDAR] EventPreferencesCalendar.setSystemEventForPause", "event._id=" + _event._id);
         setAlarm(/*false,*/ 0, context, true);
 
         //if (!_eventFound)
@@ -604,7 +600,6 @@ class EventPreferencesCalendar extends EventPreferences {
         _eventFound = false;
         _eventTodayExists = false;
 
-        //PPApplication.logE("EventPreferencesCalendar.removeSystemEvent", "xxx");
     }
 
     private void removeAlarm(/*boolean startEvent, */Context context)
@@ -619,8 +614,6 @@ class EventPreferencesCalendar extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    //PPApplication.logE("EventPreferencesCalendar.removeAlarm", "alarm found");
-
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
@@ -632,8 +625,6 @@ class EventPreferencesCalendar extends EventPreferences {
 
                 pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    //PPApplication.logE("EventPreferencesCalendar.removeAlarm", "alarm found");
-
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
@@ -647,22 +638,11 @@ class EventPreferencesCalendar extends EventPreferences {
 
     void setAlarm(/*boolean startEvent,*/ long alarmTime, Context context, boolean forExistCheck)
     {
-        /*if (PPApplication.logEnabled()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            if (startEvent)
-                PPApplication.logE("EventPreferencesCalendar.setAlarm", "startTime=" + result);
-            else
-                PPApplication.logE("EventPreferencesCalendar.setAlarm", "endTime=" + result);
-        }*/
-
         boolean applicationUseAlarmClock = ApplicationPreferences.applicationUseAlarmClock;
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         if (forExistCheck) {
-//            PPApplication.logE("EventPreferencesCalendar.setAlarm", "---- forExistCheck");
-
             //Intent intent = new Intent(context, CalendarEventExistsCheckBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER);
@@ -684,20 +664,14 @@ class EventPreferencesCalendar extends EventPreferences {
                 _alarmTime.add(Calendar.DAY_OF_YEAR, 1);
             //}
 
-//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//            String result = sdf.format(_alarmTime.getTimeInMillis());
-//            PPApplication.logE("EventPreferencesCalendar.setAlarm", "_alarmTime=" + result);
-
             if (alarmManager != null) {
                 if (applicationUseAlarmClock) {
-//                    PPApplication.logE("EventPreferencesCalendar.setAlarm", "applicationUseAlarmClock=true");
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(_alarmTime.getTimeInMillis() - gmtOffset + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
-//                    PPApplication.logE("EventPreferencesCalendar.setAlarm", "applicationUseAlarmClock=false");
                     //if (android.os.Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, _alarmTime.getTimeInMillis() - gmtOffset + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     //else //if (android.os.Build.VERSION.SDK_INT >= 19)
@@ -765,9 +739,6 @@ class EventPreferencesCalendar extends EventPreferences {
             DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTimes(_event);
             return;
         }
-
-//        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "--- START");
-//        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
 
         final String[] INSTANCE_PROJECTION = new String[] {
                 Instances.BEGIN,           // 0
@@ -954,13 +925,6 @@ class EventPreferencesCalendar extends EventPreferences {
 
         selection.append(")");
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selection=" + selection);
-            for (String arg : selectionArgs) {
-                PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs.arg=" + arg);
-            }
-        }*/
-
         // Construct the query with the desired date range.
         long startMillis;
         long endMillis;
@@ -1058,14 +1022,6 @@ class EventPreferencesCalendar extends EventPreferences {
 
                         beginVal -= utcOffset;
                         endVal -= utcOffset;
-/*
-                    String alarmTime = DateFormat.getDateFormat(dataWrapper.context).format(beginVal) +
-                            " " + DateFormat.getTimeFormat(dataWrapper.context).format(beginVal);
-                    PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "beginVal="+alarmTime);
-                    alarmTime = DateFormat.getDateFormat(dataWrapper.context).format(endVal) +
-                            " " + DateFormat.getTimeFormat(dataWrapper.context).format(endVal);
-                    PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "endVal="+alarmTime);
- */
                     }
 
                     //title = cur.getString(PROJECTION_TITLE_INDEX);
@@ -1093,9 +1049,6 @@ class EventPreferencesCalendar extends EventPreferences {
             cur.close();
 
 
-//        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
-//        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "--- END");
-
         DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTimes(_event);
 
         if (_event.getStatus() == Event.ESTATUS_RUNNING)
@@ -1105,9 +1058,6 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     void saveCalendarEventExists(DataWrapper dataWrapper) {
-//        PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "--- START");
-//        PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "_eventTodayExists="+_eventTodayExists);
-
         if (!(/*isRunnable(context) && _enabled &&*/ Permissions.checkCalendar(dataWrapper.context)))
         {
             _eventTodayExists = false;
@@ -1153,7 +1103,6 @@ class EventPreferencesCalendar extends EventPreferences {
         // Submit the query
         try {
             cur = cr.query(builder.build(), INSTANCE_PROJECTION, null, null, null);
-//            PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "cursor created");
         } catch (SecurityException e) {
             //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
@@ -1168,31 +1117,15 @@ class EventPreferencesCalendar extends EventPreferences {
         {
             _eventTodayExists = false;
             while (cur.moveToNext()) {
-
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "record exists");
-//
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "CALENDAR_ID="+cur.getLong(PROJECTION_CALENDAR_ID_INDEX));
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "CALENDAR_DISPLAY_NAME="+cur.getString(PROJECTION_CALENDAR_DISPLAY_NAME_INDEX));
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "ALL_DAY_INDEX="+cur.getInt(PROJECTION_ALL_DAY_INDEX));
-//
-//                String time = DateFormat.getDateFormat(dataWrapper.context).format(cur.getLong(PROJECTION_BEGIN_INDEX)) +
-//                        " " + DateFormat.getTimeFormat(dataWrapper.context).format(cur.getLong(PROJECTION_BEGIN_INDEX));
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "BEGIN_INDEX="+time);
-//                time = DateFormat.getDateFormat(dataWrapper.context).format(cur.getLong(PROJECTION_END_INDEX)) +
-//                        " " + DateFormat.getTimeFormat(dataWrapper.context).format(cur.getLong(PROJECTION_END_INDEX));
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "END_INDEX="+time);
-
                 boolean calendarFound = false;
                 for (String split : calendarsSplits) {
                     long calendarId = Long.parseLong(split);
-//                    PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "calendarId="+calendarId);
                     if (cur.getLong(PROJECTION_CALENDAR_ID_INDEX) == calendarId) {
                         calendarFound = true;
                     }
                 }
                 if (!calendarFound)
                     continue;
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "calendar configured");
 
                 long beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
                 long endVal = cur.getLong(PROJECTION_END_INDEX);
@@ -1210,7 +1143,6 @@ class EventPreferencesCalendar extends EventPreferences {
 
                 if ((beginVal <= now) && (endVal > now)) {
                     // event instance is found - actual instance
-//                    PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "event today exists");
                     _eventTodayExists = true;
                     break;
                 }
@@ -1227,9 +1159,6 @@ class EventPreferencesCalendar extends EventPreferences {
         if (_event.getStatus() == Event.ESTATUS_PAUSE)
             _event._eventPreferencesCalendar.setSystemEventForStart(dataWrapper.context);
         */
-
-//        PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "_eventTodayExists="+_eventTodayExists);
-//        PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "--- END");
     }
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
@@ -1246,21 +1175,10 @@ class EventPreferencesCalendar extends EventPreferences {
                 if (_eventFound) {
                     startAlarmTime = computeAlarm(true);
 
-                    //String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
-                    //        " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
-                    //PPApplication.logE("EventPreferencesCalendar.doHandleEvent", "startAlarmTime=" + alarmTimeS);
-
                     endAlarmTime = computeAlarm(false);
-
-                    //alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
-                    //        " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
-                    //PPApplication.logE("EventPreferencesCalendar.doHandleEvent", "endAlarmTime=" + alarmTimeS);
 
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
-                    //alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
-                    //        " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
-                    //PPApplication.logE("EventPreferencesCalendar.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
 
                     eventsHandler.calendarPassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
                 } else
@@ -1281,7 +1199,6 @@ class EventPreferencesCalendar extends EventPreferences {
                 eventsHandler.notAllowedCalendar = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesCalendar.doHandleEvent", "calendar - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_CALENDAR);
             }

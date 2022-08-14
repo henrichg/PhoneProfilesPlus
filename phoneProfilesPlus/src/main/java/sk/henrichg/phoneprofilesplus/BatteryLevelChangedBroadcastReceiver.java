@@ -18,17 +18,12 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //String action = intent.getAction();
-        //PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "action=" + action);
-
         boolean _isCharging = false;
         int _plugged = -1;
         int _level = -1;
         int _batteryPct = -100;
 
         int _status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-
-        //PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_status=" + _status);
 
         if (_status != -1) {
             _isCharging = _status == BatteryManager.BATTERY_STATUS_CHARGING ||
@@ -84,23 +79,6 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
         }
         */
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "isCharging=" + isCharging);
-            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
-            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_level=" + _level);
-            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
-            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_batteryPct=" + _batteryPct);
-            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "plugged=" + plugged);
-            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_plugged=" + _plugged);
-            //PPApplication.logE("BatteryLevelChangedBroadcastReceiver.onReceive", "batteryLow=" + batteryLow);
-            //PPApplication.logE("BatteryLevelChangedBroadcastReceiver.onReceive", "_batteryLow=" + _batteryLow);
-        }*/
-
-        /* In Samsung S8 lowLevel is configured to 105 :-(
-        int _level = appContext.getResources().getInteger(com.android.internal.R.integer.config_lowBatteryWarningLevel);
-        PPApplication.logE("BatteryLevelChangedBroadcastReceiver.onReceive", "lowLevel=" + Math.round(_level / (float) scale * 100));
-        */
-
         if ((PPApplication.isCharging != _isCharging) ||
             ((_plugged != -1) && (PPApplication.plugged != _plugged)) ||
             ((_level != -1) && (PPApplication.batteryPct != _batteryPct))) {
@@ -130,11 +108,6 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                         isPowerSaveMode = true;
                 }
                 PPApplication.isPowerSaveMode = isPowerSaveMode;
-
-                //if (PPApplication.logEnabled()) {
-                //    PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "oldIsPowerSaveMode=" + oldIsPowerSaveMode);
-                //    PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "isPowerSaveMode=" + isPowerSaveMode);
-                //}
 
                 if (PPApplication.isPowerSaveMode != oldIsPowerSaveMode) {
                     boolean restart = false;
@@ -169,8 +142,6 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                             restart = true;
                     }
                     if (restart) {
-                        //PPApplication.logE("[****] BatteryLevelChangedBroadcastReceiver.onReceive", "restartAllScanners");
-                        //PPApplication.logE("[RJS] BatteryLevelChangedBroadcastReceiver.onReceive", "restart all scanners");
                         // for screenOn=true -> used only for Location scanner - start scan with GPS On
                         PPApplication.restartAllScanners(appContext, true);
                     }
@@ -203,7 +174,6 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY_WITH_LEVEL);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
                         } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);

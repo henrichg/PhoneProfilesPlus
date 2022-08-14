@@ -342,15 +342,9 @@ class Permissions {
     static void checkProfileVibrateWhenRinging(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._name=" + profile._name);
-            PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "permissions=" + permissions);
-        }*/
         try {
-            //PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._vibrateWhenRinging=" + profile._vibrateWhenRinging);
             if (profile._vibrateWhenRinging != 0) {
                 boolean granted = Settings.System.canWrite(context);
-                //PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "granted=" + granted);
                 if (granted)
                     setShowRequestWriteSettingsPermission(context, true);
                 if (!granted) {
@@ -364,7 +358,6 @@ class Permissions {
     static boolean checkVibrateWhenRinging(Context context) {
         try {
             boolean granted = Settings.System.canWrite(context);
-            //PPApplication.logE("Permissions.checkVibrateWhenRinging", "granted=" + granted);
             if (granted)
                 setShowRequestWriteSettingsPermission(context, true);
             return granted;
@@ -377,15 +370,9 @@ class Permissions {
         if (profile == null) return;
 
         if (Build.VERSION.SDK_INT >= 28) {
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("Permissions.checkProfileVibrateNotifications", "profile._name=" + profile._name);
-                PPApplication.logE("Permissions.checkProfileVibrateNotifications", "permissions=" + permissions);
-            }*/
             try {
-                //PPApplication.logE("Permissions.checkProfileVibrateNotifications", "profile._vibrateNotifications=" + profile._vibrateNotifications);
                 if (profile._vibrateNotifications != 0) {
                     boolean granted = Settings.System.canWrite(context);
-                    //PPApplication.logE("Permissions.checkProfileVibrateNotifications", "granted=" + granted);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
                     if (!granted) {
@@ -402,7 +389,6 @@ class Permissions {
         try {
             if (Build.VERSION.SDK_INT >= 28) {
                 boolean granted = Settings.System.canWrite(context);
-                //PPApplication.logE("Permissions.checkVibrateNotifications", "granted=" + granted);
                 if (granted)
                     setShowRequestWriteSettingsPermission(context, true);
                 return granted;
@@ -815,7 +801,6 @@ class Permissions {
         try {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                PPApplication.logE("Permissions.checkProfileAccessNotificationPolicy", "ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS exists");
                 if ((profile._volumeRingerMode != 0) ||
                         profile.getVolumeRingtoneChange() ||
                         profile.getVolumeNotificationChange() ||
@@ -1647,10 +1632,6 @@ class Permissions {
                                                   /*boolean activateProfile,*/
                                                   /*boolean fromPreferences*/) {
         ArrayList<PermissionType> permissions = checkProfilePermissions(context, profile);
-        //if (PPApplication.logEnabled()) {
-            //PPApplication.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
-        //    PPApplication.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
-        //}
         if (permissions.size() > 0) {
             try {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);

@@ -390,7 +390,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
                 //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
@@ -431,7 +431,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
                     //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
@@ -509,13 +509,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         if (!refresh) {
             String pNameWidget = PPApplication.prefWidgetProfileName4;
-
-            if (!pNameWidget.isEmpty()) {
-                if (pName.equals(pNameWidget)) {
-                    //PPApplication.logE("SamsungEdgeProvider.onUpdate", "activated profile NOT changed");
-                    return;
-                }
-            }
         }
 
         PPApplication.setWidgetProfileName(context, 4, pName);*/

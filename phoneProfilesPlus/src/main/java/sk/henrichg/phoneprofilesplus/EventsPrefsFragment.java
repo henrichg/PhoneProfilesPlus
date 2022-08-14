@@ -82,14 +82,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         super.onCreate(savedInstanceState);
 
-        //PPApplication.logE("EventsPrefsFragment.onCreate", "xxx");
-
         // is required for to not call onCreate and onDestroy on orientation change
         //noinspection deprecation
         setRetainInstance(true);
 
         nestedFragment = !(this instanceof EventsPrefsActivity.EventsPrefsRoot);
-        //PPApplication.logE("EventsPrefsFragment.onCreate", "nestedFragment=" + nestedFragment);
 
         initPreferenceFragment(/*savedInstanceState*/);
 
@@ -114,8 +111,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        //PPApplication.logE("EventsPrefsFragment.onDisplayPreferenceDialog", "xxx");
-
         PreferenceDialogFragmentCompat dialogFragment = null;
 
         if (preference instanceof ProfilePreferenceX) {
@@ -286,8 +281,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-//        PPApplication.logE("EventsPrefsFragment.onActivityCreated", "xxx");
 
         if (getActivity() == null)
             return;
@@ -1070,7 +1063,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onResume() {
         super.onResume();
-        //PPApplication.logE("EventsPrefsFragment.onResume", "xxx");
 
         if (!nestedFragment) {
             if (getActivity() == null)
@@ -1084,7 +1076,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
             event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.onResume");
             PPApplication.updateGUI(true, false, context);
         }
     }
@@ -1108,8 +1099,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                PPApplication.restartOrientationScanner(context);
 //            }
 
-            //PPApplication.logE("EventsPrefsFragment.onDestroy", "xxx");
-
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1117,8 +1106,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-//        PPApplication.logE("------------ EventsPrefsFragment.onSharedPreferenceChanged", "key=" + key);
-
         if (key.equals(Event.PREF_EVENT_NAME)) {
             String value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
@@ -1145,7 +1132,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         setRedTextToPreferences();
 
         EventsPrefsActivity activity = (EventsPrefsActivity)getActivity();
-        //PPApplication.logE("EventsPrefsFragment.onSharedPreferenceChanged", "activity="+activity);
         if (activity != null) {
             activity.showSaveMenu = true;
             activity.invalidateOptionsMenu();
@@ -1153,11 +1139,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doOnActivityResult(int requestCode, int resultCode, Intent data) {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("EventsPrefsFragment.doOnActivityResult", "xxx");
-            PPApplication.logE("EventsPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
-        }*/
-
         if (getActivity() == null)
             return;
 
@@ -1187,7 +1168,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     EventPreferencesCall.PREF_EVENT_CALL_ENABLED, preferences, context);
 
             setRedTextToPreferences();
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (1)");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_SCANNING_APP_SETTINGS) {
@@ -1244,7 +1224,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (2)");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
@@ -1255,7 +1234,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesBluetooth.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (3)");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
@@ -1266,7 +1244,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesLocation.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (4)");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
@@ -1277,7 +1254,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (5)");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
@@ -1285,7 +1261,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesTime.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (6)");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
@@ -1384,8 +1359,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         event = new Event();
 
         /*
-        PPApplication.logE("ProfilesPrefsFragment.initPreferenceFragment", "getContext()="+getContext());
-
         if (savedInstanceState == null) {
             if (getContext() != null) {
                 profilesPreferences = getContext().getSharedPreferences(PREFS_NAME_ACTIVITY, Activity.MODE_PRIVATE);
@@ -1414,20 +1387,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 grantedAllPermissions = false;
         }*/
         boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
-//        if (/*(event != null) &&*/ event._name.equals("Nočný hovor")) {
-//            PPApplication.logE("EventsPrefsFragment.isRedTextNotificationRequired", "isAccessibilityEnabled=" + event.isAccessibilityServiceEnabled(appContext, false, false));
-//        }
 
         boolean eventIsRunnable = event.isRunnable(appContext, false);
-
-//        if (event._name.equals("At home")) {
-//            if ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable)) {
-//                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "enabledSomeSensor=" + enabledSomeSensor);
-//                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "grantedAllPermissions=" + grantedAllPermissions);
-//                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "accessibilityEnabled=" + accessibilityEnabled);
-//                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "eventIsRunnable=" + eventIsRunnable);
-//            }
-//        }
 
         return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }
@@ -1499,7 +1460,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             else {
-                //PPApplication.logE("EventsPrefsFragment.setRedTextToPreferences", "event._id=" + event._id);
                 Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
@@ -1941,8 +1901,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void changeCurentLightSensorValue() {
-//        PPApplication.logE("EventsPrefsFragment.changeCurentLightSensorValue", "xxx");
-
         if (getActivity() != null) {
             Preference currentValuePreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
             if (currentValuePreference != null) {

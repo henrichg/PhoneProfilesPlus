@@ -2,8 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +14,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -445,8 +447,6 @@ public class DataWrapper {
             if (!profileListFilled)
                 return;
 
-            //PPApplication.logE("$$$ DataWrapper.setProfileActive", "xxx");
-
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
                 Profile _profile = it.next();
@@ -456,17 +456,12 @@ public class DataWrapper {
 
             if (profile != null) {
                 profile._checked = true;
-                //PPApplication.logE("DataWrapper.setProfileActive", "profile._name="+profile._name);
-//                PPApplication.logE("[FIFO_TEST] DataWrapper.setProfileActive", "profile._id="+profile._id);
                 PPApplication.setLastActivatedProfile(context, profile._id);
             }
             else {
-                //PPApplication.logE("DataWrapper.setProfileActive", "profile=null");
-//                PPApplication.logE("[FIFO_TEST] DataWrapper.setProfileActive", "profile._id=0");
                 PPApplication.setLastActivatedProfile(context, 0);
             }
 
-            //PPApplication.logE("$$$ DataWrapper.setProfileActive", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
         }
     }
 
@@ -477,7 +472,6 @@ public class DataWrapper {
             Profile activatedProfile = getActivatedProfileFromDB(false, false);
             if (activatedProfile != null) {
                 long profileId = activatedProfile._id;
-//                PPApplication.logE("[FIFO_TEST] DataWrapper.activateProfileFromEvent", "#### add profileId=" + profileId + " eventId="+event_id);
                 fifoAddProfile(profileId, event_id);
             }
         }
@@ -492,7 +486,6 @@ public class DataWrapper {
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, false,true, false)) {
         if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
-            //PPApplication.logE("&&&&&&& DataWrapper.activateProfileFromEvent", "called is DataWrapper._activateProfile()");
             _activateProfile(profile, merged, startupSource, forRestartEvents);
         }
     }
@@ -661,7 +654,6 @@ public class DataWrapper {
 
     void setDynamicLauncherShortcutsFromMainThread()
     {
-        //PPApplication.logE("DataWrapper.setDynamicLauncherShortcutsFromMainThread", "start");
         //final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
@@ -671,7 +663,7 @@ public class DataWrapper {
         //        context, dataWrapper, null, null) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
 
             //Context appContext= appContextWeakRef.get();
             //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -689,9 +681,8 @@ public class DataWrapper {
 
                     DataWrapperStatic.setDynamicLauncherShortcuts(context);
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -833,9 +824,7 @@ public class DataWrapper {
                 }
             }
         }
-        //PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         //restartEvents(false, true, true, true, true);
-//        PPApplication.logE("[APP_START] DataWrapper.stopEventsForProfile", "xxx");
         restartEventsWithRescan(true, false, true, false, true, false);
     }
 
@@ -850,7 +839,7 @@ public class DataWrapper {
         //        context, dataWrapper, profile, null) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopEventsForProfileFromMainThread");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopEventsForProfileFromMainThread");
 
             //Context appContext= appContextWeakRef.get();
             //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -868,9 +857,8 @@ public class DataWrapper {
 
                     dataWrapper.stopEventsForProfile(profile, alsoUnlink);
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.stopEventsForProfileFromMainThread");
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -895,19 +883,12 @@ public class DataWrapper {
         getEventTimelineList(true);
 
         synchronized (eventList) {
-            //PPApplication.logE("DataWrapper.pauseAllEvents", "eventListFilled="+eventListFilled);
             fillEventList();
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
                 Event event = it.next();
                 if (event != null) {
                     int status = event.getStatusFromDB(context);
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("DataWrapper.pauseAllEvents", "event._name=" + event._name);
-                        PPApplication.logE("DataWrapper.pauseAllEvents", "status=" + status);
-                        PPApplication.logE("DataWrapper.pauseAllEvents", "event._forceRun=" + event._forceRun);
-                        PPApplication.logE("DataWrapper.pauseAllEvents", "event._noPauseByManualActivation=" + event._noPauseByManualActivation);
-                    }*/
 
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
@@ -941,7 +922,7 @@ public class DataWrapper {
         //        context, dataWrapper, null, null) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
 
             //Context appContext= appContextWeakRef.get();
             //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -961,9 +942,8 @@ public class DataWrapper {
                         dataWrapper.pauseAllEvents(true, false);
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -1012,7 +992,7 @@ public class DataWrapper {
         //        context, dataWrapper, null, null) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
 
             //Context appContext= appContextWeakRef.get();
             //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -1030,9 +1010,8 @@ public class DataWrapper {
 
                     dataWrapper.stopAllEvents(saveEventStatus, alsoDelete, true, true);
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.stopAllEventsFromMainThread");
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -1095,7 +1074,6 @@ public class DataWrapper {
             long profileId = PPApplication.prefLastActivatedProfile;
             if (profileId == 0) {
 
-//                PPApplication.logE("[APP_START] DataWrapper.activateProfileOnBoot", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                 profileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
@@ -1111,25 +1089,21 @@ public class DataWrapper {
 
     private void startEventsAtFirstStart(boolean startedFromService, boolean useHandler)
     {
-//        PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "START");
         if (startedFromService) {
             if (ApplicationPreferences.applicationActivate &&
                     ApplicationPreferences.applicationStartEvents) {
                 //restartEvents(false, false, true, false, useHandler);
-//                PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "(1)");
                 restartEventsWithRescan(true, false, useHandler, false, false, false);
 //                restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
             }
             else {
                 //Event.setGlobalEventsRunning(context, false);
-//                PPApplication.logE("[APP_START] DataWrapper.startEventsAtFirstStart", "setApplicationFullyStarted");
                 PPApplication.setApplicationFullyStarted(context);
                 activateProfileAtFirstStart();
             }
         }
         else {
             //restartEvents(false, false, true, false, useHandler);
-//            PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "(2)");
             restartEventsWithRescan(true, false, useHandler, false, false, false);
 //            restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
@@ -1430,18 +1404,6 @@ public class DataWrapper {
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
-
-//        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "before synchronized");
-
-//            if (PPApplication.logEnabled()) {
-//                PPApplication.logE("[APP_START] DataWrapper._activateProfile", "_profile=" + _profile);
-//                if (_profile != null)
-//                    PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
-//                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "merged=" + merged);
-//                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "startupSource=" + startupSource);
-//                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "forRestartEvents=" + forRestartEvents);
-//            }
-
             // show notification when battery optimization is not enabled
             DrawOverAppsPermissionNotification.showNotification(context, false);
             IgnoreBatteryOptimizationNotification.showNotification(context, false);
@@ -1450,27 +1412,8 @@ public class DataWrapper {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
             //Profile.setActivatedProfileForDuration(context, 0);
 
-            //PPApplication.logE("DataWrapper._activateProfile", "activate");
-
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("$$$ DataWrapper._activateProfile", "startupSource=" + startupSource);
-                PPApplication.logE("$$$ DataWrapper._activateProfile", "merged=" + merged);
-            }*/
-
-    //        if (PPApplication.logEnabled()) {
-    //            if (PhoneProfilesService.getInstance() != null) {
-    //                PPApplication.logE("### DataWrapper._activateProfile", "serviceHasFirstStart=" + PPApplication.serviceHasFirstStart);
-    //                PPApplication.logE("### DataWrapper._activateProfile", "serviceRunning=" + PhoneProfilesService.getInstance().getServiceRunning());
-    //            }
-    //        }
-
             // get currently activated profile
             //Profile oldActivatedProfile = getActivatedProfile(false, false);
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile=" + activatedProfile);
-                if (activatedProfile != null)
-                    PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile._name=" + activatedProfile._name);
-            }*/
 
             if ((startupSource != PPApplication.STARTUP_SOURCE_EVENT) //&&
                 //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
@@ -1480,30 +1423,18 @@ public class DataWrapper {
 
                 PPApplication.lockRefresh = true;
 
-                //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "before of pauseAllEvents");
                 // pause all events
                 // for forceRun events set system events and block all events
                 pauseAllEvents(false, true/*, true*/);
-                //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "after of pauseAllEvents");
 
                 PPApplication.lockRefresh = false;
             }
 
-            //PPApplication.logE("$$$ DataWrapper._activateProfile","before activation");
-
-            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "set activate profile start");
             DatabaseHandler.getInstance(context).activateProfile(_profile);
             setProfileActive(_profile);
-            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "set activate profile end");
-
-            //PPApplication.logE("$$$ DataWrapper._activateProfile","after activation");
 
             boolean profileDuration = false;
             if (_profile != null) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("$$$ DataWrapper._activateProfile", "duration=" + mappedProfile._duration);
-                    PPApplication.logE("$$$ DataWrapper._activateProfile", "afterDurationDo=" + mappedProfile._afterDurationDo);
-                }*/
                 if ((_profile._endOfActivationType == 0) &&
                         (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                         (_profile._duration > 0)) {
@@ -1525,8 +1456,6 @@ public class DataWrapper {
                     }
                 }
 
-                //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
-
                 if (((startupSource != PPApplication.STARTUP_SOURCE_EVENT) &&
                      (startupSource != PPApplication.STARTUP_SOURCE_FOR_FIRST_START) //&&
                    //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
@@ -1537,41 +1466,27 @@ public class DataWrapper {
                     // activation with duration
 
 
-                    /*if (mappedProfile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)
-                        // manual profile activation
-                        PPApplication.logE("$$$ DataWrapper._activateProfile","activation of specific profile");
-                    else
-                        // manual profile activation
-                        PPApplication.logE("$$$ DataWrapper._activateProfile","manual profile activation");*/
-
                     if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
                         long profileId = _profile._id;
-//                        PPApplication.logE("[FIFO_TEST] DataWrapper._activateProfile", "#### add profileId=" + profileId);
                         fifoAddProfile(profileId, 0);
                     }
 
                     ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, startupSource, context);
                     ///////////
                 } else {
-//                    PPApplication.logE("----------- $$$ DataWrapper._activateProfile","setActivatedProfileForDuration NO manual profile activation");
                     profileDuration = false;
 
                 }
 
-                //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
             }
 
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (2)");
             PPApplication.updateGUI(false, false, context);
 
             if (_profile != null) {
-//                PPApplication.logE("[APP_START] DataWrapper._activateProfile", "call execute");
-                //PPApplication.logE("$$$ DataWrapper._activateProfile","execute activation");
                 ActivateProfileHelper.execute(context, _profile);
             }
 
             if (/*(mappedProfile != null) &&*/ (!merged)) {
-                //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "add log");
                 PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION,
                         null,
                         DataWrapperStatic.getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration, false, false, this),
@@ -1588,10 +1503,7 @@ public class DataWrapper {
                 // toast notification
                 if (PPApplication.toastHandler != null) {
                     final Profile __profile = _profile;
-                    PPApplication.toastHandler.post(() -> {
-                        //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "show toast");
-                        showToastAfterActivation(__profile);
-                    });
+                    PPApplication.toastHandler.post(() -> showToastAfterActivation(__profile));
                 }// else
                 //    showToastAfterActivation(profile);
             }
@@ -1602,7 +1514,6 @@ public class DataWrapper {
     void activateProfileFromMainThread(final Profile profile, final boolean merged, final int startupSource,
                                     final boolean interactive, final Activity activity, final boolean testGrant)
     {
-        //PPApplication.logE("$$$$$ DataWrapper.activateProfileFromMainThread", "start");
         final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
@@ -1612,7 +1523,7 @@ public class DataWrapper {
         //        context, dataWrapper, profile, _activity) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
             //Context appContext= appContextWeakRef.get();
             //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -1634,7 +1545,6 @@ public class DataWrapper {
                         if (testGrant)
                             granted = !DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context);
                         if (granted) {
-                            //PPApplication.logE("&&&&&&& DataWrapper.activateProfileFromMainThread", "called is DataWrapper._activateProfile()");
                             dataWrapper._activateProfile(profile, merged, startupSource, false);
                             if (interactive) {
                                 DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
@@ -1644,9 +1554,8 @@ public class DataWrapper {
 
                     }
 
-                    //PPApplication.logE("$$$$$ PPApplication.startHandlerThread", "END run - from=DataWrapper.activateProfileFromMainThread");
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -1708,7 +1617,6 @@ public class DataWrapper {
     private void activateProfileWithAlert(Profile profile, int startupSource, /*final boolean interactive,*/
                                             Activity activity)
     {
-//        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper.activateProfileWithAlert", "false");
         PPApplication.setBlockProfileEventActions(false);
 
         if (/*interactive &&*/ (ApplicationPreferences.applicationActivateWithAlert ||
@@ -1741,7 +1649,6 @@ public class DataWrapper {
                         //        /*false, monochrome, monochromeValue,*/
                         //        _startupSource, true, true, false))
                         if (!DataWrapperStatic.displayPreferencesErrorNotification(_profile, null, true, context)) {
-                            //PPApplication.logE("&&&&&&& DataWrapper.activateProfileWithAlert", "(1) called is DataWrapper.activateProfileFromMainThread");
 
                             if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
                                 (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
@@ -1812,7 +1719,6 @@ public class DataWrapper {
             }
             else {
                 if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
-                    //PPApplication.logE("&&&&&&& DataWrapper.activateProfileWithAlert", "(2) called is DataWrapper.activateProfileFromMainThread");
                     activateProfileFromMainThread(profile, false, startupSource, true, activity, false);
                 }
                 else {
@@ -1904,7 +1810,6 @@ public class DataWrapper {
             //ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             //Profile.setActivatedProfileForDuration(context, 0);
 
-//            PPApplication.logE("[FIFO_TEST] DataWrapper.activateProfile", "#### clear");
             synchronized (PPApplication.profileActivationMutex) {
                 List<String> activateProfilesFIFO = new ArrayList<>();
                 fifoSaveProfiles(activateProfilesFIFO);
@@ -1960,7 +1865,6 @@ public class DataWrapper {
         {
             // profile activation
             if (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START) {
-                //PPApplication.logE("&&&&&&& DataWrapper.activateProfile", "called is DataWrapper.activateProfileFromMainThread");
                 activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_FOR_FIRST_START,
                         false, null, testGrant);
             }
@@ -1974,7 +1878,6 @@ public class DataWrapper {
                 setProfileActive(profile);
             }
 
-//            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfile");
             PPApplication.updateGUI(false, false, context);
 
             // for startActivityForResult
@@ -1995,13 +1898,10 @@ public class DataWrapper {
         synchronized (PPApplication.eventsHandlerMutex) {
 
             Profile profile = getProfileById(profile_id, false, false, false);
-            //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "profile="+profile);
             if (profile == null) {
-                //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
                 //Profile.setActivatedProfileForDuration(context, 0);
 
-//                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
                 PPApplication.updateGUI(false, false, context);
                 return;
             }
@@ -2010,7 +1910,6 @@ public class DataWrapper {
             //        startupSource, true,true, false)) {
             if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
                 // activateProfileAfterDuration is already called from handlerThread
-                //PPApplication.logE("&&&&&&& DataWrapper.activateProfileAfterDuration", "called is DataWrapper._activateProfile()");
                 _activateProfile(profile, false, startupSource, false);
             }
 
@@ -2020,14 +1919,6 @@ public class DataWrapper {
     private void _restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
                                 /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart)
     {
-//        PPApplication.logE("[APP_START] DataWrapper._restartEvents", "START");
-
-//        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "before synchronized");
-//        synchronized (PPApplication.restartEventsMutex) {
-//            PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "after synchronized");
-
-//        PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "xxx");
-
             if (logRestart) {
                 if (manualRestart)
                     PPApplication.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, "");
@@ -2037,25 +1928,18 @@ public class DataWrapper {
 
             //if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             if ((Event.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
-                //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (1)");
-//            PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(1)");
-//                PPApplication.logE("[APP_START] DataWrapper._restartEvents", "(1)");
 
 //                PPApplication.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
                 EventsHandler eventsHandler = new EventsHandler(context);
                 // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK);
 
-                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DataWrapper._restartEvents (1)");
                 return;
             }
-
-            //PPApplication.logE("DataWrapper._restartEvents", "events are not blocked");
 
             //Profile activatedProfile = getActivatedProfile();
 
             if (unblockEventsRun) {
-//            PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(2)");
                 synchronized (profileList) {
                     // remove alarm for profile duration
                     if (!profileListFilled)
@@ -2075,7 +1959,6 @@ public class DataWrapper {
                             event._blocked = false;
                     }
                 }
-                //PPApplication.logE("DataWrapper._restartEvents", "after synchronized (eventList)");
 
                 DatabaseHandler.getInstance(context).unblockAllEvents();
                 Event.setForceRunEventRunning(context, false);
@@ -2086,23 +1969,14 @@ public class DataWrapper {
                 setProfileActive(null);
             }*/
 
-            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (2)");
-
-//        PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(3)");
-//        PPApplication.logE("[APP_START] DataWrapper._restartEvents", "(2)");
-
             EventsHandler eventsHandler = new EventsHandler(context);
             if (manualRestart) {
 //                PPApplication.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_MANUAL_RESTART_EVENTS");
-//           PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(4)");
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
             } else {
 //                PPApplication.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS");
-//            PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(5)");
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
             }
-
-            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DataWrapper._restartEvents (2)");
 //        }
     }
 
@@ -2110,9 +1984,6 @@ public class DataWrapper {
                        /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart
                        /*, final boolean useHandler*/)
     {
-//        PPApplication.logE("[FIFO_TEST] DataWrapper.restartEvents","xxx");
-//        PPApplication.logE("[APP_START] DataWrapper.restartEvents", "START");
-
         /*if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
 
@@ -2123,7 +1994,6 @@ public class DataWrapper {
         }*/
 
         /*
-        PPApplication.logE("DataWrapper.restartEvents", "useHandler="+useHandler);
 
         if (useHandler) {
             final Context appContext = context.getApplicationContext();
@@ -2140,11 +2010,7 @@ public class DataWrapper {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEvents");
-
                         _restartEvents(unblockEventsRun, notClearActivatedProfile, reactivateProfile, log);
-
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEvents");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -2162,9 +2028,6 @@ public class DataWrapper {
     }
 
     private void _restartEventsWithRescan(boolean alsoRescan, boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
-//        PPApplication.logE("[FIFO_TEST] DataWrapper._restartEventsWithRescan","xxx");
-//        PPApplication.logE("[APP_START] DataWrapper._restartEventsWithRescan", "START");
-
         if (alsoRescan) {
             // remove all event delay alarms
             resetAllEventsInDelayStart(false);
@@ -2174,7 +2037,6 @@ public class DataWrapper {
         restartEvents(unblockEventsRun, /*true, true,*/ manualRestart, logRestart/*, false*/);
 
         if (alsoRescan) {
-            //PPApplication.logE("[RJS] DataWrapper._restartEventsWithRescan", "restart all scanners");
             // for screenOn=true -> used only for Location scanner - start scan with GPS On
             boolean restart = false;
             if (ApplicationPreferences.applicationEventLocationEnableScanning)
@@ -2202,9 +2064,6 @@ public class DataWrapper {
             final boolean unblockEventsRun, boolean useHandler,
             final boolean manualRestart, final boolean logRestart, boolean showToast)
     {
-//        PPApplication.logE("[FIFO_TEST] DataWrapper.restartEventsWithRescan","xxx");
-//        PPApplication.logE("[APP_START] DataWrapper.restartEventsWithRescan", "START");
-
         if (useHandler) {
             final DataWrapper dataWrapper = copyDataWrapper();
 
@@ -2215,7 +2074,7 @@ public class DataWrapper {
             //        context, dataWrapper, null, null) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 
                 //Context appContext= appContextWeakRef.get();
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -2233,9 +2092,8 @@ public class DataWrapper {
 
                         dataWrapper._restartEventsWithRescan(alsoRescan, unblockEventsRun, manualRestart, logRestart);
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEventsWithRescan");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -2280,7 +2138,6 @@ public class DataWrapper {
             else
                 finish = (activity instanceof RestartEventsFromGUIActivity) ||
                         (activity instanceof BackgroundActivateProfileActivity);
-            //PPApplication.logE("DataWrapper.restartEventsWithAlert", "finish="+finish);
             if (finish) {
                 final Handler handler = new Handler(context.getMainLooper());
                 handler.post(() -> {
@@ -2301,9 +2158,6 @@ public class DataWrapper {
             return;
         */
 
-        //PPApplication.logE("DataWrapper.restartEventsWithAlert", "xxx");
-
-//        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper.restartEventsWithAlert", "false");
         PPApplication.setBlockProfileEventActions(false);
 
         if (ApplicationPreferences.applicationRestartEventsWithAlert || (activity instanceof EditorActivity))
@@ -2313,7 +2167,6 @@ public class DataWrapper {
             dialogBuilder.setMessage(R.string.restart_events_alert_message);
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                //PPApplication.logE("DataWrapper.restartEventsWithAlert", "restart");
 
                 boolean finish;
                 if (activity instanceof ActivatorActivity)
@@ -2354,7 +2207,6 @@ public class DataWrapper {
                         }
                     }
 
-//                        PPApplication.logE("[APP_START] DataWrapper.restartEventsWithAlert", "(1)");
                     restartEventsWithRescan(true, true, true, true, true, true);
                     //IgnoreBatteryOptimizationNotification.showNotification(context);
                 }
@@ -2390,15 +2242,12 @@ public class DataWrapper {
         }
         else
         {
-            //PPApplication.logE("DataWrapper.restartEventsWithAlert", "restart");
-
             boolean finish;
             if (activity instanceof ActivatorActivity)
                 finish = ApplicationPreferences.applicationClose;
             else
                 finish = (activity instanceof RestartEventsFromGUIActivity) ||
                         (activity instanceof BackgroundActivateProfileActivity);
-            //PPApplication.logE("DataWrapper.restartEventsWithAlert", "finish="+finish);
             if (finish) {
                 final Handler handler = new Handler(context.getMainLooper());
                 handler.post(() -> {
@@ -2421,7 +2270,6 @@ public class DataWrapper {
                 }
             }
 
-//            PPApplication.logE("[APP_START] DataWrapper.restartEventsWithAlert", "(2)");
             restartEventsWithRescan(true, true, true, true, true, true);
 
             //IgnoreBatteryOptimizationNotification.showNotification(context);
@@ -2429,229 +2277,49 @@ public class DataWrapper {
     }
 
     // delay is in seconds
-    void restartEventsWithDelay(int delay, final boolean alsoRescan, final boolean unblockEventsRun,
-                                String tag, final int logType)
+    void restartEventsWithDelay(final boolean longDelay, final boolean alsoRescan, final boolean unblockEventsRun,
+                                final int logType)
     {
-//        PPApplication.logE("[EXECUTOR_CALL] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
+        if (longDelay) {
 
-        if (tag.equals(RestartEventsWithDelayWorker.WORK_TAG_1)) {
+            Data workData = new Data.Builder()
+                    .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
+                    .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
+                    .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
+                    .build();
 
-//            PPApplication.logE("DataWrapper.restartEventsWithDelay","PPApplication.isIgnoreBatteryOptimizationEnabled(context)="+PPApplication.isIgnoreBatteryOptimizationEnabled(context));
-//            PPApplication.logE("DataWrapper.restartEventsWithDelay","ApplicationPreferences.applicationUseAlarmClock="+ApplicationPreferences.applicationUseAlarmClock);
-
-            if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
-                if (ApplicationPreferences.applicationUseAlarmClock) {
-//                    PPApplication.logE("DataWrapper.restartEventsWithDelay","(1)");
-
-                    //Intent intent = new Intent(_context, RestartEventsWithDelayBroadcastReceiver.class);
-                    Intent intent = new Intent();
-                    intent.setAction(PhoneProfilesService.ACTION_RESTART_EVENTS_WITH_DELAY_BROADCAST_RECEIVER);
-                    //intent.setClass(context, RestartEventsWithDelayBroadcastReceiver.class);
-
-                    intent.putExtra(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan);
-                    intent.putExtra(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
-                    intent.putExtra(PhoneProfilesService.EXTRA_LOG_TYPE, logType);
-
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                    if (alarmManager != null) {
-                        Calendar now = Calendar.getInstance();
-                        now.add(Calendar.SECOND, delay);
-                        long alarmTime = now.getTimeInMillis();
-
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String result = sdf.format(alarmTime);
-                            PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
-                        }*/
-
-                        Intent editorIntent = new Intent(context, EditorActivity.class);
-                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                    }
-                } else {
-//                    PPApplication.logE("DataWrapper.restartEventsWithDelay","(2)");
-
-//                    PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
-
-                    final Context appContext = context.getApplicationContext();
-                    //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-                    Runnable runnable = () -> {
-//                        long start = System.currentTimeMillis();
-//                        PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
-
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay_1");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
-
-                            PPExecutors.doRestartEventsWithDelay(alsoRescan, unblockEventsRun, logType, context);
-
-//                            long finish = System.currentTimeMillis();
-//                            long timeElapsed = finish - start;
-//                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
-                        } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
-                            }
-                            //worker.shutdown();
-                        }
-                    };
-                    PPApplication.createDelayedEventsHandlerExecutor();
-                    PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
-
-                    /*
-                    Data workData = new Data.Builder()
-                            .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
-                            .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
-                            .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
+            OneTimeWorkRequest restartEventsWithDelayWorker;
+            restartEventsWithDelayWorker =
+                    new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
+                            .addTag(RestartEventsWithDelayWorker.WORK_TAG_2)
+                            .setInputData(workData)
+                            .setInitialDelay(15, TimeUnit.SECONDS)
                             .build();
-
-                    OneTimeWorkRequest restartEventsWithDelayWorker;
-                    restartEventsWithDelayWorker =
-                            new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
-                                    //.addTag(RestartEventsWithDelayWorker.WORK_TAG)
-                                    .addTag(tag)
-                                    .setInputData(workData)
-                                    .setInitialDelay(delay, TimeUnit.SECONDS)
-                                    .build();
-                    try {
-                        if (PPApplication.getApplicationStarted(true)) {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance();
-                            if (workManager != null) {
+            try {
+                if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null) {
 
 //                              //if (PPApplication.logEnabled()) {
 //                              ListenableFuture<List<WorkInfo>> statuses;
 //                              statuses = workManager.getWorkInfosForUniqueWork(RestartEventsWithDelayWorker.WORK_TAG);
 //                              try {
 //                                  List<WorkInfo> workInfoList = statuses.get();
-//                                  PPApplication.logE("[TEST BATTERY] DataWrapper.restartEventsWithDelay", "for=" + RestartEventsWithDelayWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                              } catch (Exception ignored) {
 //                              }
 //                              //}
 
-//                              PPApplication.logE("[WORKER_CALL] DataWrapper.restartEventsWithDelay", "xxx");
-                                //workManager.enqueue(restartEventsWithDelayWorker);
-                                //if (replace)
-                                workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
-                                //else
-                                //    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_APPEND, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
-                            }
-                        }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                    */
-                }
-            }
-            else {
-                //Intent intent = new Intent(_context, RestartEventsWithDelayBroadcastReceiver.class);
-                Intent intent = new Intent();
-                intent.setAction(PhoneProfilesService.ACTION_RESTART_EVENTS_WITH_DELAY_BROADCAST_RECEIVER);
-                //intent.setClass(context, RestartEventsWithDelayBroadcastReceiver.class);
-
-                intent.putExtra(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan);
-                intent.putExtra(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
-                intent.putExtra(PhoneProfilesService.EXTRA_LOG_TYPE, logType);
-
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                if (alarmManager != null) {
-                    if (ApplicationPreferences.applicationUseAlarmClock) {
-//                        PPApplication.logE("DataWrapper.restartEventsWithDelay","(3)");
-
-                        Calendar now = Calendar.getInstance();
-                        now.add(Calendar.SECOND, delay);
-                        long alarmTime = now.getTimeInMillis();
-
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String result = sdf.format(alarmTime);
-                            PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
-                        }*/
-
-                        Intent editorIntent = new Intent(context, EditorActivity.class);
-                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                    } else {
-//                        PPApplication.logE("DataWrapper.restartEventsWithDelay","(4)");
-
-//                        PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
-
-                        final Context appContext = context.getApplicationContext();
-                        //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-                        Runnable runnable = () -> {
-//                            long start = System.currentTimeMillis();
-//                            PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
-
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay_2");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-                                PPExecutors.doRestartEventsWithDelay(alsoRescan, unblockEventsRun, logType, context);
-
-//                                long finish = System.currentTimeMillis();
-//                                long timeElapsed = finish - start;
-//                                PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
-                            } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                                //worker.shutdown();
-                            }
-                        };
-                        PPApplication.createDelayedEventsHandlerExecutor();
-                        PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
-
-                        /*
-                        long alarmTime = SystemClock.elapsedRealtime() + delay * 1000L;
-
-//                        if (PPApplication.logEnabled()) {
-//                            Calendar now = Calendar.getInstance();
-//                            now.add(Calendar.MILLISECOND, (int) (-SystemClock.elapsedRealtime()));
-//                            now.add(Calendar.MILLISECOND, (int)alarmTime);
-//                            long _alarmTime = now.getTimeInMillis();
-//                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                            String result = sdf.format(_alarmTime);
-//                            PPApplication.logE("Event.setDelayStartAlarm", "alarmTime=" + result);
-//                        }
-
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+//                         PPApplication.logE("[WORKER_CALL] DataWrapper.restartEventsWithDelay", "xxx");
+                        //workManager.enqueue(restartEventsWithDelayWorker);
+                        //if (replace)
+                        workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_2, ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
                         //else
-                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else
-                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        */
+                        //    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_APPEND, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
                     }
                 }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
-
         } else {
 //            PPApplication.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
 
@@ -2665,17 +2333,25 @@ public class DataWrapper {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay_3");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPExecutors.doRestartEventsWithDelay(alsoRescan, unblockEventsRun, logType, context);
+                    //PPExecutors.doRestartEventsWithDelay(alsoRescan, unblockEventsRun, logType, context);
+
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                    if (logType != PPApplication.ALTYPE_UNDEFINED)
+                        PPApplication.addActivityLog(appContext, logType, null, null, "");
+                    //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
+                    dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);
+                    //dataWrapper.invalidateDataWrapper();
+
 
 //                    long finish = System.currentTimeMillis();
 //                    long timeElapsed = finish - start;
 //                    PPApplication.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
                 } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -2688,51 +2364,7 @@ public class DataWrapper {
                 }
             };
             PPApplication.createDelayedEventsHandlerExecutor();
-            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
-
-
-            /*
-            Data workData = new Data.Builder()
-                    .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
-                    .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
-                    .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
-                    .build();
-
-            OneTimeWorkRequest restartEventsWithDelayWorker;
-            restartEventsWithDelayWorker =
-                    new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
-                            //.addTag(RestartEventsWithDelayWorker.WORK_TAG)
-                            .addTag(tag)
-                            .setInputData(workData)
-                            .setInitialDelay(delay, TimeUnit.SECONDS)
-                            .build();
-            try {
-                if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
-
-//                    //if (PPApplication.logEnabled()) {
-//                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosForUniqueWork(RestartEventsWithDelayWorker.WORK_TAG);
-//                    try {
-//                        List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[TEST BATTERY] DataWrapper.restartEventsWithDelay", "for=" + RestartEventsWithDelayWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                    } catch (Exception ignored) {
-//                    }
-//                    //}
-
-//                    PPApplication.logE("[WORKER_CALL] DataWrapper.restartEventsWithDelay", "xxx");
-                        //workManager.enqueue(restartEventsWithDelayWorker);
-                        //if (replace)
-                        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
-                        //else
-                        //    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_APPEND, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
-                    }
-                }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            */
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -2788,16 +2420,13 @@ public class DataWrapper {
             dialogBuilder.setMessage(R.string.stop_events_alert_message);
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                //PPApplication.logE("DataWrapper.runStopEventsWithAlert", "stop");
                 if (globalRunStopEvents(true)) {
                     //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
 
-//                    PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (1)");
                     PPApplication.updateGUI(true, false, activity);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                //PPApplication.logE("DataWrapper.runStopEventsWithAlert", "no stop");
                 if (checkBox != null)
                     checkBox.setChecked(true);
             });
@@ -2818,7 +2447,6 @@ public class DataWrapper {
         }
         else {
             if (globalRunStopEvents(false)) {
-//                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (2)");
                 PPApplication.updateGUI(true, false, activity);
             }
         }
@@ -2887,7 +2515,6 @@ public class DataWrapper {
             _event._eventPreferencesSMS._startTime = 0;
             _event._eventPreferencesSMS._fromSIMSlot = 0;
             //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
-            //    PPApplication.logE("[SMS sensor] DataWrapper.clearSensorsStartTime", "startTime="+_event._eventPreferencesSMS._startTime);
             DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);
             _event._eventPreferencesSMS.removeAlarm(context);
         }
@@ -3153,7 +2780,6 @@ public class DataWrapper {
 
                 for (int i = 0; i < count; i++) {
                     String profileId = preferences.getString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, "0|0");
-//                    PPApplication.logE("[FIFO_TEST] DataWrapper.getActivatedProfilesFIFO", "#### profileId=" + profileId);
                     activateProfilesFifo.add(profileId);
                 }
                 return activateProfilesFifo;
@@ -3176,7 +2802,6 @@ public class DataWrapper {
                 editor.putInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, activateProfilesFifo.size());
 
                 for (int i = 0; i < activateProfilesFifo.size(); i++) {
-//                    PPApplication.logE("[FIFO_TEST] DataWrapper.saveActivatedProfilesFIFO", "#### profileId=" + activateProfilesFifo.get(i));
                     editor.putString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, activateProfilesFifo.get(i));
                 }
             }

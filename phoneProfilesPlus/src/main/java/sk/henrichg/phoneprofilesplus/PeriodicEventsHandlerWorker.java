@@ -58,7 +58,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
                                 ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo)) {
                             // not scan in configured time
-//                            PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "-- END - scan in time = 2 -------");
                             PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
                             PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
 //                            if (PPApplication.logEnabled()) {
@@ -75,7 +74,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     boolean callEventsHandler = false;
                     Set<String> tags = getTags();
                     for (String tag : tags) {
-//                        PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "tag="+tag);
 
                         if (tag.equals(WORK_TAG)) {
                             callEventsHandler = true;
@@ -83,16 +81,10 @@ public class PeriodicEventsHandlerWorker extends Worker {
                         }
                     }
 
-//                    PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "callEventsHandler="+callEventsHandler);
-
                     if (callEventsHandler) {
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
-
 //                        PPApplication.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
                         EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER);
-
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PeriodicEventsHandlerWorker.doWork");
                     }
                 }
 
@@ -126,7 +118,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
-//                                PPApplication.logE("[TEST BATTERY] PeriodicEventsHandlerWorker.doWork", "for=" + MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                            } catch (Exception ignored) {
 //                            }
 //                            //}
@@ -182,7 +173,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
                         ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo)) {
                     interval = 2 * interval;
-//                    PPApplication.logE("PeriodicEventsHandlerWorker.enqueueWork", "scan in time - 2x interval");
                 }
             }
         }
@@ -204,7 +194,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
 //                                statuses = workManager.getWorkInfosForUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG);
 //                                try {
 //                                    List<WorkInfo> workInfoList = statuses.get();
-//                                    PPApplication.logE("[TEST BATTERY] PeriodicEventsHandlerWorker.enqueueWork", "for=" + PeriodicEventsHandlerWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                                } catch (Exception ignored) {
 //                                }
 //                                //}

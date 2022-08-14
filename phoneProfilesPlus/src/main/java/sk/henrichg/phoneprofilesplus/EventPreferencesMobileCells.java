@@ -438,8 +438,6 @@ class EventPreferencesMobileCells extends EventPreferences {
 
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
-//            PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "xxxxxxxx");
-
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
@@ -479,7 +477,6 @@ class EventPreferencesMobileCells extends EventPreferences {
                                 if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                                     if ((_forSIMCard == 0) || (_forSIMCard == 1)) {
                                         int registeredCell = scanner.getRegisteredCell(1);
-//                                        PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "SIM 1 registeredCell="+registeredCell);
                                         if (MobileCellsScanner.isValidCellId(registeredCell)) {
                                             String sRegisteredCell = Integer.toString(registeredCell);
                                             String[] splits = _cells.split("\\|");
@@ -511,7 +508,6 @@ class EventPreferencesMobileCells extends EventPreferences {
                                     if (((_forSIMCard == 0) && ((!cellIsValid) || (!eventsHandler.mobileCellPassed))) ||
                                             (_forSIMCard == 2)) {
                                         int registeredCell = scanner.getRegisteredCell(2);
-//                                        PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "SIM 2 registeredCell="+registeredCell);
                                         if (MobileCellsScanner.isValidCellId(registeredCell)) {
                                             String sRegisteredCell = Integer.toString(registeredCell);
                                             String[] splits = _cells.split("\\|");
@@ -589,7 +585,6 @@ class EventPreferencesMobileCells extends EventPreferences {
                 eventsHandler.notAllowedMobileCell = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.doHandleEvent", "mobile cells - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_MOBILE_CELLS);
             }

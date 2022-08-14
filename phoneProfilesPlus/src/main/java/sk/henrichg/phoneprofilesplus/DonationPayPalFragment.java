@@ -43,7 +43,6 @@ public class DonationPayPalFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //PPApplication.logE(TAG, "onCreateView");
         View root = inflater.inflate(R.layout.donation_paypal_fragment, container, false);
 
         //mLoadingView = root.findViewById(R.id.donation_paypal_loading);
@@ -164,7 +163,6 @@ public class DonationPayPalFragment extends Fragment {
 
     public void updateGUIAfterBillingConnected() {
         // Start querying for SKUs
-        //PPApplication.logE(TAG, "handleManagerAndUiReady");
 
         if (getActivity() != null) {
             //String[] prices = new String[]{"1 €", "2 €", "3 €", "5 €", "8 €", "13 €", "20 €", "? €"};
@@ -188,7 +186,6 @@ public class DonationPayPalFragment extends Fragment {
 
     public void displayAnErrorIfNeeded(int response) {
         if (getActivity() == null || getActivity().isFinishing()) {
-            //PPApplication.logE(TAG, "No need to show an error - activity is finishing already");
             return;
         }
 

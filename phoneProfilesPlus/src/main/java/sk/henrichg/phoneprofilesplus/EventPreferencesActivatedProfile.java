@@ -267,7 +267,6 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 eventsHandler.notAllowedActivatedProfile = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesActivatedProfile.doHandleEvent", "activated profile - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_ACTIVATED_PROFILE);
             }

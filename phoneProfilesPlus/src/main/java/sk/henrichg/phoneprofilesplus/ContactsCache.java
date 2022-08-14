@@ -28,8 +28,6 @@ class ContactsCache {
     {
         if (cached || caching) return;
 
-//        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
-
         caching = true;
 
         ArrayList<Contact> _contactList = new ArrayList<>();
@@ -53,10 +51,6 @@ class ContactsCache {
                         String rawAccountType = rawCursor.getString(1);
                         //rawAccountType = removeLeadingChar(rawAccountType, '\'');
                         //rawAccountType = removeTrailingChar(rawAccountType, '\'');
-
-//                        PPApplication.logE("------- ContactsCache.getContactList", "_contactId=" + _contactId);
-//                        PPApplication.logE("------- ContactsCache.getContactList", "contactId=" + contactId);
-//                        PPApplication.logE("------- ContactsCache.getContactList", "rawAccountType=" + rawAccountType);
 
                         if (contactId != _contactId) {
                             // contactId cahnged
@@ -107,10 +101,6 @@ class ContactsCache {
                                             //if (accountType.equals(rawAccountType)) {
                                             long phoneId = phones.getLong(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone._ID));
                                             String phoneNumber = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-
-//                                            PPApplication.logE("------- ContactsCache.getContactList", "aContact.name=" + name);
-//                                            PPApplication.logE("------- ContactsCache.getContactList", "aContact.phoneNumber=" + phoneNumber);
-//                                            PPApplication.logE("------- ContactsCache.getContactList", "aContact.accountType=" + accountType);
 
                                             Contact aContact = new Contact();
                                             aContact.contactId = contactId;
@@ -201,8 +191,6 @@ class ContactsCache {
             cached = false;
         }
 
-//        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- END");
-
         caching = false;
     }
 
@@ -233,8 +221,6 @@ class ContactsCache {
     {
         if (cached || caching) return;
 
-//        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
-
         caching = true;
         //cancelled = false;
 
@@ -260,7 +246,6 @@ class ContactsCache {
                         String name = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
                         if (name != null) {
 //                            String hasPhone = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-//                            PPApplication.logE("------- ContactsCache.getContactList", "hasPhone=" + hasPhone);
                             String photoId = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.PHOTO_ID));
                             if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
                                 projection = new String[]{
@@ -274,8 +259,6 @@ class ContactsCache {
                                         long phoneId = phones.getLong(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone._ID));
                                         String phoneNumber = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                         String accountType = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
-
-//                                        PPApplication.logE("------- ContactsCache.getContactList", "aContact.accountType=" + accountType);
 
                                         Contact aContact = new Contact();
                                         aContact.contactId = contactId;
@@ -351,8 +334,6 @@ class ContactsCache {
         }
         //}
 
-        //PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- END");
-
         caching = false;
     }
 */
@@ -360,8 +341,6 @@ class ContactsCache {
     void getContactListX(Context context)
     {
         if (cached || caching) return;
-
-//        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
 
         caching = true;
         //cancelled = false;
@@ -393,10 +372,6 @@ class ContactsCache {
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
-//                        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(1)");
-
-//                        PPApplication.logE("------- ContactsCache.getContactListX", "accountType=" + mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET)));
-
                         long contactId = mCursor.getLong(0);
                         String phoneNumber = mCursor.getString(1);
                         long phoneId = mCursor.getLong(2);
@@ -416,8 +391,6 @@ class ContactsCache {
                     mCursor.close();
                 }
 
-//                PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(2)");
-
                 //if (cancelled)
                 //    return;
 
@@ -431,8 +404,6 @@ class ContactsCache {
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
-//                        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(3)");
-
                         long contactId = mCursor.getLong(0);
                         String name = mCursor.getString(1);
                         String photo = mCursor.getString(2);
@@ -460,9 +431,6 @@ class ContactsCache {
 
                     mCursor.close();
                 }
-
-//                PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(4)");
-//                PPApplication.logE("ContactsCache.getContactListX", "_contactList.size()="+_contactList.size());
 
                 //if (cancelled)
                 //    return;
@@ -495,8 +463,6 @@ class ContactsCache {
             //updateContacts(_contactListWithoutNumber, true);
         }
         //}
-
-//        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- END");
 
         caching = false;
     }

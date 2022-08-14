@@ -588,11 +588,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 //                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onDowngrade", "xxx");
 
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion=" + oldVersion);
-                    PPApplication.logE("DatabaseHandler.onDowngrade", "newVersion=" + newVersion);
-                }*/
-
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_MERGED_PROFILE);
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
@@ -656,7 +651,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 DatabaseHandlerCreateUpdateDB.afterUpdateDb(db);
 
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
-//                PPApplication.logE("[APP_START] DatabaseHandler.onUpgrade", "xxx");
                 dataWrapper.restartEventsWithRescan(true, true, true, false, false, false);
 
                 //PPApplication.sleep(10000); // for test only

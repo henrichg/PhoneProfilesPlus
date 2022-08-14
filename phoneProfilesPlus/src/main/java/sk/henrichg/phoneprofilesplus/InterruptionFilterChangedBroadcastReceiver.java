@@ -18,14 +18,12 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
             NotificationManager _mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (_mNotificationManager != null) {
                 int interruptionFilter = _mNotificationManager.getCurrentInterruptionFilter();
-                PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.onReceive", "interruptionFilter=" + interruptionFilter);
             }
         }*/
 
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             //if (/*no60 &&*/ GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-//        PPApplication.logE("[VOLUMES] InterruptionFilterChangedBroadcastReceiver.onReceive", "internaChange="+RingerModeChangeReceiver.internalChange);
                 if (!RingerModeChangeReceiver.internalChange) {
 
                     NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -70,7 +68,6 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                                 ringerMode = Profile.RINGERMODE_RING;
                                 break;
                         }
-                        //PPApplication.logE("********* InterruptionFilterChangedBroadcastReceiver.setZenMode", "from=InterruptionFilterChangedBroadcastReceiver.onReceive zenMode="+zenMode);
                         if (zenMode != 0) {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 RingerModeChangeReceiver.notUnlinkVolumes = true;
@@ -92,7 +89,6 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null) {
             int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-            //PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
             int ringerMode = audioManager.getRingerMode();
             switch (interruptionFilter) {
                 case NotificationManager.INTERRUPTION_FILTER_ALL:
@@ -119,7 +115,6 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                     zenMode = Profile.ZENMODE_ALL;
                     break;
             }
-            //PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "zenMode=" + zenMode);
         }
         return zenMode;
     }
@@ -129,7 +124,6 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
             //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             //if (/*no60 &&*/ GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 int zenMode = getZenMode(context, audioManager);
-                //PPApplication.logE("********* InterruptionFilterChangedBroadcastReceiver.setZenMode", "from="+from+" zenMode="+zenMode);
                 if (zenMode != 0) {
                     ActivateProfileHelper.saveRingerMode(context, Profile.RINGERMODE_ZENMODE);
                     ActivateProfileHelper.saveZenMode(context, zenMode);

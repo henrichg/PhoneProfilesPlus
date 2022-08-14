@@ -44,7 +44,6 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
         prefContext = context;
         preference = (RunApplicationsDialogPreferenceX) getPreference();
 
-        //PPApplication.logE("ApplicationsDialogPreferenceFragmentX.onCreateDialogView", "xxx");
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -167,8 +166,6 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
                 List<PPIntent> _intentDBList = DatabaseHandler.getInstance(prefContext.getApplicationContext()).getAllIntents();
                 preference.intentDBList.clear();
                 preference.intentDBList.addAll(_intentDBList);
-
-                //PPApplication.logE("ApplicationsDialogPreference.refreshListView", "intentDBList.size="+preference.intentDBList.size());
 
                 preference.getValueAMSDP(/*false*/);
                 //preference.getValueAMSDP(true);

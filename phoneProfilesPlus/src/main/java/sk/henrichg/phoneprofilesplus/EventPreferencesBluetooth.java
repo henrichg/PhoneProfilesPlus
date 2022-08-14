@@ -458,18 +458,11 @@ class EventPreferencesBluetooth extends EventPreferences {
                     boolean isBluetoothEnabled = bluetooth.isEnabled();
 
                     if (isBluetoothEnabled) {
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetoothEnabled=true");
-                            PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "-- eventAdapterName=" + event._eventPreferencesBluetooth._adapterName);
-                        }*/
-
                         //List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(context);
                         BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
 
                         if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "")) {
                             //if (BluetoothConnectedDevices.isBluetoothConnected(connectedDevices,null, "")) {
-
-                            //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "any device connected");
 
                             String[] splits = _adapterName.split("\\|");
                             boolean[] connected = new boolean[splits.length];
@@ -479,24 +472,17 @@ class EventPreferencesBluetooth extends EventPreferences {
                                 connected[i] = false;
                                 switch (_bluetoothName) {
                                     case EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE:
-                                        //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "any device connected");
                                         connected[i] = true;
                                         break;
                                     case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
                                         for (BluetoothDeviceData data : boundedDevicesList) {
-                                            /*if (PPApplication.logEnabled()) {
-                                                PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "boundedDevice.name=" + data.getName());
-                                                PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "boundedDevice.address=" + data.getAddress());
-                                            }*/
                                             connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(data, "");
                                             if (connected[i])
                                                 break;
                                         }
-                                        //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "paired device connected=" + connected[i]);
                                         break;
                                     default:
                                         connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, _bluetoothName);
-                                        //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "event sensor device connected=" + connected[i]);
                                         break;
                                 }
                                 i++;
@@ -529,8 +515,6 @@ class EventPreferencesBluetooth extends EventPreferences {
                                     done = true;
                             }
                         } else {
-                            //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "not any device connected");
-
                             if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
                                 (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
                                 // not use scanner data
@@ -539,8 +523,6 @@ class EventPreferencesBluetooth extends EventPreferences {
                             }
                         }
                     } else {
-                        //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetoothEnabled=true");
-
                         if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
                             (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
                             // not use scanner data
@@ -549,8 +531,6 @@ class EventPreferencesBluetooth extends EventPreferences {
                         }
                     }
                 }
-
-                //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetoothPassed=" + bluetoothPassed);
 
                 if ((_connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
                     (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)) {
@@ -576,13 +556,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                 List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(eventsHandler.context);
 
                                 if (scanResults != null) {
-                                    //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "scanResults.size="+scanResults.size());
-
                                     for (BluetoothDeviceData device : scanResults) {
-                                        /*if (PPApplication.logEnabled()) {
-                                            PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "device.getName=" + device.getName());
-                                            PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "device.getAddress=" + device.getAddress());
-                                        }*/
                                         String[] splits = _adapterName.split("\\|");
                                         boolean[] nearby = new boolean[splits.length];
                                         int i = 0;
@@ -597,9 +571,6 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                         String _device = device.getName().toUpperCase();
                                                         String _adapterName = data.getName().toUpperCase();
                                                         if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                                            //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth found");
-                                                            //PPApplication.logE("@@@ EventPreferencesBluetooth.doHandleEvent","bluetoothAdapterName="+device.getName());
-                                                            //PPApplication.logE("@@@ EventPreferencesBluetooth.doHandleEvent","bluetoothAddress="+device.getAddress());
                                                             nearby[i] = true;
                                                             break;
                                                         }
@@ -613,9 +584,6 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                             // device has address
                                                             for (BluetoothDeviceData data : boundedDevicesList) {
                                                                 if ((data.getAddress() != null) && data.getAddress().equals(device.getAddress())) {
-                                                                    //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth found");
-                                                                    //PPApplication.logE("@@@ EventPreferencesBluetooth.doHandleEvent","bluetoothAdapterName="+device.getName());
-                                                                    //PPApplication.logE("@@@ EventPreferencesBluetooth.doHandleEvent","bluetoothAddress="+device.getAddress());
                                                                     nearby[i] = true;
                                                                     break;
                                                                 }
@@ -624,9 +592,6 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                     } else {
                                                         String _adapterName = _bluetoothName.toUpperCase();
                                                         if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                                            //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth found");
-                                                            //PPApplication.logE("@@@ EventPreferencesBluetooth.doHandleEvent","bluetoothAdapterName="+device.getName());
-                                                            //PPApplication.logE("@@@ EventPreferencesBluetooth.doHandleEvent","bluetoothAddress="+device.getAddress());
                                                             nearby[i] = true;
                                                         }
                                                     }
@@ -660,25 +625,18 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         if (done)
                                             break;
                                     }
-                                    //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetoothPassed=" + bluetoothPassed);
 
                                     if (!done) {
                                         if (scanResults.size() == 0) {
-                                            //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "scanResult is empty");
-
                                             if (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)
                                                 eventsHandler.wifiPassed = true;
                                         }
                                     }
 
-                                } //else
-                                //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "scanResults == null");
-                            }
+                                }                            }
                         }
                     }
                 }
-
-                //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetoothPassed=" + bluetoothPassed);
 
                 if (!eventsHandler.notAllowedBluetooth) {
                     if (eventsHandler.bluetoothPassed)
@@ -690,7 +648,6 @@ class EventPreferencesBluetooth extends EventPreferences {
                 eventsHandler.notAllowedBluetooth = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesBluetooth.doHandleEvent", "bluetooth - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_BLUETOOTH);
             }

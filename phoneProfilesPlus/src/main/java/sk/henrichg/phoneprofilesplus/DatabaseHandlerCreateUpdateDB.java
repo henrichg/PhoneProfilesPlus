@@ -500,8 +500,6 @@ class DatabaseHandlerCreateUpdateDB {
         List<String> columns = new ArrayList<>();
         Cursor cursor = null;
         try {
-//            PPApplication.logE("DatabaseHandlerCreateUpdateDB.getTableColums", db.toString());
-
             //cursor = db.rawQuery("PRAGMA DatabaseHandler.TABLE_info("+ table +")", null);
             //cursor = db.rawQuery("PRAGMA phoneProfilesManager.TABLE_info("+ table +")", null);
 
@@ -963,18 +961,11 @@ class DatabaseHandlerCreateUpdateDB {
                         String icon = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ICON));
                         int wallpaperChange = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE));
 
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
-                        }*/
-
                         ContentValues values = new ContentValues();
 
                         try {
                             String[] splits = icon.split("\\|");
                             String isIconResourceId = splits[1];
-                            //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
                             if (!isIconResourceId.equals("1")) {
                                 values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
                             }
@@ -988,7 +979,6 @@ class DatabaseHandlerCreateUpdateDB {
                         }
                         values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER, "-");
 
-                        //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "values.size()=" + values.size());
                         if (values.size() > 0) {
                             db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?", new String[]{String.valueOf(id)});
                         }
@@ -1531,18 +1521,19 @@ class DatabaseHandlerCreateUpdateDB {
                         long id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
                         String brightness = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_BRIGHTNESS));
 
-                        //value|noChange|automatic|sharedProfile
+                        // Index = decription
+                        // -----
+                        // 0 = level
+                        // 1 = change, no change
+                        // 2 = automatic
+                        // 3 = from shared profile
+                        // 4 = change level
+
                         String[] splits = brightness.split("\\|");
 
                         if (splits[2].equals("1")) // automatic is set
                         {
                             // hm, found brightness values without default profile :-/
-                            /*
-                            if (splits.length == 4)
-                                brightness = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
-                            else
-                                brightness = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|0";
-                            */
                             if (splits.length == 4)
                                 brightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
                             else
@@ -1580,21 +1571,33 @@ class DatabaseHandlerCreateUpdateDB {
                         long id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
                         String brightness = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_BRIGHTNESS));
 
-                        //value|noChange|automatic|sharedProfile
+                        // Index = decription
+                        // -----
+                        // 0 = level
+                        // 1 = change, no change
+                        // 2 = automatic
+                        // 3 = from shared profile
+                        // 4 = change level
+
                         String[] splits = brightness.split("\\|");
 
-                        int percentage = Integer.parseInt(splits[0]);
-                        percentage = (int) ProfileStatic.convertBrightnessToPercents(percentage/*, 255, 1*/);
+                        // change percentage only for manual brightness
+                        if (!splits[2].equals("1")) // automatic is not set
+                        {
+                            int percentage = Integer.parseInt(splits[0]);
 
-                        // hm, found brightness values without default profile :-/
-                        if (splits.length == 4)
-                            brightness = percentage + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
-                        else
-                            brightness = percentage + "|" + splits[1] + "|" + splits[2] + "|0";
+                            percentage = (int) ProfileStatic.convertBrightnessToPercents(percentage/*, 255, 1*/);
 
-                        db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES +
-                                " SET " + DatabaseHandler.KEY_DEVICE_BRIGHTNESS + "=\"" + brightness + "\" " +
-                                "WHERE " + DatabaseHandler.KEY_ID + "=" + id);
+                            // hm, found brightness values without default profile :-/
+                            if (splits.length == 4)
+                                brightness = percentage + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
+                            else
+                                brightness = percentage + "|" + splits[1] + "|" + splits[2] + "|0";
+
+                            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES +
+                                    " SET " + DatabaseHandler.KEY_DEVICE_BRIGHTNESS + "=\"" + brightness + "\" " +
+                                    "WHERE " + DatabaseHandler.KEY_ID + "=" + id);
+                        }
 
                     } while (cursor.moveToNext());
                 }
@@ -1627,51 +1630,6 @@ class DatabaseHandlerCreateUpdateDB {
                 cursor.close();
             } catch (Exception ignored) {}
         }
-
-        /*
-        if (oldVersion < 1175)
-        {
-            try {
-                if (android.os.Build.VERSION.SDK_INT < 21)
-                {
-                    final String selectQuery = "SELECT " + DatabaseHandler.KEY_ID + "," +
-                                                    DatabaseHandler.KEY_DEVICE_BRIGHTNESS +
-                                                " FROM " + DatabaseHandler.TABLE_PROFILES;
-
-                    Cursor cursor = db.rawQuery(selectQuery, null);
-
-                    // looping through all rows and adding to list
-                    if (cursor.moveToFirst()) {
-                        do {
-                            long id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
-                            String brightness = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_BRIGHTNESS));
-
-                            //value|noChange|automatic|sharedProfile
-                            String[] splits = brightness.split("\\|");
-
-                            if (splits[2].equals("1")) // automatic is set
-                            {
-                                int percentage = 50;
-
-                                // hm, found brightness values without default profile :-/
-                                if (splits.length == 4)
-                                    brightness = percentage+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
-                                else
-                                    brightness = percentage+"|"+splits[1]+"|"+splits[2]+"|0";
-
-                                db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES +
-                                             " SET " + DatabaseHandler.KEY_DEVICE_BRIGHTNESS + "=\"" + brightness +"\"" +
-                                            "WHERE " + DatabaseHandler.KEY_ID + "=" + id);
-                            }
-
-                        } while (cursor.moveToNext());
-                    }
-
-                    cursor.close();
-                }
-            } catch (Exception ignored) {}
-        }
-        */
 
         if (oldVersion < 1180)
         {

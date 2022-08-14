@@ -268,8 +268,6 @@ class EventPreferencesNFC extends EventPreferences {
 
     private long computeAlarm()
     {
-        //PPApplication.logE("EventPreferencesNFC.computeAlarm","xxx");
-
         Calendar calEndTime = Calendar.getInstance();
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -292,8 +290,6 @@ class EventPreferencesNFC extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        //PPApplication.logE("EventPreferencesNFC.setSystemRunningEvent","xxx");
-
         removeAlarm(context);
     }
 
@@ -304,8 +300,6 @@ class EventPreferencesNFC extends EventPreferences {
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
-
-        //PPApplication.logE("EventPreferencesNFC.setSystemPauseEvent","xxx");
 
         removeAlarm(context);
 
@@ -319,8 +313,6 @@ class EventPreferencesNFC extends EventPreferences {
     void removeSystemEvent(Context context)
     {
         removeAlarm(context);
-
-        //PPApplication.logE("EventPreferencesNFC.removeSystemEvent", "xxx");
     }
 
     void removeAlarm(Context context)
@@ -335,8 +327,6 @@ class EventPreferencesNFC extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    //PPApplication.logE("EventPreferencesNFC.removeAlarm", "alarm found");
-
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
@@ -351,12 +341,6 @@ class EventPreferencesNFC extends EventPreferences {
     {
         if (!_permanentRun) {
             if (_startTime > 0) {
-                /*if (PPApplication.logEnabled()) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    String result = sdf.format(alarmTime);
-                    PPApplication.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
-                }*/
-
                 //Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER);
@@ -392,8 +376,6 @@ class EventPreferencesNFC extends EventPreferences {
         if (this._startTime == 0) {
             // alarm for end is not set
 
-            //PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagName=" + tagName);
-
             boolean tagFound = false;
 
             String[] splits = this._nfcTags.split("\\|");
@@ -403,8 +385,6 @@ class EventPreferencesNFC extends EventPreferences {
                     break;
                 }
             }
-
-            //PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagFound=" + tagFound);
 
             if (tagFound)
                 this._startTime = startTime; //  + (10 * 1000);
@@ -430,27 +410,11 @@ class EventPreferencesNFC extends EventPreferences {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     long startTime = _startTime - gmtOffset;
 
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(startTime);
-                        PPApplication.logE("EventPreferencesNFC.doHandleEvent", "startTime=" + alarmTimeS);
-                    }*/
-
                     // compute end datetime
                     long endAlarmTime = computeAlarm();
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(endAlarmTime);
-                        PPApplication.logE("EventPreferencesNFC.doHandleEvent", "endAlarmTime=" + alarmTimeS);
-                    }*/
 
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(nowAlarmTime);
-                        PPApplication.logE("EventPreferencesNFC.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
-                    }*/
 
                     if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_NFC_TAG)
                         eventsHandler.nfcPassed = true;
@@ -480,7 +444,6 @@ class EventPreferencesNFC extends EventPreferences {
                 eventsHandler.notAllowedNfc = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesNFC.doHandleEvent", "nfc - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_NFC);
             }

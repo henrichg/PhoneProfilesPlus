@@ -21,14 +21,13 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             // isLightDeviceIdleMode() is @hide :-(
             if ((powerManager != null) && !powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/) {
-                //PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","NOT in idle mode");
                 //PPApplication.startHandlerThreadBroadcast(/*"DeviceIdleModeBroadcastReceiver.onReceive"*/);
                 //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -45,11 +44,8 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DeviceIdleModeBroadcastReceiver.onReceive");
-
                             // rescan
                             if (PhoneProfilesService.getInstance() != null) {
-                                //PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive", "rescan/reschedule workers");
                                 boolean rescan = false;
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning)
                                     rescan = true;
@@ -76,9 +72,8 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }*/
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DeviceIdleModeBroadcastReceiver.onReceive");
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -93,8 +88,6 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
             }
-            //else
-            //    PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","in idle mode");
         }
     }
 }

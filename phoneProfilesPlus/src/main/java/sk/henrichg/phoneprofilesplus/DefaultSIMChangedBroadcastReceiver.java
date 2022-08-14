@@ -39,28 +39,15 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-//                    Bundle extras = _intent.getExtras();
-//                    if (extras != null) {
-//                        for (String key : extras.keySet()) {
-//                            PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", key + " : " + (extras.get(key) != null ? extras.get(key) : "NULL"));
-//                        }
-//                    }
-
-//                    PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", "action="+_intent.getAction());
-//                    int subscriptionIdx = _intent.getIntExtra(SubscriptionManager.EXTRA_SUBSCRIPTION_INDEX, -1);
-//                    PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", "subscriptionIdx="+subscriptionIdx);
-
                     if (Event.getGlobalEventsRunning()) {
                         if (PhoneProfilesService.getInstance() != null) {
 
                             // start events handler
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DefaultSIMChangedBroadcastReceiver.onReceive");
 
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] DefaultSIMChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DefaultSIMChangedBroadcastReceiver.onReceive");
                         }
                     }
 

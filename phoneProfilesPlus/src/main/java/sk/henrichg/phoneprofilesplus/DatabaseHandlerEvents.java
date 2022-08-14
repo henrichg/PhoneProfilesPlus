@@ -903,7 +903,6 @@ public class DatabaseHandlerEvents {
                 eventPreferences._contacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACTS));
                 eventPreferences._contactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACT_LIST_TYPE));
                 //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
-                //    PPApplication.logE("[SMS sensor] DatabaseHandler.getEventPreferencesSMS", "startTime="+eventPreferences._startTime);
                 eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACT_GROUPS));
                 eventPreferences._duration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_DURATION));
                 eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_PERMANENT_RUN)) == 1);
@@ -3032,7 +3031,6 @@ public class DatabaseHandlerEvents {
                         event._eventPreferencesSMS._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_START_TIME));
                         event._eventPreferencesSMS._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT));
                         //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
-                        //    PPApplication.logE("[SMS sensor] DatabaseHandler.getSMSStartTime", "startTime="+event._eventPreferencesSMS._startTime);
                     }
 
                     cursor.close();

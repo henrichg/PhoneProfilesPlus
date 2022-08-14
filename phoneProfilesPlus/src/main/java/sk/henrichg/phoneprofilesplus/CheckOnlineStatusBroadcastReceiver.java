@@ -31,7 +31,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
         //        context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//          PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CheckOnlineStatusBroadcastReceiver.onReceive");
+//          PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckOnlineStatusBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
             //if (appContext != null) {
@@ -48,7 +48,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
 //                    boolean isNetworkRoaming = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).isNetworkRoaming();
 
                 } catch (Exception e) {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -73,7 +73,6 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connMgr != null) {
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-//            PPApplication.logE("[CONNECTIVITY_TEST] CheckOnlineStatusBroadcastReceiver.isOnline", "isOnline="+(networkInfo != null && networkInfo.isConnected()));
             return (networkInfo != null && networkInfo.isConnected());
         }
         else

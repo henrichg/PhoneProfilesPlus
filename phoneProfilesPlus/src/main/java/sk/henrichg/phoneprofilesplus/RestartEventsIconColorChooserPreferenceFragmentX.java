@@ -174,7 +174,6 @@ public class RestartEventsIconColorChooserPreferenceFragmentX extends Preference
                     dialogBuilder.setView(layout);
 
                     final ChromaColorView chromaColorView = layout.findViewById(R.id.custom_color_chroma_color_view);
-                    //PPApplication.logE("CustomColorDialogPreferenceFragmentX.onBindDialogView", "preference.value="+preference.value);
                     chromaColorView.setCurrentColor(Integer.parseInt(preference.value));
                     chromaColorView.setColorMode(ColorMode.values()[0]);
                     chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);

@@ -77,9 +77,6 @@ class EventPreferencesSMS extends EventPreferences {
 
         this._startTime = 0;
         this._fromSIMSlot = 0;
-
-        //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
-        //    PPApplication.logE("EventPreferencesSMS.EventPreferencesSMS", "startTime="+this._startTime);
     }
 
     void copyPreferences(Event fromEvent)
@@ -97,7 +94,6 @@ class EventPreferencesSMS extends EventPreferences {
         this._startTime = 0;
         this._fromSIMSlot = 0;
 
-        //PPApplication.logE("EventPreferencesSMS.copyPreferences", "startTime="+this._startTime);
     }
 
     void loadSharedPreferences(SharedPreferences preferences)
@@ -490,10 +486,6 @@ class EventPreferencesSMS extends EventPreferences {
                             sim1Exists = GlobalUtils.hasSIMCard(context, 1);
                             sim2Exists = GlobalUtils.hasSIMCard(context, 2);
 
-//                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "sim1Exists="+sim1Exists);
-//                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "sim2Exists="+sim2Exists);
-//                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "enabled="+enabled);
-
                             showPreferences = true;
                             preference = prefMng.findPreference("eventSMSDualSIMInfo");
                             if (preference != null)
@@ -527,8 +519,6 @@ class EventPreferencesSMS extends EventPreferences {
 
     private long computeAlarm()
     {
-        //PPApplication.logE("EventPreferencesSMS.computeAlarm","xxx");
-
         Calendar calEndTime = Calendar.getInstance();
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -551,8 +541,6 @@ class EventPreferencesSMS extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        //PPApplication.logE("EventPreferencesSMS.setSystemRunningEvent","xxx");
-
         removeAlarm(context);
     }
 
@@ -563,8 +551,6 @@ class EventPreferencesSMS extends EventPreferences {
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
-
-        //PPApplication.logE("EventPreferencesSMS.setSystemPauseEvent","xxx");
 
         removeAlarm(context);
 
@@ -578,8 +564,6 @@ class EventPreferencesSMS extends EventPreferences {
     void removeSystemEvent(Context context)
     {
         removeAlarm(context);
-
-        //PPApplication.logE("EventPreferencesSMS.removeSystemEvent", "xxx");
     }
 
     void removeAlarm(Context context)
@@ -594,8 +578,6 @@ class EventPreferencesSMS extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
-
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
@@ -610,12 +592,6 @@ class EventPreferencesSMS extends EventPreferences {
     {
         if (!_permanentRun) {
             if (_startTime > 0) {
-                /*if (PPApplication.logEnabled()) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    String result = sdf.format(alarmTime);
-                    PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
-                }*/
-
                 //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
@@ -794,8 +770,6 @@ class EventPreferencesSMS extends EventPreferences {
                     this._startTime = 0;
                     this._fromSIMSlot = 0;
                 }
-                //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
-                //    PPApplication.logE("EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
 
                 DatabaseHandler.getInstance(dataWrapper.context).updateSMSStartTime(_event);
 
@@ -806,8 +780,6 @@ class EventPreferencesSMS extends EventPreferences {
             } else {
                 this._startTime = 0;
                 this._fromSIMSlot = 0;
-                //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
-                //    PPApplication.logE("EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
                 DatabaseHandler.getInstance(dataWrapper.context).updateSMSStartTime(_event);
             }
         }
@@ -823,45 +795,24 @@ class EventPreferencesSMS extends EventPreferences {
                 // compute start time
 
                 if (_startTime > 0) {
-//                    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime > 0");
-//                    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "_fromSIMSlot="+_fromSIMSlot);
-
                     if ((Build.VERSION.SDK_INT < 26) || (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
 
                         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                         long startTime = _startTime - gmtOffset;
 
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String alarmTimeS = sdf.format(startTime);
-                            PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime=" + alarmTimeS);
-                        }*/
-
                         // compute end datetime
                         long endAlarmTime = computeAlarm();
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String alarmTimeS = sdf.format(endAlarmTime);
-                            PPApplication.logE("EventPreferencesSMS.doHandleEvent", "endAlarmTime=" + alarmTimeS);
-                        }*/
 
                         Calendar now = Calendar.getInstance();
                         long nowAlarmTime = now.getTimeInMillis();
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String alarmTimeS = sdf.format(nowAlarmTime);
-                            PPApplication.logE("EventPreferencesSMS.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
-                        }*/
 
                         if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_SMS)
                             eventsHandler.smsPassed = true;
                         else if (!_permanentRun) {
-                            //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "sensorType=" + sensorType);
                             if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_SMS_EVENT_END)
                                 eventsHandler.smsPassed = false;
                             else
                                 eventsHandler.smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                            //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "smsPassed=" + smsPassed);
                         } else {
                             eventsHandler.smsPassed = nowAlarmTime >= startTime;
                         }
@@ -869,15 +820,12 @@ class EventPreferencesSMS extends EventPreferences {
                     else
                         eventsHandler.smsPassed = false;
                 } else {
-                    //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime == 0");
                     eventsHandler.smsPassed = false;
                 }
 
                 if (!eventsHandler.smsPassed) {
                     _startTime = 0;
                     _fromSIMSlot = 0;
-                    //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
-                    //    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime="+event._eventPreferencesSMS._startTime);
                     DatabaseHandler.getInstance(eventsHandler.context).updateSMSStartTime(_event);
                 }
 
@@ -891,7 +839,6 @@ class EventPreferencesSMS extends EventPreferences {
                 eventsHandler.notAllowedSms = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesSMS.doHandleEvent", "sms - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_SMS);
             }

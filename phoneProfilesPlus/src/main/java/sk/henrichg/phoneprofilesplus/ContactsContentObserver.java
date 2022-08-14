@@ -48,7 +48,6 @@ class ContactsContentObserver extends ContentObserver {
                 //noinspection TryWithIdenticalCatches
                 try {
                     List<WorkInfo> workInfoList = statuses.get();
-                    //PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "workInfoList.size()="+workInfoList.size());
                     for (WorkInfo workInfo : workInfoList) {
                         WorkInfo.State state = workInfo.getState();
                         running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
@@ -59,8 +58,6 @@ class ContactsContentObserver extends ContentObserver {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                //PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "running="+running);
 
                 OneTimeWorkRequest worker;
                 if (running) {

@@ -9,17 +9,15 @@ public class DeviceBootEventEndBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] DeviceBootEventEndBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] DeviceBootEventEndBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {
-            //PPApplication.logE("[BOOT] DeviceBootEventEndBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
         }
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        //PPApplication.logE("[BOOT] DeviceBootEventEndBroadcastReceiver.doWork", "xxx");
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -50,7 +48,6 @@ public class DeviceBootEventEndBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DeviceBootEventEndBroadcastReceiver.doWork");
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
@@ -68,7 +65,6 @@ public class DeviceBootEventEndBroadcastReceiver extends BroadcastReceiver {
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.logE("DeviceBootEventEndBroadcastReceiver.doWork", "handle events");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END);
                 }

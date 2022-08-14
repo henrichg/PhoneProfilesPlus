@@ -17,7 +17,6 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
         if (intent != null) {
             String action = intent.getAction();
             if (action != null) {
-                //PPApplication.logE("StartLauncherFromNotificationReceiver.onReceive", "action="+action);
 
                 if (action.equals(PhoneProfilesNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
 
@@ -78,7 +77,6 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                             appContext.startActivity(launcherIntent);
                         //}
                     };
-                    //PPApplication.logE("StartLauncherFromNotificationReceiver.onReceive", "PPApplication.deviceIsSamsung="+PPApplication.deviceIsSamsung);
                     if ((Build.VERSION.SDK_INT >= 29) &&
                             ApplicationPreferences.applicationNotificationLauncher.equals("activator")) {
                         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {

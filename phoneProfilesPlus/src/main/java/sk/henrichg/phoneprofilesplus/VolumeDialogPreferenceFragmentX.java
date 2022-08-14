@@ -101,12 +101,6 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "value=" + preference.value);
-            PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "noChange=" + preference.noChange);
-            //PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "sharedProfile="+preference.sharedProfile);
-        }*/
-
         CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
         operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
 
@@ -198,7 +192,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         //        context.getApplicationContext(), preference.audioManager) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onDialogClosed");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onDialogClosed");
 
             //Context appContext = appContextWeakRef.get();
             //AudioManager audioManager = audioManagerWeakRef.get();
@@ -265,11 +259,6 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("VolumeDialogPreferenceFragmentX.onProgressChanged", "progress=" + progress);
-            PPApplication.logE("VolumeDialogPreferenceFragmentX.onProgressChanged", "fromUser=" + fromUser);
-        }*/
-
         if (fromUser) {
             // Round the value to the closest integer value.
             //noinspection ConstantConditions
@@ -318,7 +307,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             //        context.getApplicationContext(), preference.audioManager) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onStopTrackingTouch");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onStopTrackingTouch");
 
                 //Context appContext = appContextWeakRef.get();
                 //AudioManager audioManager = audioManagerWeakRef.get();
@@ -393,7 +382,6 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                             VolumeDialogPreferenceX.mediaPlayer.setAudioAttributes(attrs);
                             //preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-                            //PPApplication.logE("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", "start playing");
                             VolumeDialogPreferenceX.mediaPlayer.start();
                         }
                     } catch (Exception e) {

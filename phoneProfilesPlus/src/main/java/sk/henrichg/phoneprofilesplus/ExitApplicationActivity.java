@@ -32,14 +32,11 @@ public class ExitApplicationActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        //PPApplication.logE("ExitApplicationActivity.onStart", "xxx");
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(R.string.exit_application_alert_title);
         dialogBuilder.setMessage(R.string.exit_application_alert_message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-            //PPApplication.logE("ExitApplicationActivity.onStart", "exit");
 
             Context appContext = getApplicationContext();
 
@@ -55,7 +52,6 @@ public class ExitApplicationActivity extends AppCompatActivity {
             ApplicationPreferences.applicationNeverAskForGrantG1Permission(appContext);
 
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-            //PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");
             PPApplication.exitApp(true, appContext, dataWrapper, ExitApplicationActivity.this, false, true);
 
             // close activities

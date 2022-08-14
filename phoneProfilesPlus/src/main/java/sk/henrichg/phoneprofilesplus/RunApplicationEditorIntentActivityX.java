@@ -126,10 +126,6 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
             ppIntent = savedInstanceState.getParcelable(RunApplicationEditorDialogX.EXTRA_PP_INTENT);
             startApplicationDelay = savedInstanceState.getInt(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
         }
-        /*if (ppIntent == null)
-            PPApplication.logE("ApplicationEditorIntentActivity.onCreate", "ppIntent=null");
-        else
-            PPApplication.logE("ApplicationEditorIntentActivity.onCreate", "ppIntent._id="+ppIntent._id);*/
 
         okButton = findViewById(R.id.application_editor_intent_ok);
         //intentScrollView = findViewById(R.id.application_editor_intent_scroll_view);
@@ -576,7 +572,6 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
 
         Button testButton = findViewById(R.id.application_editor_intent_test);
         testButton.setOnClickListener(v -> {
-            //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ppIntent="+ppIntent);
             if (ppIntent == null) {
                 AlertDialog.Builder builder =
                         new AlertDialog.Builder(activity)
@@ -603,15 +598,12 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
             else {
                 saveIntent();
                 Intent testIntent = createIntent(ppIntent);
-                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "testIntent="+testIntent);
                 boolean ok = false;
                 if (testIntent != null) {
-                    //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ppIntent._intentType="+ppIntent._intentType);
                     if (ppIntent._intentType == 0) {
                         try {
                             testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(testIntent);
-                            //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "activity started");
                             ok = true;
                         } catch (Exception e) {
                             //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
@@ -620,14 +612,12 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
                     } else {
                         try {
                             sendBroadcast(testIntent);
-                            //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "broadcast sent");
                             ok = true;
                         } catch (Exception e) {
                             //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
                         }
                     }
                 }
-                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ok="+ok);
                 if (!ok) {
                     AlertDialog.Builder builder;
                     if (ppIntent._intentType == 0) {
@@ -1314,7 +1304,6 @@ public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
             intent = null;
         }
 
-        //PPApplication.logE("ApplicationEditorIntentActivity.createIntent", "intent="+intent);
         return intent;
     }
 

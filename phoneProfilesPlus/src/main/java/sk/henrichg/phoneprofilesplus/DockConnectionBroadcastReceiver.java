@@ -46,7 +46,6 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DockConnectionBroadcastReceiver.onReceive");
                         } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);

@@ -16,7 +16,6 @@ public final class PPVoiceSessionService extends VoiceInteractionSessionService 
 
     /* renamed from: a */
     public PPVoiceInteractionSession onNewSession(Bundle bundle) {
-//        PPApplication.logE("PPVoiceSessionService.onNewSession", "xxx");
         return new PPVoiceInteractionSession(this);
     }
 }

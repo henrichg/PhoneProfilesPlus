@@ -50,28 +50,16 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
         if ((importantInfoTagBeginIndex != -1) && (importantInfoTagEndIndex != -1)) {
             String importantInfoTagDataString = _infoText.substring(importantInfoTagBeginIndex + beginTag.length(), importantInfoTagEndIndex);
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "importantInfoTagBeginIndex=" + importantInfoTagBeginIndex);
-                PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "importantInfoTagEndIndex=" + importantInfoTagEndIndex);
-                PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "importantInfoTagDataString=" + importantInfoTagDataString);
-            }*/
-
             beginTag = "<II" + tagIndex + " [" + importantInfoTagDataString + "]>";
-            //PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "beginTag="+beginTag);
             String endTag = "<II" + tagIndex + "/>";
-            //PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "endTag="+endTag);
 
             importantInfoTagBeginIndex = _infoText.indexOf(beginTag);
             importantInfoTagEndIndex = _infoText.indexOf(endTag);
 
             if ((importantInfoTagBeginIndex != -1) && (importantInfoTagEndIndex != -1)) {
-                //String clickableString = _infoText.substring(importantInfoTagBeginIndex + beginTag.length(), importantInfoTagEndIndex);
-                //PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "clickableString=" + clickableString);
 
                 _infoText = _infoText.replace(beginTag, "");
                 _infoText = _infoText.replace(endTag, "");
-
-                //PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "_infoText=" + _infoText);
 
                 final String _tagType = beginTag.substring(1, 3);
                 final String _importantInfoTagDataString = importantInfoTagDataString;
@@ -92,10 +80,6 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
                     @Override
                     public void onClick(@NonNull View textView) {
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "_tagType=" + _tagType);
-                        PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "_importantInfoTagDataString=" + _importantInfoTagDataString);
-                    }*/
 
                         String[] splits = _importantInfoTagDataString.split(",");
                         int page = Integer.parseInt(splits[0]);
@@ -106,11 +90,6 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
                         // 2 = Events
 
                         int resource = Integer.parseInt(splits[2]);
-
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "page=" + page);
-                        PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "resource=" + resource);
-                    }*/
 
                         if (_tagType.equals("II")) {
                             Intent intentLaunch = new Intent(context, ImportantInfoActivityForceScroll.class);

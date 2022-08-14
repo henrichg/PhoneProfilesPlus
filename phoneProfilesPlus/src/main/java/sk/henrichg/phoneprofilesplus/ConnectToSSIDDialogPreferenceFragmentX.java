@@ -134,13 +134,10 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                     WifiManager wifi = (WifiManager) prefContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                     if (wifi != null) {
                         if (wifi.getWifiState() != WifiManager.WIFI_STATE_ENABLED) {
-                            //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.1", "enable wifi");
                             fragment.wifiEnabled = true;
 
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(true);
-                            //else
-//                                PPApplication.logE("[WIFI_ENABLED] ConnectToSSIDDialogPreferenceFragmentX.refreshListView", "true");
                             wifi.setWifiEnabled(true);
 
                             GlobalUtils.sleep(3000);
@@ -158,8 +155,6 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
-            //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.1", "call async 2");
 
             ConnectToSSIDDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
             ConnectToSSIDDialogPreferenceX preference = preferenceWeakRef.get();
@@ -191,22 +186,17 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
         protected void onPreExecute() {
             super.onPreExecute();
 
-            //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "onPreExecute");
-
             _SSIDList = new ArrayList<>();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "doInBackground");
-
             ConnectToSSIDDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
             ConnectToSSIDDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);
-                //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifiConfigurationList.size()="+wifiConfigurationList.size());
 
                 if (fragment.wifiEnabled) {
                     try {
@@ -214,11 +204,8 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                         if (wifi != null) {
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(false);
-                            //else
-//                                        PPApplication.logE("[WIFI_ENABLED] ConnectToSSIDDialogPreferenceFragmentX.refreshListView", "false");
                             wifi.setWifiEnabled(false);
                         }
-                        //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifi disabled");
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
@@ -227,7 +214,6 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
 
                 //if (wifiConfigurationList != null) {
                 for (WifiSSIDData wifiConfiguration : wifiConfigurationList) {
-                    //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifiConfiguration.ssid="+wifiConfiguration.ssid);
                     //if ((wifiConfiguration.ssid != null) && (wifiConfiguration.bssid != null)) {
                     // bssid is null from configuration list
                     if (wifiConfiguration.ssid != null)
@@ -248,8 +234,6 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
-            //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "onPostExecute");
 
             ConnectToSSIDDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
             ConnectToSSIDDialogPreferenceX preference = preferenceWeakRef.get();

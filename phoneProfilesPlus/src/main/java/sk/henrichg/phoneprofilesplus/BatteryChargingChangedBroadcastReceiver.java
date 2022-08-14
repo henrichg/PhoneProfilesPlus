@@ -64,11 +64,6 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                 }
                 PPApplication.isPowerSaveMode = isPowerSaveMode;
 
-                //if (PPApplication.logEnabled()) {
-                //    PPApplication.logE("[TEST BATTERY] BatteryChargingChangedBroadcastReceiver.onReceive", "oldIsPowerSaveMode=" + oldIsPowerSaveMode);
-                //    PPApplication.logE("[TEST BATTERY] BatteryChargingChangedBroadcastReceiver.onReceive", "isPowerSaveMode=" + isPowerSaveMode);
-                //}
-
                 if (PPApplication.isPowerSaveMode != oldIsPowerSaveMode) {
                     boolean restart = false;
                     if (!PPApplication.isScreenOn) {
@@ -102,8 +97,6 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                             restart = true;
                     }
                     if (restart) {
-                        //PPApplication.logE("[****] BatteryChargingChangedBroadcastReceiver.onReceive", "restartAllScanners");
-                        //PPApplication.logE("[RJS] BatteryChargingChangedBroadcastReceiver.onReceive", "restart all scanners");
                         // for screenOn=true -> used only for Location scanner - start scan with GPS On
                         PPApplication.restartAllScanners(appContext, true);
                     }
@@ -132,15 +125,11 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("BatteryChargingChangedBroadcastReceiver.onReceive", "isCharging="+PPApplication.isCharging);
-//                            PPApplication.logE("BatteryChargingChangedBroadcastReceiver.onReceive", "plugged="+PPApplication.plugged);
-
                             // start events handler
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] BatteryChargingChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
                         } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);

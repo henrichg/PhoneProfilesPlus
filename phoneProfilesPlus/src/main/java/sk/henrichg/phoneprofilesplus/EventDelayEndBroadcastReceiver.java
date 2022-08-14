@@ -9,17 +9,15 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] EventDelayEndBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] EventDelayEndBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {
-            //PPApplication.logE("EventDelayEndBroadcastReceiver.onReceive", "action=" + action);
             doWork(true, context);
         }
     }
 
     static void doWork(boolean useHandler, Context context) {
-//        PPApplication.logE("[HANDLER] EventDelayEndBroadcastReceiver.doWork", "useHandler="+useHandler);
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -50,7 +48,6 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_END);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventDelayEndBroadcastReceiver.doWork (1)");
                         } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
@@ -66,13 +63,9 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
                 });
                 */
             } else {
-                //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventDelayEndBroadcastReceiver.doWork (2)");
-
                 //                PPApplication.logE("[EVENTS_HANDLER_CALL] EventDelayEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_END (2)");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_END);
-
-                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventDelayEndBroadcastReceiver.doWork (2)");
             }
         }
     }

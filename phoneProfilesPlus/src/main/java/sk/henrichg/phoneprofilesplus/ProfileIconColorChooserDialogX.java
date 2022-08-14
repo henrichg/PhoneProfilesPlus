@@ -190,7 +190,6 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
                 dialogBuilder.setView(layout);
 
                 final ChromaColorView chromaColorView = layout.findViewById(R.id.custom_color_chroma_color_view);
-                //PPApplication.logE("CustomColorDialogPreferenceFragmentX.onBindDialogView", "preference.value="+preference.value);
                 chromaColorView.setCurrentColor(profileIconPreference.customColor);
                 chromaColorView.setColorMode(ColorMode.values()[0]);
                 chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);

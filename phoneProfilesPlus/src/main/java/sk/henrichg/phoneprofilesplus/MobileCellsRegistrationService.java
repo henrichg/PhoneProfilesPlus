@@ -50,8 +50,6 @@ public class MobileCellsRegistrationService extends Service {
     {
         super.onCreate();
 
-        //PPApplication.logE("MobileCellsRegistrationService.onCreate", "xxx");
-
         context = this;
 
         removeResultNotification();
@@ -69,7 +67,6 @@ public class MobileCellsRegistrationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
-        //PPApplication.logE("MobileCellsRegistrationService.onCreate", "remainingDuration="+remainingDuration);
 
         if (remainingDuration > 0) {
             serviceStarted = true;
@@ -116,7 +113,6 @@ public class MobileCellsRegistrationService extends Service {
             countDownTimer.start();
         }
         else {
-            //PPApplication.logE("[REG] MobileCellsRegistrationService.onCreate", "setMobileCellsAutoRegistration(true)");
             setMobileCellsAutoRegistration(context, true);
 
             /*stopForeground(true);
@@ -140,8 +136,6 @@ public class MobileCellsRegistrationService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        //PPApplication.logE("MobileCellsRegistrationService.onDestroy", "start");
 
         if (countDownTimer != null)
             countDownTimer.cancel();
@@ -175,7 +169,6 @@ public class MobileCellsRegistrationService extends Service {
 
         serviceStarted = false;
 
-        //PPApplication.logE("MobileCellsRegistrationService.onDestroy", "end");
     }
 
     /*
@@ -244,12 +237,9 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     private void stopRegistration() {
-        //PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
-
         showNotification(0);
         GlobalUtils.sleep(500);
 
-        //PPApplication.logE("[REG] MobileCellsRegistrationService.stopRegistration", "setMobileCellsAutoRegistration(true)");
         setMobileCellsAutoRegistration(context, true);
 
         // broadcast for event preferences

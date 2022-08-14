@@ -72,7 +72,6 @@ public class LockDeviceActivity extends AppCompatActivity {
                 */
 
                 displayed = true;
-                //PPApplication.logE("LockDeviceActivity.onCreate", "displayed=true");
 
                 PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                 //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
@@ -81,7 +80,6 @@ public class LockDeviceActivity extends AppCompatActivity {
                     if (PPApplication.screenTimeoutHandler != null) {
                         PPApplication.screenTimeoutHandler.post(() -> {
                             synchronized (PPApplication.rootMutex) {
-                                PPApplication.logE("LockDeviceActivity.onCreate", "1000");
                                 String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1000";
                                 //if (PPApplication.isSELinuxEnforcing())
                                 //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -118,8 +116,6 @@ public class LockDeviceActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        //PPApplication.logE("LockDeviceActivity.onDestroy", "displayed="+displayed);
-
         final Context appContext = getApplicationContext();
 
         if (displayed) {
@@ -143,7 +139,6 @@ public class LockDeviceActivity extends AppCompatActivity {
                     if (PPApplication.screenTimeoutHandler != null) {
                         PPApplication.screenTimeoutHandler.post(() -> {
                             synchronized (PPApplication.rootMutex) {
-                                PPApplication.logE("LockDeviceActivity.onDestroy", "" + PPApplication.screenTimeoutBeforeDeviceLock);
                                 String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
                                 //if (PPApplication.isSELinuxEnforcing())
                                 //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -168,14 +163,9 @@ public class LockDeviceActivity extends AppCompatActivity {
                 // set screen timeout from ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff
                 // this replaces screen timeout set in this activity
                 final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff;
-                //PPApplication.logE("LockDeviceActivity.onDestroy", "screenTimeout="+screenTimeout);
                 if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
-                    //PPApplication.logE("LockDeviceActivity.onDestroy", "permission ok");
                     if (PPApplication.screenTimeoutHandler != null) {
-                        PPApplication.screenTimeoutHandler.post(() -> {
-                            //PPApplication.logE("LockDeviceActivity.onDestroy", "call ActivateProfileHelper.setScreenTimeout");
-                            ActivateProfileHelper.setScreenTimeout(screenTimeout, true, appContext);
-                        });
+                        PPApplication.screenTimeoutHandler.post(() -> ActivateProfileHelper.setScreenTimeout(screenTimeout, true, appContext));
                     }
                 }
             }
@@ -189,7 +179,6 @@ public class LockDeviceActivity extends AppCompatActivity {
     public void finish()
     {
         super.finish();
-        //PPApplication.logE("LockDeviceActivity.finish", "xxx");
         overridePendingTransition(0, 0);
     }
 

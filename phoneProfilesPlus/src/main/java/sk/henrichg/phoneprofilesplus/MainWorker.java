@@ -103,12 +103,9 @@ public class MainWorker extends Worker {
                     //case HANDLE_EVENTS_PERIODIC_WORK_TAG:
                         int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
                         if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
-                            //PPApplication.logE("MainWorker.doWork", "sensorType="+sensorType);
                             // start events handler
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MainWorker.doWork: sensorType="+sensorType);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MainWorker.doWork");
                         }
                         break;
                     case LOCATION_SCANNER_SWITCH_GPS_TAG_WORK:
@@ -143,21 +140,17 @@ public class MainWorker extends Worker {
                     //    }
                     //    break;
                     case APPLICATION_FULLY_STARTED_WORK_TAG:
-//                        PPApplication.logE("[APP_START] MainWorker.doWork", "setApplicationFullyStarted");
                         PPApplication.setApplicationFullyStarted(appContext);
                         PPApplication.showToastForProfileActivation = true;
                         break;
                     case ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG:
-//                        PPApplication.logE("MainWorker.doWork", "ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
                         int oldAccessibilityServiceForPPPExtenderConnected = PPApplication.accessibilityServiceForPPPExtenderConnected;
                         if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, false, false
                                 /*, "MainWorker.doWork (ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG)"*/)) {
                             PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
-//                            PPApplication.logE("MainWorker.doWork", "ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG PPApplication.accessibilityServiceForPPPExtenderConnected=" + PPApplication.accessibilityServiceForPPPExtenderConnected);
                         }
                         else {
                             PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
-//                            PPApplication.logE("MainWorker.doWork", "ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG PPApplication.accessibilityServiceForPPPExtenderConnected=" + PPApplication.accessibilityServiceForPPPExtenderConnected);
 
                             boolean displayNotification = getInputData().getBoolean(PPPExtenderBroadcastReceiver.EXTRA_DISPLAY_NOTIFICATION, true);
                             if (displayNotification) {
@@ -204,7 +197,7 @@ public class MainWorker extends Worker {
                             // answer from Extender not returned
                             PPApplication.restartAllScanners(appContext, false);
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-                            dataWrapper.restartEventsWithDelay(5, true, false, RestartEventsWithDelayWorker.WORK_TAG_1, PPApplication.ALTYPE_UNDEFINED);
+                            dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
                         }
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
@@ -347,7 +340,6 @@ public class MainWorker extends Worker {
             //__handler.post(() -> {
             //Runnable runnable = () -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (1)");
-//                PPApplication.logE("MainWorker.doAfterFirstStart", "in handler - START");
 
                 //Context appContext= appContextWeakRef.get();
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -367,7 +359,7 @@ public class MainWorker extends Worker {
                         PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
-                        PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+                        PhoneProfilesService.getInstance().registerPPPExtenderReceiver(true, dataWrapper);
                         PhoneProfilesService.getInstance().registerEventsReceiversAndWorkers(false);
 
                         if (PPApplication.deviceBoot) {
@@ -378,7 +370,6 @@ public class MainWorker extends Worker {
                                 PPApplication.logE("MainWorker.doAfterFirstStart", "device boot event exists");
 
                                 // start events handler
-                                //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
 
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] MainWorker.doAfterFirstStart", "sensorType=SENSOR_TYPE_DEVICE_BOOT");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -390,12 +381,11 @@ public class MainWorker extends Worker {
 
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT);
 
-                                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
                             }
                         }
 
 //                    } catch (Exception eee) {
-//                        PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
+//                        Log.e("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
 //                        //PPApplication.recordException(eee);
 //                    } finally {
 //                        if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -411,7 +401,6 @@ public class MainWorker extends Worker {
             //PPApplication.eventsHandlerExecutor.submit(runnable);
 
             // !!! FOR TESTING NOT STARTED PPP BUG !!!!
-//            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "PPApplication.setApplicationFullyStarted");
 //            PPApplication.setApplicationFullyStarted(appContext);
 
             //PPApplication.updateNotificationAndWidgets(true, true, appContext);
@@ -467,10 +456,10 @@ public class MainWorker extends Worker {
                         PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
-                        PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+                        PhoneProfilesService.getInstance().registerPPPExtenderReceiver(true, dataWrapper);
 
 //                    } catch (Exception eee) {
-//                        PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
+//                        Log.e("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
 //                        //PPApplication.recordException(eee);
 //                    } finally {
 //                        if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -485,7 +474,6 @@ public class MainWorker extends Worker {
 //            PPApplication.createBasicExecutorPool();
 //            PPApplication.basicExecutorPool.submit(runnable);
 
-//            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "setApplicationFullyStarted");
             PPApplication.setApplicationFullyStarted(appContext);
 
             dataWrapper.activateProfileAtFirstStart();
@@ -495,17 +483,13 @@ public class MainWorker extends Worker {
 
 //        PPApplication.setApplicationFullyStarted(appContext, showToast);
 
-        //PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=DelayedWorksWorker.doWork");
-//        PPApplication.logE("------- PhoneProfilesService.doForFirstStart.doWork", "forceUpdateGUI");
         PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
         //}
 
-//        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - START");
         // must be first
         PPApplication.createContactsCache(appContext, true);
         //must be seconds, this ads groups int contacts
         PPApplication.createContactGroupsCache(appContext, true);
-//        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - END");
         EventsHandler eventsHandler = new EventsHandler(appContext);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
 

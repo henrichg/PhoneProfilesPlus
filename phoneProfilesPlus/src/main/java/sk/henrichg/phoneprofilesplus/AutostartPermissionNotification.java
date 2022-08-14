@@ -12,8 +12,6 @@ import androidx.core.content.ContextCompat;
 class AutostartPermissionNotification {
 
     static void showNotification(Context context, @SuppressWarnings("SameParameterValue") boolean useHandler) {
-        //PPApplication.logE("AutostartPermissionNotification.showNotification", "xxx");
-
         if (PPApplication.applicationFullyStarted) {
             final Context appContext = context.getApplicationContext();
 
@@ -24,7 +22,7 @@ class AutostartPermissionNotification {
                 //        context.getApplicationContext()) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=AutostartPermissionNotification.showNotification");
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=AutostartPermissionNotification.showNotification");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -40,12 +38,8 @@ class AutostartPermissionNotification {
                             }
 
                             try {
-                                //PPApplication.logE("AutostartPermissionNotification.showNotification", "pm="+pm);
-
                                 final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
                                 if (autoStartPermissionHelper.isAutoStartPermissionAvailable(appContext)) {
-                                    //PPApplication.logE("AutostartPermissionNotification.showNotification", "optimized");
-
                                     showNotification(appContext,
                                             appContext.getString(R.string.autostart_permission_notification_title),
                                             appContext.getString(R.string.autostart_permission_notification_text));
@@ -53,9 +47,8 @@ class AutostartPermissionNotification {
                             } catch (Exception ignore) {
                             }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=AutostartPermissionNotification_showNotification");
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -73,12 +66,8 @@ class AutostartPermissionNotification {
                 boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                 if (!isServiceRunning) {
                     try {
-                        //PPApplication.logE("AutostartPermissionNotification.showNotification", "pm="+pm);
-
                         final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
                         if (autoStartPermissionHelper.isAutoStartPermissionAvailable(appContext)) {
-                            //PPApplication.logE("AutostartPermissionNotification.showNotification", "optimized");
-
                             showNotification(appContext,
                                     appContext.getString(R.string.autostart_permission_notification_title),
                                     appContext.getString(R.string.autostart_permission_notification_text));

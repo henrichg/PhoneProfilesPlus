@@ -18,13 +18,10 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
 
         if (Event.getGlobalEventsRunning())
         {
-            //PPApplication.logE("@@@ CalendarProviderChangedBroadcastReceiver.onReceive","xxx");
-
             /*boolean calendarEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
             calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
-            PPApplication.logE("CalendarProviderChangedBroadcastReceiver.onReceive","calendarEventsExists="+calendarEventsExists);
             dataWrapper.invalidateDataWrapper();
 
             if (calendarEventsExists)
@@ -53,7 +50,6 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
                         } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);

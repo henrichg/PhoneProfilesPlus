@@ -23,7 +23,6 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning() || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
             //if (scanStarted) {
-            //PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
 
             BluetoothScanWorker.setWaitForLEResults(appContext, false);
@@ -55,7 +54,6 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
-//                                PPApplication.logE("[TEST BATTERY] BluetoothLEScanBroadcastReceiver.onReceive", "for=" + MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
 //                            } catch (Exception ignored) {
 //                            }
 //                            //}

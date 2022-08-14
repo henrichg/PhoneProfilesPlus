@@ -19,8 +19,6 @@ class DrawOverAppsPermissionNotification {
             // Must be granted because of:
             // https://developer.android.com/guide/components/activities/background-starts
 
-            //PPApplication.logE("DrawOverAppsPermissionNotification.showNotification", "xxx");
-
             if (useHandler) {
                 final Context appContext = context.getApplicationContext();
                 //PPApplication.startHandlerThread(/*"DrawOverAppsPermissionNotification.showNotification"*/);
@@ -29,7 +27,7 @@ class DrawOverAppsPermissionNotification {
                 //        context.getApplicationContext()) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -50,9 +48,8 @@ class DrawOverAppsPermissionNotification {
                             } catch (Exception ignore) {
                             }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DrawOverAppsPermissionNotification");
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {

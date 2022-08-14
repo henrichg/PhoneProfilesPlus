@@ -9,17 +9,15 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] NotificationEventEndBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] NotificationEventEndBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {
-            //PPApplication.logE("NotificationEventEndBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
         }
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        //PPApplication.logE("[HANDLER] NotificationEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
-
         //final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
@@ -52,7 +50,6 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NotificationEventEndBroadcastReceiver.doWork");
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
@@ -70,7 +67,6 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
                 }

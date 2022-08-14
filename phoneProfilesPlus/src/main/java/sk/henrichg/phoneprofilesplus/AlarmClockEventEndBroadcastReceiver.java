@@ -9,17 +9,15 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] AlarmClockEventEndBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] AlarmClockEventEndBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {
-            //PPApplication.logE("AlarmClockEventEndBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
         }
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        //PPApplication.logE("[HANDLER] AlarmClockEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
-
         //Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
@@ -52,7 +50,6 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=AlarmClockEventEndBroadcastReceiver.doWork");
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
@@ -70,7 +67,6 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.logE("AlarmClockEventEndBroadcastReceiver.doWork", "handle events");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END);
                 }

@@ -20,7 +20,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
 
@@ -39,9 +39,8 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
                         if (event != null)
                             StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationDeletedReceiver.onReceive");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

@@ -9,17 +9,15 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] MissedCallEventEndBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST_ALARM] MissedCallEventEndBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {
-            //PPApplication.logE("MissedCallEventEndBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
         }
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        //PPApplication.logE("[HANDLER] MissedCallEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -50,7 +48,6 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MissedCallEventEndBroadcastReceiver.doWork");
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
@@ -68,7 +65,6 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
             /*}
             else {
                 if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.logE("MissedCallEventEndBroadcastReceiver.doWork", "handle events");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END);
                 }

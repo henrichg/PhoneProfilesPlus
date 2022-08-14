@@ -73,7 +73,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
+//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
 
                     //Context appContext= appContextWeakRef.get();
 
@@ -84,7 +84,6 @@ public class NFCTagReadActivity extends AppCompatActivity {
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG);
                     //}
 
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
                 }; //);
                 PPApplication.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);

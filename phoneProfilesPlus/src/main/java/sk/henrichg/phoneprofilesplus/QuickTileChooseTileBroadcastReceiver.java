@@ -22,7 +22,6 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
             return;
 
         int tileId = intent.getIntExtra(EXTRA_QUICK_TILE_ID, -1);
-//        PPApplication.logE("QuickTileChooseTileBroadcastReceiver.onReceive", "tileId="+tileId);
         if (tileId == -1)
             return;
 
@@ -60,7 +59,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPTileService.chooseTileBroadcastReceiver.onReceive");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPTileService.chooseTileBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
 
@@ -88,7 +87,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
 
                     dataWrapper.invalidateProfileList();
                 } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

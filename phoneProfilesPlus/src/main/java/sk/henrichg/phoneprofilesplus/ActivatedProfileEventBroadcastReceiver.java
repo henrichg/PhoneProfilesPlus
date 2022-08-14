@@ -15,8 +15,6 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
         if (action != null) {
-//            PPApplication.logE("ActivatedProfileEventBroadcastReceiver.onReceive", "action=" + action);
-
             long profileId = intent.getLongExtra(EXTRA_ACTIVATED_PROFILE, 0);
             if (profileId != 0)
                 doWork(profileId, context);
@@ -24,8 +22,6 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void doWork(long _profileId, Context context) {
-        //PPApplication.logE("[HANDLER] ActivatedProfileEventBroadcastReceiver.doWork", "useHandler="+useHandler);
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -41,7 +37,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
             //        context.getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatedProfileEventBroadcastReceiver.doWork");
+//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActivatedProfileEventBroadcastReceiver.doWork");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -93,9 +89,8 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
 
-//                    PPApplication.logE("[EVENTS_HANDLER_CALL] ActivatedProfileEventBroadcastReceiver.doWork", "END run");
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

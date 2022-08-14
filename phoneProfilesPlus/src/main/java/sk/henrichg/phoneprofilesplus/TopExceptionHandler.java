@@ -32,8 +32,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     @SuppressWarnings("StringConcatenationInLoop")
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
     {
-//        PPApplication.logE("TopExceptionHandler.uncaughtException", "defaultUEH="+defaultUEH);
-
         try {
             if (PPApplication.lockDeviceActivity != null) {
                 boolean canWriteSettings;// = true;
@@ -43,7 +41,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                         if (PPApplication.screenTimeoutHandler != null) {
                             PPApplication.screenTimeoutHandler.post(() -> {
                                 synchronized (PPApplication.rootMutex) {
-                                    PPApplication.logE("TopExceptionHandler.uncaughtException", "" + PPApplication.screenTimeoutBeforeDeviceLock);
                                     String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -128,7 +125,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             // this is only for debuging, how is handled ignored exceptions
             //if (e instanceof java.lang.RuntimeException) {
             //    if ((e.getMessage() != null) && (e.getMessage().equals("Test Crash"))) {
-            //        PPApplication.logE("TopExceptionHandler.uncaughtException", "it is 'Test Crash'");
             //        ignore = true;
             //    }
             //}

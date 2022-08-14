@@ -67,7 +67,6 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                     //if (extras != null) {
                     //    profilesCount = extras.getInt(PPApplication.EXTRA_PP_PROFILES_COUNT);
                     //    profiles = new ArrayList<>();
-                    //    PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "profilesCount="+profilesCount);
                     //}
                 }
                 break;*/
@@ -80,7 +79,6 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                         PPProfileForExport profile = extras.getParcelable(PPApplication.EXTRA_PP_PROFILE_DATA);
                         if (profile != null) {
                             profiles.add(profile);
-                            //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "profile.KEY_NAME=" + profile.KEY_NAME);
                         }
                     }
                 }
@@ -92,7 +90,6 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                     //if (extras != null) {
                     //    shortcutsCount = extras.getInt(PPApplication.EXTRA_PP_SHORTCUTS_COUNT);
                     //    shortcuts = new ArrayList<>();
-                    //    PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "shortcutsCount="+shortcutsCount);
                     //}
                 }
                 break;*/
@@ -105,7 +102,6 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                         PPShortcutForExport shortcut = extras.getParcelable(PPApplication.EXTRA_PP_SHORTCUT_DATA);
                         if (shortcut != null) {
                             shortcuts.add(shortcut);
-                            //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "shortcut.KEY_S_NAME="+shortcut.KEY_S_NAME);
                         }
                     }
                 }
@@ -117,7 +113,6 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                     //if (extras != null) {
                     //    intentsCount = extras.getInt(PPApplication.EXTRA_PP_INTENTS_COUNT);
                     //    intents = new ArrayList<>();
-                    //    PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "intentsCount="+intentsCount);
                     //}
                 }
                 break;*/
@@ -130,7 +125,6 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                         PPIntentForExport ppIntent = extras.getParcelable(PPApplication.EXTRA_PP_INTENT_DATA);
                         if (ppIntent != null) {
                             intents.add(ppIntent);
-                            //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "ppIntent.KEY_IN_NAME="+ppIntent.KEY_IN_NAME);
                         }
                     }
                 }

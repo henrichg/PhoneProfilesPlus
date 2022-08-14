@@ -460,8 +460,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                     int popupWidth = contentView.getMeasuredWidth();
                     int popupHeight = contentView.getMeasuredHeight();
-                    //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupWidth="+popupWidth);
-                    //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupHeight="+popupHeight);
 
                     ViewGroup activityView = editorFragment.getActivity().findViewById(android.R.id.content);
                     //View activityView = editorFragment.getActivity().getWindow().getDecorView().getRootView();
@@ -513,7 +511,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onClick(View v) {
-        //PPApplication.logE("EditorEventListViewHolder.onClick", "xxx");
         editorFragment.startEventPreferencesActivity(event, 0);
     }
 

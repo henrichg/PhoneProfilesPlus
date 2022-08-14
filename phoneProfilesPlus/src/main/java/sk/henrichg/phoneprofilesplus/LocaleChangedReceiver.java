@@ -39,7 +39,6 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                             PhoneProfilesService.getInstance().showProfileNotification(false);
                         //}
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocaleChangedReceiver.onReceive");
                     }
                 });
 */

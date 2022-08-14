@@ -49,7 +49,6 @@ class MobileCellsScanner {
     //static String ACTION_PHONE_STATE_CHANGED = PPApplication.PACKAGE_NAME + ".ACTION_PHONE_STATE_CHANGED";
 
     MobileCellsScanner(Context context) {
-        //PPApplication.logE("MobileCellsScanner.constructor", "xxx");
         this.context = context;
 
         TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -59,52 +58,39 @@ class MobileCellsScanner {
                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                 //SubscriptionManager.from(appContext);
                 if (mSubscriptionManager != null) {
-//                    PPApplication.logE("MobileCellsScanner.constructor", "mSubscriptionManager != null");
                     List<SubscriptionInfo> subscriptionList = null;
                     try {
                         // Loop through the subscription list i.e. SIM list.
                         subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-//                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionList=" + subscriptionList);
                     } catch (SecurityException e) {
                         //PPApplication.recordException(e);
                     }
                     if (subscriptionList != null) {
-//                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionList.size()=" + subscriptionList.size());
                         for (int i = 0; i < subscriptionList.size(); i++) {
                             // Get the active subscription ID for a given SIM card.
                             SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-//                            PPApplication.logE("MobileCellsScanner.constructor", "subscriptionInfo=" + subscriptionInfo);
                             if (subscriptionInfo != null) {
                                 int subscriptionId = subscriptionInfo.getSubscriptionId();
                                 if (subscriptionInfo.getSimSlotIndex() == 0) {
                                     if (telephonyManagerSIM1 == null) {
-//                                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionId=" + subscriptionId);
                                         telephonyManagerSIM1 = telephonyManager.createForSubscriptionId(subscriptionId);
                                         mobileCellsListenerSIM1 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM1);
                                     }
                                 }
                                 if (subscriptionInfo.getSimSlotIndex() == 1) {
                                     if (telephonyManagerSIM2 == null) {
-//                                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionId=" + subscriptionId);
                                         telephonyManagerSIM2 = telephonyManager.createForSubscriptionId(subscriptionId);
                                         mobileCellsListenerSIM2 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM2);
                                     }
                                 }
                             }
-//                            else
-//                                PPApplication.logE("MobileCellsScanner.constructor", "subscriptionInfo == null");
                         }
                     }
-//                    else
-//                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionList == null");
                 }
-//                else
-//                    PPApplication.logE("MobileCellsScanner.constructor", "mSubscriptionManager == null");
             }
             else {
                 telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
                 mobileCellsListenerDefault = new MobileCellsListener(null, context, this, telephonyManagerDefault);
-//                PPApplication.logE("MobileCellsScanner.constructor", "default telephone manager");
             }
         }
 
@@ -112,7 +98,6 @@ class MobileCellsScanner {
     }
 
     void connect() {
-//        PPApplication.logE("MobileCellsScanner.connect", "xxx");
         boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
         if (/*PPApplication.*/isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
@@ -125,17 +110,10 @@ class MobileCellsScanner {
                         ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo)) {
                     // not scan in configured time
-//                    PPApplication.logE("MobileCellsScanner.connect", "-- END - scan in time = 2 -------");
                     return;
                 }
             }
         }
-
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("MobileCellsScanner.connect", "telephonyManager=" + telephonyManager);
-            PPApplication.logE("MobileCellsScanner.connect", "FEATURE_TELEPHONY=" + PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY));
-            PPApplication.logE("MobileCellsScanner.connect", "checkLocation=" + Permissions.checkLocation(context.getApplicationContext()));
-        }*/
 
         TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         if ((telephonyManager != null) &&
@@ -144,7 +122,6 @@ class MobileCellsScanner {
             int simCount = telephonyManager.getPhoneCount();
             if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                 if ((telephonyManagerSIM1 != null) && (mobileCellsListenerSIM1 != null)) {
-//                    PPApplication.logE("MobileCellsScanner.connect", "listen SIM 1");
                     telephonyManagerSIM1.listen(mobileCellsListenerSIM1,
                             PhoneStateListener.LISTEN_CELL_INFO
                                     | PhoneStateListener.LISTEN_CELL_LOCATION // is required for some devices, especially with AP level < 26
@@ -152,7 +129,6 @@ class MobileCellsScanner {
                     );
                 }
                 if ((telephonyManagerSIM2 != null) && (mobileCellsListenerSIM2 != null)) {
-//                    PPApplication.logE("MobileCellsScanner.connect", "listen SIM 2");
                     telephonyManagerSIM2.listen(mobileCellsListenerSIM2,
                             PhoneStateListener.LISTEN_CELL_INFO
                                     | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
@@ -161,7 +137,6 @@ class MobileCellsScanner {
                 }
             }
             else {
-//                PPApplication.logE("MobileCellsScanner.connect", "listen default");
                 telephonyManagerDefault.listen(mobileCellsListenerDefault,
                         PhoneStateListener.LISTEN_CELL_INFO
                                 | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
@@ -174,8 +149,6 @@ class MobileCellsScanner {
     }
 
     void disconnect() {
-        //PPApplication.logE("MobileCellsScanner.disconnect", "xxx");
-
         if (mobileCellsListenerSIM1 != null) {
             try {
                 if (telephonyManagerSIM1 != null)
@@ -208,7 +181,6 @@ class MobileCellsScanner {
     }
 
     void registerCell() {
-        //PPApplication.logE("MobileCellsScanner.getRegisteredCell", "xxx");
         if (mobileCellsListenerDefault != null)
             mobileCellsListenerDefault.registerCell();
         if (mobileCellsListenerSIM1 != null)
@@ -278,23 +250,16 @@ class MobileCellsScanner {
         if (!forConnect) {
             enabledAutoRegistration = true;
             // save to shared preferences
-//            PPApplication.logE("[REG] MobileCellsScanner.startAutoRegistration", "setMobileCellsAutoRegistration(true)");
             MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
         }
         else
             // read from shared preferences
             MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("MobileCellsScanner.startAutoRegistration", "enabledAutoRegistration=" + enabledAutoRegistration);
-            PPApplication.logE("MobileCellsScanner.startAutoRegistration", "cellsNameForAutoRegistration=" + cellsNameForAutoRegistration);
-        }*/
-
         if (enabledAutoRegistration) {
             try {
                 // start registration service
                 Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
-//                PPApplication.logE("[START_PP_SERVICE] MobileCellsScanner.startAutoRegistration", "MobileCellsRegistrationService");
                 PPApplication.startPPService(context, serviceIntent);
             } catch (Exception e) {
                 PPApplication.recordException(e);
@@ -303,8 +268,6 @@ class MobileCellsScanner {
     }
 
     static void stopAutoRegistration(Context context, boolean clearRegistration) {
-        //PPApplication.logE("MobileCellsScanner.stopAutoRegistration", "xxx");
-
         // stop registration service
         context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
         //MobileCellsRegistrationService.stop(context);
@@ -312,7 +275,6 @@ class MobileCellsScanner {
         if (clearRegistration) {
             //clearEventList();
             // set enabledAutoRegistration=false
-            //PPApplication.logE("[REG] MobileCellsScanner.stopAutoRegistration", "setMobileCellsAutoRegistration(true)");
             MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, true);
         }
     }

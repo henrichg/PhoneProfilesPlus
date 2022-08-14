@@ -29,11 +29,6 @@ class TonesHandler {
 
                 String uriId = uri + "/" + id;
 
-                //if (PPApplication.logEnabled()) {
-                //    PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "title=" + title);
-                //    PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "uriId=" + uriId);
-                //}
-
                 if (title.equals(TONE_NAME) || title.equals("phoneprofiles_silent"))
                     return uriId;
             }
@@ -98,8 +93,6 @@ class TonesHandler {
         manager.setType(type);
         Cursor cursor = manager.getCursor();
 
-        //PPApplication.logE("TonesHandler.getToneName", "_uri="+_uri);
-
         while (cursor.moveToNext()) {
             String id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
             String uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
@@ -118,10 +111,6 @@ class TonesHandler {
 
     /*
     static boolean isPhoneProfilesSilent(Uri uri, Context appContext) {
-        //if (PPApplication.logEnabled()) {
-        //    PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "xxx");
-        //    PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "uri=" + uri);
-        //}
         String displayName = "";
         try {
             Cursor cursor = appContext.getContentResolver().query(uri, null, null, null, null);
@@ -131,7 +120,6 @@ class TonesHandler {
                     if (nameIndex != -1)
                         displayName = cursor.getString(nameIndex);
                 }
-                //PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "displayName=" + displayName);
 
                 cursor.close();
             }
@@ -141,7 +129,6 @@ class TonesHandler {
             PPApplication.recordException(e);
         }
         String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
-        //PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "END");
         return (displayName != null) && displayName.equals(filename);
     }
     */
@@ -192,12 +179,10 @@ class TonesHandler {
         //else
             path = context.getExternalFilesDir(null);
         if (path != null) {
-            //PPApplication.logE("TonesHandler._installTone", "path=" + path.getAbsolutePath());
 
             path.mkdirs();
             String filename = context.getResources().getResourceEntryName(resID) + ".ogg";
             File outFile = new File(path, filename);
-            //PPApplication.logE("TonesHandler._installTone", "path=" + outFile.getAbsolutePath());
 
             boolean isError = false;
 
@@ -255,7 +240,6 @@ class TonesHandler {
 
                     // Set the file metadata
                     String outAbsPath = outFile.getAbsolutePath();
-                    //PPApplication.logE("TonesHandler._installTone", "outAbsPath=" + outAbsPath);
 
                     Uri contentUri;
                     //if (Build.VERSION.SDK_INT < 29)
@@ -295,9 +279,6 @@ class TonesHandler {
                                 //new MediaScannerConnection.OnScanCompletedListener() {
                                 //    @Override
                                 //    public void onScanCompleted(String path, Uri uri) {
-                                //        PPApplication.logE("TonesHandler._installTone","scanFile completed");
-                                //        PPApplication.logE("TonesHandler._installTone","path="+path);
-                                //        PPApplication.logE("TonesHandler._installTone","uri="+uri);
                                 //    }
                                 //}
                         );
@@ -312,11 +293,9 @@ class TonesHandler {
 //                    Cursor cursor = context.getContentResolver().query(contentUri,
 //                            new String[]{MediaStore.MediaColumns.DATA},
 //                            MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
-//                    PPApplication.logE("TonesHandler._installTone", "cursor=" + cursor);
 //                    if (cursor != null) {
 //                        if (!cursor.moveToFirst()) {
 //                            // not exists in content
-//                            PPApplication.logE("TonesHandler._installTone", "not exists in content resolver");
 //
 //                            cursor.close();
 //
@@ -349,9 +328,6 @@ class TonesHandler {
 //                                        //new MediaScannerConnection.OnScanCompletedListener() {
 //                                        //    @Override
 //                                        //    public void onScanCompleted(String path, Uri uri) {
-//                                        //        PPApplication.logE("TonesHandler._installTone","scanFile completed");
-//                                        //        PPApplication.logE("TonesHandler._installTone","path="+path);
-//                                        //        PPApplication.logE("TonesHandler._installTone","uri="+uri);
 //                                        //    }
 //                                        //}
 //                                );
@@ -374,9 +350,6 @@ class TonesHandler {
                     isError = true;
                 }
             }
-
-            //if (!isError)
-            //    PPApplication.logE("TonesHandler._installTone", "Tone installed: " + filename);
 
             return !isError;
         }

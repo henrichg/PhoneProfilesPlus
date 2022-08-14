@@ -147,7 +147,6 @@ public class TileChooserActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-//        PPApplication.logE("[APP_START] BackgroundActivateProfileActivity.showNotStartedToast", "setApplicationFullyStarted");
         PPApplication.setApplicationFullyStarted(getApplicationContext());
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
@@ -176,12 +175,6 @@ public class TileChooserActivity extends AppCompatActivity {
         // this is for list widget header
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("EditorActivity.onStart", "application is not started");
-                PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                if (PhoneProfilesService.getInstance() != null)
-                    PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-            }*/
 
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
@@ -200,12 +193,6 @@ public class TileChooserActivity extends AppCompatActivity {
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EditorActivity.onStart", "application is started");
-                    PPApplication.logE("EditorActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                    if (PhoneProfilesService.getInstance() != null)
-                        PPApplication.logE("EditorActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-                }*/
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
 
@@ -223,9 +210,6 @@ public class TileChooserActivity extends AppCompatActivity {
 
                 return true;
             }
-            //else {
-            //    PPApplication.logE("EditorActivity.onStart", "application and service is started");
-            //}
         }
 
         return false;

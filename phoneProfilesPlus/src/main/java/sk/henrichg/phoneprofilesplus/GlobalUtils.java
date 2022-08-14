@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.location.LocationManager;
@@ -31,19 +32,14 @@ public class GlobalUtils {
         //    KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
         if (PPApplication.keyguardManager != null) {
             secureKeyguard = PPApplication.keyguardManager.isKeyguardSecure();
-//            PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "secureKeyguard=" + secureKeyguard);
             if (!secureKeyguard) {
-//                PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "getLockScreenDisabled=" + ApplicationPreferences.prefLockScreenDisabled);
 
                 if (PPApplication.isScreenOn) {
-//                    PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "screen on");
 
                     if (ApplicationPreferences.prefLockScreenDisabled) {
-//                        PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "disableKeyguard()");
                         reenableKeyguard(context);
                         disableKeyguard(context);
                     } else {
-//                        PPApplication.logE("$$$ GlobalUtils.switchKeyguard", "reenableKeyguard()");
                         reenableKeyguard(context);
                     }
                 }
@@ -53,8 +49,6 @@ public class GlobalUtils {
 
     private static void disableKeyguard(Context context)
     {
-//        PPApplication.logE("$$$ GlobalUtils.disableKeyguard","keyguardLock="+PPApplication.keyguardLock);
-
         if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(context.getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
             try {
                 PPApplication.keyguardLock.disableKeyguard();
@@ -67,8 +61,6 @@ public class GlobalUtils {
 
     static void reenableKeyguard(Context context)
     {
-//        PPApplication.logE("$$$ GlobalUtils.reenableKeyguard","keyguardLock="+PPApplication.keyguardLock);
-
         if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(context.getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
             try {
                 PPApplication.keyguardLock.reenableKeyguard();
@@ -151,12 +143,10 @@ public class GlobalUtils {
         if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis())
         {
             // endTime is over midnight
-            //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","startTime >= endTime");
 
             if ((nowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
                     (nowTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis())) {
                 // now is between midnight and endTime
-                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","now is between midnight and endTime");
 
                 calStartTime.add(Calendar.DAY_OF_YEAR, -1);
             }
@@ -164,23 +154,18 @@ public class GlobalUtils {
             if ((nowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
                     (nowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
                 // now is between startTime and midnight
-                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","now is between startTime and midnight");
 
                 calEndTime.add(Calendar.DAY_OF_YEAR, 1);
             }
             else {
                 // now is before start time
-                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","now is before start time");
 
                 calEndTime.add(Calendar.DAY_OF_YEAR, 1);
             }
         }
         else {
-            //    PPApplication.logE("EventPreferencesTime.computeAlarm","startTime < endTime");
-
             if (nowTime.getTimeInMillis() > hoursEndTime.getTimeInMillis()) {
                 // now is after end time, compute for tomorrow
-                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes", "nowTime > endTime");
 
                 calStartTime.add(Calendar.DAY_OF_YEAR, 1);
                 calEndTime.add(Calendar.DAY_OF_YEAR, 1);
@@ -215,24 +200,17 @@ public class GlobalUtils {
                 int batteryPct;
 
                 //int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-                //PPApplication.logE("DataWrapper.isPowerSaveMode", "status=" + status);
                 int plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
                 isCharging = plugged == BatteryManager.BATTERY_PLUGGED_AC
                         || plugged == BatteryManager.BATTERY_PLUGGED_USB
                         || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
                 //isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 //             status == BatteryManager.BATTERY_STATUS_FULL;
-                //PPApplication.logE("DataWrapper.isPowerSaveMode", "isCharging=" + isCharging);
                 if (!isCharging) {
                     int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                     int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                    //if (PPApplication.logEnabled()) {
-                    //    PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
-                    //    PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
-                    //}
 
                     batteryPct = Math.round(level / (float) scale * 100);
-                    //PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);
 
                     if (applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5))
                         return true;
@@ -272,7 +250,6 @@ public class GlobalUtils {
             }
             enabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
-        //PPApplication.logE("PhoneProfilesService.isLocationEnabled", "enabled="+enabled);
         return enabled;
     }
 
@@ -296,13 +273,10 @@ public class GlobalUtils {
                 return null;
             }
             if (services != null) {
-                //PPApplication.logE("PhoneProfilesService.getServiceInfo", "services.size()="+services.size());
                 try {
                     //ActivityManager.RunningServiceInfo serviceInfo = null;
                     for (ActivityManager.RunningServiceInfo service : services) {
-                        //PPApplication.logE("PhoneProfilesService.getServiceInfo", "service.service.getClassName()="+service.service.getClassName());
                         if (serviceClass.getName().equals(service.service.getClassName())) {
-                            //PPApplication.logE("PhoneProfilesService.getServiceInfo", "service running");
                             //serviceInfo = service;
                             return service;
                         }
@@ -314,7 +288,6 @@ public class GlobalUtils {
                 }
             }
         }
-        //PPApplication.logE("PhoneProfilesService.getServiceInfo", "false");
         return null;
     }
 
@@ -323,13 +296,11 @@ public class GlobalUtils {
         if (inForeground)
             isRunning = isRunning && isInForeground;
 
-        //PPApplication.logE("PhoneProfilesService.isServiceRunning", "isRunning="+isRunning);
         return isRunning;*/
 
         ActivityManager.RunningServiceInfo service = getServiceInfo(context, serviceClass);
         if (service != null) {
             if (inForeground) {
-                //PPApplication.logE("PhoneProfilesService.isServiceRunning", "service.foreground=" + service.foreground);
                 return service.foreground;
             } else
                 return true;
@@ -449,9 +420,6 @@ public class GlobalUtils {
                                 }
                             }
                         }
-//                        PPApplication.logE("PPApplication.getCallState", "callStateSIM1="+callStateSIM1);
-//                        PPApplication.logE("PPApplication.getCallState", "callStateSIM2="+callStateSIM2);
-
                         if ((callStateSIM1 == TelephonyManager.CALL_STATE_RINGING) ||
                                 (callStateSIM2 == TelephonyManager.CALL_STATE_RINGING))
                             return TelephonyManager.CALL_STATE_RINGING;
@@ -473,54 +441,75 @@ public class GlobalUtils {
         return TelephonyManager.CALL_STATE_IDLE;
     }
 
-    static boolean hasSIMCard(Context appContext, int simCard) {
-        TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManager != null) {
-            if ((Build.VERSION.SDK_INT < 26) || (simCard == 0)) {
-                return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
-            } else {
-                boolean hasSIM = false;
-                if (Permissions.checkPhone(appContext)) {
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(context);
-                    if (mSubscriptionManager != null) {
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                        } catch (SecurityException e) {
-                            PPApplication.recordException(e);
-                        }
-                        if (subscriptionList != null) {
-                            for (int i = 0; i < subscriptionList.size(); i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                if (subscriptionInfo != null) {
-                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    //if (simCard == 0) {
-                                    //    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                    //        // sim card is ready
-                                    //        hasSIM = true;
-                                    //        break;
-                                    //    }
-                                    //}
-                                    //else {
-                                    if (simCard == (slotIndex + 1)) {
-                                        if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                            // sim card is ready
-                                            hasSIM = true;
-                                            break;
-                                        }
-                                    }
-                                    //}
+    @SuppressLint("NewApi")
+    static private boolean _hasSIMCard(Context appContext, TelephonyManager telephonyManager, int simCard) {
+        //PPApplication.logE("GlobalUtils._hasSIMCard", "simCard="+simCard);
+        boolean hasSIM = false;
+        if (Permissions.checkPhone(appContext)) {
+            SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+            //SubscriptionManager.from(context);
+            if (mSubscriptionManager != null) {
+                List<SubscriptionInfo> subscriptionList = null;
+                try {
+                    // Loop through the subscription list i.e. SIM list.
+                    subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                } catch (SecurityException e) {
+                    PPApplication.recordException(e);
+                }
+                if (subscriptionList != null) {
+                    for (int i = 0; i < subscriptionList.size(); i++) {
+                        // Get the active subscription ID for a given SIM card.
+                        SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                        if (subscriptionInfo != null) {
+                            int slotIndex = subscriptionInfo.getSimSlotIndex();
+                            //if (simCard == 0) {
+                            //    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                            //        // sim card is ready
+                            //        hasSIM = true;
+                            //        break;
+                            //    }
+                            //}
+                            //else {
+                            if (simCard == (slotIndex + 1)) {
+                                if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                    // sim card is ready
+                                    hasSIM = true;
+                                    break;
                                 }
                             }
+                            //}
                         }
                     }
                 }
-                return hasSIM;
+            }
+        } else
+            PPApplication.logE("GlobalUtils._hasSIMCard", "Phone not granted");
+
+        //PPApplication.logE("GlobalUtils._hasSIMCard", "hasSIM="+hasSIM);
+        return hasSIM;
+    }
+
+    static boolean hasSIMCard(Context appContext, int simCard) {
+        PPApplication.logE("GlobalUtils.hasSIMCard", "simCard="+simCard);
+        TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            if (Build.VERSION.SDK_INT < 26) {
+                PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY));
+                return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
+            } else {
+                if (simCard == 0) {
+                    boolean hasSIM1 = _hasSIMCard(appContext, telephonyManager, 1);
+                    boolean hasSIM2 = _hasSIMCard(appContext, telephonyManager, 2);
+                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(hasSIM1 || hasSIM2));
+                    return hasSIM1 || hasSIM2;
+                } else {
+                    boolean hasSIM = _hasSIMCard(appContext, telephonyManager, simCard);
+                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+hasSIM);
+                    return hasSIM;
+                }
             }
         }
+        PPApplication.logE("GlobalUtils.hasSIMCard", "--- false ---");
         return false;
     }
 

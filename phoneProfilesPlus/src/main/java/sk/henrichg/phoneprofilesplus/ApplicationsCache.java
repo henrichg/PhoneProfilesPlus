@@ -109,22 +109,12 @@ class ApplicationsCache {
 
         Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
         List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, flags);
-        //PPApplication.logE("ApplicationsCache.cacheApplicationsList", "shortcuts.size="+shortcuts.size());
         for (int i = 0; i < shortcuts.size(); i++)
         {
             ResolveInfo shortcutInfo = shortcuts.get(i);
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("ApplicationsCache.cacheApplicationsList", "i=" + i);
-                PPApplication.logE("ApplicationsCache.cacheApplicationsList", "shortcutInfo=" + shortcutInfo);
-                PPApplication.logE("ApplicationsCache.cacheApplicationsList", "packageName=" + shortcutInfo.activityInfo.packageName);
-                PPApplication.logE("ApplicationsCache.cacheApplicationsList", "name=" + shortcutInfo.activityInfo.name);
-            }*/
-
             if ((shortcutInfo.activityInfo.applicationInfo.packageName != null) &&
                     (packageManager.getLaunchIntentForPackage(shortcutInfo.activityInfo.applicationInfo.packageName) != null)) {
-
-                //PPApplication.logE("ApplicationsCache.cacheApplicationsList", "ADD");
 
                 Application newInfo = new Application();
 
@@ -192,7 +182,7 @@ class ApplicationsCache {
     {
         for (Application application : applicationsList) {
             Bitmap icon = getApplicationIcon(application, false);
-            if (!icon.isRecycled())
+            if ((icon != null) && (!icon.isRecycled()))
                 icon.recycle();
         }
         applicationsList.clear();
@@ -200,7 +190,7 @@ class ApplicationsCache {
 
         for (Application application : applicationsNoShortcutsList) {
             Bitmap icon = getApplicationIcon(application, true);
-            if (!icon.isRecycled())
+            if ((icon != null) && (!icon.isRecycled()))
                 icon.recycle();
         }
         applicationsNoShortcutsList.clear();

@@ -162,7 +162,6 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onClick(View v) {
-        //PPApplication.logE("EditorProfileListViewHolder.onClick", "xxx");
         editorFragment.startProfilePreferencesActivity(profile, 0);
     }
 

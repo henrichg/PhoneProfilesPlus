@@ -273,7 +273,6 @@ public class ShortcutCreatorListFragment extends Fragment {
             ShortcutCreatorListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
 
-                //PPApplication.logE("ShortcutCreatorListFragment.createShortcut","position="+position);
                 synchronized (fragment.activityDataWrapper.profileList) {
                     profile = fragment.activityDataWrapper.profileList.get(position);
                 }
@@ -297,11 +296,6 @@ public class ShortcutCreatorListFragment extends Fragment {
 
                         if (profileName.isEmpty())
                             profileName = " ";
-
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._id=" + profile._id);
-                            PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileName=" + profileName);
-                        }*/
 
                         if (position == 0) {
                             // restart events
@@ -341,10 +335,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                     Context context = fragment.getActivity().getApplicationContext();
 
                     if (profile != null) {
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "isIconResourceID=" + isIconResourceID);
-                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._iconBitmap=" + profile._iconBitmap);
-                    }*/
 
                         if (isIconResourceID) {
                             if (profile._iconBitmap != null)
@@ -370,10 +360,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                             shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
 
                         if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "applicationWidgetIconColor=1");
-                            PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "useCustomColor=" + useCustomColor);
-                        }*/
                             if (isIconResourceID || useCustomColor) {
                                 // icon is from resource or colored by custom color
                                 int monochromeValue = 0xFF;
@@ -422,8 +408,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                             }
                         }
 
-                        //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileBitmap=" + profileBitmap);
-
                         if (Build.VERSION.SDK_INT < 26)
                             profileShortcutBitmap = fragment.combineImages(profileBitmap, shortcutOverlayBitmap);
                         else
@@ -449,7 +433,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                     Context context = fragment.getActivity().getApplicationContext();
 
                     if (profile != null) {
-                        //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "create result intent");
 
                         //intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
                         //context.sendBroadcast(intent);

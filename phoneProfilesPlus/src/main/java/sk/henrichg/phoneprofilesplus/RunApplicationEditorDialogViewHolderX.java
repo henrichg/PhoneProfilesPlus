@@ -48,7 +48,6 @@ class RunApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder impl
 
     void bindApplication(Application application, int position) {
         this.application = application;
-        //PPApplication.logE("ApplicationEditorDialogViewHolder.bindApplication", "this.application="+this.application);
 
         // Display Application data
         if (dialog.selectedFilter != 2) {

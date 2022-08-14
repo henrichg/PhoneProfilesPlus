@@ -109,11 +109,6 @@ public class FetchAddressWorkerOSM extends Worker {
 
     private Data generateResult(int resultCode, String message, boolean updateName) {
         // Create the output of the work
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("FetchAddressWorkerOSM.generateResult", "resultCode=" + resultCode);
-            PPApplication.logE("FetchAddressWorkerOSM.generateResult", "message=" + message);
-            PPApplication.logE("FetchAddressWorkerOSM.generateResult", "updateName=" + updateName);
-        }*/
 
         return new Data.Builder()
                 .putInt(LocationGeofenceEditorActivityOSM.RESULT_CODE, resultCode)

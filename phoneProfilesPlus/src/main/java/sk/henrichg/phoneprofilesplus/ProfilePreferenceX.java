@@ -31,8 +31,6 @@ public class ProfilePreferenceX extends DialogPreference {
     {
         super(context, attrs);
 
-        //PPApplication.logE("ProfilePreferenceX.ProfilePreferenceX", "xxx");
-
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PPProfilePreference);
 
         addNoActivateItem = typedArray.getInt(R.styleable.PPProfilePreference_addNoActivateItem, 0);
