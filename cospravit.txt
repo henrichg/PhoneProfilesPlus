@@ -1025,61 +1025,16 @@ adaptive 50:
 Exponencial oboje
 Meni oboje len v adaptivnom mode, ale mozes menit adaptivny level.
 
-
-
 -------------------
-- Added support for Android 13.
-- Changed PhoneProfilesPlus icon.
-- Added monochrome launcher icon.
-- Added dymanic colors support (Android 12+)
-- Added support for Notifications permission (Android 13+).
-- Added change of application language.
-- Added "Enable periodic scanning" into profile parameters.
-- Added "Dark mode" to profile.
-- Added "VPN" parameter into profile preferences.
-- Added event senzor "Roaming sensor".
-- Added "VPN sensor" to event.
-- Added "Share PPP settings", for example to Google Drive.
-- Added parameter "Use dynamic colors" for widgets.
-- Added "Background color - dark mode on", "Background color - dark mode off" for all widgets and Samsung Edge panel.
-- Added parameter "Layout height" for Icon widget.
-- Added application parameter for change of "Restart events" icon color.
-- Added switch Wi-Fi in airplane mode for profile parameter "Wi-Fi".
-- Added configuration activity for widgets and Samsung Edge panel.
-- Added delete of Intents in "Run applications, shortcuts, Intents" editor.
-- Added info how to configure airplane mode radios.
-- Added News about recommendation of application notification configuration.
-- Added News for "Choose language".
-- Change: speed-up of PPP, less memory and battery consumption.
-- Changes in GUI - layouts, colors, text sizees, rounded corners, icons, ...
-- Change: start of PPService immediately at start of device.
-- Change: important Extender version.
-- Change: save event id, which activates profile. Also for "Undo the profile" and "Restart events" from end of events.
-- Change: force location network provider when device is in power save mode.
-- Change: get best provider, when is returned not any enabled provider,… but in power save mode force return network provider.
-- Change: restart events with delay - added support for alarm clock.
-- Change: Check immediately if sim card is inserted.
-- Change: better native style of "Activated profile" notification. Indicator is hidden in collapsed type. Profile icon is hidden for collapsed type (only Android 12+).
-- Change: Set native notification style for all devices with Android 12+.
-- Change: added double arrow for passed sensor.
-- Change: update dynamic shortcuts after profile parameters change.
-- Change: do not show notification about not enabled accessibility service at PPP start.
-- Change: generation of dynamic shortcuts are changed. Displayed are profiles in Quick Tiles.
-- Change: airplane mode in profile. Added options for user to use root or assistant.
-- Change: added special reason for check of preferences: two sim cards existence.
-- Change: play notification for profile activation, event start end, restart events, end of duration.
-- Change: smaller length of vibration.
-- Change: moved news about new Extender version moved at top in "Important info"
-- Change: immediately change notification after notification parameters change.
-- Change: updated libraries versions.
-- Fixed bad displayed dynamic shortcuts in Nova launcher.
-- Fixed not working Order spinner in Editor.
-- Fixed critical bug in default assistant support (for switch airplane mode) by e-amil from Google.
-- Fixed Autostart for huawei devices.
-- Fixed display of monochromatic widgets and application notification and widgets.
-- Fixed check of accessibility service status.
-- Fixed not working dark mode detection.
-- Fixed displayed red text even if accessibility service enabled.
-- Fixed displayed "Radios" section of profile when airplane mode is ON and device is rooted.
+- Change: PPP icon changed.
+- Change: Restart events with delay.
+- Added new airplane profile icon.
+- Fix: convert volume values for device during resore of backup.
+- Fixed airplane mode allowed state when parameter is set to "No change".
+- Fixed brightness for OnePlus with Android 12+.
+- Fixed bad detected sim card 0 (default).
+- Fixed set brightness level for adaptive brightness mode.
+- Fix: Extender receivers must be re-registered after sim state change.
+- Fix: brightness for DOOGEE devices.
 - Other fixes.
 - Updated translations.
