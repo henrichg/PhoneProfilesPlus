@@ -76,8 +76,8 @@
     <string name="array_pref_screenTimeoutArray_10minutes">10 хвилин</string>
     <string name="phone_profiles_pref_applicationStartOnBoot">Запускати при увімкненні телефону</string>
     <string name="profile_preferences_device_not_allowed">Не дозволено</string>
-    <string name="menu_export">Параметри резервування</string>
-    <string name="menu_import">Параметри відновлення</string>
+    <string name="menu_export">Резервування налаштувань</string>
+    <string name="menu_import">Відновлення налаштувань</string>
     <string name="toast_export_ok">Налаштування експортовано</string>
     <string name="toast_import_ok">Налаштування відновлено</string>
     <string name="import_profiles_alert_title">Відновити налаштування</string>
