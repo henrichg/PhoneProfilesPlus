@@ -616,7 +616,7 @@
         <service
             android:name=".PhoneProfilesService"
             android:label="@string/ppp_app_name"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_ppp_app_icon"
             android:enabled="true"
             android:stopWithTask="false"
             android:foregroundServiceType="location|connectedDevice"/>
