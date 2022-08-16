@@ -52,7 +52,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         return pRingerMode;
     }
 
-    public static void setRingerMode(Context context, AudioManager audioManager/*, String from*/) {
+    static void setRingerMode(Context context, AudioManager audioManager/*, String from*/) {
         int pRingerMode = getRingerMode(context, audioManager);
         if (pRingerMode != 0) {
             int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);

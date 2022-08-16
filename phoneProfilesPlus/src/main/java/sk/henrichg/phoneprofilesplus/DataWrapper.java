@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DataWrapper {
 
-    public final Context context;
+    final Context context;
     //private boolean forGUI = false;
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
@@ -413,7 +413,7 @@ public class DataWrapper {
         return profile;
     }
 
-    public Profile getActivatedProfile(boolean generateIcon, boolean generateIndicators)
+    Profile getActivatedProfile(boolean generateIcon, boolean generateIndicators)
     {
         synchronized (profileList) {
             if (profileListFilled) {
@@ -429,7 +429,7 @@ public class DataWrapper {
         }
     }
 
-    public Profile getActivatedProfile(List<Profile> profileList) {
+    Profile getActivatedProfile(List<Profile> profileList) {
         if (profileList != null) {
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
@@ -503,7 +503,7 @@ public class DataWrapper {
         return profile;
     }
 
-    public Profile getProfileById(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
+    Profile getProfileById(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
     {
         synchronized (profileList) {
             if ((!profileListFilled) || merged) {
@@ -1393,7 +1393,7 @@ public class DataWrapper {
 
 //-------------------------------------------------------------------------------------------------------------------
 
-    public void invalidateDataWrapper()
+    void invalidateDataWrapper()
     {
         invalidateProfileList();
         invalidateEventList();
@@ -1774,7 +1774,7 @@ public class DataWrapper {
         }
     }
 
-    public void activateProfile(final long profile_id, final int startupSource, final Activity activity, boolean testGrant)
+    void activateProfile(final long profile_id, final int startupSource, final Activity activity, boolean testGrant)
     {
         Profile profile;
 

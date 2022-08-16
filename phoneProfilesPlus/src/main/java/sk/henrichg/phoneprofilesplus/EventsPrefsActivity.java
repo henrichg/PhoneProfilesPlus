@@ -32,7 +32,11 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventsPrefsActivity extends AppCompatActivity implements RefreshGUIActivatorEditorListener {
+public class EventsPrefsActivity extends AppCompatActivity
+                                implements RefreshGUIActivatorEditorListener,
+                                           MobileCellsRegistrationCountDownListener,
+                                           MobileCellsRegistrationStoppedListener
+{
 
     long event_id = 0;
     private int old_event_status;
@@ -133,14 +137,14 @@ public class EventsPrefsActivity extends AppCompatActivity implements RefreshGUI
         if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
-            mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver();
+            mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver(this);
             registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter);
         }
 
         if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
-            mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver();
+            mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver(this);
             registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter);
         }
 
@@ -752,28 +756,54 @@ public class EventsPrefsActivity extends AppCompatActivity implements RefreshGUI
         }
     }
 
-    public class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
+    private static class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
+
+        private final MobileCellsRegistrationCountDownListener listener;
+
+        public MobileCellsRegistrationCountDownBroadcastReceiver(
+                MobileCellsRegistrationCountDownListener listener){
+            this.listener = listener;
+        }
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive( Context context, Intent intent ) {
+            listener.countDownFromListener(intent);
+        }
+
+    }
+
+    @Override
+    public void countDownFromListener(Intent intent) {
 //            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-            if (fragment != null) {
-                long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
-                ((EventsPrefsFragment) fragment).doMobileCellsRegistrationCountDownBroadcastReceiver(millisUntilFinished);
-            }
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null) {
+            long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
+            ((EventsPrefsFragment) fragment).doMobileCellsRegistrationCountDownBroadcastReceiver(millisUntilFinished);
         }
     }
 
-    public class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
+    private static class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
+
+        private final MobileCellsRegistrationStoppedListener listener;
+
+        public MobileCellsRegistrationStoppedBroadcastReceiver(
+                MobileCellsRegistrationStoppedListener listener){
+            this.listener = listener;
+        }
 
         @Override
-        public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-            if (fragment != null)
-                ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
+        public void onReceive( Context context, Intent intent ) {
+            listener.registrationStoppedFromListener();
         }
+
+    }
+
+    @Override
+    public void registrationStoppedFromListener() {
+//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null)
+            ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
     }
 
 //--------------------------------------------------------------------------------------------------

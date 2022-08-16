@@ -1708,13 +1708,13 @@ public class PPApplication extends Application
         return contains;
     }
 
-    static public boolean logEnabled() {
+    static boolean logEnabled() {
         //noinspection ConstantConditions
         return (logIntoLogCat || logIntoFile);
     }
 
     @SuppressWarnings("unused")
-    static public void logI(String tag, String text)
+    static void logI(String tag, String text)
     {
         if (!logEnabled())
             return;
@@ -1727,7 +1727,7 @@ public class PPApplication extends Application
     }
 
     @SuppressWarnings("unused")
-    static public void logW(String tag, String text)
+    static void logW(String tag, String text)
     {
         if (!logEnabled())
             return;
@@ -1739,7 +1739,7 @@ public class PPApplication extends Application
         }
     }
 
-    static public void logE(String tag, String text)
+    static void logE(String tag, String text)
     {
         if (!logEnabled())
             return;
@@ -1752,7 +1752,7 @@ public class PPApplication extends Application
     }
 
     @SuppressWarnings("unused")
-    static public void logD(String tag, String text)
+    static void logD(String tag, String text)
     {
         if (!logEnabled())
             return;
@@ -2349,12 +2349,12 @@ public class PPApplication extends Application
         }
     }
 
-    static public int getSavedVersionCode(Context context) {
+    static int getSavedVersionCode(Context context) {
         return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PREF_SAVED_VERSION_CODE, 0);
     }
 
-    static public void setSavedVersionCode(Context context, int version)
+    static void setSavedVersionCode(Context context, int version)
     {
         Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_SAVED_VERSION_CODE, version);
@@ -2488,7 +2488,7 @@ public class PPApplication extends Application
             //return prefLastActivatedProfile;
         }
     }
-    static public void setLastActivatedProfile(Context context, long profileId)
+    static void setLastActivatedProfile(Context context, long profileId)
     {
         synchronized (applicationGlobalPreferencesMutex) {
             Editor editor = ApplicationPreferences.getEditor(context);
@@ -2507,7 +2507,7 @@ public class PPApplication extends Application
             //return prefLastActivatedProfile;
         }
     }
-    static public void setWallpaperChangeTime(Context context)
+    static void setWallpaperChangeTime(Context context)
     {
         synchronized (applicationGlobalPreferencesMutex) {
             Calendar now = Calendar.getInstance();
@@ -2519,48 +2519,48 @@ public class PPApplication extends Application
         }
     }
 
-    static public int getDaysAfterFirstStart(Context context)
+    static int getDaysAfterFirstStart(Context context)
     {
         return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PREF_DAYS_AFTER_FIRST_START, 0);
     }
-    static public void setDaysAfterFirstStart(Context context, int days)
+    static void setDaysAfterFirstStart(Context context, int days)
     {
         Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_DAYS_AFTER_FIRST_START, days);
         editor.apply();
     }
 
-    static public int getDonationNotificationCount(Context context)
+    static int getDonationNotificationCount(Context context)
     {
         return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PREF_DONATION_NOTIFICATION_COUNT, 0);
     }
-    static public void setDonationNotificationCount(Context context, int days)
+    static void setDonationNotificationCount(Context context, int days)
     {
         Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_DONATION_NOTIFICATION_COUNT, days);
         editor.apply();
     }
 
-    static public int getDaysForNextDonationNotification(Context context)
+    static int getDaysForNextDonationNotification(Context context)
     {
         return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION, 0);
     }
-    static public void setDaysForNextDonationNotification(Context context, int days)
+    static void setDaysForNextDonationNotification(Context context, int days)
     {
         Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION, days);
         editor.apply();
     }
 
-    static public boolean getDonationDonated(Context context)
+    static boolean getDonationDonated(Context context)
     {
         return ApplicationPreferences.
                 getSharedPreferences(context).getBoolean(PREF_DONATION_DONATED, false);
     }
-    static public void setDonationDonated(Context context)
+    static void setDonationDonated(Context context)
     {
         Editor editor = ApplicationPreferences.getEditor(context);
         editor.putBoolean(PREF_DONATION_DONATED, true);
@@ -2994,7 +2994,7 @@ public class PPApplication extends Application
 
     // scanners ------------------------------------------
 
-    public static void registerContentObservers(Context context) {
+    static void registerContentObservers(Context context) {
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3005,7 +3005,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void registerCallbacks(Context context) {
+    static void registerCallbacks(Context context) {
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3016,7 +3016,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void registerPhoneCallsListener(boolean register, Context context) {
+    static void registerPhoneCallsListener(boolean register, Context context) {
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3030,7 +3030,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartPeriodicScanningScanner(Context context/*, boolean forScreenOn*/) {
+    static void restartPeriodicScanningScanner(Context context/*, boolean forScreenOn*/) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3048,7 +3048,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void forceRegisterReceiversForWifiScanner(Context context) {
+    static void forceRegisterReceiversForWifiScanner(Context context) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3065,7 +3065,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void reregisterReceiversForWifiScanner(Context context) {
+    static void reregisterReceiversForWifiScanner(Context context) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3082,7 +3082,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartWifiScanner(Context context/*, boolean forScreenOn*/) {
+    static void restartWifiScanner(Context context/*, boolean forScreenOn*/) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3100,7 +3100,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void forceRegisterReceiversForBluetoothScanner(Context context) {
+    static void forceRegisterReceiversForBluetoothScanner(Context context) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3117,7 +3117,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void reregisterReceiversForBluetoothScanner(Context context) {
+    static void reregisterReceiversForBluetoothScanner(Context context) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3134,7 +3134,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartBluetoothScanner(Context context/*, boolean forScreenOn*/) {
+    static void restartBluetoothScanner(Context context/*, boolean forScreenOn*/) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3152,7 +3152,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartLocationScanner(Context context/*, boolean forScreenOn*/) {
+    static void restartLocationScanner(Context context/*, boolean forScreenOn*/) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3170,7 +3170,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartOrientationScanner(Context context/*, boolean forScreenOn*/) {
+    static void restartOrientationScanner(Context context/*, boolean forScreenOn*/) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3209,7 +3209,7 @@ public class PPApplication extends Application
     }
     */
 
-    public static void forceStartMobileCellsScanner(Context context/*, boolean forScreenOn*/) {
+    static void forceStartMobileCellsScanner(Context context/*, boolean forScreenOn*/) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3226,7 +3226,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartMobileCellsScanner(Context context/*, boolean forScreenOn*/) {
+    static void restartMobileCellsScanner(Context context/*, boolean forScreenOn*/) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3244,7 +3244,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartTwilightScanner(Context context/*, boolean forScreenOn*/) {
+    static void restartTwilightScanner(Context context/*, boolean forScreenOn*/) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3262,7 +3262,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartNotificationScanner(Context context/*, boolean forScreenOn*/) {
+    static void restartNotificationScanner(Context context/*, boolean forScreenOn*/) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3280,7 +3280,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartAllScanners(Context context, boolean fromBatteryChange) {
+    static void restartAllScanners(Context context, boolean fromBatteryChange) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3299,7 +3299,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void rescanAllScanners(Context context) {
+    static void rescanAllScanners(Context context) {
         try {
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3316,7 +3316,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void registerPPPExtenderReceiverForSMSCall(boolean register, Context context) {
+    static void registerPPPExtenderReceiverForSMSCall(boolean register, Context context) {
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3331,7 +3331,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void registerReceiversForCallSensor(boolean register, Context context) {
+    static void registerReceiversForCallSensor(boolean register, Context context) {
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -3346,7 +3346,7 @@ public class PPApplication extends Application
         }
     }
 
-    public static void registerReceiversForSMSSensor(boolean register, Context context) {
+    static void registerReceiversForSMSSensor(boolean register, Context context) {
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -4273,7 +4273,7 @@ public class PPApplication extends Application
 
     // application cache -----------------
 
-    public static void createApplicationsCache(boolean clear)
+    static void createApplicationsCache(boolean clear)
     {
         if (clear) {
             if (applicationsCache != null) {
@@ -4285,14 +4285,14 @@ public class PPApplication extends Application
             applicationsCache =  new ApplicationsCache();
     }
 
-    public static ApplicationsCache getApplicationsCache()
+    static ApplicationsCache getApplicationsCache()
     {
         return applicationsCache;
     }
 
     // contacts and contact groups cache -----------------
 
-    public static void createContactsCache(Context context, boolean clear)
+    static void createContactsCache(Context context, boolean clear)
     {
         if (clear) {
             if (contactsCache != null)
@@ -4303,12 +4303,12 @@ public class PPApplication extends Application
         contactsCache.getContactList(context);
     }
 
-    public static ContactsCache getContactsCache()
+    static ContactsCache getContactsCache()
     {
         return contactsCache;
     }
 
-    public static void createContactGroupsCache(Context context, boolean clear)
+    static void createContactGroupsCache(Context context, boolean clear)
     {
         if (clear) {
             if (contactGroupsCache != null)
@@ -4319,7 +4319,7 @@ public class PPApplication extends Application
         contactGroupsCache.getContactGroupListX(context);
     }
 
-    public static ContactGroupsCache getContactGroupsCache()
+    static ContactGroupsCache getContactGroupsCache()
     {
         return contactGroupsCache;
     }

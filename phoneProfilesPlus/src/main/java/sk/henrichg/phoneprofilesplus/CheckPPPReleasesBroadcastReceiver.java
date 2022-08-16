@@ -39,7 +39,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static public void setAlarm(Context context)
+    static void setAlarm(Context context)
     {
         removeAlarm(context);
 

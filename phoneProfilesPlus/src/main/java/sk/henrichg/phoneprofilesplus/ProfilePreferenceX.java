@@ -166,7 +166,7 @@ public class ProfilePreferenceX extends DialogPreference {
 
     }
 
-    public void setSummary(long profileId)
+    void setSummary(long profileId)
     {
         Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
         if (profile != null)

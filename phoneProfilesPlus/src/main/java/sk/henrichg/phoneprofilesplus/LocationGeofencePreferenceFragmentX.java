@@ -249,7 +249,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         }
     }
 
-    public void showEditMenu(View view)
+    void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context context = view.getContext();

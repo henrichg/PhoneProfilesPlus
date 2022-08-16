@@ -319,7 +319,7 @@ class ContactGroupsCache {
         caching = false;
     }
 
-    public int getLength()
+    int getLength()
     {
         if (cached)
             synchronized (PPApplication.contactsCacheMutex) {
@@ -334,7 +334,7 @@ class ContactGroupsCache {
         contactGroupList.addAll(_contactGroupList);
     }
 
-    public List<ContactGroup> getList()
+    List<ContactGroup> getList()
     {
         if (cached)
             return contactGroupList;

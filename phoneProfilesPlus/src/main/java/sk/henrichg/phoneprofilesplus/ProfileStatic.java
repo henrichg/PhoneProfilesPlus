@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class ProfileStatic {
 
-    public static String getIconIdentifier(String icon)
+    static String getIconIdentifier(String icon)
     {
         String value;
         try {
@@ -32,7 +32,7 @@ public class ProfileStatic {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean getIsIconResourceID(String icon)
+    static boolean getIsIconResourceID(String icon)
     {
         boolean value;
         try {

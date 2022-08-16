@@ -442,7 +442,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     }
 
-    public void show() {
+    void show() {
         if (!mActivity.isFinishing())
             mDialog.show();
     }

@@ -122,7 +122,7 @@ class AddProfileDialog
         mDialog.dismiss();
     }
 
-    public void show() {
+    void show() {
         if (!activity.isFinishing())
             mDialog.show();
     }

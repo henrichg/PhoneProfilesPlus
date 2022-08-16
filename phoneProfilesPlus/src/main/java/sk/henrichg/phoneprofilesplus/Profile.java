@@ -2154,7 +2154,7 @@ public class Profile {
     }
 
     // getting icon identifier
-    public String getIconIdentifier()
+    String getIconIdentifier()
     {
         String value;
         try {
@@ -2167,7 +2167,7 @@ public class Profile {
     }
 
     // getting where icon is resource id
-    public boolean getIsIconResourceID()
+    boolean getIsIconResourceID()
     {
         boolean value;
         try {
@@ -3145,7 +3145,7 @@ public class Profile {
         editor.apply();
     }
 
-    public int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay) {
+    int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay) {
         int accessibilityEnabled = -99;
 
         if ((this._deviceForceStopApplicationChange != 0) ||

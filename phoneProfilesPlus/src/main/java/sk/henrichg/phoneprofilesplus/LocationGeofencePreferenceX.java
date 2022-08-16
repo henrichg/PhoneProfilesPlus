@@ -24,7 +24,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     //private RelativeLayout dataRelativeLayout;
     //private TextView geofenceName;
 
-    public final DataWrapper dataWrapper;
+    final DataWrapper dataWrapper;
 
     static final String EXTRA_GEOFENCE_ID = "geofence_id";
     static final int RESULT_GEOFENCE_EDITOR = 2100;
@@ -119,7 +119,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
             fragment.setLocationEnableStatus();
     }
 
-    public void refreshListView()
+    void refreshListView()
     {
         if (fragment != null)
             fragment.refreshListView();

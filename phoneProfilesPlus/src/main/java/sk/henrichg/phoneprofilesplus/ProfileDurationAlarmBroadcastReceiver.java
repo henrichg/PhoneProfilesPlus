@@ -33,7 +33,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static public void setAlarm(Profile profile, boolean forRestartEvents, int startupSource, Context context)
+    static void setAlarm(Profile profile, boolean forRestartEvents, int startupSource, Context context)
     {
         removeAlarm(profile, context);
 
@@ -258,7 +258,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     }
     */
 
-    static public void removeAlarm(Profile profile, Context context)
+    static void removeAlarm(Profile profile, Context context)
     {
         if (profile != null) {
             try {

@@ -18,7 +18,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-public class MobileCellsRegistrationService extends Service {
+public class MobileCellsRegistrationService extends Service
+        implements MobileCellsRegistrationServiceStopRegistrationListener {
 
     // this is for show remaining time in "Cell registration" event sensor preference summary
     public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_COUNTDOWN";
@@ -80,7 +81,7 @@ public class MobileCellsRegistrationService extends Service {
                 IntentFilter intentFilter = new IntentFilter();
                 intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
                 mobileCellsRegistrationStopButtonBroadcastReceiver =
-                        new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver();
+                        new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver(this);
                 context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
             }
 
@@ -302,7 +303,7 @@ public class MobileCellsRegistrationService extends Service {
         }
     }
 
-    static public void getMobileCellsAutoRegistration(Context context) {
+    static void getMobileCellsAutoRegistration(Context context) {
         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
         MobileCellsScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
         MobileCellsScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
@@ -310,7 +311,7 @@ public class MobileCellsRegistrationService extends Service {
         MobileCellsScanner.getAllEvents(preferences, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
     }
 
-    static public void setMobileCellsAutoRegistration(Context context, boolean clear) {
+    static void setMobileCellsAutoRegistration(Context context, boolean clear) {
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         if (clear) {
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
@@ -336,21 +337,35 @@ public class MobileCellsRegistrationService extends Service {
                 getSharedPreferences(context).getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, 0);
     }
 
-    static public void setMobileCellsAutoRegistrationRemainingDuration(Context context, int remainingDuration) {
+    static void setMobileCellsAutoRegistrationRemainingDuration(Context context, int remainingDuration) {
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
         editor.apply();
     }
 
-    public class MobileCellsRegistrationStopButtonBroadcastReceiver extends BroadcastReceiver {
+    static private class MobileCellsRegistrationStopButtonBroadcastReceiver extends BroadcastReceiver {
+
+        private final MobileCellsRegistrationServiceStopRegistrationListener listener;
+
+        public MobileCellsRegistrationStopButtonBroadcastReceiver(
+                MobileCellsRegistrationServiceStopRegistrationListener listener) {
+            this.listener = listener;
+        }
 
         @Override
-        public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
-            stopRegistration();
+        public void onReceive( Context context, Intent intent ) {
+            listener.stopRegistrationFromListener();
         }
+
     }
 
+    @Override
+    public void stopRegistrationFromListener() {
+//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
+        stopRegistration();
+    }
+
+    /*
     public static class MobileCellsPreferenceUseBroadcastReceiver extends BroadcastReceiver {
 
         @Override
@@ -359,5 +374,5 @@ public class MobileCellsRegistrationService extends Service {
             //Log.d("MobileCellsRegistrationCellsDialogStateBroadcastReceiver", "xxx");
         }
     }
-
+    */
 }

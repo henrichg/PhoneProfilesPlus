@@ -61,7 +61,7 @@ import java.util.List;
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
-    public DataWrapper activityDataWrapper;
+    DataWrapper activityDataWrapper;
 
     private View rootView;
     private RelativeLayout activatedProfileHeader;
@@ -906,7 +906,7 @@ public class EditorEventListFragment extends Fragment
         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
     }
 
-    public void showEditMenu(View view)
+    void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();

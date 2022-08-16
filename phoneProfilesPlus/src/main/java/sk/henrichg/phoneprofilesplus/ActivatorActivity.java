@@ -457,7 +457,7 @@ public class ActivatorActivity extends AppCompatActivity
             return null;
     }
 
-    public void setEventsRunStopIndicator()
+    void setEventsRunStopIndicator()
     {
         //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
         if (Event.getGlobalEventsRunning())
@@ -475,7 +475,7 @@ public class ActivatorActivity extends AppCompatActivity
         }
     }
 
-    public void startTargetHelpsActivity() {
+    void startTargetHelpsActivity() {
         if (ApplicationPreferences.prefActivatorActivityStartTargetHelps ||
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelps ||
                 ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {

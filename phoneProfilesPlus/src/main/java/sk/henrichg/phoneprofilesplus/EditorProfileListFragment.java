@@ -56,7 +56,7 @@ import java.util.List;
 public class EditorProfileListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
-    public DataWrapper activityDataWrapper;
+    DataWrapper activityDataWrapper;
 
     private View rootView;
     private RelativeLayout activatedProfileHeader;
@@ -695,7 +695,7 @@ public class EditorProfileListFragment extends Fragment
         onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
     }
 
-    public void showEditMenu(View view)
+    void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
@@ -940,7 +940,7 @@ public class EditorProfileListFragment extends Fragment
         }
     }
 
-    public void activateProfile(Profile profile/*, boolean interactive*/)
+    void activateProfile(Profile profile/*, boolean interactive*/)
     {
         if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
             PPApplication.showToastForProfileActivation = true;

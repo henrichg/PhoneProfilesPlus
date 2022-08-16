@@ -610,7 +610,7 @@ class Event {
                         (isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
-    public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
+    boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
         Context appContext = context.getApplicationContext();
 
         boolean runnable = true; //(this._fkProfileStart != 0) && (this._fkProfileEnd != 0);
@@ -671,7 +671,7 @@ class Event {
         return runnable;
     }
 
-    public int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled, boolean againCheckInDelay) {
+    int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled, boolean againCheckInDelay) {
         int accessibilityEnabled = 1;
         boolean someEnabled = true;
         if (checkSomeSensorEnabled) {
@@ -755,7 +755,7 @@ class Event {
         return accessibilityEnabled;
     }
 
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putLong(PREF_EVENT_ID, this._id);
@@ -815,7 +815,7 @@ class Event {
         editor.apply();
     }
 
-    public void saveSharedPreferences(SharedPreferences preferences, Context context)
+    void saveSharedPreferences(SharedPreferences preferences, Context context)
     {
         this._name = preferences.getString(PREF_EVENT_NAME, "");
         this._fkProfileStart = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_START, Long.toString(Profile.PROFILE_NO_ACTIVATE)));
@@ -1213,7 +1213,7 @@ class Event {
         }
     }
 
-    public void setSummary(PreferenceManager prefMng,
+    void setSummary(PreferenceManager prefMng,
                            String key,
                            SharedPreferences preferences,
                            Context context,
@@ -1342,7 +1342,7 @@ class Event {
         }
     }
 
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_IGNORE_MANUAL_ACTIVATION);
         if (preference != null)
@@ -1426,7 +1426,7 @@ class Event {
         _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
     }
 
-    public String getPreferencesDescription(Context context, boolean addPassStatus)
+    String getPreferencesDescription(Context context, boolean addPassStatus)
     {
         String description;
 
@@ -1582,7 +1582,7 @@ class Event {
         return description;
     }
 
-    public void checkSensorsPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+    void checkSensorsPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         _eventPreferencesTime.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesBattery.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesCall.checkPreferences(prefMng, onlyCategory, context);
@@ -2267,7 +2267,7 @@ class Event {
         //return;
     }
 
-    public int getStatus()
+    int getStatus()
     {
         return _status;
     }
@@ -2277,7 +2277,7 @@ class Event {
         return DatabaseHandler.getInstance(context.getApplicationContext()).getEventStatus(this);
     }
 
-    public void setStatus(int status)
+    void setStatus(int status)
     {
         _status = status;
     }

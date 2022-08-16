@@ -594,7 +594,7 @@ class RunApplicationEditorDialogX
         preference.updateGUI();
     }
 
-    public void show() {
+    void show() {
         if (!activity.isFinishing())
             mDialog.show();
     }

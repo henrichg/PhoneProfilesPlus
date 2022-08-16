@@ -480,7 +480,7 @@ public class BluetoothScanWorker extends Worker {
     }
     */
 
-    public static void initialize(Context context, boolean clearScanResult)
+    static void initialize(Context context, boolean clearScanResult)
     {
         setScanRequest(context, false);
         setLEScanRequest(context, false);

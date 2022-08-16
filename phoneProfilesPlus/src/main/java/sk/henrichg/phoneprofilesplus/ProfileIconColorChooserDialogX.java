@@ -271,7 +271,7 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
         return stateListDrawable;
     }
 
-    public void show() {
+    void show() {
         if (!activity.isFinishing())
             mDialog.show();
     }

@@ -37,7 +37,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentCompat {
+public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentCompat
+                    implements MobileCellsPreferenceFragmentRefreshListViewListener
+{
 
     private Context prefContext;
     private MobileCellsPreferenceX preference;
@@ -87,7 +89,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        refreshListViewBroadcastReceiver = new MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver(/*preference*/);
+        refreshListViewBroadcastReceiver = new RefreshListViewBroadcastReceiver(this);
         LocalBroadcastManager.getInstance(prefContext).registerReceiver(refreshListViewBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView"));
 
@@ -499,7 +501,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         }
     }
 
-    public void refreshListView(final boolean forRescan, final int renameCellId)
+    void refreshListView(final boolean forRescan, final int renameCellId)
     {
         rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, renameCellId, preference, this, prefContext);
         rescanAsyncTask.execute();
@@ -573,7 +575,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     }
 
-    public void showEditMenu(View view)
+    void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
@@ -665,15 +667,28 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 popup.show();
     }
 
-    public class RefreshListViewBroadcastReceiver extends BroadcastReceiver {
+    private static class RefreshListViewBroadcastReceiver extends BroadcastReceiver {
+
+        private final MobileCellsPreferenceFragmentRefreshListViewListener listener;
+
+        public RefreshListViewBroadcastReceiver(
+                MobileCellsPreferenceFragmentRefreshListViewListener listener) {
+            this.listener = listener;
+        }
 
         @Override
-        public void onReceive(final Context context, Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver", "xxx");
-            //if (preference != null)
-            //    preference.refreshListView(false, Integer.MAX_VALUE);
-            refreshListView(false, Integer.MAX_VALUE);
+        public void onReceive( Context context, Intent intent ) {
+            listener.refreshListViewFromListener();
         }
+
+    }
+
+    @Override
+    public void refreshListViewFromListener() {
+//            PPApplication.logE("[IN_BROADCAST] MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver", "xxx");
+        //if (preference != null)
+        //    preference.refreshListView(false, Integer.MAX_VALUE);
+        refreshListView(false, Integer.MAX_VALUE);
     }
 
     void setCellNameText(String text) {

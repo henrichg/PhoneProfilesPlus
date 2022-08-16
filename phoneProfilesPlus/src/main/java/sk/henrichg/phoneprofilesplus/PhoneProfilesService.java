@@ -6139,7 +6139,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void playNotificationSound(final String notificationSound,
+    void playNotificationSound(final String notificationSound,
                                        final boolean notificationVibrate/*,
                                        final boolean playAlsoInSilentMode*/) {
 

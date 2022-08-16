@@ -232,7 +232,7 @@ public class GlobalUtils {
         return false;
     }
 
-    public static boolean isLocationEnabled(Context context) {
+    static boolean isLocationEnabled(Context context) {
         boolean enabled;
         if (Build.VERSION.SDK_INT >= 28) {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -253,7 +253,7 @@ public class GlobalUtils {
         return enabled;
     }
 
-    public static boolean isWifiSleepPolicySetToNever(Context context) {
+    static boolean isWifiSleepPolicySetToNever(Context context) {
         int wifiSleepPolicy = -1;
         try {
             wifiSleepPolicy = Settings.Global.getInt(context.getContentResolver(), Settings.Global.WIFI_SLEEP_POLICY);
@@ -263,7 +263,7 @@ public class GlobalUtils {
         return wifiSleepPolicy == Settings.Global.WIFI_SLEEP_POLICY_NEVER;
     }
 
-    public static ActivityManager.RunningServiceInfo getServiceInfo(Context context, Class<?> serviceClass) {
+    static ActivityManager.RunningServiceInfo getServiceInfo(Context context, Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (manager != null) {
             List<ActivityManager.RunningServiceInfo> services;
@@ -291,7 +291,8 @@ public class GlobalUtils {
         return null;
     }
 
-    public static boolean isServiceRunning(Context context, Class<?> serviceClass, boolean inForeground) {
+    @SuppressWarnings("SameParameterValue")
+    static boolean isServiceRunning(Context context, Class<?> serviceClass, boolean inForeground) {
         /*boolean isRunning = (instance != null);
         if (inForeground)
             isRunning = isRunning && isInForeground;
@@ -309,7 +310,7 @@ public class GlobalUtils {
             return false;
     }
 
-    public static void sleep(long ms) {
+    static void sleep(long ms) {
         /*long start = SystemClock.uptimeMillis();
         do {
             SystemClock.sleep(100);
@@ -504,6 +505,7 @@ public class GlobalUtils {
 //                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(hasSIM1 || hasSIM2));
                     return hasSIM1 || hasSIM2;
                 } else {
+                    //noinspection UnnecessaryLocalVariable
                     boolean hasSIM = _hasSIMCard(appContext, telephonyManager, simCard);
 //                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+hasSIM);
                     return hasSIM;

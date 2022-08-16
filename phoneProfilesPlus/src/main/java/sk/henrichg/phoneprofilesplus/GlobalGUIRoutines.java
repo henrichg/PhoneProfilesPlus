@@ -109,7 +109,7 @@ class GlobalGUIRoutines {
     }
 */
 
-    public static void setTheme(Activity activity, boolean forPopup,
+    static void setTheme(Activity activity, boolean forPopup,
                                 boolean withToolbar/*, boolean withDrawerLayout*/,
                                 boolean forActivator, boolean forDialog,
                                 boolean forLocationEditor)

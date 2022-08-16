@@ -467,7 +467,7 @@ public class WifiScanWorker extends Worker {
 
     //---------------------------------------------------------------
 
-    public static void initialize(Context context, boolean clearScanResult)
+    static void initialize(Context context, boolean clearScanResult)
     {
         setScanRequest(context, false);
         setWaitForResults(context, false);
@@ -507,7 +507,7 @@ public class WifiScanWorker extends Worker {
         fillWifiConfigurationList(context/*, false*/);
     }
 
-    public static void lock(Context context)
+    static void lock(Context context)
     {
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -525,7 +525,7 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    public static void unlock()
+    static void unlock()
     {
         try {
             if ((wifiLock != null) && (wifiLock.isHeld())) {
