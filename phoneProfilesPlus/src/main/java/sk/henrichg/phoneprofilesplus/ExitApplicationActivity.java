@@ -52,7 +52,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
             ApplicationPreferences.applicationNeverAskForGrantG1Permission(appContext);
 
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-            PPApplication.exitApp(true, appContext, dataWrapper, ExitApplicationActivity.this, false, true);
+            PPApplication.exitApp(true, appContext, dataWrapper, this, false, true);
 
             // close activities
             Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
@@ -64,7 +64,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
 
             finish();
         });
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialogInterface, i) -> ExitApplicationActivity.this.finish());
+        dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialogInterface, i) -> finish());
         AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {

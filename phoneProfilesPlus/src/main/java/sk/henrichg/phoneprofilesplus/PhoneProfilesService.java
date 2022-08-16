@@ -1487,7 +1487,7 @@ public class PhoneProfilesService extends Service
                     appContext.registerReceiver(PPApplication.smsEventEndBroadcastReceiver, intentFilter22);
                 }
 
-                Log.e("PhoneProfilesService.registerReceiverForSMSSensor", "xxx");
+//                Log.e("PhoneProfilesService.registerReceiverForSMSSensor", "xxx");
             }
             else
                 registerReceiverForSMSSensor(false, dataWrapper);
@@ -2047,10 +2047,10 @@ public class PhoneProfilesService extends Service
                 callAllowed = (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED);
 
-            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "smsExists="+smsExists);
-            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "smsAllowed="+smsAllowed);
-            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "callExists="+callExists);
-            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "callAllowed="+callAllowed);
+//            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "smsExists="+smsExists);
+//            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "smsAllowed="+smsAllowed);
+//            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "callExists="+callExists);
+//            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "callAllowed="+callAllowed);
 
             if (smsAllowed || callAllowed) {
                 if (smsAllowed) {
@@ -2068,7 +2068,7 @@ public class PhoneProfilesService extends Service
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_SMS_REGISTER);
                     sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
 
-                    Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "SMS");
+//                    Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "SMS");
                 }
                 else
                     unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
@@ -2088,7 +2088,7 @@ public class PhoneProfilesService extends Service
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_CALL_REGISTER);
                     sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
 
-                    Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "Call");
+//                    Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "Call");
                 }
                 else
                     unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
@@ -2833,7 +2833,7 @@ public class PhoneProfilesService extends Service
                     appContext.registerReceiver(PPApplication.missedCallEventEndBroadcastReceiver, intentFilter23);
                 }
 
-                Log.e("PhoneProfilesService.registerReceiverForCallSensor", "xxx");
+//                Log.e("PhoneProfilesService.registerReceiverForCallSensor", "xxx");
             }
             else
                 registerReceiverForCallSensor(false, dataWrapper);
@@ -4673,27 +4673,27 @@ public class PhoneProfilesService extends Service
                                 ppService.stopSimulatingRingingCall(false, appContext);*/
                                 //TODO
                             } else if (intent.getBooleanExtra(EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerPPPExtenderReceiverForSMSCall(true, dataWrapper);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerPPPExtenderReceiverForSMSCall(false, dataWrapper);
                             }  else if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForCallSensor(true, dataWrapper);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForCallSensor(false, dataWrapper);
                             }  else if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForSMSSensor(true, dataWrapper);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForSMSSensor(false, dataWrapper);
                             } else if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {

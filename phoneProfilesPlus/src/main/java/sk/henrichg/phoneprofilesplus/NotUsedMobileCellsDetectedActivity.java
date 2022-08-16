@@ -165,7 +165,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             PhoneProfilesService.getInstance().getMobileCellsScanner().handleEvents(appContext);
                         }
                         // must be higher then delay in handleEvents
-                        PPApplication.updateGUI(false, true, NotUsedMobileCellsDetectedActivity.this.getApplicationContext());
+                        PPApplication.updateGUI(false, true, appContext);
 
                     } catch (Exception e) {
 //                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -183,7 +183,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
-            NotUsedMobileCellsDetectedActivity.this.finish();
+            finish();
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
             final int _mobileCellId = mobileCellId;
@@ -235,7 +235,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             PPApplication.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
-            NotUsedMobileCellsDetectedActivity.this.finish();
+            finish();
         });
 
         LayoutInflater inflater = getLayoutInflater();
@@ -250,7 +250,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            NotUsedMobileCellsDetectedActivity.this.onShow();
+            onShow();
         });
 
         cellIdTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_id);
@@ -260,7 +260,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
         mMobileCellNamesDialog = new MobileCellNamesDialogX(this, null, false);
         cellNameTextView.setOnClickListener(view -> {
-            if (!NotUsedMobileCellsDetectedActivity.this.isFinishing())
+            if (!isFinishing())
                 mMobileCellNamesDialog.show();
         }
         );

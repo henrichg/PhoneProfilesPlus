@@ -32,7 +32,7 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventsPrefsActivity extends AppCompatActivity {
+public class EventsPrefsActivity extends AppCompatActivity implements RefreshGUIActivatorEditorListener {
 
     long event_id = 0;
     private int old_event_status;
@@ -47,14 +47,21 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
     private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
-    private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
+
+    static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
+
+        private final RefreshGUIActivatorEditorListener listener;
+
+        public RefreshGUIBroadcastReceiver(RefreshGUIActivatorEditorListener listener){
+            this.listener = listener;
+        }
+
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
-
-            EventsPrefsActivity.this.changeCurentLightSensorValue();
+            listener.refreshGUIFromListener(intent);
         }
-    };
+    }
+    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
 
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
     //public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
@@ -1005,5 +1012,11 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
 
     }*/
+
+    @Override
+    public void refreshGUIFromListener(Intent intent) {
+        PPApplication.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
+        changeCurentLightSensorValue();
+    }
 
 }

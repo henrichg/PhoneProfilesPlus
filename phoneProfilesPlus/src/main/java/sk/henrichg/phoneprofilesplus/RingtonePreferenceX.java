@@ -185,6 +185,8 @@ public class RingtonePreferenceX extends DialogPreference {
             final Uri _ringtoneUri = Uri.parse(ringtoneUri);
 
             final Context appContext = prefContext.getApplicationContext();
+            final RingtonePreferenceX preference = this;
+
             //PPApplication.startHandlerThreadPlayTone();
             //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
             //__handler.post(new PlayRingtoneRunnable(prefContext.getApplicationContext(),
@@ -329,7 +331,9 @@ public class RingtonePreferenceX extends DialogPreference {
                     } catch (Exception e) {
                         //Log.e("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
                         //PPApplication.recordException(e);
-                        RingtonePreferenceX.this.stopPlayRingtone();
+                        try {
+                            preference.stopPlayRingtone();
+                        } catch (Exception ignored) {}
 
                         PPExecutors.scheduleDisableInternalChangeExecutor();
                         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();

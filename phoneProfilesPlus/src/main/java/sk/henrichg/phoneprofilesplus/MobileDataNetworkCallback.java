@@ -95,7 +95,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        MobileDataNetworkCallback.this._doConnection(appContext);
+                        _doConnection(appContext);
 
                     } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

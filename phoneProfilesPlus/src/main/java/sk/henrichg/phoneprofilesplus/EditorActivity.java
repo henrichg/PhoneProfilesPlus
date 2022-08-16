@@ -82,7 +82,10 @@ import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePre
 
 public class EditorActivity extends AppCompatActivity
                                     implements OnStartProfilePreferences,
-                                               OnStartEventPreferences
+                                               OnStartEventPreferences,
+                                               RefreshGUIActivatorEditorListener,
+                                               ShowTargetHelpsActivatorEditorListener,
+                                               FinishActivityActivatorEditorListener
 {
 
     //private static volatile EditorActivity instance;
@@ -196,53 +199,48 @@ public class EditorActivity extends AppCompatActivity
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
 
-    private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] EditorActivity.refreshGUIBroadcastReceiver", "xxx");
-            //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
-            boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
-            long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-            long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
-            // not change selection in editor if refresh is outside editor
-            EditorActivity.this.refreshGUI(/*refresh,*//* true,*/  refreshIcons, false, profileId, eventId);
-        }
-    };
+    static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
-    private final BroadcastReceiver showTargetHelpsBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] EditorActivity.showTargetHelpsBroadcastReceiver", "xxx");
-            Fragment fragment = EditorActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-            if (fragment != null) {
-                if (fragment instanceof EditorProfileListFragment)
-                    ((EditorProfileListFragment) fragment).showTargetHelps();
-                else
-                    ((EditorEventListFragment) fragment).showTargetHelps();
-            }
-        }
-    };
+        private final RefreshGUIActivatorEditorListener listener;
 
-    private final BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
+        public RefreshGUIBroadcastReceiver(RefreshGUIActivatorEditorListener listener){
+            this.listener = listener;
+        }
+
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] EditorActivity.finishBroadcastReceiver", "xxx");
-            String action = intent.getAction();
-            if (action != null) {
-                if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
-                    String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                    if (what.equals("editor")) {
-                        try {
-                            EditorActivity.this.setResult(Activity.RESULT_CANCELED);
-                            EditorActivity.this.finishAffinity();
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                    }
-                }
-            }
+            listener.refreshGUIFromListener(intent);
         }
-    };
+    }
+    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+
+    static private class ShowTargetHelpsBroadcastReceiver extends BroadcastReceiver {
+        private final ShowTargetHelpsActivatorEditorListener listener;
+
+        public ShowTargetHelpsBroadcastReceiver(ShowTargetHelpsActivatorEditorListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            listener.showTargetHelpsFromListener(intent);
+        }
+    }
+    private final ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
+
+    static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
+        private final FinishActivityActivatorEditorListener listener;
+
+        public FinishActivityBroadcastReceiver(FinishActivityActivatorEditorListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            listener.finishActivityFromListener(intent);
+        }
+    }
+    private final FinishActivityBroadcastReceiver finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -472,7 +470,7 @@ public class EditorActivity extends AppCompatActivity
         bottomNavigationView.setOnItemSelectedListener(
                 (me.ibrahimsn.lib.OnItemSelectedListener) item -> {
                     //noinspection Convert2MethodRef
-                    return EditorActivity.this.selectViewItem(item);
+                    return selectViewItem(item);
                 }
         );
         // set size of icons of BottomNavigationView
@@ -1198,7 +1196,7 @@ public class EditorActivity extends AppCompatActivity
                 ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
                 ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
 
-                PPApplication.exitApp(true, getApplicationContext(), EditorActivity.this.getDataWrapper(), EditorActivity.this, false, true);
+                PPApplication.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
@@ -1526,49 +1524,55 @@ public class EditorActivity extends AppCompatActivity
         //int itemId = item.getItemId();
         //if (itemId == R.id.menu_profiles_view) {
         if (item == 0) {
+            final EditorActivity activity = this;
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
+                if (!activity.isFinishing()) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (0)");
-                String[] filterItems = new String[]{
-                        EditorActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
-                        EditorActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                        EditorActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-                };
-                GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                        EditorActivity.this,
-                        R.layout.highlighted_filter_spinner,
-                        filterItems);
-                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                filterSpinner.setAdapter(filterSpinnerAdapter);
-                EditorActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
-                Fragment fragment = EditorActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                if (fragment instanceof EditorProfileListFragment)
-                    ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
+                    String[] filterItems = new String[]{
+                            activity.getString(R.string.editor_drawer_title_profiles) + " - " + activity.getString(R.string.editor_drawer_list_item_profiles_all),
+                            activity.getString(R.string.editor_drawer_title_profiles) + " - " + activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                            activity.getString(R.string.editor_drawer_title_profiles) + " - " + activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                    };
+                    GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                            activity,
+                            R.layout.highlighted_filter_spinner,
+                            filterItems);
+                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                    filterSpinner.setAdapter(filterSpinnerAdapter);
+                    activity.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
+                    Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
+                }
             }, 200);
             return true;
             //} else if (itemId == R.id.menu_events_view) {
         } else if (item == 1) {
+            final EditorActivity activity = this;
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
+                if (!activity.isFinishing()) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (1)");
-                String[] filterItems = new String[]{
-                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
-                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_all),
-                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
-                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_running),
-                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
-                        EditorActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
-                };
-                GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                        EditorActivity.this,
-                        R.layout.highlighted_filter_spinner,
-                        filterItems);
-                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                filterSpinner.setAdapter(filterSpinnerAdapter);
-                EditorActivity.this.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
-                Fragment fragment = EditorActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                if (fragment instanceof EditorEventListFragment) {
-                    ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
+                    String[] filterItems = new String[]{
+                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_start_order),
+                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_all),
+                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_not_stopped),
+                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_running),
+                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_paused),
+                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_stopped)
+                    };
+                    GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                            activity,
+                            R.layout.highlighted_filter_spinner,
+                            filterItems);
+                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                    filterSpinner.setAdapter(filterSpinnerAdapter);
+                    activity.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
+                    Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                    if (fragment instanceof EditorEventListFragment) {
+                        ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
+                    }
                 }
             }, 200);
             return true;
@@ -5653,6 +5657,48 @@ public class EditorActivity extends AppCompatActivity
 
         public int compare(Language lhs, Language rhs) {
             return languagesCollator.compare(lhs.name, rhs.name);
+        }
+    }
+
+    @Override
+    public void refreshGUIFromListener(Intent intent) {
+        PPApplication.logE("[IN_BROADCAST] EditorActivity.refreshGUIBroadcastReceiver", "xxx");
+        //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
+        boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+        long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+        long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
+        // not change selection in editor if refresh is outside editor
+        refreshGUI(/*refresh,*//* true,*/  refreshIcons, false, profileId, eventId);
+    }
+
+    @Override
+    public void showTargetHelpsFromListener(Intent intent) {
+        PPApplication.logE("[IN_BROADCAST] EditorActivity.showTargetHelpsBroadcastReceiver", "xxx");
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (fragment != null) {
+            if (fragment instanceof EditorProfileListFragment)
+                ((EditorProfileListFragment) fragment).showTargetHelps();
+            else
+                ((EditorEventListFragment) fragment).showTargetHelps();
+        }
+    }
+
+    @Override
+    public void finishActivityFromListener(Intent intent) {
+        PPApplication.logE("[IN_BROADCAST] EditorActivity.finishBroadcastReceiver", "xxx");
+        String action = intent.getAction();
+        if (action != null) {
+            if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
+                String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
+                if (what.equals("editor")) {
+                    try {
+                        setResult(Activity.RESULT_CANCELED);
+                        finishAffinity();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            }
         }
     }
 

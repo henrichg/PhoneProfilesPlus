@@ -120,9 +120,9 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(EXTRA_TAG_NAME, tagName);
                 returnIntent.putExtra(EXTRA_TAG_DB_ID, tagDbId);
-                NFCTagWriteActivity.this.setResult(Activity.RESULT_OK, returnIntent);
+                nfcManager.activity.setResult(Activity.RESULT_OK, returnIntent);
                 try {
-                    NFCTagWriteActivity.this.finish();
+                    nfcManager.activity.finish();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -144,15 +144,15 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
                 //ToastCompat.makeText(getApplicationContext().this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();
                 //try {
-                    //NFCTagWriteActivity.this.finish();
+                    //nfcManager.activity.finish();
                 //} catch (Exception ignored) {};
             });
         }
 
         Button button = findViewById(R.id.write_nfc_tag_button);
         button.setOnClickListener(view -> {
-            NFCTagWriteActivity.this.setResult(Activity.RESULT_CANCELED);
-            NFCTagWriteActivity.this.finish();
+            setResult(Activity.RESULT_CANCELED);
+            finish();
         });
 
     }

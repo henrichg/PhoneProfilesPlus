@@ -134,7 +134,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        VPNNetworkCallback.this._doConnection(appContext);
+                        _doConnection(appContext);
 
                     } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

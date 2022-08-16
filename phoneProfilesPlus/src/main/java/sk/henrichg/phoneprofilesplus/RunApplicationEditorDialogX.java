@@ -87,7 +87,7 @@ class RunApplicationEditorDialogX
         dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             //if (cachedApplicationList != null) {
-                RunApplicationEditorDialogX.this.preference.updateApplication(editedApplication, selectedApplication, startApplicationDelay);
+                preference.updateApplication(editedApplication, selectedApplication, startApplicationDelay);
             //}
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -121,7 +121,7 @@ class RunApplicationEditorDialogX
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mDelayValueDialog.getDurationInput(), activity);
         delayValueRoot.setOnClickListener(view -> {
             mDelayValueDialog.setDuration(startApplicationDelay * 1000L);
-            if (!RunApplicationEditorDialogX.this.activity.isFinishing())
+            if (!activity.isFinishing())
                     mDelayValueDialog.show();
         }
         );
@@ -591,7 +591,7 @@ class RunApplicationEditorDialogX
         listView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
 
-        RunApplicationEditorDialogX.this.preference.updateGUI();
+        preference.updateGUI();
     }
 
     public void show() {

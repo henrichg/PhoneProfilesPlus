@@ -180,10 +180,10 @@ class MobileCellsListener extends PhoneStateListener {
                     //    _cellInfo = getAllCellInfo();
                     //else
                     //    getAllCellInfo(_cellInfo);
-                    MobileCellsListener.this.getAllCellInfo(cellInfo);
+                    getAllCellInfo(cellInfo);
 
                     //if (_cellInfo != null) {
-                    MobileCellsListener.this.handleEvents(appContext);
+                    handleEvents(appContext);
                     //}
 
                 } catch (Exception e) {
@@ -232,9 +232,9 @@ class MobileCellsListener extends PhoneStateListener {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    MobileCellsListener.this.registerCell();
+                    registerCell();
 
-                    MobileCellsListener.this.handleEvents(appContext);
+                    handleEvents(appContext);
 
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -345,9 +345,9 @@ class MobileCellsListener extends PhoneStateListener {
                     //    _location = getCellLocation();
                     //else
                     //    getCellLocation(_location);
-                    MobileCellsListener.this.getCellLocation(location);
+                    getCellLocation(location);
 
-                    MobileCellsListener.this.handleEvents(appContext);
+                    handleEvents(appContext);
                     //}
 
                 } catch (Exception e) {
@@ -397,9 +397,9 @@ class MobileCellsListener extends PhoneStateListener {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        MobileCellsListener.this.registerCell();
+                        registerCell();
 
-                        MobileCellsListener.this.handleEvents(appContext);
+                        handleEvents(appContext);
 
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

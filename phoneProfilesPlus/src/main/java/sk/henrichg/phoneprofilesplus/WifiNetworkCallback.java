@@ -135,7 +135,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        WifiNetworkCallback.this._doConnection(appContext);
+                        _doConnection(appContext);
 
                     } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

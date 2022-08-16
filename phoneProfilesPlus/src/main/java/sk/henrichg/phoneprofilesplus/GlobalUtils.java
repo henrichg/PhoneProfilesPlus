@@ -482,34 +482,35 @@ public class GlobalUtils {
                     }
                 }
             }
-        } else
-            PPApplication.logE("GlobalUtils._hasSIMCard", "Phone not granted");
+        }
+//        else
+//            PPApplication.logE("GlobalUtils._hasSIMCard", "Phone not granted");
 
         //PPApplication.logE("GlobalUtils._hasSIMCard", "hasSIM="+hasSIM);
         return hasSIM;
     }
 
     static boolean hasSIMCard(Context appContext, int simCard) {
-        PPApplication.logE("GlobalUtils.hasSIMCard", "simCard="+simCard);
+//        PPApplication.logE("GlobalUtils.hasSIMCard", "simCard="+simCard);
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
             if (Build.VERSION.SDK_INT < 26) {
-                PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY));
+//                PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY));
                 return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
             } else {
                 if (simCard == 0) {
                     boolean hasSIM1 = _hasSIMCard(appContext, telephonyManager, 1);
                     boolean hasSIM2 = _hasSIMCard(appContext, telephonyManager, 2);
-                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(hasSIM1 || hasSIM2));
+//                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(hasSIM1 || hasSIM2));
                     return hasSIM1 || hasSIM2;
                 } else {
                     boolean hasSIM = _hasSIMCard(appContext, telephonyManager, simCard);
-                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+hasSIM);
+//                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+hasSIM);
                     return hasSIM;
                 }
             }
         }
-        PPApplication.logE("GlobalUtils.hasSIMCard", "--- false ---");
+//        PPApplication.logE("GlobalUtils.hasSIMCard", "--- false ---");
         return false;
     }
 

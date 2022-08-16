@@ -50,7 +50,8 @@ import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.math.BigDecimal;
 
-public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
+public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
+                        implements LocationGeofenceEditorActivityOSMNetworkOfflineListener{
     private LocationManager mLocationManager;
     private boolean mListenerEnabled = false;
 
@@ -475,7 +476,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         if (checkOnlineStatusBroadcatReceiver == null) {
-            checkOnlineStatusBroadcatReceiver = new LocationGeofenceEditorOnlineStatusBroadcastReceiver();
+            checkOnlineStatusBroadcatReceiver = new LocationGeofenceEditorOnlineStatusBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(checkOnlineStatusBroadcatReceiver,
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver"));
         }
@@ -674,11 +675,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 boolean ok = false;
                 //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
-                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, LocationGeofenceEditorActivityOSM.this.getApplicationContext())) {
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getApplicationContext())) {
                     try {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        LocationGeofenceEditorActivityOSM.this.startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
+                        startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
                         PPApplication.recordException(e);
@@ -701,7 +702,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 //                                }
 //                            });
 
-                    if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
+                    if (!isFinishing())
                         _dialog.show();
                 }
 
@@ -724,7 +725,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             //            }
             //        });
 
-            if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
+            if (!isFinishing())
                 dialog.show();
         }
     }
@@ -1309,39 +1310,50 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void showDialogAndRefreshFromListener(Context context) {
+        if (!CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext())) {
+            if (!isFinishing()) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.location_editor_title);
+                dialogBuilder.setMessage(R.string.location_editor_connection_is_offline);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-    public class LocationGeofenceEditorOnlineStatusBroadcastReceiver extends BroadcastReceiver
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = dialogBuilder.create();
+
+                //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                //            @Override
+                //            public void onShow(DialogInterface dialog) {
+                //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                //                if (positive != null) positive.setAllCaps(false);
+                //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                //                if (negative != null) negative.setAllCaps(false);
+                //            }
+                //        });
+
+                if (!isFinishing())
+                    dialog.show();
+            }
+        }
+
+        if (!isFinishing())
+            refreshActivity(true, CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext()));
+    }
+
+    static private class LocationGeofenceEditorOnlineStatusBroadcastReceiver extends BroadcastReceiver
     {
+
+        private final LocationGeofenceEditorActivityOSMNetworkOfflineListener listener;
+
+        public LocationGeofenceEditorOnlineStatusBroadcastReceiver(LocationGeofenceEditorActivityOSMNetworkOfflineListener listener){
+            this.listener = listener;
+        }
+
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            if (!CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext())) {
-                if (!LocationGeofenceEditorActivityOSM.this.isFinishing()) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LocationGeofenceEditorActivityOSM.this);
-                    dialogBuilder.setTitle(R.string.location_editor_title);
-                    dialogBuilder.setMessage(R.string.location_editor_connection_is_offline);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    //            @Override
-                    //            public void onShow(DialogInterface dialog) {
-                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    //                if (positive != null) positive.setAllCaps(false);
-                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    //                if (negative != null) negative.setAllCaps(false);
-                    //            }
-                    //        });
-
-                    if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
-                        dialog.show();
-                }
-            }
-
-            if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
-                refreshActivity(true, CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext()));
+            listener.showDialogAndRefreshFromListener(context);
         }
     }
 
