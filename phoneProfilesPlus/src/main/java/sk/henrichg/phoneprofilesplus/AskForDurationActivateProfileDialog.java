@@ -59,7 +59,7 @@ class AskForDurationActivateProfileDialog
 
     }
 
-    private void doShow(/*DialogInterface dialog*/) {
+    private void doShow() {
         new ShowDialogAsyncTask(askForDurationDialog.mAfterDoProfile, this, activity).execute();
     }
 

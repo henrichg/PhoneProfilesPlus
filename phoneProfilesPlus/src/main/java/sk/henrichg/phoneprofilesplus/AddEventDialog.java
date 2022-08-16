@@ -68,7 +68,7 @@ class AddEventDialog
 
     }
 
-    private void doShow(/*DialogInterface dialog*/) {
+    private void doShow() {
          GetEventsAsyncTask asyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
          asyncTask.execute();
 

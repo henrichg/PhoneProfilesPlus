@@ -63,7 +63,7 @@ class AddProfileDialog
 
     }
 
-    private void doShow(/*DialogInterface dialog*/) {
+    private void doShow() {
         AddProfileDialog.GetProfilesAsyncTask asyncTask = new AddProfileDialog.GetProfilesAsyncTask(this, activity, profileListFragment.activityDataWrapper);
         asyncTask.execute();
 
