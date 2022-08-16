@@ -250,7 +250,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            doShow();
+            new ShowActivityAsyncTask(this).execute();
         });
 
         cellIdTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_id);
@@ -307,9 +307,11 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
+    /*
     private void doShow() {
         new ShowActivityAsyncTask(this).execute();
     }
+    */
 
     private static class ShowActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
 
