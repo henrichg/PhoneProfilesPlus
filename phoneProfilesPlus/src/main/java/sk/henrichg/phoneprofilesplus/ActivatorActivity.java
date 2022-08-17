@@ -699,7 +699,7 @@ public class ActivatorActivity extends AppCompatActivity
 
     @Override
     public void refreshGUIFromListener(Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.refreshGUIBroadcastReceiver", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.refreshGUIBroadcastReceiver", "xxx");
         //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
         refreshGUI(refreshIcons);
@@ -707,7 +707,7 @@ public class ActivatorActivity extends AppCompatActivity
 
     @Override
     public void showTargetHelpsFromListener(Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.showTargetHelpsBroadcastReceiver", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.showTargetHelpsBroadcastReceiver", "xxx");
         if (isFinishing()) {
             if (ActivatorTargetHelpsActivity.activity != null)
                 ActivatorTargetHelpsActivity.activity.finish();
@@ -744,7 +744,7 @@ public class ActivatorActivity extends AppCompatActivity
 
     @Override
     public void finishActivityFromListener(Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.finishBroadcastReceiver", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.finishBroadcastReceiver", "xxx");
         String action = intent.getAction();
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {

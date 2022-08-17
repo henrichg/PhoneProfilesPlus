@@ -1045,7 +1045,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     public void refreshGUIFromListener(Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
         changeCurentLightSensorValue();
     }
 

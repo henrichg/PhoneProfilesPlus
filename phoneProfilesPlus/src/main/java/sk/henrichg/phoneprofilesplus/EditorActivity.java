@@ -5662,7 +5662,7 @@ public class EditorActivity extends AppCompatActivity
 
     @Override
     public void refreshGUIFromListener(Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] EditorActivity.refreshGUIBroadcastReceiver", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] EditorActivity.refreshGUIBroadcastReceiver", "xxx");
         //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
         long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
@@ -5673,7 +5673,7 @@ public class EditorActivity extends AppCompatActivity
 
     @Override
     public void showTargetHelpsFromListener(Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] EditorActivity.showTargetHelpsBroadcastReceiver", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] EditorActivity.showTargetHelpsBroadcastReceiver", "xxx");
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment != null) {
             if (fragment instanceof EditorProfileListFragment)
@@ -5685,7 +5685,7 @@ public class EditorActivity extends AppCompatActivity
 
     @Override
     public void finishActivityFromListener(Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] EditorActivity.finishBroadcastReceiver", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] EditorActivity.finishBroadcastReceiver", "xxx");
         String action = intent.getAction();
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
