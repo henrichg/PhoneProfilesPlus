@@ -176,7 +176,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                     fragment.progressBar.setVisibility(View.GONE);
 
                     // get local profileList
-                    this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
+                    //this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
 
                     // set copy local profile list into activity profilesDataWrapper
                     fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
