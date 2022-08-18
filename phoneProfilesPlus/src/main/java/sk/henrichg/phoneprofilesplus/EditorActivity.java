@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -1614,10 +1615,12 @@ public class EditorActivity extends AppCompatActivity
                 // stop running AsyncTask
                 if (fragment instanceof EditorProfileListFragment) {
                     if (((EditorProfileListFragment) fragment).isAsyncTaskPendingOrRunning()) {
+                        Log.e("EditorActivity.selectFilterItem", "AsyncTask finished - profiles");
                         ((EditorProfileListFragment) fragment).stopRunningAsyncTask();
                     }
                 } else if (fragment instanceof EditorEventListFragment) {
                     if (((EditorEventListFragment) fragment).isAsyncTaskPendingOrRunning()) {
+                        Log.e("EditorActivity.selectFilterItem", "AsyncTask finished - events");
                         ((EditorEventListFragment) fragment).stopRunningAsyncTask();
                     }
                 }

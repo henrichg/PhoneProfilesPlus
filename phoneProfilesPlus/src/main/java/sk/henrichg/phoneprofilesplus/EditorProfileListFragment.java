@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -71,7 +72,7 @@ public class EditorProfileListFragment extends Fragment
     private EditorProfileListAdapter profileListAdapter;
     private ItemTouchHelper itemTouchHelper;
 
-    private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
+    private LoadProfileListAsyncTask loadAsyncTask = null;
 
     Profile scrollToProfile = null;
 
@@ -313,9 +314,8 @@ public class EditorProfileListFragment extends Fragment
         if (fromOnViewCreated) {
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
-                    LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
-                    this.asyncTaskContext = new WeakReference<>(asyncTask);
-                    asyncTask.execute();
+                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
+                    loadAsyncTask.execute();
                 } else {
                     if (profileListAdapter != null) {
                         listView.setAdapter(profileListAdapter);
@@ -491,69 +491,74 @@ public class EditorProfileListFragment extends Fragment
             EditorProfileListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
-                progressBarHandler.removeCallbacks(progressBarRunnable);
-                fragment.progressBar.setVisibility(GONE);
+                if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
+                    progressBarHandler.removeCallbacks(progressBarRunnable);
+                    fragment.progressBar.setVisibility(GONE);
 
-                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                    fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-                // get local profileList
-                _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
-                // set local profile list into activity dataWrapper
-                fragment.activityDataWrapper.copyProfileList(_dataWrapper);
-                _dataWrapper.clearProfileList();
+                    // get local profileList
+                    //_dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
+                    // set local profile list into activity dataWrapper
+                    fragment.activityDataWrapper.copyProfileList(_dataWrapper);
+                    _dataWrapper.clearProfileList();
 
-                synchronized (fragment.activityDataWrapper.profileList) {
-                    if (fragment.activityDataWrapper.profileList.size() == 0)
-                        fragment.textViewNoData.setVisibility(View.VISIBLE);
-                }
+                    synchronized (fragment.activityDataWrapper.profileList) {
+                        if (fragment.activityDataWrapper.profileList.size() == 0)
+                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                    }
 
-                fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
+                    fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
-                // added touch helper for drag and drop items
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
-                fragment.itemTouchHelper = new ItemTouchHelper(callback);
-                fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    // added touch helper for drag and drop items
+                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
+                    fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                    fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
 
-                fragment.listView.setAdapter(fragment.profileListAdapter);
+                    fragment.listView.setAdapter(fragment.profileListAdapter);
 
-                // update activity for activated profile
-                Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
-                                applicationEditorPrefIndicator);
-                fragment.updateHeader(profile);
-                fragment.profileListAdapter.notifyDataSetChanged(false);
-                //if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
-                //    fragment.setProfileSelection(profile);
+                    // update activity for activated profile
+                    Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
+                            applicationEditorPrefIndicator);
+                    fragment.updateHeader(profile);
+                    fragment.profileListAdapter.notifyDataSetChanged(false);
+                    //if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
+                    //    fragment.setProfileSelection(profile);
 
-                if (defaultProfilesGenerated) {
-                    PPApplication.updateGUI(true, false, _dataWrapper.context);
-                    if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
-                        PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
-                                fragment.getString(R.string.toast_predefined_profiles_generated),
+                    if (defaultProfilesGenerated) {
+                        PPApplication.updateGUI(true, false, _dataWrapper.context);
+                        if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
+                            PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
+                                    fragment.getString(R.string.toast_predefined_profiles_generated),
+                                    Toast.LENGTH_SHORT);
+                    }
+                    /*if (defaultEventsGenerated)
+                    {
+                        Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
+                                fragment.getString(R.string.toast_predefined_events_generated),
                                 Toast.LENGTH_SHORT);
+                        msg.show();
+                    }*/
+
                 }
-                /*if (defaultEventsGenerated)
-                {
-                    Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
-                            fragment.getString(R.string.toast_predefined_events_generated),
-                            Toast.LENGTH_SHORT);
-                    msg.show();
-                }*/
             }
         }
     }
 
     boolean isAsyncTaskPendingOrRunning() {
         try {
-            return this.asyncTaskContext != null &&
-                    this.asyncTaskContext.get() != null &&
-                    !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
+            Log.e("EditorProfileListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask="+loadAsyncTask);
+            Log.e("EditorProfileListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)="+loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+
+            return (loadAsyncTask != null) &&
+                    (!loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
         } catch (Exception e) {
             return false;
         }
     }
 
     void stopRunningAsyncTask() {
-        this.asyncTaskContext.get().cancel(true);
+        loadAsyncTask.cancel(true);
     }
 
     @Override
@@ -562,6 +567,7 @@ public class EditorProfileListFragment extends Fragment
         super.onDestroy();
 
         if (isAsyncTaskPendingOrRunning()) {
+            Log.e("EditorProfileListFragment.onDestroy", "AsyncTask not finished");
             stopRunningAsyncTask();
         }
 

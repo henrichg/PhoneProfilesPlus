@@ -34,7 +34,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     TextView textViewNoData;
     private LinearLayout progressBar;
 
-    private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
+    private LoadProfileListAsyncTask loadAsyncTask = null;
 
     public ShortcutCreatorListFragment() {
     }
@@ -93,9 +93,8 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         if (!activityDataWrapper.profileListFilled)
         {
-            LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this);
-            this.asyncTaskContext = new WeakReference<>(asyncTask );
-            asyncTask.execute();
+            loadAsyncTask = new LoadProfileListAsyncTask(this);
+            loadAsyncTask.execute();
         }
         else
         {
@@ -172,31 +171,32 @@ public class ShortcutCreatorListFragment extends Fragment {
             ShortcutCreatorListFragment fragment = this.fragmentWeakRef.get(); 
             
             if ((fragment != null) && (fragment.isAdded())) {
-                progressBarHandler.removeCallbacks(progressBarRunnable);
-                fragment.progressBar.setVisibility(View.GONE);
+                if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
+                    progressBarHandler.removeCallbacks(progressBarRunnable);
+                    fragment.progressBar.setVisibility(View.GONE);
 
-                // get local profileList
-                this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
+                    // get local profileList
+                    this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
 
-                // set copy local profile list into activity profilesDataWrapper
-                fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
-                this.dataWrapper.clearProfileList();
+                    // set copy local profile list into activity profilesDataWrapper
+                    fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
+                    this.dataWrapper.clearProfileList();
 
-                synchronized (fragment.activityDataWrapper.profileList) {
-                    if (fragment.activityDataWrapper.profileList.size() == 0)
-                        fragment.textViewNoData.setVisibility(View.VISIBLE);
+                    synchronized (fragment.activityDataWrapper.profileList) {
+                        if (fragment.activityDataWrapper.profileList.size() == 0)
+                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                    }
+
+                    fragment.profileListAdapter = new ShortcutCreatorListAdapter(fragment, fragment.activityDataWrapper);
+                    fragment.listView.setAdapter(fragment.profileListAdapter);
                 }
-
-                fragment.profileListAdapter = new ShortcutCreatorListAdapter(fragment, fragment.activityDataWrapper);
-                fragment.listView.setAdapter(fragment.profileListAdapter);
             }
         }
     }
 
     private boolean isAsyncTaskPendingOrRunning() {
-        return this.asyncTaskContext != null &&
-              this.asyncTaskContext.get() != null &&
-              !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
+        return (loadAsyncTask != null) &&
+                (!loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
     }
 
     @Override
@@ -205,7 +205,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         super.onDestroy();
 
         if (isAsyncTaskPendingOrRunning()) {
-            this.asyncTaskContext.get().cancel(true);
+            loadAsyncTask.cancel(true);
         }
 
         if (listView != null)

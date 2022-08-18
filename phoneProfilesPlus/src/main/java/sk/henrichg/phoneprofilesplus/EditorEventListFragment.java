@@ -19,6 +19,7 @@ import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -77,7 +78,7 @@ public class EditorEventListFragment extends Fragment
     private EditorEventListAdapter eventListAdapter;
     private ItemTouchHelper itemTouchHelper;
 
-    private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
+    private LoadEventListAsyncTask loadAsyncTask = null;
 
     Event scrollToEvent = null;
 
@@ -551,56 +552,57 @@ public class EditorEventListFragment extends Fragment
             EditorEventListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
-                progressBarHandler.removeCallbacks(progressBarRunnable);
-                fragment.progressBar.setVisibility(View.GONE);
+                if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
+                    progressBarHandler.removeCallbacks(progressBarRunnable);
+                    fragment.progressBar.setVisibility(View.GONE);
 
-                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                    fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-                // get local profileList
-                _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
-                // set local profile list into activity dataWrapper
-                fragment.activityDataWrapper.copyProfileList(_dataWrapper);
+                    // get local profileList
+                    //_dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
+                    // set local profile list into activity dataWrapper
+                    fragment.activityDataWrapper.copyProfileList(_dataWrapper);
 
-                // get local eventList
-                _dataWrapper.fillEventList();
-                // set local event list into activity dataWrapper
-                fragment.activityDataWrapper.copyEventList(_dataWrapper);
+                    // get local eventList
+                    //_dataWrapper.fillEventList();
+                    // set local event list into activity dataWrapper
+                    fragment.activityDataWrapper.copyEventList(_dataWrapper);
 
 
-                synchronized (fragment.activityDataWrapper.eventList) {
-                    if (fragment.activityDataWrapper.eventList.size() == 0)
-                        fragment.textViewNoData.setVisibility(VISIBLE);
-                }
+                    synchronized (fragment.activityDataWrapper.eventList) {
+                        if (fragment.activityDataWrapper.eventList.size() == 0)
+                            fragment.textViewNoData.setVisibility(VISIBLE);
+                    }
 
-                // get local eventTimelineList
-                _dataWrapper.getEventTimelineList(true);
-                // set copy local event timeline list into activity dataWrapper
-                fragment.activityDataWrapper.copyEventTimelineList(_dataWrapper);
+                    // get local eventTimelineList
+                    _dataWrapper.getEventTimelineList(true);
+                    // set copy local event timeline list into activity dataWrapper
+                    fragment.activityDataWrapper.copyEventTimelineList(_dataWrapper);
 
-                _dataWrapper.clearProfileList();
-                _dataWrapper.clearEventList();
-                _dataWrapper.clearEventTimelineList();
+                    _dataWrapper.clearProfileList();
+                    _dataWrapper.clearEventList();
+                    _dataWrapper.clearEventTimelineList();
 
-                fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
+                    fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
-                // added touch helper for drag and drop items
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
-                fragment.itemTouchHelper = new ItemTouchHelper(callback);
-                fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    // added touch helper for drag and drop items
+                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
+                    fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                    fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
 
-                fragment.listView.setAdapter(fragment.eventListAdapter);
+                    fragment.listView.setAdapter(fragment.eventListAdapter);
 
-                Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
-                fragment.updateHeader(profile);
+                    Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
+                    fragment.updateHeader(profile);
 
-                fragment.eventListAdapter.notifyDataSetChanged(false);
+                    fragment.eventListAdapter.notifyDataSetChanged(false);
 
-                if (defaultEventsGenerated)
-                {
-                    if ((fragment.getActivity() != null ) && (!fragment.getActivity().isFinishing()))
-                        PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
-                                fragment.getString(R.string.toast_predefined_events_generated),
-                                Toast.LENGTH_SHORT);
+                    if (defaultEventsGenerated) {
+                        if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
+                            PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
+                                    fragment.getString(R.string.toast_predefined_events_generated),
+                                    Toast.LENGTH_SHORT);
+                    }
                 }
             }
         }
@@ -608,16 +610,18 @@ public class EditorEventListFragment extends Fragment
 
     boolean isAsyncTaskPendingOrRunning() {
         try {
-            return this.asyncTaskContext != null &&
-                    this.asyncTaskContext.get() != null &&
-                    !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
+            Log.e("EditorEventListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask="+loadAsyncTask);
+            Log.e("EditorEventListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)="+loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+
+            return (loadAsyncTask != null) &&
+                    (!loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
         } catch (Exception e) {
             return false;
         }
     }
 
     void stopRunningAsyncTask() {
-        this.asyncTaskContext.get().cancel(true);
+        loadAsyncTask.cancel(true);
     }
 
     @Override
@@ -626,6 +630,7 @@ public class EditorEventListFragment extends Fragment
         super.onDestroy();
 
         if (isAsyncTaskPendingOrRunning()) {
+            Log.e("EditorEventListFragment.onDestroy", "AsyncTask not finished");
             stopRunningAsyncTask();
         }
 
@@ -1201,7 +1206,7 @@ public class EditorEventListFragment extends Fragment
     private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
         if (isAsyncTaskPendingOrRunning()) {
-            this.asyncTaskContext.get().cancel(true);
+            loadAsyncTask.cancel(true);
         }
 
         this.orderType = orderType;
@@ -1209,9 +1214,8 @@ public class EditorEventListFragment extends Fragment
         if (fromOnViewCreated) {
             synchronized (activityDataWrapper.eventList) {
                 if (!activityDataWrapper.eventListFilled) {
-                    LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
-                    this.asyncTaskContext = new WeakReference<>(asyncTask);
-                    asyncTask.execute();
+                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                    loadAsyncTask.execute();
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     if (eventListAdapter != null) {
