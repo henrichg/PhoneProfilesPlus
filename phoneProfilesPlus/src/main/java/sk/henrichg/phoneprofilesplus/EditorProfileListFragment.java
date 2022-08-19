@@ -156,6 +156,7 @@ public class EditorProfileListFragment extends Fragment
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+        loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
 
         setHasOptionsMenu(true);
 
@@ -314,7 +315,6 @@ public class EditorProfileListFragment extends Fragment
         if (fromOnViewCreated) {
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
-                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
                     loadAsyncTask.execute();
                 } else {
                     if (profileListAdapter != null) {

@@ -187,6 +187,7 @@ public class EditorEventListFragment extends Fragment
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+        loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
 
         //getActivity().getIntent();
 
@@ -1214,7 +1215,6 @@ public class EditorEventListFragment extends Fragment
         if (fromOnViewCreated) {
             synchronized (activityDataWrapper.eventList) {
                 if (!activityDataWrapper.eventListFilled) {
-                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
                     loadAsyncTask.execute();
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.

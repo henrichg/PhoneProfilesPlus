@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +68,8 @@ public class ActivatorListFragment extends Fragment {
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+
+        loadAsyncTask = new LoadProfileListAsyncTask(this);
     }
 
     @Override
@@ -111,6 +112,7 @@ public class ActivatorListFragment extends Fragment {
 
         //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
         //if (startTargetHelps)
+            //Log.e("ActivatorListFragment.onViewCreated", "showTargetHelps");
             showTargetHelps();
     }
 
@@ -219,7 +221,6 @@ public class ActivatorListFragment extends Fragment {
 
         if (!activityDataWrapper.profileListFilled)
         {
-            loadAsyncTask = new LoadProfileListAsyncTask(this);
             loadAsyncTask.execute();
         }
         else
@@ -435,8 +436,8 @@ public class ActivatorListFragment extends Fragment {
 
     private boolean isAsyncTaskPendingOrRunning() {
         try {
-            Log.e("ActivatorListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask="+loadAsyncTask);
-            Log.e("ActivatorListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)="+loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+            //Log.e("ActivatorListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask="+loadAsyncTask);
+            //Log.e("ActivatorListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)="+loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
 
             return (loadAsyncTask != null) &&
                     (!loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
@@ -464,10 +465,10 @@ public class ActivatorListFragment extends Fragment {
     public void onDestroy()
     {
         super.onDestroy();
-        Log.e("ActivatorListFragment.onDestroy", "xxx");
+        //Log.e("ActivatorListFragment.onDestroy", "xxx");
 
         if (isAsyncTaskPendingOrRunning()) {
-            Log.e("ActivatorListFragment.onDestroy", "AsyncTask not finished");
+            //Log.e("ActivatorListFragment.onDestroy", "AsyncTask not finished");
             loadAsyncTask.cancel(true);
         }
 
@@ -671,22 +672,22 @@ public class ActivatorListFragment extends Fragment {
         //if (((ActivatorActivity)getActivity()).targetHelpsSequenceStarted)
         //    return;
 
+        //Log.e("ActivatorListFragment.showTargetHelps", "(0)");
+
         boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished;
         if (!startTargetHelpsFinished)
             return;
 
+        //Log.e("ActivatorListFragment.showTargetHelps", "(1)");
 
         boolean showTargetHelps = ApplicationPreferences.prefActivatorFragmentStartTargetHelps;
 
         if (showTargetHelps ||
                 ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
-            //Log.d("ActivatorListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
+            //Log.e("ActivatorListFragment.showTargetHelps", "(2)");
 
             if (showTargetHelps) {
-
-                //Log.d("ActivatorListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
-
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
@@ -694,13 +695,14 @@ public class ActivatorListFragment extends Fragment {
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
 
+                //Log.e("ActivatorListFragment.showTargetHelps", "start showAdapterTargetHelps (1)");
                 showAdapterTargetHelps();
             }
             else {
-                //Log.d("ActivatorListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (1)");
+                    //Log.e("ActivatorListFragment.showTargetHelps", "start showAdapterTargetHelps (2)");
                     //noinspection Convert2MethodRef
                     showAdapterTargetHelps();
                 }, 500);
@@ -711,15 +713,15 @@ public class ActivatorListFragment extends Fragment {
             handler.postDelayed(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (2)");
 
+                //Log.e("ActivatorListFragment.showTargetHelps", "(3)");
+
                 if (ActivatorTargetHelpsActivity.activity != null) {
-                    //Log.d("ActivatorListFragment.showTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
-                    //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
         }

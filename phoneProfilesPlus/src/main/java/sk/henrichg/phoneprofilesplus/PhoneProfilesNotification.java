@@ -47,6 +47,8 @@ public class PhoneProfilesNotification {
             return;
         }
 
+        PPApplication.createProfileNotificationChannel(appContext);
+
         // intent to LauncherActivity, for click on notification
         Intent launcherIntent;
         if (Build.VERSION.SDK_INT < 31) {
@@ -480,11 +482,9 @@ public class PhoneProfilesNotification {
 
         // ----- create notificationBuilders
         if (Build.VERSION.SDK_INT >= 26) {
-            PPApplication.createProfileNotificationChannel(appContext);
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
         }
         else {
-            PPApplication.createProfileNotificationChannel(appContext);
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
             if (notificationShowInStatusBar) {
                 KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);

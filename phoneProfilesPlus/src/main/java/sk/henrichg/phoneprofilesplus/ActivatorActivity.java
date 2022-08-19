@@ -480,7 +480,7 @@ public class ActivatorActivity extends AppCompatActivity
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelps ||
                 ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
-            //Log.d("ActivateProfilesActivity.startTargetHelpsActivity", "xxx");
+            //Log.e("ActivatorActivity.startTargetHelpsActivity", "xxx");
 
             //ActivatorTargetHelpsActivity.activatorActivity = this;
             Intent intent = new Intent(this, ActivatorTargetHelpsActivity.class);
@@ -598,6 +598,7 @@ public class ActivatorActivity extends AppCompatActivity
                         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null)
                         {
+                            //Log.e("ActivatorActivity.showTargetHelps", "start fragment showTargetHelps");
                             ((ActivatorListFragment)fragment).showTargetHelps();
                         }
                     }
@@ -731,6 +732,7 @@ public class ActivatorActivity extends AppCompatActivity
             else {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
                 if (fragment != null) {
+                    //Log.e("ActivatorActivity.showTargetHelpsFromListener", "start fragment showTargetHelps");
                     ((ActivatorListFragment) fragment).showTargetHelps();
                 }
             }
