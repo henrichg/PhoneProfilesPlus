@@ -1210,6 +1210,7 @@ public class EditorEventListFragment extends Fragment
     @SuppressLint("NotifyDataSetChanged")
     private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
+//        Log.e("EditorEventListFragment.changeListOrder", "fromOnViewCreated="+fromOnViewCreated);
         if (isAsyncTaskRunning()) {
             //Log.e("EditorEventListFragment.changeListOrder", "AsyncTask running");
             stopRunningAsyncTask();
@@ -1220,6 +1221,7 @@ public class EditorEventListFragment extends Fragment
         if (fromOnViewCreated) {
             synchronized (activityDataWrapper.eventList) {
                 if (!activityDataWrapper.eventListFilled) {
+//                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
                     loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
                     loadAsyncTask.execute();
@@ -1260,48 +1262,54 @@ public class EditorEventListFragment extends Fragment
         }
         else {
             synchronized (activityDataWrapper.eventList) {
-                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                if (!activityDataWrapper.eventListFilled) {
+//                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
+                    // start new AsyncTask, because old may be cancelled
+                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                    loadAsyncTask.execute();
+                } else {
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-                if (filterType == FILTER_TYPE_START_ORDER)
-                    EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
-                else
-                    EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
-                synchronized (activityDataWrapper.profileList) {
-                    Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                            ApplicationPreferences.applicationEditorPrefIndicator);
-                    updateHeader(profile);
-                }
-                eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
+                    if (filterType == FILTER_TYPE_START_ORDER)
+                        EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
+                    else
+                        EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+                    synchronized (activityDataWrapper.profileList) {
+                        Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
+                                ApplicationPreferences.applicationEditorPrefIndicator);
+                        updateHeader(profile);
+                    }
+                    eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 
-                // added touch helper for drag and drop items
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
-                itemTouchHelper = new ItemTouchHelper(callback);
-                itemTouchHelper.attachToRecyclerView(listView);
+                    // added touch helper for drag and drop items
+                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                    itemTouchHelper = new ItemTouchHelper(callback);
+                    itemTouchHelper.attachToRecyclerView(listView);
 
-                listView.setAdapter(eventListAdapter);
+                    listView.setAdapter(eventListAdapter);
 
-                int eventPos = ListView.INVALID_POSITION;
-                if (scrollToEvent != null) {
-                    eventPos = eventListAdapter.getItemPosition(scrollToEvent);
-                    scrollToEvent = null;
-                }
+                    int eventPos = ListView.INVALID_POSITION;
+                    if (scrollToEvent != null) {
+                        eventPos = eventListAdapter.getItemPosition(scrollToEvent);
+                        scrollToEvent = null;
+                    }
 
-                eventListAdapter.notifyDataSetChanged();
+                    eventListAdapter.notifyDataSetChanged();
 
-                if (eventPos != ListView.INVALID_POSITION) {
-                    if (listView != null) {
-                        // set event visible in list
-                        //int last = listView.getLastVisiblePosition();
-                        //int first = listView.getFirstVisiblePosition();
-                        //if ((eventPos <= first) || (eventPos >= last)) {
-                        //    listView.setSelection(eventPos);
-                        //}
-                        RecyclerView.LayoutManager lm = listView.getLayoutManager();
-                        if (lm != null)
-                            lm.scrollToPosition(eventPos);
+                    if (eventPos != ListView.INVALID_POSITION) {
+                        if (listView != null) {
+                            // set event visible in list
+                            //int last = listView.getLastVisiblePosition();
+                            //int first = listView.getFirstVisiblePosition();
+                            //if ((eventPos <= first) || (eventPos >= last)) {
+                            //    listView.setSelection(eventPos);
+                            //}
+                            RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                            if (lm != null)
+                                lm.scrollToPosition(eventPos);
+                        }
                     }
                 }
-
             }
         }
     }
