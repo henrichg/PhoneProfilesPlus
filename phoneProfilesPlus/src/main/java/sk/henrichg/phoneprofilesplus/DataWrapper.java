@@ -1480,6 +1480,7 @@ public class DataWrapper {
 
             }
 
+//            PPApplication.logE("[PPP_NOTIFICATION] DataWrapper._activateProfile", "call of updateGUI");
             PPApplication.updateGUI(false, false, context);
 
             if (_profile != null) {
@@ -1878,6 +1879,7 @@ public class DataWrapper {
                 setProfileActive(profile);
             }
 
+//            PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.activateProfile", "call of updateGUI");
             PPApplication.updateGUI(false, false, context);
 
             // for startActivityForResult
@@ -1902,6 +1904,7 @@ public class DataWrapper {
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
                 //Profile.setActivatedProfileForDuration(context, 0);
 
+//                PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.activateProfileAfterDuration", "call of updateGUI");
                 PPApplication.updateGUI(false, false, context);
                 return;
             }
@@ -2423,6 +2426,7 @@ public class DataWrapper {
                 if (globalRunStopEvents(true)) {
                     //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
 
+//                    PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.runStopEventsWithAlert (1)", "call of updateGUI");
                     PPApplication.updateGUI(true, false, activity);
                 }
             });
@@ -2447,6 +2451,7 @@ public class DataWrapper {
         }
         else {
             if (globalRunStopEvents(false)) {
+//                PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.runStopEventsWithAlert (2)", "call of updateGUI");
                 PPApplication.updateGUI(true, false, activity);
             }
         }

@@ -483,6 +483,7 @@ public class MainWorker extends Worker {
 
 //        PPApplication.setApplicationFullyStarted(appContext, showToast);
 
+//        PPApplication.logE("[PPP_NOTIFICATION] MainWorker.doAfterFirstStart", "call of forceUpdateGUI");
         PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
         //}
 

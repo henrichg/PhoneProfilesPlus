@@ -471,6 +471,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }, 1000);*/
         //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsActivity.doPreferenceChanges", "call of updateGUI");
         PPApplication.updateGUI(true, false, getApplicationContext());
 
         if (Permissions.grantRootChanged) {

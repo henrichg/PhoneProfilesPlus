@@ -363,6 +363,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             }
         }
 
+//        PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListAdapter.onItemMove", "call of updateGUI");
         PPApplication.updateGUI(true, false, activityDataWrapper.context);
 
         notifyItemMoved(fromPosition, toPosition);

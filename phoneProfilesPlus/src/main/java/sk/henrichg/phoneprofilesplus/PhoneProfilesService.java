@@ -265,6 +265,7 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {}
         }*/
         // show notification to avoid ANR in api level 26+
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of showProfileNotification");
         PhoneProfilesNotification.showProfileNotification(getApplicationContext(),
                 !isServiceRunning, isServiceRunning, true);
 
@@ -4516,6 +4517,7 @@ public class PhoneProfilesService extends Service
         //startForegroundNotification = true;
 
         boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of showProfileNotification");
         PhoneProfilesNotification.showProfileNotification(appContext, !isServiceRunning, true, true);
 
         PPApplication.normalServiceStart = (intent != null);
@@ -5048,6 +5050,7 @@ public class PhoneProfilesService extends Service
         super.onConfigurationChanged(newConfig);
 //        PPApplication.logE("[IN_LISTENER] PhoneProfilesService.onConfigurationChanged", "xxx");
 
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onConfigurationChanged", "call of updateGUI");
         PPApplication.updateGUI(false, false, getApplicationContext());
     }
 

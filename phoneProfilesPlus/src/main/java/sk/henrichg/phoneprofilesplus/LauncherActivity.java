@@ -65,6 +65,7 @@ public class LauncherActivity extends AppCompatActivity {
             if (startupSource == 0) {
                 // activity was not started from notification, widget
 
+//                PPApplication.logE("[PPP_NOTIFICATION] LauncherActivity.onStart", "call of updateGUI");
                 PPApplication.updateGUI(true, false, getApplicationContext());
                 startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }

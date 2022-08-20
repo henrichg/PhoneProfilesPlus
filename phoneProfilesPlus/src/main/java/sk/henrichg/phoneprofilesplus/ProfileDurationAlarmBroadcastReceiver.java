@@ -351,6 +351,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
 
                     removeAlarm(profile, appContext);
+//                    PPApplication.logE("[PPP_NOTIFICATION] ProfileDurationAlarmBroadcastReceiver._doWork", "call of updateGUI");
                     PPApplication.updateGUI(true, false, appContext);
 
                     if ((activatedProfile != null) &&

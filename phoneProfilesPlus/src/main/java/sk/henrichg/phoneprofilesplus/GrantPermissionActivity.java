@@ -1324,6 +1324,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.saveAllPermissions(context, permissionsChanged);
 
             if (permissionsChanged) {
+//                PPApplication.logE("[PPP_NOTIFICATION] GrantPermissionActivity.onActivityResult", "call of updateGUI");
                 PPApplication.updateGUI(true, false, context);
 
                 if (finishActivity) {
@@ -1821,6 +1822,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.clearMergedPermissions(context);*/
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
+//        PPApplication.logE("[PPP_NOTIFICATION] GrantPermissionActivity.finishGrant", "call of updateGUI");
             PPApplication.updateGUI(true, false, getApplicationContext());
         //}
     }

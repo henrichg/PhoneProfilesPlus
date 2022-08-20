@@ -47,6 +47,7 @@ public class PhoneProfilesNotification {
             return;
         }
 
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification._showProfileNotification", "call of createProfileNotificationChannel()");
         PPApplication.createProfileNotificationChannel(appContext);
 
         // intent to LauncherActivity, for click on notification
@@ -1300,6 +1301,7 @@ public class PhoneProfilesNotification {
             //if (PhoneProfilesService.getInstance() != null) {
             synchronized (PPApplication.showPPPNotificationMutex) {
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+//                PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification.forceDrawProfileNotification", "call of _showProfileNotification");
                 _showProfileNotification(dataWrapper, false);
                 dataWrapper.invalidateDataWrapper();
             }
@@ -1327,6 +1329,7 @@ public class PhoneProfilesNotification {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
+//                PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification.drawProfileNotification", "call of forceDrawProfileNotification");
                 forceDrawProfileNotification(appContext);
 
 //                long finish = System.currentTimeMillis();
@@ -1446,6 +1449,7 @@ public class PhoneProfilesNotification {
         if (drawEmpty) {
             //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
             DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+//            PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification.showProfileNotification", "call of _showProfileNotification");
             _showProfileNotification(/*null,*/ dataWrapper, true/*, true*/);
             dataWrapper.invalidateDataWrapper();
             //return; // do not return, dusplay activated profile immediatelly
@@ -1468,6 +1472,7 @@ public class PhoneProfilesNotification {
             delay = 200;
         else
             delay = 1000;*/
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification.showProfileNotification", "call of drawProfileNotification");
         drawProfileNotification(drawImmediatelly, context);
 
         //PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();

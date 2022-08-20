@@ -610,6 +610,22 @@ x
 
 Pamat:
 
+- Toto je volane z EditorActivity.onCreate() ->
+    PPApplication.createApplicationsCache(true);
+    -> spravi prazdnu cache, az prislusny preference dialog to naplni, cize toto nic nezerie
+       pri tych mojich testoch
+- Je volane aj toto na onDestroy ->
+    PPApplication.getApplicationsCache().clearCache(false);
+- Toto je volane casto. Co to robi? ->
+    PPApplication.updateGUI()
+    -> updatuje kompletne cele GUI, uplne vsetko, notifikacia, widgety, Aktivator, Editor, ...
+- Toto je volane casto. Co to robi? ->
+    EditorActivity.refreshGUI()
+    -> nastavi semafor
+       invaliduje options menu -> to je metoda Activity, asi sluzi na prekreslenie overflow menu aktivity
+       vola refreshGUI() fragmentu -> ten updatuje header a listview
+Cize zasa nic. :-(
+
 Editor:
 
 S21:

@@ -2329,6 +2329,7 @@ public class EditorActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
+//            PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.onActivityResult", "call of drawProfileNotification");
             PhoneProfilesNotification.drawProfileNotification(true, getApplicationContext());
             DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
             IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
@@ -2995,6 +2996,7 @@ public class EditorActivity extends AppCompatActivity
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
+//                PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.redrawProfileListFragment", "call of updateGUI");
                 PPApplication.updateGUI(true, false, fragment.activityDataWrapper.context);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
@@ -4470,6 +4472,7 @@ public class EditorActivity extends AppCompatActivity
                     //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                     PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
+//                    PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.importAsyncTask", "call of updateGUI");
                     PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                     PPApplication.setApplicationStarted(_dataWrapper.context, true);
@@ -5252,6 +5255,7 @@ public class EditorActivity extends AppCompatActivity
                         //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
+//                        PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.importFromPPAsyncTask", "call of updateGUI");
                         PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                         PPApplication.setApplicationStarted(_dataWrapper.context, true);

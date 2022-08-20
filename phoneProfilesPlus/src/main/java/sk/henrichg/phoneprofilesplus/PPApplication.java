@@ -258,6 +258,7 @@ public class PPApplication extends Application
                                                 //+"|[DB_LOCK]"
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
+                                                //+"|[PPP_NOTIFICATION]"
 
 //                                                +"|GlobalUtils.hasSIMCard"
 //                                                +"|GlobalUtils._hasSIMCard"
@@ -1590,6 +1591,7 @@ public class PPApplication extends Application
         final Context appContext = context.getApplicationContext();
 
         if (!oldApplicationFullyStarted) {
+//            PPApplication.logE("[PPP_NOTIFICATION] PPApplication.setApplicationFullyStarted", "call of updateGUI");
             updateGUI(true, false, appContext);
         }
 
@@ -1909,6 +1911,7 @@ public class PPApplication extends Application
         TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
         if (alsoNotification) {
+//            PPApplication.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of drawProfileNotification");
             PhoneProfilesNotification.drawProfileNotification(true, context);
         }
     }
@@ -1919,6 +1922,7 @@ public class PPApplication extends Application
             final Context appContext = context.getApplicationContext();
 
             if (drawImmediattely) {
+//                PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of forceUpdateGUI");
                 PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
                 return;
             }
@@ -1942,9 +1946,12 @@ public class PPApplication extends Application
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+//                    PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of forceUpdateGUI");
                     PPApplication.forceUpdateGUI(appContext, true, false);
-                    if (longDelay)
+                    if (longDelay) {
+//                        PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of forceDrawProfileNotification");
                         PhoneProfilesNotification.forceDrawProfileNotification(appContext);
+                    }
 
 
 //                    long finish = System.currentTimeMillis();
@@ -2002,8 +2009,10 @@ public class PPApplication extends Application
             }, delay * 1000L);
             */
 
-            if (!longDelay)
+            if (!longDelay) {
+//                PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of drawProfileNotification");
                 PhoneProfilesNotification.drawProfileNotification(false, context);
+            }
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -2964,18 +2973,18 @@ public class PPApplication extends Application
     }
 
     static void createNotificationChannels(Context appContext) {
-        PPApplication.createProfileNotificationChannel(appContext);
-        PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
-        PPApplication.createInformationNotificationChannel(appContext);
-        PPApplication.createExclamationNotificationChannel(appContext);
-        PPApplication.createGrantPermissionNotificationChannel(appContext);
-        PPApplication.createNotifyEventStartNotificationChannel(appContext);
-        PPApplication.createMobileCellsNewCellNotificationChannel(appContext);
         PPApplication.createDonationNotificationChannel(appContext);
-        PPApplication.createNewReleaseNotificationChannel(appContext);
-        //PPApplication.createCrashReportNotificationChannel(appContext);
+        PPApplication.createExclamationNotificationChannel(appContext);
         PPApplication.createGeneratedByProfileNotificationChannel(appContext);
+        PPApplication.createGrantPermissionNotificationChannel(appContext);
+        PPApplication.createInformationNotificationChannel(appContext);
         PPApplication.createKeepScreenOnNotificationChannel(appContext);
+        PPApplication.createMobileCellsNewCellNotificationChannel(appContext);
+        PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
+        PPApplication.createNewReleaseNotificationChannel(appContext);
+        PPApplication.createNotifyEventStartNotificationChannel(appContext);
+        PPApplication.createProfileNotificationChannel(appContext);
+        //PPApplication.createCrashReportNotificationChannel(appContext);
     }
 
     /*
@@ -3754,6 +3763,7 @@ public class PPApplication extends Application
 
             if (!shutdown) {
                 //ActivateProfileHelper.updateGUI(context, false, true);
+//                PPApplication.logE("[PPP_NOTIFICATION] PPApplication._exitApp", "call of forceUpdateGUI");
                 PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false/*, true*/);
 
                 Handler _handler = new Handler(context.getMainLooper());

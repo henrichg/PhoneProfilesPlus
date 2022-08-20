@@ -1076,6 +1076,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
             event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.onResume", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
     }
@@ -1168,6 +1169,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     EventPreferencesCall.PREF_EVENT_CALL_ENABLED, preferences, context);
 
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (1)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_SCANNING_APP_SETTINGS) {
@@ -1224,6 +1226,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (2)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
@@ -1234,6 +1237,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesBluetooth.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (3)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
@@ -1244,6 +1248,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesLocation.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (4)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
@@ -1254,6 +1259,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (5)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
@@ -1261,6 +1267,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesTime.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (6)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {

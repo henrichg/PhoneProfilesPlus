@@ -750,6 +750,7 @@ class EventsHandler {
 
             // refresh all GUI - must be for restart scanners
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
+//                PPApplication.logE("[PPP_NOTIFICATION] EventsHandler.handleEvents", "call of updateGUI");
                 PPApplication.updateGUI(false, false, context);
 
 //                synchronized (PPApplication.profileActivationMutex) {

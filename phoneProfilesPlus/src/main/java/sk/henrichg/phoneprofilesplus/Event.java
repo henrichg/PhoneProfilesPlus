@@ -1809,10 +1809,12 @@ class Event {
                     if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
                         dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
                     } else {
+//                        PPApplication.logE("[PPP_NOTIFICATION] Event.startEvent (1)", "call of updateGUI");
                         PPApplication.updateGUI(false, false, dataWrapper.context);
                     }
                 }
                 else {
+//                    PPApplication.logE("[PPP_NOTIFICATION] Event.startEvent (2)", "call of updateGUI");
                     PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             } else {
@@ -1830,6 +1832,7 @@ class Event {
                         dataWrapper.fifoAddProfile(profileId, _id);
                     }
                 } else {
+//                    PPApplication.logE("[PPP_NOTIFICATION] Event.startEvent (3)", "call of updateGUI");
                     PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             }
@@ -2078,6 +2081,7 @@ class Event {
 
         if ((!profileActivated) && updateGUI)
         {
+//            PPApplication.logE("[PPP_NOTIFICATION] Event.doActivateEndProfile", "call of updateGUI");
             PPApplication.updateGUI(false, false, dataWrapper.context);
         }
 

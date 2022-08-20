@@ -268,6 +268,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                     }
 
+//                    PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of drawProfileNotification");
                     PhoneProfilesNotification.drawProfileNotification(false, appContext);
 
                 } catch (Exception e) {

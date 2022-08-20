@@ -751,6 +751,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 }, 1000);*/
                 //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
+//                PPApplication.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of forceDrawProfileNotification");
                 PhoneProfilesNotification.forceDrawProfileNotification(context.getApplicationContext());
 
                 PPApplication.showToast(context,

@@ -526,6 +526,7 @@ public class EditorProfileListFragment extends Fragment
                     //    fragment.setProfileSelection(profile);
 
                     if (defaultProfilesGenerated) {
+//                        PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListFragment.LoadProfileListAsyncTask", "call of updateGUI");
                         PPApplication.updateGUI(true, false, _dataWrapper.context);
                         if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
                             PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
@@ -680,6 +681,7 @@ public class EditorProfileListFragment extends Fragment
             //Profile profile = databaseHandler.getActivatedProfile();
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
+//            PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteProfile", "call of updateGUI");
             PPApplication.updateGUI(true, false, activityDataWrapper.context);
         }
         else {
@@ -816,6 +818,7 @@ public class EditorProfileListFragment extends Fragment
                 //Profile profile = databaseHandler.getActivatedProfile();
                 //Profile profile = profileListAdapter.getActivatedProfile();
                 updateHeader(null);
+//                PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteAllProfiles", "call of updateGUI");
                 PPApplication.updateGUI(true, false,  activityDataWrapper.context);
 
                 activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

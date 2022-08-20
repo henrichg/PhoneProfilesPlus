@@ -244,7 +244,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         // must be used handler for rewrite toolbar title/subtitle
         Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPreferencesFragment.onActivityCreated");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsFragment.onActivityCreated");
             if (getActivity() == null)
                 return;
 
@@ -1098,6 +1098,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(preference112 -> {
                     boolean ok = false;
+//                    PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - activated porofile notification preference", "call of createProfileNotificationChannel()");
                     PPApplication.createProfileNotificationChannel(getActivity().getApplicationContext());
                     Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                     intent.putExtra(Settings.EXTRA_CHANNEL_ID, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
@@ -1140,6 +1141,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(preference113 -> {
                 boolean ok = false;
+//                PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - all notifications preference", "call of createProfileNotificationChannel()");
                 PPApplication.createProfileNotificationChannel(getActivity().getApplicationContext());
 
                 Intent intent = new Intent();
@@ -1900,6 +1902,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (permissionsChanged) {
                         //DataWrapper dataWrapper = new DataWrapper(context, false, 0);
 
+//                        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.doOnActivityResult", "call of updateGUI");
                         PPApplication.updateGUI(true, false, context);
 
                         if (finishActivity) {
@@ -1959,12 +1962,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setGeofenceFromEditor(/*geofenceId*/);
                 }
             }
-            /*if (PhoneProfilesPreferencesFragment.changedLocationGeofencePreference != null) {
+            /*if (PhoneProfilesPrefsFragment.changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
                     //long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
                     // this persistGeofence, for multiselect this mus only refresh listView in preference
-                    PhoneProfilesPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor();
-                    PhoneProfilesPreferencesFragment.changedLocationGeofencePreference = null;
+                    PhoneProfilesPrefsFragment.changedLocationGeofencePreference.setGeofenceFromEditor();
+                    PhoneProfilesPrefsFragment.changedLocationGeofencePreference = null;
                 }
             }*/
         }

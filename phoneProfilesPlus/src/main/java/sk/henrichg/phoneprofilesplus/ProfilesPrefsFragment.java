@@ -1298,6 +1298,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] ProfilesPrefsFragment.onResume", "call of updateGUI");
             PPApplication.updateGUI(true, false, getActivity());
         }
     }

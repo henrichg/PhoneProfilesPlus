@@ -165,6 +165,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             PhoneProfilesService.getInstance().getMobileCellsScanner().handleEvents(appContext);
                         }
                         // must be higher then delay in handleEvents
+//                        PPApplication.logE("[PPP_NOTIFICATION] NotUsedMobileCellsDetectedActivity.onStart", "call of updateGUI");
                         PPApplication.updateGUI(false, true, appContext);
 
                     } catch (Exception e) {
