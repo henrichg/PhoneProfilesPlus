@@ -256,7 +256,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     {
         super.onDestroy();
 
-        if ((geofenceEditorAsyncTask != null) && !geofenceEditorAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((geofenceEditorAsyncTask != null) && geofenceEditorAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             geofenceEditorAsyncTask.cancel(true);
         }
     }

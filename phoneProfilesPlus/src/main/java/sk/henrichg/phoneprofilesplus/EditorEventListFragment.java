@@ -549,7 +549,7 @@ public class EditorEventListFragment extends Fragment
         @Override
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
-            
+
             EditorEventListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
@@ -609,13 +609,13 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    boolean isAsyncTaskPendingOrRunning() {
+    boolean isAsyncTaskRunning() {
         try {
-            Log.e("EditorEventListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask="+loadAsyncTask);
-            Log.e("EditorEventListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)="+loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+            //Log.e("EditorEventListFragment.isAsyncTaskRunning", "loadAsyncTask="+loadAsyncTask);
+            //Log.e("EditorEventListFragment.isAsyncTaskRunning", "loadAsyncTask.getStatus()="+loadAsyncTask.getStatus());
 
             return (loadAsyncTask != null) &&
-                    (!loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+                    loadAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING);
         } catch (Exception e) {
             return false;
         }
@@ -623,6 +623,12 @@ public class EditorEventListFragment extends Fragment
 
     void stopRunningAsyncTask() {
         loadAsyncTask.cancel(true);
+        GlobalUtils.sleep(1000);
+        if (activityDataWrapper != null) {
+            synchronized (activityDataWrapper.eventList) {
+                activityDataWrapper.invalidateDataWrapper();
+            }
+        }
     }
 
     @Override
@@ -630,8 +636,8 @@ public class EditorEventListFragment extends Fragment
     {
         super.onDestroy();
 
-        if (isAsyncTaskPendingOrRunning()) {
-            Log.e("EditorEventListFragment.onDestroy", "AsyncTask not finished");
+        if (isAsyncTaskRunning()) {
+            //Log.e("EditorEventListFragment.onDestroy", "AsyncTask not finished");
             stopRunningAsyncTask();
         }
 
@@ -1206,8 +1212,9 @@ public class EditorEventListFragment extends Fragment
     @SuppressLint("NotifyDataSetChanged")
     private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
-        if (isAsyncTaskPendingOrRunning()) {
-            loadAsyncTask.cancel(true);
+        if (isAsyncTaskRunning()) {
+            //Log.e("EditorEventListFragment.changeListOrder", "AsyncTask running");
+            stopRunningAsyncTask();
         }
 
         this.orderType = orderType;

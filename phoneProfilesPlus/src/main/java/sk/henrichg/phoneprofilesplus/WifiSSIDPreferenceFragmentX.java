@@ -209,7 +209,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         WifiScanWorker.setWaitForResults(prefContext, false);
         WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
-        if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)))
+        if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
 
         WifiSSIDPreferenceX.forceRegister = false;

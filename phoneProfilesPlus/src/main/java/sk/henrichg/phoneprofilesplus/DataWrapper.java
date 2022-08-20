@@ -745,7 +745,7 @@ public class DataWrapper {
 
     void invalidateEventList()
     {
-        clearEventList();
+        //clearEventList();
         synchronized (eventList) {
             //if (eventListFilled)
                 eventList.clear();

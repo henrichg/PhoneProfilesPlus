@@ -53,7 +53,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             asyncTask.cancel(true);
         }
 

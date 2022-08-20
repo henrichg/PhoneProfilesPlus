@@ -205,7 +205,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
 
-        if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)))
+        if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
 
         preference.fragment = null;

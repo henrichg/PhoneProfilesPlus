@@ -19,7 +19,6 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -546,13 +545,13 @@ public class EditorProfileListFragment extends Fragment
         }
     }
 
-    boolean isAsyncTaskPendingOrRunning() {
+    boolean isAsyncTaskRunning() {
         try {
-            Log.e("EditorProfileListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask="+loadAsyncTask);
-            Log.e("EditorProfileListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)="+loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+            //Log.e("EditorProfileListFragment.isAsyncTaskRunning", "loadAsyncTask="+loadAsyncTask);
+            //Log.e("EditorProfileListFragment.isAsyncTaskRunning", "loadAsyncTask.getStatus()="+loadAsyncTask.getStatus());
 
             return (loadAsyncTask != null) &&
-                    (!loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+                    loadAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING);
         } catch (Exception e) {
             return false;
         }
@@ -560,6 +559,12 @@ public class EditorProfileListFragment extends Fragment
 
     void stopRunningAsyncTask() {
         loadAsyncTask.cancel(true);
+        GlobalUtils.sleep(1000);
+        if (activityDataWrapper != null) {
+            synchronized (activityDataWrapper.eventList) {
+                activityDataWrapper.invalidateDataWrapper();
+            }
+        }
     }
 
     @Override
@@ -567,8 +572,8 @@ public class EditorProfileListFragment extends Fragment
     {
         super.onDestroy();
 
-        if (isAsyncTaskPendingOrRunning()) {
-            Log.e("EditorProfileListFragment.onDestroy", "AsyncTask not finished");
+        if (isAsyncTaskRunning()) {
+            //Log.e("EditorProfileListFragment.onDestroy", "AsyncTask not finished");
             stopRunningAsyncTask();
         }
 

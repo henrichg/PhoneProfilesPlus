@@ -81,7 +81,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
             preference.resetSummary();
         }
 
-        if ((preference.asyncTask != null) && !preference.asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((preference.asyncTask != null) && preference.asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             preference.asyncTask.cancel(true);
         }
 

@@ -194,9 +194,9 @@ public class ShortcutCreatorListFragment extends Fragment {
         }
     }
 
-    private boolean isAsyncTaskPendingOrRunning() {
+    private boolean isAsyncTaskRunning() {
         return (loadAsyncTask != null) &&
-                (!loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+                loadAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING);
     }
 
     @Override
@@ -204,7 +204,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     {
         super.onDestroy();
 
-        if (isAsyncTaskPendingOrRunning()) {
+        if (isAsyncTaskRunning()) {
             loadAsyncTask.cancel(true);
         }
 

@@ -417,7 +417,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         if ((mSortDialog != null) && mSortDialog.isShowing())
             mSortDialog.dismiss();
 
-        if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)))
+        if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
 
         if (refreshListViewBroadcastReceiver != null) {

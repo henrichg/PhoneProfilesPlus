@@ -434,13 +434,13 @@ public class ActivatorListFragment extends Fragment {
         }
     }
 
-    private boolean isAsyncTaskPendingOrRunning() {
+    private boolean isAsyncTaskRunning() {
         try {
-            //Log.e("ActivatorListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask="+loadAsyncTask);
-            //Log.e("ActivatorListFragment.isAsyncTaskPendingOrRunning", "loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)="+loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+            //Log.e("ActivatorListFragment.isAsyncTaskRunning", "loadAsyncTask="+loadAsyncTask);
+            //Log.e("ActivatorListFragment.isAsyncTaskRunning", "loadAsyncTask.getStatus()="+loadAsyncTask.getStatus());
 
             return (loadAsyncTask != null) &&
-                    (!loadAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED));
+                    loadAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING);
         } catch (Exception e) {
             return false;
         }
@@ -467,7 +467,7 @@ public class ActivatorListFragment extends Fragment {
         super.onDestroy();
         //Log.e("ActivatorListFragment.onDestroy", "xxx");
 
-        if (isAsyncTaskPendingOrRunning()) {
+        if (isAsyncTaskRunning()) {
             //Log.e("ActivatorListFragment.onDestroy", "AsyncTask not finished");
             loadAsyncTask.cancel(true);
         }

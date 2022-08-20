@@ -73,7 +73,7 @@ class MobileCellNamesDialogX {
         }
 
         dialogBuilder.setOnDismissListener(dialog -> {
-            if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
                 asyncTask.cancel(true);
             }
         });

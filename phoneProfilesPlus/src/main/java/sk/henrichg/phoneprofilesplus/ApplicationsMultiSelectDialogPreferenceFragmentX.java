@@ -83,7 +83,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             asyncTask.cancel(true);
         }
 

@@ -95,7 +95,7 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             asyncTask.cancel(true);
         }
 

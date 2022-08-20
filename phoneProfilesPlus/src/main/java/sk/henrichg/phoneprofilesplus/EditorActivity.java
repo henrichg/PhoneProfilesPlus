@@ -775,21 +775,21 @@ public class EditorActivity extends AppCompatActivity
             restoreProgressDialog.dismiss();
             restoreProgressDialog = null;
         }
-        if ((importAsyncTask != null) && !importAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((importAsyncTask != null) && importAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             importAsyncTask.cancel(true);
             doImport = false;
         }
-        if ((importFromPPAsyncTask != null) && !importFromPPAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((importFromPPAsyncTask != null) && importFromPPAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             importFromPPAsyncTask.cancel(true);
             doImport = false;
         }
-        if ((exportAsyncTask != null) && !exportAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((exportAsyncTask != null) && exportAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             exportAsyncTask.cancel(true);
         }
-        if ((backupAsyncTask != null) && !backupAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((backupAsyncTask != null) && backupAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             backupAsyncTask.cancel(true);
         }
-        if ((restoreAsyncTask != null) && !restoreAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((restoreAsyncTask != null) && restoreAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             restoreAsyncTask.cancel(true);
         }
 
@@ -1614,12 +1614,12 @@ public class EditorActivity extends AppCompatActivity
             if (viewChanged) {
                 // stop running AsyncTask
                 if (fragment instanceof EditorProfileListFragment) {
-                    if (((EditorProfileListFragment) fragment).isAsyncTaskPendingOrRunning()) {
+                    if (((EditorProfileListFragment) fragment).isAsyncTaskRunning()) {
                         Log.e("EditorActivity.selectFilterItem", "AsyncTask finished - profiles");
                         ((EditorProfileListFragment) fragment).stopRunningAsyncTask();
                     }
                 } else if (fragment instanceof EditorEventListFragment) {
-                    if (((EditorEventListFragment) fragment).isAsyncTaskPendingOrRunning()) {
+                    if (((EditorEventListFragment) fragment).isAsyncTaskRunning()) {
                         Log.e("EditorActivity.selectFilterItem", "AsyncTask finished - events");
                         ((EditorEventListFragment) fragment).stopRunningAsyncTask();
                     }

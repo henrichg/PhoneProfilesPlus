@@ -77,7 +77,7 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             asyncTask.cancel(true);
         }
 
