@@ -314,6 +314,8 @@ public class EditorProfileListFragment extends Fragment
         if (fromOnViewCreated) {
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
+                    // start new AsyncTask, because old may be cancelled
+                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
                     loadAsyncTask.execute();
                 } else {
                     if (profileListAdapter != null) {
@@ -559,7 +561,6 @@ public class EditorProfileListFragment extends Fragment
 
     void stopRunningAsyncTask() {
         loadAsyncTask.cancel(true);
-        GlobalUtils.sleep(1000);
         if (activityDataWrapper != null) {
             synchronized (activityDataWrapper.eventList) {
                 activityDataWrapper.invalidateDataWrapper();

@@ -19,7 +19,6 @@ import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -623,7 +622,6 @@ public class EditorEventListFragment extends Fragment
 
     void stopRunningAsyncTask() {
         loadAsyncTask.cancel(true);
-        GlobalUtils.sleep(1000);
         if (activityDataWrapper != null) {
             synchronized (activityDataWrapper.eventList) {
                 activityDataWrapper.invalidateDataWrapper();
@@ -1222,6 +1220,8 @@ public class EditorEventListFragment extends Fragment
         if (fromOnViewCreated) {
             synchronized (activityDataWrapper.eventList) {
                 if (!activityDataWrapper.eventListFilled) {
+                    // start new AsyncTask, because old may be cancelled
+                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
                     loadAsyncTask.execute();
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
