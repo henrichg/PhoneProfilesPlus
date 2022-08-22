@@ -4514,6 +4514,9 @@ public class PhoneProfilesService extends Service
     {
         Context appContext = getApplicationContext();
 
+        PPApplication.logE("PhoneProfilesService.onStartCommand", "intent="+intent);
+        PPApplication.logE("PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
+
         //startForegroundNotification = true;
 
         boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
