@@ -390,6 +390,7 @@ public class PPApplication extends Application
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
     static final NotUnlinkVolumesMutex notUnlinkVolumesMutex = new NotUnlinkVolumesMutex();
     static final EventRoamingSensorMutex eventRoamingSensorMutex = new EventRoamingSensorMutex();
+    static final ApplicationCacheMutex applicationCacheMutex = new ApplicationCacheMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 
