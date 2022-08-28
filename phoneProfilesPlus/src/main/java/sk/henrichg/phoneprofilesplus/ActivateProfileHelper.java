@@ -24,6 +24,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.hardware.camera2.CameraAccessException;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
@@ -6859,22 +6860,25 @@ class ActivateProfileHelper {
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
+                                    NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
                                     try {
                                         if (powerManager != null) {
                                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
-
-                                        NoobCameraManager.getInstance().init(appContext);
-                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
                                         if (noobCameraManager != null) {
+                                            noobCameraManager.init(appContext);
                                             noobCameraManager.turnOnFlash();
-                                            NoobCameraManager.getInstance().release();
                                         }
+                                    } catch (CameraAccessException ce) {
+                                        //if (ce.getReason() == CameraAccessException.CAMERA_IN_USE) {}
                                     } catch (Exception e) {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);
                                     } finally {
+                                        if (noobCameraManager != null)
+                                            noobCameraManager.release();
+
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {
                                                 wakeLock.release();
@@ -6897,22 +6901,25 @@ class ActivateProfileHelper {
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
+                                    NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
                                     try {
                                         if (powerManager != null) {
                                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
-
-                                        NoobCameraManager.getInstance().init(appContext);
-                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
                                         if (noobCameraManager != null) {
+                                            noobCameraManager.init(appContext);
                                             noobCameraManager.turnOffFlash();
-                                            NoobCameraManager.getInstance().release();
                                         }
+                                    } catch (CameraAccessException ce) {
+                                        //if (ce.getReason() == CameraAccessException.CAMERA_IN_USE) {}
                                     } catch (Exception e) {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);
                                     } finally {
+                                        if (noobCameraManager != null)
+                                            noobCameraManager.release();
+
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {
                                                 wakeLock.release();
