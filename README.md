@@ -37,6 +37,9 @@ __[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phonepr
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 __[F-Droid application (download)](https://www.f-droid.org/)__
 
+__[Droid-ify - F-Droid alternative](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
+&nbsp;&nbsp;&nbsp;IzzyOnDroid repository is included
+
 ---
 
 __Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...__
