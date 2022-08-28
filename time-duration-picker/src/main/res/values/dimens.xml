@@ -3,6 +3,6 @@
     <dimen name="touchable">48dp</dimen>
     <dimen name="controlHPadding">6dp</dimen>
     <dimen name="controlVPaddingTop">2dp</dimen>
-    <dimen name="controlVPaddingBottom">8dp</dimen>
+    <dimen name="controlVPaddingBottom">12dp</dimen>
     <dimen name="dialpladTextSize">30sp</dimen>
 </resources>
