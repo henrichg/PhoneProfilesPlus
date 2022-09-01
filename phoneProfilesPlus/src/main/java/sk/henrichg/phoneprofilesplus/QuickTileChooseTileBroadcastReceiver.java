@@ -15,7 +15,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
     //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] QuickTileChooseTileBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] QuickTileChooseTileBroadcastReceiver.onReceive", "xxx");
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -26,7 +26,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
             return;
 
         PPApplication.quickTileProfileId[tileId] = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, -1);
-//        PPApplication.logE("[IN_BROADCAST] PPTileService.chooseTileBroadcastReceiver", "profileId="+profileId);
+        PPApplication.logE("[IN_BROADCAST] PPTileService.chooseTileBroadcastReceiver", "profileId="+PPApplication.quickTileProfileId[tileId]);
 
         // update Tile and save profileId int SharedPreferences
         ApplicationPreferences.setQuickTileProfileId(context.getApplicationContext(), tileId, PPApplication.quickTileProfileId[tileId]);
@@ -59,7 +59,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPTileService.chooseTileBroadcastReceiver.onReceive");
+                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPTileService.chooseTileBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
 

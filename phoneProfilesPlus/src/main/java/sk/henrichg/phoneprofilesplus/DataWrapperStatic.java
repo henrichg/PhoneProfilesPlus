@@ -643,9 +643,11 @@ public class DataWrapperStatic {
                         }
                     }
 
-                    //noinspection ConstantConditions
+                    PPApplication.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
+
+                    shortcutManager.removeAllDynamicShortcuts();
                     if (shortcuts.size() > 0)
-                        shortcutManager.setDynamicShortcuts(shortcuts);
+                        shortcutManager.addDynamicShortcuts(shortcuts);
                 }
             } catch (Exception e) {
 //                java.lang.IllegalStateException: Launcher activity not found for package sk.henrichg.phoneprofilesplus
