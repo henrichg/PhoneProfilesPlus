@@ -261,13 +261,13 @@ public class PPApplication extends Application
                                                 //+"|[VOLUMES]"
                                                 //+"|[PPP_NOTIFICATION]"
 
-//                                                +"|GlobalUtils.hasSIMCard"
-//                                                +"|GlobalUtils._hasSIMCard"
-//                                                +"|SettingsContentObserver.onChange"
+                                                //+"|GlobalUtils.hasSIMCard"
+                                                //+"|GlobalUtils._hasSIMCard"
+                                                //+"|SettingsContentObserver.onChange"
 
-                                                +"|DataWrapperStatic.setDynamicLauncherShortcuts"
-                                                +"|DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts"
-                                                +"|DatabaseHandlerProfiles.getProfilesForDynamicShortcuts"
+                                                //+"|DataWrapperStatic.setDynamicLauncherShortcuts"
+                                                //+"|DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts"
+                                                //+"|DatabaseHandlerProfiles.getProfilesForDynamicShortcuts"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

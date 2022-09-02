@@ -1506,7 +1506,7 @@ class DatabaseHandlerProfiles {
                             }
                         }
                         if (!existsInTile) {
-                            PPApplication.logE("DatabaseHandlerProfiles.getProfilesForDynamicShortcuts", "profile._name="+profile._name);
+//                            PPApplication.logE("DatabaseHandlerProfiles.getProfilesForDynamicShortcuts", "profile._name="+profile._name);
                             profileList.add(profile);
                         }
                     } while (cursor.moveToNext());
@@ -1572,7 +1572,7 @@ class DatabaseHandlerProfiles {
                         for (int i = 0; i < PPApplication.quickTileProfileId.length; i++) {
                             long tiledProfileId = ApplicationPreferences.getQuickTileProfileId(instance.context, i);
                             if (tiledProfileId == profile._id) {
-                                PPApplication.logE("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "profile._name="+profile._name);
+//                                PPApplication.logE("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "profile._name="+profile._name);
                                 profileList.add(profile);
                             }
                         }

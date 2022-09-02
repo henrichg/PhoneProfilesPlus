@@ -643,7 +643,7 @@ public class DataWrapperStatic {
                         }
                     }
 
-                    PPApplication.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
+//                    PPApplication.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
 
                     shortcutManager.removeAllDynamicShortcuts();
                     if (shortcuts.size() > 0)
