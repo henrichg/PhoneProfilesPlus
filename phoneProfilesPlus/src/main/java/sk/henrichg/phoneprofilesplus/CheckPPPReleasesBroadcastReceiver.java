@@ -161,8 +161,12 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                                 getVersion = false;
                             else {
                                 PackageManager packageManager = appContext.getPackageManager();
+
+                                // TODO remove this
                                 Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
                                 boolean amazonAppStoreInstalled = (intent != null);
+
+                                //TODO add support for Droid-ify
                                 intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
                                 boolean fdroidInstalled = (intent != null);
 
