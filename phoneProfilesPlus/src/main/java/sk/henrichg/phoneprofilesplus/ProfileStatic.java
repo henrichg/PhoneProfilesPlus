@@ -474,8 +474,6 @@ public class ProfileStatic {
             }
 
             if (!exponentialLevel)
-                //TODO - tuto uprav aby to vracalo hodnoty, ktore naozaj v
-                // Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ zariadenia pouizvaju
                 value = (percentage - 50) / 50f;
             else {
 //                int maximumValue;// = getMaximumScreenBrightnessSetting();
@@ -487,9 +485,6 @@ public class ProfileStatic {
 //                if (PPApplication.romIsOnePlus)
 //                    maximumValue = 1023;
                 //}
-
-                //TODO - tuto uprav aby to vracalo hodnoty, ktore naozaj v
-                // Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ zariadenia pouizvaju
 
                 if (PPApplication.deviceIsOnePlus) {
                     //noinspection ConstantConditions

@@ -171,15 +171,10 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                                 intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
                                 boolean fdroidInstalled = (intent != null);
 
-                                //TODO add support for Droid-ify
                                 intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
                                 boolean droidifyInstalled = (intent != null);
 
-                                //if (amazonAppStoreInstalled)
-                                if (huaweiAppGalleryInstalled)
-                                    getVersion = false;
-                                else
-                                    getVersion = !(fdroidInstalled || droidifyInstalled);
+                                getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled);
                             }
                             if (getVersion)
                                 _doWorkGitHub(appContext);

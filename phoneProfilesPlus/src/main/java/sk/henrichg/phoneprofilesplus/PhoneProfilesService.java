@@ -4676,7 +4676,6 @@ public class PhoneProfilesService extends Service
                             } else if (intent.getBooleanExtra(EXTRA_STOP_SIMULATING_RINGING_CALL_NO_DISABLE_INTERNAL_CHANGE, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
                                 ppService.stopSimulatingRingingCall(false, appContext);*/
-                                //TODO
                             } else if (intent.getBooleanExtra(EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
