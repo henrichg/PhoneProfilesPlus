@@ -1312,6 +1312,7 @@ public class EditorActivity extends AppCompatActivity
         else
         if ((itemId == R.id.menu_check_in_github) ||
                 (itemId == R.id.menu_check_in_fdroid) ||
+                (itemId == R.id.menu_check_in_droidify) ||
                 (itemId == R.id.menu_check_in_galaxy_store) ||
 //                (itemId == R.id.menu_check_in_amazon_appstore) ||
                 (itemId == R.id.menu_check_in_appgallery) ||

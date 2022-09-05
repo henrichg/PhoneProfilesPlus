@@ -133,6 +133,10 @@
                 android:title="@string/menu_check_releases_github"
                 android:orderInCategory="102"
                 app:showAsAction="never" />
+            <item android:id="@+id/menu_check_in_droidify"
+                android:title="@string/menu_check_releases_droidify"
+                android:orderInCategory="103"
+                app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_fdroid"
                 android:title="@string/menu_check_releases_fdroid"
                 android:orderInCategory="103"

@@ -2016,6 +2016,11 @@
 
     <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
 
+    <string name="check_releases_droidify_application">Droid-ify installation site:</string>
+    <string name="menu_check_releases_droidify">Check in Droid-ify</string>
+    <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
+    <string name="check_releases_open_droidify">Open Droid-ify</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

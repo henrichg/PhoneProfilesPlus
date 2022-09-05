@@ -162,18 +162,24 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             else {
                                 PackageManager packageManager = appContext.getPackageManager();
 
-                                // TODO remove this
-                                Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
-                                boolean amazonAppStoreInstalled = (intent != null);
+                                //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
+                                //boolean amazonAppStoreInstalled = (intent != null);
 
-                                //TODO add support for Droid-ify
+                                Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+                                boolean huaweiAppGalleryInstalled = (intent != null);
+
                                 intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
                                 boolean fdroidInstalled = (intent != null);
 
-                                if (amazonAppStoreInstalled)
+                                //TODO add support for Droid-ify
+                                intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+                                boolean droidifyInstalled = (intent != null);
+
+                                //if (amazonAppStoreInstalled)
+                                if (huaweiAppGalleryInstalled)
                                     getVersion = false;
                                 else
-                                    getVersion = !fdroidInstalled;
+                                    getVersion = !(fdroidInstalled || droidifyInstalled);
                             }
                             if (getVersion)
                                 _doWorkGitHub(appContext);

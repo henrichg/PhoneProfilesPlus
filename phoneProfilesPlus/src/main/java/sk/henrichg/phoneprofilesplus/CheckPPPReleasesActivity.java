@@ -153,6 +153,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //        boolean amazonAppStoreInstalled = (intent != null);
         Intent intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
         boolean fdroidInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+        boolean droidifyInstalled = (intent != null);
         intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
         boolean galaxyStoreInstalled = (intent != null);
         intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
@@ -193,6 +195,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             checkInAPKPure(activity);
             displayed = true;
         }
+        else
+        if (store == R.id.menu_check_in_droidify) {
+            checkInDroidIfy(activity);
+            displayed = true;
+        }
 
         if (!displayed) {
             if (store == -1) {
@@ -208,6 +215,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                         checkInHuaweiAppGallery(activity);
 //                    else if (amazonAppStoreInstalled)
 //                        checkInAmazonAppstore(activity);
+                    else if (droidifyInstalled)
+                        checkInDroidIfy(activity);
                     else if (fdroidInstalled)
                         checkInFDroid(activity);
                     else
@@ -951,6 +960,133 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             }
             else {
                 String url = PPApplication.APKPURE_PPP_RELEASES_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+            activity.finish();
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        dialogBuilder.setOnCancelListener(dialog -> activity.finish());
+        dialogBuilder.setOnDismissListener(dialog -> activity.finish());
+        alertDialog = dialogBuilder.create();
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+        if (!activity.isFinishing())
+            alertDialog.show();
+
+    }
+
+    @SuppressLint("InflateParams")
+    private void checkInDroidIfy(final Activity activity) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.menu_check_github_releases);
+        String message;
+        try {
+            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+        } catch (Exception e) {
+            message = "";
+        }
+
+        View layout;
+        LayoutInflater inflater = activity.getLayoutInflater();
+
+        /*
+        boolean fdroidInstalled = false;
+        PackageManager pm = activity.getPackageManager();
+        try {
+            pm.getPackageInfo("org.fdroid.fdroid", PackageManager.GET_ACTIVITIES);
+            fdroidInstalled = true;
+        } catch (Exception ignored) {}
+        if (fdroidInstalled)
+            layout = inflater.inflate(R.layout.dialog_for_fdroid_app, null);
+        else
+            layout = inflater.inflate(R.layout.dialog_for_fdroid, null);
+         */
+        layout = inflater.inflate(R.layout.dialog_for_droidify, null);
+
+        dialogBuilder.setView(layout);
+
+        TextView text;
+        text = layout.findViewById(R.id.dialog_for_droidify_info_text);
+        text.setText(message);
+
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        dialogBuilder.setCancelable(true);
+
+        boolean droidifyInstalled = false;
+        PackageManager pm = activity.getPackageManager();
+        try {
+            pm.getPackageInfo("com.looker.droidify", PackageManager.GET_ACTIVITIES);
+            droidifyInstalled = true;
+        } catch (Exception ignored) {}
+
+        text = layout.findViewById(R.id.dialog_for_droidify_droidify_application);
+        if (!droidifyInstalled) {
+            text.setVisibility(View.VISIBLE);
+            CharSequence str1 = activity.getString(R.string.check_releases_droidify_application);
+            CharSequence str2 = str1 + " " + PPApplication.DROIDIFY_APPLICATION_URL + " \u21D2";
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.DROIDIFY_APPLICATION_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+        } else {
+            text.setVisibility(View.GONE);
+        }
+
+        final boolean _droidifyInstalled = droidifyInstalled;
+        int buttonRes = R.string.check_releases_go_to_droidify;
+        if (droidifyInstalled)
+            buttonRes = R.string.check_releases_open_droidify;
+        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
+            if (_droidifyInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=sk.henrichg.phoneprofilesplus"));
+                intent.setPackage("com.looker.droidify");
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    //Log.e("CheckGitHubReleasesActivity.showDialog", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                }
+            }
+            else {
+                String url = PPApplication.DROIDIFY_PPP_RELEASES_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
