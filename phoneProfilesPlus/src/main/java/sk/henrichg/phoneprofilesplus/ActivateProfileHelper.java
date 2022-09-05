@@ -6872,6 +6872,8 @@ class ActivateProfileHelper {
                                         }
                                     } catch (CameraAccessException ce) {
                                         //if (ce.getReason() == CameraAccessException.CAMERA_IN_USE) {}
+                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH,
+                                                null, profile._name, "");
                                     } catch (Exception e) {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);
@@ -6913,6 +6915,8 @@ class ActivateProfileHelper {
                                         }
                                     } catch (CameraAccessException ce) {
                                         //if (ce.getReason() == CameraAccessException.CAMERA_IN_USE) {}
+                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH,
+                                                null, profile._name, "");
                                     } catch (Exception e) {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);

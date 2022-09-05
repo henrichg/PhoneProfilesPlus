@@ -1716,11 +1716,27 @@ class PreferenceAllowed {
         }
     }
 
-    static void isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(PreferenceAllowed preferenceAllowed) {
+    static void isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(PreferenceAllowed preferenceAllowed,
+                                             @SuppressWarnings("unused") Context context) {
+        boolean flashAvailable;
 
-        if (PPApplication.HAS_FEATURE_CAMERA_FLASH)
-            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+        if (PPApplication.HAS_FEATURE_CAMERA_FLASH) {
+            /* Hm, hm - this may require CAMERA permission - do not use this
+            try {
+                CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+                CameraCharacteristics cameraCharacteristics = cameraManager.getCameraCharacteristics("0");
+                flashAvailable = cameraCharacteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+            } catch (CameraAccessException e) {
+                flashAvailable = false;
+            }*/
+            flashAvailable = true;
+        }
         else {
+            flashAvailable = false;
+        }
+        if (flashAvailable) {
+            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+        } else {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }

@@ -1909,11 +1909,8 @@
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">None installed</string>
     <string name="location_scanner_location_not_working_notification_title">Location not working</string>
     <string name="location_scanner_location_not_working_notification_text">Sorry, but is not possible to get location. Please check device Location settings.</string>
-
     <string name="days_of_week_pref_dialog_button_all_nothing">All / Nothing</string>
-
     <string name="profile_preferences_applicationEnablePeriodicScanning">Enable periodic scanning</string>
-
     <string name="menu_share_settings">Share settings</string>
     <string name="menu_restore_shared_settings">Restore shared settings</string>
     <string name="share_settings_alert_message">This is for sharing settings to cloud storage, such as Google Drive, OneDrive. To do this, select the appropriate cloud application in the share panel.</string>
@@ -1925,18 +1922,14 @@
     <string name="restore_shared_settings_alert_title">Restore shared settings</string>
     <string name="restore_shared_settings_error_on_backup">Error on copying shared file for restore</string>
     <string name="restore_shared_settings_ok_backed_up">Shared file to restore copied</string>
-
     <string name="permission_why_profile_default_assistant">for set PhoneProfilesPlus as default Assistant</string>
     <string name="permission_group_name_microphone">Record audio</string>
-
     <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Decoration for notification is enabled only when \"Background color\" is of type \"Native\". Decoration is always displayed, when \"Notification style\" is set to \"Native\".</string>
-
     <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Airplane mode radios</string>
     <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Click here to display how to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info1">Is possible to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info2">This help is better to open it in computer in his Internet browser. Help is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info3" translatable="false">\"(HELP) How to configure airplane mode radios\"</string>
-
     <string name="event_preference_sensor_activated_profile_summary">This sensor will start and end an event by profile activation. Parameters: Start profile (profile which starts event), End profile (profile which ends event).</string>
     <string name="event_type_activated_profile">Activated profile</string>
     <string name="event_preferences_activated_profile_startProfile">Start profile</string>
@@ -1944,20 +1937,14 @@
     <string name="event_preferences_category_eventActivatedProfileParameters">Activated profile sensor</string>
     <string name="event_preferences_activated_profile_info">Configured profiles</string>
     <string name="event_preferences_activated_profile_info_summary">Profiles must not be the same. If profiles are the same, both parameters will be marked as error in configuration.</string>
-
     <string name="quick_tile_icon_label">Activate profile</string>
-
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Setting screen not found.\n\nPlease go into device settings: \"Settings / Apps / App launch\" and set \"Manage manually\" for PhoneProfilesPlus.</string>
-
     <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
     <string name="enable_notificaitons_button">Enable</string>
-
     <string name="phone_profiles_pref_applicationWidgetUseDynamicColors">Use dynamic colors</string>
-
     <string name="important_info_event_event_sensors_waiting">Purple: sensor is in waiting state. \"Pass\" status is determined.</string>
     <string name="important_info_event_event_sensors_passed">Green with double arrow: sensor is \"passed\".</string>
     <string name="important_info_event_event_sensors_not_pased">Blue: sensor is not \"passed\".</string>
-
     <string name="activity_log_help_message_colors">Used colors</string>
     <string name="activity_log_help_message_colors_profile_activation">Profile activation</string>
     <string name="activity_log_help_message_colors_event_start">Event start</string>
@@ -1966,33 +1953,25 @@
     <string name="activity_log_help_message_colors_event_delay_start_end">Event in delay start/end</string>
     <string name="activity_log_help_message_colors_error">Error</string>
     <string name="activity_log_help_message_colors_others">Other situations</string>
-
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Restart events\" icon color</string>
-
     <string name="important_info_notification_settings_text1">Recommendation for configuration of parameters \"Settings\"/\"Application notification\":</string>
     <string name="important_info_notification_settings_text2">Configure parameter \"Notification style\" to \"Custom\", \"Use decoration\" switched off, \"Show profile icon\" switched on, \"Show preferences indicator\" switched on.</string>
     <string name="important_info_notification_settings_text3">With this configuration, notification will be displayed with profile icon, preferences indicator with icons (as in Editor), \"Restart events\" as icon and notification will be smaller.</string>
     <string name="important_info_notification_settings_text4">Is possible to expand the notification, which is without decoration, with a gesture: swipe down with two fingers.</string>
     <string name="important_info_notification_settings_configure">Click here to configure \"Application notification\" with these parameters.</string>
     <string name="important_info_notification_settings_toast">Configured</string>
-
     <string name="menu_choose_language">Choose language</string>
     <string name="menu_choose_language_system_language">[System]</string>
     <string name="important_info_choose_language_text1">Choose language:</string>
     <string name="important_info_choose_language_text2">In Editor menu is added \"Choose language\" option. With this option, you can change application language.\nMenu for this is added also in PhoneProfilesPlusExtender (version 8.0).</string>
-
     <string name="profile_icon_preference_iconColor_help">Icon color</string>
     <string name="profile_icon_preference_iconColor_help_info_1">In a dark application theme, the color of the preview icon may have increased brightness.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>
-
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with a double arrow sign.</string>
-
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
-
     <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
     <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
     <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
-
     <string name="event_preference_sensor_roaming_summary">This sensor will start an event when network or data are in roaming. Parameters: Check network, Check data.</string>
     <string name="event_type_roaming">Roaming</string>
     <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
@@ -2000,24 +1979,19 @@
     <string name="pref_event_roaming_check_data">Check data</string>
     <string name="event_preferences_roaming_forSimCard">For SIM card</string>
     <string name="permission_why_event_roaming_preferences">for check, if network or data are in roaming</string>
-
     <string name="array_pref_airplaneModeArray_root_on">(R) On</string>
     <string name="array_pref_airplaneModeArray_root_off">(R) Off</string>
     <string name="array_pref_airplaneModeArray_root_toggle">(R) Toggle</string>
     <string name="array_pref_airplaneModeArray_assistant_on">On with Assistant</string>
     <string name="array_pref_airplaneModeArray_assistant_off">Off with Assistant</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">Toggle with Assistant</string>
-
     <string name="preference_not_allowed_reason_not_two_sim_cards">not two SIM cards inserted</string>
-
     <string name="phone_profiles_pref_applicationWidgetColorBNightModeOff">Background color - Dark mode off</string>
     <string name="phone_profiles_pref_applicationWidgetColorBNightModeOn">Background color - Dark mode on</string>
-
     <string name="phone_profiles_pref_applicationTheme_nightMode">By Dark mode</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Change colors by Dark mode</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode (as in Pixel launcher)</string>
     <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode.</string>
-
     <string name="profile_preferences_deviceVPN">VPN</string>
     <string name="vpn_profile_pref_dlg_application_name_label">VPN application:</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">Enable VPN</string>
@@ -2032,15 +2006,15 @@
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard is not installed or is in non-supported version.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect is not installed.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android is not installed.</string>
-
     <string name="event_type_vpn">VPN</string>
     <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to\/disconnected from VPN. Parameters: Connection status.</string>
     <string name="event_preferences_category_eventVPNParameters">VPN sensor</string>
     <string name="pref_event_vpn_connection_status">Connection status</string>
     <string name="array_pref_vpn_connected">Connected</string>
     <string name="array_pref_vpn_disconnected">Disconnected</string>
-
     <string name="vpn_not_set_when_is_in_state_pref_dlg">Do not set when VPN is already in state</string>
+
+    <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
 
     <!-- **************************************************************************************** -->
 
