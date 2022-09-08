@@ -74,7 +74,9 @@ dependencies {
     //noinspection GradleDependency
     implementation 'androidx.preference:preference:1.1.1'
 
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 
     implementation 'com.google.android.material:material:1.6.1'
@@ -88,9 +90,10 @@ dependencies {
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
 
-    implementation('dev.doubledot.doki:library:0.0.1@aar') {
-        transitive = true
-    }
+    implementation 'dev.doubledot.doki:library:0.0.1'
+    //implementation('dev.doubledot.doki:library:0.0.1@aar') {
+    //    transitive = true
+    //}
 
     implementation 'com.android.volley:volley:1.2.1'
     implementation "com.github.skydoves:expandablelayout:1.0.7"
