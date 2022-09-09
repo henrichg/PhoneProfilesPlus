@@ -1248,7 +1248,7 @@ public class EditorActivity extends AppCompatActivity
             return true;
         }
         else
-        if (itemId == R.id.menu_show_sound_mode) {
+        if (DebugVersion.enabled && (itemId == R.id.menu_show_sound_mode)) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle("Sound mode in system");
 
@@ -1329,12 +1329,12 @@ public class EditorActivity extends AppCompatActivity
             return true;
         }
         else
-        if (itemId == R.id.menu_test_crash) {
+        if (DebugVersion.enabled && (itemId == R.id.menu_test_crash)) {
             throw new RuntimeException("Test Crash");
             //return true;
         }
         else
-        if (itemId == R.id.menu_test_nonFatal) {
+        if (DebugVersion.enabled && (itemId == R.id.menu_test_nonFatal)) {
             try {
                 throw new RuntimeException("Test non-fatal exception");
             } catch (Exception e) {
