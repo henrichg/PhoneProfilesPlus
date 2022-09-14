@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 
 import androidx.appcompat.app.AlertDialog;
@@ -91,6 +92,13 @@ class DebugVersion {
 
             if (!activity.isFinishing())
                 dialog.show();
+
+            return true;
+        }
+        else
+        if (menuItem == R.id.menu_show_log_file) {
+            Intent intentLaunch = new Intent(activity.getApplicationContext(), LogCrashActivity.class);
+            activity.startActivity(intentLaunch);
 
             return true;
         }

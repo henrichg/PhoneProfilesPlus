@@ -35,6 +35,7 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../phoneProfilesPlus/src/debug">
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/src/debug/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/src/debug/res" type="java-resource" />
     </content>
     <content url="file://$MODULE_DIR$/../../../phoneProfilesPlus/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/src/main/java" isTestSource="false" />

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_show_log"
+          android:title="Show log.txt"
+          android:orderInCategory="100"
+          app:showAsAction="never"
+          tools:ignore="AlwaysShowAction,HardcodedText"/>
+    <item android:id="@+id/menu_show_crash"
+          android:title="Show crash.txt"
+          android:orderInCategory="110"
+          app:showAsAction="never"
+          tools:ignore="AlwaysShowAction,HardcodedText" />
+</menu>

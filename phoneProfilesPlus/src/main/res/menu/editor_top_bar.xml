@@ -184,6 +184,11 @@
                 android:orderInCategory="102"
                 app:showAsAction="never"
                 tools:ignore="HardcodedText" />
+            <item android:id="@+id/menu_show_log_file"
+                android:title="Show log/crash file"
+                android:orderInCategory="103"
+                app:showAsAction="never"
+                tools:ignore="HardcodedText" />
         </menu>
     </item>
 
