@@ -1,13 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -25,6 +28,7 @@ import java.util.List;
 public class LogCrashActivity extends AppCompatActivity {
 
     LinearLayout progressLinearLayout;
+    ListView listView;
 
     private ArrayAdapter<String> logCrashAdapter;
 
@@ -72,9 +76,25 @@ public class LogCrashActivity extends AppCompatActivity {
 
         progressLinearLayout = findViewById(R.id.log_crah_activity_linla_progress);
 
-        ListView listView = findViewById(R.id.log_crah_activity_list);
+        listView = findViewById(R.id.log_crah_activity_list);
         logCrashAdapter = new ArrayAdapter<>(this, R.layout.log_crash_list_item, R.id.log_crash_list_item_text);
         listView.setAdapter(logCrashAdapter);
+
+        Button goToBtn = findViewById(R.id.log_crash_list_go_to_bottom);
+        goToBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listView.setSelection(logCrashAdapter.getCount() - 1);
+            }
+        });
+        goToBtn = findViewById(R.id.log_crash_list_go_to_top);
+        goToBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listView.setSelection(0);
+            }
+        });
+
     }
 
     @Override
