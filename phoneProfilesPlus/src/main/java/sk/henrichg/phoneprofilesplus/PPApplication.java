@@ -1606,7 +1606,7 @@ public class PPApplication extends Application
 
         if (!oldApplicationFullyStarted && normalServiceStart && showToastForProfileActivation) {
             // it is not restart of application by system
-            String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_started_toast);
+            String text = appContext.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_started_toast);
             showToast(appContext, text, Toast.LENGTH_SHORT);
         }
 
@@ -1929,6 +1929,7 @@ public class PPApplication extends Application
     {
         try {
             final Context appContext = context.getApplicationContext();
+            LocaleHelper.setApplicationLocale(appContext);
 
             if (drawImmediattely) {
 //                PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of forceUpdateGUI");
@@ -2041,12 +2042,24 @@ public class PPApplication extends Application
         handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
             try {
+                LocaleHelper.setApplicationLocale(appContext);
+
                 //ToastCompat msg = ToastCompat.makeText(appContext, text, length);
                 ToastCompat msg = ToastCompat.makeCustom(appContext,
                         R.layout.toast_layout, R.drawable.toast_background,
                         R.id.custom_toast_message, text,
                         length);
-                //Toast msg = Toast.makeText(appContext, text, length);
+
+                /*
+                Toast msg = new Toast(appContext);
+                View view = LayoutInflater.from(appContext).inflate(R.layout.toast_layout, null);
+                TextView txtMsg = view.findViewById(R.id.custom_toast_message);
+                txtMsg.setText(text);
+                view.setBackgroundResource(R.drawable.toast_background);
+                msg.setView(view);
+                msg.setDuration(length);
+                */
+
                 msg.show();
             } catch (Exception ignored) {
                 //PPApplication.recordException(e);

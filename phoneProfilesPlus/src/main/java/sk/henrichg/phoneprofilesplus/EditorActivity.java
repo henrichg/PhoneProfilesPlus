@@ -1371,6 +1371,8 @@ public class EditorActivity extends AppCompatActivity
 
                         GlobalGUIRoutines.reloadActivity(this, false);
                         dialog.dismiss();
+
+                        PPApplication.updateGUI(true, false, this);
                     })
                     .create();
 
