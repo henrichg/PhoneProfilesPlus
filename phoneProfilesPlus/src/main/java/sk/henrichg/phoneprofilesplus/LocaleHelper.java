@@ -137,7 +137,7 @@ public class LocaleHelper {
         config.setLayoutDirection(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
-        //GlobalUtils.getCollator();
+        PPApplication.collator = GlobalUtils.getCollator();
     }
 
     private static String getPersistedData(Context context, String data, String defaultValue) {
@@ -177,7 +177,7 @@ public class LocaleHelper {
             configuration.setLocale(locale);
             configuration.setLayoutDirection(locale);
 
-            GlobalUtils.getCollator();
+            PPApplication.collator = GlobalUtils.getCollator();
 
             if (forAttach) {
                 // !!! this must be, without this not working detection of night mode

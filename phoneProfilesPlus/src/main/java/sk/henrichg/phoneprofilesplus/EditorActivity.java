@@ -65,7 +65,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -194,7 +193,7 @@ public class EditorActivity extends AppCompatActivity
     String defaultLanguage = "";
     String defaultCountry = "";
     String defaultScript = "";
-    final Collator languagesCollator = GlobalUtils.getCollator();
+    //final Collator languagesCollator = GlobalUtils.getCollator();
 
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
@@ -1524,7 +1523,7 @@ public class EditorActivity extends AppCompatActivity
             if ((filterSpinner.getAdapter() == null) || (filterSpinner.getAdapter().getCount() <= filterEventsSelectedItem))
                 filterSelectedItem = 0;
             else
-            filterSelectedItem = filterEventsSelectedItem;
+                filterSelectedItem = filterEventsSelectedItem;
         }
 
         if (viewChanged || (position != filterSelectedItem))
@@ -5578,10 +5577,10 @@ public class EditorActivity extends AppCompatActivity
         String name;
     }
 
-    private class LanguagesComparator implements Comparator<Language> {
+    private static class LanguagesComparator implements Comparator<Language> {
 
         public int compare(Language lhs, Language rhs) {
-            return languagesCollator.compare(lhs.name, rhs.name);
+            return PPApplication.collator.compare(lhs.name, rhs.name);
         }
     }
 
