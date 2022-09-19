@@ -694,3 +694,39 @@ Je mozne, ze by zostali ikony v pamamti? Npriklad ten z headera a k nemu indikat
 Adapter obsahuje tiez dataWrapper, ale ako odkaz na activityDataWrapper z fragmentu.
 
 -------------------
+
+Alarm Cloxk sensor:
+- v NextAlarmClockBroadcastReceiver.onReceive() zapisujem cas aj package name:
+  - setEventAlarmClockTime()
+  - setEventAlarmClockPackageName()
+  Mazem to len v propade, ak alarmClockInfo = alarmManager.getNextAlarmClock(); vrati null.
+  Zapisujem to do
+  - ApplicationPreferences.prefEventAlarmClockTime
+  - ApplicationPreferences.prefEventAlarmClockPackageName
+- Tie shared preferences citam len v PPApplication.loadGlobalApplicationData()
+- Vsade inde uz len pouizvam toe globalne premenne.
+- Cize bud je problem, ze sa nezavola na restart PPP PPApplication.loadGlobalApplicationData()
+  alebo sa vynuluju neskor, napr. lebo ked alarmClockInfo bude null, alebo
+  priamo premenne niekde nulujem.
+
+- PPApplication.loadGlobalApplicationData() sa vola:
+  - PPApplication.onCreate()
+  - PhoneProfilesService.onCreate()
+
+- Z PhoneProfilesService.doForFirstStart() sa vola NextAlarmClockBroadcastReceiver.setAlarm().
+  Pouizva premenne z PPApplication, nevola NextAlarmClockBroadcastReceiver.getEventAlarmClock*()
+  Cize ak sa zavola PhoneProfilesService.onStartCommand() a PhoneProfilesService.serviceHasFirstStart == true,
+  tak sa alarm nenastavi.
+  PhoneProfilesService.serviceHasFirstStart = false sa nastavi na PhoneProfilesService.onCreate()
+  Musim proste zisit, co sa na ten restart servisu z dovodu jeho killu od systemu, udeje.
+
+  PhoneProfilesService.serviceHasFirstStart je taka kontroverzna premenna. Neviem presne ci je este potrebna,
+  ci nestaci len testovat intent, ci je null v PhoneProfilesService.onStartCommand().
+  Mozno je potrebna, lebo volam PPApplication.startPPService() z roznych casti a to moze byt uz servis nastartovany.
+  Ale mozno staci len testovat, ci uz servis bezi cez GlobalUtils.isServiceRunning().
+  A mozno nie. Ono to vypada, ze ta premenna mi hovori, ci bol volany PhoneProfilesService.doForFirstStart().
+  A to teda neznamena len, ci servis bezi. Hm.
+
+  Cele je to uplne podivne. Fakt teba zistit, co sa vlastne udeje, ked system killne PPService.
+
+

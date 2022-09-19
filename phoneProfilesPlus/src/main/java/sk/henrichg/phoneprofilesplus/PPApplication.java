@@ -176,7 +176,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -1693,7 +1693,7 @@ public class PPApplication extends Application
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
             String time = sdf.format(Calendar.getInstance().getTimeInMillis());
-            log = log + time + "--" + type + "-----" + tag + "------" + text;
+            log = log + time + " [ " + type + " ] [ " + tag + " ]: " + text;
             buf.append(log);
             buf.newLine();
             buf.flush();
@@ -1732,7 +1732,8 @@ public class PPApplication extends Application
 
         if (logContainsFilterTag(tag))
         {
-            if (logIntoLogCat) Log.i(tag, text);
+            //if (logIntoLogCat) Log.i(tag, text);
+            if (logIntoLogCat) Log.i(tag, "[ "+tag+" ]" + ": " + text);
             logIntoFile("I", tag, text);
         }
     }
@@ -1745,7 +1746,8 @@ public class PPApplication extends Application
 
         if (logContainsFilterTag(tag))
         {
-            if (logIntoLogCat) Log.w(tag, text);
+            //if (logIntoLogCat) Log.w(tag, text);
+            if (logIntoLogCat) Log.w(tag, "[ "+tag+" ]" + ": " + text);
             logIntoFile("W", tag, text);
         }
     }
@@ -1757,7 +1759,8 @@ public class PPApplication extends Application
 
         if (logContainsFilterTag(tag))
         {
-            if (logIntoLogCat) Log.e(tag, text);
+            //if (logIntoLogCat) Log.e(tag, text);
+            if (logIntoLogCat) Log.e(tag, "[ "+tag+" ]" + ": " + text);
             logIntoFile("E", tag, text);
         }
     }
@@ -1770,7 +1773,8 @@ public class PPApplication extends Application
 
         if (logContainsFilterTag(tag))
         {
-            if (logIntoLogCat) Log.d(tag, text);
+            //if (logIntoLogCat) Log.d(tag, text);
+            if (logIntoLogCat) Log.d(tag, "[ "+tag+" ]" + ": " + text);
             logIntoFile("D", tag, text);
         }
     }

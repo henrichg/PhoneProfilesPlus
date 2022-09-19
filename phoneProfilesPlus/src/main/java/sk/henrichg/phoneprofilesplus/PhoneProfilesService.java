@@ -3842,8 +3842,11 @@ public class PhoneProfilesService extends Service
 
                 // set alarm for Alarm clock sensor from last saved time in
                 // NextAlarmClockBroadcastReceiver.onReceived()
+                //TODO alarm clock sensor
                 AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "ApplicationPreferences.prefEventAlarmClockTime="+ApplicationPreferences.prefEventAlarmClockTime);
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "ApplicationPreferences.prefEventAlarmClockPackageName="+ApplicationPreferences.prefEventAlarmClockPackageName);
                     NextAlarmClockBroadcastReceiver.setAlarm(
                             ApplicationPreferences.prefEventAlarmClockTime,
                             ApplicationPreferences.prefEventAlarmClockPackageName,
