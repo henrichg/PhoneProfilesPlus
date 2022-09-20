@@ -72,12 +72,12 @@
     <color name="toastTextColor">#FFFFFFFF</color>
     <color name="toastBorderColor">#FF707070</color>
 
-    <color name="dialogBorderColor">#FF423632</color>
+    <color name="dialogBorderColor">#FF423c3a</color>
     <color name="buttonBorderColor">#FF735c55</color>
 <!--    <color name="alertButtonBorderColor">#FF707070</color>-->
     <color name="buttonBackgroundColor">#FF1a1513</color>
     <color name="buttonClickedBackgroundColor">#FF403430</color>
-    <color name="popupMenuBorderColor">#FF423632</color>
+    <color name="popupMenuBorderColor">#FF423c3a</color>
 <!--    <color name="profileIconBorderColor">#FF505050</color>-->
 <!--    <color name="cardViewBorderColor">#FF454545</color>-->
 
