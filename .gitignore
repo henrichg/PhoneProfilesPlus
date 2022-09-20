@@ -6,8 +6,14 @@
 /.idea/misc.xml
 /build
 
+/android-betterpickers/build
+/AndroidClearChroma/build
+/common/build
+/noobcameraflash/build
+/phoneProfilesImport/build
+/phoneProfilesPlus/build
+/recyclerview-fastscroll/build
 /RootShell/build
 /RootTools/build
-/android-betterpickers/build
 /time-duration-picker/build
-/phoneProfilesPlus/build
+/ToastCompat/build

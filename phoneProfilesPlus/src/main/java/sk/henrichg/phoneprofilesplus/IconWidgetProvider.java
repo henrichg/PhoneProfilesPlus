@@ -603,7 +603,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                              (Integer.parseInt(applicationWidgetIconLightnessB) <= 25)) ||
                          (applicationWidgetIconBackgroundType &&
                              (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetIconBackgroundColor)) < 0.23)))
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 }
                 if (isIconResourceID) {
                     if (bitmap != null)

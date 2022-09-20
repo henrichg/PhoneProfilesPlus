@@ -1383,10 +1383,11 @@ public class DataWrapper {
     List<EventTimeline> getEventTimelineList(boolean fromDB)
     {
         synchronized (eventTimelines) {
-            if (!eventTimelineListFilled || fromDB)
+            if (!eventTimelineListFilled || fromDB) {
                 if (fromDB)
                     invalidateEventTimelineList();
                 fillEventTimelineList();
+            }
         }
         return eventTimelines;
     }

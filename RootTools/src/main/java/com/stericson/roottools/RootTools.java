@@ -22,6 +22,7 @@
 
 package com.stericson.roottools;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -66,6 +67,7 @@ public final class RootTools {
         RootTools.rim = rim;
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private static RootToolsInternalMethods getInternals() {
         if (rim == null) {
             RootToolsInternalMethods.getInstance();

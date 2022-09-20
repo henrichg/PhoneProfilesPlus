@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -251,6 +252,7 @@ class LocationScanner
     /**
      * Requests location updates from the FusedLocationApi.
      */
+    @SuppressLint("SuspiciousIndentation")
     String startLocationUpdates() {
         if (!ApplicationPreferences.applicationEventLocationEnableScanning)
             return "";

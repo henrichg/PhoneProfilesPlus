@@ -472,10 +472,10 @@ public class PhoneCallsListener extends PhoneStateListener {
 
     private static void callEnded(boolean incoming, @SuppressWarnings("unused") boolean missed, /*String phoneNumber, Date eventTime,*/ Context context)
     {
-        if (audioManager == null )
+        if (audioManager == null)
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-            PhoneProfilesService.stopSimulatingRingingCall(false, context.getApplicationContext());
+        PhoneProfilesService.stopSimulatingRingingCall(false, context.getApplicationContext());
 
         // audio mode is set to MODE_IN_CALL by system
 

@@ -146,6 +146,7 @@ public class LogCrashActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     protected void onDestroy()
     {
@@ -164,7 +165,7 @@ public class LogCrashActivity extends AppCompatActivity {
     private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         List<String> _fileList = null;
-        boolean _showLog;
+        final boolean _showLog;
 
         private final WeakReference<LogCrashActivity> activityWeakRef;
 
