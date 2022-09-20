@@ -310,6 +310,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         }, 200);
 
+        setDivider(null); // this remove dividers for categories
+
         setRedTextToPreferences();
 
         // update preference summary and also category summary

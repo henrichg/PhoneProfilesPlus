@@ -1,11 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,19 +79,9 @@ public class LogCrashActivity extends AppCompatActivity {
         listView.setAdapter(logCrashAdapter);
 
         Button goToBtn = findViewById(R.id.log_crash_list_go_to_bottom);
-        goToBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listView.setSelection(logCrashAdapter.getCount() - 1);
-            }
-        });
+        goToBtn.setOnClickListener(v -> listView.setSelection(logCrashAdapter.getCount() - 1));
         goToBtn = findViewById(R.id.log_crash_list_go_to_top);
-        goToBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listView.setSelection(0);
-            }
-        });
+        goToBtn.setOnClickListener(v -> listView.setSelection(0));
 
     }
 
@@ -201,8 +189,6 @@ public class LogCrashActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             LogCrashActivity activity = activityWeakRef.get();
             if ((activity != null) && (!activity.isFinishing())) {
-                // TODO load from file into _fileList
-
                 File sd = activity.getApplicationContext().getExternalFilesDir(null);
 
                 File logFile;

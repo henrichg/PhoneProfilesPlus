@@ -31,8 +31,8 @@
 <!--    <color name="preferenceDialogBackground">#FF000000</color>-->
 <!--    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>-->
 <!--    <color name="dialog_divider">#20ffdad3</color>-->
-    <color name="dialog_divider">#1Fffffff</color>
-    <color name="popup_window_divider">#23ffffff</color>
+    <color name="dialog_divider">#21ffffff</color>
+    <color name="popup_window_divider">#25ffffff</color>
 
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
     <color name="editorFilterBackgroundColor">#FF272727</color>
@@ -72,12 +72,12 @@
     <color name="toastTextColor">#FFFFFFFF</color>
     <color name="toastBorderColor">#FF707070</color>
 
-    <color name="dialogBorderColor">#FF403430</color>
+    <color name="dialogBorderColor">#FF423632</color>
     <color name="buttonBorderColor">#FF735c55</color>
 <!--    <color name="alertButtonBorderColor">#FF707070</color>-->
     <color name="buttonBackgroundColor">#FF1a1513</color>
     <color name="buttonClickedBackgroundColor">#FF403430</color>
-    <color name="popupMenuBorderColor">#FF403430</color>
+    <color name="popupMenuBorderColor">#FF423632</color>
 <!--    <color name="profileIconBorderColor">#FF505050</color>-->
 <!--    <color name="cardViewBorderColor">#FF454545</color>-->
 

@@ -320,6 +320,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         }, 200);
 
+        setDivider(null); // this remove dividers for categories
+
         /*
         if (savedInstanceState != null) {
             //startupSource = savedInstanceState.getInt("startupSource", PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
