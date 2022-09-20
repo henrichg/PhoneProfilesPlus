@@ -1983,8 +1983,6 @@
     <string name="vpn_profile_pref_dlg_disable_vpn">禁用 VPN</string>
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN 情景名称：</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard  隧道名称：</string>
-    <string name="vpn_profile_name_pref_dlg_hint">OpenVPN 情景名称</string>
-    <string name="vpn_tunnel_name_pref_dlg_hint">WireGuard  隧道名称</string>
     <string name="altype_profileError_setVPN">情景 - 设置 VPN 时错误</string>
     <string name="profile_preferences_deviceVPNInfo_summary2">连接\/断开 OpenVPN 的 VPN 连接自“其他”\/\"运行应用，快捷键，intents” 移入参数 \"VPN\"。</string>
     <string name="permission_why_profile_wireguard">用 WireGuard 应用程序设置隧道上传\/下载</string>
@@ -1998,4 +1996,9 @@
     <string name="array_pref_vpn_connected">已连接</string>
     <string name="array_pref_vpn_disconnected">已断开</string>
     <string name="vpn_not_set_when_is_in_state_pref_dlg">VPN 已开启时不做设置</string>
+    <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
+    <string name="check_releases_droidify_application">Droid-ify installation site:</string>
+    <string name="menu_check_releases_droidify">Check in Droid-ify</string>
+    <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
+    <string name="check_releases_open_droidify">Open Droid-ify</string>
 </resources>

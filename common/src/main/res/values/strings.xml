@@ -2064,15 +2064,9 @@
     <string name="extender_notification_permission_title">Permission not granted</string>
     <string name="extender_notification_sms_mms_permission_text">Permission for event parameter \"SMS/MMS sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
     <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
-
     <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
     <string name="extender_enable_notificaitons_button">Enable</string>
-
     <string name="extender_menu_choose_language">Choose language</string>
     <string name="extender_menu_choose_language_system_language">[System]</string>
-
-<!--    <string name="vpn_profile_name_pref_dlg_hint">OpenVPN profile name</string>-->
-<!--    <string name="vpn_tunnel_name_pref_dlg_hint">WireGuard tunnel name</string>-->
-
 </resources>
 

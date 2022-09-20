@@ -1983,8 +1983,6 @@
     <string name="vpn_profile_pref_dlg_disable_vpn">VPN uitschakelen</string>
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN profielnaam:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard tunnelnaam:</string>
-    <string name="vpn_profile_name_pref_dlg_hint">OpenVPN profielnaam</string>
-    <string name="vpn_tunnel_name_pref_dlg_hint">WireGuard tunnel naam</string>
     <string name="altype_profileError_setVPN">profiel - fout bij instellen VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary2">Verbinden\/verbreken van VPN voor OpenVPN is verplaatst van \"Overige\"\/\"Programma\'s uitvoeren, snelkoppelingen, intents\" naar de parameter \"VPN\".</string>
     <string name="permission_why_profile_wireguard">voor het instellen van tunnel aan\/uit door WireGuard toepassing</string>
@@ -1998,4 +1996,9 @@
     <string name="array_pref_vpn_connected">Verbonden</string>
     <string name="array_pref_vpn_disconnected">Niet verbonden</string>
     <string name="vpn_not_set_when_is_in_state_pref_dlg">Niet instellen wanneer VPN al actief is</string>
+    <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
+    <string name="check_releases_droidify_application">Droid-ify installation site:</string>
+    <string name="menu_check_releases_droidify">Check in Droid-ify</string>
+    <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
+    <string name="check_releases_open_droidify">Open Droid-ify</string>
 </resources>

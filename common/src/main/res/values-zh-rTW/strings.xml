@@ -1983,8 +1983,6 @@
     <string name="vpn_profile_pref_dlg_disable_vpn">停用 VPN</string>
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN 設定檔名稱：</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard 通道名稱：</string>
-    <string name="vpn_profile_name_pref_dlg_hint">OpenVPN 設定檔名稱</string>
-    <string name="vpn_tunnel_name_pref_dlg_hint">WireGuard 通道名稱</string>
     <string name="altype_profileError_setVPN">設定檔 - 設定 VPN 錯誤</string>
     <string name="profile_preferences_deviceVPNInfo_summary2">OpenVAN 的連線\/中斷 VAN 從 \"其他\"\/\"執行程式、捷徑、意圖\" 移到參數 \"VPN\"。</string>
     <string name="permission_why_profile_wireguard">用於透過 WireGuard 應用程式設定通道上傳\/下載</string>
@@ -1998,4 +1996,9 @@
     <string name="array_pref_vpn_connected">已連接</string>
     <string name="array_pref_vpn_disconnected">已中斷</string>
     <string name="vpn_not_set_when_is_in_state_pref_dlg">當 VPN 已處於狀態時不要設定</string>
+    <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
+    <string name="check_releases_droidify_application">Droid-ify installation site:</string>
+    <string name="menu_check_releases_droidify">Check in Droid-ify</string>
+    <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
+    <string name="check_releases_open_droidify">Open Droid-ify</string>
 </resources>
