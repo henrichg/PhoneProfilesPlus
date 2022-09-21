@@ -33,15 +33,16 @@
 
                 <LinearLayout
                     android:id="@+id/profile_icon_color_chooser_liLa2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:orientation="horizontal">
                     <FrameLayout
                         android:id="@+id/dialog_color_chooser_default_color"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:padding="10dp"
-                        android:layout_marginStart="14dp">
+                        android:layout_margin="4dp">
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView0"
                             android:layout_width="36dp"
@@ -50,17 +51,25 @@
                             android:src="@drawable/ic_check"
                             tools:ignore="ContentDescription"/>
                     </FrameLayout>
-                    <TextView
-                        android:id="@+id/dialog_color_chooser_default_color_label"
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/colorChooser_pref_dialog_defaultIconColor"
-                        android:textSize="16sp"
-                        android:clickable="true"
-                        android:focusable="true" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical" >
+
+                        <TextView
+                            android:id="@+id/dialog_color_chooser_default_color_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/colorChooser_pref_dialog_defaultIconColor"
+                            android:textSize="16sp"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <androidx.gridlayout.widget.GridLayout
@@ -415,18 +424,49 @@
 
                 </androidx.gridlayout.widget.GridLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/profile_icon_color_chooser_liLa3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/dialog_color_chooser_custom_color_label_root"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/dialog_color_chooser_custom_color"
+                        android:layout_centerVertical="true"
+                        android:gravity="end" >
+
+                        <TextView
+                            android:id="@+id/dialog_color_chooser_custom_color_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/colorChooser_pref_dialog_customIconColor"
+                            android:gravity="end"
+                            android:textAlignment="gravity"
+                            android:textSize="15sp"
+                            android:textColor="?attr/colorAccent"
+                            android:textStyle="bold"
+                            android:background="?attr/buttonBackground"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                    </LinearLayout>
 
                     <FrameLayout
                         android:id="@+id/dialog_color_chooser_custom_color"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:padding="10dp"
-                        android:layout_marginStart="14dp">
+                        android:layout_margin="4dp"
+                        android:layout_alignParentStart="true">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView21"
@@ -436,25 +476,8 @@
                             android:src="@drawable/ic_check"
                             tools:ignore="ContentDescription" />
                     </FrameLayout>
-                    <TextView
-                        android:id="@+id/dialog_color_chooser_custom_color_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/colorChooser_pref_dialog_customIconColor"
-                        android:textSize="15sp"
-                        android:textColor="?attr/colorAccent"
-                        android:textStyle="bold"
-                        android:background="?attr/buttonBackground"
-                        android:clickable="true"
-                        android:focusable="true" />
-                </LinearLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
