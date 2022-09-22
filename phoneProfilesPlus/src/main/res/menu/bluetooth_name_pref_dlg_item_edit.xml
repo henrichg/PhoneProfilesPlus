@@ -6,4 +6,7 @@
     <item android:id="@+id/bluetooth_name_pref_dlg_item_menu_delete"
         android:title="@string/profile_context_item_delete"
         android:orderInCategory="102" />
+    <item android:id="@+id/bluetooth_name_pref_dlg_item_menu_copy_name"
+        android:title="@string/profile_context_item_copy_name"
+        android:orderInCategory="103" />
 </menu>

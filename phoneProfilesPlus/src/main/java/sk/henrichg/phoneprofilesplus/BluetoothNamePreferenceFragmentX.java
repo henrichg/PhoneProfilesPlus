@@ -121,12 +121,13 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         listAdapter = new BluetoothNamePreferenceAdapterX(prefContext, preference);
         bluetoothListView.setAdapter(listAdapter);
 
-        bluetoothListView.setOnItemClickListener((parent, v, position, id) -> {
+        bluetoothListView.setOnItemLongClickListener((parent, view12, position, id) -> {
             String btName = preference.bluetoothList.get(position).getName();
             if (!(btName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE) ||
                     btName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))) {
                 bluetoothName.setText(btName);
             }
+            return true;
         });
 
         final ImageView helpIcon = view.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
@@ -396,6 +397,14 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();
+                }
+                return true;
+            }
+            else
+            if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_copy_name) {
+                if (!(btName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE) ||
+                        btName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))) {
+                    bluetoothName.setText(btName);
                 }
                 return true;
             }

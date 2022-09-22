@@ -103,11 +103,12 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         listAdapter = new NFCTagPreferenceAdapterX(prefContext, preference);
         nfcTagListView.setAdapter(listAdapter);
 
-        nfcTagListView.setOnItemClickListener((parent, v, position, id) -> {
+        nfcTagListView.setOnItemLongClickListener((parent, view12, position, id) -> {
             //NFCTagPreferenceAdapter.ViewHolder viewHolder =
             //        (NFCTagPreferenceAdapter.ViewHolder) v.getTag();
             String nfcTag = preference.nfcTagList.get(position)._name;
             nfcTagName.setText(nfcTag);
+            return true;
         });
 
         /*
@@ -315,6 +316,12 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();
                 }
+                return true;
+            }
+            else
+            if (itemId == R.id.nfc_tag_pref_dlg_item_menu_copy_name) {
+                String nfcTag = tagInItem._name;
+                nfcTagName.setText(nfcTag);
                 return true;
             }
             else {

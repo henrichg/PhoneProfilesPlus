@@ -116,12 +116,13 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         listAdapter = new WifiSSIDPreferenceAdapterX(prefContext, preference);
         SSIDListView.setAdapter(listAdapter);
 
-        SSIDListView.setOnItemClickListener((parent, v, position, id) -> {
+        SSIDListView.setOnItemLongClickListener((parent, view12, position, id) -> {
             String ssid = preference.SSIDList.get(position).ssid;
             if (!(ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE) ||
                     ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))) {
                 SSIDName.setText(ssid);
             }
+            return true;
         });
 
         final ImageView helpIcon = view.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
@@ -380,6 +381,14 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();
+                }
+                return true;
+            }
+            else
+            if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_copy_name) {
+                if (!(ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE) ||
+                        ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))) {
+                    SSIDName.setText(ssid);
                 }
                 return true;
             }
