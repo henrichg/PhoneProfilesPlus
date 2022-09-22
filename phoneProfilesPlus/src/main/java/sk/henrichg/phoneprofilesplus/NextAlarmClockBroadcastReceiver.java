@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
@@ -16,7 +18,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
 //        PPApplication.logE("[IN_BROADCAST_ALARM] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
 
         if (intent == null)
@@ -27,23 +29,36 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
         //if (android.os.Build.VERSION.SDK_INT >= 21) {
             String action = intent.getAction();
+            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "action="+action);
+
             if ((action != null) && action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
+
+                PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "action=ACTION_NEXT_ALARM_CLOCK_CHANGED");
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
                     AlarmManager.AlarmClockInfo alarmClockInfo = alarmManager.getNextAlarmClock();
+                    PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo="+alarmClockInfo);
+
                     if (alarmClockInfo != null) {
 
                         long _time = alarmClockInfo.getTriggerTime();
+
+                        @SuppressLint("SimpleDateFormat")
+                        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+                        String time = sdf.format(_time);
+                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "_time="+time);
 
                         PendingIntent infoPendingIntent = alarmClockInfo.getShowIntent();
                         // infoPendingIntent == null - Xiaomi Clock :-/
                         // infoPendingIntent == null - LG Clock :-/
                         // infoPendingIntent == null - Huawei Clock :-/
 
+                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent="+infoPendingIntent);
+
                         if (infoPendingIntent != null) {
                             String packageName = infoPendingIntent.getCreatorPackage();
-//                            PPApplication.logE("[IN_BROADCAST_ALARM] NextAlarmClockBroadcastReceiver.onReceive", "packageName="+packageName);
+                            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName="+packageName);
                             if (packageName != null) {
                                 if (!packageName.equals(PPApplication.PACKAGE_NAME)) {
 
@@ -113,10 +128,19 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     static void setAlarm(long alarmTime, String alarmPackageName, AlarmManager alarmManager, Context context) {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+        String time = sdf.format(alarmTime);
+        PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime="+time);
+        PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmPackageName="+alarmPackageName);
+
         removeAlarm(alarmManager, context);
 
         Calendar now = Calendar.getInstance();
         if ((alarmTime >= now.getTimeInMillis()) && (!alarmPackageName.isEmpty())) {
+
+            PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "SET ALARM");
+
             //PhoneProfilesService instance = PhoneProfilesService.getInstance();
             //if (instance == null)
             //    return;
