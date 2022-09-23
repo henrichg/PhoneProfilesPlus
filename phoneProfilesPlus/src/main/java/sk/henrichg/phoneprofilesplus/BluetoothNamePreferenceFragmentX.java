@@ -69,8 +69,8 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        PPApplication.forceRegisterReceiversForBluetoothScanner(prefContext);
         BluetoothNamePreferenceX.forceRegister = true;
+        PPApplication.forceRegisterReceiversForBluetoothScanner(prefContext);
 
         progressLinearLayout = view.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
         dataRelativeLayout = view.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);

@@ -72,8 +72,8 @@ public class MobileCellsRegistrationService extends Service
         if (remainingDuration > 0) {
             serviceStarted = true;
 
-            PPApplication.forceStartMobileCellsScanner(this);
             forceStart = true;
+            PPApplication.forceStartMobileCellsScanner(this);
 
             //MobileCellsScanner.autoRegistrationService = this;
 

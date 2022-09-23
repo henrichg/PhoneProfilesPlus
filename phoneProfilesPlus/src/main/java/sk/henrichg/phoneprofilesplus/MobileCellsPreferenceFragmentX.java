@@ -93,8 +93,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         LocalBroadcastManager.getInstance(prefContext).registerReceiver(refreshListViewBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView"));
 
-        PPApplication.forceStartMobileCellsScanner(prefContext);
         MobileCellsPreferenceX.forceStart = true;
+        PPApplication.forceStartMobileCellsScanner(prefContext);
 
         cellFilter = view.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
         if ((preference.cellFilter == null) || preference.cellFilter.isEmpty()) {

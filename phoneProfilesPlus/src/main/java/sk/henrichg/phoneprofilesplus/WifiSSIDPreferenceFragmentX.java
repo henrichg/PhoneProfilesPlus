@@ -68,8 +68,8 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        PPApplication.forceRegisterReceiversForWifiScanner(prefContext);
         WifiSSIDPreferenceX.forceRegister = true;
+        PPApplication.forceRegisterReceiversForWifiScanner(prefContext);
 
         progressLinearLayout = view.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
         dataRelativeLayout = view.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);

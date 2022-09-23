@@ -2439,7 +2439,7 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
+            if (ApplicationPreferences.applicationEventBluetoothEnableScanning || BluetoothNamePreferenceX.forceRegister) {
                 boolean allowed = false;
                 if (BluetoothNamePreferenceX.forceRegister)
                     allowed = true;
@@ -2489,7 +2489,7 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (ApplicationPreferences.applicationEventWifiEnableScanning) {
+            if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreferenceX.forceRegister) {
                 boolean allowed = false;
                 if (WifiSSIDPreferenceX.forceRegister)
                     allowed = true;
@@ -2717,7 +2717,7 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (ApplicationPreferences.applicationEventWifiEnableScanning) {
+            if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreferenceX.forceRegister) {
                 boolean allowed = false;
                 if (WifiSSIDPreferenceX.forceRegister)
                     allowed = true;
