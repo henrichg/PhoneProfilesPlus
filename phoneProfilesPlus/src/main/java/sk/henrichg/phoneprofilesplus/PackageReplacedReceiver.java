@@ -34,7 +34,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        // reset GitHub version for critical check releaaes notification
                         CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(appContext, 0);
+
+                        // reset alarm for month check releaaes notification
+                        CheckPPPReleasesBroadcastReceiver.setShowPPPReleasesNotification(context, 0);
+                        CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
 
                         boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "serviceStarted=" + serviceStarted);

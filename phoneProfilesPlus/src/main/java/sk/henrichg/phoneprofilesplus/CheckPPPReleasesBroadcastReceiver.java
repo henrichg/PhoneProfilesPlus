@@ -69,9 +69,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
                 alarmTime = alarm.getTimeInMillis();
 
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putLong(PREF_PPP_RELEASE_ALARM, alarmTime);
-                editor.apply();
+                setShowPPPReleasesNotification(context, alarmTime);
             }
             else {
                 alarmTime = lastAlarm;
@@ -331,6 +329,13 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
 //            Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
         }
+    }
+
+    static void setShowPPPReleasesNotification(Context context, long alarmTime)
+    {
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+        editor.putLong(PREF_PPP_RELEASE_ALARM, alarmTime);
+        editor.apply();
     }
 
 }
