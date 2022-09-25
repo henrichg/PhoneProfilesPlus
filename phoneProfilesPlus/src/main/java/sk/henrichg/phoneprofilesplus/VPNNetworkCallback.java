@@ -27,6 +27,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onUnavailable() {
 //        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onUnavailable", "xxx");
+        connected = false;
         doConnection();
     }
 

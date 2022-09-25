@@ -19,27 +19,28 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
     @Override
     public void onLost(Network network) {
         //record wi-fi disconnect event
-//        PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onLost", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onLost", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
-//        PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onUnavailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onUnavailable", "xxx");
+        connected = false;
         doConnection();
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
-//        PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onLosing", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
     public void onAvailable(Network network) {
         //record wi-fi connect event
-//        PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onAvailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onAvailable", "xxx");
         connected = true;
         doConnection();
     }

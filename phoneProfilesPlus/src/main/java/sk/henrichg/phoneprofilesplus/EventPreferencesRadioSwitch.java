@@ -730,33 +730,36 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             boolean enabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
 
                             boolean connected = false;
-                            ConnectivityManager connManager = null;
-                            try {
-                                connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                            } catch (Exception e) {
-                                // java.lang.NullPointerException: missing IConnectivityManager
-                                // Dual SIM?? Bug in Android ???
-                                PPApplication.recordException(e);
-                            }
-                            if (connManager != null) {
-                                Network[] networks = connManager.getAllNetworks();
-                                if ((networks != null) && (networks.length > 0)) {
-                                    for (Network network : networks) {
-                                        try {
-                                            NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
-                                            if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                                                connected = WifiNetworkCallback.connected;
-                                                break;
+                            if ((_wifi == 3) || (_wifi == 4)) {
+                                ConnectivityManager connManager = null;
+                                try {
+                                    connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                                } catch (Exception e) {
+                                    // java.lang.NullPointerException: missing IConnectivityManager
+                                    // Dual SIM?? Bug in Android ???
+                                    PPApplication.recordException(e);
+                                }
+                                if (connManager != null) {
+                                    Network[] networks = connManager.getAllNetworks();
+                                    if ((networks != null) && (networks.length > 0)) {
+                                        for (Network network : networks) {
+                                            try {
+                                                NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                                if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                                                    connected = WifiNetworkCallback.connected;
+                                                    tested = true;
+                                                    break;
+                                                }
+                                            } catch (Exception e) {
+                                                //                                            Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
+                                                PPApplication.recordException(e);
                                             }
-                                        } catch (Exception e) {
-//                                            Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
-                                            PPApplication.recordException(e);
                                         }
                                     }
                                 }
                             }
-
-                            tested = true;
+                            else
+                                tested = true;
                             if (_wifi == 1)
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
                             else
@@ -789,9 +792,11 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         if (bluetoothAdapter != null) {
                             boolean enabled = bluetoothAdapter.isEnabled();
 
-                            BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
-                            boolean connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
-
+                            boolean connected = false;
+                            if ((_bluetooth == 3) || (_bluetooth == 4)) {
+                                BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
+                                connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
+                            }
                             tested = true;
                             if (_bluetooth == 1)
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -813,33 +818,36 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 0);
 
                     boolean connected = false;
-                    ConnectivityManager connManager = null;
-                    try {
-                        connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    } catch (Exception e) {
-                        // java.lang.NullPointerException: missing IConnectivityManager
-                        // Dual SIM?? Bug in Android ???
-                        PPApplication.recordException(e);
-                    }
-                    if (connManager != null) {
-                        Network[] networks = connManager.getAllNetworks();
-                        if ((networks != null) && (networks.length > 0)) {
-                            for (Network network : networks) {
-                                try {
-                                    NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
-                                    if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                                        connected = MobileDataNetworkCallback.connected;
-                                        break;
-                                    }
-                                } catch (Exception e) {
+                    if ((_mobileData == 3) || (_mobileData == 4) || (_mobileData == 5) || (_mobileData == 6)) {
+                        ConnectivityManager connManager = null;
+                        try {
+                            connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                        } catch (Exception e) {
+                            // java.lang.NullPointerException: missing IConnectivityManager
+                            // Dual SIM?? Bug in Android ???
+                            PPApplication.recordException(e);
+                        }
+                        if (connManager != null) {
+                            Network[] networks = connManager.getAllNetworks();
+                            if ((networks != null) && (networks.length > 0)) {
+                                for (Network network : networks) {
+                                    try {
+                                        NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                        if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                                            connected = MobileDataNetworkCallback.connected;
+                                            if ((_mobileData == 3) || (_mobileData == 4))
+                                                tested = true;
+                                            break;
+                                        }
+                                    } catch (Exception e) {
 //                                    Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);
+                                        PPApplication.recordException(e);
+                                    }
                                 }
                             }
                         }
-                    }
-
-                    tested = true;
+                    } else
+                        tested = true;
                     if (_mobileData == 1)
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
                     else
@@ -854,6 +862,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     else
                     if ((_mobileData == 5) || (_mobileData == 6)) {
                         if (Build.VERSION.SDK_INT >= 26) {
+                            tested = true;
                             int phoneCount = 1;
                             TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
                             if (telephonyManager != null) {

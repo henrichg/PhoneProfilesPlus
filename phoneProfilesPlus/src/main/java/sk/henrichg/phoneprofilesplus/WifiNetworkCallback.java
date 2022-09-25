@@ -27,6 +27,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onUnavailable() {
 //        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
+        connected = false;
         doConnection();
     }
 
