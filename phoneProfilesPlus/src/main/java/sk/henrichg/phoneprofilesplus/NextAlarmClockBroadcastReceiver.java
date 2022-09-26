@@ -33,8 +33,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
             if ((action != null) && action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
 
-                PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "action=ACTION_NEXT_ALARM_CLOCK_CHANGED");
-
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
                     AlarmManager.AlarmClockInfo alarmClockInfo = alarmManager.getNextAlarmClock();
@@ -122,7 +120,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null) {
             alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
+            //TODO commented pendingIntent.cancel()
+            //pendingIntent.cancel();
         }
     }
 
