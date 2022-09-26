@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -412,7 +413,7 @@ class EventPreferencesWifi extends EventPreferences {
                             if ((networks != null) && (networks.length > 0)) {
                                 for (Network network : networks) {
                                     try {
-                                        /*if (Build.VERSION.SDK_INT < 28) {
+                                        //if (Build.VERSION.SDK_INT < 28) {
                                             NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
                                             if (ntkInfo != null) {
                                                 if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
@@ -422,7 +423,7 @@ class EventPreferencesWifi extends EventPreferences {
                                                     }
                                                 }
                                             }
-                                        } else*/ {
+                                        /*} else {
                                             //NetworkInfo networkInfo = connManager.getNetworkInfo(network);
                                             //if ((networkInfo != null) && networkInfo.isConnected()) {
                                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
@@ -431,7 +432,7 @@ class EventPreferencesWifi extends EventPreferences {
                                                     break;
                                                 }
                                             //}
-                                        }
+                                        }*/
                                     } catch (Exception e) {
 //                                        Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);

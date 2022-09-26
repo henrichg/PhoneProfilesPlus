@@ -3,8 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
-import android.os.Build;
+import android.net.NetworkCapabilities;
 import android.os.PowerManager;
+
+import java.util.concurrent.TimeUnit;
 
 public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
@@ -18,30 +20,34 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     @Override
     public void onLost(Network network) {
-        //record wi-fi disconnect event
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
     public void onAvailable(Network network) {
-        //record wi-fi connect event
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
         connected = true;
+        doConnection();
+    }
+
+    @Override
+    public void onCapabilitiesChanged (Network network, NetworkCapabilities networkCapabilities) {
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
         doConnection();
     }
 
@@ -90,7 +96,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
-
+/*
         if (Build.VERSION.SDK_INT >= 26) {
             // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
 
@@ -116,7 +122,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                 }
             }
         }
-        else {
+        else {*/
             final Context appContext = context;
             //PPApplication.startHandlerThreadBroadcast();
             //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -151,9 +157,11 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     }
                 //}
             }; //);
-            PPApplication.createEventsHandlerExecutor();
-            PPApplication.eventsHandlerExecutor.submit(runnable);
-        }
+            //PPApplication.createEventsHandlerExecutor();
+            //PPApplication.eventsHandlerExecutor.submit(runnable);
+            PPApplication.createDelayedEventsHandlerExecutor();
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+//        }
     }
 
     private void _doConnection(Context appContext) {

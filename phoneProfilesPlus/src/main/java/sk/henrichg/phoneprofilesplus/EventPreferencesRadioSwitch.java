@@ -6,8 +6,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
@@ -740,6 +739,14 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                     PPApplication.recordException(e);
                                 }
                                 if (connManager != null) {
+                                    //noinspection deprecation
+                                    NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                                    connected = activeNetwork != null && activeNetwork.isConnected();
+                                    PPApplication.logE("EventPreferencesRadioSwitch.doHandleEvent", "wi-fi connected="+connected);
+
+                                    tested = true;
+
+                                    /*
                                     Network[] networks = connManager.getAllNetworks();
                                     if ((networks != null) && (networks.length > 0)) {
                                         for (Network network : networks) {
@@ -747,6 +754,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                                 if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                                                     connected = WifiNetworkCallback.connected;
+
                                                     tested = true;
                                                     break;
                                                 }
@@ -756,6 +764,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                             }
                                         }
                                     }
+                                    */
                                 }
                             }
                             else
@@ -828,6 +837,15 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             PPApplication.recordException(e);
                         }
                         if (connManager != null) {
+                            //noinspection deprecation
+                            NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                            connected = activeNetwork != null && activeNetwork.isConnected();
+                            PPApplication.logE("EventPreferencesRadioSwitch.doHandleEvent", "mobile data connected="+connected);
+
+                            if ((_mobileData == 3) || (_mobileData == 4))
+                                tested = true;
+
+                            /*
                             Network[] networks = connManager.getAllNetworks();
                             if ((networks != null) && (networks.length > 0)) {
                                 for (Network network : networks) {
@@ -835,6 +853,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                         NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                         if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                                             connected = MobileDataNetworkCallback.connected;
+
                                             if ((_mobileData == 3) || (_mobileData == 4))
                                                 tested = true;
                                             break;
@@ -845,6 +864,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                     }
                                 }
                             }
+                            */
                         }
                     } else
                         tested = true;

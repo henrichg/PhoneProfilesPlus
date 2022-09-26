@@ -3,8 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
-import android.os.Build;
+import android.net.NetworkCapabilities;
 import android.os.PowerManager;
+
+import java.util.concurrent.TimeUnit;
 
 public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallback {
 
@@ -18,7 +20,6 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
     @Override
     public void onLost(Network network) {
-        //record wi-fi disconnect event
         PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onLost", "xxx");
         connected = false;
         doConnection();
@@ -39,9 +40,14 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
     @Override
     public void onAvailable(Network network) {
-        //record wi-fi connect event
         PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onAvailable", "xxx");
         connected = true;
+        doConnection();
+    }
+
+    @Override
+    public void onCapabilitiesChanged (Network network, NetworkCapabilities networkCapabilities) {
+        PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onCapabilitiesChanged", "xxx");
         doConnection();
     }
 
@@ -52,6 +58,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
             // application is not started
             return;
 
+/*
         if (Build.VERSION.SDK_INT >= 26) {
             // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -76,7 +83,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                 }
             }
         }
-        else {
+        else {*/
             final Context appContext = this.context;
             //PPApplication.startHandlerThreadBroadcast();
             //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -111,9 +118,11 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                     }
                 //}
             }; //);
-            PPApplication.createEventsHandlerExecutor();
-            PPApplication.eventsHandlerExecutor.submit(runnable);
-        }
+            //PPApplication.createEventsHandlerExecutor();
+            //PPApplication.eventsHandlerExecutor.submit(runnable);
+            PPApplication.createDelayedEventsHandlerExecutor();
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+//        }
     }
 
     private void _doConnection(Context appContext) {
@@ -121,14 +130,13 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
 
-                if (PhoneProfilesService.getInstance() != null) {
+            if (PhoneProfilesService.getInstance() != null) {
+                // start events handler
 
-                    // start events handler
-
-//                                    PPApplication.logE("[EVENTS_HANDLER_CALL] MobileDataNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-                }
+//                PPApplication.logE("[EVENTS_HANDLER_CALL] MobileDataNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+            }
         }
     }
 

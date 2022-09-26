@@ -31,6 +31,7 @@ import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -612,14 +613,14 @@ class ActivateProfileHelper {
                                     PPApplication.recordException(e);
                                 }
                                 if (connManager != null) {
-                                    boolean wifiConnected = false;
-                                    /*if (Build.VERSION.SDK_INT < 28) {
+                                    boolean wifiConnected; // = false;
+                                    //if (Build.VERSION.SDK_INT < 28) {
                                         NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
                                         wifiConnected = (activeNetwork != null) &&
                                                 (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
                                                 activeNetwork.isConnected();
-                                    }
-                                    else*/ {
+                                    /*}
+                                    else {
                                         Network[] activeNetworks=connManager.getAllNetworks();
                                         for(Network network : activeNetworks){
                                             try {
@@ -635,7 +636,7 @@ class ActivateProfileHelper {
                                                 PPApplication.recordException(ee);
                                             }
                                         }
-                                    }
+                                    }*/
                                     WifiInfo wifiInfo = null;
                                     if (wifiConnected)
                                         wifiInfo = wifiManager.getConnectionInfo();

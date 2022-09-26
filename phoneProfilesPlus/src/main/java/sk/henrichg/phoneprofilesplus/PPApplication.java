@@ -273,6 +273,7 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandlerProfiles.getProfilesForDynamicShortcuts"
 
                                                 +"|NextAlarmClockBroadcastReceiver"
+                                                +"|EventPreferencesRadioSwitch.doHandleEvent"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
