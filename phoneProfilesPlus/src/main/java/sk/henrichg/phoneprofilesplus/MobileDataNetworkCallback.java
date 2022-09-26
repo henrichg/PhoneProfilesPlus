@@ -12,6 +12,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
     private final Context context;
 
+    @SuppressWarnings("unused")
     static volatile boolean connected = false;
 
     MobileDataNetworkCallback(Context context) {
