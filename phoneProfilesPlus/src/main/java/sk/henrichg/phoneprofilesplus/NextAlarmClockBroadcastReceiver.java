@@ -121,15 +121,18 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         if (pendingIntent != null) {
             alarmManager.cancel(pendingIntent);
             //TODO commented pendingIntent.cancel()
-            //pendingIntent.cancel();
+            pendingIntent.cancel();
         }
     }
 
     //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     static void setAlarm(long alarmTime, String alarmPackageName, AlarmManager alarmManager, Context context) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(alarmTime);
+
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
-        String time = sdf.format(alarmTime);
+        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+        String time = sdf.format(calendar.getTimeInMillis());
         PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime="+time);
         PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmPackageName="+alarmPackageName);
 
@@ -159,7 +162,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             // set alarm
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             //if (android.os.Build.VERSION.SDK_INT >= 23)
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             //else //if (android.os.Build.VERSION.SDK_INT >= 19)
             //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             //else
