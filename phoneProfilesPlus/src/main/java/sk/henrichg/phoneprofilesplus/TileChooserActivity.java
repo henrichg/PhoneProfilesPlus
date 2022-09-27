@@ -188,7 +188,7 @@ public class TileChooserActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-            PPApplication.logE("[START_PP_SERVICE] TileChooserActivity.startPPServiceWhenNotStarted", "(1)");
+//            PPApplication.logE("[START_PP_SERVICE] TileChooserActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {

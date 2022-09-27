@@ -704,7 +704,7 @@ public class EditorActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-            PPApplication.logE("[START_PP_SERVICE] EditorActivity.startPPServiceWhenNotStarted", "(1)");
+//            PPApplication.logE("[START_PP_SERVICE] EditorActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
@@ -4401,7 +4401,7 @@ public class EditorActivity extends AppCompatActivity
                     serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                     serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                    PPApplication.logE("[START_PP_SERVICE] EditorActivity.doImportData", "xxx");
+//                    PPApplication.logE("[START_PP_SERVICE] EditorActivity.doImportData", "xxx");
                     PPApplication.startPPService(activity, serviceIntent);
                 }
 
@@ -5184,7 +5184,7 @@ public class EditorActivity extends AppCompatActivity
                         serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                         serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                        PPApplication.logE("[START_PP_SERVICE] EditorActivity.doImportDataFromPP", "xxx");
+//                        PPApplication.logE("[START_PP_SERVICE] EditorActivity.doImportDataFromPP", "xxx");
                         PPApplication.startPPService(activity, serviceIntent);
                     }
 
@@ -5356,7 +5356,7 @@ public class EditorActivity extends AppCompatActivity
                     //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                     serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                    PPApplication.logE("[START_PP_SERVICE] EditorActivity.doExportData", "xxx");
+//                    PPApplication.logE("[START_PP_SERVICE] EditorActivity.doExportData", "xxx");
                     PPApplication.startPPService(activity.getApplicationContext(), serviceIntent);
 
                     return ret;

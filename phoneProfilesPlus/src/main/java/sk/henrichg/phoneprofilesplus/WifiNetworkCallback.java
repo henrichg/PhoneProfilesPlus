@@ -20,34 +20,34 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     @Override
     public void onLost(Network network) {
-        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
+//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
-        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
+//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
-        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
+//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
     public void onAvailable(Network network) {
-        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
+//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
         connected = true;
         doConnection();
     }
 
     @Override
     public void onCapabilitiesChanged (Network network, NetworkCapabilities networkCapabilities) {
-        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
+//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
         doConnection();
     }
 

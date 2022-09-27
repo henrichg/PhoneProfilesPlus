@@ -238,7 +238,7 @@ public class PPApplication extends Application
 //                                                +"|[IN_BROADCAST_ALARM]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
-                                                +"|[IN_LISTENER]"
+//                                                +"|[IN_LISTENER]"
 //                                                +"|[IN_EVENTS_HANDLER]"
                                                 +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
@@ -253,7 +253,7 @@ public class PPApplication extends Application
                                                 //+"|[ACTIVATOR]"
                                                 //+"|[G1_TEST]"
                                                 //+"|[BACKGROUND_ACTIVITY]"
-                                                +"|[START_PP_SERVICE]"
+                                                //+"|[START_PP_SERVICE]"
                                                 //+"|[BRS]"
                                                 //+"|[CONNECTIVITY_TEST]"
                                                 //+"|[BRIGHTNESS]"
@@ -273,7 +273,6 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandlerProfiles.getProfilesForDynamicShortcuts"
 
                                                 +"|NextAlarmClockBroadcastReceiver"
-                                                +"|EventPreferencesRadioSwitch.doHandleEvent"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1402,7 +1401,7 @@ public class PPApplication extends Application
                         serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                         serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                        PPApplication.logE("[START_PP_SERVICE] PPApplication.startPPServiceWhenNotStarted", "(1)");
+//                        PPApplication.logE("[START_PP_SERVICE] PPApplication.startPPServiceWhenNotStarted", "(1)");
                         PPApplication.startPPService(appContext, serviceIntent);
                     }
                     //}
