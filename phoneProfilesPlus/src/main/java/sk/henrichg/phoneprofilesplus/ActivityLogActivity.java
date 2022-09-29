@@ -184,42 +184,42 @@ public class ActivityLogActivity extends AppCompatActivity {
 
             message = message + "<b>" + getString(R.string.activity_log_help_message_colors) + ":</b><br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_profile_activation) + ": ";
             int color = ContextCompat.getColor(this, R.color.altype_profile);
             String colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_profile_activation) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_event_start) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_eventStart);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_event_start) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_event_end) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_eventEnd);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_event_end) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_restart_events) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_restartEvents);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_restart_events) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_event_delay_start_end) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_eventDelayStartEnd);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_event_delay_start_end) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_error) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_error);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_error) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_others) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_other);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_others);
 
-            message = message + "<br>";
+            message = message + "<br><br>";
             message = message + "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
 
             message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
