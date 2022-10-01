@@ -130,16 +130,25 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(alarmTime);
 
+        Calendar alarmCalendar = Calendar.getInstance();
+        alarmCalendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
+        alarmCalendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE));
+        alarmCalendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
+        alarmCalendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
+        alarmCalendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
+        alarmCalendar.set(Calendar.SECOND, 0);
+        alarmCalendar.set(Calendar.MILLISECOND, 0);
+
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
-        String time = sdf.format(calendar.getTimeInMillis());
+        String time = sdf.format(alarmCalendar.getTimeInMillis());
         PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime="+time);
         PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmPackageName="+alarmPackageName);
 
         removeAlarm(alarmManager, context);
 
         Calendar now = Calendar.getInstance();
-        if ((alarmTime >= now.getTimeInMillis()) && (!alarmPackageName.isEmpty())) {
+        if ((alarmCalendar.getTimeInMillis() >= now.getTimeInMillis()) && (!alarmPackageName.isEmpty())) {
 
             PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "SET ALARM");
 
@@ -162,7 +171,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             // set alarm
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             //if (android.os.Build.VERSION.SDK_INT >= 23)
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
             //else //if (android.os.Build.VERSION.SDK_INT >= 19)
             //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             //else
