@@ -129,6 +129,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     static void setAlarm(long alarmTime, String alarmPackageName, AlarmManager alarmManager, Context context) {
+        removeAlarm(alarmManager, context);
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(alarmTime);
 
@@ -146,8 +148,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         String time = sdf.format(alarmCalendar.getTimeInMillis());
         PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime="+time);
         PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmPackageName="+alarmPackageName);
-
-        removeAlarm(alarmManager, context);
 
         Calendar now = Calendar.getInstance();
         if ((alarmCalendar.getTimeInMillis() >= now.getTimeInMillis()) && (!alarmPackageName.isEmpty())) {
