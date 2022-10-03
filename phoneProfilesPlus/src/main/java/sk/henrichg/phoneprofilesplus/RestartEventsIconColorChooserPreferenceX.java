@@ -81,20 +81,16 @@ public class RestartEventsIconColorChooserPreferenceX extends DialogPreference {
 
 /*
         Drawable selector = createSelector(color);
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int[][] states = new int[][]{
-                    new int[]{-android.R.attr.state_pressed},
-                    new int[]{android.R.attr.state_pressed}
-            };
-            int[] colors = new int[]{
-                    shiftColor(color),
-                    color
-            };
-            ColorStateList rippleColors = new ColorStateList(states, colors);
-            setBackgroundCompat(widgetLayout, new RippleDrawable(rippleColors, selector, null));
-        //} else {
-        //    setBackgroundCompat(widgetLayout, selector);
-        //}
+        int[][] states = new int[][]{
+                new int[]{-android.R.attr.state_pressed},
+                new int[]{android.R.attr.state_pressed}
+        };
+        int[] colors = new int[]{
+                shiftColor(color),
+                color
+        };
+        ColorStateList rippleColors = new ColorStateList(states, colors);
+        setBackgroundCompat(widgetLayout, new RippleDrawable(rippleColors, selector, null));
 
 //        Handler handler = new Handler(context.getMainLooper());
 //        handler.postDelayed(new Runnable() {

@@ -221,13 +221,9 @@ public class GlobalUtils {
         }
         else
         if (applicationPowerSaveModeInternal.equals("3")) {*/
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         if (powerManager != null)
             return powerManager.isPowerSaveMode();
-        //}
-        //return isPowerSaveMode;
-        //}
 
         return false;
     }

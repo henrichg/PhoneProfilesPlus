@@ -33,9 +33,6 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
 
         durationDialogType.recycle();
 
-        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-        //    mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
-
         this.context = context;
 
         MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);

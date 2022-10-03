@@ -29,9 +29,6 @@ public class DurationDialogPreferenceX extends DialogPreference {
         mMin = durationDialogType.getInt(R.styleable.PPDurationDialogPreference_dMin, 0);
 
         durationDialogType.recycle();
-
-        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-        //    mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
     }
 
     @Override

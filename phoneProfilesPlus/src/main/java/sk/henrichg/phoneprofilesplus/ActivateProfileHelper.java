@@ -3070,8 +3070,6 @@ class ActivateProfileHelper {
         if (testRingerMode)
             ringerMode = audioManager.getRingerMode();
         int vibrateType = -999;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1)
-            vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
         //int vibrateWhenRinging;
         //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
         //    vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);

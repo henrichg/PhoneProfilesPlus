@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.speech.RecognitionListener;
@@ -43,7 +42,7 @@ public class PPRecognitionServiceTrampoline extends RecognitionService {
     }
 
     private String getRSPackageName() {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (android.os.Build.VERSION.SDK_INT >= 31) {
             return "com.google.android.tts";
         } else {
             return "com.google.android.googlequicksearchbox";
@@ -51,7 +50,7 @@ public class PPRecognitionServiceTrampoline extends RecognitionService {
     }
 
     private String getRecognitionServiceName() {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (android.os.Build.VERSION.SDK_INT >= 31) {
             return "com.google.android.apps.speech.tts.googletts.service.GoogleTTSRecognitionService";
         } else {
             return "com.google.android.voicesearch.serviceapi.GoogleRecognitionService";

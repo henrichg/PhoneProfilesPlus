@@ -1147,13 +1147,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 PPApplication.createProfileNotificationChannel(getActivity().getApplicationContext());
 
                 Intent intent = new Intent();
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+                if (Build.VERSION.SDK_INT > 26) {
                     intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
                     intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
-                } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+                } else if (Build.VERSION.SDK_INT == 26) {
                     intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
                     intent.putExtra("android.provider.extra.APP_PACKAGE", PPApplication.PACKAGE_NAME);
-                } else {// if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                } else {
                     intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
                     intent.putExtra("app_package", PPApplication.PACKAGE_NAME);
                     intent.putExtra("app_uid", getActivity().getApplicationInfo().uid);

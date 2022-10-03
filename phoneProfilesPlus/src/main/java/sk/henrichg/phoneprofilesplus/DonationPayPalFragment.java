@@ -47,16 +47,6 @@ public class DonationPayPalFragment extends Fragment {
 
         //mLoadingView = root.findViewById(R.id.donation_paypal_loading);
 
-        /*
-        if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) && (getActivity() != null)) {
-            TypedValue typedValue = new TypedValue();
-            TypedArray a = getActivity().obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorAccent});
-            int accentColor = a.getColor(0, 0);
-            a.recycle();
-            mLoadingView.getIndeterminateDrawable().setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
-        }
-        */
-
         //mErrorTextView = root.findViewById(R.id.donation_paypal_error_textview);
 
         // choose donation amount

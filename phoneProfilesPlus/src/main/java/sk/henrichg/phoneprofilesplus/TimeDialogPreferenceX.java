@@ -31,9 +31,6 @@ public class TimeDialogPreferenceX extends DialogPreference {
         mMin = 0;
 
         //durationDialogType.recycle();
-
-        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-        //    mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
     }
 
     @Override

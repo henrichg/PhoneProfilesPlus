@@ -2785,11 +2785,7 @@ public class Profile {
             //_icon = getIconIdentifier() + "|0";
             /*Drawable drawable;
             drawable = ContextCompat.getDrawable(context, iconResource);
-            //if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
-            //    drawable = context.getResources().getDrawable(iconResource, context.getTheme());
-            //} else {
-            //    drawable = context.getResources().getDrawable(iconResource);
-            //}
+            drawable = context.getResources().getDrawable(iconResource, context.getTheme());
             _iconDrawable = BitmapManipulator.tintDrawableByValue(drawable, monochromeValue);
             _iconBitmap = null;*/
         }

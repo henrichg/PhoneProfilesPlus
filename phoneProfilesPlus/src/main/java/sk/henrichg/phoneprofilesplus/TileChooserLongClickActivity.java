@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +35,7 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
             ComponentName qsTile = intent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME);
             if (qsTile != null) {
                 if (qsTile.getClassName().contains("PPTileService1"))

@@ -12,7 +12,6 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_QUICK_TILE_ID = "quick_tile_id";
 
-    //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] QuickTileChooseTileBroadcastReceiver.onReceive", "xxx");

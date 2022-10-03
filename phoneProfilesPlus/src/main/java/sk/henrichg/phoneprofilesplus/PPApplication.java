@@ -1255,7 +1255,7 @@ public class PPApplication extends Application
         //super.attachBaseContext(base);
         super.attachBaseContext(LocaleHelper.onAttach(base));
         //Reflection.unseal(base);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= 28) {
             HiddenApiBypass.addHiddenApiExemptions("L");
         }
 
@@ -1281,7 +1281,7 @@ public class PPApplication extends Application
         }
 
         String body;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+        if (Build.VERSION.SDK_INT >= 25)
             body = getString(R.string.important_info_email_body_device) + " " +
                     Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
                     " (" + Build.MODEL + ")" + " \n";

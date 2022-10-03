@@ -19,6 +19,10 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
         if (!PPApplication.getApplicationStarted(true))
             return;
 
+        NextAlarmClockBroadcastReceiver.getEventAlarmClockTime(context.getApplicationContext());
+        if (ApplicationPreferences.prefEventAlarmClockTime == 0)
+            return;
+
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         final long _time = now.getTimeInMillis() + gmtOffset;
@@ -49,6 +53,10 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventAlarmClockParameters(_time, alarmPackageName);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK);
+
+                        NextAlarmClockBroadcastReceiver.setEventAlarmClockTime(context, 0);
+                        NextAlarmClockBroadcastReceiver.setEventAlarmClockPackageName(context, "");
+
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);

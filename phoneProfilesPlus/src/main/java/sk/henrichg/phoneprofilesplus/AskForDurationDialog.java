@@ -81,11 +81,6 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mStartupSource = startupSource;
         //mInteractive = true/*interactive*/;
 
-        /*
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
-            */
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(mActivity.getString(R.string.profile_preferences_duration) + " - " +
                                mActivity.getString(R.string.profile_string_0) + ": " + profile._name);

@@ -603,7 +603,7 @@ public class DataWrapperStatic {
     }
 
     static void setDynamicLauncherShortcuts(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+        if (android.os.Build.VERSION.SDK_INT >= 25) {
             try {
                 ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
 

@@ -101,9 +101,12 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                         }*/
                     }
                     else {
-                        setEventAlarmClockTime(context, 0);
-                        setEventAlarmClockPackageName(context, "");
-                        removeAlarm(alarmManager, context);
+                        getEventAlarmClockTime(context);
+                        if (ApplicationPreferences.prefEventAlarmClockTime != 0) {
+                            setEventAlarmClockTime(context, 0);
+                            setEventAlarmClockPackageName(context, "");
+                            removeAlarm(alarmManager, context);
+                        }
                     }
                 }
             }
@@ -127,7 +130,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     static void setAlarm(long alarmTime, String alarmPackageName, AlarmManager alarmManager, Context context) {
         removeAlarm(alarmManager, context);
 
@@ -140,8 +142,10 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         alarmCalendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
         alarmCalendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
         alarmCalendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
-        alarmCalendar.set(Calendar.SECOND, 5); // added 5 seconds = wait for screen on by alarm clock application
         alarmCalendar.set(Calendar.MILLISECOND, 0);
+        alarmCalendar.set(Calendar.SECOND, 0);
+        // removed 5 seconds, because must be received before set it again
+        alarmCalendar.add(Calendar.SECOND, -5);
 
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");

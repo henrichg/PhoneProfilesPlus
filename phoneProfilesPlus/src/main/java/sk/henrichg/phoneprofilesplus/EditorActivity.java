@@ -253,10 +253,7 @@ public class EditorActivity extends AppCompatActivity
 
         PPApplication.createApplicationsCache(true);
 
-        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            setContentView(R.layout.activity_editor_list_onepane_19);
-        else*/
-            setContentView(R.layout.activity_editor);
+        setContentView(R.layout.activity_editor);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
@@ -292,31 +289,6 @@ public class EditorActivity extends AppCompatActivity
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
-
-        /*
-        if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
-            //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-            // create our manager instance after the content view is set
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            // enable status bar tint
-            tintManager.setStatusBarTintEnabled(true);
-            // set a custom tint color for status bar
-            switch (appTheme) {
-                case "color":
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
-                    break;
-                case "white":
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark19_white));
-                    break;
-                default:
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
-                    break;
-            }
-        }
-        */
 
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //	getWindow().setNavigationBarColor(R.attr.colorPrimary);
@@ -3775,7 +3747,7 @@ public class EditorActivity extends AppCompatActivity
 
     String getEmailBodyText() {
         String body;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+        if (Build.VERSION.SDK_INT >= 25)
             body = getString(R.string.important_info_email_body_device) + " " +
                     Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
                     " (" + Build.MODEL + ")" + " \n";
