@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 
@@ -224,6 +225,11 @@ public class MobileCellsRegistrationService extends Service
         //}
 
         mBuilder.setGroup(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_GROUP);
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            // required, because in API 33+ foreground serbice notification is dismissable
+            mBuilder.setOngoing(true);
+        }
 
         Notification notification = mBuilder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;

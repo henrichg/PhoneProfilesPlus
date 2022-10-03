@@ -762,6 +762,11 @@ public class PhoneProfilesNotification {
 
         notificationBuilder.setGroup(PPApplication.PROFILE_NOTIFICATION_GROUP);
 
+        if (Build.VERSION.SDK_INT >= 33) {
+            // required, because in API 33+ foreground serbice notification is dismissable
+            notificationBuilder.setOngoing(true);
+        }
+
         Notification phoneProfilesNotification;
         try {
             phoneProfilesNotification = notificationBuilder.build();
