@@ -111,6 +111,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     }
 
     private static void removeAlarm(AlarmManager alarmManager, Context context) {
+        PPApplication.logE("NextAlarmClockBroadcastReceiver.removeAlarm", "xxx");
+
         //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
@@ -136,7 +138,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         alarmCalendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
         alarmCalendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
         alarmCalendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
-        alarmCalendar.set(Calendar.SECOND, 0);
+        alarmCalendar.set(Calendar.SECOND, 5); // added 5 seconds = wait for screen on by alarm clock application
         alarmCalendar.set(Calendar.MILLISECOND, 0);
 
         @SuppressLint("SimpleDateFormat")
