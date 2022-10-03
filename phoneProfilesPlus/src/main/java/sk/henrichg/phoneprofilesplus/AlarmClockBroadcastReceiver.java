@@ -19,6 +19,10 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
         if (!PPApplication.getApplicationStarted(true))
             return;
 
+        NextAlarmClockBroadcastReceiver.getEventAlarmClockTime(context.getApplicationContext());
+        if (ApplicationPreferences.prefEventAlarmClockTime == 0)
+            return;
+
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         final long _time = now.getTimeInMillis() + gmtOffset;
