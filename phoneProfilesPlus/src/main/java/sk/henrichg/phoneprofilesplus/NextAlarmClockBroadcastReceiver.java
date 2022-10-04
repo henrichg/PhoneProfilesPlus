@@ -88,14 +88,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                         packageName.equals("ch.bitspin.timely") ||
                                         packageName.equals("com.angrydoughnuts.android.alarmclock"))*/
 
-                                        //getEventAlarmClockTime(context);
-                                        //long lastAlarm = ApplicationPreferences.prefEventAlarmClockTime;
-
-                                        setEventAlarmClockTime(context, _time);
-                                        setEventAlarmClockPackageName(context, packageName);
-
-                                        //if (lastAlarm < _time)
-                                            setAlarm(_time, packageName, alarmManager, context);
+                                        setAlarm(_time, packageName, alarmManager, context);
                                 }
                             } /*else {
                                 setAlarm(_time, "", alarmManager, context);
@@ -170,6 +163,9 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
         Calendar now = Calendar.getInstance();
         if ((alarmCalendar.getTimeInMillis() >= now.getTimeInMillis()) && (!alarmPackageName.isEmpty())) {
+
+            setEventAlarmClockTime(context, alarmTime);
+            setEventAlarmClockPackageName(context, alarmPackageName);
 
             PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "SET ALARM");
 
