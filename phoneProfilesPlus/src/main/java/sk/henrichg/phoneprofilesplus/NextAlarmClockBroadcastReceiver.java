@@ -8,13 +8,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
+    static final String PREF_EVENT_ALARM_CLOCK_TIME_COUNT = "eventAlarmClockTimeCount";
     static final String PREF_EVENT_ALARM_CLOCK_TIME = "eventAlarmClockTime";
-    static final String PREF_EVENT_ALARM_CLOCK_PACKAGE_NAME = "eventAlarmClockPackageName";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -102,8 +106,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                         //getEventAlarmClockPackageName(context);
                         //removeAlarm(ApplicationPreferences.prefEventAlarmClockPackageName, alarmManager, context);
 
-                        setEventAlarmClockTime(context, 0);
-                        setEventAlarmClockPackageName(context, "");
+                        setEventAlarmClockTime("", 0, context);
                     }
                 }
             }
@@ -164,8 +167,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         Calendar now = Calendar.getInstance();
         if ((alarmCalendar.getTimeInMillis() >= now.getTimeInMillis()) && (!alarmPackageName.isEmpty())) {
 
-            setEventAlarmClockTime(context, alarmTime);
-            setEventAlarmClockPackageName(context, alarmPackageName);
+            setEventAlarmClockTime(alarmPackageName, alarmTime, context);
 
             PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "SET ALARM");
 
@@ -205,26 +207,88 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static void getEventAlarmClockTime(Context context) {
-        ApplicationPreferences.prefEventAlarmClockTime = ApplicationPreferences.
-                getSharedPreferences(context).getLong(PREF_EVENT_ALARM_CLOCK_TIME, 0L);
-    }
-    static void setEventAlarmClockTime(Context context, long time) {
-        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-        editor.putLong(PREF_EVENT_ALARM_CLOCK_TIME, time);
-        editor.apply();
-        ApplicationPreferences.prefEventAlarmClockTime = time;
-    }
+    static List<NextAlarmClockData> getEventAlarmClockTimes(Context context) {
+        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
+        int count = preferences.getInt(PREF_EVENT_ALARM_CLOCK_TIME_COUNT, -1);
 
-    static void getEventAlarmClockPackageName(Context context) {
-        ApplicationPreferences.prefEventAlarmClockPackageName = ApplicationPreferences.
-                getSharedPreferences(context).getString(PREF_EVENT_ALARM_CLOCK_PACKAGE_NAME, "");
+        PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "count="+count);
+
+        if (count > -1) {
+            List<NextAlarmClockData> times = new ArrayList<>();
+
+            Gson gson = new Gson();
+
+            for (int i = 0; i < count; i++) {
+                String json = preferences.getString(PREF_EVENT_ALARM_CLOCK_TIME + i, "");
+                if (!json.isEmpty()) {
+                    NextAlarmClockData time = gson.fromJson(json, NextAlarmClockData.class);
+                    times.add(time);
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+                    String _time = sdf.format(time.time);
+                    PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "alarmTime="+_time);
+                    PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "alarmPackageName="+time.packageName);
+                }
+            }
+            return times;
+        } else
+            return null;
     }
-    static void setEventAlarmClockPackageName(Context context, String packageName) {
-        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-        editor.putString(PREF_EVENT_ALARM_CLOCK_PACKAGE_NAME, packageName);
-        editor.apply();
-        ApplicationPreferences.prefEventAlarmClockPackageName = packageName;
+    @SuppressLint("SimpleDateFormat")
+    static void setEventAlarmClockTime(String packageName, long time, Context context) {
+        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+        String ___time = sdf.format(time);
+        PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmTime="+___time);
+        PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmPackageName="+packageName);
+
+        if ((packageName != null) && !packageName.isEmpty()) {
+            List<NextAlarmClockData> times = getEventAlarmClockTimes(context);
+            PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "times="+times);
+
+            if (times == null) {
+                NextAlarmClockData _time = new NextAlarmClockData(packageName, time);
+                times = new ArrayList<>();
+                times.add(_time);
+                PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "added (1)");
+            } else {
+                boolean found = false;
+                int idx = 0;
+                for (NextAlarmClockData __time : times) {
+                    sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+                    ___time = sdf.format(time);
+                    PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmTime from shared prefs="+___time);
+                    PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmPackageName from shared prefs="+packageName);
+
+                    if (__time.packageName.equals(packageName)) {
+                        NextAlarmClockData _time = new NextAlarmClockData(__time.packageName, time);
+                        times.set(idx, _time);
+                        PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "set");
+                        found = true;
+                        break;
+                    }
+                    ++idx;
+                }
+                if (!found) {
+                    NextAlarmClockData _time = new NextAlarmClockData(packageName, time);
+                    times.add(_time);
+                    PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "added (2)");
+                }
+            }
+            PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "count="+times.size());
+
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+
+            editor.putInt(PREF_EVENT_ALARM_CLOCK_TIME_COUNT, times.size());
+
+            Gson gson = new Gson();
+
+            for (int i = 0; i < times.size(); i++) {
+                String json = gson.toJson(times.get(i));
+                editor.putString(PREF_EVENT_ALARM_CLOCK_TIME + i, json);
+            }
+
+            editor.apply();
+        }
     }
 
 }

@@ -2148,8 +2148,6 @@ public class PPApplication extends Application
         WifiScanWorker.getWifiEnabledForScan(context);
         WifiScanWorker.getScanRequest(context);
         WifiScanWorker.getWaitForResults(context);
-        NextAlarmClockBroadcastReceiver.getEventAlarmClockTime(context);
-        NextAlarmClockBroadcastReceiver.getEventAlarmClockPackageName(context);
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 0);
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 1);
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 2);

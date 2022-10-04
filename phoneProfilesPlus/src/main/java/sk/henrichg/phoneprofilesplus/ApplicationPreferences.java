@@ -44,8 +44,6 @@ class ApplicationPreferences {
     static volatile boolean prefEventWifiEnabledForScan;
     //static volatile boolean prefShowCriticalGitHubReleasesNotificationNotification;
     static volatile int prefShowCriticalGitHubReleasesCodeNotification;
-    static volatile long prefEventAlarmClockTime;
-    static volatile String prefEventAlarmClockPackageName;
     static volatile boolean keepScreenOnPermanent;
     static volatile boolean prefEventRoamingNetworkInSIMSlot0;
     static volatile boolean prefEventRoamingDataInSIMSlot0;

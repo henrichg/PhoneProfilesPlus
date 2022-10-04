@@ -54,6 +54,7 @@ import androidx.work.WorkManager;
 
 import com.android.internal.telephony.TelephonyIntents;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -3843,14 +3844,36 @@ public class PhoneProfilesService extends Service
                 // set alarm for Alarm clock sensor from last saved time in
                 // NextAlarmClockBroadcastReceiver.onReceived()
                 //TODO alarm clock sensor
+
+                // convert old saved alarm clock to new format
+                long prefEventAlarmClockTime = ApplicationPreferences.
+                        getSharedPreferences(appContext).getLong("eventAlarmClockTime", 0L);
+                String prefEventAlarmClockPackageName = ApplicationPreferences.
+                        getSharedPreferences(appContext).getString("eventAlarmClockPackageName", "");
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                editor.remove("eventAlarmClockTime");
+                editor.remove("eventAlarmClockPackageName");
+                editor.apply();
+                NextAlarmClockBroadcastReceiver.setEventAlarmClockTime(prefEventAlarmClockPackageName, prefEventAlarmClockTime, appContext);
+
                 AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "ApplicationPreferences.prefEventAlarmClockTime="+ApplicationPreferences.prefEventAlarmClockTime);
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "ApplicationPreferences.prefEventAlarmClockPackageName="+ApplicationPreferences.prefEventAlarmClockPackageName);
-                    NextAlarmClockBroadcastReceiver.setAlarm(
-                            ApplicationPreferences.prefEventAlarmClockTime,
-                            ApplicationPreferences.prefEventAlarmClockPackageName,
-                            alarmManager, appContext);
+                    List<NextAlarmClockData> times = NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes(appContext);
+                    if (times != null) {
+                        for (NextAlarmClockData _time : times) {
+                            @SuppressLint("SimpleDateFormat")
+                            SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+                            String ___time = sdf.format(_time.time);
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "next alarm clock alarm time="+___time);
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "next alarm clock package name=" + _time.packageName);
+
+                            NextAlarmClockBroadcastReceiver.setAlarm(
+                                    _time.time,
+                                    _time.packageName,
+                                    alarmManager, appContext);
+
+                        }
+                    }
                 }
 
                 // show info notification
@@ -3963,7 +3986,7 @@ public class PhoneProfilesService extends Service
                 // start events
 
                 if (__activateProfiles) {
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                    editor = ApplicationPreferences.getEditor(appContext);
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
