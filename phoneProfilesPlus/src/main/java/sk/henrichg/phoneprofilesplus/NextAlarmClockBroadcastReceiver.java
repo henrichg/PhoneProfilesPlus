@@ -101,13 +101,12 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                             setAlarm(_time, "", alarmManager, context);
                         }*/
                     }
-                    else {
+                    /*else {
                         //getEventAlarmClockTime(context);
                         //getEventAlarmClockPackageName(context);
                         //removeAlarm(ApplicationPreferences.prefEventAlarmClockPackageName, alarmManager, context);
-
                         setEventAlarmClockTime("", 0, context);
-                    }
+                    }*/
                 }
             }
         //}
