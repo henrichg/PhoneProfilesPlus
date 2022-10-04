@@ -1996,9 +1996,9 @@
     <string name="array_pref_vpn_connected">З\'єднано</string>
     <string name="array_pref_vpn_disconnected">Від’єднано</string>
     <string name="vpn_not_set_when_is_in_state_pref_dlg">Не встановлювати, якщо VPN вже під\'єднано</string>
-    <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
-    <string name="check_releases_droidify_application">Droid-ify installation site:</string>
-    <string name="menu_check_releases_droidify">Check in Droid-ify</string>
-    <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
-    <string name="check_releases_open_droidify">Open Droid-ify</string>
+    <string name="altype_profileError_cameraFlash">профіль - помилка під час встановлення спалаху камери</string>
+    <string name="check_releases_droidify_application">Сайт встановлення Droid-ify:</string>
+    <string name="menu_check_releases_droidify">Перевірити на Droid-ify</string>
+    <string name="check_releases_go_to_droidify">Перейти до Droid-ify</string>
+    <string name="check_releases_open_droidify">Відкрити Droid-ify</string>
 </resources>

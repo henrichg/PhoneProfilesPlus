@@ -1996,9 +1996,9 @@
     <string name="array_pref_vpn_connected">Verbonden</string>
     <string name="array_pref_vpn_disconnected">Niet verbonden</string>
     <string name="vpn_not_set_when_is_in_state_pref_dlg">Niet instellen wanneer VPN al actief is</string>
-    <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
-    <string name="check_releases_droidify_application">Droid-ify installation site:</string>
+    <string name="altype_profileError_cameraFlash">profiel - fout bij instellen camera flash</string>
+    <string name="check_releases_droidify_application">Droid-ify installatie site:</string>
     <string name="menu_check_releases_droidify">Check in Droid-ify</string>
-    <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
+    <string name="check_releases_go_to_droidify">Ga naar Droid-ify</string>
     <string name="check_releases_open_droidify">Open Droid-ify</string>
 </resources>

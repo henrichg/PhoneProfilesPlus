@@ -1778,10 +1778,10 @@
     <string name="phone_profiles_pref_device_is_rooted">Gerät gerootet</string>
     <string name="phone_profiles_pref_device_is_not_rooted">Gerät nicht gerootet</string>
     <string name="array_pref_change_image_wallpaper_with">(I) Change to image with</string>
-    <string name="show_dialog_about_red_text_show_event_preferences">Show event preferences</string>
-    <string name="profile_preferences_red_texts_text_3_new">For this, is not possible to change \"Show in Activator\".</string>
-    <string name="profile_preferences_red_texts_text_4">Errors are displayed in profile preferences as red texts at top of preference screen. Please fix it.</string>
-    <string name="event_preferences_red_texts_text_4">Errors are displayed in event preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Ereignispräferenzen anzeigen</string>
+    <string name="profile_preferences_red_texts_text_3_new">Hierfür ist es nicht möglich, „Im Aktivator anzeigen” zu ändern.</string>
+    <string name="profile_preferences_red_texts_text_4">Fehler werden in den Profileinstellungen als rote Texte am oberen Rand des Einstellungsbildschirms angezeigt. Bitte beheben Sie diese.</string>
+    <string name="event_preferences_red_texts_text_4">Fehler werden in den Ereigniseinstellungen als roter Text am oberen Rand des Einstellungsbildschirms angezeigt. Bitte beheben Sie diese.</string>
     <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile preferences</string>
     <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile preferences.</string>
     <string name="phone_profiles_pref_notificationProfileIconColor">Profile icon and preferences indicator color type</string>

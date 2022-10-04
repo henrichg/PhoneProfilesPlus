@@ -1755,9 +1755,9 @@
     <string name="profile_preferences_afterExactTimeDo">По достижении точного времени</string>
     <string name="profile_preferences_exactTime">Точное время</string>
     <string name="profile_preferences_category_end_of_activation">Окончание активации</string>
-    <string name="end_of_activation_time_end_acronym">te</string>
-    <string name="end_of_activation_duration_acronym">d</string>
-    <string name="end_of_activation_time_acronym">t</string>
+    <string name="end_of_activation_time_end_acronym">во</string>
+    <string name="end_of_activation_duration_acronym">п</string>
+    <string name="end_of_activation_time_acronym">в</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Показывать время окончания активации профиля</string>
     <string name="event_delay_start_acronym">зз</string>
     <string name="event_delay_end_acronym">зо</string>
@@ -1996,9 +1996,9 @@
     <string name="array_pref_vpn_connected">Подключено</string>
     <string name="array_pref_vpn_disconnected">Отключено</string>
     <string name="vpn_not_set_when_is_in_state_pref_dlg">Не применять, если VPN уже включён/отключён</string>
-    <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
-    <string name="check_releases_droidify_application">Droid-ify installation site:</string>
-    <string name="menu_check_releases_droidify">Check in Droid-ify</string>
-    <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
-    <string name="check_releases_open_droidify">Open Droid-ify</string>
+    <string name="altype_profileError_cameraFlash">профиль - ошибка при активации вспышки</string>
+    <string name="check_releases_droidify_application">Сайт для установки приложения Droid-ify:</string>
+    <string name="menu_check_releases_droidify">Проверить на Droid-ify</string>
+    <string name="check_releases_go_to_droidify">Перейти на Droid-ify</string>
+    <string name="check_releases_open_droidify">Открыть Droid-ify</string>
 </resources>

@@ -273,7 +273,7 @@
     <string name="event_preferences_sms_contacts">Contacts</string>
     <string name="toast_events_restarted">Événements redémarrés</string>
     <string name="event_name_background_profile">Profil par défaut</string>
-    <string name="array_pref_zenModeArray_priority">Priorité</string>
+    <string name="array_pref_zenModeArray_priority">Prioritaire</string>
     <string name="profile_preferences_deviceMobileData_21">(R) Données mobiles</string>
     <string name="preference_profile_adaptiveBrightness">Adaptatif</string>
     <string name="profile_preferences_deviceKeyguard">Écran de verrouillage</string>
@@ -343,7 +343,7 @@
     <string name="calendar_pref_dlg_info_about_wildcards">dans la chaîne de recherche,</string>
     <string name="pref_dlg_info_about_wildcards_3">ajouter \"\u005C\" devant ces caractères.</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Accès aux notifications</string>
-    <string name="array_pref_zenModeArray_priorityWithVibration">Priorité avec vibration</string>
+    <string name="array_pref_zenModeArray_priorityWithVibration">Prioritaire avec vibration</string>
     <string name="important_info_news">Actualités</string>
     <string name="profile_preferences_zenMode_priority_summary">Interruption de priorité uniquement</string>
     <string name="event_preferences_duration">Durée</string>
@@ -650,7 +650,7 @@
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Actuellement configuré :</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Volume de sonnerie = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Volume de sonnerie = 0 configure l’appareil en mode silencieux. Le volume de notification est ignoré.</string>
-    <string name="event_preferences_event_priorityInfo_summary">Fonctionnalité de priorité : l\'événement ne sera pas démarré si un événement s\'exécute avec une priorité plus élevée.</string>
+    <string name="event_preferences_event_priorityInfo_summary">Note : cet événement ne sera pas démarré si un autre s\'exécute avec une priorité plus élevée.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Type de préférences</string>
     <string name="event_preference_sensor_time_summary">Ce capteur est pour démarrer un l’événement par le temps. Paramètres : Heure de début, heure de fin, jours de la semaine.</string>
     <string name="event_preference_sensor_calendar_summary">Ce capteur est pour démarrer un événement à partir du calendrier. Paramètres : Calendriers, champ de recherche (titre, Description, …), chaîne de recherche, ignorer les événements \"répétitif tous les jours\", disponibilité (occupé, libre, …).</string>
@@ -733,7 +733,7 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Deux volumes distincts</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">A utiliser si la détection de la fusion du volume est fausse.</string>
     <string name="profile_preferences_category_application">Fonctions de l\'application</string>
-    <string name="profile_preferences_volumeZenModeM">\"Ne pas déranger\" modèle</string>
+    <string name="profile_preferences_volumeZenModeM">Modèle \"Ne pas déranger\"</string>
     <string name="array_pref_zenModeArray_off">Désactivé</string>
     <string name="array_pref_zenModeArray_offButVibration">Désactivé mais avec vibration</string>
     <string name="array_pref_zenModeArray_totalSilence">Silence total</string>
@@ -1356,7 +1356,7 @@
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignorer le point d\'accès Wi-Fi</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">L\'option \"Activé (ne pas désactiver le Wi-Fi) doit être prise en charge par le système</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Les options \"On (ignorer hotspot)\", \"Basculer (ignorer hotspot)\" doivent être supportées par le système</string>
-    <string name="profile_preferences_volumeZenModeMInfo_summary">Le type « Priorité » est similaire à « Ne pas déranger ». Les options configurées dans les paramètres du système pour « Ne pas déranger » seront utilisés</string>
+    <string name="profile_preferences_volumeZenModeMInfo_summary">Le type « Prioritaire » équivaut à « Ne pas déranger ». C\'est la configuration « Ne pas déranger » faite dans les \"paramètres Android\" pour sera utilisée</string>
     <string name="menu_import_from_pp">Importer des données depuis PhoneProfiles</string>
     <string name="import_profiles_from_pp_alert_title">Importer des données depuis PhoneProfiles</string>
     <string name="import_profiles_from_pp_alert_error">Erreur lors de l\'importation depuis le processus PhoneProfiles</string>
@@ -1996,9 +1996,9 @@
     <string name="array_pref_vpn_connected">Connecté</string>
     <string name="array_pref_vpn_disconnected">Déconnecté</string>
     <string name="vpn_not_set_when_is_in_state_pref_dlg">Ne pas définir lorsque le VPN est déjà connecté</string>
-    <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
-    <string name="check_releases_droidify_application">Droid-ify installation site:</string>
-    <string name="menu_check_releases_droidify">Check in Droid-ify</string>
-    <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
-    <string name="check_releases_open_droidify">Open Droid-ify</string>
+    <string name="altype_profileError_cameraFlash">profil - erreur sur la définition du flash de l\'appareil photo</string>
+    <string name="check_releases_droidify_application">Site d\'installation Droid-ify :</string>
+    <string name="menu_check_releases_droidify">Vérifier dans Droid-ify</string>
+    <string name="check_releases_go_to_droidify">Aller sur Droid-ify</string>
+    <string name="check_releases_open_droidify">Ouvrir Droid-ify</string>
 </resources>
