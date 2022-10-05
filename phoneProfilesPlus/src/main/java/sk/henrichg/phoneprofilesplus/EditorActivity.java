@@ -66,9 +66,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -1246,120 +1244,8 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_choose_language) {
-            String storedLanguage = LocaleHelper.getLanguage(getApplicationContext());
-            String storedCountry = LocaleHelper.getCountry(getApplicationContext());
-            String storedScript = LocaleHelper.getScript(getApplicationContext());
-
-            final String[] languageValues = getResources().getStringArray(R.array.chooseLanguageValues);
-            ArrayList<Language> languages = new ArrayList<>();
-
-            for (String languageValue : languageValues) {
-                Language language = new Language();
-                if (languageValue.equals("[sys]")) {
-                    language.language = languageValue;
-                    language.country = "";
-                    language.script = "";
-                    language.name = getString(R.string.menu_choose_language_system_language);
-                } else {
-                    String[] splits = languageValue.split("-");
-                    String sLanguage = splits[0];
-                    String country = "";
-                    if (splits.length >= 2)
-                        country = splits[1];
-                    String script = "";
-                    if (splits.length >= 3)
-                        script = splits[2];
-
-                    Locale loc = null;
-                    if (country.isEmpty() && script.isEmpty())
-                        loc = new Locale.Builder().setLanguage(sLanguage).build();
-                    if (!country.isEmpty() && script.isEmpty())
-                        loc = new Locale.Builder().setLanguage(sLanguage).setRegion(country).build();
-                    if (country.isEmpty() && !script.isEmpty())
-                        loc = new Locale.Builder().setLanguage(sLanguage).setScript(script).build();
-                    if (!country.isEmpty() && !script.isEmpty())
-                        loc = new Locale.Builder().setLanguage(sLanguage).setRegion(country).setScript(script).build();
-
-                    language.language = sLanguage;
-                    language.country = country;
-                    language.script = script;
-                    language.name = loc.getDisplayName(loc);
-                    language.name = language.name.substring(0, 1).toUpperCase(loc) + language.name.substring(1);
-                }
-                languages.add(language);
-            }
-
-            languages.sort(new LanguagesComparator());
-
-            final String[] languageNameChoices = new String[languages.size()];
-            for(int i = 0; i < languages.size(); i++) languageNameChoices[i] = languages.get(i).name;
-
-            for (int i = 0; i < languages.size(); i++) {
-                Language language = languages.get(i);
-                String sLanguage = language.language;
-                String country = language.country;
-                String script = language.script;
-
-                if (sLanguage.equals(storedLanguage) &&
-                        storedCountry.isEmpty() &&
-                        storedScript.isEmpty()) {
-                    selectedLanguage = i;
-                    break;
-                }
-                if (sLanguage.equals(storedLanguage) &&
-                        country.equals(storedCountry) &&
-                        storedScript.isEmpty()) {
-                    selectedLanguage = i;
-                    break;
-                }
-                if (sLanguage.equals(storedLanguage) &&
-                        storedCountry.isEmpty() &&
-                        script.equals(storedScript)) {
-                    selectedLanguage = i;
-                    break;
-                }
-                if (sLanguage.equals(storedLanguage) &&
-                        country.equals(storedCountry) &&
-                        script.equals(storedScript)) {
-                    selectedLanguage = i;
-                    break;
-                }
-            }
-
-            AlertDialog chooseLanguageDialog = new AlertDialog.Builder(this)
-                    .setTitle(R.string.menu_choose_language)
-                    .setCancelable(true)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setSingleChoiceItems(languageNameChoices, selectedLanguage, (dialog, which) -> {
-                        selectedLanguage = which;
-
-                        Language language = languages.get(selectedLanguage);
-                        defaultLanguage = language.language;
-                        defaultCountry = language.country;
-                        defaultScript = language.script;
-
-                        LocaleHelper.setLocale(getApplicationContext(),
-                                defaultLanguage, defaultCountry, defaultScript, true);
-
-                        GlobalGUIRoutines.reloadActivity(this, false);
-                        dialog.dismiss();
-
-                        PPApplication.updateGUI(true, false, this);
-                    })
-                    .create();
-
-//                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-
+            ChooseLanguageDialog chooseLanguageDialog = new ChooseLanguageDialog(this);
             chooseLanguageDialog.show();
-
             return true;
         }
         else
@@ -5543,6 +5429,7 @@ public class EditorActivity extends AppCompatActivity
 
     }
 
+/*
     private static class Language {
         String language;
         String country;
@@ -5556,6 +5443,7 @@ public class EditorActivity extends AppCompatActivity
             return PPApplication.collator.compare(lhs.name, rhs.name);
         }
     }
+*/
 
     @Override
     public void refreshGUIFromListener(Intent intent) {

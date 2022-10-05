@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/choose_language_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <View
+        android:id="@+id/choose_language_dlg_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="?attr/dialogDivider" />
+
+    <ListView
+        android:id="@+id/choose_language_dlg_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center"
+        android:clipToPadding="false"
+        android:choiceMode="singleChoice"
+        android:scrollbarStyle="outsideOverlay"
+        android:divider="@android:color/transparent"
+        android:listSelector="?attr/listViewItemBackground" />
+
+    <LinearLayout
+        android:id="@+id/choose_language_dlg_help_linla"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/choose_language_dlg_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="?attr/dialogDivider" />
+
+        <TextView
+            android:id="@+id/choose_language_dlg_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:paddingTop="10dp"
+            android:textSize="16sp"
+            android:text="@string/about_application_translations"/>
+
+    </LinearLayout>
+
+</LinearLayout>
