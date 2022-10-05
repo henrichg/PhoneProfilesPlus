@@ -27,7 +27,7 @@ class ChooseLanguageDialog
     final ListView listView;
     final TextView help;
 
-    ArrayList<Language> languages;
+    final ArrayList<Language> languages;
 
     ChooseLanguageDialog(EditorActivity activity)
     {

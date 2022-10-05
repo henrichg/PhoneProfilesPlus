@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 class ChooseLanguageAdapter extends BaseAdapter {
 
-    String[] languageNameChoices;
+    final String[] languageNameChoices;
 
     private final ChooseLanguageDialog dialog;
 
