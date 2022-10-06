@@ -266,7 +266,7 @@ public class PPApplication extends Application
 
                                                 //+"|GlobalUtils.hasSIMCard"
                                                 //+"|GlobalUtils._hasSIMCard"
-                                                //+"|SettingsContentObserver.onChange"
+                                                +"|SettingsContentObserver.onChange"
 
                                                 //+"|DataWrapperStatic.setDynamicLauncherShortcuts"
                                                 //+"|DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts"
