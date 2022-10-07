@@ -437,6 +437,8 @@ public class ProfileStatic {
             else {
                 value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
             }
+            if (value == 0)
+                value = 1;
         }
 
         return value;
