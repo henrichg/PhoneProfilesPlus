@@ -51,7 +51,7 @@
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
             android:paddingTop="10dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:text="@string/about_application_translations"/>
 
     </LinearLayout>
