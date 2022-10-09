@@ -320,9 +320,9 @@ class SettingsContentObserver  extends ContentObserver {
             // TODO this is for log brightness values to log file
             //  use only for check brightness values 0%, 50%, 100% by user,
             //  when in his device brightness not working good
-            PPApplication.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
-            PPApplication.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
-            PPApplication.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
+//            PPApplication.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
+//            PPApplication.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
+//            PPApplication.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
         }
 
         /////////////

@@ -231,16 +231,16 @@ public class PPApplication extends Application
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-                                                +"|[IN_EXECUTOR]"
+//                                                +"|[IN_EXECUTOR]"
 //                                                +"|[EXECUTOR_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
-                                                +"|[IN_BROADCAST]"
+//                                                +"|[IN_BROADCAST]"
 //                                                +"|[IN_BROADCAST_ALARM]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
 //                                                +"|[IN_LISTENER]"
 //                                                +"|[IN_EVENTS_HANDLER]"
-                                                +"|[EVENTS_HANDLER_CALL]"
+//                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
 //                                                +"|[APP_START]"
 //                                                +"|[HANDLER]"
@@ -266,13 +266,13 @@ public class PPApplication extends Application
 
                                                 //+"|GlobalUtils.hasSIMCard"
                                                 //+"|GlobalUtils._hasSIMCard"
-                                                +"|SettingsContentObserver.onChange"
+                                                //+"|SettingsContentObserver.onChange"
 
                                                 //+"|DataWrapperStatic.setDynamicLauncherShortcuts"
                                                 //+"|DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts"
                                                 //+"|DatabaseHandlerProfiles.getProfilesForDynamicShortcuts"
 
-                                                +"|NextAlarmClockBroadcastReceiver"
+                                                //+"|NextAlarmClockBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

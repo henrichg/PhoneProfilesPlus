@@ -3843,7 +3843,6 @@ public class PhoneProfilesService extends Service
 
                 // set alarm for Alarm clock sensor from last saved time in
                 // NextAlarmClockBroadcastReceiver.onReceived()
-                //TODO alarm clock sensor
 
                 // convert old saved alarm clock to new format
                 long prefEventAlarmClockTime = ApplicationPreferences.
@@ -3861,11 +3860,11 @@ public class PhoneProfilesService extends Service
                     List<NextAlarmClockData> times = NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes(appContext);
                     if (times != null) {
                         for (NextAlarmClockData _time : times) {
-                            @SuppressLint("SimpleDateFormat")
-                            SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
-                            String ___time = sdf.format(_time.time);
-                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "next alarm clock alarm time="+___time);
-                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "next alarm clock package name=" + _time.packageName);
+//                            @SuppressLint("SimpleDateFormat")
+//                            SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+//                            String ___time = sdf.format(_time.time);
+//                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "next alarm clock alarm time="+___time);
+//                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "next alarm clock package name=" + _time.packageName);
 
                             NextAlarmClockBroadcastReceiver.setAlarm(
                                     _time.time,

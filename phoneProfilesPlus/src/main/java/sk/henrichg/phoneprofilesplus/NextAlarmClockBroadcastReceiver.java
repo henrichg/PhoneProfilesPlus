@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -22,7 +21,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
 //        PPApplication.logE("[IN_BROADCAST_ALARM] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
 
         if (intent == null)
@@ -33,34 +32,34 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
         //if (android.os.Build.VERSION.SDK_INT >= 21) {
             String action = intent.getAction();
-            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "action="+action);
+//            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "action="+action);
 
             if ((action != null) && action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
                     AlarmManager.AlarmClockInfo alarmClockInfo = alarmManager.getNextAlarmClock();
-                    PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo="+alarmClockInfo);
+//                    PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo="+alarmClockInfo);
 
                     if (alarmClockInfo != null) {
 
                         long _time = alarmClockInfo.getTriggerTime();
 
-                        @SuppressLint("SimpleDateFormat")
-                        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
-                        String time = sdf.format(_time);
-                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "_time="+time);
+//                        @SuppressLint("SimpleDateFormat")
+//                        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+//                        String time = sdf.format(_time);
+//                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "_time="+time);
 
                         PendingIntent infoPendingIntent = alarmClockInfo.getShowIntent();
                         // infoPendingIntent == null - Xiaomi Clock :-/
                         // infoPendingIntent == null - LG Clock :-/
                         // infoPendingIntent == null - Huawei Clock :-/
 
-                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent="+infoPendingIntent);
+//                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent="+infoPendingIntent);
 
                         if (infoPendingIntent != null) {
                             String packageName = infoPendingIntent.getCreatorPackage();
-                            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName="+packageName);
+//                            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName="+packageName);
                             if (packageName != null) {
                                 if (!packageName.equals(PPApplication.PACKAGE_NAME)) {
 
@@ -122,7 +121,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     }
 
     private static void removeAlarm(String alarmPackageName,AlarmManager alarmManager, Context context) {
-        PPApplication.logE("NextAlarmClockBroadcastReceiver.removeAlarm", "xxx");
+//        PPApplication.logE("NextAlarmClockBroadcastReceiver.removeAlarm", "xxx");
 
         //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
         Intent intent = new Intent();
@@ -157,18 +156,18 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         // removed 5 seconds, because must be received before set it again
         alarmCalendar.add(Calendar.SECOND, -5);
 
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
-        String time = sdf.format(alarmCalendar.getTimeInMillis());
-        PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime="+time);
-        PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmPackageName="+alarmPackageName);
+//        @SuppressLint("SimpleDateFormat")
+//        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+//        String time = sdf.format(alarmCalendar.getTimeInMillis());
+//        PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime="+time);
+//        PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmPackageName="+alarmPackageName);
 
         Calendar now = Calendar.getInstance();
         if ((alarmCalendar.getTimeInMillis() >= now.getTimeInMillis()) && (!alarmPackageName.isEmpty())) {
 
             setEventAlarmClockTime(alarmPackageName, alarmTime, context);
 
-            PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "SET ALARM");
+//            PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "SET ALARM");
 
             //PhoneProfilesService instance = PhoneProfilesService.getInstance();
             //if (instance == null)
@@ -210,7 +209,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
         int count = preferences.getInt(PREF_EVENT_ALARM_CLOCK_TIME_COUNT, -1);
 
-        PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "count="+count);
+//        PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "count="+count);
 
         if (count > -1) {
             List<NextAlarmClockData> times = new ArrayList<>();
@@ -222,46 +221,46 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                 if (!json.isEmpty()) {
                     NextAlarmClockData time = gson.fromJson(json, NextAlarmClockData.class);
                     times.add(time);
-                    @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
-                    String _time = sdf.format(time.time);
-                    PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "alarmTime="+_time);
-                    PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "alarmPackageName="+time.packageName);
+//                    @SuppressLint("SimpleDateFormat")
+//                    SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+//                    String _time = sdf.format(time.time);
+//                    PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "alarmTime="+_time);
+//                    PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "alarmPackageName="+time.packageName);
                 }
             }
             return times;
         } else
             return null;
     }
-    @SuppressLint("SimpleDateFormat")
+//    @SuppressLint("SimpleDateFormat")
     static void setEventAlarmClockTime(String packageName, long time, Context context) {
-        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
-        String ___time = sdf.format(time);
-        PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmTime="+___time);
-        PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmPackageName="+packageName);
+//        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+//        String ___time = sdf.format(time);
+//        PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmTime="+___time);
+//        PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmPackageName="+packageName);
 
         if ((packageName != null) && !packageName.isEmpty()) {
             List<NextAlarmClockData> times = getEventAlarmClockTimes(context);
-            PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "times="+times);
+//            PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "times="+times);
 
             if (times == null) {
                 NextAlarmClockData _time = new NextAlarmClockData(packageName, time);
                 times = new ArrayList<>();
                 times.add(_time);
-                PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "added (1)");
+//                PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "added (1)");
             } else {
                 boolean found = false;
                 int idx = 0;
                 for (NextAlarmClockData __time : times) {
-                    sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
-                    ___time = sdf.format(time);
-                    PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmTime from shared prefs="+___time);
-                    PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmPackageName from shared prefs="+packageName);
+//                    sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+//                    ___time = sdf.format(time);
+//                    PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmTime from shared prefs="+___time);
+//                    PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "alarmPackageName from shared prefs="+packageName);
 
                     if (__time.packageName.equals(packageName)) {
                         NextAlarmClockData _time = new NextAlarmClockData(__time.packageName, time);
                         times.set(idx, _time);
-                        PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "set");
+//                        PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "set");
                         found = true;
                         break;
                     }
@@ -270,10 +269,10 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                 if (!found) {
                     NextAlarmClockData _time = new NextAlarmClockData(packageName, time);
                     times.add(_time);
-                    PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "added (2)");
+//                    PPApplication.logE("NextAlarmClockBroadcastReceiver.setEventAlarmClockTime", "added (2)");
                 }
             }
-            PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "count="+times.size());
+//            PPApplication.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "count="+times.size());
 
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
 
