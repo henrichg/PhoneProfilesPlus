@@ -19,7 +19,7 @@ Reason: Google restrictions:
 
 In stores, in which is currently deployed PPP, restriction about target sdk does not apply.
 
-#### Another sources of PhoneProfilesPlus (PPP):
+### Another sources of PhoneProfilesPlus (PPP):
 
 __[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
@@ -37,8 +37,8 @@ __[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phonepr
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 __[F-Droid application (download)](https://www.f-droid.org/)__
 
-__[Droid-ify - F-Droid alternative](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
-&nbsp;&nbsp;&nbsp;IzzyOnDroid repository is included
+__[Droid-ify applicaion - F-Droid alternative (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
+&nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
 
 ---
 
