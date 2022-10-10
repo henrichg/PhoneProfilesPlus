@@ -43,7 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_log_time"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="15dp"
+                tools:ignore="SpUsage"/>
 
             <TextView
                 android:id="@+id/activity_log_row_log_type_header"
@@ -52,7 +54,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_data_type"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="15dp"
+                tools:ignore="SpUsage" />
 
             <TextView
                 android:id="@+id/activity_log_header_log_data"
@@ -61,7 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_data"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="15dp"
+                tools:ignore="SpUsage" />
 
             <!--
             <TextView
