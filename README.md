@@ -42,11 +42,11 @@ __[Droid-ify applicaion - F-Droid alternative (download)](https://apt.izzysoft.d
 
 ---
 
-__Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...__
+__What is PhoneProfilesPlus:__
 
-__This application is for configuration of device for life situations (at home, at work, in car, sleep, outside, ...) using Profiles.__
-
-__In it is also possibility to automatically activate Profiles by Events.__
+Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...  
+This application is for configuration of device for life situations (at home, at work, in car, sleep, outside, ...) using Profiles.  
+In it is also possibility to automatically activate Profiles by Events.  
 
 [Privacy Policy](https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html)
 
