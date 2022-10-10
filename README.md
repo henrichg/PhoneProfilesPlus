@@ -19,9 +19,9 @@ Reason: Google restrictions:
 
 In stores, in which is currently deployed PPP, restriction about target sdk does not apply.
 
-__[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
+#### Another sources of PhoneProfilesPlus (PPP):
 
-__Another sources of PhoneProfilesPlus (PPP):__
+__[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores.
 
