@@ -3222,6 +3222,7 @@ public class PhoneProfilesService extends Service
                             }
                         }
                         if (eventAllowed) {
+//                            Log.e("PhoneProfilesService.startMobileCellsScanner", "***************");
                             if (!isMobileCellsScannerStarted()) {
                                 startMobileCellsScanner();
                             } else {
@@ -3266,6 +3267,7 @@ public class PhoneProfilesService extends Service
                         }
                     }
                     if (eventAllowed) {
+//                        Log.e("PhoneProfilesService.startOrientationScanner", "***************");
                         if (!isOrientationScannerStarted()) {
                             startOrientationScanner();
 //                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");

@@ -559,34 +559,35 @@ public class ProfileStatic {
 
     static Bitmap increaseProfileIconBrightnessForPreference(Bitmap iconBitmap, ProfileIconPreferenceX preference) {
         //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
-        if (preference != null) {
-            boolean nightModeOn = (preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                    == Configuration.UI_MODE_NIGHT_YES;
+        try {
+            if (preference != null) {
+                boolean nightModeOn = (preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                        == Configuration.UI_MODE_NIGHT_YES;
 
-            if (nightModeOn) {
-                int iconColor;
-                if (preference.isImageResourceID)
-                {
-                    if (preference.useCustomColor)
-                        iconColor = preference.customColor;
-                    else
-                        iconColor = getIconDefaultColor(preference.imageIdentifier);
-                } else {
-                    //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
-                    Palette palette = Palette.from(iconBitmap).generate();
-                    iconColor = palette.getDominantColor(0xff1c9cd7);
-                }
-                if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
-                    if (iconBitmap != null) {
-                        return BitmapManipulator.setBitmapBrightness(iconBitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                if (nightModeOn) {
+                    int iconColor;
+                    if (preference.isImageResourceID) {
+                        if (preference.useCustomColor)
+                            iconColor = preference.customColor;
+                        else
+                            iconColor = getIconDefaultColor(preference.imageIdentifier);
                     } else {
-                        int iconResource = getIconResource(preference.imageIdentifier);
-                        Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, preference.prefContext);
-                        return BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                        //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                        Palette palette = Palette.from(iconBitmap).generate();
+                        iconColor = palette.getDominantColor(0xff1c9cd7);
+                    }
+                    if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
+                        if (iconBitmap != null) {
+                            return BitmapManipulator.setBitmapBrightness(iconBitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                        } else {
+                            int iconResource = getIconResource(preference.imageIdentifier);
+                            Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, preference.prefContext);
+                            return BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                        }
                     }
                 }
             }
-        }
+        } catch (Exception ignored) {}
         //}
         return null;
     }

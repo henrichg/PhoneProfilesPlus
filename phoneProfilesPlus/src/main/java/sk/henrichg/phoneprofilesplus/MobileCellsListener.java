@@ -149,7 +149,7 @@ class MobileCellsListener extends PhoneStateListener {
     {
         super.onCellInfoChanged(cellInfo);
 
-//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellInfoChanged."+simSlot, "cellInfo="+cellInfo);
+//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellInfoChanged", "cellInfo="+cellInfo);
 
         if (cellInfo == null)
             return;
@@ -207,7 +207,7 @@ class MobileCellsListener extends PhoneStateListener {
     public void onServiceStateChanged (ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 
-//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onServiceStateChanged."+simSlot, "xxx");
+//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onServiceStateChanged", "xxx");
 
         if (serviceState == null)
             return;
@@ -315,7 +315,7 @@ class MobileCellsListener extends PhoneStateListener {
     public void onCellLocationChanged (final CellLocation location) {
         super.onCellLocationChanged(location);
 
-//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellLocationChanged."+simSlot, "location="+location);
+//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellLocationChanged", "location="+location);
 
         if (location == null)
             return;
