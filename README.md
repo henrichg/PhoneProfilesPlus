@@ -118,7 +118,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat
 - Advance-Android-Tutorials (only modified class ZipManager.java) - https://github.com/stacktipslab/Advance-Android-Tutorials
-- Multi-language_App (only modified class LocaleHelper.java) https://github.com/anurajr1/Multi-language_App
+- Multi-language_App (only modified class LocaleHelper.java) - https://github.com/anurajr1/Multi-language_App
 
 ##### Required external libs - not open-source
 
