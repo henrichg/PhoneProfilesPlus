@@ -1229,8 +1229,10 @@ public class PhoneProfilesNotification {
                         if (color != 0)
                             decoratorColor = color;
                         else*/ {
-                            Palette palette = Palette.from(iconBitmap).generate();
-                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+                            try {
+                                Palette palette = Palette.from(iconBitmap).generate();
+                                decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+                            } catch (Exception ignored) {}
                         }
                     }
                 }

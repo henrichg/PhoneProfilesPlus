@@ -2821,13 +2821,13 @@ public class Profile {
 
     Bitmap increaseProfileIconBrightnessForContext(Context context, Bitmap iconBitmap) {
         //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
+        try {
             boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                     == Configuration.UI_MODE_NIGHT_YES;
 
             if (nightModeOn) {
                 int iconColor;
-                if (getIsIconResourceID())
-                {
+                if (getIsIconResourceID()) {
                     if (getUseCustomColorForIcon())
                         iconColor = getIconCustomColor();
                     else
@@ -2847,19 +2847,20 @@ public class Profile {
                     }
                 }
             }
+        } catch (Exception ignored) {}
         //}
         return null;
     }
     Bitmap increaseProfileIconBrightnessForActivity(Activity activity, Bitmap iconBitmap) {
         //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
+        try {
             if (activity != null) {
                 boolean nightModeOn = (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                         == Configuration.UI_MODE_NIGHT_YES;
 
                 if (nightModeOn) {
                     int iconColor;
-                    if (getIsIconResourceID())
-                    {
+                    if (getIsIconResourceID()) {
                         if (getUseCustomColorForIcon())
                             iconColor = getIconCustomColor();
                         else
@@ -2880,6 +2881,7 @@ public class Profile {
                     }
                 }
             }
+        } catch (Exception ignored) {}
         //}
         return null;
     }
