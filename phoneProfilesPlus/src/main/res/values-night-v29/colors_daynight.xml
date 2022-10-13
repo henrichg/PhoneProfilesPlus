@@ -2,5 +2,5 @@
 <resources>
     <color name="primaryDark">#201a18</color>
 <!--    <color name="notificationDecorationColor">#E99B7F</color>    -->
-    <color name="notificationDecorationColor">#f8b162</color>
+    <color name="notificationDecorationColor">#f8b367</color>
 </resources>
