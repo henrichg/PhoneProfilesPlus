@@ -3,7 +3,7 @@
     <color name="primary">#201a18</color>
     <color name="primaryDark">#201a18</color>
 <!--    <color name="accent">#E99B7F</color>-->
-    <color name="accent">#f8b162</color>
+    <color name="accent">#f8b367</color>
 <!--    <color name="accent_disabled">#70E99B7F</color>-->
     <color name="navigationBar">#000000</color>
 
@@ -19,7 +19,7 @@
     <color name="activityPopupMenuClickedItemBackgroundColor">#37ffdad3</color>
 
 <!--    <color name="notificationDecorationColor">#DC8160</color>-->
-    <color name="notificationDecorationColor">#cc893e</color>
+    <color name="notificationDecorationColor">#cd9455</color>
 
 <!--    <color name="activityPopupBackground">#FF2A2A2A</color>-->
     <!--<color name="navigationDrawerTextColor">#ffe5e5e5</color>-->
@@ -44,9 +44,9 @@
     <color name="fastScrollTrackPP">#27ffdad3</color>
     <color name="fastScrollThumbInactivePP">#60f8b162</color>
 <!--    <color name="fastScrollThumbPP">#FFE99B7F</color>-->
-    <color name="fastScrollThumbPP">#fff8b162</color>
+    <color name="fastScrollThumbPP">#fff8b367</color>
 <!--    <color name="fastScrollPopupBackgroundPP">#FFE99B7F</color>-->
-    <color name="fastScrollPopupBackgroundPP">#fff8b162</color>
+    <color name="fastScrollPopupBackgroundPP">#fff8b367</color>
     <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
 
 <!--    <color name="eventPauseTextColor">#FF00a7d8</color>-->
@@ -58,11 +58,11 @@
 <!--    <color name="sensor_pass_status_waiting">#FF0060FF</color>-->
 
     <color name="sensor_pass_status_passed">#FF00d800</color>
-    <color name="sensor_pass_status_not_passed">#FF62a9f8</color>
+    <color name="sensor_pass_status_not_passed">#FF67ACF8</color>
     <color name="sensor_pass_status_waiting">#FFF862F4</color>
 
 <!--    <color name="map_edited_location_marker_stroke">#FFE99B7F</color>-->
-    <color name="map_edited_location_marker_stroke">#fff8b162</color>
+    <color name="map_edited_location_marker_stroke">#fff8b367</color>
 <!--    <color name="map_edited_location_marker_fill">#77E99B7F</color>-->
     <color name="map_edited_location_marker_fill">#77f8b162</color>
     <color name="map_last_location_marker_stroke">#FF84d2ef</color>
@@ -82,8 +82,8 @@
 <!--    <color name="cardViewBorderColor">#FF454545</color>-->
 
     <color name="altype_profile">#FF00d800</color>
-    <color name="altype_eventStart">#FFf8b162</color>
-    <color name="altype_eventEnd">#FF62a9f8</color>
+    <color name="altype_eventStart">#FFf8b367</color>
+    <color name="altype_eventEnd">#FF67ACF8</color>
     <color name="altype_eventDelayStartEnd">#FFF862F4</color>
     <color name="altype_restartEvents">#FFadd564</color>
     <color name="altype_error">#FFFF0000</color>
