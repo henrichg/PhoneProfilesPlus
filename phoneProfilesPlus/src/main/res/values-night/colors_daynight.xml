@@ -57,9 +57,9 @@
 <!--    <color name="sensor_pass_status_not_passed">#FFffb000</color>-->
 <!--    <color name="sensor_pass_status_waiting">#FF0060FF</color>-->
 
-    <color name="sensor_pass_status_passed">#FF00d800</color>
+    <color name="sensor_pass_status_passed">#FF67F8B3</color>
     <color name="sensor_pass_status_not_passed">#FF67ACF8</color>
-    <color name="sensor_pass_status_waiting">#FFF862F4</color>
+    <color name="sensor_pass_status_waiting">#FFB367F8</color>
 
 <!--    <color name="map_edited_location_marker_stroke">#FFE99B7F</color>-->
     <color name="map_edited_location_marker_stroke">#fff8b367</color>
@@ -81,10 +81,10 @@
 <!--    <color name="profileIconBorderColor">#FF505050</color>-->
 <!--    <color name="cardViewBorderColor">#FF454545</color>-->
 
-    <color name="altype_profile">#FF00d800</color>
+    <color name="altype_profile">#FF67F8B3</color>
     <color name="altype_eventStart">#FFf8b367</color>
     <color name="altype_eventEnd">#FF67ACF8</color>
-    <color name="altype_eventDelayStartEnd">#FFF862F4</color>
+    <color name="altype_eventDelayStartEnd">#FFB367F8</color>
     <color name="altype_restartEvents">#FFadd564</color>
     <color name="altype_error">#FFFF0000</color>
     <color name="altype_other">#FF7F7F7F</color>
