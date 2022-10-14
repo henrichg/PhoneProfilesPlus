@@ -172,7 +172,8 @@ class EventsHandler {
 
             this.sensorType = sensorType;
 
-//            PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
+            if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
+                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation (in doEndHandler())
@@ -269,7 +270,8 @@ class EventsHandler {
                 if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType/*, false*/) == 0) {
                     // events not exists
 
-//                    PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
+                    if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
+                        PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 
                     PPApplication.setApplicationFullyStarted(context);
 

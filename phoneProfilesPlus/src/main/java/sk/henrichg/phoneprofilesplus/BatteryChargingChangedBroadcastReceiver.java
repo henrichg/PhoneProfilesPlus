@@ -8,7 +8,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "xxx");
 
         //final Context appContext = context.getApplicationContext();
 
@@ -38,9 +38,12 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
             _isCharging = false;
         }*/
 
+        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "PPApplication.isCharging="+PPApplication.isCharging);
+        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "_isCharging="+_isCharging);
+
         if ((PPApplication.isCharging != _isCharging) /*||
             ((_plugged != -1) && (PPApplication.plugged != _plugged))*/) {
-//            PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "---- state changed");
+            PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "---- state changed");
 
             PPApplication.isCharging = _isCharging;
 
