@@ -529,9 +529,9 @@ class EventPreferencesBattery extends EventPreferences {
             } else
                 eventsHandler.notAllowedBattery = true;
 
-            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "event="+_event._name);
-            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.batteryPassed="+eventsHandler.batteryPassed);
-            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.notAllowedBattery="+eventsHandler.notAllowedBattery);
+//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "event="+_event._name);
+//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.batteryPassed="+eventsHandler.batteryPassed);
+//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.notAllowedBattery="+eventsHandler.notAllowedBattery);
 
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {

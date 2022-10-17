@@ -33,8 +33,10 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
             restart = true;
         else
-        if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+        if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
             restart = true;
+        }
         else
         if (ApplicationPreferences.applicationEventOrientationEnableScanning)
             restart = true;

@@ -148,8 +148,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 restart = true;
                             else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
                                 restart = true;
-                            else if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+                            else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
                                 restart = true;
+                            }
                             else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
                                 restart = true;
                             else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
@@ -207,8 +209,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                     ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)
                                 restart = true;
                             else if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
-                                    ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn)
+                                    ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) {
+                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
                                 restart = true;
+                            }
                             else if (ApplicationPreferences.applicationEventOrientationEnableScanning &&
                                     ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)
                                 restart = true;

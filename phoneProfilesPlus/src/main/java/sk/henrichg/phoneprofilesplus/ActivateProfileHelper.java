@@ -4544,6 +4544,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
             ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
             if (oldApplicationEventMobileCellEnableScanning != newApplicationEventMobileCellEnableScanning) {
+                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
                 PPApplication.restartMobileCellsScanner(appContext);
             }
         }
