@@ -3880,25 +3880,32 @@ class ActivateProfileHelper {
             {
                 if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
                     boolean ok = true;
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                        appContext.startActivity(intent);
-                    } catch (Exception e) {
+                    Intent intent;
+                    if (!(((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) ||
+                        PPApplication.deviceIsOnePlus)) {
+                        try {
+                            intent = new Intent(Intent.ACTION_MAIN, null);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                            appContext.startActivity(intent);
+                            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(1)");
+                        } catch (Exception e) {
+                            ok = false;
+                            // Xiaomi: android.content.ActivityNotFoundException: Unable to find explicit activity class {com.android.settings/com.android.settings.Settings$DataUsageSummaryActivity}; have you declared this activity in your AndroidManifest.xml?
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
+                            //PPApplication.recordException(e);
+                        }
+                    } else
                         ok = false;
-                        // Xiaomi: android.content.ActivityNotFoundException: Unable to find explicit activity class {com.android.settings/com.android.settings.Settings$DataUsageSummaryActivity}; have you declared this activity in your AndroidManifest.xml?
-                        //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
-                        //PPApplication.recordException(e);
-                    }
                     if (!ok) {
                         ok = true;
                         try {
-                            final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
                             intent.setComponent(componentName);
                             appContext.startActivity(intent);
+                            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(2)");
                         } catch (Exception e) {
                             ok = false;
                             // Xiaomi: java.lang.SecurityException: Permission Denial: starting Intent { act=android.settings.DATA_ROAMING_SETTINGS flg=0x10000000 cmp=com.android.phone/.Settings } from ProcessRecord{215f88f 16252:sk.henrichg.phoneprofilesplus/u0a231} (pid=16252, uid=10231) not exported from uid 1001
@@ -3908,9 +3915,10 @@ class ActivateProfileHelper {
                     }
                     if (!ok) {
                         try {
-                            final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             appContext.startActivity(intent);
+                            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(3)");
                         } catch (Exception e) {
                             //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
                             //PPApplication.recordException(e);
@@ -3919,20 +3927,30 @@ class ActivateProfileHelper {
                 }
                 else {
                     boolean ok = false;
-                    Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                    intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                    if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
-                        ok = true;
+                    Intent intent = null;
+                    if (!(((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) ||
+                            PPApplication.deviceIsOnePlus)) {
+                        intent = new Intent(Intent.ACTION_MAIN, null);
+                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                        if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
+                            ok = true;
+                        else
+                            intent = null;
+                    }
                     if (!ok) {
                         intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                         intent.setComponent(new ComponentName("com.android.phone", "com.android.phone.Settings"));
                         if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
                             ok = true;
+                        else
+                            intent = null;
                     }
                     if (!ok) {
                         intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                         if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
                             ok = true;
+                        else
+                            intent = null;
                     }
                     if (ok) {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
