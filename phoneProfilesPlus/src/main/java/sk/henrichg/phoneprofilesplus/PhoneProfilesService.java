@@ -3778,6 +3778,8 @@ public class PhoneProfilesService extends Service
                     }
                 }*/
 
+                PPApplication.setBlockProfileEventActions(true);
+
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
                 dataWrapper.fillProfileList(false, false);

@@ -3789,6 +3789,7 @@ class ActivateProfileHelper {
                 Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
+                intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
                 appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
             }
         //}
@@ -6455,6 +6456,7 @@ class ActivateProfileHelper {
                             break;
                         case 3:
                             Intent intent = new Intent(PPApplication.ACTION_LOCK_DEVICE);
+                            intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
                             appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                             break;
                     }

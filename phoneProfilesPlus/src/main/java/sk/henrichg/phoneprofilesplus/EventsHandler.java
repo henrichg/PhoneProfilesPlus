@@ -172,7 +172,7 @@ class EventsHandler {
 
             this.sensorType = sensorType;
 
-            if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
+//            if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
 //                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
             // save ringer mode, zen mode, ringtone before handle events
@@ -270,7 +270,7 @@ class EventsHandler {
                 if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType/*, false*/) == 0) {
                     // events not exists
 
-                    if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
+//                    if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
 //                        PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 
                     PPApplication.setApplicationFullyStarted(context);
@@ -630,6 +630,9 @@ class EventsHandler {
                             // block interactive parameters when
                             // - activated profile is default profile
                             // - it is not manual restart of events
+                            //
+                            // this is set, because is not good to again execute interactive parameters
+                            // for already activated default profile
                             PPApplication.setBlockProfileEventActions(true);
                         }
 
@@ -685,6 +688,9 @@ class EventsHandler {
                             // block interactive parameters when
                             // - activated profile is default profile
                             // - it is not manual restart of events
+                            //
+                            // this is set, because is not good to again execute interactive parameters
+                            // for already activated default profile
                             PPApplication.setBlockProfileEventActions(true);
                         }
                     }

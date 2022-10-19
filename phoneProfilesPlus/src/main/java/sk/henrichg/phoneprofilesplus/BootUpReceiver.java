@@ -35,7 +35,8 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-            PPApplication.setBlockProfileEventActions(true);
+            // moved to doForFirstStart - better when PPSerivice is restarted by system
+            //PPApplication.setBlockProfileEventActions(true);
 
             if (PPApplication.logEnabled()) {
                 PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot);

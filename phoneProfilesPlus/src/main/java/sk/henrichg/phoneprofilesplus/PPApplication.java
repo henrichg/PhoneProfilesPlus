@@ -88,8 +88,8 @@ public class PPApplication extends Application
     //static final int VERSION_CODE_EXTENDER_6_2 = 670;
     //static final int VERSION_CODE_EXTENDER_7_0 = 700;
     //static final int VERSION_CODE_EXTENDER_8_0 = 800;
-    static final int VERSION_CODE_EXTENDER_LATEST = 815;
-    static final String VERSION_NAME_EXTENDER_LATEST = "8.0.1";
+    static final int VERSION_CODE_EXTENDER_LATEST = 820;
+    static final String VERSION_NAME_EXTENDER_LATEST = "8.0.2";
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
@@ -707,6 +707,7 @@ public class PPApplication extends Application
     static final int REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER = -5;
 
     static final String EXTRA_APPLICATIONS = "extra_applications";
+    static final String EXTRA_BLOCK_PROFILE_EVENT_ACTION = "extra_block_profile_event_actions";
 
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED = "DEVICE_ROOTED";
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED_WITH = "ROOTED_WITH";
