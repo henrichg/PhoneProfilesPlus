@@ -1324,13 +1324,13 @@ public class PhoneProfilesService extends Service
                                 (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
                     if (!allowed) {
-                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.registerBatteryChargingChangedReceiver", "******** ### *******");
-
+//                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.registerBatteryChargingChangedReceiver", "******** ### *******");
                         allowed = ApplicationPreferences.applicationEventMobileCellEnableScanning &&
                                 (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
                     }
                     if (!allowed)
+                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.registerBatteryChargingChangedReceiver", "******** ### *******");
                         allowed = ApplicationPreferences.applicationEventOrientationEnableScanning &&
                                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
@@ -3197,8 +3197,7 @@ public class PhoneProfilesService extends Service
                     //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
                             MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
-                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### *******");
-
+//                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### *******");
                         boolean eventAllowed = false;
                         if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart)
                             eventAllowed = true;
@@ -3216,7 +3215,7 @@ public class PhoneProfilesService extends Service
                         if (eventAllowed) {
 //                            Log.e("PhoneProfilesService.startMobileCellsScanner", "***************");
                             if (!isMobileCellsScannerStarted()) {
-                                PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### ******* called startMobileCellsScanner()");
+//                                PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### ******* called startMobileCellsScanner()");
                                 startMobileCellsScanner();
                             } else {
                                 if (rescan) {
@@ -3246,6 +3245,7 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
                 if (ApplicationPreferences.applicationEventOrientationEnableScanning /*||
                         EventsPrefsFragment.forceStart*/) {
+                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startOrientationScanner", "******** ### *******");
                     boolean eventAllowed = false;
                     /*if (EventsPrefsFragment.forceStart)
                         eventAllowed = true;
@@ -3263,6 +3263,7 @@ public class PhoneProfilesService extends Service
                     if (eventAllowed) {
 //                        Log.e("PhoneProfilesService.startOrientationScanner", "***************");
                         if (!isOrientationScannerStarted()) {
+                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startOrientationScanner", "******** ### ******* called startOrientationScanner()");
                             startOrientationScanner();
 //                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
                         }
@@ -4748,11 +4749,12 @@ public class PhoneProfilesService extends Service
                                 }
 
                                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
+//                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
                                     if (PPApplication.mobileCellsScanner != null)
                                         PPApplication.mobileCellsScanner.rescanMobileCells();
                                 }
                                 if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
                                     if (PPApplication.orientationScanner != null) {
                                         PPApplication.startHandlerThreadOrientationScanner();
                                         if (PPApplication.handlerThreadOrientationScanner != null)
@@ -4989,8 +4991,7 @@ public class PhoneProfilesService extends Service
 
                                         // mobile cells
                                         if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (2)");
-
+//                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (2)");
                                             boolean canRestart = (!ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
                                                 //MobileCellsScanner.forceStart = false;
@@ -5010,6 +5011,7 @@ public class PhoneProfilesService extends Service
 
                                         // orientation
                                         if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (2)");
                                             boolean canRestart = (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
                                                 ppService.startOrientationScanner(true, true, dataWrapper/*, false*/);

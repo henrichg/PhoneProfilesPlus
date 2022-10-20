@@ -415,12 +415,13 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
         if (mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (1)");
-
+//            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (1)");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
         }
-        if (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning)
+        if (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning) {
+            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (1)");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+        }
         if (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, false);
         if (periodicScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
@@ -543,6 +544,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged ||
                 (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning) ||
                 orientationScanInterval != ApplicationPreferences.applicationEventOrientationScanInterval) {
+            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (2)");
             PPApplication.restartOrientationScanner(appContext);
         }
 
@@ -553,8 +555,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         if (permissionsChanged ||
                 mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (2)");
-
+//            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (2)");
             PPApplication.restartMobileCellsScanner(appContext);
         }
 

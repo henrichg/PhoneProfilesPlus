@@ -4563,7 +4563,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
             ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
             if (oldApplicationEventMobileCellEnableScanning != newApplicationEventMobileCellEnableScanning) {
-                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
+//                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
                 PPApplication.restartMobileCellsScanner(appContext);
             }
         }
@@ -4577,6 +4577,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventOrientationEnableScanning(appContext);
             ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
             if (oldApplicationEventOrientationEnableScanning != newApplicationEventOrientationEnableScanning) {
+                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
                 PPApplication.restartOrientationScanner(appContext);
             }
         }

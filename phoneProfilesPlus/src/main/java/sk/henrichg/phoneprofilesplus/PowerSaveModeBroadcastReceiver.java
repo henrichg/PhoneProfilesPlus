@@ -34,12 +34,14 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             restart = true;
         else
         if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
+//            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
             restart = true;
         }
         else
-        if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+        if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
             restart = true;
+        }
         if (restart) {
             // for screenOn=true -> used only for Location scanner - start scan with GPS On
             PPApplication.restartAllScanners(appContext, true);

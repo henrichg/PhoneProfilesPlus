@@ -54,11 +54,13 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
                                     rescan = true;
                                 else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+//                                    PPApplication.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
+                                    rescan = true;
+                                }
+                                else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
                                     PPApplication.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
                                     rescan = true;
                                 }
-                                else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
-                                    rescan = true;
                                 else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                                     rescan = true;
                                 if (rescan) {

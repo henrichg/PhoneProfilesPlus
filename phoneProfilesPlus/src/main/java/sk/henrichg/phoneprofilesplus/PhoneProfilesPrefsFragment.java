@@ -3616,8 +3616,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-                    PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
-
+//                    PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
                     summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_enabled) + "</b>";
                     if (!GlobalUtils.isLocationEnabled(context)) {
                         summary = summary + "<br>";
@@ -3650,8 +3649,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 ApplicationPreferences.applicationEventOrientationScanInterval(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                    PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
                     summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_enabled) + "</b>";
-
                     summary = summary + "<br><br>";
                     summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationScanInterval) + ": " +
                             "<b>" + ApplicationPreferences.applicationEventOrientationScanInterval + "</b>";

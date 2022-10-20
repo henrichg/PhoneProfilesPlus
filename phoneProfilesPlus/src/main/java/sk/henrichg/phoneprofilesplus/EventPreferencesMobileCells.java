@@ -98,8 +98,7 @@ class EventPreferencesMobileCells extends EventPreferences {
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-                    PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.getPreferencesDescription", "******** ### *******");
-
+//                    PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.getPreferencesDescription", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     else
@@ -174,8 +173,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 String summary;
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-                    PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.setSummary", "******** ### *******");
-
+//                    PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.setSummary", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
@@ -454,8 +452,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     //    notAllowedMobileCell = true;
                     eventsHandler.mobileCellPassed = false;
                 } else {
-                    PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.doHandleEvent", "******** ### *******");
-
+//                    PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.doHandleEvent", "******** ### *******");
                     //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) {
                         if (forRestartEvents)

@@ -49,7 +49,7 @@ class MobileCellsListener extends PhoneStateListener {
                         Context context,
                         MobileCellsScanner scanner, TelephonyManager telephonyManager) {
 
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener - constructor", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener - constructor", "******** ### *******");
 
         //this.subscriptionInfo = subscriptionInfo;
 //        if (subscriptionInfo != null)
@@ -64,7 +64,7 @@ class MobileCellsListener extends PhoneStateListener {
         // SlimKat in Galaxy Nexus - returns null :-/
         // Honor 7 - returns empty list (not null), Dual SIM?
 
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getAllCellInfo", "******** ### ******* (2)");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getAllCellInfo", "******** ### ******* (2)");
 
         if (cellInfo!=null) {
 
@@ -134,7 +134,7 @@ class MobileCellsListener extends PhoneStateListener {
 
     @SuppressLint("MissingPermission")
     private List<CellInfo> getAllCellInfo() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getAllCellInfo", "******** ### ******* (1)");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getAllCellInfo", "******** ### ******* (1)");
 
         if (telephonyManager != null) {
             List<CellInfo> cellInfo = null;
@@ -157,7 +157,7 @@ class MobileCellsListener extends PhoneStateListener {
         super.onCellInfoChanged(cellInfo);
 
 //        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellInfoChanged", "cellInfo="+cellInfo);
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener.onCellInfoChanged", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.onCellInfoChanged", "******** ### *******");
 
         if (cellInfo == null)
             return;
@@ -216,7 +216,7 @@ class MobileCellsListener extends PhoneStateListener {
         super.onServiceStateChanged(serviceState);
 
 //        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onServiceStateChanged", "xxx");
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener.onServiceStateChanged", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.onServiceStateChanged", "******** ### *******");
 
         if (serviceState == null)
             return;
@@ -263,7 +263,7 @@ class MobileCellsListener extends PhoneStateListener {
     }
 
     private void getCellLocation(CellLocation location) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getCellLocation", "******** ### ******* (2)");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getCellLocation", "******** ### ******* (2)");
         if (location != null) {
 
             if (Permissions.checkLocation(context.getApplicationContext())) {
@@ -306,7 +306,7 @@ class MobileCellsListener extends PhoneStateListener {
     @SuppressWarnings("UnusedReturnValue")
     @SuppressLint("MissingPermission")
     private CellLocation getCellLocation() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getCellLocation", "******** ### ******* (1)");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getCellLocation", "******** ### ******* (1)");
 
         if (telephonyManager != null) {
             CellLocation location = null;
@@ -328,7 +328,7 @@ class MobileCellsListener extends PhoneStateListener {
         super.onCellLocationChanged(location);
 
 //        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellLocationChanged", "location="+location);
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener.onCellLocationChanged", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.onCellLocationChanged", "******** ### *******");
 
         if (location == null)
             return;
@@ -381,7 +381,7 @@ class MobileCellsListener extends PhoneStateListener {
     }
 
     void registerCell() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener.registerCell", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.registerCell", "******** ### *******");
         if (getAllCellInfo() == null)
             getCellLocation();
     }
@@ -391,7 +391,7 @@ class MobileCellsListener extends PhoneStateListener {
         if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
                 MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
 
-            PPApplication.logE("[TEST BATTERY] MobileCellsListener.rescanMobileCells", "******** ### *******");
+//            PPApplication.logE("[TEST BATTERY] MobileCellsListener.rescanMobileCells", "******** ### *******");
 
             final Context appContext = context.getApplicationContext();
             //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.rescanMobileCells"*/);
@@ -438,7 +438,7 @@ class MobileCellsListener extends PhoneStateListener {
     void handleEvents(final Context appContext) {
         if (Event.getGlobalEventsRunning())
         {
-            PPApplication.logE("[TEST BATTERY] MobileCellsListener.handleEvents", "******** ### *******");
+//            PPApplication.logE("[TEST BATTERY] MobileCellsListener.handleEvents", "******** ### *******");
 
             /*
             //if (DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
@@ -498,7 +498,7 @@ class MobileCellsListener extends PhoneStateListener {
             // application is not started
             return;
 
-        PPApplication.logE("[TEST BATTERY] MobileCellsListener.doAutoRegistration", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.doAutoRegistration", "******** ### *******");
 
         synchronized (PPApplication.mobileCellsScannerMutex) {
             /*PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);

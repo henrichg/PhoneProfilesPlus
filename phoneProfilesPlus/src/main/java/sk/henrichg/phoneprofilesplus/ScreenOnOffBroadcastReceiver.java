@@ -149,11 +149,13 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
                                 restart = true;
                             else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
+                                restart = true;
+                            }
+                            else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
                                 PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
                                 restart = true;
                             }
-                            else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
-                                restart = true;
                             else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                                 restart = true;
                             if (restart) {
@@ -210,12 +212,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 restart = true;
                             else if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
                                     ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) {
-                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
+//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
                                 restart = true;
                             }
                             else if (ApplicationPreferences.applicationEventOrientationEnableScanning &&
-                                    ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)
+                                    ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) {
+                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
                                 restart = true;
+                            }
                             if (restart) {
                                 // for screenOn=false -> used only for Location scanner - use last usage of GPS for scan
                                 //PPApplication.setBlockProfileEventActions(true);

@@ -20,6 +20,7 @@ class OrientationScanner implements SensorEventListener {
     @Override
     public void onSensorChanged(final SensorEvent event) {
 //        PPApplication.logE("[IN_LISTENER] OrientationScanner.onSensorChanged", "xxx");
+        PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* (1)");
 
         if (PhoneProfilesService.getInstance() == null)
             return;
@@ -32,6 +33,8 @@ class OrientationScanner implements SensorEventListener {
         OrientationScannerHandlerThread orientationHandler = PPApplication.handlerThreadOrientationScanner;
         if (orientationHandler == null)
             return;
+
+        PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* (2)");
 
         if (sensorType == Sensor.TYPE_PROXIMITY) {
             //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
@@ -203,6 +206,8 @@ class OrientationScanner implements SensorEventListener {
     void runEventsHandlerForOrientationChange(OrientationScannerHandlerThread orientationHandler) {
         // start events handler
 
+        PPApplication.logE("[TEST BATTERY] OrientationScanner.runEventsHandlerForOrientationChange", "******** ### *******");
+
         if (
             (orientationHandler.previousResultDisplayUp != orientationHandler.resultDisplayUp) ||
             (orientationHandler.previousResultSideUp != orientationHandler.resultSideUp) ||
@@ -312,6 +317,7 @@ class OrientationScanner implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 //        PPApplication.logE("[IN_LISTENER] OrientationScanner.onAccuracyChanged", "xxx");
+        PPApplication.logE("[TEST BATTERY] OrientationScanner.onAccuracyChanged", "******** ### *******");
     }
 
 }

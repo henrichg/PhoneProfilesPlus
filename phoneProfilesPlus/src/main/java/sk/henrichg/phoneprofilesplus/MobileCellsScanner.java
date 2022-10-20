@@ -49,7 +49,7 @@ class MobileCellsScanner {
     //static String ACTION_PHONE_STATE_CHANGED = PPApplication.PACKAGE_NAME + ".ACTION_PHONE_STATE_CHANGED";
 
     MobileCellsScanner(Context context) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner - constructor", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner - constructor", "******** ### *******");
 
         this.context = context;
 
@@ -100,7 +100,7 @@ class MobileCellsScanner {
     }
 
     void connect() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.connect", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.connect", "******** ### *******");
         boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
         if (/*PPApplication.*/isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
@@ -152,7 +152,7 @@ class MobileCellsScanner {
     }
 
     void disconnect() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.disconnect", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.disconnect", "******** ### *******");
         if (mobileCellsListenerSIM1 != null) {
             try {
                 if (telephonyManagerSIM1 != null)
@@ -185,7 +185,7 @@ class MobileCellsScanner {
     }
 
     void registerCell() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.registerCell", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.registerCell", "******** ### *******");
         if (mobileCellsListenerDefault != null)
             mobileCellsListenerDefault.registerCell();
         if (mobileCellsListenerSIM1 != null)
@@ -195,7 +195,7 @@ class MobileCellsScanner {
     }
 
     void rescanMobileCells() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.rescanMobileCells", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.rescanMobileCells", "******** ### *******");
         if (mobileCellsListenerDefault != null)
             mobileCellsListenerDefault.rescanMobileCells();
         if (mobileCellsListenerSIM1 != null)
@@ -205,7 +205,7 @@ class MobileCellsScanner {
     }
 
     void handleEvents(final Context appContext) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.handleEvents", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.handleEvents", "******** ### *******");
         if (mobileCellsListenerDefault != null)
             mobileCellsListenerDefault.handleEvents(appContext);
         if (mobileCellsListenerSIM1 != null)
@@ -215,7 +215,7 @@ class MobileCellsScanner {
     }
 
     int getRegisteredCell(int forSimCard) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.getRegisteredCell", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.getRegisteredCell", "******** ### *******");
         if ((forSimCard == 0) && (mobileCellsListenerDefault != null))
             return mobileCellsListenerDefault.registeredCell;
         if ((forSimCard == 1) && (mobileCellsListenerSIM1 != null))
@@ -226,7 +226,7 @@ class MobileCellsScanner {
     }
 
     long getLastConnectedTime(int forSimCard) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.getLastConnectedTime", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.getLastConnectedTime", "******** ### *******");
         if ((forSimCard == 0) && (mobileCellsListenerDefault != null))
             return mobileCellsListenerDefault.lastConnectedTime;
         if ((forSimCard == 1) && (mobileCellsListenerSIM1 != null))
@@ -237,7 +237,7 @@ class MobileCellsScanner {
     }
 
     boolean isNotUsedCellsNotificationEnabled() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.isNotUsedCellsNotificationEnabled", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.isNotUsedCellsNotificationEnabled", "******** ### *******");
         /*if (Build.VERSION.SDK_INT >= 26) {
             NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
@@ -249,12 +249,12 @@ class MobileCellsScanner {
     }
 
     static boolean isValidCellId(int cid) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.isValidCellId", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.isValidCellId", "******** ### *******");
         return (cid != -1) && (cid != 0) /*&& (cid != 1)*/ && (cid != Integer.MAX_VALUE);
     }
 
     static void startAutoRegistration(Context context, boolean forConnect) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.startAutoRegistration", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.startAutoRegistration", "******** ### *******");
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -269,7 +269,7 @@ class MobileCellsScanner {
             MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
 
         if (enabledAutoRegistration) {
-            PPApplication.logE("[TEST BATTERY] MobileCellsScanner.startAutoRegistration", "******** ### *******  start registration service");
+//            PPApplication.logE("[TEST BATTERY] MobileCellsScanner.startAutoRegistration", "******** ### *******  start registration service");
             try {
                 // start registration service
                 Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
@@ -281,7 +281,7 @@ class MobileCellsScanner {
     }
 
     static void stopAutoRegistration(Context context, boolean clearRegistration) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.stopAutoRegistration", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.stopAutoRegistration", "******** ### *******");
         // stop registration service
         context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
         //MobileCellsRegistrationService.stop(context);
@@ -294,35 +294,35 @@ class MobileCellsScanner {
     }
 
     static boolean isEventAdded(long event_id) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.isEventAdded", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.isEventAdded", "******** ### *******");
         synchronized (autoRegistrationEventList) {
             return autoRegistrationEventList.contains(event_id);
         }
     }
 
     static void addEvent(long event_id) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.addEvent", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.addEvent", "******** ### *******");
         synchronized (autoRegistrationEventList) {
             autoRegistrationEventList.add(event_id);
         }
     }
 
     static void removeEvent(long event_id) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.removeEvent", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.removeEvent", "******** ### *******");
         synchronized (autoRegistrationEventList) {
             autoRegistrationEventList.remove(event_id);
         }
     }
 
     static void clearEventList() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.clearEventList", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.clearEventList", "******** ### *******");
         synchronized (autoRegistrationEventList) {
             autoRegistrationEventList.clear();
         }
     }
 
     static int getEventCount() {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.getEventCount", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.getEventCount", "******** ### *******");
         synchronized (autoRegistrationEventList) {
             return autoRegistrationEventList.size();
         }
@@ -330,7 +330,7 @@ class MobileCellsScanner {
 
     static void getAllEvents(SharedPreferences sharedPreferences,
                              @SuppressWarnings("SameParameterValue") String key) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.getAllEvents", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.getAllEvents", "******** ### *******");
         synchronized (autoRegistrationEventList) {
             Gson gson = new Gson();
             String json =sharedPreferences.getString(key, null);
@@ -344,7 +344,7 @@ class MobileCellsScanner {
 
     static void saveAllEvents(SharedPreferences.Editor editor,
                               @SuppressWarnings("SameParameterValue") String key) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.saveAllEvents", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.saveAllEvents", "******** ### *******");
         synchronized (autoRegistrationEventList) {
             Gson gson = new Gson();
             String json = gson.toJson(autoRegistrationEventList);
@@ -353,7 +353,7 @@ class MobileCellsScanner {
     }
 
     static String addCellId(String cells, int cellId) {
-        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.addCellId", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.addCellId", "******** ### *******");
 
         String[] splits = cells.split("\\|");
         String sCellId = Integer.toString(cellId);

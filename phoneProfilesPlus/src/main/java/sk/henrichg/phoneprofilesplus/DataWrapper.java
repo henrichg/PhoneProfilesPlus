@@ -2050,11 +2050,13 @@ public class DataWrapper {
             else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
                 restart = true;
             else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+//                PPApplication.logE("[TEST BATTERY] DataWrapper._restartEventsWithRescan", "******** ### *******");
+                restart = true;
+            }
+            else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
                 PPApplication.logE("[TEST BATTERY] DataWrapper._restartEventsWithRescan", "******** ### *******");
                 restart = true;
             }
-            else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
-                restart = true;
             else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                 restart = true;
             if (restart) {

@@ -45,6 +45,7 @@ public class OrientationScannerHandlerThread extends HandlerThread {
 
     public OrientationScannerHandlerThread(String name, int priority) {
         super(name, priority);
+        PPApplication.logE("[TEST BATTERY] OrientationScannerHandlerThread constructor", "******** ### *******");
     }
 
 }
