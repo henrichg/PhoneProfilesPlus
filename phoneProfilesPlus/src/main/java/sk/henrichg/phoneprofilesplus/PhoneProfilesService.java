@@ -5185,7 +5185,10 @@ public class PhoneProfilesService extends Service
     }
 
     private void startListeningOrientationSensors() {
+        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startListeningOrientationSensors", "******** ### ******* (1)");
         if (!PPApplication.mStartedOrientationSensors) {
+            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startListeningOrientationSensors", "******** ### ******* (2)");
+
             PPApplication.orientationScanner = new OrientationScanner();
             PPApplication.startHandlerThreadOrientationScanner();
             Handler orentationScannerHandler = new Handler(PPApplication.handlerThreadOrientationScanner.getLooper());
