@@ -2001,4 +2001,5 @@
     <string name="menu_check_releases_droidify">Check in Droid-ify</string>
     <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
     <string name="check_releases_open_droidify">Open Droid-ify</string>
+    <string name="profile_context_item_copy_name">Copy name</string>
 </resources>

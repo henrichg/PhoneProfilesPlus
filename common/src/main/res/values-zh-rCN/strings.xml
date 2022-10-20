@@ -2001,4 +2001,5 @@
     <string name="menu_check_releases_droidify">在 Droid-ify 中检查</string>
     <string name="check_releases_go_to_droidify">转到 Droid-ify</string>
     <string name="check_releases_open_droidify">打开 Droid-ify</string>
+    <string name="profile_context_item_copy_name">Copy name</string>
 </resources>

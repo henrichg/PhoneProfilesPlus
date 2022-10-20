@@ -2002,4 +2002,5 @@ indikátor parametrov“ zapnuté.</string>
     <string name="menu_check_releases_droidify">Skontrolovať v Droid-ify</string>
     <string name="check_releases_go_to_droidify">Ísť do Droid-ify</string>
     <string name="check_releases_open_droidify">Otvoriť Droid-Ify</string>
+    <string name="profile_context_item_copy_name">Kopírovať názov</string>
 </resources>
