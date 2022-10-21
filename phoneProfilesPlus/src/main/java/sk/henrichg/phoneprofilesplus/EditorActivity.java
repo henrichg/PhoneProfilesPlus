@@ -1126,13 +1126,15 @@ public class EditorActivity extends AppCompatActivity
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                     intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
                 }
-                try {
-                    Intent chooser = Intent.createChooser(intents.remove(intents.size() - 1), getString(R.string.email_chooser));
-                    //noinspection ToArrayCallWithZeroLengthArrayArgument
-                    chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
-                    startActivity(chooser);
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
+                if (intents.size() > 0) {
+                    try {
+                        Intent chooser = Intent.createChooser(intents.get(0), getString(R.string.email_chooser));
+                        //noinspection ToArrayCallWithZeroLengthArrayArgument
+                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                        startActivity(chooser);
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
                 }
             } else {
                 // toast notification
@@ -5292,6 +5294,8 @@ public class EditorActivity extends AppCompatActivity
                         List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(emailIntent, 0);
                         List<LabeledIntent> intents = new ArrayList<>();
                         for (ResolveInfo info : resolveInfo) {
+                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "packageName="+info.activityInfo.packageName);
+                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "name="+info.activityInfo.name);
                             Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                             intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
                             if (!emailAddress.isEmpty())
@@ -5302,14 +5306,15 @@ public class EditorActivity extends AppCompatActivity
                             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                             intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
                         }
+                        //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()="+intents.size());
                         if (intents.size() > 0) {
                             try {
-                                Intent chooser = Intent.createChooser(intents.remove(intents.size() - 1), context.getString(R.string.email_chooser));
+                                Intent chooser = Intent.createChooser(intents.get(0), context.getString(R.string.email_chooser));
                                 //noinspection ToArrayCallWithZeroLengthArrayArgument
                                 chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
                                 activity.startActivity(chooser);
                             } catch (Exception e) {
-                                //Log.e("EditorActivity.doExportData", Log.getStackTraceString(e));
+                                //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
                             }
                         }
