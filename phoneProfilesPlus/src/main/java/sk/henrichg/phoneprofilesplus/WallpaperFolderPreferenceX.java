@@ -14,6 +14,7 @@ import android.provider.DocumentsContract;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 
 import java.io.File;
@@ -148,6 +149,7 @@ public class WallpaperFolderPreferenceX extends Preference {
     void startGallery()
     {
         Intent intent;
+        boolean _ok = false;
         try {
             if (Build.VERSION.SDK_INT >= 29) {
                 StorageManager sm = (StorageManager) prefContext.getSystemService(Context.STORAGE_SERVICE);
@@ -186,8 +188,33 @@ public class WallpaperFolderPreferenceX extends Preference {
             }
 
             ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
+            _ok = true;
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            //PPApplication.recordException(e);
+        }
+        if (!_ok) {
+            try {
+                AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(prefContext);
+                _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
+                //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                _dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog _dialog = _dialogBuilder.create();
+
+//                                        _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                            @Override
+//                                            public void onShow(DialogInterface dialog) {
+//                                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                                if (positive != null) positive.setAllCaps(false);
+//                                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                                if (negative != null) negative.setAllCaps(false);
+//                                            }
+//                                        });
+
+                //if (!activity.isFinishing())
+                    _dialog.show();
+            } catch (Exception e) {
+                //PPApplication.recordException(e);
+            }
         }
     }
 

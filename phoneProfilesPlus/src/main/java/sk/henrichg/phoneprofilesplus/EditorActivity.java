@@ -1832,7 +1832,7 @@ public class EditorActivity extends AppCompatActivity
                     startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
                     ok = true;
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    //PPApplication.recordException(e);
                 }
                 if (!ok) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -2455,7 +2455,7 @@ public class EditorActivity extends AppCompatActivity
                         startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        //PPApplication.recordException(e);
                     }
                     if (!ok) {
                         AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorActivity.this);
@@ -5379,7 +5379,7 @@ public class EditorActivity extends AppCompatActivity
                                     activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                //PPApplication.recordException(e);
                             }
                             if (!ok) {
                                 AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(activity);
