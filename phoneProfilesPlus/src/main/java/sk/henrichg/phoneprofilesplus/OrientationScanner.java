@@ -34,9 +34,9 @@ class OrientationScanner implements SensorEventListener {
         if (orientationHandler == null)
             return;
 
-//        PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* (2)");
-
         if (sensorType == Sensor.TYPE_PROXIMITY) {
+//            PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* TYPE_PROXIMITY");
+
             //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
             //if (event.timestamp - tmpDistanceTimestamp >= 250000000L /*1000000000L*/) {
             //    tmpDistanceTimestamp = event.timestamp;
@@ -58,6 +58,8 @@ class OrientationScanner implements SensorEventListener {
         }
         boolean runEventsHandler = false;
         if ((sensorType == Sensor.TYPE_ACCELEROMETER) || (sensorType == Sensor.TYPE_MAGNETIC_FIELD)) {
+//            PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* TYPE_ACCELEROMETER, TYPE_MAGNETIC_FIELD");
+
             if (PPApplication.magneticFieldSensor != null) {
                 if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                     orientationHandler.gravity = exponentialSmoothing(event.values, orientationHandler.gravity, 0.2f);
@@ -142,7 +144,6 @@ class OrientationScanner implements SensorEventListener {
                 }
             }
             else {
-
                 if (event.timestamp - orientationHandler.tmpSideTimestamp >= 250000000L /*1000000000L*/) {
                     orientationHandler.tmpSideTimestamp = event.timestamp;
 
@@ -181,12 +182,13 @@ class OrientationScanner implements SensorEventListener {
             runEventsHandler = true;
         }
         if (sensorType == Sensor.TYPE_LIGHT) {
+//            PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* TYPE_LIGHT");
 
             //orientationHandler.resultLight = convertLightToSensor(event.values[0], orientationHandler.maxLightDistance);
             orientationHandler.resultLight = Math.round(event.values[0]);
 
             try {
-                // redraw light current value p[reference
+                // redraw light current value preference
 //                PPApplication.logE("[LOCAL_BROADCAST_CALL] OrientationScanner.onSensorChanged", "xxx");
                 Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
                 LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
