@@ -20,7 +20,7 @@ class OrientationScanner implements SensorEventListener {
     @Override
     public void onSensorChanged(final SensorEvent event) {
 //        PPApplication.logE("[IN_LISTENER] OrientationScanner.onSensorChanged", "xxx");
-        PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* (1)");
+//        PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* (1)");
 
         if (PhoneProfilesService.getInstance() == null)
             return;
@@ -34,7 +34,7 @@ class OrientationScanner implements SensorEventListener {
         if (orientationHandler == null)
             return;
 
-        PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* (2)");
+//        PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* (2)");
 
         if (sensorType == Sensor.TYPE_PROXIMITY) {
             //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
@@ -206,7 +206,7 @@ class OrientationScanner implements SensorEventListener {
     void runEventsHandlerForOrientationChange(OrientationScannerHandlerThread orientationHandler) {
         // start events handler
 
-        PPApplication.logE("[TEST BATTERY] OrientationScanner.runEventsHandlerForOrientationChange", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] OrientationScanner.runEventsHandlerForOrientationChange", "******** ### *******");
 
         if (
             (orientationHandler.previousResultDisplayUp != orientationHandler.resultDisplayUp) ||
@@ -259,7 +259,7 @@ class OrientationScanner implements SensorEventListener {
                         }
                     }
 
-                    interval = interval / 2;
+                    //interval = interval / 2;
 
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -284,7 +284,7 @@ class OrientationScanner implements SensorEventListener {
 
 //                                PPApplication.logE("[WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxx");
                                 //workManager.enqueue(worker);
-                                // MUST BE KEEP !!! REPLACE cause to not call worker, because is replaced with delat again !!!
+                                // MUST BE KEEP !!! REPLACE cause to not call worker, because is replaced with delay again !!!
                                 workManager.enqueueUniqueWork(MainWorker.ORIENTATION_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
                             }
                         }

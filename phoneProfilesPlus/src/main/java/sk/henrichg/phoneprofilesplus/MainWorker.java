@@ -89,6 +89,7 @@ public class MainWorker extends Worker {
                     //    WifiScanWorker.startScan(appContext);
                     //    break;
                     case ORIENTATION_SCANNER_WORK_TAG:
+                        PPApplication.logE("[TEST BATTERY] ******** MainWorker.doWork", "******** ### *******");
                     case HANDLE_EVENTS_VOLUMES_WORK_TAG: // !!! this is required, look at SettingsContentObserver.onChange()
                     //case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:
                     //case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:

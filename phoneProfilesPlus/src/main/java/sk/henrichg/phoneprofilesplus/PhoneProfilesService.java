@@ -5217,6 +5217,7 @@ public class PhoneProfilesService extends Service
             //    return;
 
             int interval = ApplicationPreferences.applicationEventOrientationScanInterval;
+
             if (isPowerSaveMode) {
                 if (applicationEventOrientationScanInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
@@ -5230,6 +5231,8 @@ public class PhoneProfilesService extends Service
                     }
                 }
             }
+
+            interval = interval / 2;
 
             if (PPApplication.accelerometerSensor != null) {
                 PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, orentationScannerHandler);
