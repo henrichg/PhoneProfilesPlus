@@ -1329,11 +1329,12 @@ public class PhoneProfilesService extends Service
                                 (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
                     }
-                    if (!allowed)
+                    if (!allowed) {
                         PPApplication.logE("[TEST BATTERY] PhoneProfilesService.registerBatteryChargingChangedReceiver", "******** ### *******");
                         allowed = ApplicationPreferences.applicationEventOrientationEnableScanning &&
                                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
+                    }
                     if (!allowed)
                         allowed = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;/* &&
                                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==

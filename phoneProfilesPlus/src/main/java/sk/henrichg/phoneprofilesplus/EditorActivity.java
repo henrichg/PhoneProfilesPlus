@@ -5147,11 +5147,9 @@ public class EditorActivity extends AppCompatActivity
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (this.dataWrapper != null) {
-                    //dataWrapper.globalRunStopEvents(true);
-                    PPApplication.exitApp(false, activity.getApplicationContext(), this.dataWrapper, null, false, false);
-
-                    // wait for end of PPService
-                    GlobalUtils.sleep(3000);
+                    synchronized (PPApplication.applicationStartedMutex) {
+                        PPApplication.exportIsRunning = true;
+                    }
 
                     File sd = activity.getApplicationContext().getExternalFilesDir(null);
 
@@ -5208,16 +5206,9 @@ public class EditorActivity extends AppCompatActivity
 
                     PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, "");
 
-                    //Event.setGlobalEventsRunning(this.dataWrapper.context, runStopEvents);
-                    PPApplication.setApplicationStarted(activity.getApplicationContext(), true);
-                    Intent serviceIntent = new Intent(activity.getApplicationContext(), PhoneProfilesService.class);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-                    //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//                    PPApplication.logE("[START_PP_SERVICE] EditorActivity.doExportData", "xxx");
-                    PPApplication.startPPService(activity.getApplicationContext(), serviceIntent);
+                    synchronized (PPApplication.applicationStartedMutex) {
+                        PPApplication.exportIsRunning = false;
+                    }
 
                     return ret;
                 } else

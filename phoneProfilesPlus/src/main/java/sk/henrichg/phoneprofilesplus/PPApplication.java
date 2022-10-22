@@ -102,6 +102,8 @@ public class PPApplication extends Application
     static final String SHARED_EXPORT_FILENAME = "phoneProfilesPlus_backup";
     static final String SHARED_EXPORT_FILEEXTENSION = ".zip";
 
+    static boolean exportIsRunning = false;
+
     private static volatile PPApplication instance;
     private static volatile WorkManager workManagerInstance;
 
@@ -371,7 +373,7 @@ public class PPApplication extends Application
 
     static final ApplicationPreferencesMutex applicationPreferencesMutex = new ApplicationPreferencesMutex();
     static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
-    private static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
+    static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
     static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
@@ -969,6 +971,9 @@ public class PPApplication extends Application
             return;
         }
 
+        synchronized (PPApplication.applicationStartedMutex) {
+            PPApplication.exportIsRunning = false;
+        }
         applicationFullyStarted = false;
         normalServiceStart = false;
         showToastForProfileActivation = false;
@@ -2399,14 +2404,14 @@ public class PPApplication extends Application
         synchronized (applicationStartedMutex) {
             if (testService) {
                 try {
-                    return applicationStarted &&
+                    return applicationStarted && (!exportIsRunning) &&
                             (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart();
                 } catch (Exception e) {
                     return false;
                 }
             }
             else
-                return applicationStarted;
+                return applicationStarted && (!exportIsRunning);
         }
     }
 
