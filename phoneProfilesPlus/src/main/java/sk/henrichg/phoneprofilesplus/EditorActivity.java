@@ -5150,6 +5150,7 @@ public class EditorActivity extends AppCompatActivity
                     synchronized (PPApplication.applicationStartedMutex) {
                         PPApplication.exportIsRunning = true;
                     }
+                    GlobalUtils.sleep(3000); // wait 3 seconds for end of running things
 
                     File sd = activity.getApplicationContext().getExternalFilesDir(null);
 
