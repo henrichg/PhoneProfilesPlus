@@ -255,7 +255,7 @@ class MobileCellsScanner {
 
     static void startAutoRegistration(Context context, boolean forConnect) {
 //        PPApplication.logE("[TEST BATTERY] MobileCellsScanner.startAutoRegistration", "******** ### *******");
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

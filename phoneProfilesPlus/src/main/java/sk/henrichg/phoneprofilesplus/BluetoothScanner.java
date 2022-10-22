@@ -45,7 +45,7 @@ class BluetoothScanner {
 
     void doScan(@SuppressWarnings("unused") boolean fromDialog) {
         synchronized (PPApplication.bluetoothScannerMutex) {
-            if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true, true))
                 // application is not started
                 return;
 

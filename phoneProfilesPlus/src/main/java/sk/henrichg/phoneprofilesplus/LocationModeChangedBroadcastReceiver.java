@@ -12,7 +12,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

@@ -16,7 +16,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 //        PPApplication.logE("[IN_BROADCAST] AlarmClockBroadcastReceiver.onReceive", "xxx");
 //        PPApplication.logE("[IN_BROADCAST_ALARM] AlarmClockBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             return;
 
         Calendar now = Calendar.getInstance();

@@ -92,7 +92,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                                 .setInitialDelay(delay, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    if (PPApplication.getApplicationStarted(true)) {
+                    if (PPApplication.getApplicationStarted(true, true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
 //                        //if (PPApplication.logEnabled()) {

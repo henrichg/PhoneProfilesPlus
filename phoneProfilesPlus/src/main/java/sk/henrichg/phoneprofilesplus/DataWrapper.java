@@ -1748,7 +1748,7 @@ public class DataWrapper {
             if (ApplicationPreferences.applicationClose)
             {
                 // close of activity after profile activation is enabled
-                if (PPApplication.getApplicationStarted(false))
+                if (PPApplication.getApplicationStarted(false, false))
                     // application is already started and is possible to close activity
                     finish = finishActivator;
             }
@@ -2304,7 +2304,7 @@ public class DataWrapper {
                             .setInitialDelay(15, TimeUnit.SECONDS)
                             .build();
             try {
-                if (PPApplication.getApplicationStarted(true)) {
+                if (PPApplication.getApplicationStarted(true, true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
 

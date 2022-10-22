@@ -44,7 +44,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "serviceStarted=" + serviceStarted);
 
-                        if ((!serviceStarted) && PPApplication.getApplicationStarted(false)) {
+                        if ((!serviceStarted) && PPApplication.getApplicationStarted(false, false)) {
                             // service is not started
 
                             //AutostartPermissionNotification.showNotification(appContext, false);

@@ -16,7 +16,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

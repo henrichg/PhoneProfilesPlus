@@ -44,7 +44,7 @@ public class PhoneCallsListener extends PhoneStateListener {
 
     public void onCallStateChanged (int state, String phoneNumber) {
 
-        if (PPApplication.getApplicationStarted(true)) {
+        if (PPApplication.getApplicationStarted(true, true)) {
             if(lastState == state){
                 //No change, de-bounce extras
                 return;

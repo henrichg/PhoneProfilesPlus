@@ -397,7 +397,7 @@ public class PhoneProfilesService extends Service
                         .setInitialDelay(PPApplication.APPLICATION_START_DELAY, TimeUnit.MILLISECONDS)
                         .build();
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, false)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     workManager.enqueueUniqueWork(MainWorker.APPLICATION_FULLY_STARTED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
@@ -4090,7 +4090,7 @@ public class PhoneProfilesService extends Service
                                     .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, false)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 

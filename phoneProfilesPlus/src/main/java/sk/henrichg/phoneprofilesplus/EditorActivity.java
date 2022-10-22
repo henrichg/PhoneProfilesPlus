@@ -843,7 +843,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null)
         {
             menuItem.setVisible(Event.getGlobalEventsRunning());
-            menuItem.setEnabled(PPApplication.getApplicationStarted(true));
+            menuItem.setEnabled(PPApplication.getApplicationStarted(true, false));
         }
 
         menuItem = menu.findItem(R.id.menu_dark_theme);

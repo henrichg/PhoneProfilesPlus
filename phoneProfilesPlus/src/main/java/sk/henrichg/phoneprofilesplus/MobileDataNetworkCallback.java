@@ -55,7 +55,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

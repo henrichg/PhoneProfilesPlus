@@ -39,7 +39,7 @@ class ContactsContentObserver extends ContentObserver {
 //            PPApplication.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Data.CONTENT_URI=" + ContactsContract.Data.CONTENT_URI);
 //        }
 
-        if (PPApplication.getApplicationStarted(true)) {
+        if (PPApplication.getApplicationStarted(true, true)) {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
                 boolean running = false;

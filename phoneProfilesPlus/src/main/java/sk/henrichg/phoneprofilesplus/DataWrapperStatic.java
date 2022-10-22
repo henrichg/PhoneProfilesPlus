@@ -213,7 +213,7 @@ public class DataWrapperStatic {
                 eventName = manualIndicators + " " + eventName;
         }
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, false))
             eventName = eventName + " ";
 
         Spannable sName;
@@ -276,7 +276,7 @@ public class DataWrapperStatic {
 
     static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
     {
-        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
+        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false, false))
         {
             synchronized (dataWrapper.eventTimelines) {
                 if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
@@ -671,7 +671,7 @@ public class DataWrapperStatic {
         if ((profile == null) && (event == null))
             return false;
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, false))
             return false;
 
         if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, againCheckAccessibilityInDelay, context))) {

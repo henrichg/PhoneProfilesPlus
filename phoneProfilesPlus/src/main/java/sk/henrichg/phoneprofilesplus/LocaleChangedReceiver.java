@@ -14,7 +14,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 
             //final Context appContext = context.getApplicationContext();
 
-            if (PPApplication.getApplicationStarted(false)) {
+            if (PPApplication.getApplicationStarted(false, false)) {
 
                 PPApplication.collator = GlobalUtils.getCollator();
                 //if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {

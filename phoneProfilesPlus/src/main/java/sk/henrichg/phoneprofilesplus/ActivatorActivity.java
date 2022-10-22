@@ -360,7 +360,7 @@ public class ActivatorActivity extends AppCompatActivity
         if (menuItem != null)
         {
             menuItem.setVisible(Event.getGlobalEventsRunning());
-            menuItem.setEnabled(PPApplication.getApplicationStarted(true));
+            menuItem.setEnabled(PPApplication.getApplicationStarted(true, false));
         }
 
         return ret;

@@ -93,7 +93,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 /*

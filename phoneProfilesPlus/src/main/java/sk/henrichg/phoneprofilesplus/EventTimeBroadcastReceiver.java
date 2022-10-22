@@ -14,7 +14,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action != null) {
 
-            if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true, true))
                 // application is not started
                 return;
 

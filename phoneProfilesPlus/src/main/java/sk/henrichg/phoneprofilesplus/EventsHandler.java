@@ -158,7 +158,7 @@ class EventsHandler {
             boolean manualRestart = sensorType == SENSOR_TYPE_MANUAL_RESTART_EVENTS;
             boolean isRestart = (sensorType == SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
-            if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true, true))
                 // application is not started
                 return;
 

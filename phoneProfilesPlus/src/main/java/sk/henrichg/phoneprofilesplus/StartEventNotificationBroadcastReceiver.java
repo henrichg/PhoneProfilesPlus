@@ -96,7 +96,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                 .build();
                 try {
-                    if (PPApplication.getApplicationStarted(true)) {
+                    if (PPApplication.getApplicationStarted(true, true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
 
@@ -159,7 +159,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void doWork(boolean useHandler, Context context, final long event_id) {
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

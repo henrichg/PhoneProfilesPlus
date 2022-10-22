@@ -26,7 +26,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         if (device == null)
             return;
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
         if (ApplicationPreferences.prefForceOneBluetoothScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
@@ -84,7 +84,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         if ((results == null) || (results.size() == 0))
             return;
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

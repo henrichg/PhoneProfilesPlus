@@ -49,7 +49,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] PPPExtenderBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -499,7 +499,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 .setInitialDelay(ACCESSIBILITY_SERVICE_CONNECTED_DELAY, TimeUnit.MINUTES)
                                 .build();
                 try {
-                    if (PPApplication.getApplicationStarted(true)) {
+                    if (PPApplication.getApplicationStarted(true, false)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
                             workManager.enqueueUniqueWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);

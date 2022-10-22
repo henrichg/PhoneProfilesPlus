@@ -2399,19 +2399,21 @@ public class PPApplication extends Application
 
     //--------------------------------------------------------------
 
-    static boolean getApplicationStarted(boolean testService)
+    static boolean getApplicationStarted(boolean testService, boolean testExport)
     {
         synchronized (applicationStartedMutex) {
             if (testService) {
                 try {
-                    return applicationStarted && (!exportIsRunning) &&
+                    return applicationStarted &&
+                            ((!testExport) || (!exportIsRunning)) &&
                             (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart();
                 } catch (Exception e) {
                     return false;
                 }
             }
             else
-                return applicationStarted && (!exportIsRunning);
+                return applicationStarted &&
+                        ((!testExport) || (!exportIsRunning));
         }
     }
 

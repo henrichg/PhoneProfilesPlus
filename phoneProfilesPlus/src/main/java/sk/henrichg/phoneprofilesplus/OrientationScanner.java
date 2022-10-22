@@ -271,7 +271,7 @@ class OrientationScanner implements SensorEventListener {
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 

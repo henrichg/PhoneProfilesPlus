@@ -20,7 +20,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
         if (ApplicationPreferences.prefForceOneBluetoothScan != BluetoothScanner.FORCE_ONE_SCAN_DISABLED) {

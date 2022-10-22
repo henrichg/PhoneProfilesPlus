@@ -23,7 +23,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

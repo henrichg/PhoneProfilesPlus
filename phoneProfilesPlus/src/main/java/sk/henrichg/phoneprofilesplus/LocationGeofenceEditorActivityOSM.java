@@ -860,7 +860,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         .build();
 
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 

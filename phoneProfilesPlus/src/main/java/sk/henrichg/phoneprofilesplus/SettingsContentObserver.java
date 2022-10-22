@@ -215,7 +215,7 @@ class SettingsContentObserver  extends ContentObserver {
         if (volumeChange) {
             if (!EventPreferencesVolumes.internalChange) {
 
-                if (PPApplication.getApplicationStarted(true)) {
+                if (PPApplication.getApplicationStarted(true, true)) {
                     // application is started
 
                     if (Event.getGlobalEventsRunning()) {
@@ -234,7 +234,7 @@ class SettingsContentObserver  extends ContentObserver {
                                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                         .build();
                         try {
-                            if (PPApplication.getApplicationStarted(true)) {
+                            if (PPApplication.getApplicationStarted(true, true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null) {
 

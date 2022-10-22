@@ -27,7 +27,7 @@ class WifiScanner {
 
     void doScan(boolean fromDialog) {
         synchronized (PPApplication.wifiScannerMutex) {
-            if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true, true))
                 // application is not started
                 return;
 

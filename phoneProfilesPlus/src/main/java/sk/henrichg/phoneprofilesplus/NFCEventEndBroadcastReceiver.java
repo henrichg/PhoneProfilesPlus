@@ -20,7 +20,7 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
     private void doWork(/*boolean useHandler,*/ Context context) {
         //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

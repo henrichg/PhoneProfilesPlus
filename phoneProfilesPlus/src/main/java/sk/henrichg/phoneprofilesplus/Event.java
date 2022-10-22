@@ -2485,7 +2485,7 @@ class Event {
                                     .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 //                            //if (PPApplication.logEnabled()) {
@@ -2710,7 +2710,7 @@ class Event {
                                     .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 //                            //if (PPApplication.logEnabled()) {

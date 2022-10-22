@@ -494,7 +494,7 @@ class MobileCellsListener extends PhoneStateListener {
     }
 
     private void doAutoRegistration(final int _registeredCell) {
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

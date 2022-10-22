@@ -19,7 +19,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

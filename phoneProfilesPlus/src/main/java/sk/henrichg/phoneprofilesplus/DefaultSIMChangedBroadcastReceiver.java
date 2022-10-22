@@ -15,7 +15,7 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
 
 //        final Intent _intent = intent;
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
