@@ -142,7 +142,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
             PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
-            if ((PhoneProfilesService.getInstance() == null) || (!PPApplication.applicationFullyStarted)) {
+            if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 return true;
             }
         }
