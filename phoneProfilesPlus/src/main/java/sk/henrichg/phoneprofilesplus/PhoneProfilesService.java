@@ -2238,6 +2238,7 @@ public class PhoneProfilesService extends Service
             }
             if (!eventsExists) {
                 allowed = false;
+                // TODO disable scanning when evets not exists
                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                     // location scanner is enabled
                     //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -2294,6 +2295,7 @@ public class PhoneProfilesService extends Service
                 }
                 if (!eventsExists) {
                     allowed = false;
+                    // TODO disable scanning when evets not exists
                     if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                         //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)) {
@@ -2424,6 +2426,7 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
+            // TODO disable scanning when evets not exists
             if (ApplicationPreferences.applicationEventBluetoothEnableScanning || BluetoothNamePreferenceX.forceRegister) {
                 boolean allowed = false;
                 if (BluetoothNamePreferenceX.forceRegister)
@@ -2475,6 +2478,7 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
+            // TODO disable scanning when evets not exists
             if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreferenceX.forceRegister) {
                 boolean allowed = false;
                 if (WifiSSIDPreferenceX.forceRegister)
@@ -2704,6 +2708,7 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
+            // TODO disable scanning when evets not exists
             if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreferenceX.forceRegister) {
                 boolean allowed = false;
                 if (WifiSSIDPreferenceX.forceRegister)
@@ -2897,6 +2902,7 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
+            // TODO disable scanning when evets not exists
             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                 boolean allowed = false;
                 if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)) {
@@ -2931,6 +2937,7 @@ public class PhoneProfilesService extends Service
         //final Context appContext = getApplicationContext();
 
         //if (schedule) {
+        // TODO disable scanning when evets not exists
         if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
             boolean eventAllowed = false;
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)) {
@@ -2994,6 +3001,7 @@ public class PhoneProfilesService extends Service
             return;
 
         //if (schedule) {
+        // TODO disable scanning when evets not exists
         if (ApplicationPreferences.applicationEventWifiEnableScanning) {
             boolean eventAllowed = false;
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
@@ -3046,6 +3054,7 @@ public class PhoneProfilesService extends Service
             return;
 
         //if (schedule) {
+        // TODO disable scanning when evets not exists
         if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
             boolean eventAllowed = false;
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)) {
@@ -3153,6 +3162,7 @@ public class PhoneProfilesService extends Service
                 }
             }
             if (start) {
+                // TODO disable scanning when evets not exists
                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                     boolean eventAllowed = false;
                     boolean applicationEventLocationScanOnlyWhenScreenIsOn = ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn;
@@ -3196,6 +3206,7 @@ public class PhoneProfilesService extends Service
                 }
                 if (start) {
                     //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
+                    // TODO disable scanning when evets not exists
                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
                             MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
 //                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### *******");
@@ -3244,6 +3255,7 @@ public class PhoneProfilesService extends Service
             }
             if (start) {
                 //PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
+                // TODO disable scanning when evets not exists
                 if (ApplicationPreferences.applicationEventOrientationEnableScanning /*||
                         EventsPrefsFragment.forceStart*/) {
                     PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startOrientationScanner", "******** ### *******");
@@ -3308,6 +3320,7 @@ public class PhoneProfilesService extends Service
             }
         }
         if (start) {
+            // TODO disable scanning when evets not exists
             if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                 boolean eventAllowed = false;
                 if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventNotificationScanOnlyWhenScreenIsOn)) {
