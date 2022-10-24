@@ -72,13 +72,15 @@ class LocationScanner
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
-                                    LocationScanner scanner = PhoneProfilesService.getInstance().getLocationScanner();
-                                    if (scanner != null) {
-                                        scanner.clearAllEventGeofences();
-                                        String provider = scanner.startLocationUpdates();
-                                        scanner.updateTransitionsByLastKnownLocation(provider);
-                                    }
+                                LocationScanner scanner = null;
+                                synchronized (PPApplication.locationScannerMutex) {
+                                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted())
+                                        scanner = PhoneProfilesService.getInstance().getLocationScanner();
+                                }
+                                if (scanner != null) {
+                                    scanner.clearAllEventGeofences();
+                                    String provider = scanner.startLocationUpdates();
+                                    scanner.updateTransitionsByLastKnownLocation(provider);
                                 }
 
                             } catch (SecurityException e) {
@@ -407,16 +409,13 @@ class LocationScanner
         }
 
         if (Event.getGlobalEventsRunning()) {
-            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
-                LocationScanner scanner = PhoneProfilesService.getInstance().getLocationScanner();
+            LocationScanner scanner = null;
+            synchronized (PPApplication.locationScannerMutex) {
+                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted())
+                    scanner = PhoneProfilesService.getInstance().getLocationScanner();
+            }
+            if (scanner != null) {
                 scanner.updateGeofencesInDB();
-                /*if (useGPS) {
-                    // location is from enabled GPS, disable it
-                    LocationScannerSwitchGPSBroadcastReceiver.setAlarm(scanner.context);
-                }*/
-                //}
-                //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
-                //LocationScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
 
                 if (callEventsHandler) {
 //                    PPApplication.logE("[EVENTS_HANDLER] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
@@ -450,7 +449,10 @@ class LocationScanner
     static void onlineStatusChanged(Context context) {
         if (PhoneProfilesService.getInstance() != null) {
             PhoneProfilesService serviceInstance = PhoneProfilesService.getInstance();
-            LocationScanner scanner = serviceInstance.getLocationScanner();
+            LocationScanner scanner;
+            synchronized (PPApplication.locationScannerMutex) {
+                scanner = serviceInstance.getLocationScanner();
+            }
             if (scanner != null) {
                 if (serviceInstance.isLocationScannerStarted()) {
 

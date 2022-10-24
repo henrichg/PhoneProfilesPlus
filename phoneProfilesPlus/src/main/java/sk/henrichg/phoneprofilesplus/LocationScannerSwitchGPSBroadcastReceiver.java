@@ -168,10 +168,14 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
-                        LocationScanner locationScanner = PhoneProfilesService.getInstance().getLocationScanner();
-                        if (locationScanner != null) {
-                            if (LocationScanner.mUpdatesStarted) {
+                    LocationScanner locationScanner = null;
+                    synchronized (PPApplication.locationScannerMutex) {
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted())
+                            locationScanner = PhoneProfilesService.getInstance().getLocationScanner();
+                    }
+
+                    if (locationScanner != null) {
+                        if (LocationScanner.mUpdatesStarted) {
 //                              if (LocationScanner.useGPS) {
 //                                  if (PPApplication.googlePlayServiceAvailable) {
 //                                      locationScanner.flushLocations();
@@ -179,23 +183,22 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //                                  }
 //                              }
 
-                                locationScanner.stopLocationUpdates();
+                            locationScanner.stopLocationUpdates();
 
-                                GlobalUtils.sleep(1000);
+                            GlobalUtils.sleep(1000);
 
-                                if (ApplicationPreferences.applicationEventLocationUseGPS &&
-                                        (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
-                                    // force useGPS
-                                    LocationScanner.useGPS = true;
-                                else {
-                                    boolean useGPS = LocationScanner.useGPS;
-                                    LocationScanner.useGPS = !useGPS;
-                                }
-
-                                // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
-                                String provider = locationScanner.startLocationUpdates();
-                                locationScanner.updateTransitionsByLastKnownLocation(provider);
+                            if (ApplicationPreferences.applicationEventLocationUseGPS &&
+                                    (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
+                                // force useGPS
+                                LocationScanner.useGPS = true;
+                            else {
+                                boolean useGPS = LocationScanner.useGPS;
+                                LocationScanner.useGPS = !useGPS;
                             }
+
+                            // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
+                            String provider = locationScanner.startLocationUpdates();
+                            locationScanner.updateTransitionsByLastKnownLocation(provider);
                         }
                     }
 
