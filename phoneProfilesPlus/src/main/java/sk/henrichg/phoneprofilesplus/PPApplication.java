@@ -2406,7 +2406,7 @@ public class PPApplication extends Application
                 try {
                     return applicationStarted &&
                             ((!testExport) || (!exportIsRunning)) &&
-                            (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart();
+                            (PhoneProfilesService.getInstance() != null);
                 } catch (Exception e) {
                     return false;
                 }

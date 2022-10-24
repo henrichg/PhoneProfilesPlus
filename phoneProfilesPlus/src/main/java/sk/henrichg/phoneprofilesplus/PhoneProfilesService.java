@@ -63,7 +63,7 @@ import java.util.concurrent.TimeUnit;
 public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
-    private boolean serviceHasFirstStart = false;
+    //private boolean serviceHasFirstStart = false;
     //private static boolean isInForeground = false;
 
     // must be in PPService !!!
@@ -235,8 +235,8 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
-        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OLD serviceHasFirstStart=" + serviceHasFirstStart);
-        serviceHasFirstStart = false;
+        //PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OLD serviceHasFirstStart=" + serviceHasFirstStart);
+        //serviceHasFirstStart = false;
 
         //PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
 
@@ -522,7 +522,7 @@ public class PhoneProfilesService extends Service
             instance = null;
         }
 
-        serviceHasFirstStart = false;
+        //serviceHasFirstStart = false;
         //serviceRunning = false;
         //runningInForeground = false;
         PPApplication.applicationFullyStarted = false;
@@ -562,9 +562,9 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    boolean getServiceHasFirstStart() {
-        return serviceHasFirstStart;
-    }
+    //boolean getServiceHasFirstStart() {
+    //    return serviceHasFirstStart;
+    //}
 
 //    void setServiceHasFirstStart(boolean value) {
 //        serviceHasFirstStart = value;
@@ -3596,7 +3596,7 @@ public class PhoneProfilesService extends Service
         final Context appContext = getApplicationContext();
 
         //final boolean oldServiceHasFirstStart = PPApplication.serviceHasFirstStart;
-        serviceHasFirstStart = true;
+        //serviceHasFirstStart = true;
         PPApplication.setApplicationStarted(getApplicationContext(), true);
 
         boolean applicationStart = false;
@@ -4541,7 +4541,7 @@ public class PhoneProfilesService extends Service
         Context appContext = getApplicationContext();
 
         PPApplication.logE("PhoneProfilesService.onStartCommand", "intent="+intent);
-        PPApplication.logE("PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
+        //PPApplication.logE("PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
         //startForegroundNotification = true;
 
@@ -4552,7 +4552,7 @@ public class PhoneProfilesService extends Service
         PPApplication.normalServiceStart = (intent != null);
         PPApplication.showToastForProfileActivation = (intent != null);
 
-        if (!serviceHasFirstStart) {
+        if (/*!serviceHasFirstStart*/!isServiceRunning) {
             if (intent != null) {
                 //ApplicationPreferences.startStopTargetHelps(appContext, false);
 
