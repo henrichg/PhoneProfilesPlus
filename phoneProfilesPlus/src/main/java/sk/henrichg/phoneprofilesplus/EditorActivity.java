@@ -1670,6 +1670,7 @@ public class EditorActivity extends AppCompatActivity
                     }
                 }
 
+                // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -1709,6 +1710,7 @@ public class EditorActivity extends AppCompatActivity
                     DataWrapperStatic.displayPreferencesErrorNotification(null, event, false, getApplicationContext());
                 }
 
+                // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);

@@ -159,6 +159,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR = "unregister_receivers_for_call_sensor";
     static final String EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR = "register_receivers_for_sms_sensor";
     static final String EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR = "unregister_receivers_for_sms_sensor";
+    static final String EXTRA_ALLOW_DISABLE_SCANNER = "allow_disable_scanner";
 
     //static final String EXTRA_SHOW_TOAST = "show_toast";
 
@@ -1299,7 +1300,6 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-//TODO
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean eventsExists = false;
@@ -2216,7 +2216,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerLocationModeChangedBroadcastReceiver(boolean register, DataWrapper dataWrapper) {
+    private void registerLocationModeChangedBroadcastReceiver(boolean register, boolean allowDisableScanner, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
         if (!register) {
             if (PPApplication.locationModeChangedBroadcastReceiver != null) {
@@ -2229,17 +2229,17 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED;
-            boolean eventsExists = false;
-            if (allowed) {
-                dataWrapper.fillEventList();
-                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_GPS/*, false*/);
-            }
-            if (!eventsExists) {
-                allowed = false;
-                // TODO disable scanning when evets not exists
-                if (ApplicationPreferences.applicationEventLocationEnableScanning) {
+            // TODO disable scanning when evets not exists
+            if (ApplicationPreferences.applicationEventLocationEnableScanning) {
+                boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+                boolean eventsExists = false;
+                if (allowed) {
+                    dataWrapper.fillEventList();
+                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_GPS/*, false*/);
+                }
+                if (!eventsExists) {
+                    allowed = false;
                     // location scanner is enabled
                     //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)) {
@@ -2247,27 +2247,35 @@ public class PhoneProfilesService extends Service
                         dataWrapper.fillEventList();
                         eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
                         if (eventsExists)
-                            allowed =  Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
+                            allowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
                                     PreferenceAllowed.PREFERENCE_ALLOWED;
                     }
                 }
-            }
-            if (allowed) {
-                if (PPApplication.locationModeChangedBroadcastReceiver == null) {
-                    PPApplication.locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();
-                    IntentFilter intentFilter18 = new IntentFilter();
-                    intentFilter18.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
-                    //if (android.os.Build.VERSION.SDK_INT >= 19)
+                if (allowed) {
+                    if (PPApplication.locationModeChangedBroadcastReceiver == null) {
+                        PPApplication.locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();
+                        IntentFilter intentFilter18 = new IntentFilter();
+                        intentFilter18.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
+                        //if (android.os.Build.VERSION.SDK_INT >= 19)
                         intentFilter18.addAction(LocationManager.MODE_CHANGED_ACTION);
-                    appContext.registerReceiver(PPApplication.locationModeChangedBroadcastReceiver, intentFilter18);
+                        appContext.registerReceiver(PPApplication.locationModeChangedBroadcastReceiver, intentFilter18);
+                    }
+                } else {
+                    if (allowDisableScanner) {
+                        SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                        SharedPreferences.Editor editor = applicationPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationEventLocationEnableScanning = false;
+                    }
+                    registerLocationModeChangedBroadcastReceiver(false, false, dataWrapper);
                 }
-            }
-            else
-                registerLocationModeChangedBroadcastReceiver(false, dataWrapper);
+            } else
+                registerLocationModeChangedBroadcastReceiver(false, false, dataWrapper);
         }
     }
 
-    private void registerBluetoothStateChangedBroadcastReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
+    private void registerBluetoothStateChangedBroadcastReceiver(boolean register, boolean allowDisableScanner, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
         if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
             return;
@@ -2282,21 +2290,21 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            boolean allowed;
-            if (BluetoothNamePreferenceX.forceRegister)
-                allowed = true;
-            else {
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
-                boolean eventsExists = false;
-                if (allowed) {
-                    dataWrapper.fillEventList();
-                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH/*, false*/);
-                }
-                if (!eventsExists) {
-                    allowed = false;
-                    // TODO disable scanning when evets not exists
-                    if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
+            // TODO disable scanning when evets not exists
+            if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
+                boolean allowed;
+                if (BluetoothNamePreferenceX.forceRegister)
+                    allowed = true;
+                else {
+                    allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                    boolean eventsExists = false;
+                    if (allowed) {
+                        dataWrapper.fillEventList();
+                        eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH/*, false*/);
+                    }
+                    if (!eventsExists) {
+                        allowed = false;
                         //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)) {
                             // start only for screen On
@@ -2310,17 +2318,25 @@ public class PhoneProfilesService extends Service
                         }
                     }
                 }
-            }
-            if (allowed) {
-                if (PPApplication.bluetoothStateChangedBroadcastReceiver == null) {
-                    PPApplication.bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
-                    IntentFilter intentFilter15 = new IntentFilter();
-                    intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-                    appContext.registerReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver, intentFilter15);
+                if (allowed) {
+                    if (PPApplication.bluetoothStateChangedBroadcastReceiver == null) {
+                        PPApplication.bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
+                        IntentFilter intentFilter15 = new IntentFilter();
+                        intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+                        appContext.registerReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver, intentFilter15);
+                    }
+                } else {
+                    if (allowDisableScanner) {
+                        SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                        SharedPreferences.Editor editor = applicationPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationEventBluetoothEnableScanning = false;
+                    }
+                    registerBluetoothStateChangedBroadcastReceiver(false, false, dataWrapper, forceRegister);
                 }
-            }
-            else
-                registerBluetoothStateChangedBroadcastReceiver(false, dataWrapper, forceRegister);
+            } else
+                registerBluetoothStateChangedBroadcastReceiver(false, false, dataWrapper, forceRegister);
         }
     }
 
@@ -2403,7 +2419,7 @@ public class PhoneProfilesService extends Service
     }
     */
 
-    private void registerBluetoothScannerReceivers(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
+    private void registerBluetoothScannerReceivers(boolean register, boolean allowDisableScanner, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
         if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
             return;
@@ -2456,14 +2472,22 @@ public class PhoneProfilesService extends Service
                         intentFilter14.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
                         appContext.registerReceiver(PPApplication.bluetoothScanReceiver, intentFilter14);
                     }
-                } else
-                    registerBluetoothScannerReceivers(false, dataWrapper, forceRegister);
+                } else {
+                    if (allowDisableScanner) {
+                        SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                        SharedPreferences.Editor editor = applicationPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationEventBluetoothEnableScanning = false;
+                    }
+                    registerBluetoothScannerReceivers(false, false, dataWrapper, forceRegister);
+                }
             } else
-                registerBluetoothScannerReceivers(false, dataWrapper, forceRegister);
+                registerBluetoothScannerReceivers(false, false, dataWrapper, forceRegister);
         }
     }
 
-    private void registerWifiAPStateChangeBroadcastReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
+    private void registerWifiAPStateChangeBroadcastReceiver(boolean register, boolean allowDisableScanner, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
         if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
             return;
@@ -2501,11 +2525,19 @@ public class PhoneProfilesService extends Service
                         appContext.registerReceiver(PPApplication.wifiAPStateChangeBroadcastReceiver, intentFilter17);
                     }
                 }
-                else
-                    registerWifiAPStateChangeBroadcastReceiver(false, dataWrapper, forceRegister);
+                else {
+                    if (allowDisableScanner) {
+                        SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                        SharedPreferences.Editor editor = applicationPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationEventWifiEnableScanning = false;
+                    }
+                    registerWifiAPStateChangeBroadcastReceiver(false, false, dataWrapper, forceRegister);
+                }
             }
             else
-                registerWifiAPStateChangeBroadcastReceiver(false, dataWrapper, forceRegister);
+                registerWifiAPStateChangeBroadcastReceiver(false, false, dataWrapper, forceRegister);
         }
     }
 
@@ -2693,7 +2725,7 @@ public class PhoneProfilesService extends Service
     }
     */
 
-    private void registerWifiScannerReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
+    private void registerWifiScannerReceiver(boolean register, boolean allowDisableScanner, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
         if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
             return;
@@ -2732,10 +2764,18 @@ public class PhoneProfilesService extends Service
                         intentFilter4.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
                         appContext.registerReceiver(PPApplication.wifiScanReceiver, intentFilter4);
                     }
-                } else
-                    registerWifiScannerReceiver(false, dataWrapper, forceRegister);
+                } else {
+                    if (allowDisableScanner) {
+                        SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                        SharedPreferences.Editor editor = applicationPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationEventWifiEnableScanning = false;
+                    }
+                    registerWifiScannerReceiver(false, false, dataWrapper, forceRegister);
+                }
             } else
-                registerWifiScannerReceiver(false, dataWrapper, forceRegister);
+                registerWifiScannerReceiver(false, false, dataWrapper, forceRegister);
         }
     }
 
@@ -2889,7 +2929,7 @@ public class PhoneProfilesService extends Service
         });
     }
 
-    private void registerLocationScannerReceiver(boolean register, DataWrapper dataWrapper) {
+    private void registerLocationScannerReceiver(boolean register, boolean allowDisableScanner, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
         if (!register) {
             if (PPApplication.locationScannerSwitchGPSBroadcastReceiver != null) {
@@ -2920,10 +2960,18 @@ public class PhoneProfilesService extends Service
                         IntentFilter intentFilter4 = new IntentFilter(PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
                         appContext.registerReceiver(PPApplication.locationScannerSwitchGPSBroadcastReceiver, intentFilter4);
                     }
-                } else
-                    registerLocationScannerReceiver(false, dataWrapper);
+                } else {
+                    if (allowDisableScanner) {
+                        SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                        SharedPreferences.Editor editor = applicationPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationEventLocationEnableScanning = false;
+                    }
+                    registerLocationScannerReceiver(false, false, dataWrapper);
+                }
             } else
-                registerLocationScannerReceiver(false, dataWrapper);
+                registerLocationScannerReceiver(false, false, dataWrapper);
         }
     }
 
@@ -2933,7 +2981,7 @@ public class PhoneProfilesService extends Service
     }
 
     // this is called from ThreadHanlder
-    void schedulePeriodicScanningWorker() {
+    void schedulePeriodicScanningWorker(boolean allowDisableScanner, final DataWrapper dataWrapper) {
         //final Context appContext = getApplicationContext();
 
         //if (schedule) {
@@ -2973,8 +3021,16 @@ public class PhoneProfilesService extends Service
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
-            } else
+            } else {
+                if (allowDisableScanner) {
+                    SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                    SharedPreferences.Editor editor = applicationPreferences.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, false);
+                    editor.apply();
+                    ApplicationPreferences.applicationEventPeriodicScanningEnableScanning = false;
+                }
                 cancelPeriodicScanningWorker(/*false*/);
+            }
         } else
             cancelPeriodicScanningWorker(/*false*/);
         //}
@@ -2994,7 +3050,7 @@ public class PhoneProfilesService extends Service
     }
 
     // this is called from ThreadHanlder
-    void scheduleWifiWorker(final DataWrapper dataWrapper) {
+    void scheduleWifiWorker(boolean allowDisableScanner, final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
 
         if (/*!forceStart &&*/ WifiSSIDPreferenceX.forceRegister)
@@ -3022,6 +3078,13 @@ public class PhoneProfilesService extends Service
                 //    }
                 //}
             } else {
+                if (allowDisableScanner) {
+                    SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                    SharedPreferences.Editor editor = applicationPreferences.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, false);
+                    editor.apply();
+                    ApplicationPreferences.applicationEventWifiEnableScanning = false;
+                }
                 cancelWifiWorker(appContext, true, false);
             }
         } else {
@@ -3047,7 +3110,7 @@ public class PhoneProfilesService extends Service
     }
 
     // this is called from ThreadHanlder
-    private void scheduleBluetoothWorker(final DataWrapper dataWrapper) {
+    private void scheduleBluetoothWorker(boolean allowDisableScanner, final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
 
         if (/*!forceStart &&*/ BluetoothNamePreferenceX.forceRegister)
@@ -3071,8 +3134,16 @@ public class PhoneProfilesService extends Service
                     BluetoothScanWorker.cancelWork(appContext, true);
                 }*/
                 BluetoothScanWorker.scheduleWork(appContext, true);
-            } else
+            } else {
+                if (allowDisableScanner) {
+                    SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                    SharedPreferences.Editor editor = applicationPreferences.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, false);
+                    editor.apply();
+                    ApplicationPreferences.applicationEventBluetoothEnableScanning = false;
+                }
                 cancelBluetoothWorker(appContext, true, false);
+            }
         } else
             cancelBluetoothWorker(appContext, true, false);
         //}
@@ -3153,7 +3224,8 @@ public class PhoneProfilesService extends Service
         //    cancelSearchCalendarEventsWorker(appContext, handler);
     }
 
-    private void startLocationScanner(boolean start, @SuppressWarnings("SameParameterValue") boolean stop, DataWrapper dataWrapper, boolean forScreenOn) {
+    private void startLocationScanner(boolean start, @SuppressWarnings("SameParameterValue") boolean stop,
+                                      boolean allowDisableScanner, DataWrapper dataWrapper, boolean forScreenOn) {
         synchronized (PPApplication.locationScannerMutex) {
             Context appContext = getApplicationContext();
             if (stop) {
@@ -3180,15 +3252,24 @@ public class PhoneProfilesService extends Service
                             startLocationScanner(forScreenOn && PPApplication.isScreenOn &&
                                     applicationEventLocationScanOnlyWhenScreenIsOn);
                         }
-                    } else
-                        startLocationScanner(false, true, dataWrapper, forScreenOn);
+                    } else {
+                        if (allowDisableScanner) {
+                            SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                            SharedPreferences.Editor editor = applicationPreferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, false);
+                            editor.apply();
+                            ApplicationPreferences.applicationEventLocationEnableScanning = false;
+                        }
+                        startLocationScanner(false, true, false, dataWrapper, forScreenOn);
+                    }
                 } else
-                    startLocationScanner(false, true, dataWrapper, forScreenOn);
+                    startLocationScanner(false, true, false, dataWrapper, forScreenOn);
             }
         }
     }
 
-    private void startMobileCellsScanner(final boolean start, final boolean stop, final DataWrapper dataWrapper,
+    private void startMobileCellsScanner(final boolean start, final boolean stop,
+                                         boolean allowDisableScanner, final DataWrapper dataWrapper,
                                          final boolean forceStart, final boolean rescan) {
         synchronized (PPApplication.mobileCellsScannerMutex) {
             final Context appContext = getApplicationContext();
@@ -3234,16 +3315,25 @@ public class PhoneProfilesService extends Service
                                     PPApplication.mobileCellsScanner.rescanMobileCells();
                                 }
                             }
-                        } else
-                            startMobileCellsScanner(false, true, dataWrapper, forceStart, rescan);
+                        } else {
+                            if (allowDisableScanner) {
+                                SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                                SharedPreferences.Editor editor = applicationPreferences.edit();
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, false);
+                                editor.apply();
+                                ApplicationPreferences.applicationEventMobileCellEnableScanning = false;
+                            }
+                            startMobileCellsScanner(false, true, false, dataWrapper, forceStart, rescan);
+                        }
                     } else
-                        startMobileCellsScanner(false, true, dataWrapper, forceStart, rescan);
+                        startMobileCellsScanner(false, true, false, dataWrapper, forceStart, rescan);
                 }
             });
         }
     }
 
-    private void startOrientationScanner(boolean start, boolean stop, DataWrapper dataWrapper/*, boolean forceStart*/) {
+    private void startOrientationScanner(boolean start, boolean stop, boolean allowDisableScanner,
+                                         DataWrapper dataWrapper/*, boolean forceStart*/) {
         synchronized (PPApplication.orientationScannerMutex) {
             Context appContext = getApplicationContext();
             //if (!forceStart && EventsPrefsFragment.forceStart)
@@ -3282,10 +3372,18 @@ public class PhoneProfilesService extends Service
                         }
 //                        else
 //                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "started");
-                    } else
-                        startOrientationScanner(false, true, dataWrapper/*, forceStart*/);
+                    } else {
+                        if (allowDisableScanner) {
+                            SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                            SharedPreferences.Editor editor = applicationPreferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, false);
+                            editor.apply();
+                            ApplicationPreferences.applicationEventOrientationEnableScanning = false;
+                        }
+                        startOrientationScanner(false, true, false, dataWrapper/*, forceStart*/);
+                    }
                 } else
-                    startOrientationScanner(false, true, dataWrapper/*, forceStart*/);
+                    startOrientationScanner(false, true, false, dataWrapper/*, forceStart*/);
             }
         }
     }
@@ -3312,7 +3410,8 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void startNotificationScanner(boolean start, boolean stop, DataWrapper dataWrapper) {
+    private void startNotificationScanner(boolean start, boolean stop, boolean allowDisableScanner,
+                                          DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
         if (stop) {
             if (PPApplication.notificationScannerRunning) {
@@ -3336,14 +3435,22 @@ public class PhoneProfilesService extends Service
                     if (!PPApplication.notificationScannerRunning) {
                         PPApplication.notificationScannerRunning = true;
                     }
-                } else
-                    startNotificationScanner(false, true, dataWrapper);
+                } else {
+                    if (allowDisableScanner) {
+                        SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                        SharedPreferences.Editor editor = applicationPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationEventNotificationEnableScanning = false;
+                    }
+                    startNotificationScanner(false, true, false, dataWrapper);
+                }
             } else
-                startNotificationScanner(false, true, dataWrapper);
+                startNotificationScanner(false, true, false, dataWrapper);
         }
     }
 
-    void registerEventsReceiversAndWorkers(boolean fromCommand) {
+    void registerEventsReceiversAndWorkers(boolean fromCommand, boolean allowDisableScanner) {
         // --- receivers and content observers for events -- register it only if any event exists
 
         Context appContext = getApplicationContext();
@@ -3386,22 +3493,22 @@ public class PhoneProfilesService extends Service
         registerReceiverForPeriodicSensor(true, dataWrapper);
 
         // required for location and radio switch sensor
-        registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
+        registerLocationModeChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper);
 
         // required for bluetooth connection type = (dis)connected +
         // radio switch event +
         // bluetooth scanner
-        registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
+        registerBluetoothStateChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
 
         // required for bluetooth connection type = (dis)connected +
         // bluetooth scanner
         //registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
 
         // required for bluetooth scanner
-        registerBluetoothScannerReceivers(true, dataWrapper, false);
+        registerBluetoothScannerReceivers(true, allowDisableScanner, dataWrapper, false);
 
         // required for wifi scanner
-        registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
+        registerWifiAPStateChangeBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
 
         // required for all scanner events (wifi, bluetooth, location, mobile cells, device orientation) +
         // battery event
@@ -3422,7 +3529,7 @@ public class PhoneProfilesService extends Service
         //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
 
         // required for wifi scanner
-        registerWifiScannerReceiver(true, dataWrapper, false);
+        registerWifiScannerReceiver(true, allowDisableScanner, dataWrapper, false);
 
         // required for notification sensor
         registerReceiverForNotificationSensor(true, dataWrapper);
@@ -3465,7 +3572,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForCallSensor(true, dataWrapper);
 
         // register receiver for Location scanner
-        registerLocationScannerReceiver(true, dataWrapper);
+        registerLocationScannerReceiver(true, allowDisableScanner, dataWrapper);
 
         // required for orientation event
         //registerReceiverForOrientationSensor(true, dataWrapper);
@@ -3476,16 +3583,16 @@ public class PhoneProfilesService extends Service
         WifiScanWorker.initialize(appContext, !fromCommand);
         BluetoothScanWorker.initialize(appContext, !fromCommand);
 
-        startLocationScanner(true, true, dataWrapper, false);
-        startMobileCellsScanner(true, true, dataWrapper, false, false);
-        startOrientationScanner(true, true, dataWrapper/*, false*/);
+        startLocationScanner(true, true, allowDisableScanner, dataWrapper, false);
+        startMobileCellsScanner(true, true, allowDisableScanner, dataWrapper, false, false);
+        startOrientationScanner(true, true, allowDisableScanner, dataWrapper/*, false*/);
         startTwilightScanner(true, true, dataWrapper);
-        startNotificationScanner(true, true, dataWrapper);
+        startNotificationScanner(true, true, allowDisableScanner, dataWrapper);
 
-        schedulePeriodicScanningWorker(/*dataWrapper, true*/);
-        scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);
-        scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
-        scheduleSearchCalendarEventsWorker(/*true, */dataWrapper/*, true*/);
+        schedulePeriodicScanningWorker(allowDisableScanner, dataWrapper/*, true*/);
+        scheduleWifiWorker(/*true,*/  allowDisableScanner, dataWrapper/*, false, false, false, true*/);
+        scheduleBluetoothWorker(/*true,*/  allowDisableScanner, dataWrapper /*false, false,*/ /*, true*/);
+        scheduleSearchCalendarEventsWorker(/*true, allowDisableScanner, */dataWrapper/*, true*/);
         //scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
 
         AvoidRescheduleReceiverWorker.enqueueWork();
@@ -3508,19 +3615,19 @@ public class PhoneProfilesService extends Service
         registerReceiverForAlarmClockSensor(false, null);
         registerReceiverForDeviceBootSensor(false, null);
         registerReceiverForPeriodicSensor(false, null);
-        registerLocationModeChangedBroadcastReceiver(false, null);
-        registerBluetoothStateChangedBroadcastReceiver(false, null, false);
+        registerLocationModeChangedBroadcastReceiver(false, false, null);
+        registerBluetoothStateChangedBroadcastReceiver(false, false, null, false);
         //registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
-        registerBluetoothScannerReceivers(false, null, false);
-        registerWifiAPStateChangeBroadcastReceiver(false, null, false);
+        registerBluetoothScannerReceivers(false, false, null, false);
+        registerWifiAPStateChangeBroadcastReceiver(false, false, null, false);
         //registerPowerSaveModeReceiver(false, null);
         //registerWifiStateChangedBroadcastReceiver(false, false, false);
         //registerWifiConnectionBroadcastReceiver(false, null, false);
-        registerWifiScannerReceiver(false, null, false);
+        registerWifiScannerReceiver(false, false,null, false);
         registerReceiverForTimeSensor(false, null);
         registerReceiverForNFCSensor(false, null);
         registerReceiverForCallSensor(false, null);
-        registerLocationScannerReceiver(false, null);
+        registerLocationScannerReceiver(false, false, null);
         registerReceiverForNotificationSensor(false, null);
         //registerReceiverForOrientationSensor(false, null);
 
@@ -3533,11 +3640,11 @@ public class PhoneProfilesService extends Service
         registerReceiverForActivatedProfileSensor(false, null);
         registerVPNCallback(false, null);
 
-        startLocationScanner(false, true, null, false);
-        startMobileCellsScanner(false, true, null, false, false);
-        startOrientationScanner(false, true, null/*, false*/);
+        startLocationScanner(false, true, false, null, false);
+        startMobileCellsScanner(false, true, false, null, false, false);
+        startOrientationScanner(false, true, false, null/*, false*/);
         startTwilightScanner(false, true, null);
-        startNotificationScanner(false, true, null);
+        startNotificationScanner(false, true, false, null);
 
         cancelPeriodicScanningWorker(/*useHandler*/);
         cancelWifiWorker(appContext, false, useHandler);
@@ -3547,7 +3654,7 @@ public class PhoneProfilesService extends Service
 
     }
 
-    private void reregisterEventsReceiversAndWorkers() {
+    private void reregisterEventsReceiversAndWorkers(boolean allowDisableScanner) {
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
         dataWrapper.fillEventList();
         //dataWrapper.fillProfileList(false, false);
@@ -3568,36 +3675,36 @@ public class PhoneProfilesService extends Service
         registerReceiverForAlarmClockSensor(true, dataWrapper);
         registerReceiverForDeviceBootSensor(true, dataWrapper);
         registerReceiverForPeriodicSensor(true, dataWrapper);
-        registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
-        registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
+        registerLocationModeChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper);
+        registerBluetoothStateChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
         //registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
-        registerBluetoothScannerReceivers(true, dataWrapper, false);
-        registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
+        registerBluetoothScannerReceivers(true, allowDisableScanner, dataWrapper, false);
+        registerWifiAPStateChangeBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
         //registerPowerSaveModeReceiver(true, dataWrapper);
         //registerWifiStateChangedBroadcastReceiver(true, true, false);
         //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
-        registerWifiScannerReceiver(true, dataWrapper, false);
+        registerWifiScannerReceiver(true, allowDisableScanner, dataWrapper, false);
         registerReceiverForTimeSensor(true, dataWrapper);
         registerReceiverForNFCSensor(true, dataWrapper);
         registerReceiverForCallSensor(true, dataWrapper);
-        registerLocationScannerReceiver(true, dataWrapper);
+        registerLocationScannerReceiver(true, allowDisableScanner, dataWrapper);
         //registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper);
         registerReceiverForActivatedProfileSensor(true, dataWrapper);
         registerVPNCallback(true, dataWrapper);
 
-        schedulePeriodicScanningWorker(/*dataWrapper, true*/);
-        scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);
-        scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
+        schedulePeriodicScanningWorker(allowDisableScanner, dataWrapper/*, true*/);
+        scheduleWifiWorker(/*true,*/  allowDisableScanner, dataWrapper/*, false, false, false, true*/);
+        scheduleBluetoothWorker(/*true,*/  allowDisableScanner, dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true,*/ dataWrapper /*, true*/);
 
-        startLocationScanner(true, true, dataWrapper, false);
+        startLocationScanner(true, true, allowDisableScanner, dataWrapper, false);
         //scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
 
-        startMobileCellsScanner(true, true, dataWrapper, false, false);
-        startOrientationScanner(true, true, dataWrapper/*, false*/);
+        startMobileCellsScanner(true, true, allowDisableScanner, dataWrapper, false, false);
+        startOrientationScanner(true, true, allowDisableScanner, dataWrapper/*, false*/);
         startTwilightScanner(true, true, dataWrapper);
-        startNotificationScanner(true, true, dataWrapper);
+        startNotificationScanner(true, true, allowDisableScanner, dataWrapper);
 
         AvoidRescheduleReceiverWorker.enqueueWork();
     }
@@ -4621,6 +4728,8 @@ public class PhoneProfilesService extends Service
                         PhoneProfilesService ppService = PhoneProfilesService.getInstance();
 
                         if (ppService != null) {
+                            boolean allowDisableScanner = intent.getBooleanExtra(EXTRA_ALLOW_DISABLE_SCANNER, false);
+
                             /*if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
                                 PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
                                 // not needed, is already called in start of onStartCommand
@@ -4684,7 +4793,7 @@ public class PhoneProfilesService extends Service
                             */
                             /*else*/ if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
-                                ppService.registerEventsReceiversAndWorkers(true);
+                                ppService.registerEventsReceiversAndWorkers(true, allowDisableScanner);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS");
                                 ppService.unregisterEventsReceiversAndWorkers(false);
@@ -4692,7 +4801,7 @@ public class PhoneProfilesService extends Service
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 ppService.registerPPPExtenderReceiver(true, dataWrapper);
-                                ppService.reregisterEventsReceiversAndWorkers();
+                                ppService.reregisterEventsReceiversAndWorkers(allowDisableScanner);
                             } else if (intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_CONTENT_OBSERVERS");
                                 ppService.registerAllTheTimeContentObservers(true);
@@ -4753,13 +4862,13 @@ public class PhoneProfilesService extends Service
                                 if (ApplicationPreferences.applicationEventWifiEnableScanning) {
                                     //dataWrapper.fillEventList();
                                     //eventsFilled = true;
-                                    ppService.scheduleWifiWorker(dataWrapper);
+                                    ppService.scheduleWifiWorker(allowDisableScanner, dataWrapper);
                                 }
                                 if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                                     //if (!eventsFilled) {
                                     //    dataWrapper.fillEventList();
                                     //}
-                                    ppService.scheduleBluetoothWorker(dataWrapper);
+                                    ppService.scheduleBluetoothWorker(allowDisableScanner, dataWrapper);
                                 }
 
                                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
@@ -4780,7 +4889,7 @@ public class PhoneProfilesService extends Service
                                     //sendBroadcast(intent);
                                 }
                                 if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
-                                    ppService.schedulePeriodicScanningWorker();
+                                    ppService.schedulePeriodicScanningWorker(allowDisableScanner, dataWrapper);
                                 }
 
                                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
@@ -4873,60 +4982,60 @@ public class PhoneProfilesService extends Service
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
                                         //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                         //registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                        ppService.registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
-                                        ppService.registerWifiScannerReceiver(true, dataWrapper, false);
+                                        ppService.registerWifiAPStateChangeBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
+                                        ppService.registerWifiScannerReceiver(true, allowDisableScanner, dataWrapper, false);
                                         break;
                                     case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
                                         //registerWifiConnectionBroadcastReceiver(true, dataWrapper, true);
                                         //registerWifiStateChangedBroadcastReceiver(true, false, true);
-                                        ppService.registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, true);
-                                        ppService.registerWifiScannerReceiver(true, dataWrapper, true);
+                                        ppService.registerWifiAPStateChangeBroadcastReceiver(true, allowDisableScanner, dataWrapper, true);
+                                        ppService.registerWifiScannerReceiver(true, allowDisableScanner, dataWrapper, true);
                                         break;
                                     case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
                                         //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                        ppService.registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
-                                        ppService.registerBluetoothScannerReceivers(true, dataWrapper, false);
+                                        ppService.registerBluetoothStateChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
+                                        ppService.registerBluetoothScannerReceivers(true, allowDisableScanner, dataWrapper, false);
                                         break;
                                     case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
                                         //registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
-                                        ppService.registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, true);
-                                        ppService.registerBluetoothScannerReceivers(true, dataWrapper, true);
+                                        ppService.registerBluetoothStateChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper, true);
+                                        ppService.registerBluetoothScannerReceivers(true, allowDisableScanner, dataWrapper, true);
                                         break;
                                     case PPApplication.SCANNER_RESTART_PERIODIC_SCANNING_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_RESTART_PERIODIC_SCANNING_SCANNER");
-                                        ppService.schedulePeriodicScanningWorker(/*dataWrapper, true*/);
+                                        ppService.schedulePeriodicScanningWorker(allowDisableScanner, dataWrapper/*, true*/);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
                                         //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                         //registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                        ppService.registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
-                                        ppService.registerWifiScannerReceiver(true, dataWrapper, false);
-                                        ppService.scheduleWifiWorker(/*true,*/ dataWrapper/*, forScreenOn, false, false, true*/);
+                                        ppService.registerWifiAPStateChangeBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
+                                        ppService.registerWifiScannerReceiver(true, allowDisableScanner, dataWrapper, false);
+                                        ppService.scheduleWifiWorker(/*true,*/ allowDisableScanner, dataWrapper/*, forScreenOn, false, false, true*/);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
                                         //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                        ppService.registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
-                                        ppService.registerBluetoothScannerReceivers(true, dataWrapper, false);
-                                        ppService.scheduleBluetoothWorker(/*true,*/ dataWrapper /*forScreenOn, false,*/ /*, true*/);
+                                        ppService.registerBluetoothStateChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
+                                        ppService.registerBluetoothScannerReceivers(true, allowDisableScanner, dataWrapper, false);
+                                        ppService.scheduleBluetoothWorker(/*true,*/ allowDisableScanner, dataWrapper /*forScreenOn, false,*/ /*, true*/);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     case PPApplication.SCANNER_RESTART_MOBILE_CELLS_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_RESTART_MOBILE_CELLS_SCANNER");
                                         //MobileCellsScanner.forceStart = false;
-                                        ppService.startMobileCellsScanner(true, true, dataWrapper, false, true);
+                                        ppService.startMobileCellsScanner(true, true, allowDisableScanner, dataWrapper, false, true);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     case PPApplication.SCANNER_FORCE_START_MOBILE_CELLS_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_FORCE_START_MOBILE_CELLS_SCANNER");
                                         //MobileCellsScanner.forceStart = true;
-                                        ppService.startMobileCellsScanner(true, false, dataWrapper, true, false);
+                                        ppService.startMobileCellsScanner(true, false, allowDisableScanner, dataWrapper, true, false);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
 
                                         if (MobileCellsPreferenceX.forceStart) {
@@ -4937,14 +5046,14 @@ public class PhoneProfilesService extends Service
                                         break;
                                     case PPApplication.SCANNER_RESTART_LOCATION_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_RESTART_LOCATION_SCANNER");
-                                        ppService.registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
-                                        ppService.startLocationScanner(true, true, dataWrapper, true);
+                                        ppService.registerLocationModeChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper);
+                                        ppService.startLocationScanner(true, true, allowDisableScanner, dataWrapper, true);
                                         //scheduleGeofenceWorker(/*true,*/ dataWrapper /*forScreenOn,*/ /*, true*/);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
-                                        ppService.startOrientationScanner(true, false, dataWrapper/*, false*/);
+                                        ppService.startOrientationScanner(true, false, allowDisableScanner, dataWrapper/*, false*/);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     /*case PPApplication.SCANNER_FORCE_START_ORIENTATION_SCANNER:
@@ -4960,7 +5069,7 @@ public class PhoneProfilesService extends Service
                                         break;
                                     case PPApplication.SCANNER_RESTART_NOTIFICATION_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_RESTART_NOTIFICATION_SCANNER");
-                                        ppService.startNotificationScanner(true, false, dataWrapper);
+                                        ppService.startNotificationScanner(true, false, allowDisableScanner, dataWrapper);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
@@ -4972,7 +5081,7 @@ public class PhoneProfilesService extends Service
                                         if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
                                             boolean canRestart = (!ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
-                                                ppService.schedulePeriodicScanningWorker(/*dataWrapper, true*/);
+                                                ppService.schedulePeriodicScanningWorker(allowDisableScanner, dataWrapper/*, true*/);
                                             }
                                         }
 
@@ -4986,9 +5095,9 @@ public class PhoneProfilesService extends Service
 //                                            PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "wifi - restart");
                                                 //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                                 //registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                                ppService.registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
-                                                ppService.registerWifiScannerReceiver(true, dataWrapper, false);
-                                                ppService.scheduleWifiWorker(/*true,*/ dataWrapper/*, forScreenOn, false, false, true*/);
+                                                ppService.registerWifiAPStateChangeBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
+                                                ppService.registerWifiScannerReceiver(true, allowDisableScanner, dataWrapper, false);
+                                                ppService.scheduleWifiWorker(/*true,*/ allowDisableScanner, dataWrapper/*, forScreenOn, false, false, true*/);
                                             }
                                         }
 
@@ -4997,9 +5106,9 @@ public class PhoneProfilesService extends Service
                                             boolean canRestart = (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
                                                 //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                                ppService.registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
-                                                ppService.registerBluetoothScannerReceivers(true, dataWrapper, false);
-                                                ppService.scheduleBluetoothWorker(/*true,*/ dataWrapper /*forScreenOn, false,*/ /*, true*/);
+                                                ppService.registerBluetoothStateChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper, false);
+                                                ppService.registerBluetoothScannerReceivers(true, allowDisableScanner, dataWrapper, false);
+                                                ppService.scheduleBluetoothWorker(/*true,*/ allowDisableScanner, dataWrapper /*forScreenOn, false,*/ /*, true*/);
                                             }
                                         }
 
@@ -5009,7 +5118,7 @@ public class PhoneProfilesService extends Service
                                             boolean canRestart = (!ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
                                                 //MobileCellsScanner.forceStart = false;
-                                                ppService.startMobileCellsScanner(true, true, dataWrapper, false, true);
+                                                ppService.startMobileCellsScanner(true, true, allowDisableScanner, dataWrapper, false, true);
                                             }
                                         }
 
@@ -5017,8 +5126,8 @@ public class PhoneProfilesService extends Service
                                         if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                                             boolean canRestart = (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
-                                                ppService.registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
-                                                ppService.startLocationScanner(true, true, dataWrapper, true);
+                                                ppService.registerLocationModeChangedBroadcastReceiver(true, allowDisableScanner, dataWrapper);
+                                                ppService.startLocationScanner(true, true, allowDisableScanner, dataWrapper, true);
                                                 //scheduleGeofenceWorker(/*true,*/ dataWrapper /*forScreenOn,*/ /*, true*/);
                                             }
                                         }
@@ -5028,7 +5137,7 @@ public class PhoneProfilesService extends Service
                                             PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (2)");
                                             boolean canRestart = (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
-                                                ppService.startOrientationScanner(true, true, dataWrapper/*, false*/);
+                                                ppService.startOrientationScanner(true, true, allowDisableScanner, dataWrapper/*, false*/);
                                             }
                                         }
 
@@ -5036,7 +5145,7 @@ public class PhoneProfilesService extends Service
                                         if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                                             boolean canRestart = (!ApplicationPreferences.applicationEventNotificationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
-                                                ppService.startNotificationScanner(true, true, dataWrapper);
+                                                ppService.startNotificationScanner(true, true, allowDisableScanner, dataWrapper);
                                             }
                                         }
 

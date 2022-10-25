@@ -799,6 +799,7 @@ public class EditorEventListFragment extends Fragment
             //activityDataWrapper.restartEvents(false, true, true, true, true);
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
+            // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -828,6 +829,7 @@ public class EditorEventListFragment extends Fragment
             //activityDataWrapper.restartEvents(false, true, true, true, true);
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
+            // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -904,6 +906,7 @@ public class EditorEventListFragment extends Fragment
 
         eventListAdapter.notifyDataSetChanged();
 
+        // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
         /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -1035,6 +1038,7 @@ public class EditorEventListFragment extends Fragment
                 //eventListAdapter.notifyDataSetChanged();
 
                 if (getActivity() != null) {
+                    // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
                     /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);

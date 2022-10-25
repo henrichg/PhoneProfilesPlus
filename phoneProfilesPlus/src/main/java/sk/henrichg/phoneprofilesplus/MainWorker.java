@@ -344,7 +344,8 @@ public class MainWorker extends Worker {
                         PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
                         PhoneProfilesService.getInstance().registerPPPExtenderReceiver(true, dataWrapper);
-                        PhoneProfilesService.getInstance().registerEventsReceiversAndWorkers(false);
+                        // also disable not used scanners
+                        PhoneProfilesService.getInstance().registerEventsReceiversAndWorkers(false, true);
 
                         if (PPApplication.deviceBoot) {
                             PPApplication.deviceBoot = false;

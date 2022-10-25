@@ -1211,6 +1211,7 @@ class ApplicationPreferences {
         applicationEventBluetoothEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING_DEFAULT_VALUE);
     }
 
+    // todo
     static final boolean PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING_DEFAULT_VALUE = false;
     static void applicationEventLocationEnableScanning(Context context) {
         applicationEventLocationEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING_DEFAULT_VALUE);

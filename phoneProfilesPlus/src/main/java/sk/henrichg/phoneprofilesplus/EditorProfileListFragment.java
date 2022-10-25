@@ -697,6 +697,7 @@ public class EditorProfileListFragment extends Fragment
 
         activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
+        // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
         /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -829,6 +830,7 @@ public class EditorProfileListFragment extends Fragment
 
                 activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
+                // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
                 /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);

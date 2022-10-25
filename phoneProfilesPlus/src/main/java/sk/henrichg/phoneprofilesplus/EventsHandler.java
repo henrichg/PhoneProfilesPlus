@@ -745,9 +745,6 @@ class EventsHandler {
                 }
             //}
 
-            //todo - why sleep si needed ???
-            // for notifed is not needed, palyNotificationSound uses handlerThreadPlayTone
-            // !!! test handle events without doSleep
             //if (doSleep || notified) {
             //    PPApplication.sleep(500);
             //}
