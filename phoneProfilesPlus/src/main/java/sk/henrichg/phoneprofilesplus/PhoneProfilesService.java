@@ -4767,6 +4767,8 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.applicationPreferencesMutex) {
             boolean eventsExists;
 
+            dataWrapper.fillEventList();
+
             eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
             if (!eventsExists) {
                 SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
