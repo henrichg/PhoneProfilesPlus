@@ -164,7 +164,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
 
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
-                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.getPreferencesDescription", "******** ### *******");
+//                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.getPreferencesDescription", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     else
@@ -291,7 +291,7 @@ class EventPreferencesOrientation extends EventPreferences {
             int titleColor;
             if (preference != null) {
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
-                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.setSummary", "******** ### *******");
+//                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.setSummary", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
@@ -917,14 +917,14 @@ class EventPreferencesOrientation extends EventPreferences {
                     //    notAllowedOrientation = true;
                     eventsHandler.orientationPassed = false;
                 } else if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) {
-                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (1)");
+//                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (1)");
                     if (forRestartEvents)
                         eventsHandler.orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
                         // not allowed for screen Off
                         eventsHandler.notAllowedOrientation = true;
                 } else {
-                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (2)");
+//                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (2)");
                     synchronized (PPApplication.orientationScannerMutex) {
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isOrientationScannerStarted()) {
                             PPApplication.startHandlerThreadOrientationScanner();

@@ -82,7 +82,7 @@ public class MainWorker extends Worker {
 
                 switch (tag) {
                     case ORIENTATION_SCANNER_WORK_TAG:
-                        PPApplication.logE("[TEST BATTERY] ******** MainWorker.doWork", "******** ### *******");
+//                        PPApplication.logE("[TEST BATTERY] ******** MainWorker.doWork", "******** ### *******");
                     case HANDLE_EVENTS_VOLUMES_WORK_TAG: // !!! this is required, look at SettingsContentObserver.onChange()
                         if (!PPApplication.getApplicationStarted(true, true))
                             // application is not started
@@ -337,17 +337,12 @@ public class MainWorker extends Worker {
 //                            wakeLock.acquire(10 * 60 * 1000);
 //                        }
 
-                        // This is fix for 2, 3 restarts of events after first start.
-                        // Bradcasts, observers, callbacks registration starts events and this is not good
                         PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
-
                         PhoneProfilesService.disableNotUsedScanners(dataWrapper);
-
                         PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
                         PhoneProfilesService.getInstance().registerPPPExtenderReceiver(true, dataWrapper);
-                        // also disable not used scanners
                         PhoneProfilesService.getInstance().registerEventsReceiversAndWorkers(false);
 
                         if (PPApplication.deviceBoot) {

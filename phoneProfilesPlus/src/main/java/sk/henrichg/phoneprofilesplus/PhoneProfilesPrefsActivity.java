@@ -404,7 +404,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
         }
         if (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning) {
-            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (1)");
+//            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (1)");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
         }
         if (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)
@@ -529,7 +529,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged ||
                 (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning) ||
                 orientationScanInterval != ApplicationPreferences.applicationEventOrientationScanInterval) {
-            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (2)");
+//            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (2)");
             PPApplication.restartOrientationScanner(appContext);
         }
 

@@ -2054,7 +2054,7 @@ public class DataWrapper {
                 restart = true;
             }
             else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-                PPApplication.logE("[TEST BATTERY] DataWrapper._restartEventsWithRescan", "******** ### *******");
+//                PPApplication.logE("[TEST BATTERY] DataWrapper._restartEventsWithRescan", "******** ### *******");
                 restart = true;
             }
             else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)

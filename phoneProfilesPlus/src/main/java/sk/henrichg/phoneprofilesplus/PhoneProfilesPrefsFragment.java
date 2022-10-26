@@ -3649,7 +3649,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 ApplicationPreferences.applicationEventOrientationScanInterval(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-                    PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
+//                    PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
                     summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_enabled) + "</b>";
                     summary = summary + "<br><br>";
                     summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationScanInterval) + ": " +

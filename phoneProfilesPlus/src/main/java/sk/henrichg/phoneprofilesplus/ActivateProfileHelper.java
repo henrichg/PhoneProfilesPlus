@@ -4577,7 +4577,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventOrientationEnableScanning(appContext);
             ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
             if (oldApplicationEventOrientationEnableScanning != newApplicationEventOrientationEnableScanning) {
-                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
+//                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
                 PPApplication.restartOrientationScanner(appContext);
             }
         }

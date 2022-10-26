@@ -319,7 +319,7 @@ class OrientationScanner implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 //        PPApplication.logE("[IN_LISTENER] OrientationScanner.onAccuracyChanged", "xxx");
-        PPApplication.logE("[TEST BATTERY] OrientationScanner.onAccuracyChanged", "******** ### *******");
+//        PPApplication.logE("[TEST BATTERY] OrientationScanner.onAccuracyChanged", "******** ### *******");
     }
 
 }

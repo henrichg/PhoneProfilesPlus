@@ -39,7 +39,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         }
         else
         if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
+//            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
             restart = true;
         }
         if (restart) {

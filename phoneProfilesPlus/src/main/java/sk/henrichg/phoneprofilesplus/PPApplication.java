@@ -243,7 +243,7 @@ public class PPApplication extends Application
 //                                                +"|[IN_LISTENER]"
 //                                                +"|[IN_EVENTS_HANDLER]"
 //                                                +"|[EVENTS_HANDLER_CALL]"
-                                                +"|[TEST BATTERY]"
+//                                                +"|[TEST BATTERY]"
 //                                                +"|[APP_START]"
 //                                                +"|[HANDLER]"
                                                 //+"|[SHEDULE_WORK]"

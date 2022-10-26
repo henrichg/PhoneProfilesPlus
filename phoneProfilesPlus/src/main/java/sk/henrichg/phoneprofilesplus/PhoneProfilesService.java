@@ -2931,7 +2931,7 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
                 if (ApplicationPreferences.applicationEventOrientationEnableScanning /*||
                         EventsPrefsFragment.forceStart*/) {
-                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startOrientationScanner", "******** ### *******");
+//                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startOrientationScanner", "******** ### *******");
                     boolean eventAllowed = false;
                     boolean eventsExists = false;
                     /*if (EventsPrefsFragment.forceStart)
@@ -2952,7 +2952,7 @@ public class PhoneProfilesService extends Service
                     if (eventAllowed) {
 //                        Log.e("PhoneProfilesService.startOrientationScanner", "***************");
                         if (!isOrientationScannerStarted()) {
-                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startOrientationScanner", "******** ### ******* called startOrientationScanner()");
+//                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startOrientationScanner", "******** ### ******* called startOrientationScanner()");
                             startOrientationScanner();
 //                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
                         }
@@ -4447,7 +4447,7 @@ public class PhoneProfilesService extends Service
                                         PPApplication.mobileCellsScanner.rescanMobileCells();
                                 }
                                 if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
+//                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
                                     if (PPApplication.orientationScanner != null) {
                                         PPApplication.startHandlerThreadOrientationScanner();
                                         if (PPApplication.handlerThreadOrientationScanner != null)
@@ -4704,7 +4704,7 @@ public class PhoneProfilesService extends Service
 
                                         // orientation
                                         if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (2)");
+//                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (2)");
                                             boolean canRestart = (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
                                                 ppService.startOrientationScanner(true, true, dataWrapper/*, false*/);
@@ -4942,9 +4942,9 @@ public class PhoneProfilesService extends Service
     }
 
     private void startListeningOrientationSensors() {
-        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startListeningOrientationSensors", "******** ### ******* (1)");
+//        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startListeningOrientationSensors", "******** ### ******* (1)");
         if (!PPApplication.mStartedOrientationSensors) {
-            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startListeningOrientationSensors", "******** ### ******* (2)");
+//            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startListeningOrientationSensors", "******** ### ******* (2)");
 
             PPApplication.orientationScanner = new OrientationScanner();
             PPApplication.startHandlerThreadOrientationScanner();

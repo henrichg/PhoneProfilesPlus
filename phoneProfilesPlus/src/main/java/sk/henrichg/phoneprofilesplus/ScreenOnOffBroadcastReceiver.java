@@ -153,7 +153,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 restart = true;
                             }
                             else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
+//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
                                 restart = true;
                             }
                             else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
@@ -217,7 +217,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             }
                             else if (ApplicationPreferences.applicationEventOrientationEnableScanning &&
                                     ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) {
-                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
+//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
                                 restart = true;
                             }
                             if (restart) {
