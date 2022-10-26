@@ -914,6 +914,7 @@ public class EditorEventListFragment extends Fragment
         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
         //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+        commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
         PPApplication.runCommand(getActivity(), commandIntent);
 
         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
@@ -1046,6 +1047,7 @@ public class EditorEventListFragment extends Fragment
                     Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                     //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                     commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
+                    commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
                     PPApplication.runCommand(getActivity(), commandIntent);
                 }
 
