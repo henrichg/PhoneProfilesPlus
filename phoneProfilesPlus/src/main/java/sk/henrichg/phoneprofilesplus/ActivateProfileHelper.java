@@ -3889,7 +3889,7 @@ class ActivateProfileHelper {
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
                             appContext.startActivity(intent);
-                            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(1)");
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(1)");
                         } catch (Exception e) {
                             ok = false;
                             // Xiaomi: android.content.ActivityNotFoundException: Unable to find explicit activity class {com.android.settings/com.android.settings.Settings$DataUsageSummaryActivity}; have you declared this activity in your AndroidManifest.xml?
@@ -3906,7 +3906,7 @@ class ActivateProfileHelper {
                             final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
                             intent.setComponent(componentName);
                             appContext.startActivity(intent);
-                            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(2)");
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(2)");
                         } catch (Exception e) {
                             ok = false;
                             // Xiaomi: java.lang.SecurityException: Permission Denial: starting Intent { act=android.settings.DATA_ROAMING_SETTINGS flg=0x10000000 cmp=com.android.phone/.Settings } from ProcessRecord{215f88f 16252:sk.henrichg.phoneprofilesplus/u0a231} (pid=16252, uid=10231) not exported from uid 1001
@@ -3919,7 +3919,7 @@ class ActivateProfileHelper {
                             intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             appContext.startActivity(intent);
-                            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(3)");
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(3)");
                         } catch (Exception e) {
                             //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
                             //PPApplication.recordException(e);

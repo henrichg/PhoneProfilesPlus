@@ -52,6 +52,7 @@ public class MainWorker extends Worker {
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
     static final String PROFILE_DURATION_WORK_TAG = "profileDurationWork";
+    static final String DISABLE_NOT_USED_SCANNERS_WORK_TAG = "dislableNotUsedScannersWork";
 
     final Context context;
 
@@ -187,6 +188,15 @@ public class MainWorker extends Worker {
                         break;
                     case SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG:
                         AvoidRescheduleReceiverWorker.enqueueWork();
+                        break;
+                    case DISABLE_NOT_USED_SCANNERS_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, false))
+                            // application is not started
+                            return Result.success();
+
+//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                        PhoneProfilesService.disableNotUsedScanners(dataWrapper);
                         break;
                     default:
                         if (tag.startsWith(PROFILE_DURATION_WORK_TAG)) {

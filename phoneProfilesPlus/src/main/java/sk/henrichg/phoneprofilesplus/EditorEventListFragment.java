@@ -44,6 +44,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -55,6 +58,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 //import me.drakeet.support.toast.ToastCompat;
 
@@ -799,7 +803,6 @@ public class EditorEventListFragment extends Fragment
             //activityDataWrapper.restartEvents(false, true, true, true, true);
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
-            // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -808,6 +811,32 @@ public class EditorEventListFragment extends Fragment
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
             PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG)
+                            .setInitialDelay(30, TimeUnit.MINUTES)
+                            .build();
+            try {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+//                    PPApplication.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+                    workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
         } else {
             if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
                 // pause event
@@ -829,7 +858,6 @@ public class EditorEventListFragment extends Fragment
             //activityDataWrapper.restartEvents(false, true, true, true, true);
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
-            // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -838,6 +866,31 @@ public class EditorEventListFragment extends Fragment
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
             PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG)
+                            .setInitialDelay(30, TimeUnit.MINUTES)
+                            .build();
+            try {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+//                    PPApplication.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+                    workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
         }
         return true;
     }
@@ -906,7 +959,6 @@ public class EditorEventListFragment extends Fragment
 
         eventListAdapter.notifyDataSetChanged();
 
-        // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
         /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -1039,7 +1091,6 @@ public class EditorEventListFragment extends Fragment
                 //eventListAdapter.notifyDataSetChanged();
 
                 if (getActivity() != null) {
-                    // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
                     /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);

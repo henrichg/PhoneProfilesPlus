@@ -51,6 +51,9 @@ import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -69,6 +72,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
 import me.ibrahimsn.lib.SmoothBottomBar;
 import sk.henrichg.phoneprofiles.PPIntentForExport;
@@ -1709,7 +1713,6 @@ public class EditorActivity extends AppCompatActivity
                     DataWrapperStatic.displayPreferencesErrorNotification(null, event, false, getApplicationContext());
                 }
 
-                // TODO mozno tu spravim disable scanner, ale az po case, co ja viem 10 minutach
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -1720,6 +1723,32 @@ public class EditorActivity extends AppCompatActivity
                 PPApplication.runCommand(this, commandIntent);
 
                 //IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext());
+
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG)
+                                .setInitialDelay(30, TimeUnit.MINUTES)
+                                .build();
+                try {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+//                        PPApplication.logE("[WORKER_CALL] EditorActivity.onActivityResult", "xxx");
+                        workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+
             }
             else
             if (data != null) {
