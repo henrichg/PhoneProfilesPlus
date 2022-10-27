@@ -397,24 +397,35 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             if ((vibrator != null) && vibrator.hasVibrator()) {
                 entries = ringerModePreference.getEntries();
-                entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
-                entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                if (!entries[1].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
+                    entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                if (!entries[2].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
+                    entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))
-                    entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
-                else
-                    entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                    if (!entries[3].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
+                        entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                }
+                else {
+                    if (!entries[3].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_On)))
+                        entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+                }
             }
             else {
                 ringerModePreference.setEntries(R.array.soundModeNotVibratorArray);
                 ringerModePreference.setEntryValues(R.array.soundModeNotVibratorValues);
                 entries = ringerModePreference.getEntries();
-                entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                if (!entries[1].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
+                    entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))
-                    entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
-                else
-                    entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                    if (!entries[2].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
+                        entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                }
+                else {
+                    if (!entries[2].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_On)))
+                        entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+                }
             }
             ringerModePreference.setEntries(entries);
             setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
