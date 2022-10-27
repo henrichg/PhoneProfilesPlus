@@ -2021,6 +2021,13 @@
 
     <string name="profile_context_item_copy_name">Copy name</string>
 
+    <string name="export_settings_delete_location_data_text1">Note: Location data will also be included in the exported settings. If you share your backup with other people (via email, share to the cloud), choose which ones not to export.</string>
+    <string name="export_settings_delete_location_data_text2">What not export?</string>
+    <string name="export_settings_delete_location_data_geofences">Locations for Location sensor</string>
+    <string name="export_settings_delete_location_data_wifi_ssids">Wi-Fi SSIDs for Wi-Fi sensor</string>
+    <string name="export_settings_delete_location_data_bluetooth_names">Bluetooth names for Bluetooth sensor</string>
+    <string name="export_settings_delete_location_data_mobile_cells">Mobile cells for Mobile cell sensor</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

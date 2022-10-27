@@ -1306,9 +1306,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerImportExport.importDB(this);
     }
 
-    int exportDB()
+    int exportDB(boolean deleteGeofences, boolean deleteWifiSSIDs,
+                 boolean deleteBluetoothNames, boolean deleteMobileCells)
     {
-        return DatabaseHandlerImportExport.exportDB(this);
+        return DatabaseHandlerImportExport.exportDB(this,
+                    deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells
+                );
     }
 
 }

@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -2704,9 +2705,58 @@ public class EditorActivity extends AppCompatActivity
     {
         if (email || share || Permissions.checkExport(getApplicationContext())) {
 
-            exportAsyncTask = new ExportAsyncTask(email, toAuthor, share, this).execute();
-        }
+            final EditorActivity activity = this;
 
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            if (share)
+                dialogBuilder.setTitle(R.string.menu_share_settings);
+            else
+            if (toAuthor)
+                dialogBuilder.setTitle(R.string.menu_export_and_email_to_author);
+            else
+            if (email)
+                dialogBuilder.setTitle(R.string.menu_export_and_email);
+            else
+                dialogBuilder.setTitle(R.string.menu_export);
+            dialogBuilder.setCancelable(true);
+            //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+            LayoutInflater inflater = getLayoutInflater();
+            final View layout = inflater.inflate(R.layout.dialog_delete_location_data_in_export, null);
+            dialogBuilder.setView(layout);
+
+            dialogBuilder.setPositiveButton(R.string.alert_button_backup, (dialog, which) -> {
+                CheckBox checkbox = layout.findViewById(R.id.deleteLocationDataInExportDialogGeofences);
+                boolean deleteGeofences = checkbox.isChecked();
+                checkbox = layout.findViewById(R.id.deleteLocationDataInExportDialogWifiSSIDs);
+                boolean deleteWifiSSIDs = checkbox.isChecked();
+                checkbox = layout.findViewById(R.id.deleteLocationDataInExportDialogBluetoothNames);
+                boolean deleteBluetoothNames = checkbox.isChecked();
+                checkbox = layout.findViewById(R.id.deleteLocationDataInExportDialogMobileCells);
+                boolean deleteMobileCells = checkbox.isChecked();
+
+                exportAsyncTask = new ExportAsyncTask(email, toAuthor, share,
+                        deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
+                        activity)
+                        .execute();
+            });
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+            AlertDialog dialog = dialogBuilder.create();
+
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
+
+            if (!isFinishing())
+                dialog.show();
+        }
     }
 
     @Override
@@ -5109,14 +5159,24 @@ public class EditorActivity extends AppCompatActivity
         final boolean email;
         final boolean toAuthor;
         final boolean share;
+        final boolean deleteGeofences;
+        final boolean deleteWifiSSIDs;
+        final boolean deleteBluetoothNames;
+        final boolean deleteMobileCells;
         File zipFile = null;
 
         public ExportAsyncTask(final boolean email, final boolean toAuthor, final boolean share,
+                               final boolean deleteGeofences, final boolean deleteWifiSSIDs,
+                               final boolean deleteBluetoothNames, final boolean deleteMobileCells,
                                EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
             this.email = email;
             this.toAuthor = toAuthor;
             this.share = share;
+            this.deleteGeofences = deleteGeofences;
+            this.deleteWifiSSIDs = deleteWifiSSIDs;
+            this.deleteBluetoothNames = deleteBluetoothNames;
+            this.deleteMobileCells = deleteMobileCells;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setMessage(R.string.export_profiles_alert_title);
@@ -5169,7 +5229,10 @@ public class EditorActivity extends AppCompatActivity
 
                     File sd = activity.getApplicationContext().getExternalFilesDir(null);
 
-                    int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
+                    int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB(
+                            this.deleteGeofences, this.deleteWifiSSIDs,
+                            this.deleteBluetoothNames, this.deleteMobileCells
+                    );
                     if (ret == 1) {
                         //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
                         File exportFile = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME);
