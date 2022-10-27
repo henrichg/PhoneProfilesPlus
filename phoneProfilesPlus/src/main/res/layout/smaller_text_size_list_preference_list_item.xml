@@ -3,8 +3,8 @@
     android:id="@+id/smaller_text_size_list_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp">
 
     <RadioButton
         android:id="@+id/smaller_text_size_list_pref_dlg_item_radiobutton"
