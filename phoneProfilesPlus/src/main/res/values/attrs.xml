@@ -71,6 +71,10 @@
     <declare-styleable name="OpaquenessLightingPference">
         <attr name="showLighting" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="SmallerTextSizeListDialogPreference">
+        <attr name="ppEntries" format="integer" />
+        <attr name="ppEntryValues" format="integer" />
+    </declare-styleable>
 
     <!-- theme dependent drawables -->
 <!--    <attr name="colorAccentDisabled" format="reference" />-->

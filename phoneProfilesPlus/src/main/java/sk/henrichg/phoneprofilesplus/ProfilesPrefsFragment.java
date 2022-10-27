@@ -273,6 +273,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof SmallerTextSizeListDialogPreferenceX)
+        {
+            ((SmallerTextSizeListDialogPreferenceX)preference).fragment = new SmallerTextSizeListDialogPreferenceFragmentX();
+            dialogFragment = ((SmallerTextSizeListDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -348,7 +356,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //{
-        ListPreference ringerModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
+        SmallerTextSizeListDialogPreferenceX ringerModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
             /*if (ringerModePreference.findIndexOfValue("5") < 0) {
                 // add zen mode option to preference Ringer mode
                 CharSequence[] entries = ringerModePreference.getEntries();
@@ -3757,7 +3765,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE))
         {
             String sValue = value.toString();
-            ListPreference listPreference = prefMng.findPreference(key);
+            SmallerTextSizeListDialogPreferenceX listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -3768,6 +3776,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
                     alsoSetZenMode = true;
                     //setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, zenModeValue);
+                } else {
+                    ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+                    if (zenModePreference != null) {
+                        zenModePreference.setEnabled(false);
+                        Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
+                        if (zenModePreferenceInfo != null) {
+                            zenModePreferenceInfo.setEnabled(zenModePreference.isEnabled());
+                        }
+                    }
                 }
             }
         }
