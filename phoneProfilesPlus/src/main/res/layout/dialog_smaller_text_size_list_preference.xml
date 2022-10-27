@@ -6,10 +6,19 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
+    <View
+        android:id="@+id/smaller_text_size_list_pref_dlg_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="?attr/dialogDivider" />
+
     <ListView
         android:id="@+id/smaller_text_size_list_pref_dlg_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:paddingStart="15dp"
@@ -17,7 +26,17 @@
         android:clipToPadding="false"
         android:choiceMode="singleChoice"
         android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
         android:divider="@android:color/transparent"
         android:listSelector="?attr/listViewItemBackground" />
+
+    <View
+        android:id="@+id/smaller_text_size_list_pref_dlg_buttonBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginBottom="3dp"
+        android:background="?attr/dialogDivider" />
 
 </LinearLayout>
