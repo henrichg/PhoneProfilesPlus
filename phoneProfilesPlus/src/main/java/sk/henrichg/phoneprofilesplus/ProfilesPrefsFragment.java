@@ -4843,13 +4843,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             else
             {
                 String sValue = value.toString();
-                ListPreference listPreference = prefMng.findPreference(key);
-                if (listPreference != null) {
-                    listPreference.setEnabled(true);
-
-                    int index = listPreference.findIndexOfValue(sValue);
-                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                    listPreference.setSummary(summary);
+                Preference preference = null;
+                CharSequence summary = "";
+                int index = 0;
+                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                    SmallerTextSizeListDialogPreferenceX listPreference = prefMng.findPreference(key);
+                    if (listPreference !=  null) {
+                        index = listPreference.findIndexOfValue(sValue);
+                        summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                        preference = listPreference;
+                    }
+                } else {
+                    ListPreference listPreference = prefMng.findPreference(key);
+                    if (listPreference !=  null) {
+                        index = listPreference.findIndexOfValue(sValue);
+                        summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                        preference = listPreference;
+                    }
+                }
+                if (preference != null) {
+                    preference.setEnabled(true);
+                    preference.setSummary(summary);
 
                     boolean _permissionGranted = true;
                     if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
@@ -4869,7 +4883,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         _permissionGranted = permissions.size() == 0;
                     }
 
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, !_permissionGranted);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, index > 0, false, false, !_permissionGranted);
                 }
             }
         }
@@ -5056,7 +5070,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     } else {
                         String sValue = value.toString();
-                        ListPreference listPreference = prefMng.findPreference(key);
+                        SmallerTextSizeListDialogPreferenceX listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             listPreference.setEnabled(true);
 
@@ -6358,7 +6372,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     private void fillDeviceNetworkTypePreference(String key, Context context) {
-        ListPreference networkTypePreference = prefMng.findPreference(key);
+        SmallerTextSizeListDialogPreferenceX networkTypePreference = prefMng.findPreference(key);
         if (networkTypePreference != null) {
             TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 

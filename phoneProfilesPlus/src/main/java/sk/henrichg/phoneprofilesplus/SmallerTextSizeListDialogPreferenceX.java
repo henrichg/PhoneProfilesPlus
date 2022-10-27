@@ -123,6 +123,16 @@ public class SmallerTextSizeListDialogPreferenceX extends DialogPreference {
         setSummarySTSDP();
     }
 
+    void setEntryValues(CharSequence[] pEntryValues) {
+        entryValues = pEntryValues;
+        setSummarySTSDP();
+    }
+
+    void setValue(String pValue) {
+        value = pValue;
+        setSummarySTSDP();
+    }
+
     @Override
     protected Parcelable onSaveInstanceState()
     {

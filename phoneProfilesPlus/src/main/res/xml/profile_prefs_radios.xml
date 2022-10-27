@@ -51,13 +51,13 @@
         app:entries="@array/mobileDataPrefsArray"
         app:entryValues="@array/mobileDataPrefsValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.SmallerTextSizeListDialogPreferenceX
         app:title="@string/profile_preferences_deviceNetworkType"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceNetworkType"
         app:defaultValue="0"
-        app:entries="@array/networkTypeNotSupportedArray"
-        app:entryValues="@array/networkTypeNotSupportedValues"
+        app:ppEntries="@array/networkTypeNotSupportedArray"
+        app:ppEntryValues="@array/networkTypeNotSupportedValues"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceNetworkTypePrefs"
