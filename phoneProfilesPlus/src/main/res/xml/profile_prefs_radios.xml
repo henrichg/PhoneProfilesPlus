@@ -73,13 +73,13 @@
         app:summary="@string/profile_preferences_deviceWiFiInfo_summary"
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceWiFi"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceWiFi"
         app:defaultValue="0"
-        app:entries="@array/wifiModeArray"
-        app:entryValues="@array/wifiModeValues"
+        app:ppEntries="@array/wifiModeArray"
+        app:ppEntryValues="@array/wifiModeValues"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ConnectToSSIDDialogPreferenceX
         app:key="prf_pref_deviceConnectToSSID"

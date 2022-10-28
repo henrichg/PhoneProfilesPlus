@@ -133,6 +133,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     {
         PreferenceDialogFragmentCompat dialogFragment = null;
 
+        if (preference instanceof PPListPreference)
+        {
+            ((PPListPreference)preference).fragment = new PPListPreferenceFragmentX();
+            dialogFragment = ((PPListPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
         if (preference instanceof DurationDialogPreferenceX)
         {
             ((DurationDialogPreferenceX)preference).fragment = new DurationDialogPreferenceFragmentX();
@@ -141,6 +150,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof TimeDialogPreferenceX)
         {
             ((TimeDialogPreferenceX)preference).fragment = new TimeDialogPreferenceFragmentX();
@@ -149,6 +159,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof RingtonePreferenceX)
         {
             ((RingtonePreferenceX)preference).fragment = new RingtonePreferenceFragmentX();
@@ -157,7 +168,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-
+        else
         if (preference instanceof InfoDialogPreferenceX)
         {
             ((InfoDialogPreferenceX)preference).fragment = new InfoDialogPreferenceFragmentX();
@@ -166,6 +177,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ProfileIconPreferenceX)
         {
             ((ProfileIconPreferenceX)preference).fragment = new ProfileIconPreferenceFragmentX();
@@ -174,6 +186,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof VolumeDialogPreferenceX)
         {
             ((VolumeDialogPreferenceX)preference).fragment = new VolumeDialogPreferenceFragmentX();
@@ -182,6 +195,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof NotificationVolume0DialogPreferenceX)
         {
             ((NotificationVolume0DialogPreferenceX)preference).fragment = new NotificationVolume0DialogPreferenceFragmentX();
@@ -190,6 +204,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ConnectToSSIDDialogPreferenceX)
         {
             ((ConnectToSSIDDialogPreferenceX)preference).fragment = new ConnectToSSIDDialogPreferenceFragmentX();
@@ -198,6 +213,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof BrightnessDialogPreferenceX)
         {
             ((BrightnessDialogPreferenceX)preference).fragment = new BrightnessDialogPreferenceFragmentX();
@@ -206,6 +222,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof RunApplicationsDialogPreferenceX)
         {
             ((RunApplicationsDialogPreferenceX)preference).fragment = new RunApplicationsDialogPreferenceFragmentX();
@@ -214,6 +231,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ApplicationsMultiSelectDialogPreferenceX)
         {
             ((ApplicationsMultiSelectDialogPreferenceX)preference).fragment = new ApplicationsMultiSelectDialogPreferenceFragmentX();
@@ -222,6 +240,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ProfilePreferenceX) {
             ((ProfilePreferenceX) preference).fragment = new ProfilePreferenceFragmentX();
             dialogFragment = ((ProfilePreferenceX) preference).fragment;
@@ -229,6 +248,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof GenerateNotificationDialogPreferenceX)
         {
             ((GenerateNotificationDialogPreferenceX)preference).fragment = new GenerateNotificationDialogPreferenceFragmentX();
@@ -237,6 +257,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ConfiguredProfilePreferencesDialogPreferenceX)
         {
             ((ConfiguredProfilePreferencesDialogPreferenceX)preference).fragment = new ConfiguredProfilePreferencesDialogPreferenceFragmentX();
@@ -249,6 +270,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof DefaultSIMDialogPreferenceX)
         {
             ((DefaultSIMDialogPreferenceX)preference).fragment = new DefaultSIMDialogPreferenceFragmentX();
@@ -257,6 +279,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof LiveWallpapersDialogPreferenceX)
         {
             ((LiveWallpapersDialogPreferenceX)preference).fragment = new LiveWallpapersDialogPreferenceFragmentX();
@@ -265,18 +288,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof VPNDialogPreferenceX)
         {
             ((VPNDialogPreferenceX)preference).fragment = new VPNDialogPreferenceFragmentX();
             dialogFragment = ((VPNDialogPreferenceX)preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        if (preference instanceof PPListPreference)
-        {
-            ((PPListPreference)preference).fragment = new PPListPreferenceFragmentX();
-            dialogFragment = ((PPListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -4023,7 +4039,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_DEVICE_AUTOROTATE))
         {
             String sValue = value.toString();
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4073,28 +4089,45 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
-                ListPreference listPreference = prefMng.findPreference(key);
-                if (listPreference != null) {
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
-                        listPreference.setEnabled(false);
+                        preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, errorColor, false, false, errorColor);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, false, errorColor);
                 }
             }
             else {
                 String sValue = value.toString();
-                ListPreference listPreference = prefMng.findPreference(key);
-                if (listPreference != null) {
-                    int index = listPreference.findIndexOfValue(sValue);
-                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                    listPreference.setSummary(summary);
+                Preference preference = null;
+                CharSequence summary = "";
+                int index = 0;
+                if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
+                    key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
+                    key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
+                    PPListPreference listPreference = prefMng.findPreference(key);
+                    if (listPreference !=  null) {
+                        index = listPreference.findIndexOfValue(sValue);
+                        summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                        preference = listPreference;
+                    }
+                } else {
+                    ListPreference listPreference = prefMng.findPreference(key);
+                    if (listPreference !=  null) {
+                        index = listPreference.findIndexOfValue(sValue);
+                        summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                        preference = listPreference;
+                    }
+                }
+                if (preference != null) {
+                    preference.setSummary(summary);
 
                     boolean _permissionGranted = true;
 
@@ -4130,7 +4163,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         _permissionGranted = permissions.size() == 0;
                     }
 
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, !_permissionGranted);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, index > 0, false, false, !_permissionGranted);
                 }
             }
         }
@@ -4401,7 +4434,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             int index;
             String sValue;
 
-            ListPreference listPreference =
+            PPListPreference listPreference =
                     prefMng.findPreference(Profile.PREF_PROFILE_LOCK_DEVICE);
             if (listPreference != null) {
                 sValue = listPreference.getValue();
@@ -4846,7 +4879,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Preference preference = null;
                 CharSequence summary = "";
                 int index = 0;
-                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
+                    key.equals(Profile.PREF_PROFILE_DEVICE_WIFI)) {
                     PPListPreference listPreference = prefMng.findPreference(key);
                     if (listPreference !=  null) {
                         index = listPreference.findIndexOfValue(sValue);
@@ -5460,7 +5494,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean enabled = !sValue.equals(ON);
-                    ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
+                    PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
                     if (preference != null) {
                         if (!enabled)
                             preference.setValue(Profile.NO_CHANGE_VALUE_STR);

@@ -124,6 +124,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     {
         PreferenceDialogFragmentCompat dialogFragment = null;
 
+        if (preference instanceof PPListPreference)
+        {
+            ((PPListPreference)preference).fragment = new PPListPreferenceFragmentX();
+            dialogFragment = ((PPListPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
         if (preference instanceof DurationDialogPreferenceX)
         {
             ((DurationDialogPreferenceX)preference).fragment = new DurationDialogPreferenceFragmentX();
@@ -132,6 +141,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ProfilePreferenceX)
         {
             ((ProfilePreferenceX)preference).fragment = new ProfilePreferenceFragmentX();
@@ -140,6 +150,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof RingtonePreferenceX)
         {
             ((RingtonePreferenceX)preference).fragment = new RingtonePreferenceFragmentX();
@@ -148,6 +159,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof LocationGeofencePreferenceX)
         {
             ((LocationGeofencePreferenceX)preference).fragment = new LocationGeofencePreferenceFragmentX();
@@ -156,6 +168,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof BetterNumberPickerPreferenceX)
         {
             ((BetterNumberPickerPreferenceX)preference).fragment = new BetterNumberPickerPreferenceFragmentX();
@@ -164,6 +177,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ColorChooserPreferenceX)
         {
             ((ColorChooserPreferenceX)preference).fragment = new ColorChooserPreferenceFragmentX();
@@ -172,6 +186,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof CustomColorDialogPreferenceX)
         {
             ((CustomColorDialogPreferenceX)preference).fragment = new CustomColorDialogPreferenceFragmentX();
@@ -180,6 +195,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof TimeDialogPreferenceX) {
             ((TimeDialogPreferenceX) preference).fragment = new TimeDialogPreferenceFragmentX();
             dialogFragment = ((TimeDialogPreferenceX) preference).fragment;
@@ -187,6 +203,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof OpaquenessLightingPreferenceX) {
             ((OpaquenessLightingPreferenceX) preference).fragment = new OpaquenessLightingPreferenceFragmentX();
             dialogFragment = ((OpaquenessLightingPreferenceX) preference).fragment;
@@ -194,6 +211,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof InfoDialogPreferenceX)
         {
             ((InfoDialogPreferenceX)preference).fragment = new InfoDialogPreferenceFragmentX();
@@ -202,6 +220,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof RestartEventsIconColorChooserPreferenceX)
         {
             ((RestartEventsIconColorChooserPreferenceX)preference).fragment = new RestartEventsIconColorChooserPreferenceFragmentX();

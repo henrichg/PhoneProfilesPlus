@@ -113,6 +113,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     public void onDisplayPreferenceDialog(@NonNull Preference preference) {
         PreferenceDialogFragmentCompat dialogFragment = null;
 
+        if (preference instanceof PPListPreference)
+        {
+            ((PPListPreference)preference).fragment = new PPListPreferenceFragmentX();
+            dialogFragment = ((PPListPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
         if (preference instanceof ProfilePreferenceX) {
             ((ProfilePreferenceX) preference).fragment = new ProfilePreferenceFragmentX();
             dialogFragment = ((ProfilePreferenceX) preference).fragment;
@@ -120,6 +129,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof InfoDialogPreferenceX) {
             ((InfoDialogPreferenceX) preference).fragment = new InfoDialogPreferenceFragmentX();
             dialogFragment = ((InfoDialogPreferenceX) preference).fragment;
@@ -127,6 +137,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof DurationDialogPreferenceX) {
             ((DurationDialogPreferenceX) preference).fragment = new DurationDialogPreferenceFragmentX();
             dialogFragment = ((DurationDialogPreferenceX) preference).fragment;
@@ -134,6 +145,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ApplicationsMultiSelectDialogPreferenceX) {
             ((ApplicationsMultiSelectDialogPreferenceX) preference).fragment = new ApplicationsMultiSelectDialogPreferenceFragmentX();
             dialogFragment = ((ApplicationsMultiSelectDialogPreferenceX) preference).fragment;
@@ -141,6 +153,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof BetterNumberPickerPreferenceX) {
             ((BetterNumberPickerPreferenceX) preference).fragment = new BetterNumberPickerPreferenceFragmentX();
             dialogFragment = ((BetterNumberPickerPreferenceX) preference).fragment;
@@ -148,6 +161,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof RingtonePreferenceX) {
             ((RingtonePreferenceX) preference).fragment = new RingtonePreferenceFragmentX();
             dialogFragment = ((RingtonePreferenceX) preference).fragment;
@@ -155,6 +169,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof LocationGeofencePreferenceX) {
             ((LocationGeofencePreferenceX) preference).fragment = new LocationGeofencePreferenceFragmentX();
             dialogFragment = ((LocationGeofencePreferenceX) preference).fragment;
@@ -162,7 +177,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-
+        else
         if (preference instanceof ProfileMultiSelectPreferenceX) {
             ((ProfileMultiSelectPreferenceX) preference).fragment = new ProfileMultiSelectPreferenceFragmentX();
             dialogFragment = ((ProfileMultiSelectPreferenceX) preference).fragment;
@@ -170,6 +185,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof DaysOfWeekPreferenceX) {
             ((DaysOfWeekPreferenceX) preference).fragment = new DaysOfWeekPreferenceFragmentX();
             dialogFragment = ((DaysOfWeekPreferenceX) preference).fragment;
@@ -177,13 +193,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        /*if (preference instanceof TimePreferenceX) {
+        /*
+        else
+        if (preference instanceof TimePreferenceX) {
             ((TimePreferenceX) preference).fragment = new TimePreferenceFragmentX();
             dialogFragment = ((TimePreferenceX) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }*/
+        else
         if (preference instanceof TimeDialogPreferenceX) {
             ((TimeDialogPreferenceX) preference).fragment = new TimeDialogPreferenceFragmentX();
             dialogFragment = ((TimeDialogPreferenceX) preference).fragment;
@@ -191,6 +210,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof CalendarsMultiSelectDialogPreferenceX) {
             ((CalendarsMultiSelectDialogPreferenceX) preference).fragment = new CalendarsMultiSelectDialogPreferenceFragmentX();
             dialogFragment = ((CalendarsMultiSelectDialogPreferenceX) preference).fragment;
@@ -198,6 +218,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof SearchStringPreferenceX) {
             ((SearchStringPreferenceX) preference).fragment = new SearchStringPreferenceFragmentX();
             dialogFragment = ((SearchStringPreferenceX) preference).fragment;
@@ -205,6 +226,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ContactGroupsMultiSelectDialogPreferenceX) {
             ((ContactGroupsMultiSelectDialogPreferenceX) preference).fragment = new ContactGroupsMultiSelectDialogPreferenceFragmentX();
             dialogFragment = ((ContactGroupsMultiSelectDialogPreferenceX) preference).fragment;
@@ -212,6 +234,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof ContactsMultiSelectDialogPreferenceX) {
             ((ContactsMultiSelectDialogPreferenceX) preference).fragment = new ContactsMultiSelectDialogPreferenceFragmentX();
             dialogFragment = ((ContactsMultiSelectDialogPreferenceX) preference).fragment;
@@ -219,6 +242,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof WifiSSIDPreferenceX) {
             ((WifiSSIDPreferenceX) preference).fragment = new WifiSSIDPreferenceFragmentX();
             dialogFragment = ((WifiSSIDPreferenceX) preference).fragment;
@@ -226,6 +250,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof BluetoothNamePreferenceX) {
             ((BluetoothNamePreferenceX) preference).fragment = new BluetoothNamePreferenceFragmentX();
             dialogFragment = ((BluetoothNamePreferenceX) preference).fragment;
@@ -233,6 +258,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof MobileCellsRegistrationDialogPreferenceX) {
             ((MobileCellsRegistrationDialogPreferenceX) preference).fragment = new MobileCellsRegistrationDialogPreferenceFragmentX();
             dialogFragment = ((MobileCellsRegistrationDialogPreferenceX) preference).fragment;
@@ -240,6 +266,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof MobileCellsPreferenceX) {
             ((MobileCellsPreferenceX) preference).fragment = new MobileCellsPreferenceFragmentX();
             dialogFragment = ((MobileCellsPreferenceX) preference).fragment;
@@ -247,6 +274,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof NFCTagPreferenceX) {
             ((NFCTagPreferenceX) preference).fragment = new NFCTagPreferenceFragmentX();
             dialogFragment = ((NFCTagPreferenceX) preference).fragment;
@@ -254,6 +282,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
         if (preference instanceof VolumeDialogPreferenceX)
         {
             ((VolumeDialogPreferenceX)preference).fragment = new VolumeDialogPreferenceFragmentX();

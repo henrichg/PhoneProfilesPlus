@@ -128,6 +128,10 @@ public class PPListPreference extends DialogPreference {
         setSummarySTSDP();
     }
 
+    String getValue() {
+        return value;
+    }
+
     void setValue(String pValue) {
         value = pValue;
         setSummarySTSDP();

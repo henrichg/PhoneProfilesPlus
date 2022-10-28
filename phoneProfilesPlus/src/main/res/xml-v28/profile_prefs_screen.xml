@@ -42,13 +42,13 @@
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceAutoRotation"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceAutoRotation"
         app:defaultValue="0"
-        app:entries="@array/displayRotationArray"
-        app:entryValues="@array/displayRotationValues"
+        app:ppEntries="@array/displayRotationArray"
+        app:ppEntryValues="@array/displayRotationValues"
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
