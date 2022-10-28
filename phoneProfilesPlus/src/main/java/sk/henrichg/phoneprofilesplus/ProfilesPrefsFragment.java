@@ -273,10 +273,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof SmallerTextSizeListDialogPreferenceX)
+        if (preference instanceof PPListPreference)
         {
-            ((SmallerTextSizeListDialogPreferenceX)preference).fragment = new SmallerTextSizeListDialogPreferenceFragmentX();
-            dialogFragment = ((SmallerTextSizeListDialogPreferenceX)preference).fragment;
+            ((PPListPreference)preference).fragment = new PPListPreferenceFragmentX();
+            dialogFragment = ((PPListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -356,7 +356,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //{
-        SmallerTextSizeListDialogPreferenceX ringerModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
+        PPListPreference ringerModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
             /*if (ringerModePreference.findIndexOfValue("5") < 0) {
                 // add zen mode option to preference Ringer mode
                 CharSequence[] entries = ringerModePreference.getEntries();
@@ -3776,7 +3776,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE))
         {
             String sValue = value.toString();
-            SmallerTextSizeListDialogPreferenceX listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4847,7 +4847,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 CharSequence summary = "";
                 int index = 0;
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
-                    SmallerTextSizeListDialogPreferenceX listPreference = prefMng.findPreference(key);
+                    PPListPreference listPreference = prefMng.findPreference(key);
                     if (listPreference !=  null) {
                         index = listPreference.findIndexOfValue(sValue);
                         summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -5070,7 +5070,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     } else {
                         String sValue = value.toString();
-                        SmallerTextSizeListDialogPreferenceX listPreference = prefMng.findPreference(key);
+                        PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             listPreference.setEnabled(true);
 
@@ -6372,7 +6372,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     private void fillDeviceNetworkTypePreference(String key, Context context) {
-        SmallerTextSizeListDialogPreferenceX networkTypePreference = prefMng.findPreference(key);
+        PPListPreference networkTypePreference = prefMng.findPreference(key);
         if (networkTypePreference != null) {
             TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 

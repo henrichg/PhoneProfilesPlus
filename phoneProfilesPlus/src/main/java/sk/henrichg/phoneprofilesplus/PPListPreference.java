@@ -10,9 +10,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 
-public class SmallerTextSizeListDialogPreferenceX extends DialogPreference {
+public class PPListPreference extends DialogPreference {
 
-    SmallerTextSizeListDialogPreferenceFragmentX fragment;
+    PPListPreferenceFragmentX fragment;
 
     private final Context prefContext;
 
@@ -23,16 +23,16 @@ public class SmallerTextSizeListDialogPreferenceX extends DialogPreference {
     CharSequence[] entries;
     CharSequence[] entryValues;
 
-    public SmallerTextSizeListDialogPreferenceX(Context context, AttributeSet attrs) {
+    public PPListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.SmallerTextSizeListDialogPreference);
+                R.styleable.PPListDialogPreference);
 
         int entriesRes = typedArray.getResourceId(
-                R.styleable.SmallerTextSizeListDialogPreference_ppEntries, 0);
+                R.styleable.PPListDialogPreference_ppEntries, 0);
         int entryValuesRes = typedArray.getResourceId(
-                R.styleable.SmallerTextSizeListDialogPreference_ppEntryValues, 0);
+                R.styleable.PPListDialogPreference_ppEntryValues, 0);
 
         this.prefContext = context;
 
@@ -80,7 +80,7 @@ public class SmallerTextSizeListDialogPreferenceX extends DialogPreference {
     }
 
     void persistValue() {
-        Log.e("SmallerTextSizeListDialogPreferenceX.persistValue", "value="+value);
+        Log.e("PPListPreference.persistValue", "value="+value);
         persistString(value);
         setSummarySTSDP();
         notifyChanged();
@@ -143,7 +143,7 @@ public class SmallerTextSizeListDialogPreferenceX extends DialogPreference {
             return superState;
         }*/
 
-        final SmallerTextSizeListDialogPreferenceX.SavedState myState = new SmallerTextSizeListDialogPreferenceX.SavedState(superState);
+        final PPListPreference.SavedState myState = new PPListPreference.SavedState(superState);
         myState.value = value;
         myState.defaultValue = defaultValue;
         return myState;
@@ -152,7 +152,7 @@ public class SmallerTextSizeListDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if ((state == null) || (!state.getClass().equals(SmallerTextSizeListDialogPreferenceX.SavedState.class))) {
+        if ((state == null) || (!state.getClass().equals(PPListPreference.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             setSummarySTSDP();
@@ -160,7 +160,7 @@ public class SmallerTextSizeListDialogPreferenceX extends DialogPreference {
         }
 
         // restore instance state
-        SmallerTextSizeListDialogPreferenceX.SavedState myState = (SmallerTextSizeListDialogPreferenceX.SavedState)state;
+        PPListPreference.SavedState myState = (PPListPreference.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
         defaultValue = myState.defaultValue;
@@ -196,15 +196,15 @@ public class SmallerTextSizeListDialogPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SmallerTextSizeListDialogPreferenceX.SavedState> CREATOR =
-                new Creator<SmallerTextSizeListDialogPreferenceX.SavedState>() {
-                    public SmallerTextSizeListDialogPreferenceX.SavedState createFromParcel(Parcel in)
+        public static final Creator<PPListPreference.SavedState> CREATOR =
+                new Creator<PPListPreference.SavedState>() {
+                    public PPListPreference.SavedState createFromParcel(Parcel in)
                     {
-                        return new SmallerTextSizeListDialogPreferenceX.SavedState(in);
+                        return new PPListPreference.SavedState(in);
                     }
-                    public SmallerTextSizeListDialogPreferenceX.SavedState[] newArray(int size)
+                    public PPListPreference.SavedState[] newArray(int size)
                     {
-                        return new SmallerTextSizeListDialogPreferenceX.SavedState[size];
+                        return new PPListPreference.SavedState[size];
                     }
 
                 };

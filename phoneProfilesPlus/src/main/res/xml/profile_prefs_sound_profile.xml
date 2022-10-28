@@ -10,7 +10,7 @@
         app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.SmallerTextSizeListDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_volumeSoundMode"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_volumeRingerMode"

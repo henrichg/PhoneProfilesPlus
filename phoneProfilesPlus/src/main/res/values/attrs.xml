@@ -71,7 +71,7 @@
     <declare-styleable name="OpaquenessLightingPference">
         <attr name="showLighting" format="boolean" />
     </declare-styleable>
-    <declare-styleable name="SmallerTextSizeListDialogPreference">
+    <declare-styleable name="PPListDialogPreference">
         <attr name="ppEntries" format="integer" />
         <attr name="ppEntryValues" format="integer" />
     </declare-styleable>

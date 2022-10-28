@@ -8,13 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-class SmallerTextSizeListPreferenceAdapterX extends BaseAdapter
+class PPListPreferenceAdapterX extends BaseAdapter
 {
-    private final SmallerTextSizeListDialogPreferenceX preference;
+    private final PPListPreference preference;
 
     private final LayoutInflater inflater;
 
-    SmallerTextSizeListPreferenceAdapterX(Context context, SmallerTextSizeListDialogPreferenceX preference)
+    PPListPreferenceAdapterX(Context context, PPListPreference preference)
     {
         this.preference = preference;
 
@@ -47,10 +47,10 @@ class SmallerTextSizeListPreferenceAdapterX extends BaseAdapter
         View vi = convertView;
         if (convertView == null)
         {
-            vi = inflater.inflate(R.layout.smaller_text_size_list_preference_list_item, parent, false);
+            vi = inflater.inflate(R.layout.pp_list_preference_list_item, parent, false);
             holder = new ViewHolder();
-            holder.entry = vi.findViewById(R.id.smaller_text_size_list_pref_dlg_item_label);
-            holder.radioButton = vi.findViewById(R.id.smaller_text_size_list_pref_dlg_item_radiobutton);
+            holder.entry = vi.findViewById(R.id.pp_list_pref_dlg_item_label);
+            holder.radioButton = vi.findViewById(R.id.pp_list_pref_dlg_item_radiobutton);
             vi.setTag(holder);
         }
         else

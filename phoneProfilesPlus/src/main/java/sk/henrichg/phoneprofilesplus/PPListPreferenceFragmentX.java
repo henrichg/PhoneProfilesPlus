@@ -9,32 +9,32 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class SmallerTextSizeListDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
+public class PPListPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
-    private SmallerTextSizeListDialogPreferenceX preference;
+    private PPListPreference preference;
 
-    //private SmallerTextSizeListPreferenceAdapterX listAdapter;
+    //private PPListPreferenceAdapterX listAdapter;
 
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(@NonNull Context context)
     {
         prefContext = context;
-        preference = (SmallerTextSizeListDialogPreferenceX) getPreference();
+        preference = (PPListPreference) getPreference();
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.dialog_smaller_text_size_list_preference, null, false);
+        return inflater.inflate(R.layout.dialog_pp_list_preference, null, false);
     }
 
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        ListView listView = view.findViewById(R.id.smaller_text_size_list_pref_dlg_listview);
+        ListView listView = view.findViewById(R.id.pp_list_pref_dlg_listview);
 
-        SmallerTextSizeListPreferenceAdapterX listAdapter = new SmallerTextSizeListPreferenceAdapterX(prefContext, preference);
+        PPListPreferenceAdapterX listAdapter = new PPListPreferenceAdapterX(prefContext, preference);
 
         listView.setOnItemClickListener((parent, v, position, id) -> {
             preference.value = preference.entryValues[position].toString();
